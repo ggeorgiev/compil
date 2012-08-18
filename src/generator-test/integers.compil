@@ -1,0 +1,16 @@
+compil { }
+
+structure Integers
+{
+    size sz;
+
+    small sm;
+    short sh;
+    integer i;
+    long l;
+    
+    byte b;
+    word w;
+    dword dq;
+    qword qw;
+}

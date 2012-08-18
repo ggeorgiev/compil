@@ -1,0 +1,113 @@
+path-constant TOP : .. ;
+
+boost-defines ;
+gtest-defines ;
+
+project compiler
+    : requirements 
+        <include>configuration
+        <include>model
+        <include>message
+        <include>validator
+        <include>$(TOP)/core/c++
+    ;
+    
+
+lib compiler
+  :
+    $(TOP)/core/boost/boost_assert_handler.cpp
+  
+    configuration/configuration.cpp
+    configuration/configuration_manager.cpp
+
+    model/alter.cpp
+    model/castable_type.cpp
+    model/comment.cpp
+    model/default_value.cpp
+    model/document.cpp
+    model/enumeration-partial.cpp
+    model/enumeration.cpp
+    model/enumeration_value.cpp
+    model/factory-partial.cpp
+    model/factory.cpp
+    model/field.cpp
+    model/field_override.cpp
+    model/filter.cpp
+    model/identification.cpp
+    model/identifier.cpp
+    model/import.cpp
+    model/integer.cpp
+    model/interface.cpp
+    model/method.cpp
+    model/model.cpp
+    model/name.cpp
+    model/object_factory.cpp
+    model/object.cpp
+    model/operator.cpp
+    model/package.cpp
+    model/parameter.cpp
+    model/reference.cpp
+    model/source_id.cpp
+    model/specimen.cpp
+    model/structure.cpp
+    model/structure-partial.cpp
+    model/type.cpp
+    model/unary_container.cpp
+    model/unary_template.cpp
+    model/upcopy.cpp
+    model/version.cpp
+    message/message.cpp
+    message/message_collector.cpp
+    validator/parameter_type_validator.cpp
+    validator/partial_validator.cpp
+    validator/structure_fields_validator.cpp
+    validator/structure_sharable_validator.cpp
+    validator/validator.cpp
+    parser.cpp 
+    token.cpp
+    tokenizer.cpp
+    
+    boost_templates
+    boost_program_options
+    boost_system
+    boost_filesystem
+  :
+  :
+  :
+    <include>.
+    <include>configuration
+    <include>model
+    <include>message
+    <include>validator
+    <include>$(TOP)/core/c++
+  ;
+    
+gtest model 
+  :
+    [ glob model/*_unittest.cpp ]
+    compiler
+  ;
+    
+gtest configuration 
+  :
+    [ glob configuration/*_unittest.cpp ]
+    compiler
+  ;
+  
+gtest message 
+  :
+    [ glob message/*_unittest.cpp ]
+    compiler
+  ;
+  
+gtest validator 
+  :
+    [ glob validator/*_unittest.cpp ]
+    compiler
+  ;
+  
+gtest compiler 
+  :
+    [ glob *_unittest.cpp ]
+    compiler
+  ;

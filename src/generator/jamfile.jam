@@ -1,0 +1,89 @@
+path-constant TOP : .. ;
+path-constant ROOT : $(TOP)/.. ;
+
+boost-defines ;
+gtest-defines ;
+
+project generator
+    : requirements 
+        <include>aligner
+        <include>aligner/object
+        <include>formatter
+        <include>implementer
+    ;
+
+lib gen :
+    aligner/object/argument.cpp
+    aligner/object/cast_operator.cpp
+    aligner/object/constructor.cpp
+    aligner/object/declaration.cpp
+    aligner/object/decorated_type.cpp
+    aligner/object/destructor.cpp
+    aligner/object/decoration.cpp
+    aligner/object/function_call.cpp
+    aligner/object/function_name.cpp
+    aligner/object/function.cpp
+    aligner/object/initialization.cpp
+    aligner/object/modifier.cpp
+    aligner/object/namespace-partial.cpp
+    aligner/object/namespace_name.cpp
+    aligner/object/namespace.cpp
+    aligner/object/simple_type.cpp
+    aligner/aligner.cpp
+    aligner/aligner_configuration.cpp
+    aligner/function_definition_aligner.cpp
+    aligner/line_aligner.cpp
+    aligner/table_aligner.cpp
+    formatter/c++_formatter.cpp
+    formatter/c++_keyword.cpp
+    formatter/formatter_configuration.cpp
+    implementer/c++_implementer.cpp
+    implementer/dependency.cpp
+    implementer/implementer_configuration.cpp
+    boost_path_resolve.cpp
+    c++_flags_enumeration_generator.cpp
+    c++_generator.cpp
+    c++_h_generator.cpp
+    compil_generator.cpp
+    file_source_provider.cpp
+    general_configuration.cpp
+    generator_configuration.cpp
+    generator.cpp
+    
+    boost_program_options
+    boost_system
+    boost_filesystem
+    
+    $(TOP)/compiler//compiler
+    ;
+    
+exe generator :
+    main.cpp 
+    
+    gen
+    ;
+    
+gtest aligner 
+  :
+    [ glob aligner/*_unittest.cpp ]
+    gen
+  ;
+  
+gtest formatter 
+  :
+    [ glob formatter/*_unittest.cpp ]
+    gen
+  ;
+  
+gtest implementer 
+  :
+    [ glob implementer/*_unittest.cpp ]
+    gen
+  ;
+  
+gtest generator 
+  :
+    [ glob *_unittest.cpp ]
+    gen
+  ;
+

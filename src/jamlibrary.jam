@@ -1,0 +1,23 @@
+import os ;
+import property ;
+
+rule library-directory ( properties * )
+{
+    local os_name = [ os.name ] ;
+    
+    local toolset-directory = ;
+    if $(os_name) = NT
+    {
+        os_name = windows ;
+        
+        local toolset = [ property.select <toolset> : $(properties) ] ;
+        local toolset-version = [ property.select <toolset-$(toolset:G=):version> : $(properties) ] ;
+        toolset-directory = $(toolset:G=)-$(toolset-version:G=)/ ;
+    }
+        
+    local variant = [ property.select <variant> : $(properties) ] ;
+    local address-model = [ property.select <address-model> : $(properties) ] ;
+
+    return lib/$(os_name:G=:L)/$(toolset-directory:E:L)x86-$(address-model:G=)/$(variant:G=:L) ;
+}
+

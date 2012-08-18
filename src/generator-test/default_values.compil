@@ -1,0 +1,66 @@
+compil { }
+
+package default_values;
+
+structure Structure
+{
+    string plain = "default";
+    string escape = "\"\t\n\r";
+}
+
+enum OuterEnum
+{
+    value1;
+    value2;
+    value3;
+}
+
+immutable
+structure DefaultValueStructure
+{
+    integer i = 5;
+
+    OuterEnum oe = value2;
+ 
+    enum InnerEnum
+    {
+        value1;
+        value2;
+        value3;
+    }
+
+    InnerEnum ie = value2;
+}
+
+immutable
+structure DefaultValueInheritStructure
+    inherit DefaultValueStructure
+        alter i  = 15,
+              oe = value3,
+              ie = value3
+{
+}
+
+structure DefaultValueStructureMutable
+{
+    integer i = 5;
+
+    OuterEnum oe = value2;
+ 
+    enum InnerEnum
+    {
+        value1;
+        value2;
+        value3;
+    }
+
+    InnerEnum ie = value2;
+}
+
+structure DefaultValueInheritStructureMutable
+    inherit DefaultValueStructureMutable
+        alter i  = 15,
+              oe = value3,
+              ie = value3
+{
+}

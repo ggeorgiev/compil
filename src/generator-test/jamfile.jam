@@ -1,0 +1,71 @@
+path-constant TOP : .. ;
+path-constant ROOT : $(TOP)/.. ;
+
+boost-defines ;
+gtest-defines ;
+
+project generator-test
+    : requirements 
+        <include>.
+        <include>$(TOP)/core/c++
+        <include>$(TOP)/core/boost
+    ;
+    
+lib generator-test
+  :
+    $(TOP)/core/boost/boost_assert_handler.cpp  
+  
+    containers.compil
+    default_values.compil
+    factories_another_factory_package.compil
+    factories_another_package.compil
+    factories.compil
+    immutable_structure.compil
+    inner_enumeration.compil
+    integers.compil
+    keywords.compil
+    mutable_structure.compil
+    packages_fields.compil
+    packages.compil
+    references.compil
+    specimens.compil
+    strong_enumeration.compil
+    strong_identifier.compil
+    structure_field_override.compil
+    structure_identification.compil
+    structure_operator.compil
+    structure_streamable.compil
+    structure_upcopy.compil
+    structures.compil
+    times.compil
+    weak_enumeration.compil
+    weak_identifier.compil
+    
+    import_test.compil
+    import_from_same_level.compil
+    import_subdirectory/import_from_sub_level.compil
+    
+    [ convert _ cpp 
+      :
+        partial_structure.compil 
+        partial_inherit_structure.compil
+      :
+        <compil-type>partial
+    ]
+    
+    boost_templates
+  :
+    <compil-type>main
+    <include>$(TOP)/core/c++
+    <include>$(TOP)/core/boost
+  ;
+
+gtest generator-test 
+  :
+    [ glob *_unittest.cpp ]
+    
+    generator-test
+  :
+    <implicit-dependency>generator-test
+  ;
+

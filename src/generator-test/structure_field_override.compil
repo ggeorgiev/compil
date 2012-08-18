@@ -1,0 +1,29 @@
+compil { }
+
+package override;
+
+controlled immutable
+structure Structure1
+{
+
+}
+
+controlled immutable
+structure HoldStructure1
+{
+    reference<Structure1> s;
+}
+
+controlled immutable
+structure Structure2 
+    inherit Structure1
+{
+
+}
+
+controlled immutable
+structure HoldStructure2 
+    inherit HoldStructure1
+{
+    override reference<Structure2> s;
+}

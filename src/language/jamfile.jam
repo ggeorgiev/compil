@@ -1,0 +1,58 @@
+path-constant TOP : .. ;
+path-constant ROOT : $(TOP)/.. ;
+
+boost-defines ;
+gtest-defines ;
+
+project language
+    : requirements 
+        <include>.
+        <include>$(TOP)/c++
+    ;
+    
+lib language
+  :
+    $(TOP)/core/boost/boost_assert_handler.cpp  
+  
+    c++/class_name.compil
+    c++/class.compil
+    c++/comment.compil
+    c++/const_declaration.compil
+    c++/constructor.compil
+    c++/copy_right_comment.compil
+    c++/destructor.compil
+    c++/document.compil
+    c++/header_guard.compil
+    c++/header_path.compil
+    c++/header_section.compil
+    c++/header_type.compil
+    c++/header.compil
+    c++/include.compil
+    c++/layer_comment.compil
+    c++/method_comment.compil
+    c++/method_name.compil
+    c++/method_specifier.compil
+    c++/method.compil
+    c++/namespace_name.compil
+    c++/namespace.compil
+    c++/type_decoration.compil
+    c++/type_name.compil
+    c++/type.compil
+    c++/variable_name.compil
+    c++/variable.compil
+    
+    boost_templates
+  :
+    <compil-type>main
+    <include>$(TOP)/c++
+  ;
+
+gtest language 
+  :
+    [ glob *_unittest.cpp ]
+    
+    language
+  :
+    <implicit-dependency>language
+  ;
+

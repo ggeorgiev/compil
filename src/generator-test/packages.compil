@@ -1,0 +1,29 @@
+compil { }
+
+import "packages_fields.compil";
+
+package one_level;
+
+structure HostStructure
+{
+    fields_one_level.Enum en;
+    vector<fields_one_level.Enum> ven;
+    reference<fields_one_level.Enum> ren;
+    weak reference<fields_one_level.Enum> wren;
+    
+    fields_one_level.Structure st;
+    vector<fields_one_level.Structure> vst;
+    reference<fields_one_level.Structure> rst;
+    weak reference<fields_one_level.Structure> wrst;
+}
+
+structure InheritStructure inherit fields_one_level.Structure
+{
+    fields_one_level.Enum en;
+}
+
+immutable
+structure InheritImmutableStructure inherit fields_one_level.ImmutableStructure
+{
+    fields_one_level.Enum en;
+}

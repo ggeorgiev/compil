@@ -1,0 +1,11 @@
+compil { }
+
+package specimen;
+
+specimen<integer> SessionIndex
+{
+}
+
+specimen<string> StringSpecimen
+{
+}

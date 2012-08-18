@@ -1,0 +1,22 @@
+compil { }
+
+package upcopy;
+
+immutable
+structure Structure1
+{
+    integer i1;
+}
+
+immutable
+structure Structure2 inherit Structure1
+{
+    integer i2;
+}
+
+immutable
+structure Structure3 inherit Structure2
+{
+    upcopy from Structure1;
+    upcopy from Structure2;
+}

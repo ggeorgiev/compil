@@ -1,0 +1,69 @@
+import testing ;
+
+rule gtest_library_location ( properties * )
+{
+    local directory = [ library-directory $(properties) ] ;
+    return <search>$(ROOT)/gtest/$(directory) ;
+}
+
+
+rule gtest-defines ( )
+{
+    alias gtest_requirements_for_os
+      :
+      :
+        <target-os>windows
+      ;
+
+    alias gtest_requirements_for_os
+      :
+      :
+        <target-os>darwin
+      ;
+      
+    alias gtest_requirements_for_os
+      :
+      :
+        <target-os>linux
+      :
+      :
+        <linkflags>-pthread
+      ;
+
+
+    alias gtest_requirements_for_all
+      :
+        gtest_requirements_for_os
+      :
+      :
+      :
+        <include>$(ROOT)/gtest/include
+      ;
+      
+      
+    lib gtest-lib
+      :
+      :
+        <name>gtest
+        <conditional>@gtest_library_location
+      ;
+        
+    alias gtest
+      :
+        gtest_requirements_for_all
+        gtest-lib
+      ;
+}
+
+rule gtest ( name : sources * : properties * )
+{
+    path-constant result_xml_path : $(ROOT)/../intermediate/test-reports/$(name).xml ;
+    unit-test $(name)-unit
+      :
+        $(sources)
+        gtest
+      :
+        <testing.arg>--gtest_output=xml:$(result_xml_path)
+        $(properties)
+      ;
+}

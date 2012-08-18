@@ -1,0 +1,24 @@
+compil { }
+
+import "partial_structure.compil";
+
+package partial;
+
+partial
+structure MutableStructure1 inherit MutableStructure
+{
+}
+
+structure MutableStructure2 inherit MutableStructure
+{
+}
+
+immutable partial
+structure ImmutableStructure1 inherit ImmutableStructure
+{
+}
+
+immutable
+structure ImmutableStructure2 inherit ImmutableStructure
+{
+}

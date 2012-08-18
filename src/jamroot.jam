@@ -1,0 +1,23 @@
+path-constant TOP : . ;
+path-constant ROOT : $(TOP)/.. ;
+
+import jamcompil ;
+
+include $(TOP)/jamlibrary.jam ;
+
+include $(TOP)/jamboost.jam ;
+include $(TOP)/jamgtest.jam ;
+
+project all
+    : build-dir 
+      $(ROOT)/../intermediate 
+    : default-build 
+      <variant>debug <address-model>32 <link>static <threading>multi
+    ;
+
+build-project compiler ;
+build-project generator ;
+build-project generator-test ;
+build-project generator-self ;
+
+build-project language ;

@@ -1,0 +1,208 @@
+compil { }
+
+//import "factories_another_factory_package.compil";
+
+package factories;
+
+structure ObjBase
+{
+    strong enum InnerBase
+    {
+    }
+    
+    inproc identification;
+    
+    InnerBase innerBase;
+}
+
+immutable
+structure IObjBase
+{
+    strong enum InnerBase
+    {
+    }
+    
+    inproc identification;
+    
+    InnerBase innerBase;
+}
+
+structure Obj // inherit ObjBase
+{
+    strong enum Inner
+    {
+    }
+    
+    runtime identification;
+    inproc  identification;
+    
+    integer o;
+    Inner inner;
+}
+
+plugin
+factory<Obj> PluginObjFactory
+{
+}
+
+structure ObjA inherit Obj
+{
+    runtime identification;
+    inproc  identification;
+        
+    integer a;
+}
+
+structure ObjA1 inherit ObjA
+{
+    inproc identification;
+    
+    integer a1;
+}
+
+abstract 
+structure ObjA2 inherit ObjA
+{
+    runtime identification;
+    inproc  identification;
+    
+    integer a2;
+}
+
+structure ObjB inherit Obj
+{
+    integer b;
+}
+
+structure ObjB1 inherit ObjB
+{
+    runtime identification;
+    
+    integer b1;
+}
+
+hierarchy
+factory<Obj> HierarchyObjFactory
+{
+}
+
+immutable
+structure IObj // inherit IObjBase
+{
+    strong enum Inner
+    {
+    }
+    
+    runtime identification;
+    inproc  identification;
+    
+    integer o;
+    Inner inner;
+}
+
+plugin
+factory<IObj> IPluginObjFactory
+{
+}
+
+immutable
+structure IObjA inherit IObj
+{
+    runtime identification;
+    inproc  identification;
+        
+    integer a;
+}
+
+immutable
+structure IObjA1 inherit IObjA
+{
+    inproc identification;
+    
+    integer a1;
+}
+
+abstract immutable 
+structure IObjA2 inherit IObjA
+{
+    runtime identification;
+    inproc  identification;
+    
+    integer a2;
+}
+
+immutable
+structure IObjB inherit IObj
+{
+    integer b;
+}
+
+immutable
+structure IObjB1 inherit IObjB
+{
+    runtime identification;
+    
+    integer b1;
+}
+
+hierarchy
+factory<IObj> HierarchyIObjFactory
+{
+}
+
+structure MOObj
+{
+    integer i;
+    integer o = optional;
+    
+    weak enum Weak
+    {
+        value1;
+        value2;
+    }
+    
+    strong enum Strong
+    {
+        value1;
+        value2;
+    }
+    
+    Weak w;
+    Strong s;
+}
+
+object
+factory<MOObj> MObjectObjFactory
+{
+}
+
+function object
+factory<MOObj> CreateMObjectObj
+{
+}
+
+immutable
+structure IMOObj
+{
+    byte i;
+    word o = optional;
+}
+
+object
+factory<IMOObj> IMObjectObjFactory
+{
+}
+
+immutable
+structure IMOObj2 inherit IMOObj
+{
+    dword i2;
+    qword o2 = optional;
+}
+
+object
+factory<IMOObj2> IMObjectObj2Factory
+{
+    //filter i with incremet;
+    //filter o2 with decrement;
+}

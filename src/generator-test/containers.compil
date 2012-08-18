@@ -1,0 +1,8 @@
+compil { }
+
+structure ContainersStructure
+{
+    vector<string> vs;
+    //vector< reference<string> > vrs;
+    //reference< vector<string>> rvs;
+}

@@ -1,0 +1,11 @@
+compil { }
+
+import "import_from_same_level.compil";
+import "import_subdirectory/import_from_sub_level.compil";
+
+
+structure Test
+{
+    ImportSameLevel sameLevel;
+    ImportSubLevel subLevel;
+}

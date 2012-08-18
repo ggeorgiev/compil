@@ -1,0 +1,101 @@
+import type ;
+import scanner ;
+import generators ;
+import feature ;
+import toolset ;
+import "class" : new ;
+
+type.register COMPIL : compil ;
+
+feature.feature <compil-binary> : : free ;
+feature.feature <compil-binary-dependencies> : : free dependency ;
+feature.feature <compil-type> : main partial : free optional ;
+
+class compil-scanner : common-scanner
+{
+    rule pattern ( )
+    {
+        return "[ \t]*import[ \t]*\"([^\"]*)\"[ \t]*;" ;
+    }
+}
+
+scanner.register compil-scanner : include ;
+type.set-scanner COMPIL : compil-scanner ;
+
+class compil-generator : generator
+{
+    import modules path targets jamcompil ;
+
+    rule __init__ ( * : * )
+    {
+        generator.__init__ $(1) : $(2) : $(3) : $(4) : $(5) : $(6) : $(7) : $(8) : $(9) ;
+    }
+
+    rule run ( project name ? : property-set : sources * : multiple ? )
+    {
+        local compil-binary = [ modules.peek jamcompil : .compil-binary ] ;
+        local compil-binary-dependencies ;
+
+        local compil-main-target = [ targets.resolve-reference /generator : $(project) ] ;
+
+        compil-main-target =
+            [ $(compil-main-target[1]).main-target generator ] ;
+
+        compil-binary-dependencies =
+            [ $(compil-main-target).generate [ $(property-set).propagated ] ] ;
+
+        # Ignore usage-requirements returned as first element.
+        compil-binary-dependencies = $(compil-binary-dependencies[2-]) ;
+
+        for local target in $(compil-binary-dependencies)
+        {
+            if [ $(target).type ] = EXE
+            {
+                compil-binary =
+                    [ path.native
+                        [ path.join
+                            [ $(target).path ]
+                            [ $(target).name ]
+                        ]
+                    ] ;
+            }
+        }
+
+        property-set = [ $(property-set).add-raw
+            <dependency>$(compil-binary-dependencies)
+            <compil-binary>$(compil-binary)
+            <compil-binary-dependencies>$(compil-binary-dependencies)
+        ] ;
+
+        return [ generator.run $(project) $(name) : $(property-set) : $(sources) : $(multiple) ] ;
+    }
+}
+
+generators.register [
+    new compil-generator jamcompil.generate
+                         : COMPIL
+                         : CPP H
+                         : <compil-type>main ] ;
+
+generators.register [
+    new compil-generator jamcompil.generate
+                         : COMPIL
+                         : CPP(%-partial) H(%-partial)
+                         : <compil-type>partial ] ;
+
+toolset.flags jamcompil.generate COMPIL-COMMAND <compil-binary> ;
+toolset.flags jamcompil.generate COMPIL-DEPENDENCIES <compil-binary-dependencies> ;
+toolset.flags jamcompil.generate COMPIL-TYPE <compil-type> ;
+toolset.flags jamcompil.generate IMPORTS <include> ;
+
+rule generate ( targets * : source * : properties * )
+{
+    DEPENDS $(targets) : [ on $(targets) return $(COMPIL-DEPENDENCIES) ] ;
+}
+
+actions generate
+{
+    echo $(COMPIL-COMMAND) -I$(IMPORTS:W) -t $(COMPIL-TYPE) --core-directory=core/c++ $(>) -o $(<[1]:D)
+    $(COMPIL-COMMAND) -I$(IMPORTS:W) -t $(COMPIL-TYPE) --core-directory=core/c++ $(>) -o $(<[1]:D) || exit 1
+}
+

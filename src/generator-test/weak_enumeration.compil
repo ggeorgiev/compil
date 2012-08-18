@@ -1,0 +1,46 @@
+compil { }
+
+enum<small> Month
+{
+    january;
+    february;
+    march;
+    april;
+    may;
+    june;
+    july;
+    august;
+    september;
+    october;
+    november;
+    december;
+}
+
+flags
+enum MonthFlags
+{
+    // this bit represents month january
+    january;
+    february;
+    march;
+    april;
+    may;
+    june;
+    july;
+    august;
+    september;
+    october;
+    november;
+    december;
+
+    // this bits represent all months from the first quarter
+    quarter_1 = january | february | march;
+    quarter_2 = april | may | june;
+    quarter_3 = july | august | september;
+    quarter_4 = october | november | december;
+
+    semi_year_1 = quarter_1 | quarter_2;
+    semi_year_2 = quarter_3 | quarter_4;
+    
+    year = semi_year_1 | semi_year_2;
+}
