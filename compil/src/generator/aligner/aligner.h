@@ -124,6 +124,8 @@ extern Modifier vrtl;
 extern Modifier non_vrtl;
 extern Modifier expl;
 
+extern NamespaceNameSPtr nsBuilder;
+
 extern SimpleType builder;
 extern SimpleType chr;
 

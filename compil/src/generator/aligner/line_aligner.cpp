@@ -247,7 +247,13 @@ LineAligner& operator<<(LineAligner& aligner, const Initialization& initializati
 
 LineAligner& operator<<(LineAligner& aligner, const Namespace& namespace_)
 {
-    aligner.line() << namespace_.value();
+    const std::vector<NamespaceNameSPtr>& names = namespace_.names();
+    for (size_t i = 0; i < names.size(); ++i)
+    {
+        if (i > 0)
+            aligner << "::";
+        aligner << names[i]->value();
+    }
     return aligner;
 }
 
@@ -255,7 +261,7 @@ LineAligner& operator<<(LineAligner& aligner, const SimpleType& type)
 {
     if (type.exist_namespace_())
     if (!type.namespace_().isVoid())
-        aligner << type.namespace_().value() << "::";
+        aligner << type.namespace_() << "::";
         
     aligner << type.value();
     return aligner;

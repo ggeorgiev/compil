@@ -899,21 +899,22 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
     StructureSPtr pBaseStructure = pField->structure().lock();
     assert(pBaseStructure);
 
-    Namespace namesp = frm->cppAutoClassNamespace(pStructure);
+    Namespace classNamesp = frm->cppAutoClassNamespace(pStructure);
+    Namespace namesp = classNamesp;
 
     std::string accessObject;
     DecoratedType resultType = *CreateDecoratedType(impl->cppType(pStructure), ref);
 
     if (pStructure->immutable())
     {
-        namesp = namesp + nsBuilder;
+        namesp << nsBuilder;
         if (pBaseStructure->baseStructure().lock())
             accessObject = "((" + frm->cppAutoClassType(pStructure).value() + "*)"
                            + frm->memberPtrName("object") + ")->";
         else
             accessObject = frm->memberPtrName("object") + "->";
 
-        resultType = *CreateDecoratedType(*CreateSimpleType(namesp.value()), ref);
+        resultType = *CreateDecoratedType(*CreateSimpleType(classNamesp, builder.value()), ref);
     }
 
 
@@ -971,9 +972,9 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
         {
             line()  << "return ("
                     << *CreateDecoratedType(
-                            *CreateSimpleType(frm->cppAutoClassType(pStructure).value() + "::Builder"), ref)
+                            *CreateSimpleType(classNamesp, builder.value()), ref)
                     << ")"
-                    << FunctionCall(frm->cppAutoClassNamespace(pBaseStructure) + nsBuilder,
+                    << FunctionCall(frm->cppAutoClassNamespace(pBaseStructure) << nsBuilder,
                                     frm->setMethodName(pField), Argument(frm->cppVariableName(pField)))
                     << ";";
             eol(definitionStream);
@@ -1366,11 +1367,12 @@ void CppGenerator::generateStructureFieldOverrideDefinition(const FieldOverrideS
     closeBlock(definitionStream);
     eol(definitionStream);
 
-    Namespace namesp = frm->cppAutoClassNamespace(pStructure);
-    namesp = namesp + nsBuilder;
+    Namespace classNamesp = frm->cppAutoClassNamespace(pStructure);
+    Namespace namesp = classNamesp;
+    namesp << nsBuilder;
 
     fdef()  << TableAligner::row()
-            << Function(*CreateDecoratedType(*CreateSimpleType(namesp.value()), ref),
+            << Function(*CreateDecoratedType(*CreateSimpleType(classNamesp, builder.value()), ref),
                         namesp, frm->setMethodName(pField),
                         Argument(impl->cppInnerSetDecoratedType(pField->type(), pStructure),
                                  frm->cppVariableName(pField)));
@@ -1378,7 +1380,7 @@ void CppGenerator::generateStructureFieldOverrideDefinition(const FieldOverrideS
     openBlock(definitionStream);
     line() << frm->cppAutoClassNamespace(pFieldOverride->overriddenField()->structure().lock())
            << "::"
-           << nsBuilder
+           << nsBuilder->value()
            << "::"
            << frm->setMethodName(pField)
            << "("
@@ -1909,7 +1911,7 @@ void CppGenerator::generateStructureOperatorMethodsDefinition(
 
     Namespace nmspace = frm->cppAutoClassNamespace(pStructure);
     if (flags.isSet(EOperatorFlags::functor()))
-        nmspace = nmspace + lang::cpp::namespaceNameRef(fnFunction.value());
+        nmspace << lang::cpp::namespaceNameRef(fnFunction.value());
 
     int arguments;
     if (flags.isClear(EOperatorFlags::member()) || flags.isSet(EOperatorFlags::functor()))
@@ -2136,7 +2138,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         if (!pStructure->abstract())
         {
             fdef()  << TableAligner::row()
-                    << Constructor(frm->cppAutoClassNamespace(pStructure) + nsBuilder, builder);
+                    << Constructor(frm->cppAutoClassNamespace(pStructure) << nsBuilder, builder);
             eofd(definitionStream);
 
             std::string object = "new " + frm->cppMainClassType(pStructure).value() + "()";
@@ -2159,7 +2161,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             eol(definitionStream);
 
             fdef()  << TableAligner::row()
-                    << Constructor(frm->cppAutoClassNamespace(pStructure) + nsBuilder, builder,
+                    << Constructor(frm->cppAutoClassNamespace(pStructure) << nsBuilder, builder,
                                    Argument(impl->cppDecoratedType(pStructure),
                                             frm->variableName("object")));
             eofd(definitionStream);
@@ -2214,7 +2216,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                 if (!pUpcopy) continue;
 
                 fdef()  << TableAligner::row()
-                        << Constructor(frm->cppAutoClassNamespace(pStructure) + nsBuilder, builder,
+                        << Constructor(frm->cppAutoClassNamespace(pStructure) << nsBuilder, builder,
                                        Argument(impl->cppDecoratedType(pUpcopy->baseStructure()),
                                                 frm->variableName("object")));
                 eofd(definitionStream);
@@ -2250,7 +2252,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         }
 
         fdef()  << TableAligner::row()
-                << Function(frm->cppAutoClassNamespace(pStructure) + nsBuilder, fnBuilder,
+                << Function(frm->cppAutoClassNamespace(pStructure) << nsBuilder, fnBuilder,
                             Argument(frm->cppRawPtrDecoratedType(pStructure),
                                      frm->variablePtrName("object")));
         eofd(definitionStream);
@@ -2274,7 +2276,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         eol(definitionStream);
 
         fdef()  << TableAligner::row()
-                << Destructor(frm->cppAutoClassNamespace(pStructure) + nsBuilder,
+                << Destructor(frm->cppAutoClassNamespace(pStructure) << nsBuilder,
                               builder);
         openBlock(definitionStream);
 
@@ -2298,7 +2300,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
 
         fdef()  << TableAligner::row()
                 << Function(impl->cppDecoratedType(pStructure),
-                            frm->cppAutoClassNamespace(pStructure) + nsBuilder, fnBuild, cst);
+                            frm->cppAutoClassNamespace(pStructure) << nsBuilder, fnBuild, cst);
         openBlock(definitionStream);
         
         if (pStructure->isInitializable())
@@ -2326,7 +2328,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
 
         fdef()  << TableAligner::row()
                 << Function(*CreateDecoratedType(impl->cppPtrType(pStructure)),
-                            frm->cppAutoClassNamespace(pStructure) + nsBuilder, fnFinalize);
+                            frm->cppAutoClassNamespace(pStructure) << nsBuilder, fnFinalize);
         openBlock(definitionStream);
 
         if (pStructure->isInitializable())
@@ -2374,9 +2376,11 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
     if (pBaseStructure && pStructure->isBuildable())
     {
         std::stringstream init;
-        init    << "*"
-                << frm->cppAutoClassNamespace(pBaseStructure).value()
-                << "::Builder()";
+        init    << "*";
+        std::vector<NamespaceNameSPtr> names = frm->cppAutoClassNamespace(pBaseStructure).names();
+        for (size_t i = 0; i < names.size(); ++i)
+            init    << names[i]->value() + "::";
+        init    << "Builder()";
 
         bool alter = false;
         for (it = objects.begin(); it != objects.end(); ++it)

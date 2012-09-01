@@ -218,7 +218,7 @@ Namespace CppFormatter::cppPackageNamespace(const PackageSPtr& pPackage)
     std::vector<std::string>::const_iterator it;
     for (it = elements.begin(); it != elements.end(); ++it)
     {
-        nmspace = nmspace + lang::cpp::namespaceNameRef(*it);
+        nmspace = nmspace << lang::cpp::namespaceNameRef(*it);
     }
     return nmspace;
 }
@@ -229,8 +229,14 @@ SimpleType CppFormatter::cppEnumType(const EnumerationSPtr& pEnumeration)
     Namespace nmspace;
     if (pStructure)
         nmspace = cppAutoClassNamespace(pStructure);
-    return *CreateSimpleType(nmspace + cppPackageNamespace(pEnumeration->package()), 
-                                       enumName(pEnumeration->name()->value()));    
+        
+    Namespace packageNamespace = cppPackageNamespace(pEnumeration->package());
+    if (!packageNamespace.isVoid())
+    {
+        nmspace.mutable_names().insert(nmspace.mutable_names().end(),
+                                       packageNamespace.names().begin(), packageNamespace.names().end());
+    }
+    return *CreateSimpleType(nmspace, enumName(pEnumeration->name()->value()));
 }
 
 SimpleType CppFormatter::cppInnerEnumType(const EnumerationSPtr& pEnumeration,
@@ -249,10 +255,10 @@ Namespace CppFormatter::cppEnumNamespace(const EnumerationSPtr& pEnumeration)
 {
     StructureSPtr pStructure = pEnumeration->structure().lock();
     if (pStructure)
-        return cppAutoClassNamespace(pStructure) + 
+        return cppAutoClassNamespace(pStructure) <<
                lang::cpp::namespaceNameRef(enumName(pEnumeration->name()->value()));
         
-    return *CreateNamespace(enumName(pEnumeration->name()->value()));
+    return Namespace() << namespaceNameRef(enumName(pEnumeration->name()->value()));
 }
 
 SimpleType CppFormatter::cppClassType(const TypeSPtr& pType)
@@ -265,7 +271,7 @@ SimpleType CppFormatter::cppClassType(const TypeSPtr& pType)
     
 Namespace CppFormatter::cppClassNamespace(const TypeSPtr& pType)
 {
-    return *CreateNamespace(cppClassName(pType->name()->value()));
+    return Namespace() << namespaceNameRef(cppClassName(pType->name()->value()));
 }
 
 SimpleType CppFormatter::cppAutoClassType(const StructureSPtr& pStructure)
@@ -278,7 +284,7 @@ SimpleType CppFormatter::cppAutoClassType(const StructureSPtr& pStructure)
 
 Namespace CppFormatter::cppAutoClassNamespace(const StructureSPtr& pStructure)
 {
-    return *CreateNamespace(cppAutoClassType(pStructure).value());
+    return Namespace() << namespaceNameRef(cppAutoClassType(pStructure).value());
 }
     
 SimpleType CppFormatter::cppMainClassType(const StructureSPtr& pStructure)
@@ -289,7 +295,7 @@ SimpleType CppFormatter::cppMainClassType(const StructureSPtr& pStructure)
 
 Namespace CppFormatter::cppMainClassNamespace(const StructureSPtr& pStructure)
 {
-    return *CreateNamespace(cppMainClassType(pStructure).value());
+    return Namespace() << namespaceNameRef(cppMainClassType(pStructure).value());
 }
 
 SimpleType CppFormatter::cppPartialClassType(const StructureSPtr& pStructure)
@@ -299,7 +305,7 @@ SimpleType CppFormatter::cppPartialClassType(const StructureSPtr& pStructure)
 
 Namespace CppFormatter::cppPartialClassNamespace(const StructureSPtr& pStructure)
 {
-    return *CreateNamespace(cppPartialClassType(pStructure).value());
+    return Namespace() << namespaceNameRef(cppPartialClassType(pStructure).value());
 }
 
 std::string CppFormatter::constValueName(const EnumerationValueSPtr& pEnumerationValue)

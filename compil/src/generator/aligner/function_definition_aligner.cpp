@@ -91,7 +91,7 @@ FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner,
     
     if (!constructor.mNamespace.isVoid())
     {
-        aligner << constructor.mNamespace.value()
+        aligner << constructor.mNamespace
                 << "::";
     }
     
@@ -111,7 +111,7 @@ FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner,
 {
     assert(destructor);
     
-    aligner << destructor.mNamespace.value()
+    aligner << destructor.mNamespace
             << "::";
     
     aligner << tilde;

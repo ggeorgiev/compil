@@ -108,6 +108,9 @@ Modifier vrtl     = *CreateModifier("virtual");
 Modifier non_vrtl = *CreateModifier("/*lax*/");
 Modifier expl     = *CreateModifier("explicit");
 
+
+NamespaceNameSPtr nsBuilder = namespaceNameRef("Builder");
+
 SimpleType builder = *CreateSimpleType("Builder");
 SimpleType chr     = *CreateSimpleType("char");
 

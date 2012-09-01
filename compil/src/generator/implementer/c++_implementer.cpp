@@ -247,7 +247,11 @@ SimpleType CppImplementer::cppType(const TypeSPtr& pType)
             std::string result = "std::vector<";
             if (simpleType.exist_namespace_())
             if (!simpleType.namespace_().isVoid())
-                result += simpleType.namespace_().value() + "::";
+            {
+                const std::vector<NamespaceNameSPtr>& names = simpleType.namespace_().names();
+                for (size_t i = 0; i < names.size(); ++i)
+                    result += names[i]->value() + "::";
+            }
             result += simpleType.value() + ">"; 
             return *CreateSimpleType(result);
         }

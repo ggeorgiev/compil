@@ -184,8 +184,6 @@
 		5E88A24415E188BB002D43A5 /* initialization.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = initialization.h; sourceTree = "<group>"; };
 		5E88A24515E188BB002D43A5 /* modifier.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = modifier.cpp; sourceTree = "<group>"; };
 		5E88A24615E188BB002D43A5 /* modifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = modifier.h; sourceTree = "<group>"; };
-		5E88A24715E188BB002D43A5 /* namespace-partial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "namespace-partial.cpp"; sourceTree = "<group>"; };
-		5E88A24815E188BB002D43A5 /* namespace-partial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "namespace-partial.h"; sourceTree = "<group>"; };
 		5E88A24915E188BB002D43A5 /* namespace.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = namespace.cpp; sourceTree = "<group>"; };
 		5E88A24A15E188BB002D43A5 /* namespace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = namespace.h; sourceTree = "<group>"; };
 		5E88A24B15E188BB002D43A5 /* namespace_name.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = namespace_name.cpp; sourceTree = "<group>"; };
@@ -669,8 +667,6 @@
 				5E88A24415E188BB002D43A5 /* initialization.h */,
 				5E88A24515E188BB002D43A5 /* modifier.cpp */,
 				5E88A24615E188BB002D43A5 /* modifier.h */,
-				5E88A24715E188BB002D43A5 /* namespace-partial.cpp */,
-				5E88A24815E188BB002D43A5 /* namespace-partial.h */,
 				5E88A24915E188BB002D43A5 /* namespace.cpp */,
 				5E88A24A15E188BB002D43A5 /* namespace.h */,
 				5E88A24B15E188BB002D43A5 /* namespace_name.cpp */,

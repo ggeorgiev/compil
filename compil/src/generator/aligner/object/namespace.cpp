@@ -1,40 +1,21 @@
-// CompIL - Component Interface Language
-// Copyright 2011 George Georgiev.  All rights reserved.
-// 
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
-//
-//     * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
-// copyright notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
-// written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-// Author: george.georgiev@hotmail.com (George Georgiev)
-//
+// Boost C++ Utility
+#include <boost/assert.hpp>
 
 #include "namespace.h"
 
-Namespace nsBuilder = *Namespace::Builder().set_value("Builder").finalize();
+namespace lang
+{
+
+namespace cpp
+{
+
+int Namespace::bitmask_names()
+{
+    return 0x1;
+}
 
 Namespace::Namespace()
+        : mBits(0)
 {
 }
 
@@ -42,19 +23,60 @@ Namespace::~Namespace()
 {
 }
 
-Namespace Namespace::operator+(const lang::cpp::NamespaceNameSPtr& name)
+bool Namespace::isInitialized() const
 {
-    Namespace::Builder builder;
-    if (exist_value())
-        builder.set_value(value() + "::" + name->value());
-    else
-        builder.set_value(name->value());
-    return *builder.finalize();
+    return true;
 }
 
-Namespace Namespace::operator+(const Namespace& namespace_)
+bool Namespace::isVoid() const
 {
-    if (!namespace_.exist_value())
-        return *this;
-    return *this + lang::cpp::namespaceNameRef(namespace_.value());
+    if (exist_names()) return false;
+    return true;
 }
+
+const std::vector<NamespaceNameSPtr>& Namespace::names() const
+{
+    BOOST_ASSERT(exist_names());
+    return mNames;
+}
+
+bool Namespace::exist_names() const
+{
+    return (mBits & bitmask_names()) != 0;
+}
+
+Namespace& Namespace::set_names(const std::vector<NamespaceNameSPtr>& names)
+{
+    mNames  = names;
+    mBits  |= bitmask_names();
+    return *this;
+}
+
+Namespace& Namespace::operator<<(const std::vector<NamespaceNameSPtr>& names)
+{
+    return set_names(names);
+}
+
+Namespace& Namespace::operator<<(const NamespaceNameSPtr& namesItem)
+{
+    mBits |= bitmask_names();
+    mNames.push_back(namesItem);
+    return *this;
+}
+
+std::vector<NamespaceNameSPtr>& Namespace::mutable_names()
+{
+    mBits |= bitmask_names();
+    return mNames;
+}
+
+void Namespace::clear_names()
+{
+    mNames.clear();
+    mBits &= ~bitmask_names();
+}
+
+}
+
+}
+

@@ -16,7 +16,7 @@
    </TestAction>
    <LaunchAction
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.GDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Debug"
@@ -24,7 +24,7 @@
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <PathRunnable
-         FilePath = "/Users/george/depot/intermediate/generator-test/ef27f9a8a84252954bd5504269c0b5c1/generator-test-unit">
+         FilePath = "/Users/george/github/intermediate/generator-test/ef27f9a8a84252954bd5504269c0b5c1/generator-test-unit">
       </PathRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
