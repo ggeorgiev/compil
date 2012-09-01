@@ -42,13 +42,13 @@ Namespace::~Namespace()
 {
 }
 
-Namespace Namespace::operator+(const NamespaceName& name)
+Namespace Namespace::operator+(const lang::cpp::NamespaceNameSPtr& name)
 {
     Namespace::Builder builder;
     if (exist_value())
-        builder.set_value(value() + "::" + name.value());
+        builder.set_value(value() + "::" + name->value());
     else
-        builder.set_value(name.value());
+        builder.set_value(name->value());
     return *builder.finalize();
 }
 
@@ -56,5 +56,5 @@ Namespace Namespace::operator+(const Namespace& namespace_)
 {
     if (!namespace_.exist_value())
         return *this;
-    return *this + NamespaceName(namespace_.value());
+    return *this + lang::cpp::namespaceNameRef(namespace_.value());
 }

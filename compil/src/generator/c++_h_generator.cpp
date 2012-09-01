@@ -460,6 +460,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     TypeSPtr pParameterType = pSpecimen->parameterType().lock();
 
     addDependencies(impl->dependencies(pParameterType));
+    addDependencies(impl->classReferenceDependencies());
 
     generateForwardClassDeclarations(pSpecimen);
 
@@ -502,7 +503,30 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
             << ";";
 
     eot(declarationStream);
-
+    
+    fdef()  << TableAligner::row()
+            << "inline "
+            << Function(*CreateDecoratedType(frm->cppSharedPtrName(pSpecimen)),
+                        frm->methodName(frm->cppRefName(pSpecimen->name()->value())));
+    openBlock(inlineDefinitionStream);
+    line()  << "return boost::make_shared<"
+            << frm->cppClassType(pSpecimen)
+            << ">();";
+    closeBlock(inlineDefinitionStream);
+    eol(inlineDefinitionStream);
+    
+    fdef()  << TableAligner::row()
+            << "inline "
+            << Function(*CreateDecoratedType(frm->cppSharedPtrName(pSpecimen)),
+                        frm->methodName(frm->cppRefName(pSpecimen->name()->value())),
+                        Argument(impl->cppDecoratedType(pParameterType), "value"));
+    openBlock(inlineDefinitionStream);
+    line()  << "return boost::make_shared<"
+            << frm->cppClassType(pSpecimen)
+            << ">(value);";
+    closeBlock(inlineDefinitionStream);
+    eol(inlineDefinitionStream);
+    
     fdef()  << TableAligner::row()
             << "inline "
             << Function(*CreateDecoratedType(impl->cppType(pParameterType)),

@@ -1,6 +1,10 @@
 #include "namespace_name.h"
 
-#include "boost/make_shared.hpp"
+namespace lang
+{
+
+namespace cpp
+{
 
 NamespaceName::NamespaceName()
 {
@@ -11,8 +15,7 @@ NamespaceName::NamespaceName(const std::string& value)
 {
 }
 
-NamespaceNameSPtr NamespaceName::sptr(const std::string& value)
-{
-    return boost::make_shared<NamespaceName>(value);
+}
+
 }
 

@@ -1900,7 +1900,7 @@ void CppGenerator::generateStructureOperatorMethodsDefinition(
 
     Namespace nmspace = frm->cppAutoClassNamespace(pStructure);
     if (flags.isSet(EOperatorFlags::functor()))
-        nmspace = nmspace + NamespaceName(fnFunction.value());
+        nmspace = nmspace + lang::cpp::namespaceNameRef(fnFunction.value());
 
     int arguments;
     if (flags.isClear(EOperatorFlags::member()) || flags.isSet(EOperatorFlags::functor()))

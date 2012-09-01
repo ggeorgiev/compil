@@ -67,6 +67,7 @@ public:
     virtual std::string cppGetReturn(const FieldSPtr& pField);
     
     virtual std::vector<Dependency> classPointerDependencies();
+    virtual std::vector<Dependency> classReferenceDependencies();
     
     virtual std::vector<Dependency> dependencies(const TypeSPtr& pType);
     virtual std::vector<Dependency> dependencies(const FieldSPtr& pField);

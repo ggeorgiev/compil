@@ -31,23 +31,28 @@
 // 
 
 // Boost C++ Smart Pointers
+#include <boost/make_shared.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 // Standard Template Library
 #include <string>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_NAME_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_NAME_COMPIL_H_
+#ifndef __LANGUAGE_CPP_NAMESPACE_NAME_COMPIL_H_
+#define __LANGUAGE_CPP_NAMESPACE_NAME_COMPIL_H_
 
 #include "namespace_name.h"
+
+namespace lang
+{
+
+namespace cpp
+{
 
 class NamespaceName
 {
 public:
                          NamespaceName();
     explicit             NamespaceName(const std::string& value);
-    
-    static NamespaceNameSPtr sptr(const std::string& value);
 
     inline   std::string value        ()                            const;
     inline   bool        operator==   (const NamespaceName& rValue) const;
@@ -56,6 +61,16 @@ public:
 private:
     std::string mValue;
 };
+
+inline NamespaceNameSPtr namespaceNameRef()
+{
+    return boost::make_shared<NamespaceName>();
+}
+
+inline NamespaceNameSPtr namespaceNameRef(const std::string& value)
+{
+    return boost::make_shared<NamespaceName>(value);
+}
 
 inline std::string NamespaceName::value() const
 {
@@ -77,7 +92,17 @@ inline bool NamespaceName::operator<(const NamespaceName& rValue) const
     return mValue < rValue.mValue;
 }
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_NAME_COMPIL_H_
+}
+
+}
+
+#else // __LANGUAGE_CPP_NAMESPACE_NAME_COMPIL_H_
+
+namespace lang
+{
+
+namespace cpp
+{
 
 // Forward declarations
 class NamespaceName;
@@ -86,5 +111,9 @@ typedef boost::shared_ptr<NamespaceName>       NamespaceNameSPtr;
 typedef boost::shared_ptr<const NamespaceName> NamespaceNameSCPtr;
 typedef boost::weak_ptr<NamespaceName>         NamespaceNameWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_NAME_COMPIL_H_
+}
+
+}
+
+#endif // __LANGUAGE_CPP_NAMESPACE_NAME_COMPIL_H_
 

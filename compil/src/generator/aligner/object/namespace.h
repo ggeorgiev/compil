@@ -42,7 +42,7 @@ public:
     Namespace();
     ~Namespace();
     
-    Namespace operator+(const NamespaceName& value);
+    Namespace operator+(const lang::cpp::NamespaceNameSPtr& value);
     Namespace operator+(const Namespace& value);
 };
 

@@ -315,6 +315,23 @@ std::vector<Dependency> CppImplementer::classPointerDependencies()
     return dep;
 }
 
+std::vector<Dependency> CppImplementer::classReferenceDependencies()
+{
+    std::vector<Dependency> dep;
+    
+    if (mpConfiguration->mPointer == ImplementerConfiguration::use_boost_pointers)
+    {
+        dep.push_back(
+            Dependency("boost/make_shared.hpp",
+                        Dependency::system_type, 
+                        Dependency::boost_level,
+                        Dependency::global_section,
+                        "Boost C++ Smart Pointers"));
+    }
+    
+    return dep;
+}
+
 std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
 {
     std::vector<Dependency> dep;
@@ -361,7 +378,7 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
                            Dependency::quote_type,
                            Dependency::core_level,
                            Dependency::private_section,
-                           "Boost C++ Smart Pointers"));
+                           "Compil C++ Template Library"));
         }
     }
 

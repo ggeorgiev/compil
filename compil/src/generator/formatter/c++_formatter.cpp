@@ -84,6 +84,11 @@ std::string CppFormatter::cppWeakPtrName(const std::string& rawName)
     return rawName + "WPtr";
 }
 
+std::string CppFormatter::cppRefName(const std::string& rawName)
+{
+    return rawName + "Ref";
+}
+
 FunctionName CppFormatter::methodName(const std::string& rawName)
 {
     std::string result = rawName;
@@ -213,7 +218,7 @@ Namespace CppFormatter::cppPackageNamespace(const PackageSPtr& pPackage)
     std::vector<std::string>::const_iterator it;
     for (it = elements.begin(); it != elements.end(); ++it)
     {
-        nmspace = nmspace + NamespaceName(*it);
+        nmspace = nmspace + lang::cpp::namespaceNameRef(*it);
     }
     return nmspace;
 }
@@ -245,7 +250,7 @@ Namespace CppFormatter::cppEnumNamespace(const EnumerationSPtr& pEnumeration)
     StructureSPtr pStructure = pEnumeration->structure().lock();
     if (pStructure)
         return cppAutoClassNamespace(pStructure) + 
-               NamespaceName(enumName(pEnumeration->name()->value()));
+               lang::cpp::namespaceNameRef(enumName(pEnumeration->name()->value()));
         
     return *CreateNamespace(enumName(pEnumeration->name()->value()));
 }

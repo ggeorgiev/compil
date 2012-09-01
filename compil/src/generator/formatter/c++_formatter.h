@@ -73,6 +73,9 @@ public:
     virtual std::string cppSharedPtrName(const std::string& rawName);
     virtual std::string cppSharedConstPtrName(const std::string& rawName);
     virtual std::string cppWeakPtrName(const std::string& rawName);
+    
+    virtual std::string cppRefName(const std::string& rawName);
+    
     virtual FunctionName methodName(const std::string& rawName);
     
     virtual std::string memberName(const std::string& rawName);
@@ -119,6 +122,7 @@ public:
     virtual SimpleType cppSharedPtrName(const TypeSPtr& pType);
     virtual SimpleType cppSharedConstPtrName(const TypeSPtr& pType);
     virtual SimpleType cppWeakPtrName(const TypeSPtr& pType);
+    
     virtual DecoratedType cppRawPtrDecoratedType(const TypeSPtr& pType);
     virtual DecoratedType cppSharedPtrDecoratedType(const TypeSPtr& pType);
         
