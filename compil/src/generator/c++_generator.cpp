@@ -1009,7 +1009,16 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                                     Argument(impl->cppInnerSetDecoratedType(pUnaryContainer->parameterType().lock(),
                                              pStructure), frm->cppVariableName(pField) + "Item"));
                 openBlock(definitionStream);
-                
+
+                if (pStructure->controlled())
+                {
+                    line()  << accessObject
+                            << frm->memberName("bits")
+                            << " |= "
+                            << FunctionCall(frm->bitmaskMethodName(pField))
+                            << ";";
+                    eol(definitionStream);
+                }
                 line()  << accessObject
                         << frm->cppMemberName(pField)
                         << ".push_back("

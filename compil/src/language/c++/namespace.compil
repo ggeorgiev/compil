@@ -36,8 +36,8 @@ import "namespace_name.compil";
 
 package lang.cpp;
 
-streamable
+controlled streamable
 structure Namespace
 {
-    reference<NamespaceName> name;
+    vector<reference<NamespaceName>> names = optional;
 }
