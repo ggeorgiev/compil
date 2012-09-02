@@ -36,7 +36,6 @@ strong enum MethodSpecifier
 {
     explicit;
     inline;
-    lax;
     static;
     virtual;
 }

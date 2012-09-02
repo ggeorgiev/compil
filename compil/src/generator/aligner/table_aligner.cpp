@@ -446,12 +446,8 @@ TableAligner& operator<<(TableAligner& aligner, const EMethodSpecifier& methodSp
 {
     if (methodSpecifier != EMethodSpecifier::invalid())
     {
-        if (methodSpecifier == EMethodSpecifier::lax())
-            aligner << "/* lax */";
-        else
-            aligner << methodSpecifier.shortName();
-    
-        aligner << ' ';
+        aligner << methodSpecifier.shortName()
+                << ' ';
     }
     return aligner;
 }

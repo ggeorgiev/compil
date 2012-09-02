@@ -25,11 +25,6 @@ const EMethodSpecifier EMethodSpecifier::inline_()
     return EMethodSpecifier(kInline);
 }
 
-const EMethodSpecifier EMethodSpecifier::lax()
-{
-    return EMethodSpecifier(kLax);
-}
-
 const EMethodSpecifier EMethodSpecifier::static_()
 {
     return EMethodSpecifier(kStatic);
@@ -52,7 +47,6 @@ const char* EMethodSpecifier::shortName(long value)
         "", // alignment
         "explicit",
         "inline",
-        "lax",
         "static",
         "virtual",
     };

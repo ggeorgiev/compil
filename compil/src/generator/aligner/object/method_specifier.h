@@ -76,7 +76,6 @@ public:
     static const EMethodSpecifier invalid  ();
     static const EMethodSpecifier explicit_();
     static const EMethodSpecifier inline_  ();
-    static const EMethodSpecifier lax      ();
     static const EMethodSpecifier static_  ();
     static const EMethodSpecifier virtual_ ();
 
@@ -87,9 +86,8 @@ public:
         kInvalid  = 0,
         kExplicit = 1,
         kInline   = 2,
-        kLax      = 3,
-        kStatic   = 4,
-        kVirtual  = 5,
+        kStatic   = 3,
+        kVirtual  = 4,
     };
 
 private:
