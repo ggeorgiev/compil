@@ -8,3 +8,4 @@ NamespaceName::NamespaceName(const std::string& value)
         : mValue(value)
 {
 }
+

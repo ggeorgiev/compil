@@ -900,7 +900,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
     assert(pBaseStructure);
 
     NamespaceSPtr classNamesp = frm->cppAutoClassNamespace(pStructure);
-    NamespaceSPtr namesp = classNamesp;
+    NamespaceSPtr namesp = boost::make_shared<Namespace>(*classNamesp);
     
     NamespaceSPtr baseClassBuilderNamesp = frm->cppAutoClassNamespace(pBaseStructure);
     *baseClassBuilderNamesp << nsBuilder;
@@ -1431,7 +1431,7 @@ void CppGenerator::generateStructureFieldOverrideDefinition(const FieldOverrideS
     eol(definitionStream);
 
     NamespaceSPtr classNamesp = frm->cppAutoClassNamespace(pStructure);
-    NamespaceSPtr namesp = classNamesp;
+    NamespaceSPtr namesp = boost::make_shared<Namespace>(*classNamesp);
     *namesp << nsBuilder;
 
     fdef()  << TableAligner::row()

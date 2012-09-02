@@ -83,7 +83,7 @@ bool Initialization::exist_namespace() const
     return (mBits & bitmask_namespace()) != 0;
 }
 
-Initialization::Builder::Builder& Initialization::Builder::set_namespace(const NamespaceSPtr& namespace_)
+Initialization::Builder& Initialization::Builder::set_namespace(const NamespaceSPtr& namespace_)
 {
     mpObject->mNamespace  = namespace_;
     mpObject->mBits      |= bitmask_namespace();
@@ -107,7 +107,7 @@ bool Initialization::valid_name() const
     return (mBits & bitmask_name()) != 0;
 }
 
-Initialization::Builder::Builder& Initialization::Builder::set_name(const std::string& name)
+Initialization::Builder& Initialization::Builder::set_name(const std::string& name)
 {
     mpObject->mName  = name;
     mpObject->mBits |= bitmask_name();
@@ -137,7 +137,7 @@ bool Initialization::valid_value() const
     return (mBits & bitmask_value()) != 0;
 }
 
-Initialization::Builder::Builder& Initialization::Builder::set_value(const std::string& value)
+Initialization::Builder& Initialization::Builder::set_value(const std::string& value)
 {
     mpObject->mValue  = value;
     mpObject->mBits  |= bitmask_value();

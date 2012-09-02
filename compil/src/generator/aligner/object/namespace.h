@@ -28,7 +28,7 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Author: george.georgiev@hotmail.com (George Georgiev)
-//
+// 
 
 // Boost C++ Smart Pointers
 #include <boost/shared_ptr.hpp>
@@ -36,8 +36,8 @@
 // Standard Template Library
 #include <vector>
 
-#ifndef __LANGUAGE_CPP_NAMESPACE_COMPIL_H_
-#define __LANGUAGE_CPP_NAMESPACE_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_COMPIL_H_
 
 #include "namespace.h"
 #include "namespace_name.h"
@@ -80,7 +80,7 @@ private:
     std::vector<NamespaceNameSPtr> mNames;
 };
 
-#else // __LANGUAGE_CPP_NAMESPACE_COMPIL_H_
+#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_COMPIL_H_
 
 // Forward declarations
 class Namespace;
@@ -89,5 +89,5 @@ typedef boost::shared_ptr<Namespace>       NamespaceSPtr;
 typedef boost::shared_ptr<const Namespace> NamespaceSCPtr;
 typedef boost::weak_ptr<Namespace>         NamespaceWPtr;
 
-#endif // __LANGUAGE_CPP_NAMESPACE_COMPIL_H_
+#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_COMPIL_H_
 

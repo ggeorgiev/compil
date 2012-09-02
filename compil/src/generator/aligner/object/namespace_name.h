@@ -37,8 +37,8 @@
 // Standard Template Library
 #include <string>
 
-#ifndef __LANGUAGE_CPP_NAMESPACE_NAME_COMPIL_H_
-#define __LANGUAGE_CPP_NAMESPACE_NAME_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_NAME_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_NAME_COMPIL_H_
 
 #include "namespace_name.h"
 
@@ -86,8 +86,7 @@ inline bool NamespaceName::operator<(const NamespaceName& rValue) const
     return mValue < rValue.mValue;
 }
 
-
-#else // __LANGUAGE_CPP_NAMESPACE_NAME_COMPIL_H_
+#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_NAME_COMPIL_H_
 
 // Forward declarations
 class NamespaceName;
@@ -96,5 +95,5 @@ typedef boost::shared_ptr<NamespaceName>       NamespaceNameSPtr;
 typedef boost::shared_ptr<const NamespaceName> NamespaceNameSCPtr;
 typedef boost::weak_ptr<NamespaceName>         NamespaceNameWPtr;
 
-#endif // __LANGUAGE_CPP_NAMESPACE_NAME_COMPIL_H_
+#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_NAME_COMPIL_H_
 

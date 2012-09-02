@@ -69,3 +69,4 @@ void Namespace::clear_names()
     mNames.clear();
     mBits &= ~bitmask_names();
 }
+
