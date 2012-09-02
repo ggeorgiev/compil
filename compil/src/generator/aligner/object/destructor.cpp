@@ -45,8 +45,8 @@ Destructor::Destructor(const SimpleType& type)
 {
 }
 
-Destructor::Destructor(const Modifier& modifier, const SimpleType& type)
-    : mModifier(modifier)
+Destructor::Destructor(const EMethodSpecifier& specifier, const SimpleType& type)
+    : mSpecifier(specifier)
     , mType(type)
 {
 }

@@ -324,8 +324,8 @@ TableAligner& operator<<(TableAligner& aligner, const Argument& argument)
 
 TableAligner& operator<<(TableAligner& aligner, const Function& function)
 {
-    if (!function.mModifier.isVoid())
-        aligner << function.mModifier << ' ';
+    if (function.mSpecifier != EMethodSpecifier::invalid())
+        aligner << function.mSpecifier.shortName() << ' ';
 
     aligner << TableAligner::col();
 
@@ -378,8 +378,7 @@ TableAligner& operator<<(TableAligner& aligner, const Constructor& constructor)
 {
     assert(constructor);
     
-    if (!constructor.mModifier.isVoid())
-        aligner << constructor.mModifier << ' ';
+    aligner << constructor.mSpecifier;
         
     aligner << TableAligner::col();
     aligner << TableAligner::col();
@@ -401,8 +400,7 @@ TableAligner& operator<<(TableAligner& aligner, const Destructor& destructor)
 {
     assert(destructor);
     
-    if (!destructor.mModifier.isVoid())
-        aligner << destructor.mModifier << ' ';
+    aligner << destructor.mSpecifier;
         
     aligner << TableAligner::col();
     aligner << TableAligner::col();
@@ -432,9 +430,17 @@ TableAligner& operator<<(TableAligner& aligner, const NamespaceSPtr& namespace_)
     return aligner;
 }
 
-TableAligner& operator<<(TableAligner& aligner, const Modifier& modifier)
+TableAligner& operator<<(TableAligner& aligner, const EMethodSpecifier& methodSpecifier)
 {
-    aligner << modifier.value();
+    if (methodSpecifier != EMethodSpecifier::invalid())
+    {
+        if (methodSpecifier == EMethodSpecifier::lax())
+            aligner << "/* lax */";
+        else
+            aligner << methodSpecifier.shortName();
+    
+        aligner << ' ';
+    }
     return aligner;
 }
 

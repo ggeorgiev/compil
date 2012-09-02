@@ -120,11 +120,6 @@ extern MethodNameSPtr fnTest;
 extern MethodNameSPtr fnIsSet;
 extern MethodNameSPtr fnIsClear;
 
-extern Modifier sttc;
-extern Modifier vrtl;
-extern Modifier non_vrtl;
-extern Modifier expl;
-
 extern NamespaceNameSPtr nsBuilder;
 
 extern SimpleType builder;

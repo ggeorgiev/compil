@@ -39,7 +39,7 @@
 #include "dependency.h"
 #include "factory.h"
 #include "model.h"
-#include "modifier.h"
+#include "method_specifier.h"
 
 namespace compil
 {
@@ -109,8 +109,8 @@ public:
                                               const std::vector<StructureSPtr>& structs,
                                               const FactorySPtr& pFactory);
                                               
-    virtual Modifier virtualModifier(const StructureSPtr& pStructure, 
-                                     const Modifier& defaultModifie = Modifier());
+    virtual EMethodSpecifier virtualSpecifier(const StructureSPtr& pStructure, 
+                                              const EMethodSpecifier& defaultSpecifier = EMethodSpecifier::invalid());
                                      
     virtual bool hasOperator(const TypeSPtr& pType,
                              const EOperatorAction& action,

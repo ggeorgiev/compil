@@ -36,7 +36,7 @@
 
 #include "simple_type.h"
 #include "namespace.h"
-#include "modifier.h"
+#include "method_specifier.h"
 
 #include <string>
 
@@ -48,12 +48,12 @@ class Destructor
 public:
     Destructor();
     explicit Destructor(const SimpleType& type);
-    Destructor(const Modifier& modifier, const SimpleType& type);
+    Destructor(const EMethodSpecifier& specifier, const SimpleType& type);
     Destructor(const NamespaceSPtr& namespace_, const SimpleType& type);
     
     operator bool() const;
 
-    Modifier mModifier;
+    EMethodSpecifier mSpecifier;
     NamespaceSPtr mNamespace;
     SimpleType mType;
 };

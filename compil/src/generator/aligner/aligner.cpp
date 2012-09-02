@@ -103,12 +103,6 @@ MethodNameSPtr fnTest                   = methodNameRef("test");
 MethodNameSPtr fnIsSet                  = methodNameRef("isSet");
 MethodNameSPtr fnIsClear                = methodNameRef("isClear");
 
-Modifier sttc     = *CreateModifier("static");
-Modifier vrtl     = *CreateModifier("virtual");
-Modifier non_vrtl = *CreateModifier("/*lax*/");
-Modifier expl     = *CreateModifier("explicit");
-
-
 NamespaceNameSPtr nsBuilder = namespaceNameRef("Builder");
 
 SimpleType builder = *CreateSimpleType("Builder");

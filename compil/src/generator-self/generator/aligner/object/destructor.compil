@@ -32,13 +32,10 @@
 
 compil { }
 
-controlled immutable
-structure Modifier
-{
-    string value = optional;
-}
+import "class_name.compil";
 
-function object
-factory<Modifier> CreateModifier
+structure Destructor
 {
+    DestructorSpecifier specifier;
+    reference<ClassName> name;
 }

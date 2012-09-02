@@ -217,84 +217,84 @@ Function::Function(const DecoratedType& returnType,
     mvArgument.push_back(argument2);
 }
 
-Function::Function(const Modifier& modifier,
+Function::Function(const EMethodSpecifier& specifier,
                    const FunctionNameSPtr& name, 
                    const Declaration& declaration)
-    : mModifier(modifier), mName(name), mDeclaration(declaration)
+    : mSpecifier(specifier), mName(name), mDeclaration(declaration)
 {
 }
 
-Function::Function(const Modifier& modifier,
+Function::Function(const EMethodSpecifier& specifier,
                    const DecoratedType& returnType, 
                    const FunctionNameSPtr& name, 
                    const Argument& argument)
-    : mModifier(modifier), mReturnType(returnType), mName(name)
+    : mSpecifier(specifier), mReturnType(returnType), mName(name)
 {
     mvArgument.push_back(argument);
 }
 
-Function::Function(const Modifier& modifier,
+Function::Function(const EMethodSpecifier& specifier,
                    const DecoratedType& returnType, 
                    const FunctionNameSPtr& name, 
                    const Argument& argument,
                    const Declaration& declaration)
-    : mModifier(modifier), mReturnType(returnType), mName(name), mDeclaration(declaration)
+    : mSpecifier(specifier), mReturnType(returnType), mName(name), mDeclaration(declaration)
 {
     mvArgument.push_back(argument);
 }
 
-Function::Function(const Modifier& modifier,
+Function::Function(const EMethodSpecifier& specifier,
                    const DecoratedType& returnType,
                    const FunctionNameSPtr& name, 
                    const Argument& argument1,
                    const Argument& argument2)
-    : mModifier(modifier), mReturnType(returnType), mName(name)
+    : mSpecifier(specifier), mReturnType(returnType), mName(name)
 {
     mvArgument.push_back(argument1);
     mvArgument.push_back(argument2);
 }
 
-Function::Function(const Modifier& modifier,
+Function::Function(const EMethodSpecifier& specifier,
                    const DecoratedType& returnType, 
                    const FunctionNameSPtr& name, 
                    const Argument& argument1,
                    const Argument& argument2,
                    const Declaration& declaration)
-    : mModifier(modifier), mReturnType(returnType), mName(name), mDeclaration(declaration)
+    : mSpecifier(specifier), mReturnType(returnType), mName(name), mDeclaration(declaration)
 {
     mvArgument.push_back(argument1);
     mvArgument.push_back(argument2);
 }
 
-Function::Function(const Modifier& modifier,
+Function::Function(const EMethodSpecifier& specifier,
                    const DecoratedType& returnType,
                    const NamespaceSPtr& namesp,
                    const FunctionNameSPtr& name, 
                    const Argument& argument)
-    : mModifier(modifier), mReturnType(returnType), mNamespace(namesp), mName(name)
+    : mSpecifier(specifier), mReturnType(returnType), mNamespace(namesp), mName(name)
 {
     mvArgument.push_back(argument);
 }
 
-Function::Function(const Modifier& modifier,
+Function::Function(const EMethodSpecifier& specifier,
                    const DecoratedType& returnType, 
                    const FunctionNameSPtr& name)
-    : mModifier(modifier), mReturnType(returnType), mName(name)
+    : mSpecifier(specifier), mReturnType(returnType), mName(name)
 {
 }
 
-Function::Function(const Modifier& modifier,
+Function::Function(const EMethodSpecifier& specifier,
                    const DecoratedType& returnType, 
                    const FunctionNameSPtr& name, 
                    const Declaration& declaration)
-    : mModifier(modifier), mReturnType(returnType), mName(name), mDeclaration(declaration)
+    : mSpecifier(specifier), mReturnType(returnType), mName(name), mDeclaration(declaration)
 {
 }
 
-Function::Function(const Modifier& modifier,
+Function::Function(const EMethodSpecifier& specifier,
                    const FunctionNameSPtr& name,
                    const Argument& argument)
-    : mModifier(modifier), mName(name)
+    : mSpecifier(specifier), mName(name)
 {
     mvArgument.push_back(argument);
 }

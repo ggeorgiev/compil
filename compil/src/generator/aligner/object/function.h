@@ -38,7 +38,7 @@
 #include "namespace.h"
 #include "function_name.h"
 #include "cast_operator.h"
-#include "modifier.h"
+#include "method_specifier.h"
 
 #include <vector>
 
@@ -145,56 +145,56 @@ public:
              const Argument& argument2, 
              const Declaration& declaration);
              
-    Function(const Modifier& modifier,
+    Function(const EMethodSpecifier& specifier,
              const FunctionNameSPtr& name, 
              const Declaration& declaration);
              
-    Function(const Modifier& modifier,
+    Function(const EMethodSpecifier& specifier,
              const DecoratedType& returnType, 
              const FunctionNameSPtr& name);
 
-    Function(const Modifier& modifier,
+    Function(const EMethodSpecifier& specifier,
              const DecoratedType& returnType, 
              const FunctionNameSPtr& name, 
              const Argument& argument);
 
-    Function(const Modifier& modifier,
+    Function(const EMethodSpecifier& specifier,
              const DecoratedType& returnType, 
              const FunctionNameSPtr& name, 
              const Argument& argument,
              const Declaration& declaration);
              
-    Function(const Modifier& modifier,
+    Function(const EMethodSpecifier& specifier,
              const DecoratedType& returnType, 
              const FunctionNameSPtr& name, 
              const Argument& argument1,
              const Argument& argument2);
              
-    Function(const Modifier& modifier,
+    Function(const EMethodSpecifier& specifier,
              const DecoratedType& returnType, 
              const FunctionNameSPtr& name, 
              const Argument& argument1,
              const Argument& argument2,
              const Declaration& declaration);
              
-    Function(const Modifier& modifier,
+    Function(const EMethodSpecifier& specifier,
              const DecoratedType& returnType,
              const NamespaceSPtr& namesp,
              const FunctionNameSPtr& name, 
              const Argument& argument);
 
-    Function(const Modifier& modifier,
+    Function(const EMethodSpecifier& specifier,
              const DecoratedType& returnType, 
              const FunctionNameSPtr& name, 
              const Declaration& declaration);
              
-    Function(const Modifier& modifier,
+    Function(const EMethodSpecifier& specifier,
              const FunctionNameSPtr& name, 
              const Argument& argument);
     
     Function& operator <<(const Argument& argument);
 
-    Modifier mModifier;
+    EMethodSpecifier mSpecifier;
     DecoratedType mReturnType;
     NamespaceSPtr mNamespace;
     FunctionNameSPtr mName;

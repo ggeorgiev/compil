@@ -706,18 +706,19 @@ EnumerationSPtr CppImplementer::objectEnumeration(const ModelPtr& pModel,
     return pEnumeration;
 }
 
-Modifier CppImplementer::virtualModifier(const StructureSPtr& pStructure, const Modifier& defaultModifier)
+EMethodSpecifier CppImplementer::virtualSpecifier(const StructureSPtr& pStructure,
+                                                  const EMethodSpecifier& defaultSpecifier)
 {
     StructureSPtr pStruct = pStructure;
     while (pStruct)
     {
         if (pStruct->hasRuntimeIdentification())
-            return vrtl;
+            return EMethodSpecifier::virtual_();
         
         pStruct = pStruct->baseStructure().lock();
     }
 
-    return defaultModifier;
+    return defaultSpecifier;
 }
 
 

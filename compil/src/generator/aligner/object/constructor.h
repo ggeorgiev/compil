@@ -36,7 +36,7 @@
 
 #include "simple_type.h"
 #include "argument.h"
-#include "modifier.h"
+#include "method_specifier.h"
 #include "namespace.h"
 
 #include <vector>
@@ -51,14 +51,14 @@ public:
     explicit Constructor(const SimpleType& type);
     Constructor(const NamespaceSPtr& namespace_, const SimpleType& type);
     Constructor(const SimpleType& type, const Argument& argument);
-    Constructor(const Modifier& modifier, const SimpleType& type, const Argument& argument);
+    Constructor(const EMethodSpecifier& specifier, const SimpleType& type, const Argument& argument);
     Constructor(const NamespaceSPtr& namespace_, const SimpleType& type, const Argument& argument);
-    Constructor(const Modifier& modifier, const NamespaceSPtr& namespace_, 
+    Constructor(const EMethodSpecifier& specifier, const NamespaceSPtr& namespace_, 
                 const SimpleType& type, const Argument& argument);
 
     operator bool() const;
 
-    Modifier mModifier;
+    EMethodSpecifier mSpecifier;
     NamespaceSPtr mNamespace;
     SimpleType mType;
     std::vector<Argument> mvArgument;
