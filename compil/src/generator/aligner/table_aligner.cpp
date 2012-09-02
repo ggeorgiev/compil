@@ -398,20 +398,32 @@ TableAligner& operator<<(TableAligner& aligner, const Constructor& constructor)
 
 TableAligner& operator<<(TableAligner& aligner, const Destructor& destructor)
 {
-    assert(destructor);
-    
-    aligner << destructor.mSpecifier;
+    aligner << destructor.specifier();
         
     aligner << TableAligner::col();
     aligner << TableAligner::col();
     aligner << tilde;
     if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
         aligner << TableAligner::col();
-    aligner << destructor.mType;
+    aligner << destructor.name();
     aligner << Aligner::FunctionSpace();
     aligner << "("
             << TableAligner::col()
             << ")";
+    return aligner;
+}
+
+TableAligner& operator<<(TableAligner& aligner, const EDestructorSpecifier& destructorSpecifier)
+{
+    if (destructorSpecifier != EDestructorSpecifier::invalid())
+    {
+        if (destructorSpecifier == EDestructorSpecifier::lax())
+            aligner << "/* lax */";
+        else
+            aligner << destructorSpecifier.shortName();
+    
+        aligner << ' ';
+    }
     return aligner;
 }
 

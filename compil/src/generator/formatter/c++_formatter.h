@@ -38,6 +38,7 @@
 #include "c++_keyword.h"
 
 #include "alter.h"
+#include "destructor_name.h"
 #include "field.h"
 #include "enumeration.h"
 #include "specimen.h"
@@ -105,9 +106,11 @@ public:
     
     virtual SimpleType cppClassType(const TypeSPtr& pType);
     virtual NamespaceSPtr cppClassNamespace(const TypeSPtr& pType);
+    virtual DestructorNameSPtr cppDestructorName(const TypeSPtr& pType);
     
     virtual SimpleType cppAutoClassType(const StructureSPtr& pStructure);
     virtual NamespaceSPtr cppAutoClassNamespace(const StructureSPtr& pStructure);
+    virtual DestructorNameSPtr cppAutoDestructorName(const StructureSPtr& pStructure);
     
     virtual SimpleType cppMainClassType(const StructureSPtr& pStructure);
     virtual NamespaceSPtr cppMainClassNamespace(const StructureSPtr& pStructure);

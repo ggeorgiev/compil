@@ -110,13 +110,11 @@ FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner,
 FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, 
                                       const Destructor& destructor)
 {
-    assert(destructor);
-    
-    aligner << destructor.mNamespace
+    aligner << destructor.namespace_()
             << "::";
     
     aligner << tilde;
-    ((TableAligner&)aligner) << destructor.mType;
+    ((TableAligner&)aligner) << destructor.name();
     aligner << Aligner::FunctionSpace();
     aligner << "()";
     return aligner;

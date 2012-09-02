@@ -32,14 +32,9 @@
 
 compil { }
 
-import "destructor_name.compil";
-import "destructor_specifier.compil";
-import "namespace.compil";
+import "method_name.compil";
 
-streamable
-structure Destructor
+specimen<string> DestructorName
+    inherit MethodName
 {
-    DestructorSpecifier specifier;
-    reference<DestructorName> name;
-    reference<Namespace> namespace;
 }

@@ -18,6 +18,8 @@ lib gen :
     aligner/object/constructor.cpp
     aligner/object/declaration.cpp
     aligner/object/decorated_type.cpp
+    aligner/object/destructor_specifier.cpp
+    aligner/object/destructor_name.cpp
     aligner/object/destructor.cpp
     aligner/object/decoration.cpp
     aligner/object/function_call.cpp

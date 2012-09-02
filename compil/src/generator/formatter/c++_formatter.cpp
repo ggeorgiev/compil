@@ -289,6 +289,11 @@ NamespaceSPtr CppFormatter::cppClassNamespace(const TypeSPtr& pType)
     return nmspace;
 }
 
+DestructorNameSPtr CppFormatter::cppDestructorName(const TypeSPtr& pType)
+{
+    return destructorNameRef(cppClassName(pType->name()->value()));
+}
+
 SimpleType CppFormatter::cppAutoClassType(const StructureSPtr& pStructure)
 {
     if (pStructure->partial())
@@ -303,13 +308,18 @@ NamespaceSPtr CppFormatter::cppAutoClassNamespace(const StructureSPtr& pStructur
     *nmspace << namespaceNameRef(cppAutoClassType(pStructure).value());
     return nmspace;
 }
-    
+
+DestructorNameSPtr CppFormatter::cppAutoDestructorName(const StructureSPtr& pStructure)
+{
+    return destructorNameRef(cppAutoClassType(pStructure).value());
+}
+
 SimpleType CppFormatter::cppMainClassType(const StructureSPtr& pStructure)
 {
     return *CreateSimpleType(cppPackageNamespace(pStructure->package()),
                              cppClassName(pStructure->name()->value()));
 }
-
+    
 NamespaceSPtr CppFormatter::cppMainClassNamespace(const StructureSPtr& pStructure)
 {
     NamespaceSPtr nmspace = boost::make_shared<Namespace>();

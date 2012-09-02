@@ -40,6 +40,7 @@
 #include "factory.h"
 #include "model.h"
 #include "method_specifier.h"
+#include "destructor_specifier.h"
 
 namespace compil
 {
@@ -108,9 +109,9 @@ public:
     virtual EnumerationSPtr objectEnumeration(const ModelPtr& pModel,
                                               const std::vector<StructureSPtr>& structs,
                                               const FactorySPtr& pFactory);
-                                              
-    virtual EMethodSpecifier virtualSpecifier(const StructureSPtr& pStructure, 
-                                              const EMethodSpecifier& defaultSpecifier = EMethodSpecifier::invalid());
+  
+    virtual EMethodSpecifier methodSpecifier(const StructureSPtr& pStructure);
+    virtual EDestructorSpecifier destructorSpecifier(const StructureSPtr& pStructure);
                                      
     virtual bool hasOperator(const TypeSPtr& pType,
                              const EOperatorAction& action,

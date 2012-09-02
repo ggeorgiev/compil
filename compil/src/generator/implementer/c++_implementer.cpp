@@ -706,8 +706,8 @@ EnumerationSPtr CppImplementer::objectEnumeration(const ModelPtr& pModel,
     return pEnumeration;
 }
 
-EMethodSpecifier CppImplementer::virtualSpecifier(const StructureSPtr& pStructure,
-                                                  const EMethodSpecifier& defaultSpecifier)
+
+EMethodSpecifier CppImplementer::methodSpecifier(const StructureSPtr& pStructure)
 {
     StructureSPtr pStruct = pStructure;
     while (pStruct)
@@ -718,7 +718,21 @@ EMethodSpecifier CppImplementer::virtualSpecifier(const StructureSPtr& pStructur
         pStruct = pStruct->baseStructure().lock();
     }
 
-    return defaultSpecifier;
+    return EMethodSpecifier::invalid();
+}
+
+EDestructorSpecifier CppImplementer::destructorSpecifier(const StructureSPtr& pStructure)
+{
+    StructureSPtr pStruct = pStructure;
+    while (pStruct)
+    {
+        if (pStruct->hasRuntimeIdentification())
+            return EDestructorSpecifier::virtual_();
+        
+        pStruct = pStruct->baseStructure().lock();
+    }
+
+    return EDestructorSpecifier::lax();
 }
 
 

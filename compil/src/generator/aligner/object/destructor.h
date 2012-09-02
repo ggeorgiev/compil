@@ -4,17 +4,17 @@
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-//
-//     * Redistributions of source code must retain the above copyright
+// 
+// * Redistributions of source code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
+// * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+// * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
-//
+// 
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,35 +28,66 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Author: george.georgiev@hotmail.com (George Georgiev)
-//
+// 
 
+// Boost C++ Smart Pointers
+#include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
 
-#ifndef _ALIGNER_DESTRUCTOR_H__
-#define _ALIGNER_DESTRUCTOR_H__
+#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DESTRUCTOR_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DESTRUCTOR_COMPIL_H_
 
-#include "simple_type.h"
+#include "destructor.h"
+#include "destructor_name.h"
+#include "destructor_specifier.h"
 #include "namespace.h"
-#include "method_specifier.h"
-
-#include <string>
-
-namespace compil
-{
 
 class Destructor
 {
 public:
-    Destructor();
-    explicit Destructor(const SimpleType& type);
-    Destructor(const EMethodSpecifier& specifier, const SimpleType& type);
-    Destructor(const NamespaceSPtr& namespace_, const SimpleType& type);
-    
-    operator bool() const;
+    // Default constructor
+                                          Destructor   ();
+    // Destructor
+    /* lax */                             ~Destructor  ();
 
-    EMethodSpecifier mSpecifier;
-    NamespaceSPtr mNamespace;
-    SimpleType mType;
+    // Getter method for the data field specifier
+              const EDestructorSpecifier& specifier    ()                                      const;
+    // Setter method for the data field specifier
+              Destructor&                 set_specifier(const EDestructorSpecifier& specifier);
+    // Store operator for the data field specifier
+              Destructor&                 operator<<   (const EDestructorSpecifier& specifier);
+
+    // Getter method for the data field name
+              const DestructorNameSPtr&   name         ()                                      const;
+    // Setter method for the data field name
+              Destructor&                 set_name     (const DestructorNameSPtr& name);
+    // Store operator for the data field name
+              Destructor&                 operator<<   (const DestructorNameSPtr& name);
+
+    // Getter method for the data field namespace
+              const NamespaceSPtr&        namespace_   ()                                      const;
+    // Setter method for the data field namespace
+              Destructor&                 set_namespace(const NamespaceSPtr& namespace_);
+    // Store operator for the data field namespace
+              Destructor&                 operator<<   (const NamespaceSPtr& namespace_);
+
+private:
+    // variable for the data field specifier
+    EDestructorSpecifier mSpecifier;
+    // variable for the data field name
+    DestructorNameSPtr   mName;
+    // variable for the data field namespace
+    NamespaceSPtr        mNamespace;
 };
 
-}
-#endif
+#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DESTRUCTOR_COMPIL_H_
+
+// Forward declarations
+class Destructor;
+typedef Destructor*                         DestructorRPtr;
+typedef boost::shared_ptr<Destructor>       DestructorSPtr;
+typedef boost::shared_ptr<const Destructor> DestructorSCPtr;
+typedef boost::weak_ptr<Destructor>         DestructorWPtr;
+
+#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DESTRUCTOR_COMPIL_H_
+

@@ -710,8 +710,8 @@ void CppGenerator::generatePluginFactoryDefinition(const FactorySPtr& pFactory)
     eol(definitionStream);
 
     fdef()  << TableAligner::row()
-            << Destructor(frm->cppClassNamespace(pFactory),
-                          frm->cppClassType(pFactory));
+            << (Destructor() << frm->cppClassNamespace(pFactory)
+                             << frm->cppDestructorName(pFactory));
     openBlock(definitionStream);
     closeBlock(definitionStream);
     eol(definitionStream);
@@ -2347,7 +2347,8 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         eol(definitionStream);
 
         fdef()  << TableAligner::row()
-                << Destructor(structBuilderNamespace, builder);
+                << (Destructor() << structBuilderNamespace
+                                 << destructorNameRef("Builder"));
         openBlock(definitionStream);
 
         line()  << "delete ("
@@ -2508,8 +2509,8 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
 
 
     fdef()  << TableAligner::row()
-            << Destructor(frm->cppAutoClassNamespace(pStructure),
-                          frm->cppAutoClassType(pStructure));
+            << (Destructor() << frm->cppAutoClassNamespace(pStructure)
+                             << frm->cppAutoDestructorName(pStructure));
     openBlock(definitionStream);
     closeBlock(definitionStream);
     eol(definitionStream);

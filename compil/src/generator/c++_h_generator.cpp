@@ -773,7 +773,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
 
     commentInTable("Destructor");
     table() << TableAligner::row()
-            << Destructor(frm->cppClassType(pFactory))
+            << (Destructor() << frm->cppDestructorName(pFactory))
             << ";";
 
     table() << TableAligner::row();
@@ -1741,7 +1741,8 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
         commentInTable("Destructor of Builder");
 
         table() << TableAligner::row()
-                << Destructor(EMethodSpecifier::lax(), builder)
+                << (Destructor() << EDestructorSpecifier::lax()
+                                 << destructorNameRef("Builder"))
                 << ";";
 
         table() << TableAligner::row();
@@ -1817,9 +1818,10 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
 
     commentInTable("Destructor");
 
-    EMethodSpecifier specifier = impl->virtualSpecifier(pStructure, EMethodSpecifier::lax());
+    EDestructorSpecifier destructorSpecifier = impl->destructorSpecifier(pStructure);
     table() << TableAligner::row()
-            << Destructor(specifier, frm->cppAutoClassType(pStructure))
+            << (Destructor() << destructorSpecifier
+                             << frm->cppAutoDestructorName(pStructure))
             << ";";
 
     if (impl->mpConfiguration->mPointer == ImplementerConfiguration::use_boost_pointers)
@@ -1868,7 +1870,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
         }
     }
 
-    specifier = impl->virtualSpecifier(pStructure);
+    EMethodSpecifier methodSpecifier = impl->methodSpecifier(pStructure);
     if (pStructure->isInitializable())
     {
         encapsulateInTable("public");
@@ -1885,7 +1887,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
         }
 
         table() << TableAligner::row()
-                << Function(specifier, bl, fnIsInitialized, cst)
+                << Function(methodSpecifier, bl, fnIsInitialized, cst)
                 << ";";
     }
 
@@ -1895,7 +1897,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
 
         table() << TableAligner::row()
                 << TableAligner::row()
-                << Function(specifier, bl, fnIsVoid, cst)
+                << Function(methodSpecifier, bl, fnIsVoid, cst)
                 << ";";
     }
 
