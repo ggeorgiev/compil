@@ -31,6 +31,7 @@
 // 
 
 // Boost C++ Smart Pointers
+#include <boost/make_shared.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 // Standard Template Library
@@ -41,89 +42,49 @@
 
 #include "function_name.h"
 
-// FunctionName is an immutable class - once instantiated none of the data
-// fields can be changed. For the initial initialization and instantiation
-// use the nested Builder class.
-
-// Immutability is useful in multi-thread and subject observer
-// applications. It makes easy creation of models with object references.
-
 class FunctionName
 {
 public:
-    // Use Builder to instantiate objects
-    class Builder
-    {
-        // hide evil auto created assignment operator, no implementation
-                void                operator=    (const Builder& );
-    public:
-        // Default constructor. All fields without default values are left
-        // uninitialized. Make sure you initialize all the necessary fields
-        // before instantiating
-                                    Builder      ();
-        // Use this constructor when you need to clone or create an object
-        // just slightly different from another object
-                                    Builder      (const FunctionName& object);
-        // Destructor of Builder
-        /*lax*/                     ~Builder     ();
+                         FunctionName();
+    explicit             FunctionName(const std::string& value);
 
-        // Instantiates FunctionName instance with the current
-        // initialization of the fields. After the instance is ready the
-        // builder could be reused to instantiate more objects. The data is
-        // not reset. Second call of build() will instantiate object with
-        // the same data.
-                const FunctionName& build        ()                           const;
-
-        // Provides the internal instantiated builder object and
-        // invalidates the builder status. Once finalize() is called, the
-        // builder can not be used again. Use finalize() when you no longer
-        // are going to use this builder.
-                FunctionNameSPtr    finalize     ();
-
-
-        // Setter method for the data field value
-                Builder&            set_value    (const std::string& value);
-                std::string&        mutable_value();
-        // Clears the optional data field value
-                void                clear_value  ();
-
-    protected:
-        // constructor needed from potential derived classes
-                                    Builder      (FunctionNameRPtr pObject);
-
-        FunctionNameRPtr mpObject;
-    };
-
-    // Default constructor
-                               FunctionName ();
-    // Destructor
-    /*lax*/                    ~FunctionName();
-
-    // Returns true if every required field is initialized.
-    // Note: If the class is used properly it should always return true,
-    // because the object could be instantiated only if it is already
-    // initialized and can not be changed. Called by the Builder class.
-            bool               isInitialized() const;
-
-            bool               isVoid       () const;
-
-    // Getter method for the data field value
-            const std::string& value        () const;
-    // Checks if the optional field value exists
-            bool               exist_value  () const;
-
+    inline   std::string value       ()                           const;
+    inline   bool        operator==  (const FunctionName& rValue) const;
+    inline   bool        operator!=  (const FunctionName& rValue) const;
+    inline   bool        operator<   (const FunctionName& rValue) const;
 private:
-    // Returns unique bitmask value for the field value
-    static int bitmask_value();
-
-    // Stores availability information for the fields
-    int         mBits;
-
-    // variable for the data field value
     std::string mValue;
 };
 
-FunctionNameSPtr CreateFunctionName(const std::string& value);
+inline FunctionNameSPtr functionNameRef()
+{
+    return boost::make_shared<FunctionName>();
+}
+
+inline FunctionNameSPtr functionNameRef(const std::string& value)
+{
+    return boost::make_shared<FunctionName>(value);
+}
+
+inline std::string FunctionName::value() const
+{
+    return mValue;
+}
+
+inline bool FunctionName::operator==(const FunctionName& rValue) const
+{
+    return mValue == rValue.mValue;
+}
+
+inline bool FunctionName::operator!=(const FunctionName& rValue) const
+{
+    return mValue != rValue.mValue;
+}
+
+inline bool FunctionName::operator<(const FunctionName& rValue) const
+{
+    return mValue < rValue.mValue;
+}
 
 #else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_FUNCTION_NAME_COMPIL_H_
 

@@ -545,7 +545,7 @@ void CppGenerator::generateHierarchyFactoryDefinition(const FactorySPtr& pFactor
         fdef()  << TableAligner::row()
                 << Function(*CreateDecoratedType(impl->cppPtrType(pStructure)),
                             frm->cppClassNamespace(pFactory),
-                            *CreateFunctionName(fnDowncast.value() + pStructure->name()->value()),
+                            *functionNameRef(fnDowncast.value() + pStructure->name()->value()),
                             Argument(impl->cppPtrDecoratedType(pParameterStructure), "pObject"));
         openBlock(definitionStream);
         line()  << "bool b = "
@@ -614,7 +614,7 @@ void CppGenerator::generateObjectFactoryDefinition(const FactorySPtr& pFactory)
     FunctionName functionName;
     if (pFactory->function())
     {
-        functionName = *CreateFunctionName(pFactory->name()->value());;
+        functionName = *functionNameRef(pFactory->name()->value());;
     }
     else
     {
@@ -680,7 +680,7 @@ void CppGenerator::generateObjectFactoryDefinition(const FactorySPtr& pFactory)
                             << frm->setMethodName(*it)
                             << "("
                             << FunctionCall(frm->cppMainClassNamespace(pParameterStructure),
-                                            *CreateFunctionName(pFilter->method()),
+                                            *functionNameRef(pFilter->method()),
                                             Argument(frm->cppVariableName(*it)))
                             << ");";
                 }

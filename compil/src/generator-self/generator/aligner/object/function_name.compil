@@ -32,13 +32,6 @@
 
 compil { }
 
-controlled immutable 
-structure FunctionName
-{
-    string value = optional;
-}
-
-function object
-factory<FunctionName> CreateFunctionName
+specimen<string> FunctionName
 {
 }

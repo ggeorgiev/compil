@@ -637,7 +637,7 @@ void CppHeaderGenerator::generateHierarchyFactoryDeclaration(const FactorySPtr& 
 
         table() << TableAligner::row()
                 << Function(sttc, *CreateDecoratedType(impl->cppPtrType(pStructure)),
-                            *CreateFunctionName(fnDowncast.value() + pStructure->name()->value()),
+                            *functionNameRef(fnDowncast.value() + pStructure->name()->value()),
                             Argument(impl->cppPtrDecoratedType(pParameterStructure), "pObject"))
                 << ";";
     }
@@ -672,7 +672,7 @@ void CppHeaderGenerator::generateObjectFactoryDeclaration(const FactorySPtr& pFa
     FunctionName functionName;
     if (pFactory->function())
     {
-        functionName = *CreateFunctionName(pFactory->name()->value());
+        functionName = *functionNameRef(pFactory->name()->value());
     }
     else
     {

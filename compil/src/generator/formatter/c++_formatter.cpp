@@ -94,7 +94,7 @@ FunctionName CppFormatter::methodName(const std::string& rawName)
     std::string result = rawName;
     std::transform(result.begin() + 0, result.begin() + 1, result.begin() + 0, tolower);
     result = mpKeyword->escapeKeyword(result);
-    return *CreateFunctionName(result);
+    return *functionNameRef(result);
 }    
 
 std::string CppFormatter::memberName(const std::string& rawName)

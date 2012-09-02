@@ -336,10 +336,7 @@ TableAligner& operator<<(TableAligner& aligner, const Function& function)
     if (!function.mNamespace->isVoid())
         aligner << function.mNamespace << "::";
         
-    assert(!function.mName.isVoid() || function.mCastOperator);
-
-    if (!function.mName.isVoid())
-        aligner << function.mName;
+    aligner << function.mName;
 
     if (function.mCastOperator)
         aligner << "operator " 
