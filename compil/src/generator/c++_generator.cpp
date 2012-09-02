@@ -679,7 +679,7 @@ void CppGenerator::generateObjectFactoryDefinition(const FactorySPtr& pFactory)
                     line()  << "builder."
                             << frm->setMethodName(*it)
                             << "("
-                            << FunctionCall(*frm->cppMainClassNamespace(pParameterStructure),
+                            << FunctionCall(frm->cppMainClassNamespace(pParameterStructure),
                                             *CreateFunctionName(pFilter->method()),
                                             Argument(frm->cppVariableName(*it)))
                             << ");";
@@ -970,11 +970,13 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
         }
         else
         {
+            NamespaceSPtr baseClassBuilderNamesp = frm->cppAutoClassNamespace(pBaseStructure);
+            *baseClassBuilderNamesp << nsBuilder;
             line()  << "return ("
                     << *CreateDecoratedType(
                             *CreateSimpleType(classNamesp, builder.value()), ref)
                     << ")"
-                    << FunctionCall(*frm->cppAutoClassNamespace(pBaseStructure) << nsBuilder,
+                    << FunctionCall(baseClassBuilderNamesp,
                                     frm->setMethodName(pField), Argument(frm->cppVariableName(pField)))
                     << ";";
             eol(definitionStream);
@@ -1360,7 +1362,7 @@ void CppGenerator::generateStructureFieldOverrideDefinition(const FieldOverrideS
     line() << "return boost::static_pointer_cast<"
            << impl->cppType(pReference->parameterType().lock())
            << ">("
-           << *frm->cppAutoClassNamespace(pFieldOverride->overriddenField()->structure().lock())
+           << frm->cppAutoClassNamespace(pFieldOverride->overriddenField()->structure().lock())
            << "::"
            << frm->getMethodName(pField)
            << "());";
@@ -1378,7 +1380,7 @@ void CppGenerator::generateStructureFieldOverrideDefinition(const FieldOverrideS
                                  frm->cppVariableName(pField)));
 
     openBlock(definitionStream);
-    line() << *frm->cppAutoClassNamespace(pFieldOverride->overriddenField()->structure().lock())
+    line() << frm->cppAutoClassNamespace(pFieldOverride->overriddenField()->structure().lock())
            << "::"
            << nsBuilder->value()
            << "::"
@@ -2150,7 +2152,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             {
                 table() << TableAligner::row()
                         << ": "
-                        << FunctionCall(*frm->cppAutoClassNamespace(pBaseStructure), fnBuilder,
+                        << FunctionCall(frm->cppAutoClassNamespace(pBaseStructure), fnBuilder,
                                         Argument(object));
             }
             else
@@ -2185,7 +2187,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             {
                 table() << TableAligner::row()
                         << ": "
-                        << FunctionCall(*frm->cppAutoClassNamespace(pBaseStructure), fnBuilder,
+                        << FunctionCall(frm->cppAutoClassNamespace(pBaseStructure), fnBuilder,
                                         Argument(object));
             }
             else
@@ -2228,7 +2230,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                 {
                     table() << TableAligner::row()
                             << ": "
-                            << FunctionCall(*frm->cppAutoClassNamespace(pBaseStructure), fnBuilder,
+                            << FunctionCall(frm->cppAutoClassNamespace(pBaseStructure), fnBuilder,
                                             Argument("new " + frm->cppMainClassType(pStructure).value() + "()"));
                 }
                 else
@@ -2264,7 +2266,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         {
             table() << TableAligner::row()
                     << ": "
-                    << FunctionCall(*frm->cppAutoClassNamespace(pBaseStructure), fnBuilder,
+                    << FunctionCall(frm->cppAutoClassNamespace(pBaseStructure), fnBuilder,
                                     Argument(frm->variablePtrName("object")));
         }
         else
@@ -2479,7 +2481,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                     << ">(";
             eol(definitionStream);
             line()  << "boost::enable_shared_from_this<"
-                    << *frm->cppAutoClassNamespace(pRecursivelyBaseStructure)
+                    << frm->cppAutoClassNamespace(pRecursivelyBaseStructure)
                     << ">::shared_from_this());";
             eol(definitionStream, 1);
             closeBlock(definitionStream);
@@ -2494,7 +2496,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                     << ">(";
             eol(definitionStream);
             line()  << "boost::enable_shared_from_this<"
-                    << *frm->cppAutoClassNamespace(pRecursivelyBaseStructure)
+                    << frm->cppAutoClassNamespace(pRecursivelyBaseStructure)
                     << ">::shared_from_this());";
             eol(definitionStream, 1);
             closeBlock(definitionStream);
@@ -2514,7 +2516,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             if (pStruct->controlled() && pStruct->hasField())
             {
                 line()  << "if (!"
-                        << FunctionCall(*frm->cppAutoClassNamespace(pStruct),
+                        << FunctionCall(frm->cppAutoClassNamespace(pStruct),
                                         fnIsInitialized)
                         << ") return false;";
                 eol(definitionStream);
@@ -2553,7 +2555,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         if (pBaseStructure)
         {
             line()  << "if (!"
-                    << FunctionCall(*frm->cppAutoClassNamespace(pBaseStructure),
+                    << FunctionCall(frm->cppAutoClassNamespace(pBaseStructure),
                                     fnIsVoid)
                     << ") return false;";
             eol(definitionStream);

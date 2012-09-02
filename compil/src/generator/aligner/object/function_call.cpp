@@ -50,12 +50,12 @@ FunctionCall::FunctionCall(const FunctionName& name, const Argument& argument)
     mvArgument.push_back(argument);
 }
 
-FunctionCall::FunctionCall(const Namespace& namesp, const FunctionName& name)
+FunctionCall::FunctionCall(const NamespaceSPtr& namesp, const FunctionName& name)
     : mNamespace(namesp), mName(name)
 {
 }
 
-FunctionCall::FunctionCall(const Namespace& namesp, const FunctionName& name, const Argument& argument)
+FunctionCall::FunctionCall(const NamespaceSPtr& namesp, const FunctionName& name, const Argument& argument)
     : mNamespace(namesp), mName(name)
 {
     mvArgument.push_back(argument);

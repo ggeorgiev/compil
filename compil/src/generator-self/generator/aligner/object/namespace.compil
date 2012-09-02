@@ -32,13 +32,10 @@
 
 compil { }
 
-controlled immutable partial
+import "namespace_name.compil";
+
+controlled streamable
 structure Namespace
 {
-    string value = optional;
-}
-
-function object
-factory<Namespace> CreateNamespace
-{
+    vector<reference<NamespaceName>> names = optional;
 }

@@ -413,21 +413,19 @@ TableAligner& operator<<(TableAligner& aligner, const Destructor& destructor)
     return aligner;
 }
 
-TableAligner& operator<<(TableAligner& aligner, const Namespace& namespace_)
-{
-    const std::vector<NamespaceNameSPtr>& names = namespace_.names();
-    for (size_t i = 0; i < names.size(); ++i)
-    {
-        if (i > 0)
-            aligner << "::";
-        aligner << names[i]->value();
-    }
-    return aligner;
-}
-
 TableAligner& operator<<(TableAligner& aligner, const NamespaceSPtr& namespace_)
 {
-    return aligner << *namespace_;
+    if (namespace_)
+    {
+        const std::vector<NamespaceNameSPtr>& names = namespace_->names();
+        for (size_t i = 0; i < names.size(); ++i)
+        {
+            if (i > 0)
+                aligner << "::";
+            aligner << names[i]->value();
+        }
+    }
+    return aligner;
 }
 
 TableAligner& operator<<(TableAligner& aligner, const Modifier& modifier)
@@ -438,7 +436,8 @@ TableAligner& operator<<(TableAligner& aligner, const Modifier& modifier)
 
 TableAligner& operator<<(TableAligner& aligner, const FunctionCall& function)
 {
-    if (!function.mNamespace.isVoid())
+    if (function.mNamespace)
+    if (!function.mNamespace->isVoid())
         aligner << function.mNamespace << "::";
     aligner << function.mName << Aligner::FunctionSpace();
     aligner << "(";
