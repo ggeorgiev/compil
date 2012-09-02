@@ -45,6 +45,7 @@
 #include "decoration.h"
 #include "function_call.h"
 #include "function.h"
+#include "method_name.h"
 #include "initialization.h"
 #include "simple_type.h"
 
@@ -72,52 +73,52 @@ extern DecoratedType cloneFunction;
 extern DecoratedType cstTRef;
 extern DecoratedType TPtr;
 
-extern FunctionName fnValue;
-extern FunctionName fnShortName;
-extern FunctionName fnBuild;
-extern FunctionName fnClone;
-extern FunctionName fnCreate;
-extern FunctionName fnFinalize;
+extern MethodName fnValue;
+extern MethodName fnShortName;
+extern MethodName fnBuild;
+extern MethodName fnClone;
+extern MethodName fnCreate;
+extern MethodName fnFinalize;
 
-extern FunctionName fnBuilder;
-extern FunctionName fnDowncast;
-extern FunctionName fnSharedFromThis;
+extern MethodName fnBuilder;
+extern MethodName fnDowncast;
+extern MethodName fnSharedFromThis;
 
-extern FunctionName fnIsInitialized;
-extern FunctionName fnIsVoid;
+extern MethodName fnIsInitialized;
+extern MethodName fnIsVoid;
 
-extern FunctionName fnInprocId;
-extern FunctionName fnGet;
-extern FunctionName fnRegisterCloneFunction;
-extern FunctionName fnRegisterRelationship;
-extern FunctionName fnIsParent;
-extern FunctionName fnIsDerivedFrom;
+extern MethodName fnInprocId;
+extern MethodName fnGet;
+extern MethodName fnRegisterCloneFunction;
+extern MethodName fnRegisterRelationship;
+extern MethodName fnIsParent;
+extern MethodName fnIsDerivedFrom;
 
-extern FunctionName fnOperatorE;
-extern FunctionName fnOperatorEq;
-extern FunctionName fnOperatorNe;
-extern FunctionName fnOperatorLt;
-extern FunctionName fnOperatorFn;
-extern FunctionName fnOperatorStore;
-extern FunctionName fnOperatorStoreEq;
-extern FunctionName fnOperatorPlusEq;
+extern MethodName fnOperatorE;
+extern MethodName fnOperatorEq;
+extern MethodName fnOperatorNe;
+extern MethodName fnOperatorLt;
+extern MethodName fnOperatorFn;
+extern MethodName fnOperatorStore;
+extern MethodName fnOperatorStoreEq;
+extern MethodName fnOperatorPlusEq;
 
-extern FunctionName fnFunctionalOperatorEq;
-extern FunctionName fnFunctionalOperatorLt;
+extern MethodName fnFunctionalOperatorEq;
+extern MethodName fnFunctionalOperatorLt;
 
-extern FunctionName fnReset;
-extern FunctionName fnSet;
-extern FunctionName fnClear;
-extern FunctionName fnTurn;
+extern MethodName fnReset;
+extern MethodName fnSet;
+extern MethodName fnClear;
+extern MethodName fnTurn;
 
-extern FunctionName fnAssemble;
-extern FunctionName fnCombine;
-extern FunctionName fnIntersect;
-extern FunctionName fnFlip;
+extern MethodName fnAssemble;
+extern MethodName fnCombine;
+extern MethodName fnIntersect;
+extern MethodName fnFlip;
 
-extern FunctionName fnTest;
-extern FunctionName fnIsSet;
-extern FunctionName fnIsClear;
+extern MethodName fnTest;
+extern MethodName fnIsSet;
+extern MethodName fnIsClear;
 
 extern Modifier sttc;
 extern Modifier vrtl;

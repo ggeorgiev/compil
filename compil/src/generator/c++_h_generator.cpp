@@ -462,6 +462,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
 
     addDependencies(impl->dependencies(pParameterType));
     addDependencies(impl->classReferenceDependencies());
+    addDependency(impl->cppHeaderFileDependency(pBaseSpecimen));
 
     generateForwardClassDeclarations(pSpecimen);
 

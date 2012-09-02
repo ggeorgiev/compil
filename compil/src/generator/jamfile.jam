@@ -24,6 +24,7 @@ lib gen :
     aligner/object/function_name.cpp
     aligner/object/function.cpp
     aligner/object/initialization.cpp
+    aligner/object/method_name.cpp
     aligner/object/modifier.cpp
     aligner/object/namespace_name.cpp
     aligner/object/namespace.cpp
