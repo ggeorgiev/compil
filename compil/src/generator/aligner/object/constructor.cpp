@@ -52,7 +52,7 @@ Constructor::Constructor(const Modifier& modifier, const SimpleType& type, const
     mvArgument.push_back(argument);
 }
 
-Constructor::Constructor(const Namespace& namespace_, const SimpleType& type)
+Constructor::Constructor(const NamespaceSPtr& namespace_, const SimpleType& type)
     : mNamespace(namespace_)
     , mType(type)
 {
@@ -64,14 +64,14 @@ Constructor::Constructor(const SimpleType& type, const Argument& argument)
     mvArgument.push_back(argument);
 }
 
-Constructor::Constructor(const Namespace& namespace_, const SimpleType& type, const Argument& argument)
+Constructor::Constructor(const NamespaceSPtr& namespace_, const SimpleType& type, const Argument& argument)
     : mNamespace(namespace_)
     , mType(type)
 {
     mvArgument.push_back(argument);
 }
 
-Constructor::Constructor(const Modifier& modifier, const Namespace& namespace_, 
+Constructor::Constructor(const Modifier& modifier, const NamespaceSPtr& namespace_, 
                          const SimpleType& type, const Argument& argument)
     : mModifier(modifier)
     , mNamespace(namespace_)
@@ -82,7 +82,7 @@ Constructor::Constructor(const Modifier& modifier, const Namespace& namespace_,
 
 Constructor::operator bool() const
 {
-    return !mNamespace.isVoid() || !mType.isVoid();
+    return (mNamespace && !mNamespace->isVoid()) || !mType.isVoid();
 }
 
 }

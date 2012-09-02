@@ -92,54 +92,54 @@ public:
              const Argument& argument2,
              const Declaration& declaration);
              
-    Function(const Namespace& namesp, 
+    Function(const NamespaceSPtr& namesp,
              const FunctionName& name);
              
     Function(const DecoratedType& returnType, 
-             const Namespace& namesp, 
+             const NamespaceSPtr& namesp,
              const FunctionName& name);
              
-    Function(const Namespace& namesp, 
+    Function(const NamespaceSPtr& namesp, 
              const FunctionName& name, 
              const Declaration& declaration);
              
-    Function(const Namespace& namesp, 
+    Function(const NamespaceSPtr& namesp, 
              const CastOperator& castOperator, 
              const Declaration& declaration);
              
     Function(const DecoratedType& returnType, 
-             const Namespace& namesp, 
+             const NamespaceSPtr& namesp, 
              const FunctionName& name, 
              const Declaration& declaration);
              
-    Function(const Namespace& namesp,
+    Function(const NamespaceSPtr& namesp,
              const FunctionName& name,
              const Argument& argument);
              
     Function(const DecoratedType& returnType,
-             const Namespace& namesp, 
+             const NamespaceSPtr& namesp, 
              const FunctionName& name, 
              const Argument& argument);
              
     Function(const DecoratedType& returnType,
-             const Namespace& namesp,
+             const NamespaceSPtr& namesp,
              const FunctionName& name, 
              const Argument& argument1,
              const Argument& argument2);
              
-    Function(const Namespace& namesp, 
+    Function(const NamespaceSPtr& namesp, 
              const FunctionName& name, 
              const Argument& argument, 
              const Declaration& declaration);
              
     Function(const DecoratedType& returnType, 
-             const Namespace& namesp, 
+             const NamespaceSPtr& namesp, 
              const FunctionName& name, 
              const Argument& argument, 
              const Declaration& declaration);
              
     Function(const DecoratedType& returnType, 
-             const Namespace& namesp, 
+             const NamespaceSPtr& namesp, 
              const FunctionName& name, 
              const Argument& argument1,
              const Argument& argument2, 
@@ -179,7 +179,7 @@ public:
              
     Function(const Modifier& modifier,
              const DecoratedType& returnType,
-             const Namespace& namesp,
+             const NamespaceSPtr& namesp,
              const FunctionName& name, 
              const Argument& argument);
 
@@ -196,7 +196,7 @@ public:
 
     Modifier mModifier;
     DecoratedType mReturnType;
-    Namespace mNamespace;
+    NamespaceSPtr mNamespace;
     FunctionName mName;
     CastOperator mCastOperator;
     std::vector<Argument> mvArgument;

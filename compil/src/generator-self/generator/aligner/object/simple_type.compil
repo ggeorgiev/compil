@@ -37,7 +37,7 @@ import "namespace.compil";
 controlled immutable
 structure SimpleType
 {
-    Namespace namespace_ = optional;
+    reference<Namespace> namespace = optional;
     string value = optional;
 }
 

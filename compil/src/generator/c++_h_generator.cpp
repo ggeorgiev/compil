@@ -1641,7 +1641,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
         line() << "class Builder";
         if (pBaseStructure)
             line()  << " : public "
-                    << frm->cppAutoClassNamespace(pBaseStructure)
+                    << *frm->cppAutoClassNamespace(pBaseStructure)
                     << "::Builder";
         openBlock(declarationStream);
 

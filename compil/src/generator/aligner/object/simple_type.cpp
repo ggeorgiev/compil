@@ -5,7 +5,7 @@
 // Standard C Library
 #include <stddef.h>
 
-int SimpleType::bitmask_namespace_()
+int SimpleType::bitmask_namespace()
 {
     return 0x1;
 }
@@ -67,39 +67,33 @@ bool SimpleType::isInitialized() const
 
 bool SimpleType::isVoid() const
 {
-    if (exist_namespace_()) return false;
+    if (exist_namespace()) return false;
     if (exist_value()) return false;
     return true;
 }
 
-const Namespace& SimpleType::namespace_() const
+const NamespaceSPtr& SimpleType::namespace_() const
 {
-    BOOST_ASSERT(exist_namespace_());
-    return mNamespace_;
+    BOOST_ASSERT(exist_namespace());
+    return mNamespace;
 }
 
-bool SimpleType::exist_namespace_() const
+bool SimpleType::exist_namespace() const
 {
-    return (mBits & bitmask_namespace_()) != 0;
+    return (mBits & bitmask_namespace()) != 0;
 }
 
-SimpleType::Builder& SimpleType::Builder::set_namespace_(const Namespace& namespace_)
+SimpleType::Builder& SimpleType::Builder::set_namespace(const NamespaceSPtr& namespace_)
 {
-    mpObject->mNamespace_  = namespace_;
-    mpObject->mBits       |= bitmask_namespace_();
+    mpObject->mNamespace  = namespace_;
+    mpObject->mBits      |= bitmask_namespace();
     return *this;
 }
 
-Namespace& SimpleType::Builder::mutable_namespace_()
+void SimpleType::Builder::clear_namespace()
 {
-    mpObject->mBits |= bitmask_namespace_();
-    return mpObject->mNamespace_;
-}
-
-void SimpleType::Builder::clear_namespace_()
-{
-    mpObject->mNamespace_  =  Namespace();
-    mpObject->mBits       &= ~bitmask_namespace_();
+    mpObject->mNamespace.reset();
+    mpObject->mBits &= ~bitmask_namespace();
 }
 
 const std::string& SimpleType::value() const
@@ -132,10 +126,10 @@ void SimpleType::Builder::clear_value()
     mpObject->mBits &= ~bitmask_value();
 }
 
-SimpleTypeSPtr CreateSimpleType(const Namespace& namespace_)
+SimpleTypeSPtr CreateSimpleType(const NamespaceSPtr& namespace_)
 {
     SimpleType::Builder builder;
-    builder.set_namespace_(namespace_);
+    builder.set_namespace(namespace_);
     return builder.finalize();
 }
 
@@ -146,10 +140,10 @@ SimpleTypeSPtr CreateSimpleType(const std::string& value)
     return builder.finalize();
 }
 
-SimpleTypeSPtr CreateSimpleType(const Namespace& namespace_, const std::string& value)
+SimpleTypeSPtr CreateSimpleType(const NamespaceSPtr& namespace_, const std::string& value)
 {
     SimpleType::Builder builder;
-    builder.set_namespace_(namespace_);
+    builder.set_namespace(namespace_);
     builder.set_value(value);
     return builder.finalize();
 }

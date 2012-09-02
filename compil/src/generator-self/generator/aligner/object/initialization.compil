@@ -37,7 +37,7 @@ import "namespace.compil";
 controlled immutable 
 structure Initialization
 {
-    Namespace namespace_ = optional;
+    reference<Namespace> namespace = optional;
     string name;
     string value;
 }

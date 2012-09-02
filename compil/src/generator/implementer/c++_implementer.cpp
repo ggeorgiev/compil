@@ -245,10 +245,10 @@ SimpleType CppImplementer::cppType(const TypeSPtr& pType)
             UnaryContainerSPtr pUnaryContainer = boost::static_pointer_cast<UnaryContainer>(pType);
             SimpleType simpleType = cppType(pUnaryContainer->parameterType().lock());
             std::string result = "std::vector<";
-            if (simpleType.exist_namespace_())
-            if (!simpleType.namespace_().isVoid())
+            if (simpleType.exist_namespace())
+            if (!simpleType.namespace_()->isVoid())
             {
-                const std::vector<NamespaceNameSPtr>& names = simpleType.namespace_().names();
+                const std::vector<NamespaceNameSPtr>& names = simpleType.namespace_()->names();
                 for (size_t i = 0; i < names.size(); ++i)
                     result += names[i]->value() + "::";
             }

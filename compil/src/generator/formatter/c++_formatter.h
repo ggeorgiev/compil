@@ -96,24 +96,23 @@ public:
     
     virtual std::string globalVariable(const std::string& variable);
     
-    virtual Namespace cppPackageNamespace(const PackageSPtr& pPackage);
+    virtual NamespaceSPtr cppPackageNamespace(const PackageSPtr& pPackage);
 
     virtual SimpleType cppEnumType(const EnumerationSPtr& pEnumeration);
     virtual SimpleType cppInnerEnumType(const EnumerationSPtr& pEnumeration,
                                         const StructureSPtr& pStructure);
-    virtual Namespace cppEnumNamespace(const EnumerationSPtr& pEnumeration);
+    virtual NamespaceSPtr cppEnumNamespace(const EnumerationSPtr& pEnumeration);
     
     virtual SimpleType cppClassType(const TypeSPtr& pType);
-    virtual Namespace cppClassNamespace(const TypeSPtr& pType);
+    virtual NamespaceSPtr cppClassNamespace(const TypeSPtr& pType);
     
     virtual SimpleType cppAutoClassType(const StructureSPtr& pStructure);
-    virtual Namespace cppAutoClassNamespace(const StructureSPtr& pStructure);
+    virtual NamespaceSPtr cppAutoClassNamespace(const StructureSPtr& pStructure);
     
     virtual SimpleType cppMainClassType(const StructureSPtr& pStructure);
-    virtual Namespace cppMainClassNamespace(const StructureSPtr& pStructure);
+    virtual NamespaceSPtr cppMainClassNamespace(const StructureSPtr& pStructure);
     
     virtual SimpleType cppPartialClassType(const StructureSPtr& pStructure);
-    virtual Namespace cppPartialClassNamespace(const StructureSPtr& pStructure);
     
     virtual std::string constValueName(const EnumerationValueSPtr& pEnumerationValue);
     virtual std::string enumValueName(const EnumerationValueSPtr& pEnumerationValue);

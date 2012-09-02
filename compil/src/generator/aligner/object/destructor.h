@@ -49,12 +49,12 @@ public:
     Destructor();
     explicit Destructor(const SimpleType& type);
     Destructor(const Modifier& modifier, const SimpleType& type);
-    Destructor(const Namespace& namespace_, const SimpleType& type);
+    Destructor(const NamespaceSPtr& namespace_, const SimpleType& type);
     
     operator bool() const;
 
     Modifier mModifier;
-    Namespace mNamespace;
+    NamespaceSPtr mNamespace;
     SimpleType mType;
 };
 

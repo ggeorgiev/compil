@@ -49,17 +49,17 @@ class Constructor
 public:
     Constructor();
     explicit Constructor(const SimpleType& type);
-    Constructor(const Namespace& namespace_, const SimpleType& type);
+    Constructor(const NamespaceSPtr& namespace_, const SimpleType& type);
     Constructor(const SimpleType& type, const Argument& argument);
     Constructor(const Modifier& modifier, const SimpleType& type, const Argument& argument);
-    Constructor(const Namespace& namespace_, const SimpleType& type, const Argument& argument);
-    Constructor(const Modifier& modifier, const Namespace& namespace_, 
+    Constructor(const NamespaceSPtr& namespace_, const SimpleType& type, const Argument& argument);
+    Constructor(const Modifier& modifier, const NamespaceSPtr& namespace_, 
                 const SimpleType& type, const Argument& argument);
 
     operator bool() const;
 
     Modifier mModifier;
-    Namespace mNamespace;
+    NamespaceSPtr mNamespace;
     SimpleType mType;
     std::vector<Argument> mvArgument;
 };

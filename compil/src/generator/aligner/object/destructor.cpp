@@ -51,7 +51,7 @@ Destructor::Destructor(const Modifier& modifier, const SimpleType& type)
 {
 }
 
-Destructor::Destructor(const Namespace& namespace_, const SimpleType& type)
+Destructor::Destructor(const NamespaceSPtr& namespace_, const SimpleType& type)
     : mNamespace(namespace_)
     , mType(type)
 {

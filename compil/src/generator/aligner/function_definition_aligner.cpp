@@ -89,7 +89,8 @@ FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner,
 {
     assert(constructor);
     
-    if (!constructor.mNamespace.isVoid())
+    if (constructor.mNamespace)
+    if (!constructor.mNamespace->isVoid())
     {
         aligner << constructor.mNamespace
                 << "::";

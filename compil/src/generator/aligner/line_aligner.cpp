@@ -237,8 +237,8 @@ LineAligner& operator<<(LineAligner& aligner, const FunctionName& functionName)
 
 LineAligner& operator<<(LineAligner& aligner, const Initialization& initialization)
 {
-    if (initialization.exist_namespace_())
-    if (!initialization.namespace_().isVoid())
+    if (initialization.exist_namespace())
+    if (!initialization.namespace_()->isVoid())
         aligner << initialization.namespace_() << "::";
     aligner << initialization.name() << Aligner::FunctionSpace();
     aligner << "(" << initialization.value() << ")";
@@ -257,10 +257,15 @@ LineAligner& operator<<(LineAligner& aligner, const Namespace& namespace_)
     return aligner;
 }
 
+LineAligner& operator<<(LineAligner& aligner, const NamespaceSPtr& namespace_)
+{
+    return aligner << * namespace_;
+}
+
 LineAligner& operator<<(LineAligner& aligner, const SimpleType& type)
 {
-    if (type.exist_namespace_())
-    if (!type.namespace_().isVoid())
+    if (type.exist_namespace())
+    if (!type.namespace_()->isVoid())
         aligner << type.namespace_() << "::";
         
     aligner << type.value();

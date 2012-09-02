@@ -52,6 +52,7 @@ bool CppKeyword::isKeyword(const std::string& word)
     if (word == "explicit")     return true;
     if (word == "default")      return true;
     if (word == "inline")       return true;
+    if (word == "namespace")    return true;
     if (word == "operator")     return true;
     if (word == "private")      return true;
     if (word == "protected")    return true;
