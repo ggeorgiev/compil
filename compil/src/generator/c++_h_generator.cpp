@@ -1318,13 +1318,16 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
         }
     }
 
+    DecoratedType resultType;
+    if ((sot & BUILDER) == 0)
+        resultType = *CreateDecoratedType(impl->cppType(pCurrStructure), ref);
+    else
+        resultType = *CreateDecoratedType(builder, ref);
+
     if ((sot & WRITING) != 0)
     {
-        DecoratedType resultType;
         if ((sot & BUILDER) == 0)
         {
-            resultType = *CreateDecoratedType(impl->cppType(pCurrStructure), ref);
-            
             commentInTable("Setter method for the data field " + pField->name()->value());
         }
         else
@@ -1334,8 +1337,6 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
             else
                 commentInTable("Hide setter method for the data field " + pField->name()->value() +
                                ", no implementation");
-                               
-            resultType = *CreateDecoratedType(builder, ref);
         }
         
         table() << TableAligner::row()
@@ -1343,7 +1344,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                             Argument(impl->cppInnerSetDecoratedType(pField->type(), pCurrStructure),
                                      frm->cppVariableName(pField)))
                 << ";";
-
+                
         if (pCurrStructure->streamable())
         {
             commentInTable("Store operator for the data field " + pField->name()->value());
@@ -1370,16 +1371,26 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
     {
         if (((sot & WRITING) != 0) && ((sot & SPECIFIC_RESULT_ONLY) == 0))
         {
-            if (pStructure->controlled())
+            if (impl->needMutableMethod(pField->type()))
             {
-                if (impl->needMutableMethod(pField->type()))
-                {
-                    table() << TableAligner::row()
-                            << Function(*CreateDecoratedType(
-                                            impl->cppInnerType(pField->type(), pStructure), ref),
-                                        frm->mutableMethodName(pField))
-                            << ";";
-                }
+                table() << TableAligner::row()
+                        << Function(*CreateDecoratedType(
+                                        impl->cppInnerType(pField->type(), pStructure), ref),
+                                    frm->mutableMethodName(pField))
+                        << ";";
+            }
+            
+            if (   pField->defaultValue()
+                && !pField->defaultValue()->optional())
+            {
+                commentInTable("Update method for the data field " + pField->name()->value() +
+                               ". If the new value is equal to the default it clears the field. Else"
+                               " it behaves is the same as set");
+                table() << TableAligner::row()
+                        << Function(resultType, frm->updateMethodName(pField),
+                                    Argument(impl->cppInnerSetDecoratedType(pField->type(), pCurrStructure),
+                                             frm->cppVariableName(pField)))
+                        << ";";
             }
 
             if (pField->defaultValue())

@@ -217,7 +217,7 @@ NamespaceSPtr CppFormatter::cppPackageNamespace(const PackageSPtr& pPackage)
     const std::vector<std::string>& elements = pPackage->elements();
     std::vector<std::string>::const_iterator it;
     for (it = elements.begin(); it != elements.end(); ++it)
-        *nmspace << lang::cpp::namespaceNameRef(*it);
+        *nmspace << namespaceNameRef(*it);
 
     return nmspace;
 }
@@ -391,6 +391,10 @@ FunctionName CppFormatter::mutableMethodName(const FieldSPtr& pField)
     return methodName("mutable_" + pField->name()->value());
 }
 
+FunctionName CppFormatter::updateMethodName(const FieldSPtr& pField)
+{
+    return methodName("update_" + pField->name()->value());
+}
 
 FunctionName CppFormatter::constantMethodName(const StructureSPtr& pStructure,
                                               const FieldSPtr& pField)

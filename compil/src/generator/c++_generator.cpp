@@ -901,6 +901,9 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
 
     NamespaceSPtr classNamesp = frm->cppAutoClassNamespace(pStructure);
     NamespaceSPtr namesp = classNamesp;
+    
+    NamespaceSPtr baseClassBuilderNamesp = frm->cppAutoClassNamespace(pBaseStructure);
+    *baseClassBuilderNamesp << nsBuilder;
 
     std::string accessObject;
     DecoratedType resultType = *CreateDecoratedType(impl->cppType(pStructure), ref);
@@ -970,8 +973,6 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
         }
         else
         {
-            NamespaceSPtr baseClassBuilderNamesp = frm->cppAutoClassNamespace(pBaseStructure);
-            *baseClassBuilderNamesp << nsBuilder;
             line()  << "return ("
                     << *CreateDecoratedType(
                             *CreateSimpleType(classNamesp, builder.value()), ref)
@@ -1068,6 +1069,66 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                         << accessObject
                         << frm->cppMemberName(pField)
                         << ";";
+                closeBlock(definitionStream);
+                eol(definitionStream);
+            }
+            
+            if (  pField->defaultValue()
+                && !pField->defaultValue()->optional())
+            {
+                fdef()  << TableAligner::row()
+                        << Function(resultType,
+                                    namesp, frm->updateMethodName(pField),
+                                    Argument(impl->cppInnerSetDecoratedType(pField->type(), pStructure),
+                                             frm->cppVariableName(pField)));
+                openBlock(definitionStream);
+                
+                if (pStructure == pBaseStructure)
+                {
+                    line()  << "if ("
+                            << accessObject
+                            << frm->defaultMethodName(pField)
+                            << "() != "
+                            << frm->cppVariableName(pField)
+                            << ")";
+                    eol(definitionStream);
+                    
+                    line()  << "return "
+                            << frm->updateMethodName(pField)
+                            << "("
+                            << frm->cppVariableName(pField)
+                            << ");";
+                    eol(definitionStream, 1);
+
+                    eol(definitionStream);
+                    
+                    line()  << frm->resetMethodName(pField)
+                            << "();";
+                    eol(definitionStream);
+
+                    if (!pStructure->immutable() && pStructure->partial())
+                    {
+                        line()  << "return *("
+                                << frm->cppClassType(pStructure).value()
+                                << "*)this;";
+                    }
+                    else
+                    {
+                        line() << "return *this;";
+                    }
+                    eol(definitionStream);
+                }
+                else
+                {
+                    line()  << "return ("
+                            << *CreateDecoratedType(
+                                    *CreateSimpleType(classNamesp, builder.value()), ref)
+                            << ")"
+                            << FunctionCall(baseClassBuilderNamesp,
+                                            frm->updateMethodName(pField), Argument(frm->cppVariableName(pField)))
+                            << ";";
+                    eol(definitionStream);
+                }
                 closeBlock(definitionStream);
                 eol(definitionStream);
             }
@@ -1913,7 +1974,7 @@ void CppGenerator::generateStructureOperatorMethodsDefinition(
 
     NamespaceSPtr nmspace = frm->cppAutoClassNamespace(pStructure);
     if (flags.isSet(EOperatorFlags::functor()))
-        *nmspace << lang::cpp::namespaceNameRef(fnFunction.value());
+        *nmspace << namespaceNameRef(fnFunction.value());
 
     int arguments;
     if (flags.isClear(EOperatorFlags::member()) || flags.isSet(EOperatorFlags::functor()))

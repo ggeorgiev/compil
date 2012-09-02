@@ -42,12 +42,6 @@
 
 #include "namespace_name.h"
 
-namespace lang
-{
-
-namespace cpp
-{
-
 class NamespaceName
 {
 public:
@@ -92,17 +86,8 @@ inline bool NamespaceName::operator<(const NamespaceName& rValue) const
     return mValue < rValue.mValue;
 }
 
-}
-
-}
 
 #else // __LANGUAGE_CPP_NAMESPACE_NAME_COMPIL_H_
-
-namespace lang
-{
-
-namespace cpp
-{
 
 // Forward declarations
 class NamespaceName;
@@ -110,10 +95,6 @@ typedef NamespaceName*                         NamespaceNameRPtr;
 typedef boost::shared_ptr<NamespaceName>       NamespaceNameSPtr;
 typedef boost::shared_ptr<const NamespaceName> NamespaceNameSCPtr;
 typedef boost::weak_ptr<NamespaceName>         NamespaceNameWPtr;
-
-}
-
-}
 
 #endif // __LANGUAGE_CPP_NAMESPACE_NAME_COMPIL_H_
 

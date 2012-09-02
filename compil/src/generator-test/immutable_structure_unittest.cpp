@@ -98,6 +98,24 @@ TEST(ImmutableStructureTest, availableMethod)
     EXPECT_TRUE(immutableStructureClone.valid_s1());
 }
 
+TEST(ImmutableStructureTest, updateMethod)
+{
+    ImmutableStructure1::Builder builder;
+    builder .set_r1(11)
+            .set_o1(12)
+            .set_d1(13);
+            
+    builder.mutable_s1() = "s1";
+    
+    ImmutableStructure1 immutableStructure = builder.build();
+    EXPECT_TRUE(immutableStructure.changed_d1());
+
+    builder.update_d1(1);
+
+    immutableStructure = builder.build();
+    EXPECT_FALSE(immutableStructure.changed_d1());
+}
+
 TEST(ImmutableStructureTest, destroyMethod)
 {
     ImmutableStructure1::Builder builder;

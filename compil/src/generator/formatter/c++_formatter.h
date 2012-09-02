@@ -131,6 +131,7 @@ public:
     virtual FunctionName getMethodName(const FieldSPtr& pField);
     virtual FunctionName setMethodName(const FieldSPtr& pField);
     virtual FunctionName mutableMethodName(const FieldSPtr& pField);
+    virtual FunctionName updateMethodName(const FieldSPtr& pField);
     
     virtual FunctionName constantMethodName(const StructureSPtr& pStructure,
                                             const FieldSPtr& pField);
