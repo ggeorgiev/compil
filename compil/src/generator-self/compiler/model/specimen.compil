@@ -41,4 +41,6 @@ structure Specimen
         alter kind = object
 {
     runtime identification;
+    
+    weak reference<Specimen> baseSpecimen = null;
 }

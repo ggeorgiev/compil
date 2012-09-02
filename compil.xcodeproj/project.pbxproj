@@ -361,7 +361,6 @@
 		5E88A30515E188BC002D43A5 /* variable_name.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = variable_name.compil; sourceTree = "<group>"; };
 		5E88A30615E188BC002D43A5 /* jamfile.jam */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.jam; path = jamfile.jam; sourceTree = "<group>"; };
 		5E88A30715E188BC002D43A5 /* main_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main_unittest.cpp; sourceTree = "<group>"; };
-		5EB29D7115F3D3E700894479 /* method_name.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_name.compil; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -788,7 +787,6 @@
 				5E88A2A315E188BB002D43A5 /* decoration.compil */,
 				5E88A2A415E188BB002D43A5 /* function_name.compil */,
 				5E88A2A515E188BB002D43A5 /* initialization.compil */,
-				5EB29D7115F3D3E700894479 /* method_name.compil */,
 				5E88A2A615E188BB002D43A5 /* modifier.compil */,
 				5E88A2A715E188BB002D43A5 /* namespace.compil */,
 				5E88A2AA15E188BB002D43A5 /* namespace_name.compil */,

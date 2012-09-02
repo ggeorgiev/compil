@@ -49,7 +49,7 @@ lib generator-self-compil :
     generator/aligner/object/decoration.compil
     generator/aligner/object/function_name.compil
     generator/aligner/object/initialization.compil
-    generator/aligner/object/method_name.compil
+    #generator/aligner/object/method_name.compil
     generator/aligner/object/modifier.compil
     generator/aligner/object/simple_type.compil
     generator/aligner/object/namespace_name.compil

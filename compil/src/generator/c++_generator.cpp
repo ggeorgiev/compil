@@ -413,6 +413,8 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
 
 void CppGenerator::generateSpecimenDefinition(const SpecimenSPtr& pSpecimen)
 {
+    SpecimenSPtr pBaseSpecimen = pSpecimen->baseSpecimen().lock();
+
     fdef()  << TableAligner::row()
             << Constructor(frm->cppClassNamespace(pSpecimen), frm->cppClassType(pSpecimen));
     openBlock(definitionStream);
@@ -424,8 +426,11 @@ void CppGenerator::generateSpecimenDefinition(const SpecimenSPtr& pSpecimen)
                            Argument(impl->cppDecoratedType(pSpecimen->parameterType().lock()), "value"));
     eofd(definitionStream);
 
-    line()  << ": "
-            << *CreateInitialization(frm->memberName("value"), "value");
+    line()  << ": ";
+    if (pBaseSpecimen)
+        line()  << *CreateInitialization(frm->cppClassType(pBaseSpecimen).value(), "value");
+    else
+        line()  << *CreateInitialization(frm->memberName("value"), "value");
     openBlock(definitionStream, 2);
     closeBlock(definitionStream);
     eol(definitionStream);

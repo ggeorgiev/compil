@@ -458,6 +458,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
 void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecimen)
 {
     TypeSPtr pParameterType = pSpecimen->parameterType().lock();
+    SpecimenSPtr pBaseSpecimen = pSpecimen->baseSpecimen().lock();
 
     addDependencies(impl->dependencies(pParameterType));
     addDependencies(impl->classReferenceDependencies());
@@ -465,6 +466,11 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     generateForwardClassDeclarations(pSpecimen);
 
     line()  << "class " << frm->cppClassType(pSpecimen);
+    if (pBaseSpecimen)
+    {
+        line()  << " : public "
+                << frm->cppClassType(pBaseSpecimen);
+    }
     openBlock(declarationStream);
     line()  << "public:";
     eol(declarationStream, -1);
@@ -478,11 +484,14 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
                            Argument(impl->cppDecoratedType(pParameterType), "value"))
             << ";";
 
-    table() << TableAligner::row()
-            << TableAligner::row()
-            << "inline "
-            << Function(*CreateDecoratedType(impl->cppType(pParameterType)), fnValue, cst)
-            << ";";
+    table() << TableAligner::row();
+    if (!pBaseSpecimen)
+    {
+        table() << TableAligner::row()
+                << "inline "
+                << Function(*CreateDecoratedType(impl->cppType(pParameterType)), fnValue, cst)
+                << ";";
+    }
 
     table() << TableAligner::row()
             << "inline "
@@ -527,16 +536,19 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     closeBlock(inlineDefinitionStream);
     eol(inlineDefinitionStream);
     
-    fdef()  << TableAligner::row()
-            << "inline "
-            << Function(*CreateDecoratedType(impl->cppType(pParameterType)),
-                        frm->cppClassNamespace(pSpecimen), fnValue, cst);
-    openBlock(inlineDefinitionStream);
-    line()  << "return "
-            << frm->memberName("value")
-            << ";";
-    closeBlock(inlineDefinitionStream);
-    eol(inlineDefinitionStream);
+    if (!pBaseSpecimen)
+    {
+        fdef()  << TableAligner::row()
+                << "inline "
+                << Function(*CreateDecoratedType(impl->cppType(pParameterType)),
+                            frm->cppClassNamespace(pSpecimen), fnValue, cst);
+        openBlock(inlineDefinitionStream);
+        line()  << "return "
+                << frm->memberName("value")
+                << ";";
+        closeBlock(inlineDefinitionStream);
+        eol(inlineDefinitionStream);
+    }
 
     fdef()  << TableAligner::row()
             << "inline "
@@ -544,10 +556,10 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
                         Argument(impl->cppDecoratedType(pSpecimen), "rValue"), cst);
     openBlock(inlineDefinitionStream);
     line()  << "return "
-            << frm->memberName("value")
-            << " == rValue."
-            << frm->memberName("value")
-            << ";";
+            << fnValue
+            << "() == rValue."
+            << fnValue
+            << "();";
     closeBlock(inlineDefinitionStream);
     eol(inlineDefinitionStream);
 
@@ -557,10 +569,10 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
                         Argument(impl->cppDecoratedType(pSpecimen), "rValue"), cst);
     openBlock(inlineDefinitionStream);
     line()  << "return "
-            << frm->memberName("value")
-            << " != rValue."
-            << frm->memberName("value")
-            << ";";
+            << fnValue
+            << "() != rValue."
+            << fnValue
+            << "();";
     closeBlock(inlineDefinitionStream);
     eol(inlineDefinitionStream);
 
@@ -570,22 +582,25 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
                         Argument(impl->cppDecoratedType(pSpecimen), "rValue"), cst);
     openBlock(inlineDefinitionStream);
     line()  << "return "
-            << frm->memberName("value")
-            << " < rValue."
-            << frm->memberName("value")
-            << ";";
+            << fnValue
+            << "() < rValue."
+            << fnValue
+            << "();";
     closeBlock(inlineDefinitionStream);
     eol(inlineDefinitionStream);
 
-    line()  << "private:";
-    eol(declarationStream, -1);
-    table() << TableAligner::row()
-            << impl->cppType(pParameterType)
-            << " "
-            << TableAligner::col()
-            << frm->memberName("value")
-            << ";";
-    eot(declarationStream);
+    if (!pBaseSpecimen)
+    {
+        line()  << "private:";
+        eol(declarationStream, -1);
+        table() << TableAligner::row()
+                << impl->cppType(pParameterType)
+                << " "
+                << TableAligner::col()
+                << frm->memberName("value")
+                << ";";
+        eot(declarationStream);
+    }
 
     closeBlock(declarationStream, "};");
     eol(declarationStream);

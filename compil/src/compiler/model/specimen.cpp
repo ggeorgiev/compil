@@ -22,5 +22,22 @@ Type::EKind Specimen::alter_kind()
     return Type::EKind::object();
 }
 
+const SpecimenWPtr& Specimen::baseSpecimen() const
+{
+    return mBaseSpecimen;
+}
+
+SpecimenWPtr Specimen::default_baseSpecimen()
+{
+    static SpecimenWPtr defaultObject;
+    return defaultObject;
+}
+
+Specimen& Specimen::set_baseSpecimen(const SpecimenSPtr& baseSpecimen)
+{
+    mBaseSpecimen = baseSpecimen;
+    return *this;
+}
+
 }
 

@@ -9,3 +9,11 @@ specimen<integer> SessionIndex
 specimen<string> StringSpecimen
 {
 }
+
+specimen<StringSpecimen> SpecimenFromSpecimen
+{
+}
+
+specimen<string> StringSpecimen2 inherit StringSpecimen
+{
+}

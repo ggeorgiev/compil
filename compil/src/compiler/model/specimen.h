@@ -47,17 +47,17 @@ class Specimen : public UnaryTemplate
 {
 public:
     // Default constructor
-                         Specimen       ();
+                                Specimen            ();
     // Destructor
-    virtual              ~Specimen      ();
+    virtual                     ~Specimen           ();
 
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  SpecimenSPtr downcast       (const ObjectSPtr& pObject);
+    static  SpecimenSPtr        downcast            (const ObjectSPtr& pObject);
 
     // Returns the alter value object of the field kind
-    static  Type::EKind  alter_kind     ();
+    static  Type::EKind         alter_kind          ();
 
     // Identifier for the objects from Specimen class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -65,12 +65,23 @@ public:
     // of the other class objects. This allows all identifiers to be
     // maintained from a single place, which reduces the risk of value
     // collisions
-    static  EObjectId    staticObjectId ();
+    static  EObjectId           staticObjectId      ();
     // This virtual method provides runtime object identification based on
     // the polymorphic behavior of the virtual methods. Allows having a
     // RTTI like mechanism significantly cheaper than the RTTI provided by
     // the compilers themselves.
-    virtual EObjectId    runtimeObjectId()                          const;
+    virtual EObjectId           runtimeObjectId     ()                                 const;
+
+    // Getter method for the data field baseSpecimen
+            const SpecimenWPtr& baseSpecimen        ()                                 const;
+    // Returns the default value null of the field baseSpecimen
+    static  SpecimenWPtr        default_baseSpecimen();
+    // Setter method for the data field baseSpecimen
+            Specimen&           set_baseSpecimen    (const SpecimenSPtr& baseSpecimen);
+
+private:
+    // variable for the data field baseSpecimen
+    SpecimenWPtr mBaseSpecimen;
 };
 
 }

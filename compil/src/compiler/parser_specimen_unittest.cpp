@@ -132,6 +132,16 @@ TEST_F(ParserSpecimenTests, specimenName)
     EXPECT_TRUE(checkErrorMessage(0, 1, 14, compil::Message::p_expectStatementBody));
 }
 
+TEST_F(ParserSpecimenTests, specimenNameInherit)
+{
+    ASSERT_FALSE( parse(
+        "specimen name inherit") );
+    
+    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    EXPECT_TRUE(checkErrorMessage(0, 1, 22, compil::Message::p_expectClassifierStatementName,
+                                            compil::Message::Classifier("base")));
+}
+
 TEST_F(ParserSpecimenTests, specimenNameOpen)
 {
     ASSERT_FALSE( parse(

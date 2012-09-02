@@ -600,9 +600,50 @@ SpecimenSPtr Parser::parseSpecimen(const CommentSPtr& pComment)
     pName->set_value(mpTokenizer->current()->text());
 
     pSpecimen->set_name(pName);
-
+    
     mpTokenizer->shift();
     skipComments();
+    if (check(Token::TYPE_IDENTIFIER, "inherit"))
+    {
+        mpTokenizer->shift();
+        skipComments();
+        if (!expect(Token::TYPE_IDENTIFIER))
+        {
+            *this << (errorMessage(Message::p_expectClassifierStatementName)
+                        << Message::Classifier("base")
+                        << Message::Statement("specimen"));
+            return SpecimenSPtr();
+        }
+
+        std::vector<std::string> package_elements;
+        TokenPtr pTypeNameToken;
+        if (!parseType(package_elements, pTypeNameToken))
+            return SpecimenSPtr();
+
+        skipComments();
+
+        TypeSPtr pType = mpModel->findType(mpPackage, package_elements, pTypeNameToken->text());
+        if (!pType)
+        {
+            *this << (errorMessage(Message::p_unknownClassifierType,
+                                   pTypeNameToken->line(), pTypeNameToken->beginColumn())
+                        << Message::Classifier("base")
+                        << Message::Type(pTypeNameToken->text()));
+            return SpecimenSPtr();
+        }
+        if (pType->runtimeObjectId() != EObjectId::specimen())
+        {
+            *this << (errorMessage(Message::p_expectAppropriateType,
+                                   pTypeNameToken->line(), pTypeNameToken->beginColumn())
+                        << Message::Classifier("base")
+                        << Message::Options("speciment"));
+            return SpecimenSPtr();
+        }
+
+        SpecimenSPtr pBaseSpecimen = boost::static_pointer_cast<Specimen>(pType);
+        pSpecimen->set_baseSpecimen(pBaseSpecimen);
+    }
+
     if (!expect(Token::TYPE_BRACKET, "{"))
     {
         *this << (errorMessage(Message::p_expectStatementBody)
