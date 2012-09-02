@@ -73,52 +73,52 @@ extern DecoratedType cloneFunction;
 extern DecoratedType cstTRef;
 extern DecoratedType TPtr;
 
-extern MethodName fnValue;
-extern MethodName fnShortName;
-extern MethodName fnBuild;
-extern MethodName fnClone;
-extern MethodName fnCreate;
-extern MethodName fnFinalize;
+extern MethodNameSPtr fnValue;
+extern MethodNameSPtr fnShortName;
+extern MethodNameSPtr fnBuild;
+extern MethodNameSPtr fnClone;
+extern MethodNameSPtr fnCreate;
+extern MethodNameSPtr fnFinalize;
 
-extern MethodName fnBuilder;
-extern MethodName fnDowncast;
-extern MethodName fnSharedFromThis;
+extern MethodNameSPtr fnBuilder;
+extern MethodNameSPtr fnDowncast;
+extern MethodNameSPtr fnSharedFromThis;
 
-extern MethodName fnIsInitialized;
-extern MethodName fnIsVoid;
+extern MethodNameSPtr fnIsInitialized;
+extern MethodNameSPtr fnIsVoid;
 
-extern MethodName fnInprocId;
-extern MethodName fnGet;
-extern MethodName fnRegisterCloneFunction;
-extern MethodName fnRegisterRelationship;
-extern MethodName fnIsParent;
-extern MethodName fnIsDerivedFrom;
+extern MethodNameSPtr fnInprocId;
+extern MethodNameSPtr fnGet;
+extern MethodNameSPtr fnRegisterCloneFunction;
+extern MethodNameSPtr fnRegisterRelationship;
+extern MethodNameSPtr fnIsParent;
+extern MethodNameSPtr fnIsDerivedFrom;
 
-extern MethodName fnOperatorE;
-extern MethodName fnOperatorEq;
-extern MethodName fnOperatorNe;
-extern MethodName fnOperatorLt;
-extern MethodName fnOperatorFn;
-extern MethodName fnOperatorStore;
-extern MethodName fnOperatorStoreEq;
-extern MethodName fnOperatorPlusEq;
+extern MethodNameSPtr fnOperatorE;
+extern MethodNameSPtr fnOperatorEq;
+extern MethodNameSPtr fnOperatorNe;
+extern MethodNameSPtr fnOperatorLt;
+extern MethodNameSPtr fnOperatorFn;
+extern MethodNameSPtr fnOperatorStore;
+extern MethodNameSPtr fnOperatorStoreEq;
+extern MethodNameSPtr fnOperatorPlusEq;
 
-extern MethodName fnFunctionalOperatorEq;
-extern MethodName fnFunctionalOperatorLt;
+extern MethodNameSPtr fnFunctionalOperatorEq;
+extern MethodNameSPtr fnFunctionalOperatorLt;
 
-extern MethodName fnReset;
-extern MethodName fnSet;
-extern MethodName fnClear;
-extern MethodName fnTurn;
+extern MethodNameSPtr fnReset;
+extern MethodNameSPtr fnSet;
+extern MethodNameSPtr fnClear;
+extern MethodNameSPtr fnTurn;
 
-extern MethodName fnAssemble;
-extern MethodName fnCombine;
-extern MethodName fnIntersect;
-extern MethodName fnFlip;
+extern MethodNameSPtr fnAssemble;
+extern MethodNameSPtr fnCombine;
+extern MethodNameSPtr fnIntersect;
+extern MethodNameSPtr fnFlip;
 
-extern MethodName fnTest;
-extern MethodName fnIsSet;
-extern MethodName fnIsClear;
+extern MethodNameSPtr fnTest;
+extern MethodNameSPtr fnIsSet;
+extern MethodNameSPtr fnIsClear;
 
 extern Modifier sttc;
 extern Modifier vrtl;

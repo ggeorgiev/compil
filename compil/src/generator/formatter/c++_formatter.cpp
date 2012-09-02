@@ -89,12 +89,12 @@ std::string CppFormatter::cppRefName(const std::string& rawName)
     return rawName + "Ref";
 }
 
-FunctionName CppFormatter::methodName(const std::string& rawName)
+MethodNameSPtr CppFormatter::methodName(const std::string& rawName)
 {
     std::string result = rawName;
     std::transform(result.begin() + 0, result.begin() + 1, result.begin() + 0, tolower);
     result = mpKeyword->escapeKeyword(result);
-    return *functionNameRef(result);
+    return methodNameRef(result);
 }    
 
 std::string CppFormatter::memberName(const std::string& rawName)
@@ -376,27 +376,27 @@ std::string CppFormatter::cppVariableName(const FieldSPtr& pField)
     return variableName(pField->name()->value());
 }
 
-FunctionName CppFormatter::getMethodName(const FieldSPtr& pField)
+MethodNameSPtr CppFormatter::getMethodName(const FieldSPtr& pField)
 {
     return methodName(pField->name()->value());
 }
     
-FunctionName CppFormatter::setMethodName(const FieldSPtr& pField)
+MethodNameSPtr CppFormatter::setMethodName(const FieldSPtr& pField)
 {
     return methodName("set_" + pField->name()->value());
 }
 
-FunctionName CppFormatter::mutableMethodName(const FieldSPtr& pField)
+MethodNameSPtr CppFormatter::mutableMethodName(const FieldSPtr& pField)
 {
     return methodName("mutable_" + pField->name()->value());
 }
 
-FunctionName CppFormatter::updateMethodName(const FieldSPtr& pField)
+MethodNameSPtr CppFormatter::updateMethodName(const FieldSPtr& pField)
 {
     return methodName("update_" + pField->name()->value());
 }
 
-FunctionName CppFormatter::constantMethodName(const StructureSPtr& pStructure,
+MethodNameSPtr CppFormatter::constantMethodName(const StructureSPtr& pStructure,
                                               const FieldSPtr& pField)
 {
     if (pField->structure().lock() == pStructure)
@@ -406,17 +406,17 @@ FunctionName CppFormatter::constantMethodName(const StructureSPtr& pStructure,
 }
     
 
-FunctionName CppFormatter::defaultMethodName(const FieldSPtr& pField)
+MethodNameSPtr CppFormatter::defaultMethodName(const FieldSPtr& pField)
 {
     return methodName("default_" + pField->name()->value());
 }
 
-FunctionName CppFormatter::alterMethodName(const FieldSPtr& pField)
+MethodNameSPtr CppFormatter::alterMethodName(const FieldSPtr& pField)
 {
     return methodName("alter_" + pField->name()->value());
 }
 
-FunctionName CppFormatter::destroyMethodName(const FieldSPtr& pField)
+MethodNameSPtr CppFormatter::destroyMethodName(const FieldSPtr& pField)
 {
     if (pField->defaultValue())
     {
@@ -432,22 +432,22 @@ FunctionName CppFormatter::destroyMethodName(const FieldSPtr& pField)
     return eraseMethodName(pField);
 }
 
-FunctionName CppFormatter::clearMethodName(const FieldSPtr& pField)
+MethodNameSPtr CppFormatter::clearMethodName(const FieldSPtr& pField)
 {
     return methodName("clear_" + pField->name()->value());
 }
     
-FunctionName CppFormatter::resetMethodName(const FieldSPtr& pField)
+MethodNameSPtr CppFormatter::resetMethodName(const FieldSPtr& pField)
 {
     return methodName("reset_" + pField->name()->value());
 }
 
-FunctionName CppFormatter::eraseMethodName(const FieldSPtr& pField)
+MethodNameSPtr CppFormatter::eraseMethodName(const FieldSPtr& pField)
 {
     return methodName("erase_" + pField->name()->value());
 }
     
-FunctionName CppFormatter::availableMethodName(const FieldSPtr& pField)
+MethodNameSPtr CppFormatter::availableMethodName(const FieldSPtr& pField)
 {
     if (pField->defaultValue())
     {
@@ -464,24 +464,29 @@ FunctionName CppFormatter::availableMethodName(const FieldSPtr& pField)
 }
 
 
-FunctionName CppFormatter::existMethodName(const FieldSPtr& pField)
+MethodNameSPtr CppFormatter::existMethodName(const FieldSPtr& pField)
 {
     return methodName("exist_" + pField->name()->value());
 }
 
-FunctionName CppFormatter::changedMethodName(const FieldSPtr& pField)
+MethodNameSPtr CppFormatter::changedMethodName(const FieldSPtr& pField)
 {
     return methodName("changed_" + pField->name()->value());
 }
 
-FunctionName CppFormatter::validMethodName(const FieldSPtr& pField)
+MethodNameSPtr CppFormatter::validMethodName(const FieldSPtr& pField)
 {
     return methodName("valid_" + pField->name()->value());
 }
 
-FunctionName CppFormatter::bitmaskMethodName(const FieldSPtr& pField)
+MethodNameSPtr CppFormatter::bitmaskMethodName(const FieldSPtr& pField)
 {
     return methodName("bitmask_" + pField->name()->value());
+}
+
+MethodNameSPtr CppFormatter::downcastMethodName(const StructureSPtr& pStructure)
+{
+    return methodName("downcast" + pStructure->name()->value());
 }
 
 std::string CppFormatter::defaultValue(const Type::ELiteral literal, const std::string& value) const

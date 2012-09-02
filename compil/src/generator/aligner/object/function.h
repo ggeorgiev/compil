@@ -50,57 +50,57 @@ class Function
 public:
     Function();
     
-    explicit Function(const FunctionName& name);
+    explicit Function(const FunctionNameSPtr& name);
     
     Function(const DecoratedType& returnType, 
-             const FunctionName& name);
+             const FunctionNameSPtr& name);
              
-    Function(const FunctionName& name, 
+    Function(const FunctionNameSPtr& name, 
              const Declaration& declaration);
              
     Function(const CastOperator& castOperator, 
              const Declaration& declaration);
              
     Function(const DecoratedType& returnType, 
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Declaration& declaration);
              
-    Function(const FunctionName& name, 
+    Function(const FunctionNameSPtr& name, 
              const Argument& argument);
              
     Function(const DecoratedType& returnType, 
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Argument& argument);
              
     Function(const DecoratedType& returnType, 
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Argument& argument1,
              const Argument& argument2);
              
-    Function(const FunctionName& name, 
+    Function(const FunctionNameSPtr& name, 
              const Argument& argument, 
              const Declaration& declaration);
              
     Function(const DecoratedType& returnType, 
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Argument& argument, 
              const Declaration& declaration);
              
     Function(const DecoratedType& returnType, 
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Argument& argument1,
              const Argument& argument2,
              const Declaration& declaration);
              
     Function(const NamespaceSPtr& namesp,
-             const FunctionName& name);
+             const FunctionNameSPtr& name);
              
     Function(const DecoratedType& returnType, 
              const NamespaceSPtr& namesp,
-             const FunctionName& name);
+             const FunctionNameSPtr& name);
              
     Function(const NamespaceSPtr& namesp, 
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Declaration& declaration);
              
     Function(const NamespaceSPtr& namesp, 
@@ -109,70 +109,70 @@ public:
              
     Function(const DecoratedType& returnType, 
              const NamespaceSPtr& namesp, 
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Declaration& declaration);
              
     Function(const NamespaceSPtr& namesp,
-             const FunctionName& name,
+             const FunctionNameSPtr& name,
              const Argument& argument);
              
     Function(const DecoratedType& returnType,
              const NamespaceSPtr& namesp, 
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Argument& argument);
              
     Function(const DecoratedType& returnType,
              const NamespaceSPtr& namesp,
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Argument& argument1,
              const Argument& argument2);
              
     Function(const NamespaceSPtr& namesp, 
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Argument& argument, 
              const Declaration& declaration);
              
     Function(const DecoratedType& returnType, 
              const NamespaceSPtr& namesp, 
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Argument& argument, 
              const Declaration& declaration);
              
     Function(const DecoratedType& returnType, 
              const NamespaceSPtr& namesp, 
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Argument& argument1,
              const Argument& argument2, 
              const Declaration& declaration);
              
     Function(const Modifier& modifier,
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Declaration& declaration);
              
     Function(const Modifier& modifier,
              const DecoratedType& returnType, 
-             const FunctionName& name);
+             const FunctionNameSPtr& name);
 
     Function(const Modifier& modifier,
              const DecoratedType& returnType, 
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Argument& argument);
 
     Function(const Modifier& modifier,
              const DecoratedType& returnType, 
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Argument& argument,
              const Declaration& declaration);
              
     Function(const Modifier& modifier,
              const DecoratedType& returnType, 
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Argument& argument1,
              const Argument& argument2);
              
     Function(const Modifier& modifier,
              const DecoratedType& returnType, 
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Argument& argument1,
              const Argument& argument2,
              const Declaration& declaration);
@@ -180,16 +180,16 @@ public:
     Function(const Modifier& modifier,
              const DecoratedType& returnType,
              const NamespaceSPtr& namesp,
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Argument& argument);
 
     Function(const Modifier& modifier,
              const DecoratedType& returnType, 
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Declaration& declaration);
              
     Function(const Modifier& modifier,
-             const FunctionName& name, 
+             const FunctionNameSPtr& name, 
              const Argument& argument);
     
     Function& operator <<(const Argument& argument);
@@ -197,7 +197,7 @@ public:
     Modifier mModifier;
     DecoratedType mReturnType;
     NamespaceSPtr mNamespace;
-    FunctionName mName;
+    FunctionNameSPtr mName;
     CastOperator mCastOperator;
     std::vector<Argument> mvArgument;
     Declaration mDeclaration;

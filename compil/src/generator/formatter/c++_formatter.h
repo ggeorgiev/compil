@@ -50,7 +50,7 @@
 #include "decorated_type.h"
 #include "namespace.h"
 #include "cast_operator.h"
-#include "function_name.h"
+#include "method_name.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -76,7 +76,7 @@ public:
     
     virtual std::string cppRefName(const std::string& rawName);
     
-    virtual FunctionName methodName(const std::string& rawName);
+    virtual MethodNameSPtr methodName(const std::string& rawName);
     
     virtual std::string memberName(const std::string& rawName);
     virtual std::string variableName(const std::string& rawName);
@@ -128,27 +128,29 @@ public:
     virtual std::string cppMemberName(const FieldSPtr& pField);
     virtual std::string cppVariableName(const FieldSPtr& pField);
     
-    virtual FunctionName getMethodName(const FieldSPtr& pField);
-    virtual FunctionName setMethodName(const FieldSPtr& pField);
-    virtual FunctionName mutableMethodName(const FieldSPtr& pField);
-    virtual FunctionName updateMethodName(const FieldSPtr& pField);
+    virtual MethodNameSPtr getMethodName(const FieldSPtr& pField);
+    virtual MethodNameSPtr setMethodName(const FieldSPtr& pField);
+    virtual MethodNameSPtr mutableMethodName(const FieldSPtr& pField);
+    virtual MethodNameSPtr updateMethodName(const FieldSPtr& pField);
     
-    virtual FunctionName constantMethodName(const StructureSPtr& pStructure,
+    virtual MethodNameSPtr constantMethodName(const StructureSPtr& pStructure,
                                             const FieldSPtr& pField);
-    virtual FunctionName defaultMethodName(const FieldSPtr& pField);
-    virtual FunctionName alterMethodName(const FieldSPtr& pField);
+    virtual MethodNameSPtr defaultMethodName(const FieldSPtr& pField);
+    virtual MethodNameSPtr alterMethodName(const FieldSPtr& pField);
 
-    virtual FunctionName destroyMethodName(const FieldSPtr& pField);
-    virtual FunctionName clearMethodName(const FieldSPtr& pField);
-    virtual FunctionName eraseMethodName(const FieldSPtr& pField);
-    virtual FunctionName resetMethodName(const FieldSPtr& pField);
+    virtual MethodNameSPtr destroyMethodName(const FieldSPtr& pField);
+    virtual MethodNameSPtr clearMethodName(const FieldSPtr& pField);
+    virtual MethodNameSPtr eraseMethodName(const FieldSPtr& pField);
+    virtual MethodNameSPtr resetMethodName(const FieldSPtr& pField);
     
-    virtual FunctionName availableMethodName(const FieldSPtr& pField);
-    virtual FunctionName existMethodName(const FieldSPtr& pField);
-    virtual FunctionName validMethodName(const FieldSPtr& pField);
-    virtual FunctionName changedMethodName(const FieldSPtr& pField);
+    virtual MethodNameSPtr availableMethodName(const FieldSPtr& pField);
+    virtual MethodNameSPtr existMethodName(const FieldSPtr& pField);
+    virtual MethodNameSPtr validMethodName(const FieldSPtr& pField);
+    virtual MethodNameSPtr changedMethodName(const FieldSPtr& pField);
     
-    virtual FunctionName bitmaskMethodName(const FieldSPtr& pField);
+    virtual MethodNameSPtr bitmaskMethodName(const FieldSPtr& pField);
+    
+    virtual MethodNameSPtr downcastMethodName(const StructureSPtr& pStructure);
     
     virtual std::string defaultValue(const Type::ELiteral literal, const std::string& value) const;
     virtual std::string defaultValue(const AlterSPtr& pAlter) const;

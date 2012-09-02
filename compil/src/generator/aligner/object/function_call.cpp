@@ -39,23 +39,23 @@ FunctionCall::FunctionCall()
 {
 }
 
-FunctionCall::FunctionCall(const FunctionName& name)
+FunctionCall::FunctionCall(const FunctionNameSPtr& name)
     : mName(name)
 {
 }
 
-FunctionCall::FunctionCall(const FunctionName& name, const Argument& argument)
+FunctionCall::FunctionCall(const FunctionNameSPtr& name, const Argument& argument)
     : mName(name)
 {
     mvArgument.push_back(argument);
 }
 
-FunctionCall::FunctionCall(const NamespaceSPtr& namesp, const FunctionName& name)
+FunctionCall::FunctionCall(const NamespaceSPtr& namesp, const FunctionNameSPtr& name)
     : mNamespace(namesp), mName(name)
 {
 }
 
-FunctionCall::FunctionCall(const NamespaceSPtr& namesp, const FunctionName& name, const Argument& argument)
+FunctionCall::FunctionCall(const NamespaceSPtr& namesp, const FunctionNameSPtr& name, const Argument& argument)
     : mNamespace(namesp), mName(name)
 {
     mvArgument.push_back(argument);

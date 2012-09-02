@@ -49,15 +49,15 @@ class FunctionCall
 public:
     FunctionCall();
     
-    explicit FunctionCall(const FunctionName& name);
-    FunctionCall(const FunctionName& name, const Argument& argument);
-    FunctionCall(const NamespaceSPtr& namesp, const FunctionName& name);
-    FunctionCall(const NamespaceSPtr& namesp, const FunctionName& name, const Argument& argument);
+    explicit FunctionCall(const FunctionNameSPtr& name);
+    FunctionCall(const FunctionNameSPtr& name, const Argument& argument);
+    FunctionCall(const NamespaceSPtr& namesp, const FunctionNameSPtr& name);
+    FunctionCall(const NamespaceSPtr& namesp, const FunctionNameSPtr& name, const Argument& argument);
     
     FunctionCall& operator <<(const Argument& argument);
 
     NamespaceSPtr mNamespace;
-    FunctionName mName;
+    FunctionNameSPtr mName;
     std::vector<Argument> mvArgument;
 };
 

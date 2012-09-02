@@ -604,14 +604,14 @@ std::vector<StructureSPtr> CppImplementer::hierarchie(const ModelPtr& pModel,
     return hierarchie;
 }
 
-FunctionName CppImplementer::staticMethodName(const std::string& name)
+MethodNameSPtr CppImplementer::staticMethodName(const std::string& name)
 {
     std::string uname = name;
     std::transform(uname.begin(), uname.begin() + 1, uname.begin(), toupper);
     return mpFrm->methodName("static" + uname);
 }
 
-FunctionName CppImplementer::runtimeMethodName(const std::string& name)
+MethodNameSPtr CppImplementer::runtimeMethodName(const std::string& name)
 {
     std::string uname = name;
     std::transform(uname.begin(), uname.begin() + 1, uname.begin(), toupper);
@@ -628,12 +628,12 @@ SimpleType CppImplementer::identificationEnum(const StructureSPtr& pStructure)
     return *CreateSimpleType(mpFrm->enumName(identificationName(pStructure)));
 }
 
-FunctionName CppImplementer::staticIdentificationMethodName(const StructureSPtr& pStructure)
+MethodNameSPtr CppImplementer::staticIdentificationMethodName(const StructureSPtr& pStructure)
 {
     return staticMethodName(identificationName(pStructure));
 }
 
-FunctionName CppImplementer::runtimeIdentificationMethodName(const StructureSPtr& pStructure)
+MethodNameSPtr CppImplementer::runtimeIdentificationMethodName(const StructureSPtr& pStructure)
 {
     return runtimeMethodName(identificationName(pStructure));
 }

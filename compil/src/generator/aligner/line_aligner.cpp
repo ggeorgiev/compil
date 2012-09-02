@@ -236,6 +236,12 @@ LineAligner& operator<<(LineAligner& aligner, const FunctionName& functionName)
     return aligner;
 }
 
+LineAligner& operator<<(LineAligner& aligner, const FunctionNameSPtr& functionName)
+{
+    aligner.line() << functionName->value();
+    return aligner;
+}
+
 LineAligner& operator<<(LineAligner& aligner, const Initialization& initialization)
 {
     if (initialization.exist_namespace())

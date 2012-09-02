@@ -653,7 +653,7 @@ void CppHeaderGenerator::generateHierarchyFactoryDeclaration(const FactorySPtr& 
 
         table() << TableAligner::row()
                 << Function(sttc, *CreateDecoratedType(impl->cppPtrType(pStructure)),
-                            *functionNameRef(fnDowncast.value() + pStructure->name()->value()),
+                            frm->downcastMethodName(pStructure),
                             Argument(impl->cppPtrDecoratedType(pParameterStructure), "pObject"))
                 << ";";
     }
@@ -685,15 +685,15 @@ void CppHeaderGenerator::generateObjectFactoryDeclaration(const FactorySPtr& pFa
     }
 
     Modifier modifier;
-    FunctionName functionName;
+    MethodNameSPtr methodName;
     if (pFactory->function())
     {
-        functionName = *functionNameRef(pFactory->name()->value());
+        methodName = methodNameRef(pFactory->name()->value());
     }
     else
     {
         modifier = sttc;
-        functionName = fnCreate;
+        methodName = fnCreate;
     }
 
     if (!pParameterStructure->abstract())
@@ -703,7 +703,7 @@ void CppHeaderGenerator::generateObjectFactoryDeclaration(const FactorySPtr& pFa
         {
             Function function(modifier,
                               *CreateDecoratedType(impl->cppPtrType(pParameterStructure)),
-                              functionName);
+                              methodName);
 
             std::vector<compil::FieldSPtr>::iterator it;
             for (it = iteration.begin(); it != iteration.end(); ++it)
@@ -824,7 +824,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
             << "<T>(object));";
     table() << TableAligner::row_line(1)
             << "  return (T*)get().cloneFunctions[object."
-            << impl->runtimeMethodName(fnInprocId.value())
+            << impl->runtimeMethodName(fnInprocId->value())
             << "()](object);";
     table() << TableAligner::row_line()
             << "}";
@@ -843,17 +843,17 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
             << "{";
     table() << TableAligner::row_line(1)
             << "return (T::"
-            << impl->staticMethodName(fnInprocId.value())
+            << impl->staticMethodName(fnInprocId->value())
             << "() == object."
-            << impl->runtimeMethodName(fnInprocId.value())
+            << impl->runtimeMethodName(fnInprocId->value())
             << "())";
     table() << TableAligner::row_line(3)
             << "|| "
             << fnIsParent
             << "(T::"
-            << impl->staticMethodName(fnInprocId.value())
+            << impl->staticMethodName(fnInprocId->value())
             << "(), object."
-            << impl->runtimeMethodName(fnInprocId.value())
+            << impl->runtimeMethodName(fnInprocId->value())
             << "());";
     table() << TableAligner::row_line()
             << "}";
@@ -1089,7 +1089,7 @@ void CppHeaderGenerator::generateStructureInprocIdentificationMethodsDeclaration
             "Do not use for serialization.");
 
     table() << TableAligner::row()
-            << Function(sttc, st, impl->staticMethodName(fnInprocId.value()))
+            << Function(sttc, st, impl->staticMethodName(fnInprocId->value()))
             << ";";
 
     commentInTable(
@@ -1097,7 +1097,7 @@ void CppHeaderGenerator::generateStructureInprocIdentificationMethodsDeclaration
             "behavior of the virtual methods. Allows having a RTTI like mechanism significantly "
             "cheaper than the RTTI provided by the compilers themselves.");
     table() << TableAligner::row()
-            << Function(vrtl, st, impl->runtimeMethodName(fnInprocId.value()), cst)
+            << Function(vrtl, st, impl->runtimeMethodName(fnInprocId->value()), cst)
             << ";";
 }
 
@@ -1111,8 +1111,8 @@ void CppHeaderGenerator::generateStructureOperatorMethodsDeclaration(
 
     table() << TableAligner::row();
 
-    FunctionName fnOperator;
-    FunctionName fnFunction;
+    FunctionNameSPtr fnOperator;
+    FunctionNameSPtr fnFunction;
     if (pOperator->action() == EOperatorAction::equalTo())
     {
         fnOperator = fnOperatorEq;
@@ -1129,7 +1129,7 @@ void CppHeaderGenerator::generateStructureOperatorMethodsDeclaration(
         assert(false && "unknown operator action");
     }
 
-    FunctionName fnName;
+    FunctionNameSPtr fnName;
     if (flags.isSet(EOperatorFlags::functor()))
     {
         fnName = fnOperatorFn;
@@ -1312,7 +1312,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                 {
                     commentInTable(
                         "Note: If the class is used properly it should always return true. "
-                        "It makes sense when it is called indirectly through " + fnIsInitialized.value() +
+                        "It makes sense when it is called indirectly through " + fnIsInitialized->value() +
                         "() from the Builder class");
                 }
             }
@@ -1749,7 +1749,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
             "Instantiates " + frm->cppMainClassType(pStructure).value() + " instance with the current "
             "initialization of the fields. "
             "After the instance is ready the builder could be reused to instantiate "
-            "more objects. The data is not reset. Second call of " + fnBuild.value() + "() will instantiate "
+            "more objects. The data is not reset. Second call of " + fnBuild->value() + "() will instantiate "
             "object with the same data.");
 
         table() << TableAligner::row()
@@ -1760,8 +1760,8 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
 
         commentInTable(
             "Provides the internal instantiated builder object and invalidates "
-            "the builder status. Once " + fnFinalize.value() + "() is called, the builder can not be used again. "
-            "Use " + fnFinalize.value() + "() when you no longer are going to use this builder.");
+            "the builder status. Once " + fnFinalize->value() + "() is called, the builder can not be used again. "
+            "Use " + fnFinalize->value() + "() when you no longer are going to use this builder.");
 
         table() << TableAligner::row()
                 << Function(*CreateDecoratedType(impl->cppPtrType(pStructure)), fnFinalize)

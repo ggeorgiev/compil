@@ -52,56 +52,56 @@ DecoratedType cloneFunction  = *CreateDecoratedType(*CreateSimpleType("fnClone")
 DecoratedType cstTRef        = *CreateDecoratedType(cst, *CreateSimpleType("T"), ref);
 DecoratedType TPtr           = *CreateDecoratedType(*CreateSimpleType("T"), ptr);
 
-MethodName fnValue                  = *methodNameRef("value");
-MethodName fnShortName              = *methodNameRef("shortName");
-MethodName fnBuild                  = *methodNameRef("build");
-MethodName fnClone                  = *methodNameRef("clone");
-MethodName fnCreate                 = *methodNameRef("create");
-MethodName fnFinalize               = *methodNameRef("finalize");
+MethodNameSPtr fnValue                  = methodNameRef("value");
+MethodNameSPtr fnShortName              = methodNameRef("shortName");
+MethodNameSPtr fnBuild                  = methodNameRef("build");
+MethodNameSPtr fnClone                  = methodNameRef("clone");
+MethodNameSPtr fnCreate                 = methodNameRef("create");
+MethodNameSPtr fnFinalize               = methodNameRef("finalize");
 
-MethodName fnBuilder                = *methodNameRef("Builder");
-MethodName fnDowncast               = *methodNameRef("downcast");
-MethodName fnSharedFromThis         = *methodNameRef("shared_from_this");
+MethodNameSPtr fnBuilder                = methodNameRef("Builder");
+MethodNameSPtr fnDowncast               = methodNameRef("downcast");
+MethodNameSPtr fnSharedFromThis         = methodNameRef("shared_from_this");
 
 
-MethodName fnIsInitialized          = *methodNameRef("isInitialized");
-MethodName fnIsVoid                 = *methodNameRef("isVoid");
+MethodNameSPtr fnIsInitialized          = methodNameRef("isInitialized");
+MethodNameSPtr fnIsVoid                 = methodNameRef("isVoid");
 
-MethodName fnInprocId               = *methodNameRef("inprocId");
-MethodName fnGet                    = *methodNameRef("get");
-MethodName fnRegisterCloneFunction  = *methodNameRef("registerCloneFunction");
-MethodName fnRegisterRelationship   = *methodNameRef("registerRelationship");
-MethodName fnIsParent               = *methodNameRef("isParent");
-MethodName fnIsDerivedFrom          = *methodNameRef("isDerivedFrom");
+MethodNameSPtr fnInprocId               = methodNameRef("inprocId");
+MethodNameSPtr fnGet                    = methodNameRef("get");
+MethodNameSPtr fnRegisterCloneFunction  = methodNameRef("registerCloneFunction");
+MethodNameSPtr fnRegisterRelationship   = methodNameRef("registerRelationship");
+MethodNameSPtr fnIsParent               = methodNameRef("isParent");
+MethodNameSPtr fnIsDerivedFrom          = methodNameRef("isDerivedFrom");
 
-MethodName fnOperatorE              = *methodNameRef("operator=");
-MethodName fnOperatorEq             = *methodNameRef("operator==");
-MethodName fnOperatorNe             = *methodNameRef("operator!=");
-MethodName fnOperatorLt             = *methodNameRef("operator<");
-MethodName fnOperatorStore          = *methodNameRef("operator<<");
-MethodName fnOperatorStoreEq        = *methodNameRef("operator<<=");
-MethodName fnOperatorPlusEq         = *methodNameRef("operator+=");
-MethodName fnOperatorFn             = *methodNameRef("operator()");
+MethodNameSPtr fnOperatorE              = methodNameRef("operator=");
+MethodNameSPtr fnOperatorEq             = methodNameRef("operator==");
+MethodNameSPtr fnOperatorNe             = methodNameRef("operator!=");
+MethodNameSPtr fnOperatorLt             = methodNameRef("operator<");
+MethodNameSPtr fnOperatorStore          = methodNameRef("operator<<");
+MethodNameSPtr fnOperatorStoreEq        = methodNameRef("operator<<=");
+MethodNameSPtr fnOperatorPlusEq         = methodNameRef("operator+=");
+MethodNameSPtr fnOperatorFn             = methodNameRef("operator()");
 
-MethodName fnFunctionalOperatorEq   = *methodNameRef("isEqual");
-MethodName fnFunctionalOperatorLt   = *methodNameRef("lessThan");
+MethodNameSPtr fnFunctionalOperatorEq   = methodNameRef("isEqual");
+MethodNameSPtr fnFunctionalOperatorLt   = methodNameRef("lessThan");
 
-MethodName fnUpdate                 = *methodNameRef("update");
-MethodName fnObtain                 = *methodNameRef("obtain");
+MethodNameSPtr fnUpdate                 = methodNameRef("update");
+MethodNameSPtr fnObtain                 = methodNameRef("obtain");
 
-MethodName fnReset                  = *methodNameRef("reset");
-MethodName fnSet                    = *methodNameRef("set");
-MethodName fnClear                  = *methodNameRef("clear");
-MethodName fnTurn                   = *methodNameRef("turn");
+MethodNameSPtr fnReset                  = methodNameRef("reset");
+MethodNameSPtr fnSet                    = methodNameRef("set");
+MethodNameSPtr fnClear                  = methodNameRef("clear");
+MethodNameSPtr fnTurn                   = methodNameRef("turn");
 
-MethodName fnAssemble               = *methodNameRef("assemble");
-MethodName fnCombine                = *methodNameRef("combine");
-MethodName fnIntersect              = *methodNameRef("intersect");
-MethodName fnFlip                   = *methodNameRef("flip");
+MethodNameSPtr fnAssemble               = methodNameRef("assemble");
+MethodNameSPtr fnCombine                = methodNameRef("combine");
+MethodNameSPtr fnIntersect              = methodNameRef("intersect");
+MethodNameSPtr fnFlip                   = methodNameRef("flip");
 
-MethodName fnTest                   = *methodNameRef("test");
-MethodName fnIsSet                  = *methodNameRef("isSet");
-MethodName fnIsClear                = *methodNameRef("isClear");
+MethodNameSPtr fnTest                   = methodNameRef("test");
+MethodNameSPtr fnIsSet                  = methodNameRef("isSet");
+MethodNameSPtr fnIsClear                = methodNameRef("isClear");
 
 Modifier sttc     = *CreateModifier("static");
 Modifier vrtl     = *CreateModifier("virtual");

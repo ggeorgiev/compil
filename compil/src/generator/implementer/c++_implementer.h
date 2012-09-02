@@ -96,13 +96,13 @@ public:
                                                   if_predicate if_pred = NULL,
                                                   less_predicate less_pred = alphabeticByName);
                                                  
-    virtual FunctionName staticMethodName(const std::string& name);
-    virtual FunctionName runtimeMethodName(const std::string& name);
+    virtual MethodNameSPtr staticMethodName(const std::string& name);
+    virtual MethodNameSPtr runtimeMethodName(const std::string& name);
     
     virtual std::string identificationName(const StructureSPtr& pStructure);
     virtual SimpleType identificationEnum(const StructureSPtr& pStructure);
-    virtual FunctionName staticIdentificationMethodName(const StructureSPtr& pStructure);
-    virtual FunctionName runtimeIdentificationMethodName(const StructureSPtr& pStructure);
+    virtual MethodNameSPtr staticIdentificationMethodName(const StructureSPtr& pStructure);
+    virtual MethodNameSPtr runtimeIdentificationMethodName(const StructureSPtr& pStructure);
     
     virtual EnumerationSPtr objectEnumeration(const ModelPtr& pModel, const FactorySPtr& pFactory);
     virtual EnumerationSPtr objectEnumeration(const ModelPtr& pModel,

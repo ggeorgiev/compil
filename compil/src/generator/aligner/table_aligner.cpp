@@ -367,6 +367,13 @@ TableAligner& operator<<(TableAligner& aligner, const FunctionName& functionName
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const FunctionNameSPtr& functionName)
+{
+    if (functionName)
+        aligner << functionName->value();
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const Constructor& constructor)
 {
     assert(constructor);

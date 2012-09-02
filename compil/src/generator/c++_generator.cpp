@@ -507,7 +507,7 @@ void CppGenerator::generateHierarchyFactoryDefinition(const FactorySPtr& pFactor
         if (pStructure != pParameterStructure)
         {
             line()  << "*pClone = *"
-                    << (fnDowncast.value() + pStructure->name()->value())
+                    << frm->downcastMethodName(pStructure)
                     << "(pObject);";
         }
         else
@@ -550,7 +550,7 @@ void CppGenerator::generateHierarchyFactoryDefinition(const FactorySPtr& pFactor
         fdef()  << TableAligner::row()
                 << Function(*CreateDecoratedType(impl->cppPtrType(pStructure)),
                             frm->cppClassNamespace(pFactory),
-                            *functionNameRef(fnDowncast.value() + pStructure->name()->value()),
+                            frm->downcastMethodName(pStructure),
                             Argument(impl->cppPtrDecoratedType(pParameterStructure), "pObject"));
         openBlock(definitionStream);
         line()  << "bool b = "
@@ -616,22 +616,22 @@ void CppGenerator::generateObjectFactoryDefinition(const FactorySPtr& pFactory)
     StructureSPtr pParameterStructure =  ObjectFactory::downcastStructure(pParameterType);
 
     NamespaceSPtr nmspace;
-    FunctionName functionName;
+    MethodNameSPtr methodName;
     if (pFactory->function())
     {
-        functionName = *functionNameRef(pFactory->name()->value());;
+        methodName = methodNameRef(pFactory->name()->value());
     }
     else
     {
         nmspace = frm->cppClassNamespace(pFactory);
-        functionName = fnCreate;
+        methodName = fnCreate;
     }
 
     std::vector<compil::FieldSPtr> iteration;
     while (pParameterStructure->fieldIterate(iteration))
     {
         Function function(*CreateDecoratedType(impl->cppPtrType(pParameterType)),
-                          nmspace, functionName);
+                          nmspace, methodName);
 
         std::vector<compil::FieldSPtr>::iterator it;
         for (it = iteration.begin(); it != iteration.end(); ++it)
@@ -685,7 +685,7 @@ void CppGenerator::generateObjectFactoryDefinition(const FactorySPtr& pFactory)
                             << frm->setMethodName(*it)
                             << "("
                             << FunctionCall(frm->cppMainClassNamespace(pParameterStructure),
-                                            *functionNameRef(pFilter->method()),
+                                            functionNameRef(pFilter->method()),
                                             Argument(frm->cppVariableName(*it)))
                             << ");";
                 }
@@ -873,7 +873,7 @@ void CppGenerator::generateStructureFieldMemberInitialization(const FieldSPtr& p
     if (impl->needConstructorInitialization(pField))
     {
         generateInitialization(*CreateInitialization(
-            frm->cppMemberName(pField), frm->defaultMethodName(pField).value() + "()"));
+            frm->cppMemberName(pField), frm->defaultMethodName(pField)->value() + "()"));
     }
 }
 
@@ -1541,7 +1541,7 @@ void CppGenerator::generateStructureInprocIdentificationMethodsDefinition(
                     << "("
                     << frm->cppMainClassType(pStructure)
                     << "::"
-                    << impl->staticMethodName(fnInprocId.value())
+                    << impl->staticMethodName(fnInprocId->value())
                     << "(), "
                     << TableAligner::col()
                     << "&"
@@ -1565,12 +1565,12 @@ void CppGenerator::generateStructureInprocIdentificationMethodsDefinition(
                     << "("
                     << frm->cppMainClassType(pBase)
                     << "::"
-                    << impl->staticMethodName(fnInprocId.value())
+                    << impl->staticMethodName(fnInprocId->value())
                     << "(), "
                     << TableAligner::col()
                     << frm->cppMainClassType(pStructure)
                     << "::"
-                    << impl->staticMethodName(fnInprocId.value())
+                    << impl->staticMethodName(fnInprocId->value())
                     << "())";
 
             if (pBase == pParameterType)
@@ -1590,7 +1590,7 @@ void CppGenerator::generateStructureInprocIdentificationMethodsDefinition(
 
     fdef()  << TableAligner::row()
             << Function(st, frm->cppAutoClassNamespace(pStructure),
-                        impl->staticMethodName(fnInprocId.value()));
+                        impl->staticMethodName(fnInprocId->value()));
     openBlock(definitionStream);
     line()  << "return (size_t)\"";
     if (pStructure->package())
@@ -1609,10 +1609,10 @@ void CppGenerator::generateStructureInprocIdentificationMethodsDefinition(
 
     fdef()  << TableAligner::row()
             << Function(st, frm->cppAutoClassNamespace(pStructure),
-                        impl->runtimeMethodName(fnInprocId.value()), cst);
+                        impl->runtimeMethodName(fnInprocId->value()), cst);
     openBlock(definitionStream);
     line()  << "return "
-            << impl->staticMethodName(fnInprocId.value())
+            << impl->staticMethodName(fnInprocId->value())
             << "();";
     closeBlock(definitionStream);
     eol(definitionStream);
@@ -1628,7 +1628,7 @@ std::string CppGenerator::computeStructureOperatorExpression(
                     bool reverse)
 {
     std::string native;
-    FunctionName fnFunction;
+    FunctionNameSPtr fnFunction;
     if (action == EOperatorAction::equalTo())
     {
         native = "==";
@@ -1749,7 +1749,7 @@ std::string CppGenerator::computeStructureOperatorExpression(
                                    << object1
                                    << ").";
 
-                        result  << fnFunction.value()
+                        result  << fnFunction->value()
                                 << "("
                                 << object2
                                 << ")";
@@ -1757,7 +1757,7 @@ std::string CppGenerator::computeStructureOperatorExpression(
                     else
                     if (refflags.isSet(EOperatorFlags::functor()))
                     {
-                        result  << fnFunction.value()
+                        result  << fnFunction->value()
                                 << "()("
                                 << object1
                                 << ", "
@@ -1898,7 +1898,7 @@ void CppGenerator::generateStructureOperatorObjects(
         FieldSPtr pField = ObjectFactory::downcastField(*it);
         if (!pField) continue;
 
-        std::string method = frm->getMethodName(pField).value() + "()";
+        std::string method = frm->getMethodName(pField)->value() + "()";
 
         generateStructureOperatorAction(pField->type(),
                                         pOperator->action(),
@@ -1944,8 +1944,8 @@ void CppGenerator::generateStructureOperatorMethodsDefinition(
     if (!pOperator->flags().isSet(flags))
         return;
 
-    FunctionName fnOperator;
-    FunctionName fnFunction;
+    FunctionNameSPtr fnOperator;
+    FunctionNameSPtr fnFunction;
     if (pOperator->action() == EOperatorAction::equalTo())
     {
         fnOperator = fnOperatorEq;
@@ -1962,7 +1962,7 @@ void CppGenerator::generateStructureOperatorMethodsDefinition(
         assert(false && "unknown operator action");
     }
 
-    FunctionName fnName;
+    FunctionNameSPtr fnName;
     if (flags.isSet(EOperatorFlags::functor()))
     {
         fnName = fnOperatorFn;
@@ -1979,7 +1979,7 @@ void CppGenerator::generateStructureOperatorMethodsDefinition(
 
     NamespaceSPtr nmspace = frm->cppAutoClassNamespace(pStructure);
     if (flags.isSet(EOperatorFlags::functor()))
-        *nmspace << namespaceNameRef(fnFunction.value());
+        *nmspace << namespaceNameRef(fnFunction->value());
 
     int arguments;
     if (flags.isClear(EOperatorFlags::member()) || flags.isSet(EOperatorFlags::functor()))
@@ -2460,9 +2460,9 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             alter = true;
 
             init    << "."
-                    << frm->setMethodName(pAlter->field()).value()
+                    << frm->setMethodName(pAlter->field())->value()
                     << "("
-                    << frm->alterMethodName(pAlter->field()).value()
+                    << frm->alterMethodName(pAlter->field())->value()
                     << "())";
         }
 

@@ -45,6 +45,10 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/strong_enumeration.compil"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/george/github/compil/src/generator-test/keywords.compil"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
