@@ -21,9 +21,15 @@ const std::string& Import::source() const
     return mSource;
 }
 
-void Import::set_source(const std::string& source)
+Import& Import::set_source(const std::string& source)
 {
     mSource = source;
+    return *this;
+}
+
+std::string& Import::mutable_source()
+{
+    return mSource;
 }
 
 }

@@ -21,9 +21,15 @@ const std::string& Name::value() const
     return mValue;
 }
 
-void Name::set_value(const std::string& value)
+Name& Name::set_value(const std::string& value)
 {
     mValue = value;
+    return *this;
+}
+
+std::string& Name::mutable_value()
+{
+    return mValue;
 }
 
 }

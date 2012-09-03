@@ -61,21 +61,21 @@ class EnumerationPartial : public UnaryTemplate
 {
 protected:
     // Default constructor
-                                                     EnumerationPartial   ();
+                                                     EnumerationPartial       ();
     // Destructor
-    virtual                                          ~EnumerationPartial  ();
+    virtual                                          ~EnumerationPartial      ();
 public:
 
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  EnumerationSPtr                          downcast             (const ObjectSPtr& pObject);
+    static  EnumerationSPtr                          downcast                 (const ObjectSPtr& pObject);
 
     // Returns the alter value identifier of the field literal
-    static  Type::ELiteral                           alter_literal        ();
+    static  Type::ELiteral                           alter_literal            ();
 
     // Returns the alter value object of the field kind
-    static  Type::EKind                              alter_kind           ();
+    static  Type::EKind                              alter_kind               ();
 
     // Identifier for the objects from Enumeration class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -83,29 +83,31 @@ public:
     // of the other class objects. This allows all identifiers to be
     // maintained from a single place, which reduces the risk of value
     // collisions
-    static  EObjectId                                staticObjectId       ();
+    static  EObjectId                                staticObjectId           ();
     // This virtual method provides runtime object identification based on
     // the polymorphic behavior of the virtual methods. Allows having a
     // RTTI like mechanism significantly cheaper than the RTTI provided by
     // the compilers themselves.
-    virtual EObjectId                                runtimeObjectId      ()                                                           const;
+    virtual EObjectId                                runtimeObjectId          ()                                                           const;
 
     // Getter method for the data field flags
-            bool                                     flags                ()                                                           const;
+            bool                                     flags                    ()                                                           const;
     // Setter method for the data field flags
-            void                                     set_flags            (bool flags);
+            Enumeration&                             set_flags                (bool flags);
 
     // Getter method for the data field enumerationValues
-            const std::vector<EnumerationValueSPtr>& enumerationValues    ()                                                           const;
+            const std::vector<EnumerationValueSPtr>& enumerationValues        ()                                                           const;
     // Setter method for the data field enumerationValues
-            void                                     set_enumerationValues(const std::vector<EnumerationValueSPtr>& enumerationValues);
+            Enumeration&                             set_enumerationValues    (const std::vector<EnumerationValueSPtr>& enumerationValues);
+    // Provide mutable access to field enumerationValues
+            std::vector<EnumerationValueSPtr>&       mutable_enumerationValues();
 
     // Getter method for the data field structure
-            const StructureWPtr&                     structure            ()                                                           const;
+            const StructureWPtr&                     structure                ()                                                           const;
     // Returns the default value null of the field structure
-    static  StructureWPtr                            default_structure    ();
+    static  StructureWPtr                            default_structure        ();
     // Setter method for the data field structure
-            void                                     set_structure        (const StructureSPtr& structure);
+            Enumeration&                             set_structure            (const StructureSPtr& structure);
 
 private:
     // variable for the data field flags

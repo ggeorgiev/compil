@@ -83,12 +83,16 @@ public:
     // Getter method for the data field min
             const std::string&  min            ()                          const;
     // Setter method for the data field min
-            void                set_min        (const std::string& min);
+            Integer&            set_min        (const std::string& min);
+    // Provide mutable access to field min
+            std::string&        mutable_min    ();
 
     // Getter method for the data field max
             const std::string&  max            ()                          const;
     // Setter method for the data field max
-            void                set_max        (const std::string& max);
+            Integer&            set_max        (const std::string& max);
+    // Provide mutable access to field max
+            std::string&        mutable_max    ();
 
 private:
     // variable for the data field min

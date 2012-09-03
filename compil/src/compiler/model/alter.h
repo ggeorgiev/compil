@@ -75,12 +75,12 @@ public:
     // Getter method for the data field field
             const FieldSPtr&        field           ()                                     const;
     // Setter method for the data field field
-            void                    set_field       (const FieldSPtr& field);
+            Alter&                  set_field       (const FieldSPtr& field);
 
     // Getter method for the data field defaultValue
             const DefaultValueSPtr& defaultValue    ()                                     const;
     // Setter method for the data field defaultValue
-            void                    set_defaultValue(const DefaultValueSPtr& defaultValue);
+            Alter&                  set_defaultValue(const DefaultValueSPtr& defaultValue);
 
 private:
     // variable for the data field field

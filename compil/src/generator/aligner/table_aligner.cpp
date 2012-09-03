@@ -412,7 +412,7 @@ TableAligner& operator<<(TableAligner& aligner, const EDestructorSpecifier& dest
     if (destructorSpecifier != EDestructorSpecifier::invalid())
     {
         if (destructorSpecifier == EDestructorSpecifier::lax())
-            aligner << "/* lax */";
+            aligner << "/*lax*/";
         else
             aligner << destructorSpecifier.shortName();
     

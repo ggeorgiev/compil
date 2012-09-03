@@ -41,7 +41,7 @@
 #include "object.h"
 #include "operator.h"
 #include "structure.h"
-// Boost C++ Smart Pointers
+// Compil C++ Template Library
 #include "flags_enumeration.hpp"
 
 namespace compil
@@ -252,24 +252,28 @@ public:
     // Getter method for the data field action
             const EOperatorAction& action           ()                               const;
     // Setter method for the data field action
-            void                   set_action       (const EOperatorAction& action);
+            Operator&              set_action       (const EOperatorAction& action);
+    // Provide mutable access to field action
+            EOperatorAction&       mutable_action   ();
 
     // Getter method for the data field flags
             const EOperatorFlags&  flags            ()                               const;
     // Setter method for the data field flags
-            void                   set_flags        (const EOperatorFlags& flags);
+            Operator&              set_flags        (const EOperatorFlags& flags);
+    // Provide mutable access to field flags
+            EOperatorFlags&        mutable_flags    ();
 
     // Getter method for the data field structure
             const StructureWPtr&   structure        ()                               const;
     // Returns the default value null of the field structure
     static  StructureWPtr          default_structure();
     // Setter method for the data field structure
-            void                   set_structure    (const StructureSPtr& structure);
+            Operator&              set_structure    (const StructureSPtr& structure);
 
     // Getter method for the data field comment
             const CommentSPtr&     comment          ()                               const;
     // Setter method for the data field comment
-            void                   set_comment      (const CommentSPtr& comment);
+            Operator&              set_comment      (const CommentSPtr& comment);
 
 private:
     // variable for the data field action

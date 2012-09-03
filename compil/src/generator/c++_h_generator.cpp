@@ -2005,15 +2005,12 @@ void CppHeaderGenerator::generateObjectDeclaration(const ObjectSPtr& pObject)
 
 bool CppHeaderGenerator::generate()
 {
-    if (mpModel->mainDocument()->exist_comments())
+    std::vector<CommentSPtr> vComments = mpModel->mainDocument()->comments();
+    std::vector<CommentSPtr>::iterator cit;
+    for (cit = vComments.begin(); cit != vComments.end(); ++cit)
     {
-        std::vector<CommentSPtr> vComments = mpModel->mainDocument()->comments();
-        std::vector<CommentSPtr>::iterator cit;
-        for (cit = vComments.begin(); cit != vComments.end(); ++cit)
-        {
-            commentInLine(copyrightStream, *cit);
-            eol(copyrightStream);
-        }
+        commentInLine(copyrightStream, *cit);
+        eol(copyrightStream);
     }
 
     std::string guard = frm->headerGuard(mpModel->mainDocument(), mType);

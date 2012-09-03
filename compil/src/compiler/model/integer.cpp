@@ -39,9 +39,15 @@ const std::string& Integer::min() const
     return mMin;
 }
 
-void Integer::set_min(const std::string& min)
+Integer& Integer::set_min(const std::string& min)
 {
     mMin = min;
+    return *this;
+}
+
+std::string& Integer::mutable_min()
+{
+    return mMin;
 }
 
 const std::string& Integer::max() const
@@ -49,9 +55,15 @@ const std::string& Integer::max() const
     return mMax;
 }
 
-void Integer::set_max(const std::string& max)
+Integer& Integer::set_max(const std::string& max)
 {
     mMax = max;
+    return *this;
+}
+
+std::string& Integer::mutable_max()
+{
+    return mMax;
 }
 
 }

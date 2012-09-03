@@ -72,7 +72,7 @@ public:
     // Getter method for the data field weak
             bool          weak           ()                          const;
     // Setter method for the data field weak
-            void          set_weak       (bool weak);
+            Reference&    set_weak       (bool weak);
 
 private:
     // variable for the data field weak

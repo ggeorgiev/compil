@@ -89,9 +89,15 @@ const FactoryPartial::EType& FactoryPartial::type() const
     return mType;
 }
 
-void FactoryPartial::set_type(const EType& type)
+Factory& FactoryPartial::set_type(const EType& type)
 {
     mType = type;
+    return *(Factory*)this;
+}
+
+FactoryPartial::EType& FactoryPartial::mutable_type()
+{
+    return mType;
 }
 
 bool FactoryPartial::function() const
@@ -99,9 +105,10 @@ bool FactoryPartial::function() const
     return mFunction;
 }
 
-void FactoryPartial::set_function(bool function)
+Factory& FactoryPartial::set_function(bool function)
 {
     mFunction = function;
+    return *(Factory*)this;
 }
 
 const std::vector<FilterSPtr>& FactoryPartial::filters() const
@@ -109,9 +116,15 @@ const std::vector<FilterSPtr>& FactoryPartial::filters() const
     return mFilters;
 }
 
-void FactoryPartial::set_filters(const std::vector<FilterSPtr>& filters)
+Factory& FactoryPartial::set_filters(const std::vector<FilterSPtr>& filters)
 {
     mFilters = filters;
+    return *(Factory*)this;
+}
+
+std::vector<FilterSPtr>& FactoryPartial::mutable_filters()
+{
+    return mFilters;
 }
 
 }

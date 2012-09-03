@@ -21,9 +21,10 @@ const CommentSPtr& Interface::comment() const
     return mComment;
 }
 
-void Interface::set_comment(const CommentSPtr& comment)
+Interface& Interface::set_comment(const CommentSPtr& comment)
 {
     mComment = comment;
+    return *this;
 }
 
 const NameSPtr& Interface::name() const
@@ -31,9 +32,10 @@ const NameSPtr& Interface::name() const
     return mName;
 }
 
-void Interface::set_name(const NameSPtr& name)
+Interface& Interface::set_name(const NameSPtr& name)
 {
     mName = name;
+    return *this;
 }
 
 const std::vector<ObjectSPtr>& Interface::objects() const
@@ -41,9 +43,15 @@ const std::vector<ObjectSPtr>& Interface::objects() const
     return mObjects;
 }
 
-void Interface::set_objects(const std::vector<ObjectSPtr>& objects)
+Interface& Interface::set_objects(const std::vector<ObjectSPtr>& objects)
 {
     mObjects = objects;
+    return *this;
+}
+
+std::vector<ObjectSPtr>& Interface::mutable_objects()
+{
+    return mObjects;
 }
 
 }

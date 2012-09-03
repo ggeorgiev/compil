@@ -123,9 +123,11 @@ public:
     };
 
     // Getter method for the data field size
-    const ESize& size    ()                  const;
+    const ESize&    size        ()                  const;
     // Setter method for the data field size
-    void         set_size(const ESize& size);
+    UnaryContainer& set_size    (const ESize& size);
+    // Provide mutable access to field size
+    ESize&          mutable_size();
 
 private:
     // variable for the data field size

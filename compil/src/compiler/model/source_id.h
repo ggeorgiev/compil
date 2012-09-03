@@ -58,47 +58,53 @@ public:
     class Builder
     {
         // hide evil auto created assignment operator, no implementation
-                void            operator=             (const Builder& );
+                void            operator=                 (const Builder& );
     public:
         // Default constructor. All fields without default values are left
         // uninitialized. Make sure you initialize all the necessary fields
         // before instantiating
-                                Builder               ();
+                                Builder                   ();
         // Use this constructor when you need to clone or create an object
         // just slightly different from another object
-                                Builder               (const SourceId& object);
+                                Builder                   (const SourceId& object);
         // Destructor of Builder
-        /*lax*/                 ~Builder              ();
+        /*lax*/                 ~Builder                  ();
 
         // Instantiates SourceId instance with the current initialization
         // of the fields. After the instance is ready the builder could be
         // reused to instantiate more objects. The data is not reset.
         // Second call of build() will instantiate object with the same
         // data.
-                const SourceId& build                 ()                                      const;
+                const SourceId& build                     ()                                      const;
 
         // Provides the internal instantiated builder object and
         // invalidates the builder status. Once finalize() is called, the
         // builder can not be used again. Use finalize() when you no longer
         // are going to use this builder.
-                SourceIdSPtr    finalize              ();
+                SourceIdSPtr    finalize                  ();
 
 
         // Setter method for the data field value
-                Builder&        set_value             (const std::string& value);
+                Builder&        set_value                 (const std::string& value);
+        // Provide mutable access to field value
+                std::string&    mutable_value             ();
 
         // Setter method for the data field uniquePresentation
-                Builder&        set_uniquePresentation(const std::string& uniquePresentation);
+                Builder&        set_uniquePresentation    (const std::string& uniquePresentation);
+        // Provide mutable access to field uniquePresentation
+                std::string&    mutable_uniquePresentation();
 
         // Setter method for the data field parent
-                Builder&        set_parent            (const SourceIdSPtr& parent);
+                Builder&        set_parent                (const SourceIdSPtr& parent);
 
         // Setter method for the data field original
-                Builder&        set_original          (const std::string& original);
+                Builder&        set_original              (const std::string& original);
+        // Provide mutable access to field original
+                std::string&    mutable_original          ();
 
     protected:
         // constructor needed from potential derived classes
-                                Builder               (SourceIdRPtr pObject);
+                                Builder                   (SourceIdRPtr pObject);
 
         SourceIdRPtr mpObject;
     };

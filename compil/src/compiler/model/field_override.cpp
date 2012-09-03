@@ -21,9 +21,10 @@ const FieldSPtr& FieldOverride::field() const
     return mField;
 }
 
-void FieldOverride::set_field(const FieldSPtr& field)
+FieldOverride& FieldOverride::set_field(const FieldSPtr& field)
 {
     mField = field;
+    return *this;
 }
 
 const FieldSPtr& FieldOverride::overriddenField() const
@@ -31,9 +32,10 @@ const FieldSPtr& FieldOverride::overriddenField() const
     return mOverriddenField;
 }
 
-void FieldOverride::set_overriddenField(const FieldSPtr& overriddenField)
+FieldOverride& FieldOverride::set_overriddenField(const FieldSPtr& overriddenField)
 {
     mOverriddenField = overriddenField;
+    return *this;
 }
 
 }

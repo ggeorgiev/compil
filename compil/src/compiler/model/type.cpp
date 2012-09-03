@@ -39,9 +39,10 @@ PackageSPtr Type::default_package()
     return defaultObject;
 }
 
-void Type::set_package(const PackageSPtr& package)
+Type& Type::set_package(const PackageSPtr& package)
 {
     mPackage = package;
+    return *this;
 }
 
 const CommentSPtr& Type::comment() const
@@ -49,9 +50,10 @@ const CommentSPtr& Type::comment() const
     return mComment;
 }
 
-void Type::set_comment(const CommentSPtr& comment)
+Type& Type::set_comment(const CommentSPtr& comment)
 {
     mComment = comment;
+    return *this;
 }
 
 const NameSPtr& Type::name() const
@@ -59,9 +61,10 @@ const NameSPtr& Type::name() const
     return mName;
 }
 
-void Type::set_name(const NameSPtr& name)
+Type& Type::set_name(const NameSPtr& name)
 {
     mName = name;
+    return *this;
 }
 
 Type::ELiteral::ELiteral()
@@ -161,9 +164,15 @@ const Type::ELiteral& Type::literal() const
     return mLiteral;
 }
 
-void Type::set_literal(const ELiteral& literal)
+Type& Type::set_literal(const ELiteral& literal)
 {
     mLiteral = literal;
+    return *this;
+}
+
+Type::ELiteral& Type::mutable_literal()
+{
+    return mLiteral;
 }
 
 Type::EKind::EKind()
@@ -233,9 +242,15 @@ const Type::EKind& Type::kind() const
     return mKind;
 }
 
-void Type::set_kind(const EKind& kind)
+Type& Type::set_kind(const EKind& kind)
 {
     mKind = kind;
+    return *this;
+}
+
+Type::EKind& Type::mutable_kind()
+{
+    return mKind;
 }
 
 }

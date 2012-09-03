@@ -58,6 +58,11 @@ SourceId::Builder& SourceId::Builder::set_value(const std::string& value)
     return *this;
 }
 
+std::string& SourceId::Builder::mutable_value()
+{
+    return mpObject->mValue;
+}
+
 const std::string& SourceId::uniquePresentation() const
 {
     return mUniquePresentation;
@@ -67,6 +72,11 @@ SourceId::Builder& SourceId::Builder::set_uniquePresentation(const std::string& 
 {
     mpObject->mUniquePresentation = uniquePresentation;
     return *this;
+}
+
+std::string& SourceId::Builder::mutable_uniquePresentation()
+{
+    return mpObject->mUniquePresentation;
 }
 
 const SourceIdSPtr& SourceId::parent() const
@@ -95,6 +105,11 @@ SourceId::Builder& SourceId::Builder::set_original(const std::string& original)
 {
     mpObject->mOriginal = original;
     return *this;
+}
+
+std::string& SourceId::Builder::mutable_original()
+{
+    return mpObject->mOriginal;
 }
 
 }

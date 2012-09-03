@@ -77,9 +77,15 @@ const CastableType::ECast& CastableType::cast() const
     return mCast;
 }
 
-void CastableType::set_cast(const ECast& cast)
+CastableType& CastableType::set_cast(const ECast& cast)
 {
     mCast = cast;
+    return *this;
+}
+
+CastableType::ECast& CastableType::mutable_cast()
+{
+    return mCast;
 }
 
 }

@@ -141,19 +141,23 @@ public:
     };
 
     // Getter method for the data field type
-    const EType&                   type        ()                                       const;
+    const EType&                   type           ()                                       const;
     // Setter method for the data field type
-    void                           set_type    (const EType& type);
+    Factory&                       set_type       (const EType& type);
+    // Provide mutable access to field type
+    EType&                         mutable_type   ();
 
     // Getter method for the data field function
-    bool                           function    ()                                       const;
+    bool                           function       ()                                       const;
     // Setter method for the data field function
-    void                           set_function(bool function);
+    Factory&                       set_function   (bool function);
 
     // Getter method for the data field filters
-    const std::vector<FilterSPtr>& filters     ()                                       const;
+    const std::vector<FilterSPtr>& filters        ()                                       const;
     // Setter method for the data field filters
-    void                           set_filters (const std::vector<FilterSPtr>& filters);
+    Factory&                       set_filters    (const std::vector<FilterSPtr>& filters);
+    // Provide mutable access to field filters
+    std::vector<FilterSPtr>&       mutable_filters();
 
 private:
     // variable for the data field type

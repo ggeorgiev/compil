@@ -21,9 +21,10 @@ const FieldSPtr& Alter::field() const
     return mField;
 }
 
-void Alter::set_field(const FieldSPtr& field)
+Alter& Alter::set_field(const FieldSPtr& field)
 {
     mField = field;
+    return *this;
 }
 
 const DefaultValueSPtr& Alter::defaultValue() const
@@ -31,9 +32,10 @@ const DefaultValueSPtr& Alter::defaultValue() const
     return mDefaultValue;
 }
 
-void Alter::set_defaultValue(const DefaultValueSPtr& defaultValue)
+Alter& Alter::set_defaultValue(const DefaultValueSPtr& defaultValue)
 {
     mDefaultValue = defaultValue;
+    return *this;
 }
 
 }

@@ -102,7 +102,9 @@ public:
             if (pField->defaultValue()->value() != text) return false;
         }
         else
-            EXPECT_FALSE(pField->defaultValue()->valid_value()) << pField->defaultValue()->value();
+        {
+            EXPECT_TRUE(pField->defaultValue());
+        }
             
         return true;
     }
@@ -323,7 +325,7 @@ TEST_F(ParserStructureFieldTests, structureFieldOptional)
 
     checkStructure(0, 1, 1, "sname");
     EXPECT_TRUE(checkField(0, 0, 3, 3, "fname", "integer"));
-    EXPECT_TRUE(checkFieldDefault(0, 0, 3, 19, true, false));
+    EXPECT_TRUE(checkFieldDefault(0, 0, 3, 19, true));
 }
 
 TEST_F(ParserStructureFieldTests, structureFieldDefaultLiteralValue)

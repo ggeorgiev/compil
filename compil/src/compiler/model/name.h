@@ -74,7 +74,9 @@ public:
     // Getter method for the data field value
             const std::string& value          ()                          const;
     // Setter method for the data field value
-            void               set_value      (const std::string& value);
+            Name&              set_value      (const std::string& value);
+    // Provide mutable access to field value
+            std::string&       mutable_value  ();
 
 private:
     // variable for the data field value

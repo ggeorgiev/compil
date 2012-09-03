@@ -21,9 +21,10 @@ const MethodWPtr& Parameter::method() const
     return mMethod;
 }
 
-void Parameter::set_method(const MethodSPtr& method)
+Parameter& Parameter::set_method(const MethodSPtr& method)
 {
     mMethod = method;
+    return *this;
 }
 
 const CommentSPtr& Parameter::comment() const
@@ -31,9 +32,10 @@ const CommentSPtr& Parameter::comment() const
     return mComment;
 }
 
-void Parameter::set_comment(const CommentSPtr& comment)
+Parameter& Parameter::set_comment(const CommentSPtr& comment)
 {
     mComment = comment;
+    return *this;
 }
 
 const TypeSPtr& Parameter::type() const
@@ -41,9 +43,10 @@ const TypeSPtr& Parameter::type() const
     return mType;
 }
 
-void Parameter::set_type(const TypeSPtr& type)
+Parameter& Parameter::set_type(const TypeSPtr& type)
 {
     mType = type;
+    return *this;
 }
 
 const NameSPtr& Parameter::name() const
@@ -51,9 +54,10 @@ const NameSPtr& Parameter::name() const
     return mName;
 }
 
-void Parameter::set_name(const NameSPtr& name)
+Parameter& Parameter::set_name(const NameSPtr& name)
 {
     mName = name;
+    return *this;
 }
 
 Parameter::EDirection::EDirection()
@@ -123,9 +127,15 @@ const Parameter::EDirection& Parameter::direction() const
     return mDirection;
 }
 
-void Parameter::set_direction(const EDirection& direction)
+Parameter& Parameter::set_direction(const EDirection& direction)
 {
     mDirection = direction;
+    return *this;
+}
+
+Parameter::EDirection& Parameter::mutable_direction()
+{
+    return mDirection;
 }
 
 }

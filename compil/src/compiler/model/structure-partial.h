@@ -103,44 +103,46 @@ public:
     // Getter method for the data field abstract
             bool                           abstract             ()                                       const;
     // Setter method for the data field abstract
-            void                           set_abstract         (bool abstract);
+            Structure&                     set_abstract         (bool abstract);
 
     // Getter method for the data field controlled
             bool                           controlled           ()                                       const;
     // Setter method for the data field controlled
-            void                           set_controlled       (bool controlled);
+            Structure&                     set_controlled       (bool controlled);
 
     // Getter method for the data field immutable
             bool                           immutable            ()                                       const;
     // Setter method for the data field immutable
-            void                           set_immutable        (bool immutable);
+            Structure&                     set_immutable        (bool immutable);
 
     // Getter method for the data field partial
             bool                           partial              ()                                       const;
     // Setter method for the data field partial
-            void                           set_partial          (bool partial);
+            Structure&                     set_partial          (bool partial);
 
     // Getter method for the data field sharable
             bool                           sharable             ()                                       const;
     // Setter method for the data field sharable
-            void                           set_sharable         (bool sharable);
+            Structure&                     set_sharable         (bool sharable);
 
     // Getter method for the data field streamable
             bool                           streamable           ()                                       const;
     // Setter method for the data field streamable
-            void                           set_streamable       (bool streamable);
+            Structure&                     set_streamable       (bool streamable);
 
     // Getter method for the data field objects
             const std::vector<ObjectSPtr>& objects              ()                                       const;
     // Setter method for the data field objects
-            void                           set_objects          (const std::vector<ObjectSPtr>& objects);
+            Structure&                     set_objects          (const std::vector<ObjectSPtr>& objects);
+    // Provide mutable access to field objects
+            std::vector<ObjectSPtr>&       mutable_objects      ();
 
     // Getter method for the data field baseStructure
             const StructureWPtr&           baseStructure        ()                                       const;
     // Returns the default value null of the field baseStructure
     static  StructureWPtr                  default_baseStructure();
     // Setter method for the data field baseStructure
-            void                           set_baseStructure    (const StructureSPtr& baseStructure);
+            Structure&                     set_baseStructure    (const StructureSPtr& baseStructure);
 
 private:
     // variable for the data field abstract

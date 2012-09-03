@@ -50,14 +50,14 @@ class Package : public Object
 {
 public:
     // Default constructor
-                                            Package        ();
+                                            Package         ();
     // Destructor
-    virtual                                 ~Package       ();
+    virtual                                 ~Package        ();
 
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  PackageSPtr                     downcast       (const ObjectSPtr& pObject);
+    static  PackageSPtr                     downcast        (const ObjectSPtr& pObject);
 
     // Identifier for the objects from Package class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -65,17 +65,19 @@ public:
     // of the other class objects. This allows all identifiers to be
     // maintained from a single place, which reduces the risk of value
     // collisions
-    static  EObjectId                       staticObjectId ();
+    static  EObjectId                       staticObjectId  ();
     // This virtual method provides runtime object identification based on
     // the polymorphic behavior of the virtual methods. Allows having a
     // RTTI like mechanism significantly cheaper than the RTTI provided by
     // the compilers themselves.
-    virtual EObjectId                       runtimeObjectId()                                         const;
+    virtual EObjectId                       runtimeObjectId ()                                         const;
 
     // Getter method for the data field elements
-            const std::vector<std::string>& elements       ()                                         const;
+            const std::vector<std::string>& elements        ()                                         const;
     // Setter method for the data field elements
-            void                            set_elements   (const std::vector<std::string>& elements);
+            Package&                        set_elements    (const std::vector<std::string>& elements);
+    // Provide mutable access to field elements
+            std::vector<std::string>&       mutable_elements();
 
 private:
     // variable for the data field elements

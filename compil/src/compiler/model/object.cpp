@@ -18,9 +18,10 @@ const SourceIdSPtr& Object::sourceId() const
     return mSourceId;
 }
 
-void Object::set_sourceId(const SourceIdSPtr& sourceId)
+Object& Object::set_sourceId(const SourceIdSPtr& sourceId)
 {
     mSourceId = sourceId;
+    return *this;
 }
 
 long Object::line() const
@@ -33,9 +34,10 @@ long Object::default_line()
     return -1;
 }
 
-void Object::set_line(long line)
+Object& Object::set_line(long line)
 {
     mLine = line;
+    return *this;
 }
 
 long Object::column() const
@@ -48,9 +50,10 @@ long Object::default_column()
     return -1;
 }
 
-void Object::set_column(long column)
+Object& Object::set_column(long column)
 {
     mColumn = column;
+    return *this;
 }
 
 }

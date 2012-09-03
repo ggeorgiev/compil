@@ -45,9 +45,10 @@ bool StructurePartial::abstract() const
     return mAbstract;
 }
 
-void StructurePartial::set_abstract(bool abstract)
+Structure& StructurePartial::set_abstract(bool abstract)
 {
     mAbstract = abstract;
+    return *(Structure*)this;
 }
 
 bool StructurePartial::controlled() const
@@ -55,9 +56,10 @@ bool StructurePartial::controlled() const
     return mControlled;
 }
 
-void StructurePartial::set_controlled(bool controlled)
+Structure& StructurePartial::set_controlled(bool controlled)
 {
     mControlled = controlled;
+    return *(Structure*)this;
 }
 
 bool StructurePartial::immutable() const
@@ -65,9 +67,10 @@ bool StructurePartial::immutable() const
     return mImmutable;
 }
 
-void StructurePartial::set_immutable(bool immutable)
+Structure& StructurePartial::set_immutable(bool immutable)
 {
     mImmutable = immutable;
+    return *(Structure*)this;
 }
 
 bool StructurePartial::partial() const
@@ -75,9 +78,10 @@ bool StructurePartial::partial() const
     return mPartial;
 }
 
-void StructurePartial::set_partial(bool partial)
+Structure& StructurePartial::set_partial(bool partial)
 {
     mPartial = partial;
+    return *(Structure*)this;
 }
 
 bool StructurePartial::sharable() const
@@ -85,9 +89,10 @@ bool StructurePartial::sharable() const
     return mSharable;
 }
 
-void StructurePartial::set_sharable(bool sharable)
+Structure& StructurePartial::set_sharable(bool sharable)
 {
     mSharable = sharable;
+    return *(Structure*)this;
 }
 
 bool StructurePartial::streamable() const
@@ -95,9 +100,10 @@ bool StructurePartial::streamable() const
     return mStreamable;
 }
 
-void StructurePartial::set_streamable(bool streamable)
+Structure& StructurePartial::set_streamable(bool streamable)
 {
     mStreamable = streamable;
+    return *(Structure*)this;
 }
 
 const std::vector<ObjectSPtr>& StructurePartial::objects() const
@@ -105,9 +111,15 @@ const std::vector<ObjectSPtr>& StructurePartial::objects() const
     return mObjects;
 }
 
-void StructurePartial::set_objects(const std::vector<ObjectSPtr>& objects)
+Structure& StructurePartial::set_objects(const std::vector<ObjectSPtr>& objects)
 {
     mObjects = objects;
+    return *(Structure*)this;
+}
+
+std::vector<ObjectSPtr>& StructurePartial::mutable_objects()
+{
+    return mObjects;
 }
 
 const StructureWPtr& StructurePartial::baseStructure() const
@@ -121,9 +133,10 @@ StructureWPtr StructurePartial::default_baseStructure()
     return defaultObject;
 }
 
-void StructurePartial::set_baseStructure(const StructureSPtr& baseStructure)
+Structure& StructurePartial::set_baseStructure(const StructureSPtr& baseStructure)
 {
     mBaseStructure = baseStructure;
+    return *(Structure*)this;
 }
 
 }

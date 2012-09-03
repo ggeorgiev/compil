@@ -77,17 +77,17 @@ public:
     // Getter method for the data field enumeration
             const EnumerationWPtr& enumeration      ()                                   const;
     // Setter method for the data field enumeration
-            void                   set_enumeration  (const EnumerationSPtr& enumeration);
+            EnumerationValue&      set_enumeration  (const EnumerationSPtr& enumeration);
 
     // Getter method for the data field comment
             const CommentSPtr&     comment          ()                                   const;
     // Setter method for the data field comment
-            void                   set_comment      (const CommentSPtr& comment);
+            EnumerationValue&      set_comment      (const CommentSPtr& comment);
 
     // Getter method for the data field name
             const NameSPtr&        name             ()                                   const;
     // Setter method for the data field name
-            void                   set_name         (const NameSPtr& name);
+            EnumerationValue&      set_name         (const NameSPtr& name);
 
 private:
     // variable for the data field enumeration
@@ -127,7 +127,7 @@ public:
     // Getter method for the data field value
             long                         value                    ()                          const;
     // Setter method for the data field value
-            void                         set_value                (long value);
+            AbsoluteEnumerationValue&    set_value                (long value);
 
 private:
     // variable for the data field value
@@ -163,7 +163,9 @@ public:
     // Getter method for the data field values
             const std::vector<EnumerationValueSPtr>& values                   ()                                                const;
     // Setter method for the data field values
-            void                                     set_values               (const std::vector<EnumerationValueSPtr>& values);
+            ComposedEnumerationValue&                set_values               (const std::vector<EnumerationValueSPtr>& values);
+    // Provide mutable access to field values
+            std::vector<EnumerationValueSPtr>&       mutable_values           ();
 
 private:
     // variable for the data field values

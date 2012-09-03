@@ -38,7 +38,6 @@ import "structure.compil";
 
 package compil;
 
-controlled
 structure Upcopy
     inherit Object
 {

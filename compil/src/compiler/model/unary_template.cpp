@@ -27,9 +27,10 @@ TypeWPtr UnaryTemplate::default_parameterType()
     return defaultObject;
 }
 
-void UnaryTemplate::set_parameterType(const TypeSPtr& parameterType)
+UnaryTemplate& UnaryTemplate::set_parameterType(const TypeSPtr& parameterType)
 {
     mParameterType = parameterType;
+    return *this;
 }
 
 }

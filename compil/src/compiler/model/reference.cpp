@@ -21,9 +21,10 @@ bool Reference::weak() const
     return mWeak;
 }
 
-void Reference::set_weak(bool weak)
+Reference& Reference::set_weak(bool weak)
 {
     mWeak = weak;
+    return *this;
 }
 
 }

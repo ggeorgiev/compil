@@ -263,9 +263,15 @@ const EOperatorAction& Operator::action() const
     return mAction;
 }
 
-void Operator::set_action(const EOperatorAction& action)
+Operator& Operator::set_action(const EOperatorAction& action)
 {
     mAction = action;
+    return *this;
+}
+
+EOperatorAction& Operator::mutable_action()
+{
+    return mAction;
 }
 
 const EOperatorFlags& Operator::flags() const
@@ -273,9 +279,15 @@ const EOperatorFlags& Operator::flags() const
     return mFlags;
 }
 
-void Operator::set_flags(const EOperatorFlags& flags)
+Operator& Operator::set_flags(const EOperatorFlags& flags)
 {
     mFlags = flags;
+    return *this;
+}
+
+EOperatorFlags& Operator::mutable_flags()
+{
+    return mFlags;
 }
 
 const StructureWPtr& Operator::structure() const
@@ -289,9 +301,10 @@ StructureWPtr Operator::default_structure()
     return defaultObject;
 }
 
-void Operator::set_structure(const StructureSPtr& structure)
+Operator& Operator::set_structure(const StructureSPtr& structure)
 {
     mStructure = structure;
+    return *this;
 }
 
 const CommentSPtr& Operator::comment() const
@@ -299,9 +312,10 @@ const CommentSPtr& Operator::comment() const
     return mComment;
 }
 
-void Operator::set_comment(const CommentSPtr& comment)
+Operator& Operator::set_comment(const CommentSPtr& comment)
 {
     mComment = comment;
+    return *this;
 }
 
 }

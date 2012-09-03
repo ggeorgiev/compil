@@ -21,9 +21,10 @@ const EnumerationWPtr& EnumerationValue::enumeration() const
     return mEnumeration;
 }
 
-void EnumerationValue::set_enumeration(const EnumerationSPtr& enumeration)
+EnumerationValue& EnumerationValue::set_enumeration(const EnumerationSPtr& enumeration)
 {
     mEnumeration = enumeration;
+    return *this;
 }
 
 const CommentSPtr& EnumerationValue::comment() const
@@ -31,9 +32,10 @@ const CommentSPtr& EnumerationValue::comment() const
     return mComment;
 }
 
-void EnumerationValue::set_comment(const CommentSPtr& comment)
+EnumerationValue& EnumerationValue::set_comment(const CommentSPtr& comment)
 {
     mComment = comment;
+    return *this;
 }
 
 const NameSPtr& EnumerationValue::name() const
@@ -41,9 +43,10 @@ const NameSPtr& EnumerationValue::name() const
     return mName;
 }
 
-void EnumerationValue::set_name(const NameSPtr& name)
+EnumerationValue& EnumerationValue::set_name(const NameSPtr& name)
 {
     mName = name;
+    return *this;
 }
 
 AbsoluteEnumerationValue::AbsoluteEnumerationValue()
@@ -64,9 +67,10 @@ long AbsoluteEnumerationValue::value() const
     return mValue;
 }
 
-void AbsoluteEnumerationValue::set_value(long value)
+AbsoluteEnumerationValue& AbsoluteEnumerationValue::set_value(long value)
 {
     mValue = value;
+    return *this;
 }
 
 ComposedEnumerationValue::ComposedEnumerationValue()
@@ -87,9 +91,15 @@ const std::vector<EnumerationValueSPtr>& ComposedEnumerationValue::values() cons
     return mValues;
 }
 
-void ComposedEnumerationValue::set_values(const std::vector<EnumerationValueSPtr>& values)
+ComposedEnumerationValue& ComposedEnumerationValue::set_values(const std::vector<EnumerationValueSPtr>& values)
 {
     mValues = values;
+    return *this;
+}
+
+std::vector<EnumerationValueSPtr>& ComposedEnumerationValue::mutable_values()
+{
+    return mValues;
 }
 
 }

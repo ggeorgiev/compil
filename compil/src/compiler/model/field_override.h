@@ -73,12 +73,12 @@ public:
     // Getter method for the data field field
             const FieldSPtr&  field              ()                                 const;
     // Setter method for the data field field
-            void              set_field          (const FieldSPtr& field);
+            FieldOverride&    set_field          (const FieldSPtr& field);
 
     // Getter method for the data field overriddenField
             const FieldSPtr&  overriddenField    ()                                 const;
     // Setter method for the data field overriddenField
-            void              set_overriddenField(const FieldSPtr& overriddenField);
+            FieldOverride&    set_overriddenField(const FieldSPtr& overriddenField);
 
 private:
     // variable for the data field field

@@ -76,17 +76,19 @@ public:
     // Getter method for the data field comment
             const CommentSPtr&             comment        ()                                       const;
     // Setter method for the data field comment
-            void                           set_comment    (const CommentSPtr& comment);
+            Interface&                     set_comment    (const CommentSPtr& comment);
 
     // Getter method for the data field name
             const NameSPtr&                name           ()                                       const;
     // Setter method for the data field name
-            void                           set_name       (const NameSPtr& name);
+            Interface&                     set_name       (const NameSPtr& name);
 
     // Getter method for the data field objects
             const std::vector<ObjectSPtr>& objects        ()                                       const;
     // Setter method for the data field objects
-            void                           set_objects    (const std::vector<ObjectSPtr>& objects);
+            Interface&                     set_objects    (const std::vector<ObjectSPtr>& objects);
+    // Provide mutable access to field objects
+            std::vector<ObjectSPtr>&       mutable_objects();
 
 private:
     // variable for the data field comment

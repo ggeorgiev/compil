@@ -58,9 +58,6 @@ public:
     // risk.
     static  DefaultValueSPtr   downcast        (const ObjectSPtr& pObject);
 
-    // Returns true if every required field is initialized.
-    virtual bool               isInitialized   ()                          const;
-
     // Identifier for the objects from DefaultValue class.
     // Note: it is not defined in the respective cpp file. Instead it is
     // defined in the factory class together with all the other identifiers
@@ -76,37 +73,19 @@ public:
 
     // Getter method for the data field optional
             bool               optional        ()                          const;
-    // Returns true if the data field value optional was changed from its
-    // default value false
-            bool               changed_optional()                          const;
     // Returns the default value false of the field optional
     static  bool               default_optional();
     // Setter method for the data field optional
-            void               set_optional    (bool optional);
-    // Resets the data field optional to its default value false
-            void               reset_optional  ();
+            DefaultValue&      set_optional    (bool optional);
 
     // Getter method for the data field value
             const std::string& value           ()                          const;
-    // Returns true if the data field value was set and could be considered
-    // valid
-            bool               valid_value     ()                          const;
     // Setter method for the data field value
-            void               set_value       (const std::string& value);
+            DefaultValue&      set_value       (const std::string& value);
+    // Provide mutable access to field value
             std::string&       mutable_value   ();
-    // Erases the required data field value. Object can not be instantiated
-    // before the field data is set again
-            void               erase_value     ();
 
 private:
-    // Returns unique bitmask value for the field optional
-    static int bitmask_optional();
-    // Returns unique bitmask value for the field value
-    static int bitmask_value   ();
-
-    // Stores availability information for the fields
-    int         mBits;
-
     // variable for the data field optional
     bool        mOptional;
     // variable for the data field value

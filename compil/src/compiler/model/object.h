@@ -69,21 +69,21 @@ public:
     // Getter method for the data field sourceId
             const SourceIdSPtr& sourceId       ()                             const;
     // Setter method for the data field sourceId
-            void                set_sourceId   (const SourceIdSPtr& sourceId);
+            Object&             set_sourceId   (const SourceIdSPtr& sourceId);
 
     // Getter method for the data field line
             long                line           ()                             const;
     // Returns the default value -1 of the field line
     static  long                default_line   ();
     // Setter method for the data field line
-            void                set_line       (long line);
+            Object&             set_line       (long line);
 
     // Getter method for the data field column
             long                column         ()                             const;
     // Returns the default value -1 of the field column
     static  long                default_column ();
     // Setter method for the data field column
-            void                set_column     (long column);
+            Object&             set_column     (long column);
 
 private:
     // variable for the data field sourceId

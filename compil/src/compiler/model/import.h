@@ -74,7 +74,9 @@ public:
     // Getter method for the data field source
             const std::string& source         ()                          const;
     // Setter method for the data field source
-            void               set_source     (const std::string& source);
+            Import&            set_source     (const std::string& source);
+    // Provide mutable access to field source
+            std::string&       mutable_source ();
 
 private:
     // variable for the data field source

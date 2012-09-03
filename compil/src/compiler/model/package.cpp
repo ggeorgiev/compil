@@ -21,9 +21,15 @@ const std::vector<std::string>& Package::elements() const
     return mElements;
 }
 
-void Package::set_elements(const std::vector<std::string>& elements)
+Package& Package::set_elements(const std::vector<std::string>& elements)
 {
     mElements = elements;
+    return *this;
+}
+
+std::vector<std::string>& Package::mutable_elements()
+{
+    return mElements;
 }
 
 }

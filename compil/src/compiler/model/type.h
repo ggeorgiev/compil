@@ -86,17 +86,17 @@ public:
     // Returns the default value null of the field package
     static  PackageSPtr        default_package ();
     // Setter method for the data field package
-            void               set_package     (const PackageSPtr& package);
+            Type&              set_package     (const PackageSPtr& package);
 
     // Getter method for the data field comment
             const CommentSPtr& comment         ()                           const;
     // Setter method for the data field comment
-            void               set_comment     (const CommentSPtr& comment);
+            Type&              set_comment     (const CommentSPtr& comment);
 
     // Getter method for the data field name
             const NameSPtr&    name            ()                           const;
     // Setter method for the data field name
-            void               set_name        (const NameSPtr& name);
+            Type&              set_name        (const NameSPtr& name);
 
     // This enumeration class provides namespaced set of constant values.
     // It is designed to provide type control over operations with enum
@@ -164,9 +164,11 @@ public:
     };
 
     // Getter method for the data field literal
-    const ELiteral& literal    ()                        const;
+    const ELiteral& literal        ()                        const;
     // Setter method for the data field literal
-    void            set_literal(const ELiteral& literal);
+    Type&           set_literal    (const ELiteral& literal);
+    // Provide mutable access to field literal
+    ELiteral&       mutable_literal();
 
     // This enumeration class provides namespaced set of constant values.
     // It is designed to provide type control over operations with enum
@@ -224,9 +226,11 @@ public:
     };
 
     // Getter method for the data field kind
-    const EKind& kind    ()                  const;
+    const EKind& kind        ()                  const;
     // Setter method for the data field kind
-    void         set_kind(const EKind& kind);
+    Type&        set_kind    (const EKind& kind);
+    // Provide mutable access to field kind
+    EKind&       mutable_kind();
 
 private:
     // variable for the data field package

@@ -21,9 +21,10 @@ const StructureWPtr& Field::structure() const
     return mStructure;
 }
 
-void Field::set_structure(const StructureSPtr& structure)
+Field& Field::set_structure(const StructureSPtr& structure)
 {
     mStructure = structure;
+    return *this;
 }
 
 const CommentSPtr& Field::comment() const
@@ -31,9 +32,10 @@ const CommentSPtr& Field::comment() const
     return mComment;
 }
 
-void Field::set_comment(const CommentSPtr& comment)
+Field& Field::set_comment(const CommentSPtr& comment)
 {
     mComment = comment;
+    return *this;
 }
 
 const NameSPtr& Field::name() const
@@ -41,9 +43,10 @@ const NameSPtr& Field::name() const
     return mName;
 }
 
-void Field::set_name(const NameSPtr& name)
+Field& Field::set_name(const NameSPtr& name)
 {
     mName = name;
+    return *this;
 }
 
 const TypeSPtr& Field::type() const
@@ -51,9 +54,10 @@ const TypeSPtr& Field::type() const
     return mType;
 }
 
-void Field::set_type(const TypeSPtr& type)
+Field& Field::set_type(const TypeSPtr& type)
 {
     mType = type;
+    return *this;
 }
 
 const DefaultValueSPtr& Field::defaultValue() const
@@ -67,9 +71,10 @@ DefaultValueSPtr Field::default_defaultValue()
     return defaultObject;
 }
 
-void Field::set_defaultValue(const DefaultValueSPtr& defaultValue)
+Field& Field::set_defaultValue(const DefaultValueSPtr& defaultValue)
 {
     mDefaultValue = defaultValue;
+    return *this;
 }
 
 unsigned long Field::bitmask() const
@@ -77,9 +82,10 @@ unsigned long Field::bitmask() const
     return mBitmask;
 }
 
-void Field::set_bitmask(unsigned long bitmask)
+Field& Field::set_bitmask(unsigned long bitmask)
 {
     mBitmask = bitmask;
+    return *this;
 }
 
 }

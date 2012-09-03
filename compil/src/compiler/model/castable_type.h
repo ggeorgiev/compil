@@ -110,9 +110,11 @@ public:
     };
 
     // Getter method for the data field cast
-    const ECast& cast    ()                  const;
+    const ECast&  cast        ()                  const;
     // Setter method for the data field cast
-    void         set_cast(const ECast& cast);
+    CastableType& set_cast    (const ECast& cast);
+    // Provide mutable access to field cast
+    ECast&        mutable_cast();
 
 private:
     // variable for the data field cast

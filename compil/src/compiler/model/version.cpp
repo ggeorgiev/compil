@@ -21,9 +21,10 @@ long Version::number() const
     return mNumber;
 }
 
-void Version::set_number(long number)
+Version& Version::set_number(long number)
 {
     mNumber = number;
+    return *this;
 }
 
 }

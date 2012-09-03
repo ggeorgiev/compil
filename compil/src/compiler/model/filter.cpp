@@ -21,9 +21,10 @@ const CommentSPtr& Filter::comment() const
     return mComment;
 }
 
-void Filter::set_comment(const CommentSPtr& comment)
+Filter& Filter::set_comment(const CommentSPtr& comment)
 {
     mComment = comment;
+    return *this;
 }
 
 const FieldSPtr& Filter::field() const
@@ -31,9 +32,10 @@ const FieldSPtr& Filter::field() const
     return mField;
 }
 
-void Filter::set_field(const FieldSPtr& field)
+Filter& Filter::set_field(const FieldSPtr& field)
 {
     mField = field;
+    return *this;
 }
 
 const std::string& Filter::method() const
@@ -41,9 +43,15 @@ const std::string& Filter::method() const
     return mMethod;
 }
 
-void Filter::set_method(const std::string& method)
+Filter& Filter::set_method(const std::string& method)
 {
     mMethod = method;
+    return *this;
+}
+
+std::string& Filter::mutable_method()
+{
+    return mMethod;
 }
 
 }

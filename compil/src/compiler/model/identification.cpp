@@ -77,9 +77,15 @@ const Identification::EType& Identification::type() const
     return mType;
 }
 
-void Identification::set_type(const EType& type)
+Identification& Identification::set_type(const EType& type)
 {
     mType = type;
+    return *this;
+}
+
+Identification::EType& Identification::mutable_type()
+{
+    return mType;
 }
 
 const StructureWPtr& Identification::structure() const
@@ -87,9 +93,10 @@ const StructureWPtr& Identification::structure() const
     return mStructure;
 }
 
-void Identification::set_structure(const StructureSPtr& structure)
+Identification& Identification::set_structure(const StructureSPtr& structure)
 {
     mStructure = structure;
+    return *this;
 }
 
 const CommentSPtr& Identification::comment() const
@@ -97,9 +104,10 @@ const CommentSPtr& Identification::comment() const
     return mComment;
 }
 
-void Identification::set_comment(const CommentSPtr& comment)
+Identification& Identification::set_comment(const CommentSPtr& comment)
 {
     mComment = comment;
+    return *this;
 }
 
 }

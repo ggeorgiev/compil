@@ -59,9 +59,6 @@ public:
     // risk.
     static  CommentSPtr                     downcast       (const ObjectSPtr& pObject);
 
-    // Returns true if every required field is initialized.
-    virtual bool                            isInitialized  ()                                      const;
-
     // Identifier for the objects from Comment class.
     // Note: it is not defined in the respective cpp file. Instead it is
     // defined in the factory class together with all the other identifiers
@@ -77,23 +74,12 @@ public:
 
     // Getter method for the data field lines
             const std::vector<std::string>& lines          ()                                      const;
-    // Returns true if the data field lines was set and could be considered
-    // valid
-            bool                            valid_lines    ()                                      const;
     // Setter method for the data field lines
-            void                            set_lines      (const std::vector<std::string>& lines);
+            Comment&                        set_lines      (const std::vector<std::string>& lines);
+    // Provide mutable access to field lines
             std::vector<std::string>&       mutable_lines  ();
-    // Erases the required data field lines. Object can not be instantiated
-    // before the field data is set again
-            void                            erase_lines    ();
 
 private:
-    // Returns unique bitmask value for the field lines
-    static int bitmask_lines();
-
-    // Stores availability information for the fields
-    int                      mBits;
-
     // variable for the data field lines
     std::vector<std::string> mLines;
 };

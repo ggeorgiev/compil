@@ -77,9 +77,15 @@ const UnaryContainer::ESize& UnaryContainer::size() const
     return mSize;
 }
 
-void UnaryContainer::set_size(const ESize& size)
+UnaryContainer& UnaryContainer::set_size(const ESize& size)
 {
     mSize = size;
+    return *this;
+}
+
+UnaryContainer::ESize& UnaryContainer::mutable_size()
+{
+    return mSize;
 }
 
 }

@@ -36,8 +36,7 @@ import "object.compil";
 
 package compil;
 
-controlled structure 
-DefaultValue 
+structure DefaultValue 
     inherit Object
 {
     runtime identification;

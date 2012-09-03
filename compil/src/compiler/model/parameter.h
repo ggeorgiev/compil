@@ -76,22 +76,22 @@ public:
     // Getter method for the data field method
             const MethodWPtr&  method         ()                           const;
     // Setter method for the data field method
-            void               set_method     (const MethodSPtr& method);
+            Parameter&         set_method     (const MethodSPtr& method);
 
     // Getter method for the data field comment
             const CommentSPtr& comment        ()                           const;
     // Setter method for the data field comment
-            void               set_comment    (const CommentSPtr& comment);
+            Parameter&         set_comment    (const CommentSPtr& comment);
 
     // Getter method for the data field type
             const TypeSPtr&    type           ()                           const;
     // Setter method for the data field type
-            void               set_type       (const TypeSPtr& type);
+            Parameter&         set_type       (const TypeSPtr& type);
 
     // Getter method for the data field name
             const NameSPtr&    name           ()                           const;
     // Setter method for the data field name
-            void               set_name       (const NameSPtr& name);
+            Parameter&         set_name       (const NameSPtr& name);
 
     // This enumeration class provides namespaced set of constant values.
     // It is designed to provide type control over operations with enum
@@ -149,9 +149,11 @@ public:
     };
 
     // Getter method for the data field direction
-    const EDirection& direction    ()                            const;
+    const EDirection& direction        ()                            const;
     // Setter method for the data field direction
-    void              set_direction(const EDirection& direction);
+    Parameter&        set_direction    (const EDirection& direction);
+    // Provide mutable access to field direction
+    EDirection&       mutable_direction();
 
 private:
     // variable for the data field method

@@ -33,9 +33,10 @@ bool EnumerationPartial::flags() const
     return mFlags;
 }
 
-void EnumerationPartial::set_flags(bool flags)
+Enumeration& EnumerationPartial::set_flags(bool flags)
 {
     mFlags = flags;
+    return *(Enumeration*)this;
 }
 
 const std::vector<EnumerationValueSPtr>& EnumerationPartial::enumerationValues() const
@@ -43,9 +44,15 @@ const std::vector<EnumerationValueSPtr>& EnumerationPartial::enumerationValues()
     return mEnumerationValues;
 }
 
-void EnumerationPartial::set_enumerationValues(const std::vector<EnumerationValueSPtr>& enumerationValues)
+Enumeration& EnumerationPartial::set_enumerationValues(const std::vector<EnumerationValueSPtr>& enumerationValues)
 {
     mEnumerationValues = enumerationValues;
+    return *(Enumeration*)this;
+}
+
+std::vector<EnumerationValueSPtr>& EnumerationPartial::mutable_enumerationValues()
+{
+    return mEnumerationValues;
 }
 
 const StructureWPtr& EnumerationPartial::structure() const
@@ -59,9 +66,10 @@ StructureWPtr EnumerationPartial::default_structure()
     return defaultObject;
 }
 
-void EnumerationPartial::set_structure(const StructureSPtr& structure)
+Enumeration& EnumerationPartial::set_structure(const StructureSPtr& structure)
 {
     mStructure = structure;
+    return *(Enumeration*)this;
 }
 
 }

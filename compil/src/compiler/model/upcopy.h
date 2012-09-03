@@ -49,17 +49,14 @@ class Upcopy : public Object
 {
 public:
     // Default constructor
-                                 Upcopy             ();
+                                 Upcopy           ();
     // Destructor
-    virtual                      ~Upcopy            ();
+    virtual                      ~Upcopy          ();
 
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  UpcopySPtr           downcast           (const ObjectSPtr& pObject);
-
-    // Returns true if every required field is initialized.
-    virtual bool                 isInitialized      ()                                   const;
+    static  UpcopySPtr           downcast         (const ObjectSPtr& pObject);
 
     // Identifier for the objects from Upcopy class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -67,57 +64,29 @@ public:
     // of the other class objects. This allows all identifiers to be
     // maintained from a single place, which reduces the risk of value
     // collisions
-    static  EObjectId            staticObjectId     ();
+    static  EObjectId            staticObjectId   ();
     // This virtual method provides runtime object identification based on
     // the polymorphic behavior of the virtual methods. Allows having a
     // RTTI like mechanism significantly cheaper than the RTTI provided by
     // the compilers themselves.
-    virtual EObjectId            runtimeObjectId    ()                                   const;
+    virtual EObjectId            runtimeObjectId  ()                                   const;
 
     // Getter method for the data field comment
-            const CommentSPtr&   comment            ()                                   const;
-    // Returns true if the data field comment was set and could be
-    // considered valid
-            bool                 valid_comment      ()                                   const;
+            const CommentSPtr&   comment          ()                                   const;
     // Setter method for the data field comment
-            void                 set_comment        (const CommentSPtr& comment);
-    // Erases the required data field comment. Object can not be
-    // instantiated before the field data is set again
-            void                 erase_comment      ();
+            Upcopy&              set_comment      (const CommentSPtr& comment);
 
     // Getter method for the data field structure
-            const StructureWPtr& structure          ()                                   const;
-    // Returns true if the data field structure was set and could be
-    // considered valid
-            bool                 valid_structure    ()                                   const;
+            const StructureWPtr& structure        ()                                   const;
     // Setter method for the data field structure
-            void                 set_structure      (const StructureSPtr& structure);
-    // Erases the required data field structure. Object can not be
-    // instantiated before the field data is set again
-            void                 erase_structure    ();
+            Upcopy&              set_structure    (const StructureSPtr& structure);
 
     // Getter method for the data field baseStructure
-            const StructureSPtr& baseStructure      ()                                   const;
-    // Returns true if the data field baseStructure was set and could be
-    // considered valid
-            bool                 valid_baseStructure()                                   const;
+            const StructureSPtr& baseStructure    ()                                   const;
     // Setter method for the data field baseStructure
-            void                 set_baseStructure  (const StructureSPtr& baseStructure);
-    // Erases the required data field baseStructure. Object can not be
-    // instantiated before the field data is set again
-            void                 erase_baseStructure();
+            Upcopy&              set_baseStructure(const StructureSPtr& baseStructure);
 
 private:
-    // Returns unique bitmask value for the field comment
-    static int bitmask_comment      ();
-    // Returns unique bitmask value for the field structure
-    static int bitmask_structure    ();
-    // Returns unique bitmask value for the field baseStructure
-    static int bitmask_baseStructure();
-
-    // Stores availability information for the fields
-    int           mBits;
-
     // variable for the data field comment
     CommentSPtr   mComment;
     // variable for the data field structure

@@ -127,17 +127,19 @@ public:
     // Getter method for the data field type
     const EType&         type         ()                               const;
     // Setter method for the data field type
-    void                 set_type     (const EType& type);
+    Identification&      set_type     (const EType& type);
+    // Provide mutable access to field type
+    EType&               mutable_type ();
 
     // Getter method for the data field structure
     const StructureWPtr& structure    ()                               const;
     // Setter method for the data field structure
-    void                 set_structure(const StructureSPtr& structure);
+    Identification&      set_structure(const StructureSPtr& structure);
 
     // Getter method for the data field comment
     const CommentSPtr&   comment      ()                               const;
     // Setter method for the data field comment
-    void                 set_comment  (const CommentSPtr& comment);
+    Identification&      set_comment  (const CommentSPtr& comment);
 
 private:
     // variable for the data field type

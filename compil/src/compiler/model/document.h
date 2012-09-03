@@ -60,9 +60,6 @@ public:
     // risk.
     static  DocumentSPtr                    downcast        (const ObjectSPtr& pObject);
 
-    // Returns true if every required field is initialized.
-    virtual bool                            isInitialized   ()                                         const;
-
     // Identifier for the objects from Document class.
     // Note: it is not defined in the respective cpp file. Instead it is
     // defined in the factory class together with all the other identifiers
@@ -78,35 +75,19 @@ public:
 
     // Getter method for the data field comments
             const std::vector<CommentSPtr>& comments        ()                                         const;
-    // Checks if the optional field comments exists
-            bool                            exist_comments  ()                                         const;
     // Setter method for the data field comments
-            void                            set_comments    (const std::vector<CommentSPtr>& comments);
+            Document&                       set_comments    (const std::vector<CommentSPtr>& comments);
+    // Provide mutable access to field comments
             std::vector<CommentSPtr>&       mutable_comments();
-    // Clears the optional data field comments
-            void                            clear_comments  ();
 
     // Getter method for the data field version
             const Version&                  version         ()                                         const;
-    // Returns true if the data field version was set and could be
-    // considered valid
-            bool                            valid_version   ()                                         const;
     // Setter method for the data field version
-            void                            set_version     (const Version& version);
+            Document&                       set_version     (const Version& version);
+    // Provide mutable access to field version
             Version&                        mutable_version ();
-    // Erases the required data field version. Object can not be
-    // instantiated before the field data is set again
-            void                            erase_version   ();
 
 private:
-    // Returns unique bitmask value for the field comments
-    static int bitmask_comments();
-    // Returns unique bitmask value for the field version
-    static int bitmask_version ();
-
-    // Stores availability information for the fields
-    int                      mBits;
-
     // variable for the data field comments
     std::vector<CommentSPtr> mComments;
     // variable for the data field version

@@ -36,7 +36,6 @@ import "object.compil";
 
 package compil;
 
-controlled
 structure Comment
     inherit Object
 {

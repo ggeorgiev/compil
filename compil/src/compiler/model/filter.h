@@ -76,17 +76,19 @@ public:
     // Getter method for the data field comment
             const CommentSPtr& comment        ()                           const;
     // Setter method for the data field comment
-            void               set_comment    (const CommentSPtr& comment);
+            Filter&            set_comment    (const CommentSPtr& comment);
 
     // Getter method for the data field field
             const FieldSPtr&   field          ()                           const;
     // Setter method for the data field field
-            void               set_field      (const FieldSPtr& field);
+            Filter&            set_field      (const FieldSPtr& field);
 
     // Getter method for the data field method
             const std::string& method         ()                           const;
     // Setter method for the data field method
-            void               set_method     (const std::string& method);
+            Filter&            set_method     (const std::string& method);
+    // Provide mutable access to field method
+            std::string&       mutable_method ();
 
 private:
     // variable for the data field comment

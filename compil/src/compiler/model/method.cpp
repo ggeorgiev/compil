@@ -21,9 +21,10 @@ const InterfaceWPtr& Method::interface_() const
     return mInterface;
 }
 
-void Method::set_interface(const InterfaceSPtr& interface_)
+Method& Method::set_interface(const InterfaceSPtr& interface_)
 {
     mInterface = interface_;
+    return *this;
 }
 
 const CommentSPtr& Method::comment() const
@@ -31,9 +32,10 @@ const CommentSPtr& Method::comment() const
     return mComment;
 }
 
-void Method::set_comment(const CommentSPtr& comment)
+Method& Method::set_comment(const CommentSPtr& comment)
 {
     mComment = comment;
+    return *this;
 }
 
 const NameSPtr& Method::name() const
@@ -41,9 +43,10 @@ const NameSPtr& Method::name() const
     return mName;
 }
 
-void Method::set_name(const NameSPtr& name)
+Method& Method::set_name(const NameSPtr& name)
 {
     mName = name;
+    return *this;
 }
 
 const std::vector<ObjectSPtr>& Method::objects() const
@@ -51,9 +54,15 @@ const std::vector<ObjectSPtr>& Method::objects() const
     return mObjects;
 }
 
-void Method::set_objects(const std::vector<ObjectSPtr>& objects)
+Method& Method::set_objects(const std::vector<ObjectSPtr>& objects)
 {
     mObjects = objects;
+    return *this;
+}
+
+std::vector<ObjectSPtr>& Method::mutable_objects()
+{
+    return mObjects;
 }
 
 }

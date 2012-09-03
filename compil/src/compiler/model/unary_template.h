@@ -75,7 +75,7 @@ public:
     // Returns the default value null of the field parameterType
     static  TypeWPtr          default_parameterType();
     // Setter method for the data field parameterType
-            void              set_parameterType    (const TypeSPtr& parameterType);
+            UnaryTemplate&    set_parameterType    (const TypeSPtr& parameterType);
 
 private:
     // variable for the data field parameterType

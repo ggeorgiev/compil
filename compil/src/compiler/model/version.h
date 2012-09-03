@@ -72,7 +72,7 @@ public:
     // Getter method for the data field number
             long        number         ()                          const;
     // Setter method for the data field number
-            void        set_number     (long number);
+            Version&    set_number     (long number);
 
 private:
     // variable for the data field number

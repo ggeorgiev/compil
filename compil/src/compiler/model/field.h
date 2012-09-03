@@ -77,34 +77,34 @@ public:
     // Getter method for the data field structure
             const StructureWPtr&    structure           ()                                     const;
     // Setter method for the data field structure
-            void                    set_structure       (const StructureSPtr& structure);
+            Field&                  set_structure       (const StructureSPtr& structure);
 
     // Getter method for the data field comment
             const CommentSPtr&      comment             ()                                     const;
     // Setter method for the data field comment
-            void                    set_comment         (const CommentSPtr& comment);
+            Field&                  set_comment         (const CommentSPtr& comment);
 
     // Getter method for the data field name
             const NameSPtr&         name                ()                                     const;
     // Setter method for the data field name
-            void                    set_name            (const NameSPtr& name);
+            Field&                  set_name            (const NameSPtr& name);
 
     // Getter method for the data field type
             const TypeSPtr&         type                ()                                     const;
     // Setter method for the data field type
-            void                    set_type            (const TypeSPtr& type);
+            Field&                  set_type            (const TypeSPtr& type);
 
     // Getter method for the data field defaultValue
             const DefaultValueSPtr& defaultValue        ()                                     const;
     // Returns the default value null of the field defaultValue
     static  DefaultValueSPtr        default_defaultValue();
     // Setter method for the data field defaultValue
-            void                    set_defaultValue    (const DefaultValueSPtr& defaultValue);
+            Field&                  set_defaultValue    (const DefaultValueSPtr& defaultValue);
 
     // Getter method for the data field bitmask
             unsigned long           bitmask             ()                                     const;
     // Setter method for the data field bitmask
-            void                    set_bitmask         (unsigned long bitmask);
+            Field&                  set_bitmask         (unsigned long bitmask);
 
 private:
     // variable for the data field structure
