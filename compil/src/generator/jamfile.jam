@@ -16,21 +16,23 @@ lib gen :
     aligner/object/argument.cpp
     aligner/object/cast_operator.cpp
     aligner/object/constructor.cpp
-    aligner/object/declaration.cpp
     aligner/object/decorated_type.cpp
+    aligner/object/decoration.cpp
     aligner/object/destructor_specifier.cpp
     aligner/object/destructor_name.cpp
     aligner/object/destructor.cpp
-    aligner/object/decoration.cpp
     aligner/object/function_call.cpp
     aligner/object/function_name.cpp
     aligner/object/function.cpp
     aligner/object/initialization.cpp
+    aligner/object/method_declaration.cpp
     aligner/object/method_name.cpp
     aligner/object/method_specifier.cpp
     aligner/object/namespace_name.cpp
     aligner/object/namespace.cpp
     aligner/object/simple_type.cpp
+    aligner/object/type_declaration.cpp
+
     aligner/aligner.cpp
     aligner/aligner_configuration.cpp
     aligner/function_definition_aligner.cpp

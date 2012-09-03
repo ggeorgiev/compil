@@ -373,7 +373,7 @@ DecoratedType CppFormatter::cppRawPtrDecoratedType(const TypeSPtr& pType)
 
 DecoratedType CppFormatter::cppSharedPtrDecoratedType(const TypeSPtr& pType)
 {
-    return *CreateDecoratedType(cst, cppSharedPtrName(pType), ref);
+    return *CreateDecoratedType(ETypeDeclaration::const_(), cppSharedPtrName(pType), ref);
 }
 
 std::string CppFormatter::cppMemberName(const FieldSPtr& pField)

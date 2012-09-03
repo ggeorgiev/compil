@@ -56,72 +56,72 @@ public:
     class Builder
     {
         // hide evil auto created assignment operator, no implementation
-                void              operator=      (const Builder& );
+                  void              operator=      (const Builder& );
     public:
         // Default constructor. All fields without default values are left
         // uninitialized. Make sure you initialize all the necessary fields
         // before instantiating
-                                  Builder        ();
+                                    Builder        ();
         // Use this constructor when you need to clone or create an object
         // just slightly different from another object
-                                  Builder        (const SimpleType& object);
+                                    Builder        (const SimpleType& object);
         // Destructor of Builder
-        /*lax*/                   ~Builder       ();
+        /* lax */                   ~Builder       ();
 
         // Instantiates SimpleType instance with the current initialization
         // of the fields. After the instance is ready the builder could be
         // reused to instantiate more objects. The data is not reset.
         // Second call of build() will instantiate object with the same
         // data.
-                const SimpleType& build          ()                                const;
+                  const SimpleType& build          ()                                const;
 
         // Provides the internal instantiated builder object and
         // invalidates the builder status. Once finalize() is called, the
         // builder can not be used again. Use finalize() when you no longer
         // are going to use this builder.
-                SimpleTypeSPtr    finalize       ();
+                  SimpleTypeSPtr    finalize       ();
 
 
         // Setter method for the data field namespace
-                Builder&          set_namespace  (const NamespaceSPtr& namespace_);
+                  Builder&          set_namespace  (const NamespaceSPtr& namespace_);
         // Clears the optional data field namespace
-                void              clear_namespace();
+                  void              clear_namespace();
 
         // Setter method for the data field value
-                Builder&          set_value      (const std::string& value);
-                std::string&      mutable_value  ();
+                  Builder&          set_value      (const std::string& value);
+                  std::string&      mutable_value  ();
         // Clears the optional data field value
-                void              clear_value    ();
+                  void              clear_value    ();
 
     protected:
         // constructor needed from potential derived classes
-                                  Builder        (SimpleTypeRPtr pObject);
+                                    Builder        (SimpleTypeRPtr pObject);
 
         SimpleTypeRPtr mpObject;
     };
 
     // Default constructor
-                                 SimpleType     ();
+                                   SimpleType     ();
     // Destructor
-    /*lax*/                      ~SimpleType    ();
+    /* lax */                      ~SimpleType    ();
 
     // Returns true if every required field is initialized.
     // Note: If the class is used properly it should always return true,
     // because the object could be instantiated only if it is already
     // initialized and can not be changed. Called by the Builder class.
-            bool                 isInitialized  () const;
+              bool                 isInitialized  () const;
 
-            bool                 isVoid         () const;
+              bool                 isVoid         () const;
 
     // Getter method for the data field namespace
-            const NamespaceSPtr& namespace_     () const;
+              const NamespaceSPtr& namespace_     () const;
     // Checks if the optional field namespace exists
-            bool                 exist_namespace() const;
+              bool                 exist_namespace() const;
 
     // Getter method for the data field value
-            const std::string&   value          () const;
+              const std::string&   value          () const;
     // Checks if the optional field value exists
-            bool                 exist_value    () const;
+              bool                 exist_value    () const;
 
 private:
     // Returns unique bitmask value for the field namespace

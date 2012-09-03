@@ -32,14 +32,14 @@
 
 compil { }
 
-import "declaration.compil";
+import "type_declaration.compil";
 import "simple_type.compil";
 import "decoration.compil";
 
 controlled immutable 
 structure DecoratedType
 {
-    Declaration declaration = optional;
+    TypeDeclaration declaration = optional;
     SimpleType type = optional;
     Decoration decoration = optional;
 

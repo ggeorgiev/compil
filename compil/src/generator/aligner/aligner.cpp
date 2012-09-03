@@ -35,8 +35,6 @@
 namespace compil
 {
 
-Declaration cst = *CreateDeclaration("const");
-
 Decoration ref   = *CreateDecoration("&");
 Decoration ptr   = *CreateDecoration("*");
 Decoration tilde = *CreateDecoration("~");
@@ -44,12 +42,14 @@ Decoration tilde = *CreateDecoration("~");
 DecoratedType bl             = *CreateDecoratedType(*CreateSimpleType("bool"));
 DecoratedType vd             = *CreateDecoratedType(*CreateSimpleType("void"));
 DecoratedType st             = *CreateDecoratedType(*CreateSimpleType("size_t"));
-DecoratedType const_char_ptr = *CreateDecoratedType(*CreateDeclaration("const"), 
+DecoratedType const_char_ptr = *CreateDecoratedType(ETypeDeclaration::const_(),
                                                     *CreateSimpleType("char"),
-                                                    *CreateDecoration("*"));
+                                                    ptr);
 DecoratedType cloneFunction  = *CreateDecoratedType(*CreateSimpleType("fnClone"));
 
-DecoratedType cstTRef        = *CreateDecoratedType(cst, *CreateSimpleType("T"), ref);
+DecoratedType cstTRef        = *CreateDecoratedType(ETypeDeclaration::const_(),
+                                                    *CreateSimpleType("T"),
+                                                    ref);
 DecoratedType TPtr           = *CreateDecoratedType(*CreateSimpleType("T"), ptr);
 
 MethodNameSPtr fnValue                  = methodNameRef("value");

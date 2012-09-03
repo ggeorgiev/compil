@@ -73,17 +73,17 @@ inline std::string NamespaceName::value() const
 
 inline bool NamespaceName::operator==(const NamespaceName& rValue) const
 {
-    return mValue == rValue.mValue;
+    return value() == rValue.value();
 }
 
 inline bool NamespaceName::operator!=(const NamespaceName& rValue) const
 {
-    return mValue != rValue.mValue;
+    return value() != rValue.value();
 }
 
 inline bool NamespaceName::operator<(const NamespaceName& rValue) const
 {
-    return mValue < rValue.mValue;
+    return value() < rValue.value();
 }
 
 #else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_NAME_COMPIL_H_

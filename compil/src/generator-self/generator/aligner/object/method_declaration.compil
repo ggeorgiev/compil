@@ -30,50 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "c++_keyword.h"
+compil { }
 
-namespace compil
+strong enum MethodDeclaration
 {
-
-CppKeyword::CppKeyword(const FormatterConfigurationPtr& pConfig)
-        : mpConfiguration(pConfig)
-{
+    const;
 }
-
-CppKeyword::~CppKeyword()
-{
-}
-
-bool CppKeyword::isKeyword(const std::string& word)
-{
-    if (word == "case")         return true;
-    if (word == "class")        return true;
-    if (word == "const")        return true;
-    if (word == "enum")         return true;
-    if (word == "explicit")     return true;
-    if (word == "default")      return true;
-    if (word == "inline")       return true;
-    if (word == "namespace")    return true;
-    if (word == "operator")     return true;
-    if (word == "private")      return true;
-    if (word == "protected")    return true;
-    if (word == "public")       return true;
-    if (word == "static")       return true;
-    if (word == "switch")       return true;
-    if (word == "virtual")      return true;
-    
-// MSVC
-    if (word == "interface") return true;
-    
-    return false;
-}
-
-std::string CppKeyword::escapeKeyword(const std::string& word)
-{
-    if (isKeyword(word))
-        return word + "_";
-    return word;
-}
-
-}
-

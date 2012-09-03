@@ -39,12 +39,12 @@
 #include "argument.h"
 #include "cast_operator.h"
 #include "constructor.h"
-#include "declaration.h"
 #include "decorated_type.h"
 #include "destructor.h"
 #include "decoration.h"
 #include "function_call.h"
 #include "function.h"
+#include "method_declaration.h"
 #include "method_name.h"
 #include "initialization.h"
 #include "simple_type.h"
@@ -56,10 +56,6 @@
 
 namespace compil
 {
-
-
-extern Declaration cst;
-
 extern Decoration ref;
 extern Decoration ptr;
 extern Decoration tilde;

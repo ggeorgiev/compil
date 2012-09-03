@@ -32,13 +32,7 @@
 
 compil { }
 
-controlled immutable 
-structure Declaration
+strong enum TypeDeclaration
 {
-    string value = optional;
-}
-
-function object 
-factory<Declaration> CreateDeclaration
-{
+    const;
 }

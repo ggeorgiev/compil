@@ -51,20 +51,20 @@ Function::Function(const DecoratedType& returnType,
 }
 
 Function::Function(const FunctionNameSPtr& name,
-                   const Declaration& declaration)
+                   const EMethodDeclaration& declaration)
     : mName(name), mDeclaration(declaration)
 {
 }
 
 Function::Function(const CastOperator& castOperator, 
-                   const Declaration& declaration)
+                   const EMethodDeclaration& declaration)
     : mCastOperator(castOperator), mDeclaration(declaration)
 {
 }
 
 Function::Function(const DecoratedType& returnType,
                    const FunctionNameSPtr& name, 
-                   const Declaration& declaration)
+                   const EMethodDeclaration& declaration)
     : mReturnType(returnType), mName(name), mDeclaration(declaration)
 {
 }
@@ -96,7 +96,7 @@ Function::Function(const DecoratedType& returnType,
 
 Function::Function(const FunctionNameSPtr& name,
                    const Argument& argument,
-                   const Declaration& declaration)
+                   const EMethodDeclaration& declaration)
     : mName(name), mDeclaration(declaration)
 {
     mvArgument.push_back(argument);
@@ -105,7 +105,7 @@ Function::Function(const FunctionNameSPtr& name,
 Function::Function(const DecoratedType& returnType,
                    const FunctionNameSPtr& name,
                    const Argument& argument,
-                   const Declaration& declaration)
+                   const EMethodDeclaration& declaration)
     : mReturnType(returnType), mName(name), mDeclaration(declaration)
 {
     mvArgument.push_back(argument);
@@ -115,7 +115,7 @@ Function::Function(const DecoratedType& returnType,
                    const FunctionNameSPtr& name,
                    const Argument& argument1,
                    const Argument& argument2,
-                   const Declaration& declaration)
+                   const EMethodDeclaration& declaration)
     : mReturnType(returnType), mName(name), mDeclaration(declaration)
 {
     mvArgument.push_back(argument1);
@@ -124,14 +124,14 @@ Function::Function(const DecoratedType& returnType,
 
 Function::Function(const NamespaceSPtr& namesp,
                    const FunctionNameSPtr& name,
-                   const Declaration& declaration)
+                   const EMethodDeclaration& declaration)
     : mNamespace(namesp), mName(name), mDeclaration(declaration)
 {
 }
 
 Function::Function(const NamespaceSPtr& namesp,
                    const CastOperator& castOperator,
-                   const Declaration& declaration)
+                   const EMethodDeclaration& declaration)
     : mNamespace(namesp), mCastOperator(castOperator), mDeclaration(declaration)
 {
 }
@@ -139,7 +139,7 @@ Function::Function(const NamespaceSPtr& namesp,
 Function::Function(const DecoratedType& returnType,
                    const NamespaceSPtr& namesp,
                    const FunctionNameSPtr& name,
-                   const Declaration& declaration)
+                   const EMethodDeclaration& declaration)
     : mReturnType(returnType), mNamespace(namesp), mName(name), mDeclaration(declaration)
 {
 }
@@ -189,7 +189,7 @@ Function::Function(const DecoratedType& returnType,
 Function::Function(const NamespaceSPtr& namesp, 
                    const FunctionNameSPtr& name, 
                    const Argument& argument, 
-                   const Declaration& declaration)
+                   const EMethodDeclaration& declaration)
     : mNamespace(namesp), mName(name), mDeclaration(declaration)
 {
     mvArgument.push_back(argument);
@@ -199,7 +199,7 @@ Function::Function(const DecoratedType& returnType,
                    const NamespaceSPtr& namesp, 
                    const FunctionNameSPtr& name, 
                    const Argument& argument, 
-                   const Declaration& declaration)
+                   const EMethodDeclaration& declaration)
     : mReturnType(returnType), mNamespace(namesp), mName(name), mDeclaration(declaration)
 {
     mvArgument.push_back(argument);
@@ -210,7 +210,7 @@ Function::Function(const DecoratedType& returnType,
                    const FunctionNameSPtr& name, 
                    const Argument& argument1, 
                    const Argument& argument2, 
-                   const Declaration& declaration)
+                   const EMethodDeclaration& declaration)
     : mReturnType(returnType), mNamespace(namesp), mName(name), mDeclaration(declaration)
 {
     mvArgument.push_back(argument1);
@@ -219,7 +219,7 @@ Function::Function(const DecoratedType& returnType,
 
 Function::Function(const EMethodSpecifier& specifier,
                    const FunctionNameSPtr& name, 
-                   const Declaration& declaration)
+                   const EMethodDeclaration& declaration)
     : mSpecifier(specifier), mName(name), mDeclaration(declaration)
 {
 }
@@ -237,7 +237,7 @@ Function::Function(const EMethodSpecifier& specifier,
                    const DecoratedType& returnType, 
                    const FunctionNameSPtr& name, 
                    const Argument& argument,
-                   const Declaration& declaration)
+                   const EMethodDeclaration& declaration)
     : mSpecifier(specifier), mReturnType(returnType), mName(name), mDeclaration(declaration)
 {
     mvArgument.push_back(argument);
@@ -259,7 +259,7 @@ Function::Function(const EMethodSpecifier& specifier,
                    const FunctionNameSPtr& name, 
                    const Argument& argument1,
                    const Argument& argument2,
-                   const Declaration& declaration)
+                   const EMethodDeclaration& declaration)
     : mSpecifier(specifier), mReturnType(returnType), mName(name), mDeclaration(declaration)
 {
     mvArgument.push_back(argument1);
@@ -286,7 +286,7 @@ Function::Function(const EMethodSpecifier& specifier,
 Function::Function(const EMethodSpecifier& specifier,
                    const DecoratedType& returnType, 
                    const FunctionNameSPtr& name, 
-                   const Declaration& declaration)
+                   const EMethodDeclaration& declaration)
     : mSpecifier(specifier), mReturnType(returnType), mName(name), mDeclaration(declaration)
 {
 }

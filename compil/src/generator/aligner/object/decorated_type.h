@@ -37,10 +37,10 @@
 #ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DECORATED_TYPE_COMPIL_H_
 #define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DECORATED_TYPE_COMPIL_H_
 
-#include "declaration.h"
 #include "decorated_type.h"
 #include "decoration.h"
 #include "simple_type.h"
+#include "type_declaration.h"
 
 // DecoratedType is an immutable class - once instantiated none of the data
 // fields can be changed. For the initial initialization and instantiation
@@ -56,97 +56,101 @@ public:
     class Builder
     {
         // hide evil auto created assignment operator, no implementation
-                void                 operator=          (const Builder& );
+                  void                 operator=          (const Builder& );
     public:
         // Default constructor. All fields without default values are left
         // uninitialized. Make sure you initialize all the necessary fields
         // before instantiating
-                                     Builder            ();
+                                       Builder            ();
         // Use this constructor when you need to clone or create an object
         // just slightly different from another object
-                                     Builder            (const DecoratedType& object);
+                                       Builder            (const DecoratedType& object);
         // Destructor of Builder
-        /*lax*/                      ~Builder           ();
+        /* lax */                      ~Builder           ();
 
         // Instantiates DecoratedType instance with the current
         // initialization of the fields. After the instance is ready the
         // builder could be reused to instantiate more objects. The data is
         // not reset. Second call of build() will instantiate object with
         // the same data.
-                const DecoratedType& build              ()                               const;
+                  const DecoratedType& build              ()                                    const;
 
         // Provides the internal instantiated builder object and
         // invalidates the builder status. Once finalize() is called, the
         // builder can not be used again. Use finalize() when you no longer
         // are going to use this builder.
-                DecoratedTypeSPtr    finalize           ();
+                  DecoratedTypeSPtr    finalize           ();
 
 
         // Setter method for the data field declaration
-                Builder&             set_declaration    (const Declaration& declaration);
-                Declaration&         mutable_declaration();
+                  Builder&             set_declaration    (const ETypeDeclaration& declaration);
+                  ETypeDeclaration&    mutable_declaration();
         // Clears the optional data field declaration
-                void                 clear_declaration  ();
+                  void                 clear_declaration  ();
 
         // Setter method for the data field type
-                Builder&             set_type           (const SimpleType& type);
-                SimpleType&          mutable_type       ();
+                  Builder&             set_type           (const SimpleType& type);
+                  SimpleType&          mutable_type       ();
         // Clears the optional data field type
-                void                 clear_type         ();
+                  void                 clear_type         ();
 
         // Setter method for the data field decoration
-                Builder&             set_decoration     (const Decoration& decoration);
-                Decoration&          mutable_decoration ();
+                  Builder&             set_decoration     (const Decoration& decoration);
+                  Decoration&          mutable_decoration ();
         // Clears the optional data field decoration
-                void                 clear_decoration   ();
+                  void                 clear_decoration   ();
 
         // Setter method for the data field aligned
-                Builder&             set_aligned        (bool aligned);
+                  Builder&             set_aligned        (bool aligned);
+        // Update method for the data field aligned. If the new value is
+        // equal to the default it clears the field. Else it behaves is the
+        // same as set
+                  Builder&             update_aligned     (bool aligned);
         // Resets the data field aligned to its default value true
-                void                 reset_aligned      ();
+                  void                 reset_aligned      ();
 
     protected:
         // constructor needed from potential derived classes
-                                     Builder            (DecoratedTypeRPtr pObject);
+                                       Builder            (DecoratedTypeRPtr pObject);
 
         DecoratedTypeRPtr mpObject;
     };
 
     // Default constructor
-                               DecoratedType    ();
+                                      DecoratedType    ();
     // Destructor
-    /*lax*/                    ~DecoratedType   ();
+    /* lax */                         ~DecoratedType   ();
 
     // Returns true if every required field is initialized.
     // Note: If the class is used properly it should always return true,
     // because the object could be instantiated only if it is already
     // initialized and can not be changed. Called by the Builder class.
-            bool               isInitialized    () const;
+              bool                    isInitialized    () const;
 
-            bool               isVoid           () const;
+              bool                    isVoid           () const;
 
     // Getter method for the data field declaration
-            const Declaration& declaration      () const;
+              const ETypeDeclaration& declaration      () const;
     // Checks if the optional field declaration exists
-            bool               exist_declaration() const;
+              bool                    exist_declaration() const;
 
     // Getter method for the data field type
-            const SimpleType&  type             () const;
+              const SimpleType&       type             () const;
     // Checks if the optional field type exists
-            bool               exist_type       () const;
+              bool                    exist_type       () const;
 
     // Getter method for the data field decoration
-            const Decoration&  decoration       () const;
+              const Decoration&       decoration       () const;
     // Checks if the optional field decoration exists
-            bool               exist_decoration () const;
+              bool                    exist_decoration () const;
 
     // Getter method for the data field aligned
-            bool               aligned          () const;
+              bool                    aligned          () const;
     // Returns true if the data field value aligned was changed from its
     // default value true
-            bool               changed_aligned  () const;
+              bool                    changed_aligned  () const;
     // Returns the default value true of the field aligned
-    static  bool               default_aligned  ();
+    static    bool                    default_aligned  ();
 
 private:
     // Returns unique bitmask value for the field declaration
@@ -159,35 +163,35 @@ private:
     static int bitmask_aligned    ();
 
     // Stores availability information for the fields
-    int         mBits;
+    int              mBits;
 
     // variable for the data field declaration
-    Declaration mDeclaration;
+    ETypeDeclaration mDeclaration;
     // variable for the data field type
-    SimpleType  mType;
+    SimpleType       mType;
     // variable for the data field decoration
-    Decoration  mDecoration;
+    Decoration       mDecoration;
     // variable for the data field aligned
-    bool        mAligned;
+    bool             mAligned;
 };
 
-DecoratedTypeSPtr CreateDecoratedType(const Declaration& declaration);
+DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration);
 DecoratedTypeSPtr CreateDecoratedType(const SimpleType& type);
-DecoratedTypeSPtr CreateDecoratedType(const Declaration& declaration, const SimpleType& type);
+DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, const SimpleType& type);
 DecoratedTypeSPtr CreateDecoratedType(const Decoration& decoration);
-DecoratedTypeSPtr CreateDecoratedType(const Declaration& declaration, const Decoration& decoration);
+DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, const Decoration& decoration);
 DecoratedTypeSPtr CreateDecoratedType(const SimpleType& type, const Decoration& decoration);
-DecoratedTypeSPtr CreateDecoratedType(const Declaration& declaration,
+DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration,
                                       const SimpleType& type,
                                       const Decoration& decoration);
 DecoratedTypeSPtr CreateDecoratedType(bool aligned);
-DecoratedTypeSPtr CreateDecoratedType(const Declaration& declaration, bool aligned);
+DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, bool aligned);
 DecoratedTypeSPtr CreateDecoratedType(const SimpleType& type, bool aligned);
-DecoratedTypeSPtr CreateDecoratedType(const Declaration& declaration, const SimpleType& type, bool aligned);
+DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, const SimpleType& type, bool aligned);
 DecoratedTypeSPtr CreateDecoratedType(const Decoration& decoration, bool aligned);
-DecoratedTypeSPtr CreateDecoratedType(const Declaration& declaration, const Decoration& decoration, bool aligned);
+DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, const Decoration& decoration, bool aligned);
 DecoratedTypeSPtr CreateDecoratedType(const SimpleType& type, const Decoration& decoration, bool aligned);
-DecoratedTypeSPtr CreateDecoratedType(const Declaration& declaration,
+DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration,
                                       const SimpleType& type,
                                       const Decoration& decoration,
                                       bool aligned);

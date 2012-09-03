@@ -73,17 +73,17 @@ inline std::string FunctionName::value() const
 
 inline bool FunctionName::operator==(const FunctionName& rValue) const
 {
-    return mValue == rValue.mValue;
+    return value() == rValue.value();
 }
 
 inline bool FunctionName::operator!=(const FunctionName& rValue) const
 {
-    return mValue != rValue.mValue;
+    return value() != rValue.value();
 }
 
 inline bool FunctionName::operator<(const FunctionName& rValue) const
 {
-    return mValue < rValue.mValue;
+    return value() < rValue.value();
 }
 
 #else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_FUNCTION_NAME_COMPIL_H_

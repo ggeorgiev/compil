@@ -257,16 +257,10 @@ TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionDefinitio
 	return aligner;
 }
 
-TableAligner& operator<<(TableAligner& aligner, const Declaration& declaration)
-{
-    aligner << declaration.value();
-    return aligner;
-}
-
 TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedType)
 {
     if (decoratedType.exist_declaration())
-    if (!decoratedType.declaration().isVoid())
+    if (decoratedType.declaration() != ETypeDeclaration::invalid())
         aligner << decoratedType.declaration() << ' ';
     if (!decoratedType.type().isVoid())
         aligner << decoratedType.type();
@@ -356,7 +350,7 @@ TableAligner& operator<<(TableAligner& aligner, const Function& function)
                 << function.mvArgument[i];
     aligner << ")";
     
-    if (!function.mDeclaration.isVoid())
+    if (function.mDeclaration != EMethodDeclaration::invalid())
         aligner << ' ' << TableAligner::col() << function.mDeclaration;
     return aligner;
 }
@@ -442,6 +436,13 @@ TableAligner& operator<<(TableAligner& aligner, const NamespaceSPtr& namespace_)
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const EMethodDeclaration& declaration)
+{
+    if (declaration != EMethodDeclaration::invalid())
+        aligner << declaration.shortName();
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const EMethodSpecifier& methodSpecifier)
 {
     if (methodSpecifier != EMethodSpecifier::invalid())
@@ -485,6 +486,13 @@ TableAligner& operator<<(TableAligner& aligner, const SimpleType& type)
         aligner << type.namespace_() << "::";
     
     aligner << type.value();
+    return aligner;
+}
+
+TableAligner& operator<<(TableAligner& aligner, const ETypeDeclaration& declaration)
+{
+    if (declaration != ETypeDeclaration::invalid())
+        aligner << declaration.shortName();
     return aligner;
 }
 

@@ -38,6 +38,7 @@
 #include "namespace.h"
 #include "function_name.h"
 #include "cast_operator.h"
+#include "method_declaration.h"
 #include "method_specifier.h"
 
 #include <vector>
@@ -56,14 +57,14 @@ public:
              const FunctionNameSPtr& name);
              
     Function(const FunctionNameSPtr& name, 
-             const Declaration& declaration);
+             const EMethodDeclaration& declaration);
              
     Function(const CastOperator& castOperator, 
-             const Declaration& declaration);
+             const EMethodDeclaration& declaration);
              
     Function(const DecoratedType& returnType, 
              const FunctionNameSPtr& name, 
-             const Declaration& declaration);
+             const EMethodDeclaration& declaration);
              
     Function(const FunctionNameSPtr& name, 
              const Argument& argument);
@@ -79,18 +80,18 @@ public:
              
     Function(const FunctionNameSPtr& name, 
              const Argument& argument, 
-             const Declaration& declaration);
+             const EMethodDeclaration& declaration);
              
     Function(const DecoratedType& returnType, 
              const FunctionNameSPtr& name, 
              const Argument& argument, 
-             const Declaration& declaration);
+             const EMethodDeclaration& declaration);
              
     Function(const DecoratedType& returnType, 
              const FunctionNameSPtr& name, 
              const Argument& argument1,
              const Argument& argument2,
-             const Declaration& declaration);
+             const EMethodDeclaration& declaration);
              
     Function(const NamespaceSPtr& namesp,
              const FunctionNameSPtr& name);
@@ -101,16 +102,16 @@ public:
              
     Function(const NamespaceSPtr& namesp, 
              const FunctionNameSPtr& name, 
-             const Declaration& declaration);
+             const EMethodDeclaration& declaration);
              
     Function(const NamespaceSPtr& namesp, 
              const CastOperator& castOperator, 
-             const Declaration& declaration);
+             const EMethodDeclaration& declaration);
              
     Function(const DecoratedType& returnType, 
              const NamespaceSPtr& namesp, 
              const FunctionNameSPtr& name, 
-             const Declaration& declaration);
+             const EMethodDeclaration& declaration);
              
     Function(const NamespaceSPtr& namesp,
              const FunctionNameSPtr& name,
@@ -130,24 +131,24 @@ public:
     Function(const NamespaceSPtr& namesp, 
              const FunctionNameSPtr& name, 
              const Argument& argument, 
-             const Declaration& declaration);
+             const EMethodDeclaration& declaration);
              
     Function(const DecoratedType& returnType, 
              const NamespaceSPtr& namesp, 
              const FunctionNameSPtr& name, 
              const Argument& argument, 
-             const Declaration& declaration);
+             const EMethodDeclaration& declaration);
              
     Function(const DecoratedType& returnType, 
              const NamespaceSPtr& namesp, 
              const FunctionNameSPtr& name, 
              const Argument& argument1,
              const Argument& argument2, 
-             const Declaration& declaration);
+             const EMethodDeclaration& declaration);
              
     Function(const EMethodSpecifier& specifier,
              const FunctionNameSPtr& name, 
-             const Declaration& declaration);
+             const EMethodDeclaration& declaration);
              
     Function(const EMethodSpecifier& specifier,
              const DecoratedType& returnType, 
@@ -162,7 +163,7 @@ public:
              const DecoratedType& returnType, 
              const FunctionNameSPtr& name, 
              const Argument& argument,
-             const Declaration& declaration);
+             const EMethodDeclaration& declaration);
              
     Function(const EMethodSpecifier& specifier,
              const DecoratedType& returnType, 
@@ -175,7 +176,7 @@ public:
              const FunctionNameSPtr& name, 
              const Argument& argument1,
              const Argument& argument2,
-             const Declaration& declaration);
+             const EMethodDeclaration& declaration);
              
     Function(const EMethodSpecifier& specifier,
              const DecoratedType& returnType,
@@ -186,7 +187,7 @@ public:
     Function(const EMethodSpecifier& specifier,
              const DecoratedType& returnType, 
              const FunctionNameSPtr& name, 
-             const Declaration& declaration);
+             const EMethodDeclaration& declaration);
              
     Function(const EMethodSpecifier& specifier,
              const FunctionNameSPtr& name, 
@@ -200,7 +201,7 @@ public:
     FunctionNameSPtr mName;
     CastOperator mCastOperator;
     std::vector<Argument> mvArgument;
-    Declaration mDeclaration;
+    EMethodDeclaration mDeclaration;
 };
 
 }

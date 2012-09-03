@@ -168,16 +168,17 @@ LineAligner& operator<<(LineAligner& aligner, const Aligner::FunctionSpace&)
     return aligner;
 }
 
-LineAligner& operator<<(LineAligner& aligner, const Declaration& declaration)
+LineAligner& operator<<(LineAligner& aligner, const ETypeDeclaration& declaration)
 {
-    aligner.line() << declaration.value();
+    if (declaration != ETypeDeclaration::invalid())
+        aligner.line() << declaration.shortName();
     return aligner;
 }
     
 LineAligner& operator<<(LineAligner& aligner, const DecoratedType& decoratedType)
 {
     if (decoratedType.exist_declaration())
-    if (!decoratedType.declaration().isVoid())
+    if (decoratedType.declaration() != ETypeDeclaration::invalid())
         aligner << decoratedType.declaration() << ' ';
     aligner << decoratedType.type();
     if (decoratedType.exist_decoration())
