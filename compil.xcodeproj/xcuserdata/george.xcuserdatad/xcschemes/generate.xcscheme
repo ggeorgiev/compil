@@ -49,6 +49,10 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/keywords.compil"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/george/github/compil/src/generator-test/immutable_structure.compil"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

@@ -1364,6 +1364,15 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                                      frm->cppVariableName(pField)))
                 << ";";
                 
+        if (impl->needMutableMethod(pField, pCurrStructure))
+        {
+            commentInTable("Provide mutable access to field " + pField->name()->value());
+            table() << TableAligner::row()
+                    << Function(*CreateDecoratedType(impl->cppInnerType(pField->type(), pCurrStructure), ref),
+                                frm->mutableMethodName(pField))
+                    << ";";
+        }
+                
         if (pCurrStructure->streamable())
         {
             commentInTable("Store operator for the data field " + pField->name()->value());
@@ -1390,15 +1399,6 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
     {
         if (((sot & WRITING) != 0) && ((sot & SPECIFIC_RESULT_ONLY) == 0))
         {
-            if (impl->needMutableMethod(pField->type()))
-            {
-                table() << TableAligner::row()
-                        << Function(*CreateDecoratedType(
-                                        impl->cppInnerType(pField->type(), pStructure), ref),
-                                    frm->mutableMethodName(pField))
-                        << ";";
-            }
-            
             if (   pField->defaultValue()
                 && !pField->defaultValue()->optional())
             {

@@ -17,18 +17,5 @@
          landmarkName = "assertion_failed(char const* expr, char const* /*function*/, char const* /*file*/, long /*line*/)"
          landmarkType = "7">
       </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "compil/src/compiler/model/structure.cpp"
-         timestampString = "368224794.025644"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "42"
-         endingLineNumber = "42"
-         landmarkName = "Structure::isOptional()"
-         landmarkType = "5">
-      </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

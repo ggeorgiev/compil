@@ -49,8 +49,13 @@ CppImplementer::~CppImplementer()
 {
 }
 
-bool CppImplementer::needMutableMethod(const TypeSPtr& pType)
+bool CppImplementer::needMutableMethod(const FieldSPtr& pField, const StructureSPtr& pCurrentStructure)
 {
+    TypeSPtr pType = pField->type();
+    
+    if (pField->structure().lock() != pCurrentStructure)
+        return false;
+    
     switch (pType->kind().value())
     {
         case Type::EKind::kBuiltin:

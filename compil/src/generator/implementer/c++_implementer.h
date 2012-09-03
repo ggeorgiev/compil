@@ -51,7 +51,7 @@ public:
     CppImplementer(const ImplementerConfigurationPtr& pConfig, const CppFormatterPtr& pFrm);
     virtual ~CppImplementer();
     
-    virtual bool needMutableMethod(const TypeSPtr& pType);
+    virtual bool needMutableMethod(const FieldSPtr& pField, const StructureSPtr& pCurrentStructure);
     virtual bool needConstructorInitialization(const FieldSPtr& pField);
     
     virtual SimpleType cppType(const TypeSPtr& pType);

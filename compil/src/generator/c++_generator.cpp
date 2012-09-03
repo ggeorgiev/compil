@@ -901,14 +901,14 @@ void CppGenerator::generateStructureObjectMemberInitialization(const ObjectSPtr&
 
 void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& pStructure, const FieldSPtr& pField)
 {
-    StructureSPtr pBaseStructure = pField->structure().lock();
-    assert(pBaseStructure);
+    StructureSPtr pBelongStructure = pField->structure().lock();
+    assert(pBelongStructure);
 
     NamespaceSPtr classNamesp = frm->cppAutoClassNamespace(pStructure);
     NamespaceSPtr namesp = boost::make_shared<Namespace>(*classNamesp);
     
-    NamespaceSPtr baseClassBuilderNamesp = frm->cppAutoClassNamespace(pBaseStructure);
-    *baseClassBuilderNamesp << nsBuilder;
+    NamespaceSPtr belongClassBuilderNamesp = frm->cppAutoClassNamespace(pBelongStructure);
+    *belongClassBuilderNamesp << nsBuilder;
 
     std::string accessObject;
     DecoratedType resultType = *CreateDecoratedType(impl->cppType(pStructure), ref);
@@ -916,7 +916,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
     if (pStructure->immutable())
     {
         *namesp << nsBuilder;
-        if (pBaseStructure->baseStructure().lock())
+        if (pBelongStructure->baseStructure().lock())
             accessObject = "((" + frm->cppAutoClassType(pStructure).value() + "*)"
                            + frm->memberPtrName("object") + ")->";
         else
@@ -935,7 +935,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                                      frm->cppVariableName(pField)));
         openBlock(definitionStream);
 
-        if (pStructure == pBaseStructure)
+        if (pStructure == pBelongStructure)
         {
             table() << TableAligner::row()
                     << accessObject
@@ -982,13 +982,40 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                     << *CreateDecoratedType(
                             *CreateSimpleType(classNamesp, builder.value()), ref)
                     << ")"
-                    << FunctionCall(baseClassBuilderNamesp,
+                    << FunctionCall(belongClassBuilderNamesp,
                                     frm->setMethodName(pField), Argument(frm->cppVariableName(pField)))
                     << ";";
             eol(definitionStream);
         }
         closeBlock(definitionStream);
         eol(definitionStream);
+        
+        
+        if (impl->needMutableMethod(pField, pStructure))
+        {
+            fdef()  << TableAligner::row()
+                    << Function(*CreateDecoratedType(impl->cppType(pField->type()), ref),
+                                namesp, frm->mutableMethodName(pField));
+            openBlock(definitionStream);
+            
+            if (pStructure->controlled())
+            {
+                line()  << accessObject
+                        << frm->memberName("bits")
+                        << " |= "
+                        << FunctionCall(frm->bitmaskMethodName(pField))
+                        << ";";
+                eol(definitionStream);
+            }
+            line()  << "return "
+                    << accessObject
+                    << frm->cppMemberName(pField)
+                    << ";";
+
+            closeBlock(definitionStream);
+            eol(definitionStream);
+        }
+
         
         if (pStructure->streamable())
         {
@@ -1054,30 +1081,10 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
         }
     }
 
-    if (pStructure == pBaseStructure)
+    if (pStructure == pBelongStructure)
     {
         if (pStructure->controlled())
         {
-            if (impl->needMutableMethod(pField->type()))
-            {
-                fdef()  << TableAligner::row()
-                        << Function(*CreateDecoratedType(impl->cppType(pField->type()), ref),
-                                    namesp, frm->mutableMethodName(pField));
-                openBlock(definitionStream);
-                line()  << accessObject
-                        << frm->memberName("bits")
-                        << " |= "
-                        << FunctionCall(frm->bitmaskMethodName(pField))
-                        << ";";
-                eol(definitionStream);
-                line()  << "return "
-                        << accessObject
-                        << frm->cppMemberName(pField)
-                        << ";";
-                closeBlock(definitionStream);
-                eol(definitionStream);
-            }
-            
             if (  pField->defaultValue()
                 && !pField->defaultValue()->optional())
             {
@@ -1088,7 +1095,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                                              frm->cppVariableName(pField)));
                 openBlock(definitionStream);
                 
-                if (pStructure == pBaseStructure)
+                if (pStructure == pBelongStructure)
                 {
                     line()  << "if ("
                             << accessObject
@@ -1129,7 +1136,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                             << *CreateDecoratedType(
                                     *CreateSimpleType(classNamesp, builder.value()), ref)
                             << ")"
-                            << FunctionCall(baseClassBuilderNamesp,
+                            << FunctionCall(belongClassBuilderNamesp,
                                             frm->updateMethodName(pField), Argument(frm->cppVariableName(pField)))
                             << ";";
                     eol(definitionStream);
