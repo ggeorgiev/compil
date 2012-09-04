@@ -1366,7 +1366,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                 
         if (impl->needMutableMethod(pField, pCurrStructure))
         {
-            commentInTable("Provide mutable access to field " + pField->name()->value());
+            commentInTable("Provides mutable access to field " + pField->name()->value());
             table() << TableAligner::row()
                     << Function(*CreateDecoratedType(impl->cppInnerType(pField->type(), pCurrStructure), ref),
                                 frm->mutableMethodName(pField))
@@ -1402,9 +1402,9 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
             if (   pField->defaultValue()
                 && !pField->defaultValue()->optional())
             {
-                commentInTable("Update method for the data field " + pField->name()->value() +
-                               ". If the new value is equal to the default it clears the field. Else"
-                               " it behaves is the same as set");
+                commentInTable("Updates the data field " + pField->name()->value() +
+                               ". If the new value is equal to the default it clears the field else"
+                               " it sets it to the new value");
                 table() << TableAligner::row()
                         << Function(resultType, frm->updateMethodName(pField),
                                     Argument(impl->cppInnerSetDecoratedType(pField->type(), pCurrStructure),
