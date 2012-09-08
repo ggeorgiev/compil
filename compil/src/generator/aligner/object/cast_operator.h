@@ -43,11 +43,11 @@ class CastOperator
 {
 public:
     CastOperator();
-    explicit CastOperator(const DecoratedType& decoratedType);
+    explicit CastOperator(const DecoratedTypeSPtr& decoratedType);
     
     operator bool() const;
 
-    DecoratedType mDecoratedType;
+    DecoratedTypeSPtr mDecoratedType;
 };
 
 }

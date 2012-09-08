@@ -300,9 +300,14 @@ TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedTy
 	return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const DecoratedTypeSPtr& decoratedType)
+{
+    return aligner << *decoratedType;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const Argument& argument)
 {
-    if (!argument.mDecoratedType.isVoid())
+    if (argument.mDecoratedType && !argument.mDecoratedType->isVoid())
         aligner << argument.mDecoratedType;
     aligner << argument.mValue;
     return aligner;
@@ -315,7 +320,7 @@ TableAligner& operator<<(TableAligner& aligner, const Function& function)
 
     aligner << TableAligner::col();
 
-    if (!function.mReturnType.isVoid())
+    if (function.mReturnType && !function.mReturnType->isVoid())
         aligner << function.mReturnType;
     
     if (function.mNamespace)

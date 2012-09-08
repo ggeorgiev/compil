@@ -202,7 +202,7 @@ void CppHeaderGenerator::generateEnumerationValueDeclaration(const EnumerationVa
 
     table() << TableAligner::row()
             << Function(EMethodSpecifier::static_(),
-                        *CreateDecoratedType(ETypeDeclaration::const_(), type),
+                        CreateDecoratedType(ETypeDeclaration::const_(), type),
                         frm->methodName(pEnumerationValue->name()->value()))
             << ";";
 }
@@ -212,8 +212,8 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
     TypeSPtr pParameterType = pEnumeration->parameterType().lock();
     StructureSPtr pStructure = pEnumeration->structure().lock();
 
-    DecoratedType innerType = *CreateDecoratedType(impl->cppInnerType(pEnumeration, pStructure));
-    DecoratedType innerDecoratedType = impl->cppInnerDecoratedType(pEnumeration, pStructure);
+    DecoratedTypeSPtr innerType = CreateDecoratedType(impl->cppInnerType(pEnumeration, pStructure));
+    DecoratedTypeSPtr innerDecoratedType = impl->cppInnerDecoratedType(pEnumeration, pStructure);
 
     addDependencies(impl->dependencies(pEnumeration));
     addDependencies(impl->dependencies(pParameterType));
@@ -490,7 +490,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     {
         table() << TableAligner::row()
                 << "inline "
-                << Function(*CreateDecoratedType(impl->cppType(pParameterType)), fnValue, EMethodDeclaration::const_())
+                << Function(CreateDecoratedType(impl->cppType(pParameterType)), fnValue, EMethodDeclaration::const_())
                 << ";";
     }
 
@@ -516,7 +516,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     
     fdef()  << TableAligner::row()
             << "inline "
-            << Function(*CreateDecoratedType(frm->cppSharedPtrName(pSpecimen)),
+            << Function(CreateDecoratedType(frm->cppSharedPtrName(pSpecimen)),
                         frm->methodName(frm->cppRefName(pSpecimen->name()->value())));
     openBlock(inlineDefinitionStream);
     line()  << "return boost::make_shared<"
@@ -527,7 +527,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     
     fdef()  << TableAligner::row()
             << "inline "
-            << Function(*CreateDecoratedType(frm->cppSharedPtrName(pSpecimen)),
+            << Function(CreateDecoratedType(frm->cppSharedPtrName(pSpecimen)),
                         frm->methodName(frm->cppRefName(pSpecimen->name()->value())),
                         Argument(impl->cppDecoratedType(pParameterType), "value"));
     openBlock(inlineDefinitionStream);
@@ -541,7 +541,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     {
         fdef()  << TableAligner::row()
                 << "inline "
-                << Function(*CreateDecoratedType(impl->cppType(pParameterType)),
+                << Function(CreateDecoratedType(impl->cppType(pParameterType)),
                             frm->cppClassNamespace(pSpecimen), fnValue, EMethodDeclaration::const_());
         openBlock(inlineDefinitionStream);
         line()  << "return "
@@ -634,7 +634,7 @@ void CppHeaderGenerator::generateHierarchyFactoryDeclaration(const FactorySPtr& 
     if (!pParameterStructure->abstract())
     {
         table() << TableAligner::row()
-                << Function(EMethodSpecifier::static_(), *CreateDecoratedType(impl->cppPtrType(pParameterType)),
+                << Function(EMethodSpecifier::static_(), CreateDecoratedType(impl->cppPtrType(pParameterType)),
                             fnClone, Argument(impl->cppPtrDecoratedType(pParameterType), "pObject"))
                 << ";";
     }
@@ -652,7 +652,7 @@ void CppHeaderGenerator::generateHierarchyFactoryDeclaration(const FactorySPtr& 
         addDependencies(impl->dependencies(pStructure));
 
         table() << TableAligner::row()
-                << Function(EMethodSpecifier::static_(), *CreateDecoratedType(impl->cppPtrType(pStructure)),
+                << Function(EMethodSpecifier::static_(), CreateDecoratedType(impl->cppPtrType(pStructure)),
                             frm->downcastMethodName(pStructure),
                             Argument(impl->cppPtrDecoratedType(pParameterStructure), "pObject"))
                 << ";";
@@ -702,7 +702,7 @@ void CppHeaderGenerator::generateObjectFactoryDeclaration(const FactorySPtr& pFa
         while (pParameterStructure->fieldIterate(iteration))
         {
             Function function(specifier,
-                              *CreateDecoratedType(impl->cppPtrType(pParameterStructure)),
+                              CreateDecoratedType(impl->cppPtrType(pParameterStructure)),
                               methodName);
 
             std::vector<compil::FieldSPtr>::iterator it;
@@ -882,7 +882,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
         "Global singleton accessor.");
     table() << TableAligner::row()
             << Function(EMethodSpecifier::static_(),
-                        *CreateDecoratedType(frm->cppClassType(pFactory), ETypeDecoration::reference()),
+                        CreateDecoratedType(frm->cppClassType(pFactory), ETypeDecoration::reference()),
                         fnGet)
             << ";";
 
@@ -894,7 +894,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
         "Member variable for clone functions.");
     table() << TableAligner::row()
             << "boost::unordered_map<size_t, "
-            << cloneFunction.type()
+            << cloneFunction->type()
             << "> "
             << TableAligner::col()
             << "cloneFunctions;";
@@ -1039,7 +1039,7 @@ void CppHeaderGenerator::generateStructureRuntimeIdentificationMethodsDeclaratio
 
     table() << TableAligner::row()
             << Function(EMethodSpecifier::static_(),
-                        *CreateDecoratedType(impl->identificationEnum(pBaseStructure)),
+                        CreateDecoratedType(impl->identificationEnum(pBaseStructure)),
                         impl->staticIdentificationMethodName(pBaseStructure))
             << ";";
 
@@ -1050,7 +1050,7 @@ void CppHeaderGenerator::generateStructureRuntimeIdentificationMethodsDeclaratio
 
     table() << TableAligner::row()
             << Function(EMethodSpecifier::virtual_(),
-                        *CreateDecoratedType(impl->identificationEnum(pBaseStructure)),
+                        CreateDecoratedType(impl->identificationEnum(pBaseStructure)),
                         impl->runtimeIdentificationMethodName(pBaseStructure),
                         EMethodDeclaration::const_())
             << ";";
@@ -1165,7 +1165,7 @@ void CppHeaderGenerator::generateStructureOperatorMethodsDeclaration(
 
     StructureSPtr pStructure = pOperator->structure().lock();
 
-    DecoratedType type;
+    DecoratedTypeSPtr type;
     if (flags.isSet(EOperatorFlags::object()))
         type = impl->cppDecoratedType(pStructure);
     else
@@ -1333,17 +1333,17 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                 " of the field " + pField->name()->value());
 
             table() << TableAligner::row()
-                    << Function(EMethodSpecifier::static_(), *CreateDecoratedType(impl->cppType(pField->type())),
+                    << Function(EMethodSpecifier::static_(), CreateDecoratedType(impl->cppType(pField->type())),
                                 frm->defaultMethodName(pField))
                     << ";";
         }
     }
 
-    DecoratedType resultType;
+    DecoratedTypeSPtr resultType;
     if ((sot & BUILDER) == 0)
-        resultType = *CreateDecoratedType(impl->cppType(pCurrStructure), ETypeDecoration::reference());
+        resultType = CreateDecoratedType(impl->cppType(pCurrStructure), ETypeDecoration::reference());
     else
-        resultType = *CreateDecoratedType(builder, ETypeDecoration::reference());
+        resultType = CreateDecoratedType(builder, ETypeDecoration::reference());
 
     if ((sot & WRITING) != 0)
     {
@@ -1370,9 +1370,9 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
         {
             commentInTable("Provides mutable access to field " + pField->name()->value());
             table() << TableAligner::row()
-                    << Function(*CreateDecoratedType(impl->cppInnerType(pField->type(),
-                                                     pCurrStructure),
-                                                     ETypeDecoration::reference()),
+                    << Function(CreateDecoratedType(impl->cppInnerType(pField->type(),
+                                                    pCurrStructure),
+                                                    ETypeDecoration::reference()),
                                 frm->mutableMethodName(pField))
                     << ";";
         }
@@ -1454,7 +1454,7 @@ void CppHeaderGenerator::generateStructureFieldOverrideMethodsDeclaration(const 
 
         commentInTable("Override getter method for the data field " + pField->name()->value());
         table() << TableAligner::row()
-                << Function(*CreateDecoratedType(impl->cppInnerType(pField->type(), pStructure)),
+                << Function(CreateDecoratedType(impl->cppInnerType(pField->type(), pStructure)),
                             frm->getMethodName(pField), EMethodDeclaration::const_())
                 << ";";
     }
@@ -1468,7 +1468,7 @@ void CppHeaderGenerator::generateStructureFieldOverrideMethodsDeclaration(const 
 
             commentInTable("Override setter method for the data field " + pField->name()->value());
             table() << TableAligner::row()
-                    << Function(*CreateDecoratedType(builder, ETypeDecoration::reference()),
+                    << Function(CreateDecoratedType(builder, ETypeDecoration::reference()),
                                 frm->setMethodName(pField),
                                 Argument(impl->cppInnerSetDecoratedType(pField->type(), pStructure),
                                          frm->cppVariableName(pField)))
@@ -1542,7 +1542,7 @@ void CppHeaderGenerator::generateStructureObjectMethodsDeclaration(const ObjectS
                     " of the field " + pAlter->field()->name()->value());
                 table() << TableAligner::row()
                         << Function(EMethodSpecifier::static_(),
-                                    *CreateDecoratedType(impl->cppType(pAlter->field()->type())),
+                                    CreateDecoratedType(impl->cppType(pAlter->field()->type())),
                                     frm->alterMethodName(pAlter->field()))
                         << ";";
             }
@@ -1685,7 +1685,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
             "hide evil auto created assignment operator, no implementation");
         table() << TableAligner::row()
                 << Function(vd, fnOperatorE,
-                            Argument(*CreateDecoratedType(ETypeDeclaration::const_(),
+                            Argument(CreateDecoratedType(ETypeDeclaration::const_(),
                                      builder, ETypeDecoration::reference())))
                 << ";";
 
@@ -1775,7 +1775,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
             "Use " + fnFinalize->value() + "() when you no longer are going to use this builder.");
 
         table() << TableAligner::row()
-                << Function(*CreateDecoratedType(impl->cppPtrType(pStructure)), fnFinalize)
+                << Function(CreateDecoratedType(impl->cppPtrType(pStructure)), fnFinalize)
                 << ";";
 
         table() << TableAligner::row();
@@ -1848,7 +1848,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                 "Note that it does not provide any type checks. Use it on your own risk.");
 
             table() << TableAligner::row()
-                    << Function(EMethodSpecifier::static_(), *CreateDecoratedType(frm->cppSharedPtrName(pStructure)),
+                    << Function(EMethodSpecifier::static_(), CreateDecoratedType(frm->cppSharedPtrName(pStructure)),
                                 fnDowncast,
                                 Argument(frm->cppSharedPtrDecoratedType(pRecursivelyBaseStructure),
                                          frm->variablePtrName("object")))
@@ -1865,7 +1865,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                 "boost::enable_shared_from_this base class. The only purpose of this helper method is to "
                 "eliminate the need of downcasting to shared_ptr to this class.");
             table() << TableAligner::row()
-                    << Function(*CreateDecoratedType(frm->cppSharedPtrName(pStructure)),
+                    << Function(CreateDecoratedType(frm->cppSharedPtrName(pStructure)),
                                 fnSharedFromThis)
                     << ";";
 
@@ -1873,7 +1873,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                 "This method is exactly the same as the previous one with exception that it allows "
                 "shared_from_this to be called from const methods.");
             table() << TableAligner::row()
-                    << Function(*CreateDecoratedType(frm->cppSharedConstPtrName(pStructure)),
+                    << Function(CreateDecoratedType(frm->cppSharedConstPtrName(pStructure)),
                                 fnSharedFromThis, EMethodDeclaration::const_())
                     << ";";
         }
@@ -1934,8 +1934,9 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                 commentInTable("Returns unique bitmask value for the field " + pField->name()->value());
 
                 table() << TableAligner::row()
-                        << Function(EMethodSpecifier::static_(), *CreateDecoratedType(CreateSimpleType("int")),
-                                                               frm->bitmaskMethodName(pField))
+                        << Function(EMethodSpecifier::static_(),
+                                    CreateDecoratedType(CreateSimpleType("int")),
+                                    frm->bitmaskMethodName(pField))
                         << ";";
             }
 

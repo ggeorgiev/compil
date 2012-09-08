@@ -44,27 +44,27 @@ Argument::Argument(const std::string& value)
 {
 }
 
-Argument::Argument(const DecoratedType& decoratedType)
+Argument::Argument(const DecoratedTypeSPtr& decoratedType)
     : mDecoratedType(decoratedType)
 {
-    DecoratedType::Builder builder(decoratedType);
+    DecoratedType::Builder builder(*decoratedType);
     builder.set_aligned(false);
-    mDecoratedType = *builder.finalize();
+    mDecoratedType = builder.finalize();
 }
 
-Argument::Argument(const DecoratedType& decoratedType, const std::string& value)
+Argument::Argument(const DecoratedTypeSPtr& decoratedType, const std::string& value)
     : mDecoratedType(decoratedType), mValue(value)
 {
-    DecoratedType::Builder builder(decoratedType);
+    DecoratedType::Builder builder(*decoratedType);
     builder.set_aligned(false);
-    mDecoratedType = *builder.finalize();
+    mDecoratedType = builder.finalize();
 }
 
-Argument& Argument::operator <<(const DecoratedType& decoratedType)
+Argument& Argument::operator <<(const DecoratedTypeSPtr& decoratedType)
 {
-    DecoratedType::Builder builder(decoratedType);
+    DecoratedType::Builder builder(*decoratedType);
     builder.set_aligned(false);
-    mDecoratedType = *builder.finalize();
+    mDecoratedType = builder.finalize();
     return *this;
 }
 

@@ -40,16 +40,16 @@ CastOperator::CastOperator()
 {
 }
 
-CastOperator::CastOperator(const DecoratedType& decoratedType)
+CastOperator::CastOperator(const DecoratedTypeSPtr& decoratedType)
 {
-    DecoratedType::Builder builder(decoratedType);
+    DecoratedType::Builder builder(*decoratedType);
     builder.set_aligned(false);
-    mDecoratedType = *builder.finalize();
+    mDecoratedType = builder.finalize();
 }
 
 CastOperator::operator bool() const
 {
-    return !mDecoratedType.isVoid();
+    return mDecoratedType && !mDecoratedType->isVoid();
 }
 
 }

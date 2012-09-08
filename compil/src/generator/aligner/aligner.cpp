@@ -35,19 +35,19 @@
 namespace compil
 {
 
-DecoratedType bl             = *CreateDecoratedType(CreateSimpleType("bool"));
-DecoratedType vd             = *CreateDecoratedType(CreateSimpleType("void"));
-DecoratedType st             = *CreateDecoratedType(CreateSimpleType("size_t"));
-DecoratedType const_char_ptr = *CreateDecoratedType(ETypeDeclaration::const_(),
-                                                    CreateSimpleType("char"),
-                                                    ETypeDecoration::pointer());
-DecoratedType cloneFunction  = *CreateDecoratedType(CreateSimpleType("fnClone"));
+DecoratedTypeSPtr bl             = CreateDecoratedType(CreateSimpleType("bool"));
+DecoratedTypeSPtr vd             = CreateDecoratedType(CreateSimpleType("void"));
+DecoratedTypeSPtr st             = CreateDecoratedType(CreateSimpleType("size_t"));
+DecoratedTypeSPtr const_char_ptr = CreateDecoratedType(ETypeDeclaration::const_(),
+                                                       CreateSimpleType("char"),
+                                                       ETypeDecoration::pointer());
+DecoratedTypeSPtr cloneFunction  = CreateDecoratedType(CreateSimpleType("fnClone"));
 
-DecoratedType cstTRef        = *CreateDecoratedType(ETypeDeclaration::const_(),
-                                                    CreateSimpleType("T"),
-                                                    ETypeDecoration::reference());
-DecoratedType TPtr           = *CreateDecoratedType(CreateSimpleType("T"),
-                                                    ETypeDecoration::pointer());
+DecoratedTypeSPtr cstTRef        = CreateDecoratedType(ETypeDeclaration::const_(),
+                                                       CreateSimpleType("T"),
+                                                       ETypeDecoration::reference());
+DecoratedTypeSPtr TPtr           = CreateDecoratedType(CreateSimpleType("T"),
+                                                       ETypeDecoration::pointer());
 
 MethodNameSPtr fnValue                  = methodNameRef("value");
 MethodNameSPtr fnShortName              = methodNameRef("shortName");

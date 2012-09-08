@@ -188,14 +188,20 @@ LineAligner& operator<<(LineAligner& aligner, const DecoratedType& decoratedType
     return aligner;
 }
 
+LineAligner& operator<<(LineAligner& aligner, const DecoratedTypeSPtr& decoratedType)
+{
+    return aligner << *decoratedType;
+}
+
 LineAligner& operator<<(LineAligner& aligner, const Argument& argument)
 {
-    if (!argument.mDecoratedType.isVoid())
+    if (argument.mDecoratedType && !argument.mDecoratedType->isVoid())
         aligner << argument.mDecoratedType;
     
     if (!argument.mValue.empty())
     {
-        if (argument.mDecoratedType.decoration() != ETypeDecoration::invalid())
+        if (argument.mDecoratedType && !argument.mDecoratedType->isVoid())
+        if (argument.mDecoratedType->decoration() != ETypeDecoration::invalid())
         if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
             aligner << ' ';
         aligner << argument.mValue;

@@ -45,13 +45,13 @@ public:
     Argument();
     
     explicit Argument(const std::string& value);
-    explicit Argument(const DecoratedType& decoratedType);
-    Argument(const DecoratedType& decoratedType, const std::string& name);
+    explicit Argument(const DecoratedTypeSPtr& decoratedType);
+    Argument(const DecoratedTypeSPtr& decoratedType, const std::string& name);
     
-    Argument& operator <<(const DecoratedType& decoratedType);
+    Argument& operator <<(const DecoratedTypeSPtr& decoratedType);
     Argument& operator <<(const std::string& name);
 
-    DecoratedType mDecoratedType;
+    DecoratedTypeSPtr mDecoratedType;
     std::string mValue;
 };
 

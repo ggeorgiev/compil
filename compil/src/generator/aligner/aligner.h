@@ -55,14 +55,14 @@
 
 namespace compil
 {
-extern DecoratedType bl;
-extern DecoratedType vd;
-extern DecoratedType st;
-extern DecoratedType const_char_ptr;
-extern DecoratedType cloneFunction;
+extern DecoratedTypeSPtr bl;
+extern DecoratedTypeSPtr vd;
+extern DecoratedTypeSPtr st;
+extern DecoratedTypeSPtr const_char_ptr;
+extern DecoratedTypeSPtr cloneFunction;
 
-extern DecoratedType cstTRef;
-extern DecoratedType TPtr;
+extern DecoratedTypeSPtr cstTRef;
+extern DecoratedTypeSPtr TPtr;
 
 extern MethodNameSPtr fnValue;
 extern MethodNameSPtr fnShortName;

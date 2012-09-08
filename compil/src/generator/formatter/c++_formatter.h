@@ -125,8 +125,8 @@ public:
     virtual SimpleTypeSPtr cppSharedConstPtrName(const TypeSPtr& pType);
     virtual SimpleTypeSPtr cppWeakPtrName(const TypeSPtr& pType);
     
-    virtual DecoratedType cppRawPtrDecoratedType(const TypeSPtr& pType);
-    virtual DecoratedType cppSharedPtrDecoratedType(const TypeSPtr& pType);
+    virtual DecoratedTypeSPtr cppRawPtrDecoratedType(const TypeSPtr& pType);
+    virtual DecoratedTypeSPtr cppSharedPtrDecoratedType(const TypeSPtr& pType);
         
     virtual std::string cppMemberName(const FieldSPtr& pField);
     virtual std::string cppVariableName(const FieldSPtr& pField);

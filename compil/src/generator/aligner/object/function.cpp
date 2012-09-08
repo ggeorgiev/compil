@@ -44,7 +44,7 @@ Function::Function(const FunctionNameSPtr& name)
 {
 }
 
-Function::Function(const DecoratedType& returnType,
+Function::Function(const DecoratedTypeSPtr& returnType,
                    const FunctionNameSPtr& name)
     : mReturnType(returnType), mName(name)
 {
@@ -62,7 +62,7 @@ Function::Function(const CastOperator& castOperator,
 {
 }
 
-Function::Function(const DecoratedType& returnType,
+Function::Function(const DecoratedTypeSPtr& returnType,
                    const FunctionNameSPtr& name, 
                    const EMethodDeclaration& declaration)
     : mReturnType(returnType), mName(name), mDeclaration(declaration)
@@ -76,7 +76,7 @@ Function::Function(const FunctionNameSPtr& name,
     mvArgument.push_back(argument);
 }
 
-Function::Function(const DecoratedType& returnType,
+Function::Function(const DecoratedTypeSPtr& returnType,
                    const FunctionNameSPtr& name,
                    const Argument& argument)
     : mReturnType(returnType), mName(name)
@@ -84,7 +84,7 @@ Function::Function(const DecoratedType& returnType,
     mvArgument.push_back(argument);
 }
 
-Function::Function(const DecoratedType& returnType,
+Function::Function(const DecoratedTypeSPtr& returnType,
                    const FunctionNameSPtr& name,
                    const Argument& argument1,
                    const Argument& argument2)
@@ -102,7 +102,7 @@ Function::Function(const FunctionNameSPtr& name,
     mvArgument.push_back(argument);
 }
 
-Function::Function(const DecoratedType& returnType,
+Function::Function(const DecoratedTypeSPtr& returnType,
                    const FunctionNameSPtr& name,
                    const Argument& argument,
                    const EMethodDeclaration& declaration)
@@ -111,7 +111,7 @@ Function::Function(const DecoratedType& returnType,
     mvArgument.push_back(argument);
 }
 
-Function::Function(const DecoratedType& returnType,
+Function::Function(const DecoratedTypeSPtr& returnType,
                    const FunctionNameSPtr& name,
                    const Argument& argument1,
                    const Argument& argument2,
@@ -136,7 +136,7 @@ Function::Function(const NamespaceSPtr& namesp,
 {
 }
 
-Function::Function(const DecoratedType& returnType,
+Function::Function(const DecoratedTypeSPtr& returnType,
                    const NamespaceSPtr& namesp,
                    const FunctionNameSPtr& name,
                    const EMethodDeclaration& declaration)
@@ -150,7 +150,7 @@ Function::Function(const NamespaceSPtr& namesp,
 {
 }
 
-Function::Function(const DecoratedType& returnType,
+Function::Function(const DecoratedTypeSPtr& returnType,
                    const NamespaceSPtr& namesp, 
                    const FunctionNameSPtr& name)
     : mReturnType(returnType), mNamespace(namesp), mName(name)
@@ -165,7 +165,7 @@ Function::Function(const NamespaceSPtr& namesp,
     mvArgument.push_back(argument);
 }
 
-Function::Function(const DecoratedType& returnType,
+Function::Function(const DecoratedTypeSPtr& returnType,
                    const NamespaceSPtr& namesp, 
                    const FunctionNameSPtr& name,
                    const Argument& argument)
@@ -175,7 +175,7 @@ Function::Function(const DecoratedType& returnType,
 }
 
 
-Function::Function(const DecoratedType& returnType,
+Function::Function(const DecoratedTypeSPtr& returnType,
                    const NamespaceSPtr& namesp,
                    const FunctionNameSPtr& name, 
                    const Argument& argument1,
@@ -195,7 +195,7 @@ Function::Function(const NamespaceSPtr& namesp,
     mvArgument.push_back(argument);
 }
 
-Function::Function(const DecoratedType& returnType,
+Function::Function(const DecoratedTypeSPtr& returnType,
                    const NamespaceSPtr& namesp, 
                    const FunctionNameSPtr& name, 
                    const Argument& argument, 
@@ -205,7 +205,7 @@ Function::Function(const DecoratedType& returnType,
     mvArgument.push_back(argument);
 }
 
-Function::Function(const DecoratedType& returnType,
+Function::Function(const DecoratedTypeSPtr& returnType,
                    const NamespaceSPtr& namesp,
                    const FunctionNameSPtr& name, 
                    const Argument& argument1, 
@@ -225,7 +225,7 @@ Function::Function(const EMethodSpecifier& specifier,
 }
 
 Function::Function(const EMethodSpecifier& specifier,
-                   const DecoratedType& returnType, 
+                   const DecoratedTypeSPtr& returnType, 
                    const FunctionNameSPtr& name, 
                    const Argument& argument)
     : mSpecifier(specifier), mReturnType(returnType), mName(name)
@@ -234,7 +234,7 @@ Function::Function(const EMethodSpecifier& specifier,
 }
 
 Function::Function(const EMethodSpecifier& specifier,
-                   const DecoratedType& returnType, 
+                   const DecoratedTypeSPtr& returnType, 
                    const FunctionNameSPtr& name, 
                    const Argument& argument,
                    const EMethodDeclaration& declaration)
@@ -244,7 +244,7 @@ Function::Function(const EMethodSpecifier& specifier,
 }
 
 Function::Function(const EMethodSpecifier& specifier,
-                   const DecoratedType& returnType,
+                   const DecoratedTypeSPtr& returnType,
                    const FunctionNameSPtr& name, 
                    const Argument& argument1,
                    const Argument& argument2)
@@ -255,7 +255,7 @@ Function::Function(const EMethodSpecifier& specifier,
 }
 
 Function::Function(const EMethodSpecifier& specifier,
-                   const DecoratedType& returnType, 
+                   const DecoratedTypeSPtr& returnType, 
                    const FunctionNameSPtr& name, 
                    const Argument& argument1,
                    const Argument& argument2,
@@ -267,7 +267,7 @@ Function::Function(const EMethodSpecifier& specifier,
 }
 
 Function::Function(const EMethodSpecifier& specifier,
-                   const DecoratedType& returnType,
+                   const DecoratedTypeSPtr& returnType,
                    const NamespaceSPtr& namesp,
                    const FunctionNameSPtr& name, 
                    const Argument& argument)
@@ -277,14 +277,14 @@ Function::Function(const EMethodSpecifier& specifier,
 }
 
 Function::Function(const EMethodSpecifier& specifier,
-                   const DecoratedType& returnType, 
+                   const DecoratedTypeSPtr& returnType, 
                    const FunctionNameSPtr& name)
     : mSpecifier(specifier), mReturnType(returnType), mName(name)
 {
 }
 
 Function::Function(const EMethodSpecifier& specifier,
-                   const DecoratedType& returnType, 
+                   const DecoratedTypeSPtr& returnType, 
                    const FunctionNameSPtr& name, 
                    const EMethodDeclaration& declaration)
     : mSpecifier(specifier), mReturnType(returnType), mName(name), mDeclaration(declaration)
