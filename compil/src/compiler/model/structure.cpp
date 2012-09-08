@@ -39,9 +39,14 @@ bool Structure::isOptional() const
     for (it = objs.begin(); it != objs.end(); ++it)
     {
         FieldSPtr pField = ObjectFactory::downcastField(*it);
-        if (!pField) continue;
+        if (!pField)
+            continue;
         
-        if (!pField->defaultValue()) return false;
+        if (!pField->defaultValue())
+            return false;
+        
+        if (!pField->defaultValue()->optional())
+            continue;
         
         bResult = true;
     }
