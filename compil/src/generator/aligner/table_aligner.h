@@ -117,6 +117,7 @@ TableAligner& operator<<(TableAligner& aligner, const EMethodSpecifier&);
 TableAligner& operator<<(TableAligner& aligner, const FunctionCall&);
 TableAligner& operator<<(TableAligner& aligner, const Initialization&);
 TableAligner& operator<<(TableAligner& aligner, const SimpleType&);
+TableAligner& operator<<(TableAligner& aligner, const SimpleTypeSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const ETypeDeclaration&);
 TableAligner& operator<<(TableAligner& aligner, const ETypeDecoration&);
 TableAligner& operator<<(TableAligner& aligner, const TableAligner::col&);

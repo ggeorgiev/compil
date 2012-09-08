@@ -67,11 +67,11 @@ bool CppFlagsEnumerationGenerator::generate()
     includeHeaders(declarationStream, Dependency::private_section);
     
     std::string type = "T";
-    DecoratedType decoratedType = *CreateDecoratedType(*CreateSimpleType(type));
+    DecoratedType decoratedType = *CreateDecoratedType(CreateSimpleType(type));
     std::string inherit = "F";
-    DecoratedType decoratedInherit = *CreateDecoratedType(*CreateSimpleType(inherit));
+    DecoratedType decoratedInherit = *CreateDecoratedType(CreateSimpleType(inherit));
     DecoratedType decoratedInheritRef = *CreateDecoratedType(ETypeDeclaration::const_(),
-                                                             *CreateSimpleType(inherit),
+                                                             CreateSimpleType(inherit),
                                                              ETypeDecoration::reference());
     
     std::string class_name = "flags_enumeration";
@@ -95,7 +95,7 @@ bool CppFlagsEnumerationGenerator::generate()
     line()  << "// Default constructor - sets the value to invalid";
     eol(declarationStream);
     fdef()  << TableAligner::row()
-            << Constructor(*CreateSimpleType(class_name));
+            << Constructor(CreateSimpleType(class_name));
     eofd(declarationStream);
     line()  << ": " 
             << *CreateInitialization(memberValue, "0");
@@ -104,7 +104,7 @@ bool CppFlagsEnumerationGenerator::generate()
     eol(declarationStream);
     
     fdef()  << TableAligner::row()
-            << Constructor(*CreateSimpleType(class_name), 
+            << Constructor(CreateSimpleType(class_name), 
                            Argument(decoratedType, value));
     eofd(declarationStream);
     line()  << ": " 

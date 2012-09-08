@@ -99,31 +99,31 @@ public:
     
     virtual NamespaceSPtr cppPackageNamespace(const PackageSPtr& pPackage);
 
-    virtual SimpleType cppEnumType(const EnumerationSPtr& pEnumeration);
-    virtual SimpleType cppInnerEnumType(const EnumerationSPtr& pEnumeration,
+    virtual SimpleTypeSPtr cppEnumType(const EnumerationSPtr& pEnumeration);
+    virtual SimpleTypeSPtr cppInnerEnumType(const EnumerationSPtr& pEnumeration,
                                         const StructureSPtr& pStructure);
     virtual NamespaceSPtr cppEnumNamespace(const EnumerationSPtr& pEnumeration);
     
-    virtual SimpleType cppClassType(const TypeSPtr& pType);
+    virtual SimpleTypeSPtr cppClassType(const TypeSPtr& pType);
     virtual NamespaceSPtr cppClassNamespace(const TypeSPtr& pType);
     virtual DestructorNameSPtr cppDestructorName(const TypeSPtr& pType);
     
-    virtual SimpleType cppAutoClassType(const StructureSPtr& pStructure);
+    virtual SimpleTypeSPtr cppAutoClassType(const StructureSPtr& pStructure);
     virtual NamespaceSPtr cppAutoClassNamespace(const StructureSPtr& pStructure);
     virtual DestructorNameSPtr cppAutoDestructorName(const StructureSPtr& pStructure);
     
-    virtual SimpleType cppMainClassType(const StructureSPtr& pStructure);
+    virtual SimpleTypeSPtr cppMainClassType(const StructureSPtr& pStructure);
     virtual NamespaceSPtr cppMainClassNamespace(const StructureSPtr& pStructure);
     
-    virtual SimpleType cppPartialClassType(const StructureSPtr& pStructure);
+    virtual SimpleTypeSPtr cppPartialClassType(const StructureSPtr& pStructure);
     
     virtual std::string constValueName(const EnumerationValueSPtr& pEnumerationValue);
     virtual std::string enumValueName(const EnumerationValueSPtr& pEnumerationValue);
     
-    virtual SimpleType cppRawPtrName(const TypeSPtr& pType);
-    virtual SimpleType cppSharedPtrName(const TypeSPtr& pType);
-    virtual SimpleType cppSharedConstPtrName(const TypeSPtr& pType);
-    virtual SimpleType cppWeakPtrName(const TypeSPtr& pType);
+    virtual SimpleTypeSPtr cppRawPtrName(const TypeSPtr& pType);
+    virtual SimpleTypeSPtr cppSharedPtrName(const TypeSPtr& pType);
+    virtual SimpleTypeSPtr cppSharedConstPtrName(const TypeSPtr& pType);
+    virtual SimpleTypeSPtr cppWeakPtrName(const TypeSPtr& pType);
     
     virtual DecoratedType cppRawPtrDecoratedType(const TypeSPtr& pType);
     virtual DecoratedType cppSharedPtrDecoratedType(const TypeSPtr& pType);

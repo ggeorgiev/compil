@@ -189,7 +189,7 @@ void CppHeaderGenerator::generateEnumerationValueDeclaration(const EnumerationVa
     EnumerationSPtr pEnumeration = pEnumerationValue->enumeration().lock();
     StructureSPtr pStructure = pEnumeration->structure().lock();
 
-    SimpleType type;
+    SimpleTypeSPtr type;
     if (pEnumeration->cast() == CastableType::ECast::weak())
         type = impl->cppType(pEnumeration->parameterType().lock());
     else if (pEnumeration->cast() == CastableType::ECast::strong())
@@ -1030,7 +1030,7 @@ void CppHeaderGenerator::generateStructureRuntimeIdentificationMethodsDeclaratio
     table() << TableAligner::row();
 
     commentInTable(
-            "Identifier for the objects from " + frm->cppMainClassType(pStructure).value() + " class.");
+            "Identifier for the objects from " + frm->cppMainClassType(pStructure)->value() + " class.");
     commentInTable(
             "Note: it is not defined in the "
             "respective cpp file. Instead it is defined in the factory class together with "
@@ -1084,7 +1084,7 @@ void CppHeaderGenerator::generateStructureInprocIdentificationMethodsDeclaration
 
     commentInTable(
             "Inproc identifier for the objects from " +
-            frm->cppMainClassType(pStructure).value() + " class.");
+            frm->cppMainClassType(pStructure)->value() + " class.");
     commentInTable(
             "Note: this identificator is unique just for the process session. "
             "There is no guarantee that the id will be the same from session to session. "
@@ -1601,12 +1601,12 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
         commentInLine(declarationStream,
             "This is a partial class (similar to partial classes in C#). Makes sense "
             "only in the context of its derived class. Since in C++ there are no partial "
-            "classes, the pattern is implemented with inheritance - " + frm->cppAutoClassType(pStructure).value() +
-            " being the base class and " + frm->cppMainClassType(pStructure).value() + " being its derived class.");
+            "classes, the pattern is implemented with inheritance - " + frm->cppAutoClassType(pStructure)->value() +
+            " being the base class and " + frm->cppMainClassType(pStructure)->value() + " being its derived class.");
         eol(declarationStream);
         commentInLine(declarationStream,
-            frm->cppAutoClassType(pStructure).value() + " provides the operational functionality for getting and "
-            "setting the data. Refer to the derived " + frm->cppMainClassType(pStructure).value() + " class for "
+            frm->cppAutoClassType(pStructure)->value() + " provides the operational functionality for getting and "
+            "setting the data. Refer to the derived " + frm->cppMainClassType(pStructure)->value() + " class for "
             "more details about business related functionality.");
         eol(declarationStream);
     }
@@ -1614,7 +1614,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
     if (pStructure->immutable())
     {
         commentInLine(declarationStream,
-            frm->cppAutoClassType(pStructure).value() + " is an immutable class - once instantiated none "
+            frm->cppAutoClassType(pStructure)->value() + " is an immutable class - once instantiated none "
             "of the data fields can be changed. For the initial initialization and instantiation "
             "use the nested Builder class.");
         eol(declarationStream);
@@ -1757,7 +1757,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
         table() << TableAligner::row();
 
         commentInTable(
-            "Instantiates " + frm->cppMainClassType(pStructure).value() + " instance with the current "
+            "Instantiates " + frm->cppMainClassType(pStructure)->value() + " instance with the current "
             "initialization of the fields. "
             "After the instance is ready the builder could be reused to instantiate "
             "more objects. The data is not reset. Second call of " + fnBuild->value() + "() will instantiate "
@@ -1934,7 +1934,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                 commentInTable("Returns unique bitmask value for the field " + pField->name()->value());
 
                 table() << TableAligner::row()
-                        << Function(EMethodSpecifier::static_(), *CreateDecoratedType(*CreateSimpleType("int")),
+                        << Function(EMethodSpecifier::static_(), *CreateDecoratedType(CreateSimpleType("int")),
                                                                frm->bitmaskMethodName(pField))
                         << ";";
             }

@@ -35,18 +35,18 @@
 namespace compil
 {
 
-DecoratedType bl             = *CreateDecoratedType(*CreateSimpleType("bool"));
-DecoratedType vd             = *CreateDecoratedType(*CreateSimpleType("void"));
-DecoratedType st             = *CreateDecoratedType(*CreateSimpleType("size_t"));
+DecoratedType bl             = *CreateDecoratedType(CreateSimpleType("bool"));
+DecoratedType vd             = *CreateDecoratedType(CreateSimpleType("void"));
+DecoratedType st             = *CreateDecoratedType(CreateSimpleType("size_t"));
 DecoratedType const_char_ptr = *CreateDecoratedType(ETypeDeclaration::const_(),
-                                                    *CreateSimpleType("char"),
+                                                    CreateSimpleType("char"),
                                                     ETypeDecoration::pointer());
-DecoratedType cloneFunction  = *CreateDecoratedType(*CreateSimpleType("fnClone"));
+DecoratedType cloneFunction  = *CreateDecoratedType(CreateSimpleType("fnClone"));
 
 DecoratedType cstTRef        = *CreateDecoratedType(ETypeDeclaration::const_(),
-                                                    *CreateSimpleType("T"),
+                                                    CreateSimpleType("T"),
                                                     ETypeDecoration::reference());
-DecoratedType TPtr           = *CreateDecoratedType(*CreateSimpleType("T"),
+DecoratedType TPtr           = *CreateDecoratedType(CreateSimpleType("T"),
                                                     ETypeDecoration::pointer());
 
 MethodNameSPtr fnValue                  = methodNameRef("value");
@@ -102,8 +102,8 @@ MethodNameSPtr fnIsClear                = methodNameRef("isClear");
 
 NamespaceNameSPtr nsBuilder = namespaceNameRef("Builder");
 
-SimpleType builder = *CreateSimpleType("Builder");
-SimpleType chr     = *CreateSimpleType("char");
+SimpleTypeSPtr builder = CreateSimpleType("Builder");
+SimpleTypeSPtr chr     = CreateSimpleType("char");
 
 
 Aligner::Aligner(const AlignerConfigurationPtr& pConfiguration)

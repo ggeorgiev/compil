@@ -75,6 +75,7 @@ LineAligner& operator<<(LineAligner& aligner, const FunctionNameSPtr&);
 LineAligner& operator<<(LineAligner& aligner, const Initialization&);
 LineAligner& operator<<(LineAligner& aligner, const NamespaceSPtr&);
 LineAligner& operator<<(LineAligner& aligner, const SimpleType&);
+LineAligner& operator<<(LineAligner& aligner, const SimpleTypeSPtr&);
 LineAligner& operator<<(LineAligner& aligner, const ETypeDeclaration&);
 LineAligner& operator<<(LineAligner& aligner, const ETypeDecoration&);
 

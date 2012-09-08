@@ -113,8 +113,8 @@ extern MethodNameSPtr fnIsClear;
 
 extern NamespaceNameSPtr nsBuilder;
 
-extern SimpleType builder;
-extern SimpleType chr;
+extern SimpleTypeSPtr builder;
+extern SimpleTypeSPtr chr;
 
 
 class Aligner

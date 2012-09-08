@@ -40,7 +40,7 @@ controlled immutable
 structure DecoratedType
 {
     TypeDeclaration declaration = invalid;
-    SimpleType type = optional;
+    reference<SimpleType> type = optional;
     TypeDecoration decoration = invalid;
 
     boolean aligned = true;

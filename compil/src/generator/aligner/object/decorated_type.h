@@ -93,9 +93,7 @@ public:
                 void                 reset_declaration  ();
 
         // Setter method for the data field type
-                Builder&             set_type           (const SimpleType& type);
-        // Provides mutable access to field type
-                SimpleType&          mutable_type       ();
+                Builder&             set_type           (const SimpleTypeSPtr& type);
         // Clears the optional data field type
                 void                 clear_type         ();
 
@@ -146,7 +144,7 @@ public:
     static  ETypeDeclaration        default_declaration();
 
     // Getter method for the data field type
-            const SimpleType&       type               () const;
+            const SimpleTypeSPtr&   type               () const;
     // Checks if the optional field type exists
             bool                    exist_type         () const;
 
@@ -182,7 +180,7 @@ private:
     // variable for the data field declaration
     ETypeDeclaration mDeclaration;
     // variable for the data field type
-    SimpleType       mType;
+    SimpleTypeSPtr   mType;
     // variable for the data field decoration
     ETypeDecoration  mDecoration;
     // variable for the data field aligned
@@ -190,25 +188,25 @@ private:
 };
 
 DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration);
-DecoratedTypeSPtr CreateDecoratedType(const SimpleType& type);
-DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, const SimpleType& type);
+DecoratedTypeSPtr CreateDecoratedType(const SimpleTypeSPtr& type);
+DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, const SimpleTypeSPtr& type);
 DecoratedTypeSPtr CreateDecoratedType(const ETypeDecoration& decoration);
 DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, const ETypeDecoration& decoration);
-DecoratedTypeSPtr CreateDecoratedType(const SimpleType& type, const ETypeDecoration& decoration);
+DecoratedTypeSPtr CreateDecoratedType(const SimpleTypeSPtr& type, const ETypeDecoration& decoration);
 DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration,
-                                      const SimpleType& type,
+                                      const SimpleTypeSPtr& type,
                                       const ETypeDecoration& decoration);
 DecoratedTypeSPtr CreateDecoratedType(bool aligned);
 DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, bool aligned);
-DecoratedTypeSPtr CreateDecoratedType(const SimpleType& type, bool aligned);
-DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, const SimpleType& type, bool aligned);
+DecoratedTypeSPtr CreateDecoratedType(const SimpleTypeSPtr& type, bool aligned);
+DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, const SimpleTypeSPtr& type, bool aligned);
 DecoratedTypeSPtr CreateDecoratedType(const ETypeDecoration& decoration, bool aligned);
 DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration,
                                       const ETypeDecoration& decoration,
                                       bool aligned);
-DecoratedTypeSPtr CreateDecoratedType(const SimpleType& type, const ETypeDecoration& decoration, bool aligned);
+DecoratedTypeSPtr CreateDecoratedType(const SimpleTypeSPtr& type, const ETypeDecoration& decoration, bool aligned);
 DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration,
-                                      const SimpleType& type,
+                                      const SimpleTypeSPtr& type,
                                       const ETypeDecoration& decoration,
                                       bool aligned);
 

@@ -261,21 +261,21 @@ TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedTy
 {
     if (decoratedType.declaration() != ETypeDeclaration::invalid())
         aligner << decoratedType.declaration() << ' ';
-    if (!decoratedType.type().isVoid())
+    if (!decoratedType.type()->isVoid())
         aligner << decoratedType.type();
         
 	if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
 	{
         if (decoratedType.decoration() != ETypeDecoration::invalid())
             aligner << decoratedType.decoration();
-        if (!decoratedType.type().isVoid())
+        if (!decoratedType.type()->isVoid())
             aligner << ' ';
         if (decoratedType.aligned())
             aligner << TableAligner::col();
 	}
 	else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_name)
 	{
-        if (!decoratedType.type().isVoid())
+        if (!decoratedType.type()->isVoid())
             aligner << ' ';
         if (decoratedType.aligned())
             aligner << TableAligner::col();
@@ -284,7 +284,7 @@ TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedTy
 	}
 	else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
 	{
-        if (!decoratedType.type().isVoid())
+        if (!decoratedType.type()->isVoid())
             aligner << ' ';
         if (decoratedType.aligned())
             aligner << TableAligner::col();
@@ -478,6 +478,16 @@ TableAligner& operator<<(TableAligner& aligner, const SimpleType& type)
         aligner << type.namespace_() << "::";
     
     aligner << type.value();
+    return aligner;
+}
+
+TableAligner& operator<<(TableAligner& aligner, const SimpleTypeSPtr& type)
+{
+    if (type->exist_namespace())
+    if (!type->namespace_()->isVoid())
+        aligner << type->namespace_() << "::";
+    
+    aligner << type->value();
     return aligner;
 }
 

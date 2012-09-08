@@ -289,6 +289,16 @@ LineAligner& operator<<(LineAligner& aligner, const SimpleType& type)
     return aligner;
 }
 
+LineAligner& operator<<(LineAligner& aligner, const SimpleTypeSPtr& type)
+{
+    if (type->exist_namespace())
+    if (!type->namespace_()->isVoid())
+        aligner << type->namespace_() << "::";
+    
+    aligner << type->value();
+    return aligner;
+}
+
 LineAligner& operator<<(LineAligner& aligner, char ch)
 {
     aligner.line() << ch;

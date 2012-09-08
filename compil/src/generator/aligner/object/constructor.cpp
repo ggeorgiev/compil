@@ -40,31 +40,31 @@ Constructor::Constructor()
 {
 }
 
-Constructor::Constructor(const SimpleType& type)
+Constructor::Constructor(const SimpleTypeSPtr& type)
     : mType(type)
 {
 }
 
-Constructor::Constructor(const EMethodSpecifier& specifier, const SimpleType& type, const Argument& argument)
+Constructor::Constructor(const EMethodSpecifier& specifier, const SimpleTypeSPtr& type, const Argument& argument)
     : mSpecifier(specifier)
     , mType(type)
 {
     mvArgument.push_back(argument);
 }
 
-Constructor::Constructor(const NamespaceSPtr& namespace_, const SimpleType& type)
+Constructor::Constructor(const NamespaceSPtr& namespace_, const SimpleTypeSPtr& type)
     : mNamespace(namespace_)
     , mType(type)
 {
 }
 
-Constructor::Constructor(const SimpleType& type, const Argument& argument)
+Constructor::Constructor(const SimpleTypeSPtr& type, const Argument& argument)
     : mType(type)
 {
     mvArgument.push_back(argument);
 }
 
-Constructor::Constructor(const NamespaceSPtr& namespace_, const SimpleType& type, const Argument& argument)
+Constructor::Constructor(const NamespaceSPtr& namespace_, const SimpleTypeSPtr& type, const Argument& argument)
     : mNamespace(namespace_)
     , mType(type)
 {
@@ -72,7 +72,7 @@ Constructor::Constructor(const NamespaceSPtr& namespace_, const SimpleType& type
 }
 
 Constructor::Constructor(const EMethodSpecifier& specifier, const NamespaceSPtr& namespace_, 
-                         const SimpleType& type, const Argument& argument)
+                         const SimpleTypeSPtr& type, const Argument& argument)
     : mSpecifier(specifier)
     , mNamespace(namespace_)
     , mType(type)
@@ -82,7 +82,7 @@ Constructor::Constructor(const EMethodSpecifier& specifier, const NamespaceSPtr&
 
 Constructor::operator bool() const
 {
-    return (mNamespace && !mNamespace->isVoid()) || !mType.isVoid();
+    return (mNamespace && !mNamespace->isVoid()) || !mType->isVoid();
 }
 
 }

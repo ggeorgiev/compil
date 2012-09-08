@@ -48,19 +48,19 @@ class Constructor
 {
 public:
     Constructor();
-    explicit Constructor(const SimpleType& type);
-    Constructor(const NamespaceSPtr& namespace_, const SimpleType& type);
-    Constructor(const SimpleType& type, const Argument& argument);
-    Constructor(const EMethodSpecifier& specifier, const SimpleType& type, const Argument& argument);
-    Constructor(const NamespaceSPtr& namespace_, const SimpleType& type, const Argument& argument);
+    explicit Constructor(const SimpleTypeSPtr& type);
+    Constructor(const NamespaceSPtr& namespace_, const SimpleTypeSPtr& type);
+    Constructor(const SimpleTypeSPtr& type, const Argument& argument);
+    Constructor(const EMethodSpecifier& specifier, const SimpleTypeSPtr& type, const Argument& argument);
+    Constructor(const NamespaceSPtr& namespace_, const SimpleTypeSPtr& type, const Argument& argument);
     Constructor(const EMethodSpecifier& specifier, const NamespaceSPtr& namespace_, 
-                const SimpleType& type, const Argument& argument);
+                const SimpleTypeSPtr& type, const Argument& argument);
 
     operator bool() const;
 
     EMethodSpecifier mSpecifier;
     NamespaceSPtr mNamespace;
-    SimpleType mType;
+    SimpleTypeSPtr mType;
     std::vector<Argument> mvArgument;
 };
 
