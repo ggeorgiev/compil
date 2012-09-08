@@ -45,7 +45,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/factories.compil"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/factories_another_factory_package.compil"
@@ -61,7 +61,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/immutable_structure.compil"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

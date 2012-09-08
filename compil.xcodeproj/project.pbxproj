@@ -353,6 +353,7 @@
 		5E88A30515E188BC002D43A5 /* variable_name.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = variable_name.compil; sourceTree = "<group>"; };
 		5E88A30615E188BC002D43A5 /* jamfile.jam */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.jam; path = jamfile.jam; sourceTree = "<group>"; };
 		5E88A30715E188BC002D43A5 /* main_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main_unittest.cpp; sourceTree = "<group>"; };
+		5EA4A52115FBF92100065BEF /* argument.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = argument.compil; sourceTree = "<group>"; };
 		5EB29D7215F3E83900894479 /* method_name.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_name.compil; sourceTree = "<group>"; };
 		5EB29D7315F3E9F700894479 /* method_name.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = method_name.cpp; sourceTree = "<group>"; };
 		5EB29D7415F3E9F700894479 /* method_name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = method_name.h; sourceTree = "<group>"; };
@@ -791,6 +792,7 @@
 		5E88A2A015E188BB002D43A5 /* object */ = {
 			isa = PBXGroup;
 			children = (
+				5EA4A52115FBF92100065BEF /* argument.compil */,
 				5E88A2A215E188BB002D43A5 /* decorated_type.compil */,
 				5EB29D8515F4158B00894479 /* destructor_name.compil */,
 				5EB29D8415F414F300894479 /* destructor_specifier.compil */,

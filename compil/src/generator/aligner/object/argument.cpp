@@ -1,77 +1,150 @@
-// CompIL - Component Interface Language
-// Copyright 2011 George Georgiev.  All rights reserved.
-// 
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
-//
-//     * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
-// copyright notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
-// written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-// Author: george.georgiev@hotmail.com (George Georgiev)
-//
+// Boost C++ Utility
+#include <boost/assert.hpp>
 
 #include "argument.h"
+// Standard C Library
+#include <stddef.h>
 
-namespace compil
+int Argument::bitmask_type()
 {
+    return 0x1;
+}
+
+int Argument::bitmask_name()
+{
+    return 0x2;
+}
+
+Argument::Builder::Builder()
+        : mpObject(new Argument())
+{
+}
+
+Argument::Builder::Builder(const Argument& object)
+        : mpObject(new Argument())
+{
+    *(Argument*)mpObject = object;
+}
+
+Argument::Builder::Builder(ArgumentRPtr pObject)
+        : mpObject(pObject)
+{
+}
+
+Argument::Builder::~Builder()
+{
+    delete (ArgumentRPtr)mpObject;
+    mpObject = NULL;
+}
+
+const Argument& Argument::Builder::build() const
+{
+    BOOST_ASSERT(mpObject->isInitialized());
+    return *(ArgumentRPtr)mpObject;
+}
+
+ArgumentSPtr Argument::Builder::finalize()
+{
+    BOOST_ASSERT(mpObject->isInitialized());
+    ArgumentRPtr objectRPtr = (ArgumentRPtr)mpObject;
+    mpObject = NULL;
+    return ArgumentSPtr(objectRPtr);
+}
 
 Argument::Argument()
+        : mBits(0)
 {
 }
 
-Argument::Argument(const std::string& value)
-    : mValue(value)
+Argument::~Argument()
 {
 }
 
-Argument::Argument(const DecoratedTypeSPtr& decoratedType)
-    : mDecoratedType(decoratedType)
+bool Argument::isInitialized() const
 {
-    DecoratedType::Builder builder(*decoratedType);
-    builder.set_aligned(false);
-    mDecoratedType = builder.finalize();
+    return true;
 }
 
-Argument::Argument(const DecoratedTypeSPtr& decoratedType, const std::string& value)
-    : mDecoratedType(decoratedType), mValue(value)
+bool Argument::isVoid() const
 {
-    DecoratedType::Builder builder(*decoratedType);
-    builder.set_aligned(false);
-    mDecoratedType = builder.finalize();
+    if (exist_type()) return false;
+    if (exist_name()) return false;
+    return true;
 }
 
-Argument& Argument::operator <<(const DecoratedTypeSPtr& decoratedType)
+const DecoratedTypeSPtr& Argument::type() const
 {
-    DecoratedType::Builder builder(*decoratedType);
-    builder.set_aligned(false);
-    mDecoratedType = builder.finalize();
+    BOOST_ASSERT(exist_type());
+    return mType;
+}
+
+bool Argument::exist_type() const
+{
+    return (mBits & bitmask_type()) != 0;
+}
+
+Argument::Builder& Argument::Builder::set_type(const DecoratedTypeSPtr& type)
+{
+    mpObject->mType  = type;
+    mpObject->mBits |= bitmask_type();
     return *this;
 }
 
-Argument& Argument::operator <<(const std::string& value)
+void Argument::Builder::clear_type()
 {
-    mValue = value;
+    mpObject->mType.reset();
+    mpObject->mBits &= ~bitmask_type();
+}
+
+const std::string& Argument::name() const
+{
+    BOOST_ASSERT(exist_name());
+    return mName;
+}
+
+bool Argument::exist_name() const
+{
+    return (mBits & bitmask_name()) != 0;
+}
+
+Argument::Builder& Argument::Builder::set_name(const std::string& name)
+{
+    mpObject->mName  = name;
+    mpObject->mBits |= bitmask_name();
     return *this;
 }
 
+std::string& Argument::Builder::mutable_name()
+{
+    mpObject->mBits |= bitmask_name();
+    return mpObject->mName;
 }
+
+void Argument::Builder::clear_name()
+{
+    mpObject->mName.clear();
+    mpObject->mBits &= ~bitmask_name();
+}
+
+ArgumentSPtr CreateArgument(const DecoratedTypeSPtr& type)
+{
+    Argument::Builder builder;
+    builder.set_type(type);
+    return builder.finalize();
+}
+
+ArgumentSPtr CreateArgument(const std::string& name)
+{
+    Argument::Builder builder;
+    builder.set_name(name);
+    return builder.finalize();
+}
+
+ArgumentSPtr CreateArgument(const DecoratedTypeSPtr& type, const std::string& name)
+{
+    Argument::Builder builder;
+    builder.set_type(type);
+    builder.set_name(name);
+    return builder.finalize();
+}
+

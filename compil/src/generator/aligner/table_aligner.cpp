@@ -210,6 +210,23 @@ void TableAligner::newRow(Row::Type type, int indent)
 	newColumn();
 }
 
+TableAligner& operator<<(TableAligner& aligner, const Argument& argument)
+{
+    if (argument.exist_type() && !argument.type()->isVoid())
+        aligner << argument.type();
+    aligner << argument.name();
+    return aligner;
+}
+
+TableAligner& operator<<(TableAligner& aligner, const ArgumentSPtr& argument)
+{
+    if (argument->exist_type() && !argument->type()->isVoid())
+        aligner << argument->type();
+    if (argument->exist_name())
+        aligner << argument->name();
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const TableAligner::col&)
 {
 	aligner.newColumn();
@@ -303,14 +320,6 @@ TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedTy
 TableAligner& operator<<(TableAligner& aligner, const DecoratedTypeSPtr& decoratedType)
 {
     return aligner << *decoratedType;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const Argument& argument)
-{
-    if (argument.mDecoratedType && !argument.mDecoratedType->isVoid())
-        aligner << argument.mDecoratedType;
-    aligner << argument.mValue;
-    return aligner;
 }
 
 TableAligner& operator<<(TableAligner& aligner, const Function& function)

@@ -67,30 +67,30 @@ public:
              const EMethodDeclaration& declaration);
              
     Function(const FunctionNameSPtr& name, 
-             const Argument& argument);
+             const ArgumentSPtr& argument);
              
     Function(const DecoratedTypeSPtr& returnType, 
              const FunctionNameSPtr& name, 
-             const Argument& argument);
+             const ArgumentSPtr& argument);
              
     Function(const DecoratedTypeSPtr& returnType, 
              const FunctionNameSPtr& name, 
-             const Argument& argument1,
-             const Argument& argument2);
+             const ArgumentSPtr& argument1,
+             const ArgumentSPtr& argument2);
              
     Function(const FunctionNameSPtr& name, 
-             const Argument& argument, 
+             const ArgumentSPtr& argument, 
              const EMethodDeclaration& declaration);
              
     Function(const DecoratedTypeSPtr& returnType, 
              const FunctionNameSPtr& name, 
-             const Argument& argument, 
+             const ArgumentSPtr& argument, 
              const EMethodDeclaration& declaration);
              
     Function(const DecoratedTypeSPtr& returnType, 
              const FunctionNameSPtr& name, 
-             const Argument& argument1,
-             const Argument& argument2,
+             const ArgumentSPtr& argument1,
+             const ArgumentSPtr& argument2,
              const EMethodDeclaration& declaration);
              
     Function(const NamespaceSPtr& namesp,
@@ -115,35 +115,35 @@ public:
              
     Function(const NamespaceSPtr& namesp,
              const FunctionNameSPtr& name,
-             const Argument& argument);
+             const ArgumentSPtr& argument);
              
     Function(const DecoratedTypeSPtr& returnType,
              const NamespaceSPtr& namesp, 
              const FunctionNameSPtr& name, 
-             const Argument& argument);
+             const ArgumentSPtr& argument);
              
     Function(const DecoratedTypeSPtr& returnType,
              const NamespaceSPtr& namesp,
              const FunctionNameSPtr& name, 
-             const Argument& argument1,
-             const Argument& argument2);
+             const ArgumentSPtr& argument1,
+             const ArgumentSPtr& argument2);
              
     Function(const NamespaceSPtr& namesp, 
              const FunctionNameSPtr& name, 
-             const Argument& argument, 
+             const ArgumentSPtr& argument, 
              const EMethodDeclaration& declaration);
              
     Function(const DecoratedTypeSPtr& returnType, 
              const NamespaceSPtr& namesp, 
              const FunctionNameSPtr& name, 
-             const Argument& argument, 
+             const ArgumentSPtr& argument, 
              const EMethodDeclaration& declaration);
              
     Function(const DecoratedTypeSPtr& returnType, 
              const NamespaceSPtr& namesp, 
              const FunctionNameSPtr& name, 
-             const Argument& argument1,
-             const Argument& argument2, 
+             const ArgumentSPtr& argument1,
+             const ArgumentSPtr& argument2, 
              const EMethodDeclaration& declaration);
              
     Function(const EMethodSpecifier& specifier,
@@ -157,32 +157,32 @@ public:
     Function(const EMethodSpecifier& specifier,
              const DecoratedTypeSPtr& returnType, 
              const FunctionNameSPtr& name, 
-             const Argument& argument);
+             const ArgumentSPtr& argument);
 
     Function(const EMethodSpecifier& specifier,
              const DecoratedTypeSPtr& returnType, 
              const FunctionNameSPtr& name, 
-             const Argument& argument,
+             const ArgumentSPtr& argument,
              const EMethodDeclaration& declaration);
              
     Function(const EMethodSpecifier& specifier,
              const DecoratedTypeSPtr& returnType, 
              const FunctionNameSPtr& name, 
-             const Argument& argument1,
-             const Argument& argument2);
+             const ArgumentSPtr& argument1,
+             const ArgumentSPtr& argument2);
              
     Function(const EMethodSpecifier& specifier,
              const DecoratedTypeSPtr& returnType, 
              const FunctionNameSPtr& name, 
-             const Argument& argument1,
-             const Argument& argument2,
+             const ArgumentSPtr& argument1,
+             const ArgumentSPtr& argument2,
              const EMethodDeclaration& declaration);
              
     Function(const EMethodSpecifier& specifier,
              const DecoratedTypeSPtr& returnType,
              const NamespaceSPtr& namesp,
              const FunctionNameSPtr& name, 
-             const Argument& argument);
+             const ArgumentSPtr& argument);
 
     Function(const EMethodSpecifier& specifier,
              const DecoratedTypeSPtr& returnType, 
@@ -191,16 +191,16 @@ public:
              
     Function(const EMethodSpecifier& specifier,
              const FunctionNameSPtr& name, 
-             const Argument& argument);
+             const ArgumentSPtr& argument);
     
-    Function& operator <<(const Argument& argument);
+    Function& operator <<(const ArgumentSPtr& argument);
 
     EMethodSpecifier mSpecifier;
     DecoratedTypeSPtr mReturnType;
     NamespaceSPtr mNamespace;
     FunctionNameSPtr mName;
     CastOperator mCastOperator;
-    std::vector<Argument> mvArgument;
+    std::vector<ArgumentSPtr> mvArgument;
     EMethodDeclaration mDeclaration;
 };
 

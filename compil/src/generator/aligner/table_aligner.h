@@ -106,6 +106,7 @@ TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionDefinitio
 TableAligner& operator<<(TableAligner& aligner, const DecoratedType&);
 TableAligner& operator<<(TableAligner& aligner, const DecoratedTypeSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const Argument&);
+TableAligner& operator<<(TableAligner& aligner, const ArgumentSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const Function&);
 TableAligner& operator<<(TableAligner& aligner, const FunctionName&);
 TableAligner& operator<<(TableAligner& aligner, const FunctionNameSPtr&);

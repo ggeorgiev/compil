@@ -69,6 +69,7 @@ LineAligner& operator<<(LineAligner& aligner, const Aligner::FunctionSpace&);
 LineAligner& operator<<(LineAligner& aligner, const DecoratedType&);
 LineAligner& operator<<(LineAligner& aligner, const DecoratedTypeSPtr&);
 LineAligner& operator<<(LineAligner& aligner, const Argument&);
+LineAligner& operator<<(LineAligner& aligner, const ArgumentSPtr&);
 LineAligner& operator<<(LineAligner& aligner, const FunctionCall&);
 LineAligner& operator<<(LineAligner& aligner, const FunctionName&);
 LineAligner& operator<<(LineAligner& aligner, const FunctionNameSPtr&);

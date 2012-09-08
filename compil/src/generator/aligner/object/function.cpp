@@ -70,7 +70,7 @@ Function::Function(const DecoratedTypeSPtr& returnType,
 }
 
 Function::Function(const FunctionNameSPtr& name,
-                   const Argument& argument)
+                   const ArgumentSPtr& argument)
     : mName(name)
 {
     mvArgument.push_back(argument);
@@ -78,7 +78,7 @@ Function::Function(const FunctionNameSPtr& name,
 
 Function::Function(const DecoratedTypeSPtr& returnType,
                    const FunctionNameSPtr& name,
-                   const Argument& argument)
+                   const ArgumentSPtr& argument)
     : mReturnType(returnType), mName(name)
 {
     mvArgument.push_back(argument);
@@ -86,8 +86,8 @@ Function::Function(const DecoratedTypeSPtr& returnType,
 
 Function::Function(const DecoratedTypeSPtr& returnType,
                    const FunctionNameSPtr& name,
-                   const Argument& argument1,
-                   const Argument& argument2)
+                   const ArgumentSPtr& argument1,
+                   const ArgumentSPtr& argument2)
     : mReturnType(returnType), mName(name)
 {
     mvArgument.push_back(argument1);
@@ -95,7 +95,7 @@ Function::Function(const DecoratedTypeSPtr& returnType,
 }
 
 Function::Function(const FunctionNameSPtr& name,
-                   const Argument& argument,
+                   const ArgumentSPtr& argument,
                    const EMethodDeclaration& declaration)
     : mName(name), mDeclaration(declaration)
 {
@@ -104,7 +104,7 @@ Function::Function(const FunctionNameSPtr& name,
 
 Function::Function(const DecoratedTypeSPtr& returnType,
                    const FunctionNameSPtr& name,
-                   const Argument& argument,
+                   const ArgumentSPtr& argument,
                    const EMethodDeclaration& declaration)
     : mReturnType(returnType), mName(name), mDeclaration(declaration)
 {
@@ -113,8 +113,8 @@ Function::Function(const DecoratedTypeSPtr& returnType,
 
 Function::Function(const DecoratedTypeSPtr& returnType,
                    const FunctionNameSPtr& name,
-                   const Argument& argument1,
-                   const Argument& argument2,
+                   const ArgumentSPtr& argument1,
+                   const ArgumentSPtr& argument2,
                    const EMethodDeclaration& declaration)
     : mReturnType(returnType), mName(name), mDeclaration(declaration)
 {
@@ -159,7 +159,7 @@ Function::Function(const DecoratedTypeSPtr& returnType,
 
 Function::Function(const NamespaceSPtr& namesp,
                    const FunctionNameSPtr& name,
-                   const Argument& argument)
+                   const ArgumentSPtr& argument)
     : mNamespace(namesp), mName(name)
 {
     mvArgument.push_back(argument);
@@ -168,7 +168,7 @@ Function::Function(const NamespaceSPtr& namesp,
 Function::Function(const DecoratedTypeSPtr& returnType,
                    const NamespaceSPtr& namesp, 
                    const FunctionNameSPtr& name,
-                   const Argument& argument)
+                   const ArgumentSPtr& argument)
     : mReturnType(returnType), mNamespace(namesp), mName(name)
 {
     mvArgument.push_back(argument);
@@ -178,8 +178,8 @@ Function::Function(const DecoratedTypeSPtr& returnType,
 Function::Function(const DecoratedTypeSPtr& returnType,
                    const NamespaceSPtr& namesp,
                    const FunctionNameSPtr& name, 
-                   const Argument& argument1,
-                   const Argument& argument2)
+                   const ArgumentSPtr& argument1,
+                   const ArgumentSPtr& argument2)
     : mReturnType(returnType), mNamespace(namesp), mName(name)
 {
     mvArgument.push_back(argument1);
@@ -188,7 +188,7 @@ Function::Function(const DecoratedTypeSPtr& returnType,
 
 Function::Function(const NamespaceSPtr& namesp, 
                    const FunctionNameSPtr& name, 
-                   const Argument& argument, 
+                   const ArgumentSPtr& argument, 
                    const EMethodDeclaration& declaration)
     : mNamespace(namesp), mName(name), mDeclaration(declaration)
 {
@@ -198,7 +198,7 @@ Function::Function(const NamespaceSPtr& namesp,
 Function::Function(const DecoratedTypeSPtr& returnType,
                    const NamespaceSPtr& namesp, 
                    const FunctionNameSPtr& name, 
-                   const Argument& argument, 
+                   const ArgumentSPtr& argument, 
                    const EMethodDeclaration& declaration)
     : mReturnType(returnType), mNamespace(namesp), mName(name), mDeclaration(declaration)
 {
@@ -208,8 +208,8 @@ Function::Function(const DecoratedTypeSPtr& returnType,
 Function::Function(const DecoratedTypeSPtr& returnType,
                    const NamespaceSPtr& namesp,
                    const FunctionNameSPtr& name, 
-                   const Argument& argument1, 
-                   const Argument& argument2, 
+                   const ArgumentSPtr& argument1, 
+                   const ArgumentSPtr& argument2, 
                    const EMethodDeclaration& declaration)
     : mReturnType(returnType), mNamespace(namesp), mName(name), mDeclaration(declaration)
 {
@@ -227,7 +227,7 @@ Function::Function(const EMethodSpecifier& specifier,
 Function::Function(const EMethodSpecifier& specifier,
                    const DecoratedTypeSPtr& returnType, 
                    const FunctionNameSPtr& name, 
-                   const Argument& argument)
+                   const ArgumentSPtr& argument)
     : mSpecifier(specifier), mReturnType(returnType), mName(name)
 {
     mvArgument.push_back(argument);
@@ -236,7 +236,7 @@ Function::Function(const EMethodSpecifier& specifier,
 Function::Function(const EMethodSpecifier& specifier,
                    const DecoratedTypeSPtr& returnType, 
                    const FunctionNameSPtr& name, 
-                   const Argument& argument,
+                   const ArgumentSPtr& argument,
                    const EMethodDeclaration& declaration)
     : mSpecifier(specifier), mReturnType(returnType), mName(name), mDeclaration(declaration)
 {
@@ -246,8 +246,8 @@ Function::Function(const EMethodSpecifier& specifier,
 Function::Function(const EMethodSpecifier& specifier,
                    const DecoratedTypeSPtr& returnType,
                    const FunctionNameSPtr& name, 
-                   const Argument& argument1,
-                   const Argument& argument2)
+                   const ArgumentSPtr& argument1,
+                   const ArgumentSPtr& argument2)
     : mSpecifier(specifier), mReturnType(returnType), mName(name)
 {
     mvArgument.push_back(argument1);
@@ -257,8 +257,8 @@ Function::Function(const EMethodSpecifier& specifier,
 Function::Function(const EMethodSpecifier& specifier,
                    const DecoratedTypeSPtr& returnType, 
                    const FunctionNameSPtr& name, 
-                   const Argument& argument1,
-                   const Argument& argument2,
+                   const ArgumentSPtr& argument1,
+                   const ArgumentSPtr& argument2,
                    const EMethodDeclaration& declaration)
     : mSpecifier(specifier), mReturnType(returnType), mName(name), mDeclaration(declaration)
 {
@@ -270,7 +270,7 @@ Function::Function(const EMethodSpecifier& specifier,
                    const DecoratedTypeSPtr& returnType,
                    const NamespaceSPtr& namesp,
                    const FunctionNameSPtr& name, 
-                   const Argument& argument)
+                   const ArgumentSPtr& argument)
     : mSpecifier(specifier), mReturnType(returnType), mNamespace(namesp), mName(name)
 {
     mvArgument.push_back(argument);
@@ -293,13 +293,13 @@ Function::Function(const EMethodSpecifier& specifier,
 
 Function::Function(const EMethodSpecifier& specifier,
                    const FunctionNameSPtr& name,
-                   const Argument& argument)
+                   const ArgumentSPtr& argument)
     : mSpecifier(specifier), mName(name)
 {
     mvArgument.push_back(argument);
 }
 
-Function& Function::operator <<(const Argument& argument)
+Function& Function::operator <<(const ArgumentSPtr& argument)
 {
     mvArgument.push_back(argument);
     return *this;

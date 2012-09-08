@@ -30,59 +30,18 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "constructor.h"
+compil { }
 
+import "decorated_type.compil";
 
-namespace compil
+controlled immutable 
+structure Argument
 {
-
-Constructor::Constructor()
-{
+    reference<DecoratedType> type = optional;
+    string name = optional;
 }
 
-Constructor::Constructor(const SimpleTypeSPtr& type)
-    : mType(type)
+function object
+factory<Argument> CreateArgument
 {
-}
-
-Constructor::Constructor(const EMethodSpecifier& specifier, const SimpleTypeSPtr& type, const ArgumentSPtr& argument)
-    : mSpecifier(specifier)
-    , mType(type)
-{
-    mvArgument.push_back(argument);
-}
-
-Constructor::Constructor(const NamespaceSPtr& namespace_, const SimpleTypeSPtr& type)
-    : mNamespace(namespace_)
-    , mType(type)
-{
-}
-
-Constructor::Constructor(const SimpleTypeSPtr& type, const ArgumentSPtr& argument)
-    : mType(type)
-{
-    mvArgument.push_back(argument);
-}
-
-Constructor::Constructor(const NamespaceSPtr& namespace_, const SimpleTypeSPtr& type, const ArgumentSPtr& argument)
-    : mNamespace(namespace_)
-    , mType(type)
-{
-    mvArgument.push_back(argument);
-}
-
-Constructor::Constructor(const EMethodSpecifier& specifier, const NamespaceSPtr& namespace_, 
-                         const SimpleTypeSPtr& type, const ArgumentSPtr& argument)
-    : mSpecifier(specifier)
-    , mNamespace(namespace_)
-    , mType(type)
-{
-    mvArgument.push_back(argument);
-}
-
-Constructor::operator bool() const
-{
-    return (mNamespace && !mNamespace->isVoid()) || !mType->isVoid();
-}
-
 }

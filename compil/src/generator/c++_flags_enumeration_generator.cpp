@@ -77,8 +77,8 @@ bool CppFlagsEnumerationGenerator::generate()
     std::string class_name = "flags_enumeration";
     std::string value = "value";
     std::string memberValue = frm->memberName(value);
-    Argument argMask(decoratedInheritRef, "mask");
-    Argument argValue(decoratedInheritRef, "value");
+    ArgumentSPtr argMask = CreateArgument(decoratedInheritRef, "mask");
+    ArgumentSPtr argValue = CreateArgument(decoratedInheritRef, "value");
     
     line()  << "template<class "
             << type
@@ -105,7 +105,7 @@ bool CppFlagsEnumerationGenerator::generate()
     
     fdef()  << TableAligner::row()
             << Constructor(CreateSimpleType(class_name), 
-                           Argument(decoratedType, value));
+                           CreateArgument(decoratedType, value));
     eofd(declarationStream);
     line()  << ": " 
             << *CreateInitialization(memberValue, value);

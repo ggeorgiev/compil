@@ -44,6 +44,7 @@ lib generator-self-compil :
     compiler/model/upcopy.compil
     compiler/model/version.compil
     
+    generator/aligner/object/argument.compil
     generator/aligner/object/decorated_type.compil
     generator/aligner/object/destructor_specifier.compil
     generator/aligner/object/destructor_name.compil
