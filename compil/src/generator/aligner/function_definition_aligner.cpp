@@ -113,7 +113,7 @@ FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner,
     aligner << destructor.namespace_()
             << "::";
     
-    aligner << tilde;
+    aligner << '~';
     ((TableAligner&)aligner) << destructor.name();
     aligner << Aligner::FunctionSpace();
     aligner << "()";

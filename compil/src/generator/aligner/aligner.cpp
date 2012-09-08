@@ -35,22 +35,19 @@
 namespace compil
 {
 
-Decoration ref   = *CreateDecoration("&");
-Decoration ptr   = *CreateDecoration("*");
-Decoration tilde = *CreateDecoration("~");
-
 DecoratedType bl             = *CreateDecoratedType(*CreateSimpleType("bool"));
 DecoratedType vd             = *CreateDecoratedType(*CreateSimpleType("void"));
 DecoratedType st             = *CreateDecoratedType(*CreateSimpleType("size_t"));
 DecoratedType const_char_ptr = *CreateDecoratedType(ETypeDeclaration::const_(),
                                                     *CreateSimpleType("char"),
-                                                    ptr);
+                                                    ETypeDecoration::pointer());
 DecoratedType cloneFunction  = *CreateDecoratedType(*CreateSimpleType("fnClone"));
 
 DecoratedType cstTRef        = *CreateDecoratedType(ETypeDeclaration::const_(),
                                                     *CreateSimpleType("T"),
-                                                    ref);
-DecoratedType TPtr           = *CreateDecoratedType(*CreateSimpleType("T"), ptr);
+                                                    ETypeDecoration::reference());
+DecoratedType TPtr           = *CreateDecoratedType(*CreateSimpleType("T"),
+                                                    ETypeDecoration::pointer());
 
 MethodNameSPtr fnValue                  = methodNameRef("value");
 MethodNameSPtr fnShortName              = methodNameRef("shortName");

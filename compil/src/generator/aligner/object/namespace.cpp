@@ -46,6 +46,12 @@ Namespace& Namespace::set_names(const std::vector<NamespaceNameSPtr>& names)
     return *this;
 }
 
+std::vector<NamespaceNameSPtr>& Namespace::mutable_names()
+{
+    mBits |= bitmask_names();
+    return mNames;
+}
+
 Namespace& Namespace::operator<<(const std::vector<NamespaceNameSPtr>& names)
 {
     return set_names(names);
@@ -56,12 +62,6 @@ Namespace& Namespace::operator<<(const NamespaceNameSPtr& namesItem)
     mBits |= bitmask_names();
     mNames.push_back(namesItem);
     return *this;
-}
-
-std::vector<NamespaceNameSPtr>& Namespace::mutable_names()
-{
-    mBits |= bitmask_names();
-    return mNames;
 }
 
 void Namespace::clear_names()

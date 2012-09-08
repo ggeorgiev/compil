@@ -95,7 +95,7 @@ void CppHeaderGenerator::generateForwardClassDeclarations(const TypeSPtr& pType)
     table() << TableAligner::row()
             << "typedef "
             << TableAligner::col()
-            << *CreateDecoratedType(frm->cppClassType(pType), ptr)
+            << *CreateDecoratedType(frm->cppClassType(pType), ETypeDecoration::pointer())
             << TableAligner::col()
             << frm->cppRawPtrName(pType)
             << ";";
@@ -881,7 +881,9 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
     commentInTable(
         "Global singleton accessor.");
     table() << TableAligner::row()
-            << Function(EMethodSpecifier::static_(), *CreateDecoratedType(frm->cppClassType(pFactory), ref), fnGet)
+            << Function(EMethodSpecifier::static_(),
+                        *CreateDecoratedType(frm->cppClassType(pFactory), ETypeDecoration::reference()),
+                        fnGet)
             << ";";
 
     eot(declarationStream);
@@ -1339,9 +1341,9 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
 
     DecoratedType resultType;
     if ((sot & BUILDER) == 0)
-        resultType = *CreateDecoratedType(impl->cppType(pCurrStructure), ref);
+        resultType = *CreateDecoratedType(impl->cppType(pCurrStructure), ETypeDecoration::reference());
     else
-        resultType = *CreateDecoratedType(builder, ref);
+        resultType = *CreateDecoratedType(builder, ETypeDecoration::reference());
 
     if ((sot & WRITING) != 0)
     {
@@ -1368,7 +1370,9 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
         {
             commentInTable("Provides mutable access to field " + pField->name()->value());
             table() << TableAligner::row()
-                    << Function(*CreateDecoratedType(impl->cppInnerType(pField->type(), pCurrStructure), ref),
+                    << Function(*CreateDecoratedType(impl->cppInnerType(pField->type(),
+                                                     pCurrStructure),
+                                                     ETypeDecoration::reference()),
                                 frm->mutableMethodName(pField))
                     << ";";
         }
@@ -1464,7 +1468,8 @@ void CppHeaderGenerator::generateStructureFieldOverrideMethodsDeclaration(const 
 
             commentInTable("Override setter method for the data field " + pField->name()->value());
             table() << TableAligner::row()
-                    << Function(*CreateDecoratedType(builder, ref), frm->setMethodName(pField),
+                    << Function(*CreateDecoratedType(builder, ETypeDecoration::reference()),
+                                frm->setMethodName(pField),
                                 Argument(impl->cppInnerSetDecoratedType(pField->type(), pStructure),
                                          frm->cppVariableName(pField)))
                     << ";";
@@ -1680,7 +1685,8 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
             "hide evil auto created assignment operator, no implementation");
         table() << TableAligner::row()
                 << Function(vd, fnOperatorE,
-                            Argument(*CreateDecoratedType(ETypeDeclaration::const_(), builder, ref)))
+                            Argument(*CreateDecoratedType(ETypeDeclaration::const_(),
+                                     builder, ETypeDecoration::reference())))
                 << ";";
 
         if (pStructure->abstract())

@@ -100,14 +100,20 @@ DecoratedType CppImplementer::cppDecoratedType(const TypeSPtr& pType)
         case Type::EKind::kBuiltin:
             return *CreateDecoratedType(cppType(pType));
         case Type::EKind::kObject:
-            return *CreateDecoratedType(ETypeDeclaration::const_(), cppType(pType), ref);
+            return *CreateDecoratedType(ETypeDeclaration::const_(),
+                                        cppType(pType),
+                                        ETypeDecoration::reference());
         case Type::EKind::kString:
             switch (mpConfiguration->mString)
             {
                 case ImplementerConfiguration::use_char_pointer:
-                    return *CreateDecoratedType(ETypeDeclaration::const_(), *CreateSimpleType("char"), ptr);
+                    return *CreateDecoratedType(ETypeDeclaration::const_(),
+                                                *CreateSimpleType("char"),
+                                                ETypeDecoration::pointer());
                 case ImplementerConfiguration::use_stl_string:
-                    return *CreateDecoratedType(ETypeDeclaration::const_(), *CreateSimpleType("std::string"), ref);
+                    return *CreateDecoratedType(ETypeDeclaration::const_(),
+                                                *CreateSimpleType("std::string"),
+                                                ETypeDecoration::reference());
                 default: assert(false && "unknown string implementation type");
             }
             break;
@@ -115,7 +121,7 @@ DecoratedType CppImplementer::cppDecoratedType(const TypeSPtr& pType)
         default:
             assert(false && "unknown kind");
     }
-	return *CreateDecoratedType(*CreateSimpleType("@@@"), *CreateDecoration("&&&"));
+	return *CreateDecoratedType(*CreateSimpleType("@@@"), ETypeDecoration::invalid());
 }
 
 DecoratedType CppImplementer::cppSetDecoratedType(const TypeSPtr& pType)
@@ -124,7 +130,7 @@ DecoratedType CppImplementer::cppSetDecoratedType(const TypeSPtr& pType)
     if (pReference)
         return *CreateDecoratedType(ETypeDeclaration::const_(),
                                     mpFrm->cppSharedPtrName(pReference->parameterType().lock()),
-                                    ref);
+                                    ETypeDecoration::reference());
     return cppDecoratedType(pType);
 }
 
@@ -136,7 +142,7 @@ DecoratedType CppImplementer::cppInnerDecoratedType(const TypeSPtr& pType,
         EnumerationSPtr pEnumeration = ObjectFactory::downcastEnumeration(pType);
         return *CreateDecoratedType(ETypeDeclaration::const_(),
                                     mpFrm->cppInnerEnumType(pEnumeration, pStructure),
-                                    ref);
+                                    ETypeDecoration::reference());
     }
     return cppDecoratedType(pType);
 }
@@ -148,7 +154,7 @@ DecoratedType CppImplementer::cppInnerSetDecoratedType(const TypeSPtr& pType,
     if (pReference)
         return *CreateDecoratedType(ETypeDeclaration::const_(),
                                     mpFrm->cppSharedPtrName(pReference->parameterType().lock()),
-                                    ref);
+                                    ETypeDecoration::reference());
     return cppInnerDecoratedType(pType, pStructure);
 }
 

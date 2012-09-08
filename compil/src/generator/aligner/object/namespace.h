@@ -46,28 +46,29 @@ class Namespace
 {
 public:
     // Default constructor
-                                                    Namespace    ();
+                                                  Namespace    ();
     // Destructor
-    /* lax */                                       ~Namespace   ();
+    /*lax*/                                       ~Namespace   ();
 
     // Returns true if every required field is initialized.
-              bool                                  isInitialized()                                            const;
+            bool                                  isInitialized()                                            const;
 
-              bool                                  isVoid       ()                                            const;
+            bool                                  isVoid       ()                                            const;
 
     // Getter method for the data field names
-              const std::vector<NamespaceNameSPtr>& names        ()                                            const;
+            const std::vector<NamespaceNameSPtr>& names        ()                                            const;
     // Checks if the optional field names exists
-              bool                                  exist_names  ()                                            const;
+            bool                                  exist_names  ()                                            const;
     // Setter method for the data field names
-              Namespace&                            set_names    (const std::vector<NamespaceNameSPtr>& names);
+            Namespace&                            set_names    (const std::vector<NamespaceNameSPtr>& names);
+    // Provides mutable access to field names
+            std::vector<NamespaceNameSPtr>&       mutable_names();
     // Store operator for the data field names
-              Namespace&                            operator<<   (const std::vector<NamespaceNameSPtr>& names);
+            Namespace&                            operator<<   (const std::vector<NamespaceNameSPtr>& names);
     // Store operator for an item of data field names
-              Namespace&                            operator<<   (const NamespaceNameSPtr& namesItem);
-              std::vector<NamespaceNameSPtr>&       mutable_names();
+            Namespace&                            operator<<   (const NamespaceNameSPtr& namesItem);
     // Clears the optional data field names
-              void                                  clear_names  ();
+            void                                  clear_names  ();
 
 private:
     // Returns unique bitmask value for the field names

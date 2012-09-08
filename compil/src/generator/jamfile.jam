@@ -17,7 +17,6 @@ lib gen :
     aligner/object/cast_operator.cpp
     aligner/object/constructor.cpp
     aligner/object/decorated_type.cpp
-    aligner/object/decoration.cpp
     aligner/object/destructor_specifier.cpp
     aligner/object/destructor_name.cpp
     aligner/object/destructor.cpp
@@ -32,6 +31,7 @@ lib gen :
     aligner/object/namespace.cpp
     aligner/object/simple_type.cpp
     aligner/object/type_declaration.cpp
+    aligner/object/type_decoration.cpp
 
     aligner/aligner.cpp
     aligner/aligner_configuration.cpp

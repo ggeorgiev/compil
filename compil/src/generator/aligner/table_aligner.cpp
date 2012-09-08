@@ -259,7 +259,6 @@ TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionDefinitio
 
 TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedType)
 {
-    if (decoratedType.exist_declaration())
     if (decoratedType.declaration() != ETypeDeclaration::invalid())
         aligner << decoratedType.declaration() << ' ';
     if (!decoratedType.type().isVoid())
@@ -267,8 +266,7 @@ TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedTy
         
 	if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
 	{
-        if (decoratedType.exist_decoration())
-        if (!decoratedType.decoration().isVoid())
+        if (decoratedType.decoration() != ETypeDecoration::invalid())
             aligner << decoratedType.decoration();
         if (!decoratedType.type().isVoid())
             aligner << ' ';
@@ -281,7 +279,7 @@ TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedTy
             aligner << ' ';
         if (decoratedType.aligned())
             aligner << TableAligner::col();
-        if (!decoratedType.decoration().isVoid())
+        if (decoratedType.decoration() != ETypeDecoration::invalid())
             aligner << decoratedType.decoration();
 	}
 	else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
@@ -290,7 +288,7 @@ TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedTy
             aligner << ' ';
         if (decoratedType.aligned())
             aligner << TableAligner::col();
-        if (!decoratedType.decoration().isVoid())
+        if (decoratedType.decoration() != ETypeDecoration::invalid())
             aligner << decoratedType.decoration();
         if (decoratedType.aligned())
             aligner << TableAligner::col();
@@ -300,12 +298,6 @@ TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedTy
         assert(false && "unknown decoration");
     }
 	return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const Decoration& decoration)
-{
-    aligner << decoration.value();
-    return aligner;
 }
 
 TableAligner& operator<<(TableAligner& aligner, const Argument& argument)
@@ -396,7 +388,7 @@ TableAligner& operator<<(TableAligner& aligner, const Destructor& destructor)
         
     aligner << TableAligner::col();
     aligner << TableAligner::col();
-    aligner << tilde;
+    aligner << '~';
     if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
         aligner << TableAligner::col();
     aligner << destructor.name();
@@ -493,6 +485,23 @@ TableAligner& operator<<(TableAligner& aligner, const ETypeDeclaration& declarat
 {
     if (declaration != ETypeDeclaration::invalid())
         aligner << declaration.shortName();
+    return aligner;
+}
+
+TableAligner& operator<<(TableAligner& aligner, const ETypeDecoration& decoration)
+{
+    switch (decoration.value())
+    {
+        case ETypeDecoration::kPointer:
+            aligner << '*';
+            break;
+        case ETypeDecoration::kReference:
+            aligner << '&';
+            break;
+        default:
+            BOOST_ASSERT(false && "unknown type decoration");
+    }
+
     return aligner;
 }
 

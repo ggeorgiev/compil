@@ -32,13 +32,8 @@
 
 compil { }
 
-controlled immutable 
-structure Decoration
+strong enum TypeDecoration
 {
-    string value = optional;
-}
-
-function object
-factory<Decoration> CreateDecoration
-{
+    pointer;
+    reference;
 }

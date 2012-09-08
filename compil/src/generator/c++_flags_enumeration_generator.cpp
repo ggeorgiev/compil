@@ -72,7 +72,7 @@ bool CppFlagsEnumerationGenerator::generate()
     DecoratedType decoratedInherit = *CreateDecoratedType(*CreateSimpleType(inherit));
     DecoratedType decoratedInheritRef = *CreateDecoratedType(ETypeDeclaration::const_(),
                                                              *CreateSimpleType(inherit),
-                                                             ref);
+                                                             ETypeDecoration::reference());
     
     std::string class_name = "flags_enumeration";
     std::string value = "value";

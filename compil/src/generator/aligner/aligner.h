@@ -41,7 +41,6 @@
 #include "constructor.h"
 #include "decorated_type.h"
 #include "destructor.h"
-#include "decoration.h"
 #include "function_call.h"
 #include "function.h"
 #include "method_declaration.h"
@@ -56,10 +55,6 @@
 
 namespace compil
 {
-extern Decoration ref;
-extern Decoration ptr;
-extern Decoration tilde;
-
 extern DecoratedType bl;
 extern DecoratedType vd;
 extern DecoratedType st;

@@ -168,43 +168,23 @@ LineAligner& operator<<(LineAligner& aligner, const Aligner::FunctionSpace&)
     return aligner;
 }
 
-LineAligner& operator<<(LineAligner& aligner, const ETypeDeclaration& declaration)
-{
-    if (declaration != ETypeDeclaration::invalid())
-        aligner.line() << declaration.shortName();
-    return aligner;
-}
-    
 LineAligner& operator<<(LineAligner& aligner, const DecoratedType& decoratedType)
 {
-    if (decoratedType.exist_declaration())
     if (decoratedType.declaration() != ETypeDeclaration::invalid())
         aligner << decoratedType.declaration() << ' ';
     aligner << decoratedType.type();
-    if (decoratedType.exist_decoration())
+    if (decoratedType.decoration() != ETypeDecoration::invalid())
     {
-        if (!decoratedType.decoration().isVoid())
-        {
-            if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
-                aligner << decoratedType.decoration() << ' ';
-            else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_name)
-                aligner << ' ' << decoratedType.decoration();
-            else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
-                aligner << ' ' << decoratedType.decoration();
-            else
-                assert(false && "unknown decoration type");
-        }
+        if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
+            aligner << decoratedType.decoration();
+        else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_name)
+            aligner << ' ' << decoratedType.decoration();
+        else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
+            aligner << ' ' << decoratedType.decoration();
         else
-        {
-            aligner << ' ';
-        }
+            assert(false && "unknown decoration type");
     }
-    return aligner;
-}
 
-LineAligner& operator<<(LineAligner& aligner, const Decoration& decoration)
-{
-    aligner.line() << decoration.value();
     return aligner;
 }
 
@@ -212,7 +192,14 @@ LineAligner& operator<<(LineAligner& aligner, const Argument& argument)
 {
     if (!argument.mDecoratedType.isVoid())
         aligner << argument.mDecoratedType;
-    aligner << argument.mValue;
+    
+    if (!argument.mValue.empty())
+    {
+        if (argument.mDecoratedType.decoration() != ETypeDecoration::invalid())
+        if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
+            aligner << ' ';
+        aligner << argument.mValue;
+    }
     return aligner;
 }
 
@@ -265,6 +252,30 @@ LineAligner& operator<<(LineAligner& aligner, const NamespaceSPtr& namespace_)
             aligner << names[i]->value();
         }
     }
+    return aligner;
+}
+
+LineAligner& operator<<(LineAligner& aligner, const ETypeDeclaration& declaration)
+{
+    if (declaration != ETypeDeclaration::invalid())
+        aligner.line() << declaration.shortName();
+    return aligner;
+}
+
+LineAligner& operator<<(LineAligner& aligner, const ETypeDecoration& decoration)
+{
+    switch (decoration.value())
+    {
+        case ETypeDecoration::kPointer:
+            aligner << '*';
+            break;
+        case ETypeDecoration::kReference:
+            aligner << '&';
+            break;
+        default:
+            BOOST_ASSERT(false && "unknown type decoration");
+    }
+
     return aligner;
 }
 

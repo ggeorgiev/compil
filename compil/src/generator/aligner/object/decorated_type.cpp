@@ -62,8 +62,10 @@ DecoratedTypeSPtr DecoratedType::Builder::finalize()
 }
 
 DecoratedType::DecoratedType()
-        : mBits   (0)
-        , mAligned(default_aligned())
+        : mBits       (0)
+        , mDeclaration(default_declaration())
+        , mDecoration (default_decoration())
+        , mAligned    (default_aligned())
 {
 }
 
@@ -78,21 +80,23 @@ bool DecoratedType::isInitialized() const
 
 bool DecoratedType::isVoid() const
 {
-    if (exist_declaration()) return false;
     if (exist_type()) return false;
-    if (exist_decoration()) return false;
     return true;
 }
 
 const ETypeDeclaration& DecoratedType::declaration() const
 {
-    BOOST_ASSERT(exist_declaration());
     return mDeclaration;
 }
 
-bool DecoratedType::exist_declaration() const
+bool DecoratedType::changed_declaration() const
 {
     return (mBits & bitmask_declaration()) != 0;
+}
+
+ETypeDeclaration DecoratedType::default_declaration()
+{
+    return ETypeDeclaration::invalid();
 }
 
 DecoratedType::Builder& DecoratedType::Builder::set_declaration(const ETypeDeclaration& declaration)
@@ -108,10 +112,19 @@ ETypeDeclaration& DecoratedType::Builder::mutable_declaration()
     return mpObject->mDeclaration;
 }
 
-void DecoratedType::Builder::clear_declaration()
+DecoratedType::Builder& DecoratedType::Builder::update_declaration(const ETypeDeclaration& declaration)
 {
-    mpObject->mDeclaration  =  ETypeDeclaration::invalid();
-    mpObject->mBits        &= ~bitmask_declaration         ();
+    if (mpObject->default_declaration() != declaration)
+        return update_declaration(declaration);
+
+    reset_declaration();
+    return *this;
+}
+
+void DecoratedType::Builder::reset_declaration()
+{
+    mpObject->mDeclaration  =  mpObject->default_declaration();
+    mpObject->mBits        &= ~bitmask_declaration          ();
 }
 
 const SimpleType& DecoratedType::type() const
@@ -144,34 +157,47 @@ void DecoratedType::Builder::clear_type()
     mpObject->mBits &= ~bitmask_type ();
 }
 
-const Decoration& DecoratedType::decoration() const
+const ETypeDecoration& DecoratedType::decoration() const
 {
-    BOOST_ASSERT(exist_decoration());
     return mDecoration;
 }
 
-bool DecoratedType::exist_decoration() const
+bool DecoratedType::changed_decoration() const
 {
     return (mBits & bitmask_decoration()) != 0;
 }
 
-DecoratedType::Builder& DecoratedType::Builder::set_decoration(const Decoration& decoration)
+ETypeDecoration DecoratedType::default_decoration()
+{
+    return ETypeDecoration::invalid();
+}
+
+DecoratedType::Builder& DecoratedType::Builder::set_decoration(const ETypeDecoration& decoration)
 {
     mpObject->mDecoration  = decoration;
     mpObject->mBits       |= bitmask_decoration();
     return *this;
 }
 
-Decoration& DecoratedType::Builder::mutable_decoration()
+ETypeDecoration& DecoratedType::Builder::mutable_decoration()
 {
     mpObject->mBits |= bitmask_decoration();
     return mpObject->mDecoration;
 }
 
-void DecoratedType::Builder::clear_decoration()
+DecoratedType::Builder& DecoratedType::Builder::update_decoration(const ETypeDecoration& decoration)
 {
-    mpObject->mDecoration  =  Decoration();
-    mpObject->mBits       &= ~bitmask_decoration();
+    if (mpObject->default_decoration() != decoration)
+        return update_decoration(decoration);
+
+    reset_decoration();
+    return *this;
+}
+
+void DecoratedType::Builder::reset_decoration()
+{
+    mpObject->mDecoration  =  mpObject->default_decoration();
+    mpObject->mBits       &= ~bitmask_decoration          ();
 }
 
 bool DecoratedType::aligned() const
@@ -233,14 +259,14 @@ DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, const
     return builder.finalize();
 }
 
-DecoratedTypeSPtr CreateDecoratedType(const Decoration& decoration)
+DecoratedTypeSPtr CreateDecoratedType(const ETypeDecoration& decoration)
 {
     DecoratedType::Builder builder;
     builder.set_decoration(decoration);
     return builder.finalize();
 }
 
-DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, const Decoration& decoration)
+DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, const ETypeDecoration& decoration)
 {
     DecoratedType::Builder builder;
     builder.set_declaration(declaration);
@@ -248,7 +274,7 @@ DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, const
     return builder.finalize();
 }
 
-DecoratedTypeSPtr CreateDecoratedType(const SimpleType& type, const Decoration& decoration)
+DecoratedTypeSPtr CreateDecoratedType(const SimpleType& type, const ETypeDecoration& decoration)
 {
     DecoratedType::Builder builder;
     builder.set_type(type);
@@ -258,7 +284,7 @@ DecoratedTypeSPtr CreateDecoratedType(const SimpleType& type, const Decoration& 
 
 DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration,
                                       const SimpleType& type,
-                                      const Decoration& decoration)
+                                      const ETypeDecoration& decoration)
 {
     DecoratedType::Builder builder;
     builder.set_declaration(declaration);
@@ -299,7 +325,7 @@ DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, const
     return builder.finalize();
 }
 
-DecoratedTypeSPtr CreateDecoratedType(const Decoration& decoration, bool aligned)
+DecoratedTypeSPtr CreateDecoratedType(const ETypeDecoration& decoration, bool aligned)
 {
     DecoratedType::Builder builder;
     builder.set_decoration(decoration);
@@ -307,7 +333,9 @@ DecoratedTypeSPtr CreateDecoratedType(const Decoration& decoration, bool aligned
     return builder.finalize();
 }
 
-DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, const Decoration& decoration, bool aligned)
+DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration,
+                                      const ETypeDecoration& decoration,
+                                      bool aligned)
 {
     DecoratedType::Builder builder;
     builder.set_declaration(declaration);
@@ -316,7 +344,7 @@ DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration, const
     return builder.finalize();
 }
 
-DecoratedTypeSPtr CreateDecoratedType(const SimpleType& type, const Decoration& decoration, bool aligned)
+DecoratedTypeSPtr CreateDecoratedType(const SimpleType& type, const ETypeDecoration& decoration, bool aligned)
 {
     DecoratedType::Builder builder;
     builder.set_type(type);
@@ -327,7 +355,7 @@ DecoratedTypeSPtr CreateDecoratedType(const SimpleType& type, const Decoration& 
 
 DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration,
                                       const SimpleType& type,
-                                      const Decoration& decoration,
+                                      const ETypeDecoration& decoration,
                                       bool aligned)
 {
     DecoratedType::Builder builder;

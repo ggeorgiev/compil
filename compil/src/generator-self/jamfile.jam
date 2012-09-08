@@ -45,7 +45,6 @@ lib generator-self-compil :
     compiler/model/version.compil
     
     generator/aligner/object/decorated_type.compil
-    generator/aligner/object/decoration.compil
     generator/aligner/object/destructor_specifier.compil
     generator/aligner/object/destructor_name.compil
     generator/aligner/object/destructor.compil
@@ -58,6 +57,7 @@ lib generator-self-compil :
     generator/aligner/object/namespace.compil
     generator/aligner/object/simple_type.compil
     generator/aligner/object/type_declaration.compil
+    generator/aligner/object/type_decoration.compil
 
     [ convert _ cpp 
       :

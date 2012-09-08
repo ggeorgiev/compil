@@ -56,91 +56,93 @@ public:
     class Builder
     {
         // hide evil auto created assignment operator, no implementation
-                  void                  operator=      (const Builder& );
+                void                  operator=      (const Builder& );
     public:
         // Default constructor. All fields without default values are left
         // uninitialized. Make sure you initialize all the necessary fields
         // before instantiating
-                                        Builder        ();
+                                      Builder        ();
         // Use this constructor when you need to clone or create an object
         // just slightly different from another object
-                                        Builder        (const Initialization& object);
+                                      Builder        (const Initialization& object);
         // Destructor of Builder
-        /* lax */                       ~Builder       ();
+        /*lax*/                       ~Builder       ();
 
         // Instantiates Initialization instance with the current
         // initialization of the fields. After the instance is ready the
         // builder could be reused to instantiate more objects. The data is
         // not reset. Second call of build() will instantiate object with
         // the same data.
-                  const Initialization& build          ()                                const;
+                const Initialization& build          ()                                const;
 
         // Provides the internal instantiated builder object and
         // invalidates the builder status. Once finalize() is called, the
         // builder can not be used again. Use finalize() when you no longer
         // are going to use this builder.
-                  InitializationSPtr    finalize       ();
+                InitializationSPtr    finalize       ();
 
 
         // Setter method for the data field namespace
-                  Builder&              set_namespace  (const NamespaceSPtr& namespace_);
+                Builder&              set_namespace  (const NamespaceSPtr& namespace_);
         // Clears the optional data field namespace
-                  void                  clear_namespace();
+                void                  clear_namespace();
 
         // Setter method for the data field name
-                  Builder&              set_name       (const std::string& name);
-                  std::string&          mutable_name   ();
+                Builder&              set_name       (const std::string& name);
+        // Provides mutable access to field name
+                std::string&          mutable_name   ();
         // Erases the required data field name. Object can not be
         // instantiated before the field data is set again
-                  void                  erase_name     ();
+                void                  erase_name     ();
 
         // Setter method for the data field value
-                  Builder&              set_value      (const std::string& value);
-                  std::string&          mutable_value  ();
+                Builder&              set_value      (const std::string& value);
+        // Provides mutable access to field value
+                std::string&          mutable_value  ();
         // Erases the required data field value. Object can not be
         // instantiated before the field data is set again
-                  void                  erase_value    ();
+                void                  erase_value    ();
 
     protected:
         // constructor needed from potential derived classes
-                                        Builder        (InitializationRPtr pObject);
+                                      Builder        (InitializationRPtr pObject);
 
         InitializationRPtr mpObject;
     };
 
     // Default constructor
-                                   Initialization ();
+                                 Initialization ();
     // Destructor
-    /* lax */                      ~Initialization();
+    /*lax*/                      ~Initialization();
 
     // Returns true if every required field is initialized.
     // Note: If the class is used properly it should always return true,
     // because the object could be instantiated only if it is already
     // initialized and can not be changed. Called by the Builder class.
-              bool                 isInitialized  () const;
+            bool                 isInitialized  () const;
 
     // Getter method for the data field namespace
-              const NamespaceSPtr& namespace_     () const;
+            const NamespaceSPtr& namespace_     () const;
     // Checks if the optional field namespace exists
-              bool                 exist_namespace() const;
+            bool                 exist_namespace() const;
 
     // Getter method for the data field name
-              const std::string&   name           () const;
+            const std::string&   name           () const;
     // Returns true if the data field name was set and could be considered
     // valid
     // Note: If the class is used properly it should always return true. It
     // makes sense when it is called indirectly through isInitialized()
     // from the Builder class
-              bool                 valid_name     () const;
+            bool                 valid_name     () const;
 
     // Getter method for the data field value
-              const std::string&   value          () const;
+            const std::string&   value          () const;
     // Returns true if the data field value was set and could be considered
     // valid
     // Note: If the class is used properly it should always return true. It
     // makes sense when it is called indirectly through isInitialized()
     // from the Builder class
-              bool                 valid_value    () const;
+            bool                 valid_value    () const;
 
 private:
     // Returns unique bitmask value for the field namespace

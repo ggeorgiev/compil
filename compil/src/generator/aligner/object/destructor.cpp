@@ -19,6 +19,11 @@ Destructor& Destructor::set_specifier(const EDestructorSpecifier& specifier)
     return *this;
 }
 
+EDestructorSpecifier& Destructor::mutable_specifier()
+{
+    return mSpecifier;
+}
+
 Destructor& Destructor::operator<<(const EDestructorSpecifier& specifier)
 {
     return set_specifier(specifier);
