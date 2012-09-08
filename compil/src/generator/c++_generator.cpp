@@ -2641,13 +2641,23 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         for (it = objects.begin(); it != objects.end(); ++it)
         {
             FieldSPtr pField = ObjectFactory::downcastField(*it);
-            if (!pField) continue;
-            if (!pField->defaultValue()) continue;
-            if (!pField->defaultValue()->optional()) continue;
-
-            line()  << "if ("
-                    << FunctionCall(frm->existMethodName(pField))
-                    << ") return false;";
+            if (!pField)
+                continue;
+            if (!pField->defaultValue())
+                continue;
+                
+            if (pField->defaultValue()->optional())
+            {
+                line()  << "if ("
+                        << FunctionCall(frm->existMethodName(pField))
+                        << ") return false;";
+            }
+            else
+            {
+                line()  << "if ("
+                        << FunctionCall(frm->changedMethodName(pField))
+                        << ") return false;";
+            }
             eol(definitionStream);
         }
         line()  << "return true;";
