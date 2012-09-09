@@ -39,6 +39,11 @@
 namespace compil
 {
 
+NamespaceSPtr nsStd = namespaceRef() << namespaceNameRef("std");
+NamespaceSPtr nsBoost = namespaceRef() << namespaceNameRef("boost");
+NamespaceSPtr nsBoostPosixTime = namespaceRef() << namespaceNameRef("boost")
+                                                << namespaceNameRef("posix_time");
+
 CppImplementer::CppImplementer(const ImplementerConfigurationPtr& pConfig, const CppFormatterPtr& pFrm)
         : mpConfiguration(pConfig)
         , mpFrm(pFrm)
@@ -112,7 +117,8 @@ DecoratedTypeSPtr CppImplementer::cppDecoratedType(const TypeSPtr& pType)
                                                ETypeDecoration::pointer());
                 case ImplementerConfiguration::use_stl_string:
                     return CreateDecoratedType(ETypeDeclaration::const_(),
-                                               simpleTypeRef() << "std::string",
+                                               simpleTypeRef() << nsStd
+                                                               << "string",
                                                ETypeDecoration::reference());
                 default: assert(false && "unknown string implementation type");
             }
@@ -227,21 +233,29 @@ SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
                 if (name == "size")
                     return simpleTypeRef() << "size_t";
                 if (name == "small")
-                    return simpleTypeRef() << "boost::int8_t";
+                    return simpleTypeRef() << nsBoost
+                                           << "int8_t";
                 if (name == "short")
-                    return simpleTypeRef() << "boost::int16_t";
+                    return simpleTypeRef() << nsBoost
+                                           << "int16_t";
                 if (name == "integer")
-                    return simpleTypeRef() << "boost::int32_t";
+                    return simpleTypeRef() << nsBoost
+                                           << "int32_t";
                 if (name == "long")
-                    return simpleTypeRef() << "boost::int64_t";
+                    return simpleTypeRef() << nsBoost
+                                           << "int64_t";
                 if (name == "byte")
-                    return simpleTypeRef() << "boost::uint8_t";
+                    return simpleTypeRef() << nsBoost
+                                           << "uint8_t";
                 if (name == "word")
-                    return simpleTypeRef() << "boost::uint16_t";
+                    return simpleTypeRef() << nsBoost
+                                           << "uint16_t";
                 if (name == "dword")
-                    return simpleTypeRef() << "boost::uint32_t";
+                    return simpleTypeRef() << nsBoost
+                                           << "uint32_t";
                 if (name == "qword")
-                    return simpleTypeRef() << "boost::uint64_t";
+                    return simpleTypeRef() << nsBoost
+                                           << "uint64_t";
                 break;
             default:
                 break;
@@ -253,7 +267,8 @@ SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
                 case ImplementerConfiguration::use_char_pointer: 
                     return simpleTypeRef() << "const char*";
                 case ImplementerConfiguration::use_stl_string: 
-                    return simpleTypeRef() << "std::string";
+                    return simpleTypeRef() << nsStd
+                                           << "string";
                 default: assert(false && "unknown string implementation type");
             }
         }
@@ -261,7 +276,7 @@ SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
         {
             UnaryContainerSPtr pUnaryContainer = boost::static_pointer_cast<UnaryContainer>(pType);
             SimpleTypeSPtr simpleType = cppType(pUnaryContainer->parameterType().lock());
-            std::string result = "std::vector<";
+            std::string result = "vector<";
             if (simpleType->namespace_())
             if (!simpleType->namespace_()->isVoid())
             {
@@ -270,7 +285,8 @@ SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
                     result += names[i]->value() + "::";
             }
             result += simpleType->value() + ">";
-            return simpleTypeRef() << result;
+            return simpleTypeRef() << nsStd
+                                   << result;
         }
     }
     
@@ -283,7 +299,8 @@ SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
             
             if (pType->package()->elements() == elements)
             {
-                return simpleTypeRef() << "boost::posix_time::ptime";
+                return simpleTypeRef() << nsBoostPosixTime
+                                       << "ptime";
             }
         }
     }
@@ -814,22 +831,26 @@ bool CppImplementer::boost_smart_ptr_needed()
 
 SimpleTypeSPtr CppImplementer::boost_shared_ptr(const SimpleTypeSPtr& type)
 {
-    return simpleTypeRef() << "boost::shared_ptr<" + type->value() + ">";
+    return simpleTypeRef() << nsBoost
+                           << "shared_ptr<" + type->value() + ">";
 }
 
 SimpleTypeSPtr CppImplementer::boost_shared_const_ptr(const SimpleTypeSPtr& type)
 {
-    return simpleTypeRef() << "boost::shared_ptr<const " + type->value() + ">";
+    return simpleTypeRef() << nsBoost
+                           << "shared_ptr<const " + type->value() + ">";
 }
 
 SimpleTypeSPtr CppImplementer::boost_weak_ptr(const SimpleTypeSPtr& type)
 {
-    return simpleTypeRef() << "boost::weak_ptr<" + type->value() + ">";
+    return simpleTypeRef() << nsBoost
+                           << "weak_ptr<" + type->value() + ">";
 }
 
 SimpleTypeSPtr CppImplementer::boost_enable_shared_from_this(const SimpleTypeSPtr& type)
 {
-    return simpleTypeRef() << "boost::enable_shared_from_this<" + type->value() + ">";
+    return simpleTypeRef() << nsBoost
+                           << "enable_shared_from_this<" + type->value() + ">";
 }
 
 std::string CppImplementer::applicationExtension()

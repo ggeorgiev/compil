@@ -45,6 +45,10 @@
 namespace compil
 {
 
+extern NamespaceSPtr nsStd;
+extern NamespaceSPtr nsBoost;
+extern NamespaceSPtr nsBoostPosixTime;
+
 class CppImplementer
 {
 public:
