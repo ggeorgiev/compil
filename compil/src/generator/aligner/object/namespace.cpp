@@ -57,11 +57,27 @@ Namespace& Namespace::operator<<(const std::vector<NamespaceNameSPtr>& names)
     return set_names(names);
 }
 
+NamespaceSPtr& operator<<(NamespaceSPtr& object, const std::vector<NamespaceNameSPtr>& names)
+{
+    if (!object)
+        object.reset(new Namespace());
+    *object << names;
+    return object;
+}
+
 Namespace& Namespace::operator<<(const NamespaceNameSPtr& namesItem)
 {
     mBits |= bitmask_names();
     mNames.push_back(namesItem);
     return *this;
+}
+
+NamespaceSPtr& operator<<(NamespaceSPtr& object, const NamespaceNameSPtr& namesItem)
+{
+    if (!object)
+        object.reset(new Namespace());
+    *object << namesItem;
+    return object;
 }
 
 void Namespace::clear_names()

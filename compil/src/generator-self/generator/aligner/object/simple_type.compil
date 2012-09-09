@@ -38,7 +38,7 @@ controlled immutable
 structure SimpleType
 {
     reference<Namespace> namespace = optional;
-    string value = optional;
+    string value;
 }
 
 function object

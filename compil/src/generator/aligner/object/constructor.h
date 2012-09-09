@@ -98,6 +98,17 @@ private:
     std::vector<ArgumentSPtr> mArguments;
 };
 
+// Reference store operator for the data field specifier
+ConstructorSPtr& operator<<(ConstructorSPtr& , const EConstructorSpecifier&     );
+// Reference store operator for the data field namespace
+ConstructorSPtr& operator<<(ConstructorSPtr& , const NamespaceSPtr&             );
+// Reference store operator for the data field name
+ConstructorSPtr& operator<<(ConstructorSPtr& , const ConstructorNameSPtr&       );
+// Reference store operator for the data field arguments
+ConstructorSPtr& operator<<(ConstructorSPtr& , const std::vector<ArgumentSPtr>& );
+// Reference store operator for an item of data field arguments
+ConstructorSPtr& operator<<(ConstructorSPtr& , const ArgumentSPtr&              );
+
 #else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_COMPIL_H_
 
 // Forward declarations

@@ -62,13 +62,7 @@ SimpleType::~SimpleType()
 
 bool SimpleType::isInitialized() const
 {
-    return true;
-}
-
-bool SimpleType::isVoid() const
-{
-    if (exist_namespace()) return false;
-    if (exist_value()) return false;
+    if (!valid_value()) return false;
     return true;
 }
 
@@ -98,11 +92,11 @@ void SimpleType::Builder::clear_namespace()
 
 const std::string& SimpleType::value() const
 {
-    BOOST_ASSERT(exist_value());
+    BOOST_ASSERT(valid_value());
     return mValue;
 }
 
-bool SimpleType::exist_value() const
+bool SimpleType::valid_value() const
 {
     return (mBits & bitmask_value()) != 0;
 }
@@ -120,17 +114,10 @@ std::string& SimpleType::Builder::mutable_value()
     return mpObject->mValue;
 }
 
-void SimpleType::Builder::clear_value()
+void SimpleType::Builder::erase_value()
 {
     mpObject->mValue.clear();
     mpObject->mBits &= ~bitmask_value();
-}
-
-SimpleTypeSPtr CreateSimpleType(const NamespaceSPtr& namespace_)
-{
-    SimpleType::Builder builder;
-    builder.set_namespace(namespace_);
-    return builder.finalize();
 }
 
 SimpleTypeSPtr CreateSimpleType(const std::string& value)

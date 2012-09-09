@@ -82,6 +82,13 @@ private:
     NamespaceSPtr        mNamespace;
 };
 
+// Reference store operator for the data field specifier
+DestructorSPtr& operator<<(DestructorSPtr& , const EDestructorSpecifier& );
+// Reference store operator for the data field name
+DestructorSPtr& operator<<(DestructorSPtr& , const DestructorNameSPtr&   );
+// Reference store operator for the data field namespace
+DestructorSPtr& operator<<(DestructorSPtr& , const NamespaceSPtr&        );
+
 #else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DESTRUCTOR_COMPIL_H_
 
 // Forward declarations

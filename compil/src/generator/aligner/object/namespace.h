@@ -81,6 +81,11 @@ private:
     std::vector<NamespaceNameSPtr> mNames;
 };
 
+// Reference store operator for the data field names
+NamespaceSPtr& operator<<(NamespaceSPtr& , const std::vector<NamespaceNameSPtr>& );
+// Reference store operator for an item of data field names
+NamespaceSPtr& operator<<(NamespaceSPtr& , const NamespaceNameSPtr&              );
+
 #else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_COMPIL_H_
 
 // Forward declarations

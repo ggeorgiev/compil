@@ -91,8 +91,9 @@ public:
                 Builder&          set_value      (const std::string&   value);
         // Provides mutable access to field value
                 std::string&      mutable_value  ();
-        // Clears the optional data field value
-                void              clear_value    ();
+        // Erases the required data field value. Object can not be
+        // instantiated before the field data is set again
+                void              erase_value    ();
 
     protected:
         // constructor needed from potential derived classes
@@ -112,8 +113,6 @@ public:
     // initialized and can not be changed. Called by the Builder class.
             bool                 isInitialized  () const;
 
-            bool                 isVoid         () const;
-
     // Getter method for the data field namespace
             const NamespaceSPtr& namespace_     () const;
     // Checks if the optional field namespace exists
@@ -121,8 +120,12 @@ public:
 
     // Getter method for the data field value
             const std::string&   value          () const;
-    // Checks if the optional field value exists
-            bool                 exist_value    () const;
+    // Returns true if the data field value was set and could be considered
+    // valid
+    // Note: If the class is used properly it should always return true. It
+    // makes sense when it is called indirectly through isInitialized()
+    // from the Builder class
+            bool                 valid_value    () const;
 
 private:
     // Returns unique bitmask value for the field namespace
@@ -139,7 +142,6 @@ private:
     std::string   mValue;
 };
 
-SimpleTypeSPtr CreateSimpleType(const NamespaceSPtr& namespace_);
 SimpleTypeSPtr CreateSimpleType(const std::string&   value);
 SimpleTypeSPtr CreateSimpleType(const NamespaceSPtr& namespace_, const std::string& value);
 

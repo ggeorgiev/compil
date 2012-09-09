@@ -278,22 +278,19 @@ TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedTy
 {
     if (decoratedType.declaration() != ETypeDeclaration::invalid())
         aligner << decoratedType.declaration() << ' ';
-    if (!decoratedType.type()->isVoid())
-        aligner << decoratedType.type();
+    aligner << decoratedType.type();
         
 	if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
 	{
         if (decoratedType.decoration() != ETypeDecoration::invalid())
             aligner << decoratedType.decoration();
-        if (!decoratedType.type()->isVoid())
-            aligner << ' ';
+        aligner << ' ';
         if (decoratedType.aligned())
             aligner << TableAligner::col();
 	}
 	else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_name)
 	{
-        if (!decoratedType.type()->isVoid())
-            aligner << ' ';
+        aligner << ' ';
         if (decoratedType.aligned())
             aligner << TableAligner::col();
         if (decoratedType.decoration() != ETypeDecoration::invalid())
@@ -301,8 +298,7 @@ TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedTy
 	}
 	else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
 	{
-        if (!decoratedType.type()->isVoid())
-            aligner << ' ';
+        aligner << ' ';
         if (decoratedType.aligned())
             aligner << TableAligner::col();
         if (decoratedType.decoration() != ETypeDecoration::invalid())
