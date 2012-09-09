@@ -34,58 +34,54 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_METHOD_SPECIFIER_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_METHOD_SPECIFIER_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_SPECIFIER_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_SPECIFIER_COMPIL_H_
 
-#include "method_specifier.h"
+#include "constructor_specifier.h"
 
 // This enumeration class provides namespaced set of constant values.
 // It is designed to provide type control over operations with enum values
 // without need to wait all compilers you are going to use for this project
 // to support C++0x standard. The type control do not prevent the variables
 // to be used in switch statements.
-class EMethodSpecifier
+class EConstructorSpecifier
 {
 public:
     // Default constructor - sets the value to invalid
-                         EMethodSpecifier();
+                         EConstructorSpecifier();
     // Constructor from an integer value.
     // Note: Avoid using this constructor if possible. It is appropriate
     // only in case of importing value from components that you do not have
     // control over (such as 3rd party libraries or serialization
     // functionality).
-    explicit             EMethodSpecifier(long                    value);
+    explicit             EConstructorSpecifier(long                         value);
 
     // Returns the integer value of the enum.
     // Note: Avoid using this method if possible. It is appropriate only in
     // case of exporting value to components that you do not have control
     // over (such as 3rd party libraries or serialization functionality).
-             long        value           ()                       const;
+             long        value                ()                            const;
     // Returns short name for a specified enum value
-    static   const char* shortName       (long                    value);
+    static   const char* shortName            (long                         value);
     // Returns short name of the enum value
-             const char* shortName       ()                       const;
+             const char* shortName            ()                            const;
     // returns true if the value of the enum is equal to the value of the
     // argument
-             bool        operator==      (const EMethodSpecifier& rValue) const;
+             bool        operator==           (const EConstructorSpecifier& rValue) const;
     // returns true if the value of the enum is not equal to the value of
     // the argument
-             bool        operator!=      (const EMethodSpecifier& rValue) const;
+             bool        operator!=           (const EConstructorSpecifier& rValue) const;
 
     // static methods for enum class objects
-    static const EMethodSpecifier invalid ();
-    static const EMethodSpecifier inline_ ();
-    static const EMethodSpecifier static_ ();
-    static const EMethodSpecifier virtual_();
+    static const EConstructorSpecifier invalid  ();
+    static const EConstructorSpecifier explicit_();
 
     // This enum provides static constants that could be used in a switch
     // statements
     enum
     {
-        kInvalid = 0,
-        kInline  = 1,
-        kStatic  = 2,
-        kVirtual = 3,
+        kInvalid  = 0,
+        kExplicit = 1,
     };
 
 private:
@@ -93,14 +89,14 @@ private:
     long mValue;
 };
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_METHOD_SPECIFIER_COMPIL_H_
+#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_SPECIFIER_COMPIL_H_
 
 // Forward declarations
-class EMethodSpecifier;
-typedef EMethodSpecifier*                         MethodSpecifierRPtr;
-typedef boost::shared_ptr<EMethodSpecifier>       MethodSpecifierSPtr;
-typedef boost::shared_ptr<const EMethodSpecifier> MethodSpecifierSCPtr;
-typedef boost::weak_ptr<EMethodSpecifier>         MethodSpecifierWPtr;
+class EConstructorSpecifier;
+typedef EConstructorSpecifier*                         ConstructorSpecifierRPtr;
+typedef boost::shared_ptr<EConstructorSpecifier>       ConstructorSpecifierSPtr;
+typedef boost::shared_ptr<const EConstructorSpecifier> ConstructorSpecifierSCPtr;
+typedef boost::weak_ptr<EConstructorSpecifier>         ConstructorSpecifierWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_METHOD_SPECIFIER_COMPIL_H_
+#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_SPECIFIER_COMPIL_H_
 

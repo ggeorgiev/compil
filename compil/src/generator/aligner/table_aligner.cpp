@@ -374,6 +374,16 @@ TableAligner& operator<<(TableAligner& aligner, const FunctionNameSPtr& function
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const EConstructorSpecifier& constructorSpecifier)
+{
+    if (constructorSpecifier != EConstructorSpecifier::invalid())
+    {
+        aligner << constructorSpecifier.shortName()
+                << ' ';
+    }
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const Constructor& constructor)
 {
     assert(constructor);

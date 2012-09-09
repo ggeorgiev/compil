@@ -165,8 +165,8 @@ InitializationSPtr CreateInitialization(const std::string& name, const std::stri
 }
 
 InitializationSPtr CreateInitialization(const NamespaceSPtr& namespace_,
-                                        const std::string& name,
-                                        const std::string& value)
+                                                             const std::string&  name,
+                                                                                 const std::string&  value)
 {
     Initialization::Builder builder;
     builder.set_namespace(namespace_);

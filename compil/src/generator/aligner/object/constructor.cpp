@@ -45,7 +45,7 @@ Constructor::Constructor(const SimpleTypeSPtr& type)
 {
 }
 
-Constructor::Constructor(const EMethodSpecifier& specifier, const SimpleTypeSPtr& type, const ArgumentSPtr& argument)
+Constructor::Constructor(const EConstructorSpecifier& specifier, const SimpleTypeSPtr& type, const ArgumentSPtr& argument)
     : mSpecifier(specifier)
     , mType(type)
 {
@@ -71,7 +71,7 @@ Constructor::Constructor(const NamespaceSPtr& namespace_, const SimpleTypeSPtr& 
     mvArgument.push_back(argument);
 }
 
-Constructor::Constructor(const EMethodSpecifier& specifier, const NamespaceSPtr& namespace_, 
+Constructor::Constructor(const EConstructorSpecifier& specifier, const NamespaceSPtr& namespace_, 
                          const SimpleTypeSPtr& type, const ArgumentSPtr& argument)
     : mSpecifier(specifier)
     , mNamespace(namespace_)

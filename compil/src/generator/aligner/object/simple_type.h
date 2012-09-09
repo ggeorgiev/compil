@@ -56,7 +56,7 @@ public:
     class Builder
     {
         // hide evil auto created assignment operator, no implementation
-                void              operator=      (const Builder& );
+                void              operator=      (const Builder&       );
     public:
         // Default constructor. All fields without default values are left
         // uninitialized. Make sure you initialize all the necessary fields
@@ -64,7 +64,7 @@ public:
                                   Builder        ();
         // Use this constructor when you need to clone or create an object
         // just slightly different from another object
-                                  Builder        (const SimpleType& object);
+                                  Builder        (const SimpleType&    object);
         // Destructor of Builder
         /*lax*/                   ~Builder       ();
 
@@ -73,7 +73,7 @@ public:
         // reused to instantiate more objects. The data is not reset.
         // Second call of build() will instantiate object with the same
         // data.
-                const SimpleType& build          ()                                const;
+                const SimpleType& build          ()                    const;
 
         // Provides the internal instantiated builder object and
         // invalidates the builder status. Once finalize() is called, the
@@ -88,7 +88,7 @@ public:
                 void              clear_namespace();
 
         // Setter method for the data field value
-                Builder&          set_value      (const std::string& value);
+                Builder&          set_value      (const std::string&   value);
         // Provides mutable access to field value
                 std::string&      mutable_value  ();
         // Clears the optional data field value
@@ -96,7 +96,7 @@ public:
 
     protected:
         // constructor needed from potential derived classes
-                                  Builder        (SimpleTypeRPtr pObject);
+                                  Builder        (SimpleTypeRPtr       pObject);
 
         SimpleTypeRPtr mpObject;
     };
@@ -140,7 +140,7 @@ private:
 };
 
 SimpleTypeSPtr CreateSimpleType(const NamespaceSPtr& namespace_);
-SimpleTypeSPtr CreateSimpleType(const std::string& value);
+SimpleTypeSPtr CreateSimpleType(const std::string&   value);
 SimpleTypeSPtr CreateSimpleType(const NamespaceSPtr& namespace_, const std::string& value);
 
 #else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_SIMPLE_TYPE_COMPIL_H_

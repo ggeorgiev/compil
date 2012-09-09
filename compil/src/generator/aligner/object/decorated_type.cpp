@@ -280,8 +280,8 @@ DecoratedTypeSPtr CreateDecoratedType(const SimpleTypeSPtr& type, const ETypeDec
 }
 
 DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration,
-                                      const SimpleTypeSPtr& type,
-                                      const ETypeDecoration& decoration)
+                                                              const SimpleTypeSPtr&  type,
+                                                                                     const ETypeDecoration&  decoration)
 {
     DecoratedType::Builder builder;
     builder.set_declaration(declaration);
@@ -331,8 +331,8 @@ DecoratedTypeSPtr CreateDecoratedType(const ETypeDecoration& decoration, bool al
 }
 
 DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration,
-                                      const ETypeDecoration& decoration,
-                                      bool aligned)
+                                                              const ETypeDecoration&  decoration,
+                                                                                      bool       aligned)
 {
     DecoratedType::Builder builder;
     builder.set_declaration(declaration);
@@ -351,9 +351,9 @@ DecoratedTypeSPtr CreateDecoratedType(const SimpleTypeSPtr& type, const ETypeDec
 }
 
 DecoratedTypeSPtr CreateDecoratedType(const ETypeDeclaration& declaration,
-                                      const SimpleTypeSPtr& type,
-                                      const ETypeDecoration& decoration,
-                                      bool aligned)
+                                                              const SimpleTypeSPtr&  type,
+                                                                                     const ETypeDecoration&  decoration,
+                                                                                                             bool       aligned)
 {
     DecoratedType::Builder builder;
     builder.set_declaration(declaration);

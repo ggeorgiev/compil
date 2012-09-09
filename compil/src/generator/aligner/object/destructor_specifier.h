@@ -54,17 +54,17 @@ public:
     // only in case of importing value from components that you do not have
     // control over (such as 3rd party libraries or serialization
     // functionality).
-    explicit             EDestructorSpecifier(long value);
+    explicit             EDestructorSpecifier(long                        value);
 
     // Returns the integer value of the enum.
     // Note: Avoid using this method if possible. It is appropriate only in
     // case of exporting value to components that you do not have control
     // over (such as 3rd party libraries or serialization functionality).
-             long        value               ()                                   const;
+             long        value               ()                           const;
     // Returns short name for a specified enum value
-    static   const char* shortName           (long value);
+    static   const char* shortName           (long                        value);
     // Returns short name of the enum value
-             const char* shortName           ()                                   const;
+             const char* shortName           ()                           const;
     // returns true if the value of the enum is equal to the value of the
     // argument
              bool        operator==          (const EDestructorSpecifier& rValue) const;

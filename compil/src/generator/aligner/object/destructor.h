@@ -51,7 +51,7 @@ public:
     /*lax*/                             ~Destructor      ();
 
     // Getter method for the data field specifier
-            const EDestructorSpecifier& specifier        ()                                      const;
+            const EDestructorSpecifier& specifier        ()                           const;
     // Setter method for the data field specifier
             Destructor&                 set_specifier    (const EDestructorSpecifier& specifier);
     // Provides mutable access to field specifier
@@ -60,18 +60,18 @@ public:
             Destructor&                 operator<<       (const EDestructorSpecifier& specifier);
 
     // Getter method for the data field name
-            const DestructorNameSPtr&   name             ()                                      const;
+            const DestructorNameSPtr&   name             ()                           const;
     // Setter method for the data field name
-            Destructor&                 set_name         (const DestructorNameSPtr& name);
+            Destructor&                 set_name         (const DestructorNameSPtr&   name);
     // Store operator for the data field name
-            Destructor&                 operator<<       (const DestructorNameSPtr& name);
+            Destructor&                 operator<<       (const DestructorNameSPtr&   name);
 
     // Getter method for the data field namespace
-            const NamespaceSPtr&        namespace_       ()                                      const;
+            const NamespaceSPtr&        namespace_       ()                           const;
     // Setter method for the data field namespace
-            Destructor&                 set_namespace    (const NamespaceSPtr& namespace_);
+            Destructor&                 set_namespace    (const NamespaceSPtr&        namespace_);
     // Store operator for the data field namespace
-            Destructor&                 operator<<       (const NamespaceSPtr& namespace_);
+            Destructor&                 operator<<       (const NamespaceSPtr&        namespace_);
 
 private:
     // variable for the data field specifier

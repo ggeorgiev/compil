@@ -56,7 +56,7 @@ public:
     class Builder
     {
         // hide evil auto created assignment operator, no implementation
-                void            operator=   (const Builder&           temp);
+                void            operator=   (const Builder&           );
     public:
         // Default constructor. All fields without default values are left
         // uninitialized. Make sure you initialize all the necessary fields

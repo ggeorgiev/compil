@@ -256,9 +256,9 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
             << Constructor(frm->cppInnerEnumType(pEnumeration, pStructure))
             << ";";
 
-    EMethodSpecifier specifier;
+    EConstructorSpecifier specifier;
     if (pEnumeration->cast() == CastableType::ECast::strong())
-        specifier = EMethodSpecifier::explicit_();
+        specifier = EConstructorSpecifier::explicit_();
 
     commentInTable("Constructor from an integer value.");
     if (pEnumeration->cast() == CastableType::ECast::strong())
@@ -481,7 +481,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
             << ";";
 
     table() << TableAligner::row();
-    table() << Constructor(EMethodSpecifier::explicit_(), frm->cppClassType(pSpecimen),
+    table() << Constructor(EConstructorSpecifier::explicit_(), frm->cppClassType(pSpecimen),
                            CreateArgument(impl->cppDecoratedType(pParameterType), "value"))
             << ";";
 
@@ -956,9 +956,9 @@ void CppHeaderGenerator::generateIdentifierDeclaration(const IdentifierSPtr& pId
             << Constructor(frm->cppClassType(pIdentifier))
             << ";";
 
-    EMethodSpecifier specifier;
+    EConstructorSpecifier specifier;
     if (pIdentifier->cast() == CastableType::ECast::strong())
-        specifier = EMethodSpecifier::explicit_();
+        specifier = EConstructorSpecifier::explicit_();
     table() << TableAligner::row()
             << Constructor(specifier, frm->cppClassType(pIdentifier),
                            CreateArgument(impl->cppDecoratedType(pParameterType), "value"))

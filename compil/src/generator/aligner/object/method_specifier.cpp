@@ -15,11 +15,6 @@ const EMethodSpecifier EMethodSpecifier::invalid()
     return EMethodSpecifier(kInvalid);
 }
 
-const EMethodSpecifier EMethodSpecifier::explicit_()
-{
-    return EMethodSpecifier(kExplicit);
-}
-
 const EMethodSpecifier EMethodSpecifier::inline_()
 {
     return EMethodSpecifier(kInline);
@@ -45,7 +40,6 @@ const char* EMethodSpecifier::shortName(long value)
     static const char* names[] = 
     {
         "", // alignment
-        "explicit",
         "inline",
         "static",
         "virtual",

@@ -32,9 +32,7 @@
 
 compil { }
 
-strong enum MethodSpecifier
+strong enum ConstructorSpecifier
 {
-    inline;
-    static;
-    virtual;
+    explicit;
 }

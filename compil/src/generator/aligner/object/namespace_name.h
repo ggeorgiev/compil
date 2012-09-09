@@ -46,9 +46,9 @@ class NamespaceName
 {
 public:
                          NamespaceName();
-    explicit             NamespaceName(const std::string& value);
+    explicit             NamespaceName(const std::string&   value);
 
-    inline   std::string value        ()                            const;
+    inline   std::string value        ()                    const;
     inline   bool        operator==   (const NamespaceName& rValue) const;
     inline   bool        operator!=   (const NamespaceName& rValue) const;
     inline   bool        operator<    (const NamespaceName& rValue) const;

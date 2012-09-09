@@ -15,6 +15,7 @@ project generator
 lib gen :
     aligner/object/argument.cpp
     aligner/object/cast_operator.cpp
+    aligner/object/constructor_specifier.cpp
     aligner/object/constructor.cpp
     aligner/object/decorated_type.cpp
     aligner/object/destructor_specifier.cpp

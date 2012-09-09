@@ -56,7 +56,7 @@ public:
     class Builder
     {
         // hide evil auto created assignment operator, no implementation
-                void                  operator=      (const Builder& );
+                void                  operator=      (const Builder&        );
     public:
         // Default constructor. All fields without default values are left
         // uninitialized. Make sure you initialize all the necessary fields
@@ -73,7 +73,7 @@ public:
         // builder could be reused to instantiate more objects. The data is
         // not reset. Second call of build() will instantiate object with
         // the same data.
-                const Initialization& build          ()                                const;
+                const Initialization& build          ()                     const;
 
         // Provides the internal instantiated builder object and
         // invalidates the builder status. Once finalize() is called, the
@@ -83,12 +83,12 @@ public:
 
 
         // Setter method for the data field namespace
-                Builder&              set_namespace  (const NamespaceSPtr& namespace_);
+                Builder&              set_namespace  (const NamespaceSPtr&  namespace_);
         // Clears the optional data field namespace
                 void                  clear_namespace();
 
         // Setter method for the data field name
-                Builder&              set_name       (const std::string& name);
+                Builder&              set_name       (const std::string&    name);
         // Provides mutable access to field name
                 std::string&          mutable_name   ();
         // Erases the required data field name. Object can not be
@@ -96,7 +96,7 @@ public:
                 void                  erase_name     ();
 
         // Setter method for the data field value
-                Builder&              set_value      (const std::string& value);
+                Builder&              set_value      (const std::string&    value);
         // Provides mutable access to field value
                 std::string&          mutable_value  ();
         // Erases the required data field value. Object can not be
@@ -105,7 +105,7 @@ public:
 
     protected:
         // constructor needed from potential derived classes
-                                      Builder        (InitializationRPtr pObject);
+                                      Builder        (InitializationRPtr    pObject);
 
         InitializationRPtr mpObject;
     };
@@ -163,10 +163,10 @@ private:
     std::string   mValue;
 };
 
-InitializationSPtr CreateInitialization(const std::string& name, const std::string& value);
+InitializationSPtr CreateInitialization(const std::string&   name, const std::string& value);
 InitializationSPtr CreateInitialization(const NamespaceSPtr& namespace_,
-                                        const std::string& name,
-                                        const std::string& value);
+                                                             const std::string&       name,
+                                                                                      const std::string&  value);
 
 #else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_INITIALIZATION_COMPIL_H_
 
