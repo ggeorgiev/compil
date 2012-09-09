@@ -34,14 +34,9 @@ compil { }
 
 import "namespace.compil";
 
-controlled immutable
+streamable
 structure SimpleType
 {
     reference<Namespace> namespace = optional;
     string value;
-}
-
-function object
-factory<SimpleType> CreateSimpleType
-{
 }

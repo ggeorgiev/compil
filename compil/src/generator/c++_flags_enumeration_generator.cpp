@@ -67,11 +67,11 @@ bool CppFlagsEnumerationGenerator::generate()
     includeHeaders(declarationStream, Dependency::private_section);
     
     std::string type = "T";
-    DecoratedTypeSPtr decoratedType = CreateDecoratedType(CreateSimpleType(type));
+    DecoratedTypeSPtr decoratedType = CreateDecoratedType(simpleTypeRef() << type);
     std::string inherit = "F";
-    DecoratedTypeSPtr decoratedInherit = CreateDecoratedType(CreateSimpleType(inherit));
+    DecoratedTypeSPtr decoratedInherit = CreateDecoratedType(simpleTypeRef() << inherit);
     DecoratedTypeSPtr decoratedInheritRef = CreateDecoratedType(ETypeDeclaration::const_(),
-                                                                CreateSimpleType(inherit),
+                                                                simpleTypeRef() << inherit,
                                                                 ETypeDecoration::reference());
     
     ConstructorNameSPtr class_name = constructorNameRef("flags_enumeration");

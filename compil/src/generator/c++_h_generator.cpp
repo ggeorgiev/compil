@@ -1945,7 +1945,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
 
                 table() << TableAligner::row()
                         << Function(EMethodSpecifier::static_(),
-                                    CreateDecoratedType(CreateSimpleType("int")),
+                                    CreateDecoratedType(simpleTypeRef() << "int"),
                                     frm->bitmaskMethodName(pField))
                         << ";";
             }
@@ -1977,8 +1977,22 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
     
     if (pStructure->streamable() && !pStructure->immutable())
     {
-        DecoratedTypeSPtr resultType = CreateDecoratedType(impl->cppPtrType(pStructure),
-                                                           ETypeDecoration::reference());
+        addDependencies(impl->classReferenceDependencies());
+        
+        fdef()  << TableAligner::row()
+                << "inline "
+                << Function(CreateDecoratedType(frm->cppSharedPtrName(pStructure)),
+                            frm->methodName(frm->cppRefName(pStructure->name()->value())));
+        openBlock(inlineDefinitionStream);
+        line()  << "return boost::make_shared<"
+                << frm->cppMainClassType(pStructure)
+                << ">();";
+        closeBlock(inlineDefinitionStream);
+        eol(inlineDefinitionStream);
+
+
+        DecoratedTypeSPtr resultType = impl->cppPtrDecoratedType(pStructure);
+        
         std::vector<ObjectSPtr>::const_iterator it;
         for (it = objects.begin(); it != objects.end(); ++it)
         {

@@ -31,6 +31,7 @@
 // 
 
 // Boost C++ Smart Pointers
+#include <boost/make_shared.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 // Standard Template Library
@@ -99,15 +100,20 @@ private:
 };
 
 // Reference store operator for the data field specifier
-ConstructorSPtr& operator<<(ConstructorSPtr& , const EConstructorSpecifier&     );
+const ConstructorSPtr& operator<<(const ConstructorSPtr& , const EConstructorSpecifier&     );
 // Reference store operator for the data field namespace
-ConstructorSPtr& operator<<(ConstructorSPtr& , const NamespaceSPtr&             );
+const ConstructorSPtr& operator<<(const ConstructorSPtr& , const NamespaceSPtr&             );
 // Reference store operator for the data field name
-ConstructorSPtr& operator<<(ConstructorSPtr& , const ConstructorNameSPtr&       );
+const ConstructorSPtr& operator<<(const ConstructorSPtr& , const ConstructorNameSPtr&       );
 // Reference store operator for the data field arguments
-ConstructorSPtr& operator<<(ConstructorSPtr& , const std::vector<ArgumentSPtr>& );
+const ConstructorSPtr& operator<<(const ConstructorSPtr& , const std::vector<ArgumentSPtr>& );
 // Reference store operator for an item of data field arguments
-ConstructorSPtr& operator<<(ConstructorSPtr& , const ArgumentSPtr&              );
+const ConstructorSPtr& operator<<(const ConstructorSPtr& , const ArgumentSPtr&              );
+
+inline ConstructorSPtr constructorRef()
+{
+    return boost::make_shared<Constructor>();
+}
 
 #else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_COMPIL_H_
 

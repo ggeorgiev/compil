@@ -37,7 +37,7 @@
 namespace streamable
 {
 
-TEST(StructureOperatorTest, init)
+TEST(StructureStreamableTest, init)
 {
     Structure1 structure1;
     
@@ -47,7 +47,7 @@ TEST(StructureOperatorTest, init)
                << EEnum(1)
                << EEnum(2);
                
-    Structure1SPtr refStructure1;
+    Structure1SPtr refStructure1 = structure1Ref();
     refStructure1 << 1
                   << Structure1::EWeak(1) 
                   << Structure1::EStrong(1)
@@ -55,7 +55,7 @@ TEST(StructureOperatorTest, init)
                   << EEnum(2);
 }
 
-TEST(StructureOperatorTest, immutableInit)
+TEST(StructureStreamableTest, immutableInit)
 {
     IStructure1::Builder builder;
     

@@ -926,7 +926,8 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
         else
             accessObject = frm->memberPtrName("object") + "->";
 
-        resultType = CreateDecoratedType(CreateSimpleType(classNamesp, builder->value()),
+        resultType = CreateDecoratedType(simpleTypeRef() << classNamesp
+                                                         << builder->value(),
                                          ETypeDecoration::reference());
     }
 
@@ -984,7 +985,8 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
         else
         {
             line()  << "return ("
-                    << *CreateDecoratedType(CreateSimpleType(classNamesp, builder->value()),
+                    << *CreateDecoratedType(simpleTypeRef() << classNamesp
+                                                            << builder->value(),
                                             ETypeDecoration::reference())
                     << ")"
                     << FunctionCall(belongClassBuilderNamesp,
@@ -1041,10 +1043,12 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
             closeBlock(definitionStream);
             eol(definitionStream);
             
-            DecoratedTypeSPtr reference = CreateDecoratedType(impl->cppPtrType(pStructure),
-                                                              ETypeDecoration::reference());
+            DecoratedTypeSPtr reference = impl->cppPtrDecoratedType(pStructure);
+            
             if (!pStructure->immutable())
             {
+                addDependency(impl->assert_dependency());
+            
                 fdef()  << TableAligner::row()
                         << Function(reference,
                                     fnOperatorStore,
@@ -1053,13 +1057,9 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                                                    frm->cppVariableName(pField)));
                 openBlock(definitionStream);
                 
-                line()  << "if (!object)";
+                line()  << impl->assert_method()
+                        << "(object);";
                 eol(definitionStream);
-
-                line()  << "object.reset(new "
-                        << frm->cppMainClassType(pStructure)
-                        << "());";
-                eol(definitionStream, 1);
 
                 line()  << "*object << "
                         << frm->cppVariableName(pField)
@@ -1127,16 +1127,13 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                                                        frm->cppVariableName(pField) + "Item"));
                     openBlock(definitionStream);
                     
-                    line()  << "if (!object)";
+                    line()  << impl->assert_method()
+                            << "(object);";
                     eol(definitionStream);
 
-                    line()  << "object.reset(new "
-                            << frm->cppMainClassType(pStructure)
-                            << "());";
-                    eol(definitionStream, 1);
-
                     line()  << "*object << "
-                            << frm->cppVariableName(pField) << "Item"
+                            << frm->cppVariableName(pField)
+                            << "Item"
                             << ";";
                     eol(definitionStream);
                                     
@@ -1202,7 +1199,8 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                 else
                 {
                     line()  << "return ("
-                            << *CreateDecoratedType(CreateSimpleType(classNamesp, builder->value()),
+                            << *CreateDecoratedType(simpleTypeRef() << classNamesp
+                                                                    << builder->value(),
                                                     ETypeDecoration::reference())
                             << ")"
                             << FunctionCall(belongClassBuilderNamesp,
@@ -1517,7 +1515,8 @@ void CppGenerator::generateStructureFieldOverrideDefinition(const FieldOverrideS
     *namesp << nsBuilder;
 
     fdef()  << TableAligner::row()
-            << Function(CreateDecoratedType(CreateSimpleType(classNamesp, builder->value()),
+            << Function(CreateDecoratedType(simpleTypeRef() << classNamesp
+                                                            << builder->value(),
                                             ETypeDecoration::reference()),
                         namesp, frm->setMethodName(pField),
                         CreateArgument(impl->cppInnerSetDecoratedType(pField->type(), pStructure),
@@ -2268,7 +2267,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             if (!pField) continue;
 
             fdef()  << TableAligner::row()
-                    << Function(CreateDecoratedType(CreateSimpleType("int")),
+                    << Function(CreateDecoratedType(simpleTypeRef() << "int"),
                                 frm->cppAutoClassNamespace(pStructure), frm->bitmaskMethodName(pField));
             openBlock(definitionStream);
             line()  << "return "

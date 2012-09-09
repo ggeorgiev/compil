@@ -287,7 +287,7 @@ LineAligner& operator<<(LineAligner& aligner, const ETypeDecoration& decoration)
 
 LineAligner& operator<<(LineAligner& aligner, const SimpleType& type)
 {
-    if (type.exist_namespace())
+    if (type.namespace_())
     if (!type.namespace_()->isVoid())
         aligner << type.namespace_() << "::";
         
@@ -297,7 +297,7 @@ LineAligner& operator<<(LineAligner& aligner, const SimpleType& type)
 
 LineAligner& operator<<(LineAligner& aligner, const SimpleTypeSPtr& type)
 {
-    if (type->exist_namespace())
+    if (type->namespace_())
     if (!type->namespace_()->isVoid())
         aligner << type->namespace_() << "::";
     

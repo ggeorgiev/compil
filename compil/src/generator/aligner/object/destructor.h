@@ -31,6 +31,7 @@
 // 
 
 // Boost C++ Smart Pointers
+#include <boost/make_shared.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
@@ -83,11 +84,16 @@ private:
 };
 
 // Reference store operator for the data field specifier
-DestructorSPtr& operator<<(DestructorSPtr& , const EDestructorSpecifier& );
+const DestructorSPtr& operator<<(const DestructorSPtr& , const EDestructorSpecifier& );
 // Reference store operator for the data field name
-DestructorSPtr& operator<<(DestructorSPtr& , const DestructorNameSPtr&   );
+const DestructorSPtr& operator<<(const DestructorSPtr& , const DestructorNameSPtr&   );
 // Reference store operator for the data field namespace
-DestructorSPtr& operator<<(DestructorSPtr& , const NamespaceSPtr&        );
+const DestructorSPtr& operator<<(const DestructorSPtr& , const NamespaceSPtr&        );
+
+inline DestructorSPtr destructorRef()
+{
+    return boost::make_shared<Destructor>();
+}
 
 #else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DESTRUCTOR_COMPIL_H_
 

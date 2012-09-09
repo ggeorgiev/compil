@@ -57,10 +57,9 @@ Namespace& Namespace::operator<<(const std::vector<NamespaceNameSPtr>& names)
     return set_names(names);
 }
 
-NamespaceSPtr& operator<<(NamespaceSPtr& object, const std::vector<NamespaceNameSPtr>& names)
+const NamespaceSPtr& operator<<(const NamespaceSPtr& object, const std::vector<NamespaceNameSPtr>& names)
 {
-    if (!object)
-        object.reset(new Namespace());
+    BOOST_ASSERT(object);
     *object << names;
     return object;
 }
@@ -72,10 +71,9 @@ Namespace& Namespace::operator<<(const NamespaceNameSPtr& namesItem)
     return *this;
 }
 
-NamespaceSPtr& operator<<(NamespaceSPtr& object, const NamespaceNameSPtr& namesItem)
+const NamespaceSPtr& operator<<(const NamespaceSPtr& object, const NamespaceNameSPtr& namesItem)
 {
-    if (!object)
-        object.reset(new Namespace());
+    BOOST_ASSERT(object);
     *object << namesItem;
     return object;
 }

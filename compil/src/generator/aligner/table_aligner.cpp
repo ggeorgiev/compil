@@ -491,7 +491,7 @@ TableAligner& operator<<(TableAligner& aligner, const Initialization& initializa
 
 TableAligner& operator<<(TableAligner& aligner, const SimpleType& type)
 {
-    if (type.exist_namespace())
+    if (type.namespace_())
     if (!type.namespace_()->isVoid())
         aligner << type.namespace_() << "::";
     
@@ -501,7 +501,7 @@ TableAligner& operator<<(TableAligner& aligner, const SimpleType& type)
 
 TableAligner& operator<<(TableAligner& aligner, const SimpleTypeSPtr& type)
 {
-    if (type->exist_namespace())
+    if (type->namespace_())
     if (!type->namespace_()->isVoid())
         aligner << type->namespace_() << "::";
     

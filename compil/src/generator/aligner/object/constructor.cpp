@@ -1,3 +1,6 @@
+// Boost C++ Utility
+#include <boost/assert.hpp>
+
 #include "constructor.h"
 
 Constructor::Constructor()
@@ -29,10 +32,9 @@ Constructor& Constructor::operator<<(const EConstructorSpecifier& specifier)
     return set_specifier(specifier);
 }
 
-ConstructorSPtr& operator<<(ConstructorSPtr& object, const EConstructorSpecifier& specifier)
+const ConstructorSPtr& operator<<(const ConstructorSPtr& object, const EConstructorSpecifier& specifier)
 {
-    if (!object)
-        object.reset(new Constructor());
+    BOOST_ASSERT(object);
     *object << specifier;
     return object;
 }
@@ -53,10 +55,9 @@ Constructor& Constructor::operator<<(const NamespaceSPtr& namespace_)
     return set_namespace(namespace_);
 }
 
-ConstructorSPtr& operator<<(ConstructorSPtr& object, const NamespaceSPtr& namespace_)
+const ConstructorSPtr& operator<<(const ConstructorSPtr& object, const NamespaceSPtr& namespace_)
 {
-    if (!object)
-        object.reset(new Constructor());
+    BOOST_ASSERT(object);
     *object << namespace_;
     return object;
 }
@@ -77,10 +78,9 @@ Constructor& Constructor::operator<<(const ConstructorNameSPtr& name)
     return set_name(name);
 }
 
-ConstructorSPtr& operator<<(ConstructorSPtr& object, const ConstructorNameSPtr& name)
+const ConstructorSPtr& operator<<(const ConstructorSPtr& object, const ConstructorNameSPtr& name)
 {
-    if (!object)
-        object.reset(new Constructor());
+    BOOST_ASSERT(object);
     *object << name;
     return object;
 }
@@ -106,10 +106,9 @@ Constructor& Constructor::operator<<(const std::vector<ArgumentSPtr>& arguments)
     return set_arguments(arguments);
 }
 
-ConstructorSPtr& operator<<(ConstructorSPtr& object, const std::vector<ArgumentSPtr>& arguments)
+const ConstructorSPtr& operator<<(const ConstructorSPtr& object, const std::vector<ArgumentSPtr>& arguments)
 {
-    if (!object)
-        object.reset(new Constructor());
+    BOOST_ASSERT(object);
     *object << arguments;
     return object;
 }
@@ -120,10 +119,9 @@ Constructor& Constructor::operator<<(const ArgumentSPtr& argumentsItem)
     return *this;
 }
 
-ConstructorSPtr& operator<<(ConstructorSPtr& object, const ArgumentSPtr& argumentsItem)
+const ConstructorSPtr& operator<<(const ConstructorSPtr& object, const ArgumentSPtr& argumentsItem)
 {
-    if (!object)
-        object.reset(new Constructor());
+    BOOST_ASSERT(object);
     *object << argumentsItem;
     return object;
 }

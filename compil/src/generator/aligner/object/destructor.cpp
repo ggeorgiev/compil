@@ -1,3 +1,6 @@
+// Boost C++ Utility
+#include <boost/assert.hpp>
+
 #include "destructor.h"
 
 Destructor::Destructor()
@@ -29,10 +32,9 @@ Destructor& Destructor::operator<<(const EDestructorSpecifier& specifier)
     return set_specifier(specifier);
 }
 
-DestructorSPtr& operator<<(DestructorSPtr& object, const EDestructorSpecifier& specifier)
+const DestructorSPtr& operator<<(const DestructorSPtr& object, const EDestructorSpecifier& specifier)
 {
-    if (!object)
-        object.reset(new Destructor());
+    BOOST_ASSERT(object);
     *object << specifier;
     return object;
 }
@@ -53,10 +55,9 @@ Destructor& Destructor::operator<<(const DestructorNameSPtr& name)
     return set_name(name);
 }
 
-DestructorSPtr& operator<<(DestructorSPtr& object, const DestructorNameSPtr& name)
+const DestructorSPtr& operator<<(const DestructorSPtr& object, const DestructorNameSPtr& name)
 {
-    if (!object)
-        object.reset(new Destructor());
+    BOOST_ASSERT(object);
     *object << name;
     return object;
 }
@@ -77,10 +78,9 @@ Destructor& Destructor::operator<<(const NamespaceSPtr& namespace_)
     return set_namespace(namespace_);
 }
 
-DestructorSPtr& operator<<(DestructorSPtr& object, const NamespaceSPtr& namespace_)
+const DestructorSPtr& operator<<(const DestructorSPtr& object, const NamespaceSPtr& namespace_)
 {
-    if (!object)
-        object.reset(new Destructor());
+    BOOST_ASSERT(object);
     *object << namespace_;
     return object;
 }

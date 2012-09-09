@@ -17,5 +17,174 @@
          landmarkName = "assertion_failed(char const* expr, char const* /*function*/, char const* /*file*/, long /*line*/)"
          landmarkType = "7">
       </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/aligner/object/decorated_type.cpp"
+         timestampString = "368919058.952821"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "253"
+         endingLineNumber = "253"
+         landmarkName = "CreateDecoratedType(const ETypeDeclaration&amp; declaration, const SimpleTypeSPtr&amp; type)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/aligner/object/decorated_type.cpp"
+         timestampString = "368919114.466118"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "261"
+         endingLineNumber = "261"
+         landmarkName = "CreateDecoratedType(const ETypeDecoration&amp; decoration)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/aligner/object/decorated_type.cpp"
+         timestampString = "368919115.649743"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "268"
+         endingLineNumber = "268"
+         landmarkName = "CreateDecoratedType(const ETypeDeclaration&amp; declaration, const ETypeDecoration&amp; decoration)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/aligner/object/decorated_type.cpp"
+         timestampString = "368919117.735608"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "276"
+         endingLineNumber = "276"
+         landmarkName = "CreateDecoratedType(const SimpleTypeSPtr&amp; type, const ETypeDecoration&amp; decoration)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/aligner/object/decorated_type.cpp"
+         timestampString = "368919128.750743"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "239"
+         endingLineNumber = "239"
+         landmarkName = "CreateDecoratedType(const ETypeDeclaration&amp; declaration)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/aligner/object/decorated_type.cpp"
+         timestampString = "368919137.147668"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "295"
+         endingLineNumber = "295"
+         landmarkName = "CreateDecoratedType(bool aligned)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/aligner/object/decorated_type.cpp"
+         timestampString = "368919138.298488"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "302"
+         endingLineNumber = "302"
+         landmarkName = "CreateDecoratedType(const ETypeDeclaration&amp; declaration, bool aligned)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/aligner/object/decorated_type.cpp"
+         timestampString = "368919139.690946"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "310"
+         endingLineNumber = "310"
+         landmarkName = "CreateDecoratedType(const SimpleTypeSPtr&amp; type, bool aligned)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/aligner/object/decorated_type.cpp"
+         timestampString = "368919140.804524"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "318"
+         endingLineNumber = "318"
+         landmarkName = "CreateDecoratedType(const ETypeDeclaration&amp; declaration, const SimpleTypeSPtr&amp; type, bool aligned)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/aligner/object/decorated_type.cpp"
+         timestampString = "368919142.141472"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "327"
+         endingLineNumber = "327"
+         landmarkName = "CreateDecoratedType(const ETypeDecoration&amp; decoration, bool aligned)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/aligner/object/decorated_type.cpp"
+         timestampString = "368919143.409292"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "337"
+         endingLineNumber = "337"
+         landmarkName = "CreateDecoratedType(const ETypeDeclaration&amp; declaration, const ETypeDecoration&amp; decoration, bool aligned)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/aligner/object/decorated_type.cpp"
+         timestampString = "368919145.988665"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "346"
+         endingLineNumber = "346"
+         landmarkName = "CreateDecoratedType(const SimpleTypeSPtr&amp; type, const ETypeDecoration&amp; decoration, bool aligned)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/aligner/object/decorated_type.cpp"
+         timestampString = "368919147.554161"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "358"
+         endingLineNumber = "358"
+         landmarkName = "CreateDecoratedType(const ETypeDeclaration&amp; declaration, const SimpleTypeSPtr&amp; type, const ETypeDecoration&amp; decoration, bool aligned)"
+         landmarkType = "7">
+      </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

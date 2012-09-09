@@ -31,6 +31,7 @@
 // 
 
 // Boost C++ Smart Pointers
+#include <boost/make_shared.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 // Standard Template Library
@@ -42,108 +43,46 @@
 #include "namespace.h"
 #include "simple_type.h"
 
-// SimpleType is an immutable class - once instantiated none of the data
-// fields can be changed. For the initial initialization and instantiation
-// use the nested Builder class.
-
-// Immutability is useful in multi-thread and subject observer
-// applications. It makes easy creation of models with object references.
-
 class SimpleType
 {
 public:
-    // Use Builder to instantiate objects
-    class Builder
-    {
-        // hide evil auto created assignment operator, no implementation
-                void              operator=      (const Builder&       );
-    public:
-        // Default constructor. All fields without default values are left
-        // uninitialized. Make sure you initialize all the necessary fields
-        // before instantiating
-                                  Builder        ();
-        // Use this constructor when you need to clone or create an object
-        // just slightly different from another object
-                                  Builder        (const SimpleType&    object);
-        // Destructor of Builder
-        /*lax*/                   ~Builder       ();
-
-        // Instantiates SimpleType instance with the current initialization
-        // of the fields. After the instance is ready the builder could be
-        // reused to instantiate more objects. The data is not reset.
-        // Second call of build() will instantiate object with the same
-        // data.
-                const SimpleType& build          ()                    const;
-
-        // Provides the internal instantiated builder object and
-        // invalidates the builder status. Once finalize() is called, the
-        // builder can not be used again. Use finalize() when you no longer
-        // are going to use this builder.
-                SimpleTypeSPtr    finalize       ();
-
-
-        // Setter method for the data field namespace
-                Builder&          set_namespace  (const NamespaceSPtr& namespace_);
-        // Clears the optional data field namespace
-                void              clear_namespace();
-
-        // Setter method for the data field value
-                Builder&          set_value      (const std::string&   value);
-        // Provides mutable access to field value
-                std::string&      mutable_value  ();
-        // Erases the required data field value. Object can not be
-        // instantiated before the field data is set again
-                void              erase_value    ();
-
-    protected:
-        // constructor needed from potential derived classes
-                                  Builder        (SimpleTypeRPtr       pObject);
-
-        SimpleTypeRPtr mpObject;
-    };
-
     // Default constructor
-                                 SimpleType     ();
+                                 SimpleType   ();
     // Destructor
-    /*lax*/                      ~SimpleType    ();
-
-    // Returns true if every required field is initialized.
-    // Note: If the class is used properly it should always return true,
-    // because the object could be instantiated only if it is already
-    // initialized and can not be changed. Called by the Builder class.
-            bool                 isInitialized  () const;
+    /*lax*/                      ~SimpleType  ();
 
     // Getter method for the data field namespace
-            const NamespaceSPtr& namespace_     () const;
-    // Checks if the optional field namespace exists
-            bool                 exist_namespace() const;
+            const NamespaceSPtr& namespace_   ()                    const;
+    // Setter method for the data field namespace
+            SimpleType&          set_namespace(const NamespaceSPtr& namespace_);
+    // Store operator for the data field namespace
+            SimpleType&          operator<<   (const NamespaceSPtr& namespace_);
 
     // Getter method for the data field value
-            const std::string&   value          () const;
-    // Returns true if the data field value was set and could be considered
-    // valid
-    // Note: If the class is used properly it should always return true. It
-    // makes sense when it is called indirectly through isInitialized()
-    // from the Builder class
-            bool                 valid_value    () const;
+            const std::string&   value        ()                    const;
+    // Setter method for the data field value
+            SimpleType&          set_value    (const std::string&   value);
+    // Provides mutable access to field value
+            std::string&         mutable_value();
+    // Store operator for the data field value
+            SimpleType&          operator<<   (const std::string&   value);
 
 private:
-    // Returns unique bitmask value for the field namespace
-    static int bitmask_namespace();
-    // Returns unique bitmask value for the field value
-    static int bitmask_value    ();
-
-    // Stores availability information for the fields
-    int           mBits;
-
     // variable for the data field namespace
     NamespaceSPtr mNamespace;
     // variable for the data field value
     std::string   mValue;
 };
 
-SimpleTypeSPtr CreateSimpleType(const std::string&   value);
-SimpleTypeSPtr CreateSimpleType(const NamespaceSPtr& namespace_, const std::string& value);
+// Reference store operator for the data field namespace
+const SimpleTypeSPtr& operator<<(const SimpleTypeSPtr& , const NamespaceSPtr& );
+// Reference store operator for the data field value
+const SimpleTypeSPtr& operator<<(const SimpleTypeSPtr& , const std::string&   );
+
+inline SimpleTypeSPtr simpleTypeRef()
+{
+    return boost::make_shared<SimpleType>();
+}
 
 #else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_SIMPLE_TYPE_COMPIL_H_
 

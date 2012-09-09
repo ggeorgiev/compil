@@ -37,18 +37,18 @@ namespace compil
 
 ConstructorNameSPtr builderConstructorName = constructorNameRef("Builder");
 
-DecoratedTypeSPtr bl             = CreateDecoratedType(CreateSimpleType("bool"));
-DecoratedTypeSPtr vd             = CreateDecoratedType(CreateSimpleType("void"));
-DecoratedTypeSPtr st             = CreateDecoratedType(CreateSimpleType("size_t"));
+DecoratedTypeSPtr bl             = CreateDecoratedType(simpleTypeRef() << "bool");
+DecoratedTypeSPtr vd             = CreateDecoratedType(simpleTypeRef() << "void");
+DecoratedTypeSPtr st             = CreateDecoratedType(simpleTypeRef() << "size_t");
 DecoratedTypeSPtr const_char_ptr = CreateDecoratedType(ETypeDeclaration::const_(),
-                                                       CreateSimpleType("char"),
+                                                       simpleTypeRef() << "char",
                                                        ETypeDecoration::pointer());
-DecoratedTypeSPtr cloneFunction  = CreateDecoratedType(CreateSimpleType("fnClone"));
+DecoratedTypeSPtr cloneFunction  = CreateDecoratedType(simpleTypeRef() << "fnClone");
 
 DecoratedTypeSPtr cstTRef        = CreateDecoratedType(ETypeDeclaration::const_(),
-                                                       CreateSimpleType("T"),
+                                                       simpleTypeRef() << "T",
                                                        ETypeDecoration::reference());
-DecoratedTypeSPtr TPtr           = CreateDecoratedType(CreateSimpleType("T"),
+DecoratedTypeSPtr TPtr           = CreateDecoratedType(simpleTypeRef() << "T",
                                                        ETypeDecoration::pointer());
 
 MethodNameSPtr fnValue                  = methodNameRef("value");
@@ -104,8 +104,8 @@ MethodNameSPtr fnIsClear                = methodNameRef("isClear");
 
 NamespaceNameSPtr nsBuilder = namespaceNameRef("Builder");
 
-SimpleTypeSPtr builder = CreateSimpleType("Builder");
-SimpleTypeSPtr chr     = CreateSimpleType("char");
+SimpleTypeSPtr builder = simpleTypeRef() << "Builder";
+SimpleTypeSPtr chr     = simpleTypeRef() << "char";
 
 
 Aligner::Aligner(const AlignerConfigurationPtr& pConfiguration)

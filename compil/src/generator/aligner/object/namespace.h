@@ -31,6 +31,7 @@
 // 
 
 // Boost C++ Smart Pointers
+#include <boost/make_shared.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 // Standard Template Library
@@ -82,9 +83,14 @@ private:
 };
 
 // Reference store operator for the data field names
-NamespaceSPtr& operator<<(NamespaceSPtr& , const std::vector<NamespaceNameSPtr>& );
+const NamespaceSPtr& operator<<(const NamespaceSPtr& , const std::vector<NamespaceNameSPtr>& );
 // Reference store operator for an item of data field names
-NamespaceSPtr& operator<<(NamespaceSPtr& , const NamespaceNameSPtr&              );
+const NamespaceSPtr& operator<<(const NamespaceSPtr& , const NamespaceNameSPtr&              );
+
+inline NamespaceSPtr namespaceRef()
+{
+    return boost::make_shared<Namespace>();
+}
 
 #else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_COMPIL_H_
 

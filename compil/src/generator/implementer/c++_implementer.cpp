@@ -108,11 +108,11 @@ DecoratedTypeSPtr CppImplementer::cppDecoratedType(const TypeSPtr& pType)
             {
                 case ImplementerConfiguration::use_char_pointer:
                     return CreateDecoratedType(ETypeDeclaration::const_(),
-                                               CreateSimpleType("char"),
+                                               simpleTypeRef() << "char",
                                                ETypeDecoration::pointer());
                 case ImplementerConfiguration::use_stl_string:
                     return CreateDecoratedType(ETypeDeclaration::const_(),
-                                               CreateSimpleType("std::string"),
+                                               simpleTypeRef() << "std::string",
                                                ETypeDecoration::reference());
                 default: assert(false && "unknown string implementation type");
             }
@@ -121,7 +121,7 @@ DecoratedTypeSPtr CppImplementer::cppDecoratedType(const TypeSPtr& pType)
         default:
             assert(false && "unknown kind");
     }
-	return CreateDecoratedType(CreateSimpleType("@@@"), ETypeDecoration::invalid());
+	return DecoratedTypeSPtr();
 }
 
 DecoratedTypeSPtr CppImplementer::cppSetDecoratedType(const TypeSPtr& pType)
@@ -179,69 +179,69 @@ SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
     if (!pType->package())
     {
         if (name == "boolean")
-            return CreateSimpleType("bool");
+            return simpleTypeRef() << "bool";
             
         switch (mpConfiguration->mIntegerTypes)
         {
             case ImplementerConfiguration::use_native:
                 if (name == "size")
-                    return CreateSimpleType("size_t");
+                    return simpleTypeRef() << "size_t";
                 if (name == "small")
-                    return CreateSimpleType("char");
+                    return simpleTypeRef() << "char";
                 if (name == "short")
-                    return CreateSimpleType("short");
+                    return simpleTypeRef() << "short";
                 if (name == "integer")
-                    return CreateSimpleType("long");
+                    return simpleTypeRef() << "long";
                 if (name == "long")
-                    return CreateSimpleType("long long");
+                    return simpleTypeRef() << "long long";
                 if (name == "byte")
-                    return CreateSimpleType("unsigned char");
+                    return simpleTypeRef() << "unsigned char";
                 if (name == "word")
-                    return CreateSimpleType("unsigned short");
+                    return simpleTypeRef() << "unsigned short";
                 if (name == "dword")
-                    return CreateSimpleType("unsigned long");
+                    return simpleTypeRef() << "unsigned long";
                 if (name == "qword")
-                    return CreateSimpleType("unsigned long long");
+                    return simpleTypeRef() << "unsigned long long";
                 break;
             case ImplementerConfiguration::use_intnn_t:
                 if (name == "size")
-                    return CreateSimpleType("size_t");
+                    return simpleTypeRef() << "size_t";
                 if (name == "small")
-                    return CreateSimpleType("int8_t");
+                    return simpleTypeRef() << "int8_t";
                 if (name == "short")
-                    return CreateSimpleType("int16_t");
+                    return simpleTypeRef() << "int16_t";
                 if (name == "integer")
-                    return CreateSimpleType("int32_t");
+                    return simpleTypeRef() << "int32_t";
                 if (name == "long")
-                    return CreateSimpleType("int64_t");
+                    return simpleTypeRef() << "int64_t";
                 if (name == "byte")
-                    return CreateSimpleType("uint8_t");
+                    return simpleTypeRef() << "uint8_t";
                 if (name == "word")
-                    return CreateSimpleType("uint16_t");
+                    return simpleTypeRef() << "uint16_t";
                 if (name == "dword")
-                    return CreateSimpleType("uint32_t");
+                    return simpleTypeRef() << "uint32_t";
                 if (name == "qword")
-                    return CreateSimpleType("uint64_t");
+                    return simpleTypeRef() << "uint64_t";
                 break;
             case ImplementerConfiguration::use_boost_intnn_t:
                 if (name == "size")
-                    return CreateSimpleType("size_t");
+                    return simpleTypeRef() << "size_t";
                 if (name == "small")
-                    return CreateSimpleType("boost::int8_t");
+                    return simpleTypeRef() << "boost::int8_t";
                 if (name == "short")
-                    return CreateSimpleType("boost::int16_t");
+                    return simpleTypeRef() << "boost::int16_t";
                 if (name == "integer")
-                    return CreateSimpleType("boost::int32_t");
+                    return simpleTypeRef() << "boost::int32_t";
                 if (name == "long")
-                    return CreateSimpleType("boost::int64_t");
+                    return simpleTypeRef() << "boost::int64_t";
                 if (name == "byte")
-                    return CreateSimpleType("boost::uint8_t");
+                    return simpleTypeRef() << "boost::uint8_t";
                 if (name == "word")
-                    return CreateSimpleType("boost::uint16_t");
+                    return simpleTypeRef() << "boost::uint16_t";
                 if (name == "dword")
-                    return CreateSimpleType("boost::uint32_t");
+                    return simpleTypeRef() << "boost::uint32_t";
                 if (name == "qword")
-                    return CreateSimpleType("boost::uint64_t");
+                    return simpleTypeRef() << "boost::uint64_t";
                 break;
             default:
                 break;
@@ -251,9 +251,9 @@ SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
             switch (mpConfiguration->mString)
             {
                 case ImplementerConfiguration::use_char_pointer: 
-                    return CreateSimpleType("const char*");
+                    return simpleTypeRef() << "const char*";
                 case ImplementerConfiguration::use_stl_string: 
-                    return CreateSimpleType("std::string");
+                    return simpleTypeRef() << "std::string";
                 default: assert(false && "unknown string implementation type");
             }
         }
@@ -262,7 +262,7 @@ SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
             UnaryContainerSPtr pUnaryContainer = boost::static_pointer_cast<UnaryContainer>(pType);
             SimpleTypeSPtr simpleType = cppType(pUnaryContainer->parameterType().lock());
             std::string result = "std::vector<";
-            if (simpleType->exist_namespace())
+            if (simpleType->namespace_())
             if (!simpleType->namespace_()->isVoid())
             {
                 const std::vector<NamespaceNameSPtr>& names = simpleType->namespace_()->names();
@@ -270,7 +270,7 @@ SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
                     result += names[i]->value() + "::";
             }
             result += simpleType->value() + ">";
-            return CreateSimpleType(result);
+            return simpleTypeRef() << result;
         }
     }
     
@@ -283,22 +283,23 @@ SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
             
             if (pType->package()->elements() == elements)
             {
-                return CreateSimpleType("boost::posix_time::ptime");
+                return simpleTypeRef() << "boost::posix_time::ptime";
             }
         }
     }
     
     if (pType->runtimeObjectId() == EObjectId::structure())
-        return CreateSimpleType(mpFrm->cppPackageNamespace(pType->package()), 
-                                mpFrm->cppClassName(name));
+        return simpleTypeRef() << mpFrm->cppPackageNamespace(pType->package())
+                               << mpFrm->cppClassName(name);
     if (pType->runtimeObjectId() == EObjectId::enumeration())
         return mpFrm->cppEnumType(ObjectFactory::downcastEnumeration(pType));
     if (pType->runtimeObjectId() == EObjectId::specimen())
-        return CreateSimpleType(mpFrm->cppClassName(name));
+        return simpleTypeRef() << mpFrm->cppClassName(name);
     if (pType->runtimeObjectId() == EObjectId::identifier())
-        return CreateSimpleType(mpFrm->cppClassName(name));
+        return simpleTypeRef() << mpFrm->cppClassName(name);
         
-    return CreateSimpleType(mpFrm->cppPackageNamespace(pType->package()), name);
+    return simpleTypeRef() << mpFrm->cppPackageNamespace(pType->package())
+                           << name;
 }
 
 SimpleTypeSPtr CppImplementer::cppInnerType(const TypeSPtr& pType,
@@ -469,7 +470,7 @@ SimpleTypeSPtr CppImplementer::cppPtrType(const TypeSPtr& pType)
             return mpFrm->cppSharedPtrName(pType);
         default: assert(false && "unknown pointer type"); break;
     }
-    return CreateSimpleType("");
+    return SimpleTypeSPtr();
 }
 
 DecoratedTypeSPtr CppImplementer::cppPtrDecoratedType(const TypeSPtr& pType)
@@ -482,7 +483,7 @@ DecoratedTypeSPtr CppImplementer::cppPtrDecoratedType(const TypeSPtr& pType)
             return mpFrm->cppSharedPtrDecoratedType(pType);
         default: assert(false && "unknown pointer type"); break;
     }
-    return CreateDecoratedType(CreateSimpleType(""));
+    return DecoratedTypeSPtr();
 }
 
 std::string CppImplementer::cppNullPtr(const TypeSPtr& pType)
@@ -642,7 +643,7 @@ std::string CppImplementer::identificationName(const StructureSPtr& pStructure)
 
 SimpleTypeSPtr CppImplementer::identificationEnum(const StructureSPtr& pStructure)
 {
-    return CreateSimpleType(mpFrm->enumName(identificationName(pStructure)));
+    return simpleTypeRef() << mpFrm->enumName(identificationName(pStructure));
 }
 
 MethodNameSPtr CppImplementer::staticIdentificationMethodName(const StructureSPtr& pStructure)
@@ -813,22 +814,22 @@ bool CppImplementer::boost_smart_ptr_needed()
 
 SimpleTypeSPtr CppImplementer::boost_shared_ptr(const SimpleTypeSPtr& type)
 {
-    return CreateSimpleType("boost::shared_ptr<" + type->value() + ">");
+    return simpleTypeRef() << "boost::shared_ptr<" + type->value() + ">";
 }
 
 SimpleTypeSPtr CppImplementer::boost_shared_const_ptr(const SimpleTypeSPtr& type)
 {
-    return CreateSimpleType("boost::shared_ptr<const " + type->value() + ">");
+    return simpleTypeRef() << "boost::shared_ptr<const " + type->value() + ">";
 }
 
 SimpleTypeSPtr CppImplementer::boost_weak_ptr(const SimpleTypeSPtr& type)
 {
-    return CreateSimpleType("boost::weak_ptr<" + type->value() + ">");
+    return simpleTypeRef() << "boost::weak_ptr<" + type->value() + ">";
 }
 
 SimpleTypeSPtr CppImplementer::boost_enable_shared_from_this(const SimpleTypeSPtr& type)
 {
-    return CreateSimpleType("boost::enable_shared_from_this<" + type->value() + ">");
+    return simpleTypeRef() << "boost::enable_shared_from_this<" + type->value() + ">";
 }
 
 std::string CppImplementer::applicationExtension()
