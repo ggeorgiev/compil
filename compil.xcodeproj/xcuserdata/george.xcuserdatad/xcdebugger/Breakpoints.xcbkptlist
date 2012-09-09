@@ -26,9 +26,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "253"
-         endingLineNumber = "253"
-         landmarkName = "CreateDecoratedType(const ETypeDeclaration&amp; declaration, const SimpleTypeSPtr&amp; type)"
-         landmarkType = "7">
+         endingLineNumber = "253">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -39,9 +37,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "261"
-         endingLineNumber = "261"
-         landmarkName = "CreateDecoratedType(const ETypeDecoration&amp; decoration)"
-         landmarkType = "7">
+         endingLineNumber = "261">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -52,9 +48,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "268"
-         endingLineNumber = "268"
-         landmarkName = "CreateDecoratedType(const ETypeDeclaration&amp; declaration, const ETypeDecoration&amp; decoration)"
-         landmarkType = "7">
+         endingLineNumber = "268">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -65,9 +59,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "276"
-         endingLineNumber = "276"
-         landmarkName = "CreateDecoratedType(const SimpleTypeSPtr&amp; type, const ETypeDecoration&amp; decoration)"
-         landmarkType = "7">
+         endingLineNumber = "276">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -78,9 +70,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "239"
-         endingLineNumber = "239"
-         landmarkName = "CreateDecoratedType(const ETypeDeclaration&amp; declaration)"
-         landmarkType = "7">
+         endingLineNumber = "239">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -91,9 +81,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "295"
-         endingLineNumber = "295"
-         landmarkName = "CreateDecoratedType(bool aligned)"
-         landmarkType = "7">
+         endingLineNumber = "295">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -104,9 +92,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "302"
-         endingLineNumber = "302"
-         landmarkName = "CreateDecoratedType(const ETypeDeclaration&amp; declaration, bool aligned)"
-         landmarkType = "7">
+         endingLineNumber = "302">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -117,9 +103,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "310"
-         endingLineNumber = "310"
-         landmarkName = "CreateDecoratedType(const SimpleTypeSPtr&amp; type, bool aligned)"
-         landmarkType = "7">
+         endingLineNumber = "310">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -130,9 +114,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "318"
-         endingLineNumber = "318"
-         landmarkName = "CreateDecoratedType(const ETypeDeclaration&amp; declaration, const SimpleTypeSPtr&amp; type, bool aligned)"
-         landmarkType = "7">
+         endingLineNumber = "318">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -143,9 +125,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "327"
-         endingLineNumber = "327"
-         landmarkName = "CreateDecoratedType(const ETypeDecoration&amp; decoration, bool aligned)"
-         landmarkType = "7">
+         endingLineNumber = "327">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -156,9 +136,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "337"
-         endingLineNumber = "337"
-         landmarkName = "CreateDecoratedType(const ETypeDeclaration&amp; declaration, const ETypeDecoration&amp; decoration, bool aligned)"
-         landmarkType = "7">
+         endingLineNumber = "337">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -169,9 +147,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "346"
-         endingLineNumber = "346"
-         landmarkName = "CreateDecoratedType(const SimpleTypeSPtr&amp; type, const ETypeDecoration&amp; decoration, bool aligned)"
-         landmarkType = "7">
+         endingLineNumber = "346">
       </FileBreakpoint>
       <FileBreakpoint
          shouldBeEnabled = "Yes"
@@ -182,9 +158,7 @@
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
          startingLineNumber = "358"
-         endingLineNumber = "358"
-         landmarkName = "CreateDecoratedType(const ETypeDeclaration&amp; declaration, const SimpleTypeSPtr&amp; type, const ETypeDecoration&amp; decoration, bool aligned)"
-         landmarkType = "7">
+         endingLineNumber = "358">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

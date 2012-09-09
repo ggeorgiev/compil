@@ -212,7 +212,7 @@ void TableAligner::newRow(Row::Type type, int indent)
 
 TableAligner& operator<<(TableAligner& aligner, const Argument& argument)
 {
-    if (argument.exist_type() && !argument.type()->isVoid())
+    if (argument.exist_type())
         aligner << argument.type();
     aligner << argument.name();
     return aligner;
@@ -220,7 +220,7 @@ TableAligner& operator<<(TableAligner& aligner, const Argument& argument)
 
 TableAligner& operator<<(TableAligner& aligner, const ArgumentSPtr& argument)
 {
-    if (argument->exist_type() && !argument->type()->isVoid())
+    if (argument->type())
         aligner << argument->type();
     if (argument->exist_name())
         aligner << argument->name();
@@ -325,7 +325,7 @@ TableAligner& operator<<(TableAligner& aligner, const Function& function)
 
     aligner << TableAligner::col();
 
-    if (function.mReturnType && !function.mReturnType->isVoid())
+    if (function.mReturnType)
         aligner << function.mReturnType;
     
     if (function.mNamespace)

@@ -103,23 +103,23 @@ DecoratedTypeSPtr CppImplementer::cppDecoratedType(const TypeSPtr& pType)
     switch (pType->kind().value())
     {
         case Type::EKind::kBuiltin:
-            return CreateDecoratedType(cppType(pType));
+            return decoratedTypeRef() << cppType(pType);
         case Type::EKind::kObject:
-            return CreateDecoratedType(ETypeDeclaration::const_(),
-                                        cppType(pType),
-                                        ETypeDecoration::reference());
+            return decoratedTypeRef() << ETypeDeclaration::const_()
+                                      << cppType(pType)
+                                      << ETypeDecoration::reference();
         case Type::EKind::kString:
             switch (mpConfiguration->mString)
             {
                 case ImplementerConfiguration::use_char_pointer:
-                    return CreateDecoratedType(ETypeDeclaration::const_(),
-                                               simpleTypeRef() << "char",
-                                               ETypeDecoration::pointer());
+                    return decoratedTypeRef() << ETypeDeclaration::const_()
+                                              << (simpleTypeRef() << "char")
+                                              << ETypeDecoration::pointer();
                 case ImplementerConfiguration::use_stl_string:
-                    return CreateDecoratedType(ETypeDeclaration::const_(),
-                                               simpleTypeRef() << nsStd
-                                                               << "string",
-                                               ETypeDecoration::reference());
+                    return decoratedTypeRef() << ETypeDeclaration::const_()
+                                              << (simpleTypeRef() << nsStd
+                                                                  << "string")
+                                              << ETypeDecoration::reference();
                 default: assert(false && "unknown string implementation type");
             }
             break;
@@ -134,9 +134,9 @@ DecoratedTypeSPtr CppImplementer::cppSetDecoratedType(const TypeSPtr& pType)
 {
     ReferenceSPtr pReference = ObjectFactory::downcastReference(pType);
     if (pReference)
-        return CreateDecoratedType(ETypeDeclaration::const_(),
-                                   mpFrm->cppSharedPtrName(pReference->parameterType().lock()),
-                                   ETypeDecoration::reference());
+        return decoratedTypeRef() << ETypeDeclaration::const_()
+                                  << mpFrm->cppSharedPtrName(pReference->parameterType().lock())
+                                  << ETypeDecoration::reference();
     return cppDecoratedType(pType);
 }
 
@@ -146,9 +146,9 @@ DecoratedTypeSPtr CppImplementer::cppInnerDecoratedType(const TypeSPtr& pType,
     if (pType->runtimeObjectId() == EObjectId::enumeration())
     {
         EnumerationSPtr pEnumeration = ObjectFactory::downcastEnumeration(pType);
-        return CreateDecoratedType(ETypeDeclaration::const_(),
-                                   mpFrm->cppInnerEnumType(pEnumeration, pStructure),
-                                   ETypeDecoration::reference());
+        return decoratedTypeRef() << ETypeDeclaration::const_()
+                                  << mpFrm->cppInnerEnumType(pEnumeration, pStructure)
+                                  << ETypeDecoration::reference();
     }
     return cppDecoratedType(pType);
 }
@@ -158,9 +158,9 @@ DecoratedTypeSPtr CppImplementer::cppInnerSetDecoratedType(const TypeSPtr& pType
 {
     ReferenceSPtr pReference = ObjectFactory::downcastReference(pType);
     if (pReference)
-        return CreateDecoratedType(ETypeDeclaration::const_(),
-                                   mpFrm->cppSharedPtrName(pReference->parameterType().lock()),
-                                   ETypeDecoration::reference());
+        return decoratedTypeRef() << ETypeDeclaration::const_()
+                                  << mpFrm->cppSharedPtrName(pReference->parameterType().lock())
+                                  << ETypeDecoration::reference();
     return cppInnerDecoratedType(pType, pStructure);
 }
 

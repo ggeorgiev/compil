@@ -42,14 +42,13 @@ CastOperator::CastOperator()
 
 CastOperator::CastOperator(const DecoratedTypeSPtr& decoratedType)
 {
-    DecoratedType::Builder builder(*decoratedType);
-    builder.set_aligned(false);
-    mDecoratedType = builder.finalize();
+    mDecoratedType = boost::make_shared<DecoratedType>(*decoratedType);
+    mDecoratedType->set_aligned(false);
 }
 
 CastOperator::operator bool() const
 {
-    return mDecoratedType && !mDecoratedType->isVoid();
+    return mDecoratedType;
 }
 
 }

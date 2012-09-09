@@ -36,7 +36,7 @@ import "type_declaration.compil";
 import "simple_type.compil";
 import "type_decoration.compil";
 
-controlled immutable 
+streamable
 structure DecoratedType
 {
     TypeDeclaration declaration = invalid;
@@ -46,7 +46,3 @@ structure DecoratedType
     boolean aligned = true;
 }
 
-function object
-factory<DecoratedType> CreateDecoratedType
-{
-}

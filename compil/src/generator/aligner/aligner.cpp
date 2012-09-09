@@ -37,19 +37,19 @@ namespace compil
 
 ConstructorNameSPtr builderConstructorName = constructorNameRef("Builder");
 
-DecoratedTypeSPtr bl             = CreateDecoratedType(simpleTypeRef() << "bool");
-DecoratedTypeSPtr vd             = CreateDecoratedType(simpleTypeRef() << "void");
-DecoratedTypeSPtr st             = CreateDecoratedType(simpleTypeRef() << "size_t");
-DecoratedTypeSPtr const_char_ptr = CreateDecoratedType(ETypeDeclaration::const_(),
-                                                       simpleTypeRef() << "char",
-                                                       ETypeDecoration::pointer());
-DecoratedTypeSPtr cloneFunction  = CreateDecoratedType(simpleTypeRef() << "fnClone");
+DecoratedTypeSPtr bl             = decoratedTypeRef() << (simpleTypeRef() << "bool");
+DecoratedTypeSPtr vd             = decoratedTypeRef() << (simpleTypeRef() << "void");
+DecoratedTypeSPtr st             = decoratedTypeRef() << (simpleTypeRef() << "size_t");
+DecoratedTypeSPtr const_char_ptr = decoratedTypeRef() << ETypeDeclaration::const_()
+                                                      << (simpleTypeRef() << "char")
+                                                      << ETypeDecoration::pointer();
+DecoratedTypeSPtr cloneFunction  = decoratedTypeRef() << (simpleTypeRef() << "fnClone");
 
-DecoratedTypeSPtr cstTRef        = CreateDecoratedType(ETypeDeclaration::const_(),
-                                                       simpleTypeRef() << "T",
-                                                       ETypeDecoration::reference());
-DecoratedTypeSPtr TPtr           = CreateDecoratedType(simpleTypeRef() << "T",
-                                                       ETypeDecoration::pointer());
+DecoratedTypeSPtr cstTRef        = decoratedTypeRef() << ETypeDeclaration::const_()
+                                                      << (simpleTypeRef() << "T")
+                                                      << ETypeDecoration::reference();
+DecoratedTypeSPtr TPtr           = decoratedTypeRef() << (simpleTypeRef() << "T")
+                                                      << ETypeDecoration::pointer();
 
 MethodNameSPtr fnValue                  = methodNameRef("value");
 MethodNameSPtr fnShortName              = methodNameRef("shortName");
