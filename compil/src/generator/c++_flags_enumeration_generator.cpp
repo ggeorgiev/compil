@@ -74,7 +74,7 @@ bool CppFlagsEnumerationGenerator::generate()
                                                                 CreateSimpleType(inherit),
                                                                 ETypeDecoration::reference());
     
-    std::string class_name = "flags_enumeration";
+    ConstructorNameSPtr class_name = constructorNameRef("flags_enumeration");
     std::string value = "value";
     std::string memberValue = frm->memberName(value);
     ArgumentSPtr argMask = CreateArgument(decoratedInheritRef, "mask");
@@ -95,7 +95,7 @@ bool CppFlagsEnumerationGenerator::generate()
     line()  << "// Default constructor - sets the value to invalid";
     eol(declarationStream);
     fdef()  << TableAligner::row()
-            << Constructor(CreateSimpleType(class_name));
+            << (Constructor() << class_name);
     eofd(declarationStream);
     line()  << ": " 
             << *CreateInitialization(memberValue, "0");
@@ -104,8 +104,8 @@ bool CppFlagsEnumerationGenerator::generate()
     eol(declarationStream);
     
     fdef()  << TableAligner::row()
-            << Constructor(CreateSimpleType(class_name), 
-                           CreateArgument(decoratedType, value));
+            << (Constructor() << class_name
+                              << CreateArgument(decoratedType, value));
     eofd(declarationStream);
     line()  << ": " 
             << *CreateInitialization(memberValue, value);

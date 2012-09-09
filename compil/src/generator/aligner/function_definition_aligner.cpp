@@ -87,22 +87,20 @@ FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner,
 FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, 
                                       const Constructor& constructor)
 {
-    assert(constructor);
-    
-    if (constructor.mNamespace)
-    if (!constructor.mNamespace->isVoid())
+    if (constructor.namespace_())
+    if (!constructor.namespace_()->isVoid())
     {
-        aligner << constructor.mNamespace
+        aligner << constructor.namespace_()
                 << "::";
     }
     
-    ((TableAligner&)aligner) << constructor.mType;
+    ((TableAligner&)aligner) << constructor.name()->value();
     aligner << Aligner::FunctionSpace();
     aligner << "(";
-    if (constructor.mvArgument.size() > 0)
-        aligner << constructor.mvArgument[0];
-    for (size_t i = 1; i < constructor.mvArgument.size(); ++i)
-        aligner << ", " << constructor.mvArgument[i];
+    if (constructor.arguments().size() > 0)
+        aligner << constructor.arguments()[0];
+    for (size_t i = 1; i < constructor.arguments().size(); ++i)
+        aligner << ", " << constructor.arguments()[i];
     aligner << ")";
     return aligner;
 }

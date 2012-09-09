@@ -260,6 +260,11 @@ SimpleTypeSPtr CppFormatter::cppInnerEnumType(const EnumerationSPtr& pEnumeratio
     return CreateSimpleType(nmspace, enumName(pEnumeration->name()->value()));    
 }
 
+ConstructorNameSPtr CppFormatter::cppConstructorName(const EnumerationSPtr& pEnumeration)
+{
+    return constructorNameRef(enumName(pEnumeration->name()->value()));
+}
+
 NamespaceSPtr CppFormatter::cppEnumNamespace(const EnumerationSPtr& pEnumeration)
 {
     NamespaceSPtr nmspace;
@@ -289,6 +294,11 @@ NamespaceSPtr CppFormatter::cppClassNamespace(const TypeSPtr& pType)
     return nmspace;
 }
 
+ConstructorNameSPtr CppFormatter::cppConstructorName(const TypeSPtr& pType)
+{
+    return constructorNameRef(cppClassName(pType->name()->value()));
+}
+
 DestructorNameSPtr CppFormatter::cppDestructorName(const TypeSPtr& pType)
 {
     return destructorNameRef(cppClassName(pType->name()->value()));
@@ -307,6 +317,11 @@ NamespaceSPtr CppFormatter::cppAutoClassNamespace(const StructureSPtr& pStructur
     NamespaceSPtr nmspace = boost::make_shared<Namespace>();
     *nmspace << namespaceNameRef(cppAutoClassType(pStructure)->value());
     return nmspace;
+}
+
+ConstructorNameSPtr CppFormatter::cppAutoConstructorName(const StructureSPtr& pStructure)
+{
+    return constructorNameRef(cppAutoClassType(pStructure)->value());
 }
 
 DestructorNameSPtr CppFormatter::cppAutoDestructorName(const StructureSPtr& pStructure)

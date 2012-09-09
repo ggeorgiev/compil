@@ -46,6 +46,8 @@ lib generator-self-compil :
     
     generator/aligner/object/argument.compil
     generator/aligner/object/constructor_specifier.compil
+    generator/aligner/object/constructor_name.compil
+    generator/aligner/object/constructor.compil
     generator/aligner/object/decorated_type.compil
     generator/aligner/object/destructor_specifier.compil
     generator/aligner/object/destructor_name.compil

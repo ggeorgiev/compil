@@ -1,88 +1,90 @@
-// CompIL - Component Interface Language
-// Copyright 2011 George Georgiev.  All rights reserved.
-// 
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
-//
-//     * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
-// copyright notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
-// written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-// Author: george.georgiev@hotmail.com (George Georgiev)
-//
-
 #include "constructor.h"
-
-
-namespace compil
-{
 
 Constructor::Constructor()
 {
 }
 
-Constructor::Constructor(const SimpleTypeSPtr& type)
-    : mType(type)
+Constructor::~Constructor()
 {
 }
 
-Constructor::Constructor(const EConstructorSpecifier& specifier, const SimpleTypeSPtr& type, const ArgumentSPtr& argument)
-    : mSpecifier(specifier)
-    , mType(type)
+const EConstructorSpecifier& Constructor::specifier() const
 {
-    mvArgument.push_back(argument);
+    return mSpecifier;
 }
 
-Constructor::Constructor(const NamespaceSPtr& namespace_, const SimpleTypeSPtr& type)
-    : mNamespace(namespace_)
-    , mType(type)
+Constructor& Constructor::set_specifier(const EConstructorSpecifier& specifier)
 {
+    mSpecifier = specifier;
+    return *this;
 }
 
-Constructor::Constructor(const SimpleTypeSPtr& type, const ArgumentSPtr& argument)
-    : mType(type)
+EConstructorSpecifier& Constructor::mutable_specifier()
 {
-    mvArgument.push_back(argument);
+    return mSpecifier;
 }
 
-Constructor::Constructor(const NamespaceSPtr& namespace_, const SimpleTypeSPtr& type, const ArgumentSPtr& argument)
-    : mNamespace(namespace_)
-    , mType(type)
+Constructor& Constructor::operator<<(const EConstructorSpecifier& specifier)
 {
-    mvArgument.push_back(argument);
+    return set_specifier(specifier);
 }
 
-Constructor::Constructor(const EConstructorSpecifier& specifier, const NamespaceSPtr& namespace_, 
-                         const SimpleTypeSPtr& type, const ArgumentSPtr& argument)
-    : mSpecifier(specifier)
-    , mNamespace(namespace_)
-    , mType(type)
+const NamespaceSPtr& Constructor::namespace_() const
 {
-    mvArgument.push_back(argument);
+    return mNamespace;
 }
 
-Constructor::operator bool() const
+Constructor& Constructor::set_namespace(const NamespaceSPtr& namespace_)
 {
-    return (mNamespace && !mNamespace->isVoid()) || !mType->isVoid();
+    mNamespace = namespace_;
+    return *this;
 }
 
+Constructor& Constructor::operator<<(const NamespaceSPtr& namespace_)
+{
+    return set_namespace(namespace_);
 }
+
+const ConstructorNameSPtr& Constructor::name() const
+{
+    return mName;
+}
+
+Constructor& Constructor::set_name(const ConstructorNameSPtr& name)
+{
+    mName = name;
+    return *this;
+}
+
+Constructor& Constructor::operator<<(const ConstructorNameSPtr& name)
+{
+    return set_name(name);
+}
+
+const std::vector<ArgumentSPtr>& Constructor::arguments() const
+{
+    return mArguments;
+}
+
+Constructor& Constructor::set_arguments(const std::vector<ArgumentSPtr>& arguments)
+{
+    mArguments = arguments;
+    return *this;
+}
+
+std::vector<ArgumentSPtr>& Constructor::mutable_arguments()
+{
+    return mArguments;
+}
+
+Constructor& Constructor::operator<<(const std::vector<ArgumentSPtr>& arguments)
+{
+    return set_arguments(arguments);
+}
+
+Constructor& Constructor::operator<<(const ArgumentSPtr& argumentsItem)
+{
+    mArguments.push_back(argumentsItem);
+    return *this;
+}
+

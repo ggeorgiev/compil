@@ -386,22 +386,20 @@ TableAligner& operator<<(TableAligner& aligner, const EConstructorSpecifier& con
 
 TableAligner& operator<<(TableAligner& aligner, const Constructor& constructor)
 {
-    assert(constructor);
-    
-    aligner << constructor.mSpecifier;
+    aligner << constructor.specifier();
         
     aligner << TableAligner::col();
     aligner << TableAligner::col();
     if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
         aligner << TableAligner::col();
-    aligner << constructor.mType;
+    aligner << constructor.name()->value();
     aligner << Aligner::FunctionSpace();
     aligner << "("
             << TableAligner::col();
-    if (constructor.mvArgument.size() > 0)
-        aligner << constructor.mvArgument[0];
-    for (size_t i = 1; i < constructor.mvArgument.size(); ++i)
-        aligner << ", " << constructor.mvArgument[i];
+    if (constructor.arguments().size() > 0)
+        aligner << constructor.arguments()[0];
+    for (size_t i = 1; i < constructor.arguments().size(); ++i)
+        aligner << ", " << constructor.arguments()[i];
     aligner << ")";
     return aligner;
 }

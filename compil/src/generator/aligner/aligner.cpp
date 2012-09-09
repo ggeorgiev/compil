@@ -35,6 +35,8 @@
 namespace compil
 {
 
+ConstructorNameSPtr builderConstructorName = constructorNameRef("Builder");
+
 DecoratedTypeSPtr bl             = CreateDecoratedType(CreateSimpleType("bool"));
 DecoratedTypeSPtr vd             = CreateDecoratedType(CreateSimpleType("void"));
 DecoratedTypeSPtr st             = CreateDecoratedType(CreateSimpleType("size_t"));

@@ -38,6 +38,7 @@
 #include "c++_keyword.h"
 
 #include "alter.h"
+#include "constructor_name.h"
 #include "destructor_name.h"
 #include "field.h"
 #include "enumeration.h"
@@ -101,15 +102,18 @@ public:
 
     virtual SimpleTypeSPtr cppEnumType(const EnumerationSPtr& pEnumeration);
     virtual SimpleTypeSPtr cppInnerEnumType(const EnumerationSPtr& pEnumeration,
-                                        const StructureSPtr& pStructure);
+                                            const StructureSPtr& pStructure);
+    virtual ConstructorNameSPtr cppConstructorName(const EnumerationSPtr& pEnumeration);
     virtual NamespaceSPtr cppEnumNamespace(const EnumerationSPtr& pEnumeration);
     
     virtual SimpleTypeSPtr cppClassType(const TypeSPtr& pType);
     virtual NamespaceSPtr cppClassNamespace(const TypeSPtr& pType);
+    virtual ConstructorNameSPtr cppConstructorName(const TypeSPtr& pType);
     virtual DestructorNameSPtr cppDestructorName(const TypeSPtr& pType);
     
     virtual SimpleTypeSPtr cppAutoClassType(const StructureSPtr& pStructure);
     virtual NamespaceSPtr cppAutoClassNamespace(const StructureSPtr& pStructure);
+    virtual ConstructorNameSPtr cppAutoConstructorName(const StructureSPtr& pStructure);
     virtual DestructorNameSPtr cppAutoDestructorName(const StructureSPtr& pStructure);
     
     virtual SimpleTypeSPtr cppMainClassType(const StructureSPtr& pStructure);

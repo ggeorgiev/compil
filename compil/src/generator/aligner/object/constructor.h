@@ -4,17 +4,17 @@
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-//
-//     * Redistributions of source code must retain the above copyright
+// 
+// * Redistributions of source code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
+// * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+// * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
-//
+// 
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,41 +28,84 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Author: george.georgiev@hotmail.com (George Georgiev)
-//
+// 
 
-
-#ifndef _ALIGNER_CONSTRUCTOR_H__
-#define _ALIGNER_CONSTRUCTOR_H__
-
-#include "simple_type.h"
-#include "argument.h"
-#include "constructor_specifier.h"
-#include "namespace.h"
-
+// Boost C++ Smart Pointers
+#include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
+// Standard Template Library
 #include <vector>
 
-namespace compil
-{
+#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_COMPIL_H_
+
+#include "argument.h"
+#include "constructor.h"
+#include "constructor_name.h"
+#include "constructor_specifier.h"
+#include "namespace.h"
 
 class Constructor
 {
 public:
-    Constructor();
-    explicit Constructor(const SimpleTypeSPtr& type);
-    Constructor(const NamespaceSPtr& namespace_, const SimpleTypeSPtr& type);
-    Constructor(const SimpleTypeSPtr& type, const ArgumentSPtr& argument);
-    Constructor(const EConstructorSpecifier& specifier, const SimpleTypeSPtr& type, const ArgumentSPtr& argument);
-    Constructor(const NamespaceSPtr& namespace_, const SimpleTypeSPtr& type, const ArgumentSPtr& argument);
-    Constructor(const EConstructorSpecifier& specifier, const NamespaceSPtr& namespace_, 
-                const SimpleTypeSPtr& type, const ArgumentSPtr& argument);
+    // Default constructor
+                                             Constructor      ();
+    // Destructor
+    /*lax*/                                  ~Constructor     ();
 
-    operator bool() const;
+    // Getter method for the data field specifier
+            const EConstructorSpecifier&     specifier        ()                                const;
+    // Setter method for the data field specifier
+            Constructor&                     set_specifier    (const EConstructorSpecifier&     specifier);
+    // Provides mutable access to field specifier
+            EConstructorSpecifier&           mutable_specifier();
+    // Store operator for the data field specifier
+            Constructor&                     operator<<       (const EConstructorSpecifier&     specifier);
 
-    EConstructorSpecifier mSpecifier;
-    NamespaceSPtr mNamespace;
-    SimpleTypeSPtr mType;
-    std::vector<ArgumentSPtr> mvArgument;
+    // Getter method for the data field namespace
+            const NamespaceSPtr&             namespace_       ()                                const;
+    // Setter method for the data field namespace
+            Constructor&                     set_namespace    (const NamespaceSPtr&             namespace_);
+    // Store operator for the data field namespace
+            Constructor&                     operator<<       (const NamespaceSPtr&             namespace_);
+
+    // Getter method for the data field name
+            const ConstructorNameSPtr&       name             ()                                const;
+    // Setter method for the data field name
+            Constructor&                     set_name         (const ConstructorNameSPtr&       name);
+    // Store operator for the data field name
+            Constructor&                     operator<<       (const ConstructorNameSPtr&       name);
+
+    // Getter method for the data field arguments
+            const std::vector<ArgumentSPtr>& arguments        ()                                const;
+    // Setter method for the data field arguments
+            Constructor&                     set_arguments    (const std::vector<ArgumentSPtr>& arguments);
+    // Provides mutable access to field arguments
+            std::vector<ArgumentSPtr>&       mutable_arguments();
+    // Store operator for the data field arguments
+            Constructor&                     operator<<       (const std::vector<ArgumentSPtr>& arguments);
+    // Store operator for an item of data field arguments
+            Constructor&                     operator<<       (const ArgumentSPtr&              argumentsItem);
+
+private:
+    // variable for the data field specifier
+    EConstructorSpecifier     mSpecifier;
+    // variable for the data field namespace
+    NamespaceSPtr             mNamespace;
+    // variable for the data field name
+    ConstructorNameSPtr       mName;
+    // variable for the data field arguments
+    std::vector<ArgumentSPtr> mArguments;
 };
 
-}
-#endif
+#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_COMPIL_H_
+
+// Forward declarations
+class Constructor;
+typedef Constructor*                         ConstructorRPtr;
+typedef boost::shared_ptr<Constructor>       ConstructorSPtr;
+typedef boost::shared_ptr<const Constructor> ConstructorSCPtr;
+typedef boost::weak_ptr<Constructor>         ConstructorWPtr;
+
+#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_COMPIL_H_
+
