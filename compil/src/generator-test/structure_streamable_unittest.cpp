@@ -46,6 +46,13 @@ TEST(StructureOperatorTest, init)
                << Structure1::EStrong(1)
                << EEnum(1)
                << EEnum(2);
+               
+    Structure1SPtr refStructure1;
+    refStructure1 << 1
+                  << Structure1::EWeak(1) 
+                  << Structure1::EStrong(1)
+                  << EEnum(1)
+                  << EEnum(2);
 }
 
 TEST(StructureOperatorTest, immutableInit)

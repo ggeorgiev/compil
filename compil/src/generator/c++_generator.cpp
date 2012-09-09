@@ -1041,6 +1041,38 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
             closeBlock(definitionStream);
             eol(definitionStream);
             
+            DecoratedTypeSPtr reference = CreateDecoratedType(impl->cppPtrType(pStructure),
+                                                              ETypeDecoration::reference());
+            if (!pStructure->immutable())
+            {
+                fdef()  << TableAligner::row()
+                        << Function(reference,
+                                    fnOperatorStore,
+                                    CreateArgument(reference, "object"),
+                                    CreateArgument(impl->cppSetDecoratedType(pField->type()),
+                                                   frm->cppVariableName(pField)));
+                openBlock(definitionStream);
+                
+                line()  << "if (!object)";
+                eol(definitionStream);
+
+                line()  << "object.reset(new "
+                        << frm->cppMainClassType(pStructure)
+                        << "());";
+                eol(definitionStream, 1);
+
+                line()  << "*object << "
+                        << frm->cppVariableName(pField)
+                        << ";";
+                eol(definitionStream);
+                                
+                line()  << "return object;";
+                eol(definitionStream);
+
+                closeBlock(definitionStream);
+                eol(definitionStream);
+            }
+            
             UnaryContainerSPtr pUnaryContainer = ObjectFactory::downcastUnaryContainer(pField->type());
             if (pUnaryContainer)
             {
@@ -1048,8 +1080,8 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                         << Function(resultType,
                                     namesp, fnOperatorStore,
                                     CreateArgument(impl->cppInnerSetDecoratedType(
-                                                       pUnaryContainer->parameterType().lock(),pStructure),
-                                    frm->cppVariableName(pField) + "Item"));
+                                                       pUnaryContainer->parameterType().lock(), pStructure),
+                                                   frm->cppVariableName(pField) + "Item"));
                 openBlock(definitionStream);
 
                 if (pStructure->controlled())
@@ -1083,6 +1115,37 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
 
                 closeBlock(definitionStream);
                 eol(definitionStream);
+                
+                if (!pStructure->immutable())
+                {
+                    fdef()  << TableAligner::row()
+                            << Function(reference,
+                                        fnOperatorStore,
+                                        CreateArgument(reference, "object"),
+                                        CreateArgument(impl->cppInnerSetDecoratedType(
+                                                           pUnaryContainer->parameterType().lock(), pStructure),
+                                                       frm->cppVariableName(pField) + "Item"));
+                    openBlock(definitionStream);
+                    
+                    line()  << "if (!object)";
+                    eol(definitionStream);
+
+                    line()  << "object.reset(new "
+                            << frm->cppMainClassType(pStructure)
+                            << "());";
+                    eol(definitionStream, 1);
+
+                    line()  << "*object << "
+                            << frm->cppVariableName(pField) << "Item"
+                            << ";";
+                    eol(definitionStream);
+                                    
+                    line()  << "return object;";
+                    eol(definitionStream);
+
+                    closeBlock(definitionStream);
+                    eol(definitionStream);
+                }
             }
         }
     }

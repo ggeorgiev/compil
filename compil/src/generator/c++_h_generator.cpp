@@ -268,6 +268,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
             "importing value from components that you do not have control over (such as "
             "3rd party libraries or serialization functionality).");
     }
+    
     table() << TableAligner::row()
             << (Constructor() << specifier
                               << frm->cppConstructorName(pEnumeration)
@@ -1792,9 +1793,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
         generateImmutableBaseStructureBuilderDeclaration(pStructure, pBaseStructure, false);
 
         for (it = objects.begin(); it != objects.end(); ++it)
-        {
             generateStructureObjectMethodsDeclaration(*it, BUILDER_WRITING);
-        }
 
         table() << TableAligner::row()
                 << TableAligner::row_line(-1)
@@ -1974,6 +1973,41 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
 
     closeBlock(declarationStream, "};");
     eol(declarationStream);
+    
+    
+    if (pStructure->streamable() && !pStructure->immutable())
+    {
+        DecoratedTypeSPtr resultType = CreateDecoratedType(impl->cppPtrType(pStructure),
+                                                           ETypeDecoration::reference());
+        std::vector<ObjectSPtr>::const_iterator it;
+        for (it = objects.begin(); it != objects.end(); ++it)
+        {
+            FieldSPtr pField = ObjectFactory::downcastField(*it);
+            if (!pField)
+                continue;
+        
+            commentInTable("Reference store operator for the data field " + pField->name()->value());
+            table() << TableAligner::row()
+                    << Function(resultType, fnOperatorStore,
+                                CreateArgument(resultType),
+                                CreateArgument(impl->cppSetDecoratedType(pField->type())))
+                    << ";";
+                    
+            UnaryContainerSPtr pUnaryContainer = ObjectFactory::downcastUnaryContainer(pField->type());
+            if (pUnaryContainer)
+            {
+                commentInTable("Reference store operator for an item of data field " + pField->name()->value());
+                table() << TableAligner::row()
+                        << Function(resultType, fnOperatorStore,
+                                    CreateArgument(resultType),
+                                    CreateArgument(impl->cppSetDecoratedType(
+                                                       pUnaryContainer->parameterType().lock())))
+                        << ";";
+            }
+        }
+        eot(declarationStream);
+        eol(declarationStream);
+    }
 }
 
 void CppHeaderGenerator::generateObjectDeclaration(const ObjectSPtr& pObject)
