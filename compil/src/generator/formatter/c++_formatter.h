@@ -54,6 +54,7 @@
 #include "cast_operator.h"
 #include "method_name.h"
 #include "variable_name.h"
+#include "parameter.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -138,6 +139,7 @@ public:
     virtual std::string cppMemberName(const FieldSPtr& pField);
     virtual VariableNameSPtr cppVariableName(const FieldSPtr& pField);
     virtual VariableNameSPtr cppItemVariableName(const FieldSPtr& pField);
+    virtual ::ParameterSPtr cppVariableNameAsParameter(const FieldSPtr& pField);
     
     virtual MethodNameSPtr getMethodName(const FieldSPtr& pField);
     virtual MethodNameSPtr setMethodName(const FieldSPtr& pField);

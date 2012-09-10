@@ -415,6 +415,11 @@ VariableNameSPtr CppFormatter::cppItemVariableName(const FieldSPtr& pField)
     return variableNameRef(variableName(pField->name()->value() + "Item"));
 }
 
+::ParameterSPtr CppFormatter::cppVariableNameAsParameter(const FieldSPtr& pField)
+{
+    return parameterRef(variableName(pField->name()->value()));
+}
+
 MethodNameSPtr CppFormatter::getMethodName(const FieldSPtr& pField)
 {
     return methodName(pField->name()->value());

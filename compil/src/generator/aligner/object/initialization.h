@@ -105,7 +105,7 @@ public:
 
     protected:
         // constructor needed from potential derived classes
-                                      Builder        (InitializationRPtr    pObject);
+                                      Builder        (InitializationRPtr    object);
 
         InitializationRPtr mpObject;
     };

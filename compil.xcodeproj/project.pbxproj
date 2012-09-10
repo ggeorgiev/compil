@@ -368,6 +368,9 @@
 		5EB1306515FD6B180080A7BE /* type_declaration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type_declaration.h; sourceTree = "<group>"; };
 		5EB1306615FD6B190080A7BE /* type_decoration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = type_decoration.cpp; sourceTree = "<group>"; };
 		5EB1306715FD6B1A0080A7BE /* type_decoration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type_decoration.h; sourceTree = "<group>"; };
+		5EB1306815FD85DB0080A7BE /* parameter.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = parameter.compil; sourceTree = "<group>"; };
+		5EB1306915FD86400080A7BE /* parameter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = parameter.cpp; sourceTree = "<group>"; };
+		5EB1306A15FD86410080A7BE /* parameter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parameter.h; sourceTree = "<group>"; };
 		5EB29D7215F3E83900894479 /* method_name.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_name.compil; sourceTree = "<group>"; };
 		5EB29D7315F3E9F700894479 /* method_name.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = method_name.cpp; sourceTree = "<group>"; };
 		5EB29D7415F3E9F700894479 /* method_name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = method_name.h; sourceTree = "<group>"; };
@@ -697,6 +700,8 @@
 				5E88A24C15E188BB002D43A5 /* namespace_name.h */,
 				5E88A24915E188BB002D43A5 /* namespace.cpp */,
 				5E88A24A15E188BB002D43A5 /* namespace.h */,
+				5EB1306915FD86400080A7BE /* parameter.cpp */,
+				5EB1306A15FD86410080A7BE /* parameter.h */,
 				5E88A24D15E188BB002D43A5 /* simple_type.cpp */,
 				5E88A24E15E188BB002D43A5 /* simple_type.h */,
 				5EB1306415FD6B170080A7BE /* type_declaration.cpp */,
@@ -829,8 +834,9 @@
 				5EB29D9115F42BAD00894479 /* method_declaration.compil */,
 				5EB29D7215F3E83900894479 /* method_name.compil */,
 				5EB29D8015F40AE400894479 /* method_specifier.compil */,
-				5E88A2A715E188BB002D43A5 /* namespace.compil */,
 				5E88A2AA15E188BB002D43A5 /* namespace_name.compil */,
+				5E88A2A715E188BB002D43A5 /* namespace.compil */,
+				5EB1306815FD85DB0080A7BE /* parameter.compil */,
 				5E88A2AB15E188BB002D43A5 /* simple_type.compil */,
 				5EB29D9215F42BB400894479 /* type_declaration.compil */,
 				5E03543315FB4744007DE619 /* type_decoration.compil */,

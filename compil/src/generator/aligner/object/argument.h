@@ -93,7 +93,7 @@ public:
 
     protected:
         // constructor needed from potential derived classes
-                                Builder   (ArgumentRPtr             pObject);
+                                Builder   (ArgumentRPtr             object);
 
         ArgumentRPtr mpObject;
     };

@@ -30,41 +30,8 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "function_call.h"
+compil { }
 
-namespace compil
+specimen<string> Parameter
 {
-
-FunctionCall::FunctionCall()
-{
-}
-
-FunctionCall::FunctionCall(const FunctionNameSPtr& name)
-    : mName(name)
-{
-}
-
-FunctionCall::FunctionCall(const FunctionNameSPtr& name, const ParameterSPtr& parameter)
-    : mName(name)
-{
-    mvParameter.push_back(parameter);
-}
-
-FunctionCall::FunctionCall(const NamespaceSPtr& namesp, const FunctionNameSPtr& name)
-    : mNamespace(namesp), mName(name)
-{
-}
-
-FunctionCall::FunctionCall(const NamespaceSPtr& namesp, const FunctionNameSPtr& name, const ParameterSPtr& parameter)
-    : mNamespace(namesp), mName(name)
-{
-    mvParameter.push_back(parameter);
-}
-
-FunctionCall& FunctionCall::operator <<(const ParameterSPtr& parameter)
-{
-    mvParameter.push_back(parameter);
-    return *this;
-}
-
 }

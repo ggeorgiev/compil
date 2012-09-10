@@ -216,10 +216,10 @@ LineAligner& operator<<(LineAligner& aligner, const FunctionCall& function)
         aligner << function.mNamespace << "::";
     aligner << function.mName << Aligner::FunctionSpace();
     aligner << "(";
-    if (function.mvArgument.size() > 0)
-        aligner << function.mvArgument[0];
-    for (size_t i = 1; i < function.mvArgument.size(); ++i)
-        aligner << ", " << function.mvArgument[i];
+    if (function.mvParameter.size() > 0)
+        aligner << function.mvParameter[0];
+    for (size_t i = 1; i < function.mvParameter.size(); ++i)
+        aligner << ", " << function.mvParameter[i];
     aligner << ")";
     return aligner;
 }
@@ -258,6 +258,12 @@ LineAligner& operator<<(LineAligner& aligner, const NamespaceSPtr& namespace_)
             aligner << names[i]->value();
         }
     }
+    return aligner;
+}
+
+LineAligner& operator<<(LineAligner& aligner, const ParameterSPtr& parameter)
+{
+    aligner << parameter->value();
     return aligner;
 }
 

@@ -34,7 +34,7 @@
 #ifndef _ALIGNER_FUNCTION_CALL_H__
 #define _ALIGNER_FUNCTION_CALL_H__
 
-#include "argument.h"
+#include "parameter.h"
 #include "namespace.h"
 
 #include "function_name.h"
@@ -50,15 +50,15 @@ public:
     FunctionCall();
     
     explicit FunctionCall(const FunctionNameSPtr& name);
-    FunctionCall(const FunctionNameSPtr& name, const Argument& argument);
+    FunctionCall(const FunctionNameSPtr& name, const ParameterSPtr& parameter);
     FunctionCall(const NamespaceSPtr& namesp, const FunctionNameSPtr& name);
-    FunctionCall(const NamespaceSPtr& namesp, const FunctionNameSPtr& name, const Argument& argument);
+    FunctionCall(const NamespaceSPtr& namesp, const FunctionNameSPtr& name, const ParameterSPtr& parameter);
     
-    FunctionCall& operator <<(const Argument& argument);
+    FunctionCall& operator <<(const ParameterSPtr& parameter);
 
     NamespaceSPtr mNamespace;
     FunctionNameSPtr mName;
-    std::vector<Argument> mvArgument;
+    std::vector<ParameterSPtr> mvParameter;
 };
 
 }

@@ -244,7 +244,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
                         fnShortName, EMethodDeclaration::const_());
     openBlock(definitionStream);
     line()  << "return "
-            << FunctionCall(fnShortName, *CreateArgument(variableNameRef("value()")))
+            << FunctionCall(fnShortName, parameterRef("value()"))
             << ";";
     eol(definitionStream);
     closeBlock(definitionStream);
@@ -690,7 +690,7 @@ void CppGenerator::generateObjectFactoryDefinition(const FactorySPtr& pFactory)
                 if (!pFilter)
                 {
                     line()  << "builder."
-                            << FunctionCall(frm->setMethodName(*it), *CreateArgument(frm->cppVariableName(*it)))
+                            << FunctionCall(frm->setMethodName(*it), frm->cppVariableNameAsParameter(*it))
                             << ";";
                 }
                 else
@@ -700,7 +700,7 @@ void CppGenerator::generateObjectFactoryDefinition(const FactorySPtr& pFactory)
                             << "("
                             << FunctionCall(frm->cppMainClassNamespace(pParameterStructure),
                                             functionNameRef(pFilter->method()),
-                                            *CreateArgument(frm->cppVariableName(*it)))
+                                            frm->cppVariableNameAsParameter(*it))
                             << ");";
                 }
                 eol(definitionStream);
@@ -1004,7 +1004,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                                            << ETypeDecoration::reference())
                     << ")"
                     << FunctionCall(belongClassBuilderNamesp,
-                                    frm->setMethodName(pField), *CreateArgument(frm->cppVariableName(pField)))
+                                    frm->setMethodName(pField), frm->cppVariableNameAsParameter(pField))
                     << ";";
             eol(definitionStream);
         }
@@ -1221,7 +1221,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                             << ")"
                             << FunctionCall(belongClassBuilderNamesp,
                                             frm->updateMethodName(pField),
-                                            *CreateArgument(frm->cppVariableName(pField)))
+                                            frm->cppVariableNameAsParameter(pField))
                             << ";";
                     eol(definitionStream);
                 }
@@ -2313,7 +2313,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                 table() << TableAligner::row()
                         << ": "
                         << FunctionCall(frm->cppAutoClassNamespace(pBaseStructure), fnBuilder,
-                                        *CreateArgument(variableNameRef(newObject)));
+                                        ::parameterRef(newObject));
             }
             else
             {
@@ -2349,7 +2349,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                         << ": "
                         << FunctionCall(frm->cppAutoClassNamespace(pBaseStructure),
                                         fnBuilder,
-                                        *CreateArgument(variableNameRef(newObject)));
+                                        ::parameterRef(newObject));
             }
             else
             {
@@ -2394,9 +2394,9 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                             << ": "
                             << FunctionCall(frm->cppAutoClassNamespace(pBaseStructure),
                                             fnBuilder,
-                                            *CreateArgument(variableNameRef("new " +
-                                                                            frm->cppMainClassType(pStructure)->value() +
-                                                                            "()")));
+                                            ::parameterRef("new " +
+                                                           frm->cppMainClassType(pStructure)->value() +
+                                                           "()"));
                 }
                 else
                 {
@@ -2431,7 +2431,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             table() << TableAligner::row()
                     << ": "
                     << FunctionCall(frm->cppAutoClassNamespace(pBaseStructure), fnBuilder,
-                                    *CreateArgument(frm->variablePtrName(object)));
+                                    ::parameterRef(frm->variablePtrName(object)->value()));
         }
         else
         {

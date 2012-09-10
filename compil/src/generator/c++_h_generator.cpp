@@ -1814,7 +1814,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
         table() << TableAligner::row()
                 << (Constructor() << builderConstructorName
                                   << CreateArgument(frm->cppRawPtrDecoratedType(pStructure),
-                                                    object))
+                                                    frm->variablePtrName(object)))
                 << ";";
         eot(declarationStream);
 

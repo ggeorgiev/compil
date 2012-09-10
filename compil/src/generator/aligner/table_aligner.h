@@ -115,6 +115,7 @@ TableAligner& operator<<(TableAligner& aligner, const Constructor&);
 TableAligner& operator<<(TableAligner& aligner, const EDestructorSpecifier&);
 TableAligner& operator<<(TableAligner& aligner, const Destructor&);
 TableAligner& operator<<(TableAligner& aligner, const NamespaceSPtr&);
+TableAligner& operator<<(TableAligner& aligner, const ParameterSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const EMethodDeclaration&);
 TableAligner& operator<<(TableAligner& aligner, const EMethodSpecifier&);
 TableAligner& operator<<(TableAligner& aligner, const FunctionCall&);

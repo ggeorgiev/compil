@@ -31,6 +31,7 @@ lib gen :
     aligner/object/method_specifier.cpp
     aligner/object/namespace_name.cpp
     aligner/object/namespace.cpp
+    aligner/object/parameter.cpp
     aligner/object/simple_type.cpp
     aligner/object/type_declaration.cpp
     aligner/object/type_decoration.cpp

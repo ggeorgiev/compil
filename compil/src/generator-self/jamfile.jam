@@ -59,6 +59,7 @@ lib generator-self-compil :
     generator/aligner/object/method_specifier.compil
     generator/aligner/object/namespace_name.compil
     generator/aligner/object/namespace.compil
+    generator/aligner/object/parameter.compil
     generator/aligner/object/simple_type.compil
     generator/aligner/object/type_declaration.compil
     generator/aligner/object/type_decoration.compil
