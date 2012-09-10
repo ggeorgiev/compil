@@ -123,6 +123,8 @@ TableAligner& operator<<(TableAligner& aligner, const SimpleType&);
 TableAligner& operator<<(TableAligner& aligner, const SimpleTypeSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const ETypeDeclaration&);
 TableAligner& operator<<(TableAligner& aligner, const ETypeDecoration&);
+TableAligner& operator<<(TableAligner& aligner, const VariableNameSPtr&);
+
 TableAligner& operator<<(TableAligner& aligner, const TableAligner::col&);
 TableAligner& operator<<(TableAligner& aligner, const TableAligner::row&);
 TableAligner& operator<<(TableAligner& aligner, const TableAligner::row_line&);

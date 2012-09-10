@@ -53,6 +53,7 @@
 #include "namespace.h"
 #include "cast_operator.h"
 #include "method_name.h"
+#include "variable_name.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -98,6 +99,8 @@ public:
     
     virtual std::string globalVariable(const std::string& variable);
     
+    virtual VariableNameSPtr variablePtrName(const VariableNameSPtr& name);
+    
     virtual NamespaceSPtr cppPackageNamespace(const PackageSPtr& pPackage);
 
     virtual SimpleTypeSPtr cppEnumType(const EnumerationSPtr& pEnumeration);
@@ -133,7 +136,8 @@ public:
     virtual DecoratedTypeSPtr cppSharedPtrDecoratedType(const TypeSPtr& pType);
         
     virtual std::string cppMemberName(const FieldSPtr& pField);
-    virtual std::string cppVariableName(const FieldSPtr& pField);
+    virtual VariableNameSPtr cppVariableName(const FieldSPtr& pField);
+    virtual VariableNameSPtr cppItemVariableName(const FieldSPtr& pField);
     
     virtual MethodNameSPtr getMethodName(const FieldSPtr& pField);
     virtual MethodNameSPtr setMethodName(const FieldSPtr& pField);

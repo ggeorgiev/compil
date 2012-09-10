@@ -202,6 +202,11 @@ std::string CppFormatter::globalVariable(const std::string& variable)
     return result;
 }
 
+VariableNameSPtr CppFormatter::variablePtrName(const VariableNameSPtr& name)
+{
+    return variableNameRef(variablePtrName(name->value()));
+}
+
 NamespaceSPtr CppFormatter::cppPackageNamespace(const PackageSPtr& pPackage)
 {
     NamespaceSPtr nmspace = boost::make_shared<Namespace>();
@@ -400,9 +405,14 @@ std::string CppFormatter::cppMemberName(const FieldSPtr& pField)
     return memberName(pField->name()->value());
 }
 
-std::string CppFormatter::cppVariableName(const FieldSPtr& pField)
+VariableNameSPtr CppFormatter::cppVariableName(const FieldSPtr& pField)
 {
-    return variableName(pField->name()->value());
+    return variableNameRef(variableName(pField->name()->value()));
+}
+
+VariableNameSPtr CppFormatter::cppItemVariableName(const FieldSPtr& pField)
+{
+    return variableNameRef(variableName(pField->name()->value() + "Item"));
 }
 
 MethodNameSPtr CppFormatter::getMethodName(const FieldSPtr& pField)

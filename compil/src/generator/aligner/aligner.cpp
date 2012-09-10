@@ -107,6 +107,16 @@ NamespaceNameSPtr nsBuilder = namespaceNameRef("Builder");
 SimpleTypeSPtr builder = simpleTypeRef() << "Builder";
 SimpleTypeSPtr chr     = simpleTypeRef() << "char";
 
+VariableNameSPtr child = variableNameRef("child");
+VariableNameSPtr function = variableNameRef("function");
+VariableNameSPtr mask = variableNameRef("mask");
+VariableNameSPtr object = variableNameRef("object");
+VariableNameSPtr object1 = variableNameRef("object1");
+VariableNameSPtr object2 = variableNameRef("object2");
+VariableNameSPtr parent = variableNameRef("parent");
+VariableNameSPtr rValue = variableNameRef("rValue");
+VariableNameSPtr value = variableNameRef("value");
+
 
 Aligner::Aligner(const AlignerConfigurationPtr& pConfiguration)
         : mpConfiguration(pConfiguration)

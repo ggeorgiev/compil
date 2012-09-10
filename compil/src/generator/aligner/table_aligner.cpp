@@ -533,6 +533,12 @@ TableAligner& operator<<(TableAligner& aligner, const ETypeDecoration& decoratio
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const VariableNameSPtr& name)
+{
+    aligner << name->value();
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, char ch)
 {
 	aligner.ceil() << ch;

@@ -32,17 +32,6 @@
 
 compil { }
 
-import "decorated_type.compil";
-import "variable_name.compil";
-
-controlled immutable 
-structure Argument
-{
-    reference<DecoratedType> type = optional;
-    reference<VariableName> name = optional;
-}
-
-function object
-factory<Argument> CreateArgument
+specimen<string> VariableName
 {
 }

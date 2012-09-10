@@ -33,14 +33,13 @@
 // Boost C++ Smart Pointers
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
-// Standard Template Library
-#include <string>
 
 #ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_ARGUMENT_COMPIL_H_
 #define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_ARGUMENT_COMPIL_H_
 
 #include "argument.h"
 #include "decorated_type.h"
+#include "variable_name.h"
 
 // Argument is an immutable class - once instantiated none of the data
 // fields can be changed. For the initial initialization and instantiation
@@ -56,47 +55,45 @@ public:
     class Builder
     {
         // hide evil auto created assignment operator, no implementation
-                void            operator=   (const Builder&           );
+                void            operator= (const Builder&           );
     public:
         // Default constructor. All fields without default values are left
         // uninitialized. Make sure you initialize all the necessary fields
         // before instantiating
-                                Builder     ();
+                                Builder   ();
         // Use this constructor when you need to clone or create an object
         // just slightly different from another object
-                                Builder     (const Argument&          object);
+                                Builder   (const Argument&          object);
         // Destructor of Builder
-        /*lax*/                 ~Builder    ();
+        /*lax*/                 ~Builder  ();
 
         // Instantiates Argument instance with the current initialization
         // of the fields. After the instance is ready the builder could be
         // reused to instantiate more objects. The data is not reset.
         // Second call of build() will instantiate object with the same
         // data.
-                const Argument& build       ()                        const;
+                const Argument& build     ()                        const;
 
         // Provides the internal instantiated builder object and
         // invalidates the builder status. Once finalize() is called, the
         // builder can not be used again. Use finalize() when you no longer
         // are going to use this builder.
-                ArgumentSPtr    finalize    ();
+                ArgumentSPtr    finalize  ();
 
 
         // Setter method for the data field type
-                Builder&        set_type    (const DecoratedTypeSPtr& type);
+                Builder&        set_type  (const DecoratedTypeSPtr& type);
         // Clears the optional data field type
-                void            clear_type  ();
+                void            clear_type();
 
         // Setter method for the data field name
-                Builder&        set_name    (const std::string&       name);
-        // Provides mutable access to field name
-                std::string&    mutable_name();
+                Builder&        set_name  (const VariableNameSPtr&  name);
         // Clears the optional data field name
-                void            clear_name  ();
+                void            clear_name();
 
     protected:
         // constructor needed from potential derived classes
-                                Builder     (ArgumentRPtr             pObject);
+                                Builder   (ArgumentRPtr             pObject);
 
         ArgumentRPtr mpObject;
     };
@@ -120,7 +117,7 @@ public:
             bool                     exist_type   () const;
 
     // Getter method for the data field name
-            const std::string&       name         () const;
+            const VariableNameSPtr&  name         () const;
     // Checks if the optional field name exists
             bool                     exist_name   () const;
 
@@ -136,12 +133,12 @@ private:
     // variable for the data field type
     DecoratedTypeSPtr mType;
     // variable for the data field name
-    std::string       mName;
+    VariableNameSPtr  mName;
 };
 
 ArgumentSPtr CreateArgument(const DecoratedTypeSPtr& type);
-ArgumentSPtr CreateArgument(const std::string&       name);
-ArgumentSPtr CreateArgument(const DecoratedTypeSPtr& type, const std::string& name);
+ArgumentSPtr CreateArgument(const VariableNameSPtr&  name);
+ArgumentSPtr CreateArgument(const DecoratedTypeSPtr& type, const VariableNameSPtr& name);
 
 #else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_ARGUMENT_COMPIL_H_
 

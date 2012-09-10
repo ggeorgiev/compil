@@ -274,7 +274,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
     table() << TableAligner::row()
             << (Constructor() << specifier
                               << frm->cppConstructorName(pEnumeration)
-                              << CreateArgument(impl->cppDecoratedType(pParameterType), "value"))
+                              << CreateArgument(impl->cppDecoratedType(pParameterType), value))
             << ";";
 
     table() << TableAligner::row();
@@ -295,7 +295,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
     commentInTable("Returns short name for a specified enum value");
     table() << TableAligner::row()
             << Function(EMethodSpecifier::static_(), const_char_ptr, fnShortName,
-                        CreateArgument(impl->cppDecoratedType(pParameterType), "value"))
+                        CreateArgument(impl->cppDecoratedType(pParameterType), value))
             << ";";
 
     commentInTable("Returns short name of the enum value");
@@ -308,13 +308,13 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
         commentInTable("returns true if the value of the enum is equal to the value of the argument");
         table() << TableAligner::row()
                 << Function(bl, fnOperatorEq,
-                            CreateArgument(innerDecoratedType, "rValue"), EMethodDeclaration::const_())
+                            CreateArgument(innerDecoratedType, rValue), EMethodDeclaration::const_())
                 << ";";
 
         commentInTable("returns true if the value of the enum is not equal to the value of the argument");
         table() << TableAligner::row()
                 << Function(bl, fnOperatorNe,
-                            CreateArgument(innerDecoratedType, "rValue"), EMethodDeclaration::const_())
+                            CreateArgument(innerDecoratedType, rValue), EMethodDeclaration::const_())
                 << ";";
     }
     else if (pEnumeration->cast() == CastableType::ECast::weak())
@@ -330,26 +330,26 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
         commentInTable("Resets the flags included in the mask to the state in value");
         table() << TableAligner::row()
                 << Function(vd, fnReset,
-                            CreateArgument(innerDecoratedType, "mask"),
-                            CreateArgument(innerDecoratedType, "value"))
+                            CreateArgument(innerDecoratedType, mask),
+                            CreateArgument(innerDecoratedType, value))
                 << ";";
 
         commentInTable("Sets the flags included in the mask. Equivalent to reset(mask, all).");
         table() << TableAligner::row()
                 << Function(vd, fnSet,
-                            CreateArgument(innerDecoratedType, "mask"))
+                            CreateArgument(innerDecoratedType, mask))
                 << ";";
 
         commentInTable("Clears the flags included in the mask. Equivalent to reset(mask, nil).");
         table() << TableAligner::row()
                 << Function(vd, fnClear,
-                            CreateArgument(innerDecoratedType, "mask"))
+                            CreateArgument(innerDecoratedType, mask))
                 << ";";
 
         commentInTable("Turns the flags included in the mask.");
         table() << TableAligner::row()
                 << Function(vd, fnTurn,
-                            CreateArgument(innerDecoratedType, "mask"))
+                            CreateArgument(innerDecoratedType, mask))
                 << ";";
 
 
@@ -357,48 +357,48 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
                        "the state in value. This is immutable version of reset.");
         table() << TableAligner::row()
                 << Function(innerType, fnAssemble,
-                            CreateArgument(innerDecoratedType, "mask"),
-                            CreateArgument(innerDecoratedType, "value"), EMethodDeclaration::const_())
+                            CreateArgument(innerDecoratedType, mask),
+                            CreateArgument(innerDecoratedType, value), EMethodDeclaration::const_())
                 << ";";
 
         commentInTable("Returns combination of the flags included in the mask. "
                        "This is immutable version of set.");
         table() << TableAligner::row()
                 << Function(innerType, fnCombine,
-                            CreateArgument(innerDecoratedType, "mask"), EMethodDeclaration::const_())
+                            CreateArgument(innerDecoratedType, mask), EMethodDeclaration::const_())
                 << ";";
 
         commentInTable("Returns intersection of the flags included in the mask. "
                        "This is immutable version of clear.");
         table() << TableAligner::row()
                 << Function(innerType, fnIntersect,
-                            CreateArgument(innerDecoratedType, "mask"), EMethodDeclaration::const_())
+                            CreateArgument(innerDecoratedType, mask), EMethodDeclaration::const_())
                 << ";";
 
         commentInTable("Returns flipped the flags included in the mask. "
                        "This is immutable version of turn.");
         table() << TableAligner::row()
                 << Function(innerType, fnFlip,
-                            CreateArgument(innerDecoratedType, "mask"), EMethodDeclaration::const_())
+                            CreateArgument(innerDecoratedType, mask), EMethodDeclaration::const_())
                 << ";";
 
         commentInTable("Tests if the flags included in the mask are the same state as state in value");
         table() << TableAligner::row()
                 << Function(bl, fnTest,
-                            CreateArgument(innerDecoratedType, "mask"),
-                            CreateArgument(innerDecoratedType, "value"), EMethodDeclaration::const_())
+                            CreateArgument(innerDecoratedType, mask),
+                            CreateArgument(innerDecoratedType, value), EMethodDeclaration::const_())
                 << ";";
 
         commentInTable("Tests if the flags included in the mask are set. Equivalent to test(mask, all).");
         table() << TableAligner::row()
                 << Function(bl, fnIsSet,
-                            CreateArgument(innerDecoratedType, "mask"), EMethodDeclaration::const_())
+                            CreateArgument(innerDecoratedType, mask), EMethodDeclaration::const_())
                 << ";";
 
         commentInTable("Tests if the flags included in the mask are clear. Equivalent to test(mask, nil).");
         table() << TableAligner::row()
                 << Function(bl, fnIsClear,
-                            CreateArgument(innerDecoratedType, "mask"), EMethodDeclaration::const_())
+                            CreateArgument(innerDecoratedType, mask), EMethodDeclaration::const_())
                 << ";";
     }
 
@@ -487,7 +487,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     table() << TableAligner::row();
     table() << (Constructor() << EConstructorSpecifier::explicit_()
                               << frm->cppConstructorName(pSpecimen)
-                              << CreateArgument(impl->cppDecoratedType(pParameterType), "value"))
+                              << CreateArgument(impl->cppDecoratedType(pParameterType), value))
             << ";";
 
     table() << TableAligner::row();
@@ -504,19 +504,19 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     table() << TableAligner::row()
             << "inline "
             << Function(bl, fnOperatorEq,
-                        CreateArgument(impl->cppDecoratedType(pSpecimen), "rValue"), EMethodDeclaration::const_())
+                        CreateArgument(impl->cppDecoratedType(pSpecimen), rValue), EMethodDeclaration::const_())
             << ";";
 
     table() << TableAligner::row()
             << "inline "
             << Function(bl, fnOperatorNe,
-                        CreateArgument(impl->cppDecoratedType(pSpecimen), "rValue"), EMethodDeclaration::const_())
+                        CreateArgument(impl->cppDecoratedType(pSpecimen), rValue), EMethodDeclaration::const_())
             << ";";
 
     table() << TableAligner::row()
             << "inline "
             << Function(bl, fnOperatorLt,
-                        CreateArgument(impl->cppDecoratedType(pSpecimen), "rValue"), EMethodDeclaration::const_())
+                        CreateArgument(impl->cppDecoratedType(pSpecimen), rValue), EMethodDeclaration::const_())
             << ";";
 
     eot(declarationStream);
@@ -536,7 +536,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
             << "inline "
             << Function((decoratedTypeRef() << frm->cppSharedPtrName(pSpecimen)),
                         frm->methodName(frm->cppRefName(pSpecimen->name()->value())),
-                        CreateArgument(impl->cppDecoratedType(pParameterType), "value"));
+                        CreateArgument(impl->cppDecoratedType(pParameterType), value));
     openBlock(inlineDefinitionStream);
     line()  << "return boost::make_shared<"
             << frm->cppClassType(pSpecimen)
@@ -561,7 +561,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     fdef()  << TableAligner::row()
             << "inline "
             << Function(bl, frm->cppClassNamespace(pSpecimen), fnOperatorEq,
-                        CreateArgument(impl->cppDecoratedType(pSpecimen), "rValue"), EMethodDeclaration::const_());
+                        CreateArgument(impl->cppDecoratedType(pSpecimen), rValue), EMethodDeclaration::const_());
     openBlock(inlineDefinitionStream);
     line()  << "return "
             << fnValue
@@ -574,7 +574,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     fdef()  << TableAligner::row()
             << "inline "
             << Function(bl, frm->cppClassNamespace(pSpecimen), fnOperatorNe,
-                        CreateArgument(impl->cppDecoratedType(pSpecimen), "rValue"), EMethodDeclaration::const_());
+                        CreateArgument(impl->cppDecoratedType(pSpecimen), rValue), EMethodDeclaration::const_());
     openBlock(inlineDefinitionStream);
     line()  << "return "
             << fnValue
@@ -587,7 +587,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     fdef()  << TableAligner::row()
             << "inline "
             << Function(bl, frm->cppClassNamespace(pSpecimen), fnOperatorLt,
-                        CreateArgument(impl->cppDecoratedType(pSpecimen), "rValue"), EMethodDeclaration::const_());
+                        CreateArgument(impl->cppDecoratedType(pSpecimen), rValue), EMethodDeclaration::const_());
     openBlock(inlineDefinitionStream);
     line()  << "return "
             << fnValue
@@ -643,7 +643,7 @@ void CppHeaderGenerator::generateHierarchyFactoryDeclaration(const FactorySPtr& 
         table() << TableAligner::row()
                 << Function(EMethodSpecifier::static_(),
                             (decoratedTypeRef() << impl->cppPtrType(pParameterType)),
-                            fnClone, CreateArgument(impl->cppPtrDecoratedType(pParameterType), "pObject"))
+                            fnClone, CreateArgument(impl->cppPtrDecoratedType(pParameterType), object))
                 << ";";
     }
 
@@ -663,7 +663,7 @@ void CppHeaderGenerator::generateHierarchyFactoryDeclaration(const FactorySPtr& 
                 << Function(EMethodSpecifier::static_(),
                             (decoratedTypeRef() << impl->cppPtrType(pStructure)),
                             frm->downcastMethodName(pStructure),
-                            CreateArgument(impl->cppPtrDecoratedType(pParameterStructure), "pObject"))
+                            CreateArgument(impl->cppPtrDecoratedType(pParameterStructure), object))
                 << ";";
     }
 
@@ -792,8 +792,8 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
         " needs to support");
     table() << TableAligner::row()
             << Function(EMethodSpecifier::static_(), bl, fnRegisterCloneFunction,
-                        CreateArgument(st, "object"),
-                        CreateArgument(cloneFunction, "function"))
+                        CreateArgument(st, object),
+                        CreateArgument(cloneFunction, function))
             << ";";
 
     table() << TableAligner::row();
@@ -803,16 +803,16 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
         "Register relationship method. Use to register relationships between objects.");
     table() << TableAligner::row()
             << Function(EMethodSpecifier::static_(), bl, fnRegisterRelationship,
-                        CreateArgument(st, "parent"),
-                        CreateArgument(st, "child"))
+                        CreateArgument(st, parent),
+                        CreateArgument(st, child))
             << ";";
 
     commentInTable(
         "Returns is the parent/child pair is registered in the factory.");
     table() << TableAligner::row()
             << Function(EMethodSpecifier::static_(), bl, fnIsParent,
-                        CreateArgument(st, "parent"),
-                        CreateArgument(st, "child"))
+                        CreateArgument(st, parent),
+                        CreateArgument(st, child))
             << ";";
 
     table() << TableAligner::row();
@@ -826,7 +826,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
     table() << TableAligner::row_line()
             << "template<class T>";
     table() << TableAligner::row()
-            << Function(EMethodSpecifier::static_(), TPtr, fnClone, CreateArgument(cstTRef, "object"));
+            << Function(EMethodSpecifier::static_(), TPtr, fnClone, CreateArgument(cstTRef, object));
     table() << TableAligner::row_line()
             << "{";
     table() << TableAligner::row_line(1)
@@ -850,7 +850,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
             << "template<class T>";
     table() << TableAligner::row()
             << Function(EMethodSpecifier::static_(), bl, fnIsDerivedFrom,
-                        CreateArgument(impl->cppDecoratedType(pParameterType), "object"));
+                        CreateArgument(impl->cppDecoratedType(pParameterType), object));
     table() << TableAligner::row_line()
             << "{";
     table() << TableAligner::row_line(1)
@@ -876,7 +876,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
             << "template<class T>";
     table() << TableAligner::row()
             << Function(EMethodSpecifier::static_(), bl, fnIsDerivedFrom,
-                        CreateArgument(impl->cppPtrDecoratedType(pParameterType), "object"));
+                        CreateArgument(impl->cppPtrDecoratedType(pParameterType), object));
     table() << TableAligner::row_line()
             << "{";
     table() << TableAligner::row_line(1)
@@ -972,7 +972,7 @@ void CppHeaderGenerator::generateIdentifierDeclaration(const IdentifierSPtr& pId
     table() << TableAligner::row()
             << (Constructor() << specifier
                               << frm->cppConstructorName(pIdentifier)
-                              << CreateArgument(impl->cppDecoratedType(pParameterType), "value"))
+                              << CreateArgument(impl->cppDecoratedType(pParameterType), value))
             << ";";
 
     table() << TableAligner::row()
@@ -984,13 +984,13 @@ void CppHeaderGenerator::generateIdentifierDeclaration(const IdentifierSPtr& pId
     {
         table() << TableAligner::row()
                 << Function(bl, fnOperatorEq,
-                            CreateArgument(impl->cppDecoratedType(pIdentifier), "rValue"),
+                            CreateArgument(impl->cppDecoratedType(pIdentifier), rValue),
                             EMethodDeclaration::const_())
                 << ";";
 
         table() << TableAligner::row()
                 << Function(bl, fnOperatorNe,
-                            CreateArgument(impl->cppDecoratedType(pIdentifier), "rValue"),
+                            CreateArgument(impl->cppDecoratedType(pIdentifier), rValue),
                             EMethodDeclaration::const_())
                 << ";";
     }
@@ -1093,7 +1093,7 @@ void CppHeaderGenerator::generateStructureInprocIdentificationMethodsDeclaration
                 " clone method. Most likely you will never need to use this method from anywhere else.");
             table() << TableAligner::row()
                     << Function(EMethodSpecifier::static_(), frm->cppRawPtrDecoratedType(pParameterType), fnClone,
-                                CreateArgument(impl->cppDecoratedType(pParameterType), "object"))
+                                CreateArgument(impl->cppDecoratedType(pParameterType), object))
                     << ";";
         }
     }
@@ -1198,15 +1198,15 @@ void CppHeaderGenerator::generateStructureOperatorMethodsDeclaration(
     {
         table() << TableAligner::row()
                 << Function(specifier, bl, fnName,
-                            CreateArgument(type, "object"), declaration)
+                            CreateArgument(type, object), declaration)
                 << ";";
     }
     else
     {
         table() << TableAligner::row()
                 << Function(specifier, bl, fnName,
-                            CreateArgument(type, "object1"),
-                            CreateArgument(type, "object2"), declaration)
+                            CreateArgument(type, object1),
+                            CreateArgument(type, object2), declaration)
                 << ";";
     }
 }
@@ -1412,7 +1412,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                         << Function(resultType, fnOperatorStore,
                                     CreateArgument(impl->cppInnerSetDecoratedType(
                                                        pUnaryContainer->parameterType().lock(), pCurrStructure),
-                                    frm->cppVariableName(pField)+ "Item"))
+                                    frm->cppItemVariableName(pField)))
                         << ";";
             }
         }        
@@ -1742,8 +1742,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
 
             table() << TableAligner::row()
                     << (Constructor() << builderConstructorName
-                                      << CreateArgument(impl->cppDecoratedType(pStructure),
-                                                        frm->variableName("object")))
+                                      << CreateArgument(impl->cppDecoratedType(pStructure), object))
                     << ";";
 
             std::vector<ObjectSPtr>::const_iterator it;
@@ -1763,7 +1762,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                 table() << TableAligner::row()
                         << (Constructor() << builderConstructorName
                                           << CreateArgument(impl->cppDecoratedType(pUpcopy->baseStructure()),
-                                                            frm->variableName("object")))
+                                                            object))
                         << ";";
             }
         }
@@ -1815,7 +1814,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
         table() << TableAligner::row()
                 << (Constructor() << builderConstructorName
                                   << CreateArgument(frm->cppRawPtrDecoratedType(pStructure),
-                                                    frm->variablePtrName("object")))
+                                                    object))
                 << ";";
         eot(declarationStream);
 
@@ -1872,7 +1871,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                                 (decoratedTypeRef() << frm->cppSharedPtrName(pStructure)),
                                 fnDowncast,
                                 CreateArgument(frm->cppSharedPtrDecoratedType(pRecursivelyBaseStructure),
-                                               frm->variablePtrName("object")))
+                                               object))
                     << ";";
         }
 

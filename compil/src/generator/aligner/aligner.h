@@ -118,6 +118,16 @@ extern NamespaceNameSPtr nsBuilder;
 extern SimpleTypeSPtr builder;
 extern SimpleTypeSPtr chr;
 
+extern VariableNameSPtr child;
+extern VariableNameSPtr function;
+extern VariableNameSPtr mask;
+extern VariableNameSPtr object;
+extern VariableNameSPtr object1;
+extern VariableNameSPtr object2;
+extern VariableNameSPtr parent;
+extern VariableNameSPtr rValue;
+extern VariableNameSPtr value;
+
 
 class Aligner
 {

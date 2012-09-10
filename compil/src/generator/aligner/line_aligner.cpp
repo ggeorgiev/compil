@@ -198,7 +198,7 @@ LineAligner& operator<<(LineAligner& aligner, const Argument& argument)
     if (argument.exist_type())
         aligner << argument.type();
     
-    if (!argument.name().empty())
+    if (argument.name())
     {
         if (argument.exist_type())
         if (argument.type()->decoration() != ETypeDecoration::invalid())
@@ -302,6 +302,12 @@ LineAligner& operator<<(LineAligner& aligner, const SimpleTypeSPtr& type)
         aligner << type->namespace_() << "::";
     
     aligner << type->value();
+    return aligner;
+}
+
+LineAligner& operator<<(LineAligner& aligner, const VariableNameSPtr& name)
+{
+    aligner << name->value();
     return aligner;
 }
 

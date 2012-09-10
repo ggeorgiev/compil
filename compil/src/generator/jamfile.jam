@@ -34,6 +34,7 @@ lib gen :
     aligner/object/simple_type.cpp
     aligner/object/type_declaration.cpp
     aligner/object/type_decoration.cpp
+    aligner/object/variable_name.cpp
 
     aligner/aligner.cpp
     aligner/aligner_configuration.cpp

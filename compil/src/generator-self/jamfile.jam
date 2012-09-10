@@ -62,6 +62,7 @@ lib generator-self-compil :
     generator/aligner/object/simple_type.compil
     generator/aligner/object/type_declaration.compil
     generator/aligner/object/type_decoration.compil
+    generator/aligner/object/variable_name.compil
 
     [ convert _ cpp 
       :

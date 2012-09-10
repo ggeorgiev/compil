@@ -96,7 +96,7 @@ void Argument::Builder::clear_type()
     mpObject->mBits &= ~bitmask_type();
 }
 
-const std::string& Argument::name() const
+const VariableNameSPtr& Argument::name() const
 {
     BOOST_ASSERT(exist_name());
     return mName;
@@ -107,22 +107,16 @@ bool Argument::exist_name() const
     return (mBits & bitmask_name()) != 0;
 }
 
-Argument::Builder& Argument::Builder::set_name(const std::string& name)
+Argument::Builder& Argument::Builder::set_name(const VariableNameSPtr& name)
 {
     mpObject->mName  = name;
     mpObject->mBits |= bitmask_name();
     return *this;
 }
 
-std::string& Argument::Builder::mutable_name()
-{
-    mpObject->mBits |= bitmask_name();
-    return mpObject->mName;
-}
-
 void Argument::Builder::clear_name()
 {
-    mpObject->mName.clear();
+    mpObject->mName.reset();
     mpObject->mBits &= ~bitmask_name();
 }
 
@@ -133,14 +127,14 @@ ArgumentSPtr CreateArgument(const DecoratedTypeSPtr& type)
     return builder.finalize();
 }
 
-ArgumentSPtr CreateArgument(const std::string& name)
+ArgumentSPtr CreateArgument(const VariableNameSPtr& name)
 {
     Argument::Builder builder;
     builder.set_name(name);
     return builder.finalize();
 }
 
-ArgumentSPtr CreateArgument(const DecoratedTypeSPtr& type, const std::string& name)
+ArgumentSPtr CreateArgument(const DecoratedTypeSPtr& type, const VariableNameSPtr& name)
 {
     Argument::Builder builder;
     builder.set_type(type);
