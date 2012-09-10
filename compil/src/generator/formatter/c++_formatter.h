@@ -54,7 +54,7 @@
 #include "cast_operator.h"
 #include "method_name.h"
 #include "variable_name.h"
-#include "parameter.h"
+#include "parameter_value.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -82,10 +82,10 @@ public:
     
     virtual MethodNameSPtr methodName(const std::string& rawName);
     
+    virtual std::string name(const std::string& rawName);
     virtual std::string memberName(const std::string& rawName);
-    virtual std::string variableName(const std::string& rawName);
+    virtual std::string ptrName(const std::string& rawName);
     virtual std::string memberPtrName(const std::string& rawName);
-    virtual std::string variablePtrName(const std::string& rawName);
     
     virtual std::string enumName(const std::string& rawName);
     virtual std::string enumValueName(const std::string& rawName);
@@ -100,7 +100,11 @@ public:
     
     virtual std::string globalVariable(const std::string& variable);
     
-    virtual VariableNameSPtr variablePtrName(const VariableNameSPtr& name);
+    virtual VariableNameSPtr memberVariableName(const VariableNameSPtr& name);
+    virtual VariableNameSPtr ptrVariableName(const VariableNameSPtr& name);
+    virtual VariableNameSPtr memberPtrVariableName(const VariableNameSPtr& name);
+    
+    virtual ParameterValueSPtr parameterValue(const VariableNameSPtr& name);
     
     virtual NamespaceSPtr cppPackageNamespace(const PackageSPtr& pPackage);
 
@@ -139,7 +143,7 @@ public:
     virtual std::string cppMemberName(const FieldSPtr& pField);
     virtual VariableNameSPtr cppVariableName(const FieldSPtr& pField);
     virtual VariableNameSPtr cppItemVariableName(const FieldSPtr& pField);
-    virtual ::ParameterSPtr cppVariableNameAsParameter(const FieldSPtr& pField);
+    virtual ParameterValueSPtr cppVariableNameAsParameter(const FieldSPtr& pField);
     
     virtual MethodNameSPtr getMethodName(const FieldSPtr& pField);
     virtual MethodNameSPtr setMethodName(const FieldSPtr& pField);

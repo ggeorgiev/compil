@@ -53,7 +53,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/factories_another_package.compil"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/keywords.compil"
@@ -70,6 +70,10 @@
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/structure_streamable.compil"
             isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/george/github/compil/src/generator-test/weak_enumeration.compil"
+            isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

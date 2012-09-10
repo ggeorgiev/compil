@@ -239,8 +239,8 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
     line()  << "class "
             << frm->cppInnerEnumType(pEnumeration, pStructure);
 
-    std::string inheritClass = impl->inheritClass(pEnumeration, pStructure);
-    if (!inheritClass.empty())
+    ConstructorNameSPtr inheritClass = impl->inheritClass(pEnumeration, pStructure);
+    if (inheritClass)
     {
         line()  << " : public "
                 << inheritClass;
@@ -451,7 +451,8 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
         table() << TableAligner::row()
                 << impl->cppDecoratedType(pParameterType)
                 << TableAligner::col()
-                << frm->memberName("value") << ";";
+                << frm->memberName("value")
+                << ";";
         eot(declarationStream);
     }
 
@@ -1814,7 +1815,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
         table() << TableAligner::row()
                 << (Constructor() << builderConstructorName
                                   << CreateArgument(frm->cppRawPtrDecoratedType(pStructure),
-                                                    frm->variablePtrName(object)))
+                                                    frm->ptrVariableName(object)))
                 << ";";
         eot(declarationStream);
 

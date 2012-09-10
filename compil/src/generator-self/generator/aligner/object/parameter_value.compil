@@ -32,6 +32,6 @@
 
 compil { }
 
-specimen<string> Parameter
+specimen<string> ParameterValue
 {
 }

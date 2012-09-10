@@ -31,142 +31,67 @@
 // 
 
 // Boost C++ Smart Pointers
+#include <boost/make_shared.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
-// Standard Template Library
-#include <string>
 
 #ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_INITIALIZATION_COMPIL_H_
 #define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_INITIALIZATION_COMPIL_H_
 
+#include "constructor_name.h"
 #include "initialization.h"
-#include "namespace.h"
-
-// Initialization is an immutable class - once instantiated none of the
-// data fields can be changed. For the initial initialization and
-// instantiation use the nested Builder class.
-
-// Immutability is useful in multi-thread and subject observer
-// applications. It makes easy creation of models with object references.
+#include "parameter_value.h"
+#include "variable_name.h"
 
 class Initialization
 {
 public:
-    // Use Builder to instantiate objects
-    class Builder
-    {
-        // hide evil auto created assignment operator, no implementation
-                void                  operator=      (const Builder&        );
-    public:
-        // Default constructor. All fields without default values are left
-        // uninitialized. Make sure you initialize all the necessary fields
-        // before instantiating
-                                      Builder        ();
-        // Use this constructor when you need to clone or create an object
-        // just slightly different from another object
-                                      Builder        (const Initialization& object);
-        // Destructor of Builder
-        /*lax*/                       ~Builder       ();
-
-        // Instantiates Initialization instance with the current
-        // initialization of the fields. After the instance is ready the
-        // builder could be reused to instantiate more objects. The data is
-        // not reset. Second call of build() will instantiate object with
-        // the same data.
-                const Initialization& build          ()                     const;
-
-        // Provides the internal instantiated builder object and
-        // invalidates the builder status. Once finalize() is called, the
-        // builder can not be used again. Use finalize() when you no longer
-        // are going to use this builder.
-                InitializationSPtr    finalize       ();
-
-
-        // Setter method for the data field namespace
-                Builder&              set_namespace  (const NamespaceSPtr&  namespace_);
-        // Clears the optional data field namespace
-                void                  clear_namespace();
-
-        // Setter method for the data field name
-                Builder&              set_name       (const std::string&    name);
-        // Provides mutable access to field name
-                std::string&          mutable_name   ();
-        // Erases the required data field name. Object can not be
-        // instantiated before the field data is set again
-                void                  erase_name     ();
-
-        // Setter method for the data field value
-                Builder&              set_value      (const std::string&    value);
-        // Provides mutable access to field value
-                std::string&          mutable_value  ();
-        // Erases the required data field value. Object can not be
-        // instantiated before the field data is set again
-                void                  erase_value    ();
-
-    protected:
-        // constructor needed from potential derived classes
-                                      Builder        (InitializationRPtr    object);
-
-        InitializationRPtr mpObject;
-    };
-
     // Default constructor
-                                 Initialization ();
+                                       Initialization     ();
     // Destructor
-    /*lax*/                      ~Initialization();
+    /*lax*/                            ~Initialization    ();
 
-    // Returns true if every required field is initialized.
-    // Note: If the class is used properly it should always return true,
-    // because the object could be instantiated only if it is already
-    // initialized and can not be changed. Called by the Builder class.
-            bool                 isInitialized  () const;
+    // Getter method for the data field constructorName
+            const ConstructorNameSPtr& constructorName    ()                          const;
+    // Setter method for the data field constructorName
+            Initialization&            set_constructorName(const ConstructorNameSPtr& constructorName);
+    // Store operator for the data field constructorName
+            Initialization&            operator<<         (const ConstructorNameSPtr& constructorName);
 
-    // Getter method for the data field namespace
-            const NamespaceSPtr& namespace_     () const;
-    // Checks if the optional field namespace exists
-            bool                 exist_namespace() const;
+    // Getter method for the data field variableName
+            const VariableNameSPtr&    variableName       ()                          const;
+    // Setter method for the data field variableName
+            Initialization&            set_variableName   (const VariableNameSPtr&    variableName);
+    // Store operator for the data field variableName
+            Initialization&            operator<<         (const VariableNameSPtr&    variableName);
 
-    // Getter method for the data field name
-            const std::string&   name           () const;
-    // Returns true if the data field name was set and could be considered
-    // valid
-    // Note: If the class is used properly it should always return true. It
-    // makes sense when it is called indirectly through isInitialized()
-    // from the Builder class
-            bool                 valid_name     () const;
-
-    // Getter method for the data field value
-            const std::string&   value          () const;
-    // Returns true if the data field value was set and could be considered
-    // valid
-    // Note: If the class is used properly it should always return true. It
-    // makes sense when it is called indirectly through isInitialized()
-    // from the Builder class
-            bool                 valid_value    () const;
+    // Getter method for the data field parameter
+            const ParameterValueSPtr&  parameter          ()                          const;
+    // Setter method for the data field parameter
+            Initialization&            set_parameter      (const ParameterValueSPtr&  parameter);
+    // Store operator for the data field parameter
+            Initialization&            operator<<         (const ParameterValueSPtr&  parameter);
 
 private:
-    // Returns unique bitmask value for the field namespace
-    static int bitmask_namespace();
-    // Returns unique bitmask value for the field name
-    static int bitmask_name     ();
-    // Returns unique bitmask value for the field value
-    static int bitmask_value    ();
-
-    // Stores availability information for the fields
-    int           mBits;
-
-    // variable for the data field namespace
-    NamespaceSPtr mNamespace;
-    // variable for the data field name
-    std::string   mName;
-    // variable for the data field value
-    std::string   mValue;
+    // variable for the data field constructorName
+    ConstructorNameSPtr mConstructorName;
+    // variable for the data field variableName
+    VariableNameSPtr    mVariableName;
+    // variable for the data field parameter
+    ParameterValueSPtr  mParameter;
 };
 
-InitializationSPtr CreateInitialization(const std::string&   name, const std::string& value);
-InitializationSPtr CreateInitialization(const NamespaceSPtr& namespace_,
-                                                             const std::string&       name,
-                                                                                      const std::string&  value);
+// Reference store operator for the data field constructorName
+const InitializationSPtr& operator<<(const InitializationSPtr& , const ConstructorNameSPtr& );
+// Reference store operator for the data field variableName
+const InitializationSPtr& operator<<(const InitializationSPtr& , const VariableNameSPtr&    );
+// Reference store operator for the data field parameter
+const InitializationSPtr& operator<<(const InitializationSPtr& , const ParameterValueSPtr&  );
+
+inline InitializationSPtr initializationRef()
+{
+    return boost::make_shared<Initialization>();
+}
 
 #else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_INITIALIZATION_COMPIL_H_
 

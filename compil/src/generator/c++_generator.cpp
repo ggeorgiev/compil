@@ -106,19 +106,23 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     line()  << ": ";
 
 
-    std::string initMethod = impl->inheritClass(pEnumeration, pStructure);
-    if (initMethod.empty())
-        initMethod = frm->memberName("value");
+    ConstructorNameSPtr constructorName = impl->inheritClass(pEnumeration, pStructure);
+    VariableNameSPtr variableName;
+    if (!constructorName)
+        variableName = frm->memberVariableName(value);
 
     if (pEnumeration->flags())
     {
-        line()  << *CreateInitialization(initMethod, "0");
+        line()  << (initializationRef() << constructorName
+                                        << variableName
+                                        << parameterValueRef("0"));
     }
     else
     {
-        line()  << *CreateInitialization(
-                        initMethod,
-                        frm->enumValueName(Model::invalidEnumerationValue(pEnumeration)));
+        line()  << (initializationRef() << constructorName
+                                        << variableName
+                                        << parameterValueRef(frm->enumValueName(
+                                           Model::invalidEnumerationValue(pEnumeration))));
     }
     openBlock(definitionStream, 2);
     closeBlock(definitionStream);
@@ -131,7 +135,9 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     eofd(definitionStream);
 
     line()  << ": "
-            << *CreateInitialization(initMethod, "value");
+            << (initializationRef() << constructorName
+                                    << variableName
+                                    << frm->parameterValue(value));
     openBlock(definitionStream, 2);
     closeBlock(definitionStream);
     eol(definitionStream);
@@ -244,7 +250,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
                         fnShortName, EMethodDeclaration::const_());
     openBlock(definitionStream);
     line()  << "return "
-            << FunctionCall(fnShortName, parameterRef("value()"))
+            << FunctionCall(fnShortName, parameterValueRef("value()"))
             << ";";
     eol(definitionStream);
     closeBlock(definitionStream);
@@ -430,9 +436,11 @@ void CppGenerator::generateSpecimenDefinition(const SpecimenSPtr& pSpecimen)
 
     line()  << ": ";
     if (pBaseSpecimen)
-        line()  << *CreateInitialization(frm->cppClassType(pBaseSpecimen)->value(), "value");
+        line()  << (initializationRef() << frm->cppConstructorName(pBaseSpecimen)
+                                        << frm->parameterValue(value));
     else
-        line()  << *CreateInitialization(frm->memberName("value"), "value");
+        line()  << (initializationRef() << frm->memberVariableName(value)
+                                        << frm->parameterValue(value));
     openBlock(definitionStream, 2);
     closeBlock(definitionStream);
     eol(definitionStream);
@@ -483,10 +491,10 @@ void CppGenerator::generateHierarchyFactoryDefinition(const FactorySPtr& pFactor
             << Function((decoratedTypeRef() << impl->cppPtrType(pParameterType)),
                         frm->cppClassNamespace(pFactory), fnClone,
                         CreateArgument(impl->cppPtrDecoratedType(pParameterType),
-                                       frm->variablePtrName(object)));
+                                       frm->ptrVariableName(object)));
     openBlock(definitionStream);
     line()  << "switch ("
-            << frm->variablePtrName(object)
+            << frm->ptrVariableName(object)
             << "->"
             << impl->runtimeIdentificationMethodName(pParameterStructure)
             << "().value())";
@@ -514,13 +522,13 @@ void CppGenerator::generateHierarchyFactoryDefinition(const FactorySPtr& pFactor
             line()  << "*pClone = *"
                     << frm->downcastMethodName(pStructure)
                     << "("
-                    << frm->variablePtrName(object)
+                    << frm->ptrVariableName(object)
                     << ");";
         }
         else
         {
             line()  << "*pClone = *"
-                    << frm->variablePtrName(object)
+                    << frm->ptrVariableName(object)
                     << ";";
         }
         eol(definitionStream);
@@ -560,10 +568,10 @@ void CppGenerator::generateHierarchyFactoryDefinition(const FactorySPtr& pFactor
                             frm->cppClassNamespace(pFactory),
                             frm->downcastMethodName(pStructure),
                             CreateArgument(impl->cppPtrDecoratedType(pParameterStructure),
-                                           frm->variablePtrName(object)));
+                                           frm->ptrVariableName(object)));
         openBlock(definitionStream);
         line()  << "bool b = ("
-                << frm->variablePtrName(object)
+                << frm->ptrVariableName(object)
                 << "->"
                 << impl->runtimeIdentificationMethodName(pParameterStructure)
                 << "() == "
@@ -589,7 +597,7 @@ void CppGenerator::generateHierarchyFactoryDefinition(const FactorySPtr& pFactor
                 eol(definitionStream);
             }
             line()  << "      || ("
-                    << frm->variablePtrName(object)
+                    << frm->ptrVariableName(object)
                     << "->"
                     << impl->runtimeIdentificationMethodName(pParameterStructure)
                     << "() == "
@@ -609,7 +617,7 @@ void CppGenerator::generateHierarchyFactoryDefinition(const FactorySPtr& pFactor
         line()  << "return boost::static_pointer_cast<"
                 << frm->cppMainClassType(pStructure)
                 << ">("
-                << frm->variablePtrName(object)
+                << frm->ptrVariableName(object)
                 << ");";
         eol(definitionStream);
         --mIndent[definitionStream];
@@ -813,7 +821,8 @@ void CppGenerator::generateIdentifierDefinition(const IdentifierSPtr& pIdentifie
     eofd(definitionStream);
 
     line()  << ": "
-            << *CreateInitialization(frm->memberName("value"), "value");
+            << (initializationRef() << frm->memberVariableName(value)
+                                    << frm->parameterValue(value));
     openBlock(definitionStream, 2);
     closeBlock(definitionStream);
     eol(definitionStream);
@@ -870,7 +879,7 @@ void CppGenerator::generateIdentifierDefinition(const IdentifierSPtr& pIdentifie
     }
 }
 
-void CppGenerator::generateInitialization(const Initialization& initialization)
+void CppGenerator::generateInitialization(const InitializationSPtr& initialization)
 {
     if (table().isEmpty())
     {
@@ -889,8 +898,9 @@ void CppGenerator::generateStructureFieldMemberInitialization(const FieldSPtr& p
 {
     if (impl->needConstructorInitialization(pField))
     {
-        generateInitialization(*CreateInitialization(
-            frm->cppMemberName(pField), frm->defaultMethodName(pField)->value() + "()"));
+        generateInitialization(
+            initializationRef() << frm->memberVariableName(frm->cppVariableName(pField))
+                                << parameterValueRef(frm->defaultMethodName(pField)->value() + "()"));
     }
 }
 
@@ -2313,13 +2323,14 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                 table() << TableAligner::row()
                         << ": "
                         << FunctionCall(frm->cppAutoClassNamespace(pBaseStructure), fnBuilder,
-                                        ::parameterRef(newObject));
+                                        parameterValueRef(newObject));
             }
             else
             {
                 table() << TableAligner::row()
                         << ": "
-                        << *CreateInitialization(frm->memberPtrName("object"), newObject);
+                        << (initializationRef() << frm->memberPtrVariableName(object)
+                                                << parameterValueRef(newObject));
             }
             openBlock(definitionStream, 2);
             closeBlock(definitionStream);
@@ -2349,13 +2360,14 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                         << ": "
                         << FunctionCall(frm->cppAutoClassNamespace(pBaseStructure),
                                         fnBuilder,
-                                        ::parameterRef(newObject));
+                                        parameterValueRef(newObject));
             }
             else
             {
                 table() << TableAligner::row()
                         << ": "
-                        << *CreateInitialization(frm->memberPtrName("object"), newObject);
+                        << (initializationRef() << frm->memberPtrVariableName(object)
+                                                << parameterValueRef(newObject));
             }
 
             openBlock(definitionStream, 2);
@@ -2366,7 +2378,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                         << "*)"
                         << frm->memberPtrName("object")
                         << " = "
-                        << frm->variableName("object")
+                        << object
                         << ";";
                 eol(definitionStream);
             }
@@ -2394,16 +2406,18 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                             << ": "
                             << FunctionCall(frm->cppAutoClassNamespace(pBaseStructure),
                                             fnBuilder,
-                                            ::parameterRef("new " +
-                                                           frm->cppMainClassType(pStructure)->value() +
-                                                           "()"));
+                                            parameterValueRef("new " +
+                                                              frm->cppMainClassType(pStructure)->value() +
+                                                              "()"));
                 }
                 else
                 {
                     table() << TableAligner::row()
                             << ": "
-                            << *CreateInitialization(frm->memberPtrName("object"),
-                                                     "new " + frm->cppMainClassType(pStructure)->value() + "()");
+                            << (initializationRef() << frm->memberPtrVariableName(object)
+                                                    << parameterValueRef("new " +
+                                                                         frm->cppMainClassType(pStructure)->value() +
+                                                                         "()"));
                 }
 
                 openBlock(definitionStream, 2);
@@ -2423,7 +2437,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
 
         fdef()  << TableAligner::row()
                 << Function(structBuilderNamespace, fnBuilder,
-                            CreateArgument(frm->cppRawPtrDecoratedType(pStructure), frm->variablePtrName(object)));
+                            CreateArgument(frm->cppRawPtrDecoratedType(pStructure), frm->ptrVariableName(object)));
         eofd(definitionStream);
 
         if (pBaseStructure)
@@ -2431,14 +2445,14 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             table() << TableAligner::row()
                     << ": "
                     << FunctionCall(frm->cppAutoClassNamespace(pBaseStructure), fnBuilder,
-                                    ::parameterRef(frm->variablePtrName(object)->value()));
+                                    parameterValueRef(frm->ptrVariableName(object)->value()));
         }
         else
         {
             table() << TableAligner::row()
                     << ": "
-                    << *CreateInitialization(frm->memberPtrName("object"),
-                                             frm->variablePtrName("object"));
+                    << (initializationRef() << frm->memberPtrVariableName(object)
+                                            << frm->parameterValue(frm->ptrVariableName(object)));
         }
         openBlock(definitionStream, 2);
         closeBlock(definitionStream);
@@ -2568,13 +2582,16 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         if (alter)
         {
             init << ".finalize()";
-            generateInitialization(*CreateInitialization(
-                                   frm->cppAutoClassType(pBaseStructure)->value(), init.str()));
+            generateInitialization(
+                (initializationRef() << frm->cppConstructorName(pBaseStructure)
+                                     << parameterValueRef(init.str())));
         }
     }
 
     if (pStructure->controlled() && pStructure->hasField())
-        generateInitialization(*CreateInitialization(frm->memberName("bits"), "0"));
+        generateInitialization(
+            initializationRef() << frm->memberVariableName(bits)
+                                << parameterValueRef("0"));
 
     for (it = objects.begin(); it != objects.end(); ++it)
     {

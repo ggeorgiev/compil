@@ -236,13 +236,20 @@ LineAligner& operator<<(LineAligner& aligner, const FunctionNameSPtr& functionNa
     return aligner;
 }
 
-LineAligner& operator<<(LineAligner& aligner, const Initialization& initialization)
+LineAligner& operator<<(LineAligner& aligner, const InitializationSPtr& initialization)
 {
-    if (initialization.exist_namespace())
-    if (!initialization.namespace_()->isVoid())
-        aligner << initialization.namespace_() << "::";
-    aligner << initialization.name() << Aligner::FunctionSpace();
-    aligner << "(" << initialization.value() << ")";
+    BOOST_ASSERT(!initialization->variableName() != !initialization->constructorName());
+
+    if (initialization->variableName())
+        aligner << initialization->variableName();
+    else
+        aligner << initialization->constructorName();
+
+    aligner << Aligner::FunctionSpace()
+            << "("
+            << initialization->parameter()
+            << ")";
+            
     return aligner;
 }
 
@@ -261,7 +268,7 @@ LineAligner& operator<<(LineAligner& aligner, const NamespaceSPtr& namespace_)
     return aligner;
 }
 
-LineAligner& operator<<(LineAligner& aligner, const ParameterSPtr& parameter)
+LineAligner& operator<<(LineAligner& aligner, const ParameterValueSPtr& parameter)
 {
     aligner << parameter->value();
     return aligner;

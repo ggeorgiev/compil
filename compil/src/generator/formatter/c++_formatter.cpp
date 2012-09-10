@@ -97,6 +97,11 @@ MethodNameSPtr CppFormatter::methodName(const std::string& rawName)
     return methodNameRef(result);
 }    
 
+std::string CppFormatter::name(const std::string& rawName)
+{
+    return mpKeyword->escapeKeyword(rawName);
+}
+
 std::string CppFormatter::memberName(const std::string& rawName)
 {
     std::string result = "m" + rawName;
@@ -104,22 +109,17 @@ std::string CppFormatter::memberName(const std::string& rawName)
     return result;
 }
 
-std::string CppFormatter::variableName(const std::string& rawName)
+std::string CppFormatter::ptrName(const std::string& rawName)
 {
-    return mpKeyword->escapeKeyword(rawName);
+    std::string result = "p" + rawName;
+    std::transform(result.begin() + 1, result.begin() + 2, result.begin() + 1, toupper);
+    return result;
 }
 
 std::string CppFormatter::memberPtrName(const std::string& rawName)
 {
     std::string result = "mp" + rawName;
     std::transform(result.begin() + 2, result.begin() + 3, result.begin() + 2, toupper);
-    return result;
-}
-
-std::string CppFormatter::variablePtrName(const std::string& rawName)
-{
-    std::string result = "p" + rawName;
-    std::transform(result.begin() + 1, result.begin() + 2, result.begin() + 1, toupper);
     return result;
 }
 
@@ -196,15 +196,30 @@ std::string CppFormatter::headerGuard(const DocumentSPtr& pDocument, const std::
 
 std::string CppFormatter::globalVariable(const std::string& variable)
 {
-    std::string result = "g_" + variable;
+    std::string result = "g" + variable;
     std::transform(result.begin(), result.end(), result.begin(), tolower);
     std::replace_if(result.begin(), result.end(), not_a_good_char, '_');
     return result;
 }
 
-VariableNameSPtr CppFormatter::variablePtrName(const VariableNameSPtr& name)
+VariableNameSPtr CppFormatter::memberVariableName(const VariableNameSPtr& name)
 {
-    return variableNameRef(variablePtrName(name->value()));
+    return variableNameRef(memberName(name->value()));
+}
+
+VariableNameSPtr CppFormatter::ptrVariableName(const VariableNameSPtr& name)
+{
+    return variableNameRef(ptrName(name->value()));
+}
+
+VariableNameSPtr CppFormatter::memberPtrVariableName(const VariableNameSPtr& name)
+{
+    return variableNameRef(memberPtrName(name->value()));
+}
+
+ParameterValueSPtr CppFormatter::parameterValue(const VariableNameSPtr& name)
+{
+    return parameterValueRef(name->value());
 }
 
 NamespaceSPtr CppFormatter::cppPackageNamespace(const PackageSPtr& pPackage)
@@ -407,17 +422,17 @@ std::string CppFormatter::cppMemberName(const FieldSPtr& pField)
 
 VariableNameSPtr CppFormatter::cppVariableName(const FieldSPtr& pField)
 {
-    return variableNameRef(variableName(pField->name()->value()));
+    return variableNameRef(name(pField->name()->value()));
 }
 
 VariableNameSPtr CppFormatter::cppItemVariableName(const FieldSPtr& pField)
 {
-    return variableNameRef(variableName(pField->name()->value() + "Item"));
+    return variableNameRef(name(pField->name()->value() + "Item"));
 }
 
-::ParameterSPtr CppFormatter::cppVariableNameAsParameter(const FieldSPtr& pField)
+ParameterValueSPtr CppFormatter::cppVariableNameAsParameter(const FieldSPtr& pField)
 {
-    return parameterRef(variableName(pField->name()->value()));
+    return parameterValueRef(name(pField->name()->value()));
 }
 
 MethodNameSPtr CppFormatter::getMethodName(const FieldSPtr& pField)

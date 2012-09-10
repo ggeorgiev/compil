@@ -44,7 +44,7 @@ FunctionCall::FunctionCall(const FunctionNameSPtr& name)
 {
 }
 
-FunctionCall::FunctionCall(const FunctionNameSPtr& name, const ParameterSPtr& parameter)
+FunctionCall::FunctionCall(const FunctionNameSPtr& name, const ParameterValueSPtr& parameter)
     : mName(name)
 {
     mvParameter.push_back(parameter);
@@ -55,13 +55,13 @@ FunctionCall::FunctionCall(const NamespaceSPtr& namesp, const FunctionNameSPtr& 
 {
 }
 
-FunctionCall::FunctionCall(const NamespaceSPtr& namesp, const FunctionNameSPtr& name, const ParameterSPtr& parameter)
+FunctionCall::FunctionCall(const NamespaceSPtr& namesp, const FunctionNameSPtr& name, const ParameterValueSPtr& parameter)
     : mNamespace(namesp), mName(name)
 {
     mvParameter.push_back(parameter);
 }
 
-FunctionCall& FunctionCall::operator <<(const ParameterSPtr& parameter)
+FunctionCall& FunctionCall::operator <<(const ParameterValueSPtr& parameter)
 {
     mvParameter.push_back(parameter);
     return *this;

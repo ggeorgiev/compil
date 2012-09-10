@@ -2,62 +2,8 @@
 #include <boost/assert.hpp>
 
 #include "initialization.h"
-// Standard C Library
-#include <stddef.h>
-
-int Initialization::bitmask_namespace()
-{
-    return 0x1;
-}
-
-int Initialization::bitmask_name()
-{
-    return 0x2;
-}
-
-int Initialization::bitmask_value()
-{
-    return 0x4;
-}
-
-Initialization::Builder::Builder()
-        : mpObject(new Initialization())
-{
-}
-
-Initialization::Builder::Builder(const Initialization& object)
-        : mpObject(new Initialization())
-{
-    *(Initialization*)mpObject = object;
-}
-
-Initialization::Builder::Builder(InitializationRPtr pObject)
-        : mpObject(pObject)
-{
-}
-
-Initialization::Builder::~Builder()
-{
-    delete (InitializationRPtr)mpObject;
-    mpObject = NULL;
-}
-
-const Initialization& Initialization::Builder::build() const
-{
-    BOOST_ASSERT(mpObject->isInitialized());
-    return *(InitializationRPtr)mpObject;
-}
-
-InitializationSPtr Initialization::Builder::finalize()
-{
-    BOOST_ASSERT(mpObject->isInitialized());
-    InitializationRPtr objectRPtr = (InitializationRPtr)mpObject;
-    mpObject = NULL;
-    return InitializationSPtr(objectRPtr);
-}
 
 Initialization::Initialization()
-        : mBits(0)
 {
 }
 
@@ -65,113 +11,72 @@ Initialization::~Initialization()
 {
 }
 
-bool Initialization::isInitialized() const
+const ConstructorNameSPtr& Initialization::constructorName() const
 {
-    if (!valid_name()) return false;
-    if (!valid_value()) return false;
-    return true;
+    return mConstructorName;
 }
 
-const NamespaceSPtr& Initialization::namespace_() const
+Initialization& Initialization::set_constructorName(const ConstructorNameSPtr& constructorName)
 {
-    BOOST_ASSERT(exist_namespace());
-    return mNamespace;
-}
-
-bool Initialization::exist_namespace() const
-{
-    return (mBits & bitmask_namespace()) != 0;
-}
-
-Initialization::Builder& Initialization::Builder::set_namespace(const NamespaceSPtr& namespace_)
-{
-    mpObject->mNamespace  = namespace_;
-    mpObject->mBits      |= bitmask_namespace();
+    mConstructorName = constructorName;
     return *this;
 }
 
-void Initialization::Builder::clear_namespace()
+Initialization& Initialization::operator<<(const ConstructorNameSPtr& constructorName)
 {
-    mpObject->mNamespace.reset();
-    mpObject->mBits &= ~bitmask_namespace();
+    return set_constructorName(constructorName);
 }
 
-const std::string& Initialization::name() const
+const InitializationSPtr& operator<<(const InitializationSPtr& object, const ConstructorNameSPtr& constructorName)
 {
-    BOOST_ASSERT(valid_name());
-    return mName;
+    BOOST_ASSERT(object);
+    *object << constructorName;
+    return object;
 }
 
-bool Initialization::valid_name() const
+const VariableNameSPtr& Initialization::variableName() const
 {
-    return (mBits & bitmask_name()) != 0;
+    return mVariableName;
 }
 
-Initialization::Builder& Initialization::Builder::set_name(const std::string& name)
+Initialization& Initialization::set_variableName(const VariableNameSPtr& variableName)
 {
-    mpObject->mName  = name;
-    mpObject->mBits |= bitmask_name();
+    mVariableName = variableName;
     return *this;
 }
 
-std::string& Initialization::Builder::mutable_name()
+Initialization& Initialization::operator<<(const VariableNameSPtr& variableName)
 {
-    mpObject->mBits |= bitmask_name();
-    return mpObject->mName;
+    return set_variableName(variableName);
 }
 
-void Initialization::Builder::erase_name()
+const InitializationSPtr& operator<<(const InitializationSPtr& object, const VariableNameSPtr& variableName)
 {
-    mpObject->mName.clear();
-    mpObject->mBits &= ~bitmask_name();
+    BOOST_ASSERT(object);
+    *object << variableName;
+    return object;
 }
 
-const std::string& Initialization::value() const
+const ParameterValueSPtr& Initialization::parameter() const
 {
-    BOOST_ASSERT(valid_value());
-    return mValue;
+    return mParameter;
 }
 
-bool Initialization::valid_value() const
+Initialization& Initialization::set_parameter(const ParameterValueSPtr& parameter)
 {
-    return (mBits & bitmask_value()) != 0;
-}
-
-Initialization::Builder& Initialization::Builder::set_value(const std::string& value)
-{
-    mpObject->mValue  = value;
-    mpObject->mBits  |= bitmask_value();
+    mParameter = parameter;
     return *this;
 }
 
-std::string& Initialization::Builder::mutable_value()
+Initialization& Initialization::operator<<(const ParameterValueSPtr& parameter)
 {
-    mpObject->mBits |= bitmask_value();
-    return mpObject->mValue;
+    return set_parameter(parameter);
 }
 
-void Initialization::Builder::erase_value()
+const InitializationSPtr& operator<<(const InitializationSPtr& object, const ParameterValueSPtr& parameter)
 {
-    mpObject->mValue.clear();
-    mpObject->mBits &= ~bitmask_value();
-}
-
-InitializationSPtr CreateInitialization(const std::string& name, const std::string& value)
-{
-    Initialization::Builder builder;
-    builder.set_name(name);
-    builder.set_value(value);
-    return builder.finalize();
-}
-
-InitializationSPtr CreateInitialization(const NamespaceSPtr& namespace_,
-                                                             const std::string&  name,
-                                                                                 const std::string&  value)
-{
-    Initialization::Builder builder;
-    builder.set_namespace(namespace_);
-    builder.set_name(name);
-    builder.set_value(value);
-    return builder.finalize();
+    BOOST_ASSERT(object);
+    *object << parameter;
+    return object;
 }
 

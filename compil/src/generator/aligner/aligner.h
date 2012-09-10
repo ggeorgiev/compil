@@ -118,6 +118,7 @@ extern NamespaceNameSPtr nsBuilder;
 extern SimpleTypeSPtr builder;
 extern SimpleTypeSPtr chr;
 
+extern VariableNameSPtr bits;
 extern VariableNameSPtr child;
 extern VariableNameSPtr function;
 extern VariableNameSPtr mask;

@@ -446,7 +446,7 @@ TableAligner& operator<<(TableAligner& aligner, const NamespaceSPtr& namespace_)
     return aligner;
 }
 
-TableAligner& operator<<(TableAligner& aligner, const ParameterSPtr& parameter)
+TableAligner& operator<<(TableAligner& aligner, const ParameterValueSPtr& parameter)
 {
     aligner << parameter->value();
     return aligner;
@@ -484,13 +484,20 @@ TableAligner& operator<<(TableAligner& aligner, const FunctionCall& function)
     return aligner;
 }
 
-TableAligner& operator<<(TableAligner& aligner, const Initialization& initialization)
+TableAligner& operator<<(TableAligner& aligner, const InitializationSPtr& initialization)
 {
-    if (initialization.exist_namespace())
-    if (!initialization.namespace_()->isVoid())
-        aligner << initialization.namespace_() << "::";
-    aligner << initialization.name() << Aligner::FunctionSpace();
-    aligner << "(" << initialization.value() << ")";
+    BOOST_ASSERT(!initialization->variableName() != !initialization->constructorName());
+
+    if (initialization->variableName())
+        aligner << initialization->variableName();
+    else
+        aligner << initialization->constructorName();
+
+    aligner << Aligner::FunctionSpace()
+            << "("
+            << initialization->parameter()
+            << ")";
+            
     return aligner;
 }
 

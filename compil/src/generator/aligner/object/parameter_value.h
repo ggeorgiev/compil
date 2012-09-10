@@ -37,63 +37,63 @@
 // Standard Template Library
 #include <string>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_PARAMETER_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_PARAMETER_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_PARAMETER_VALUE_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_PARAMETER_VALUE_COMPIL_H_
 
-#include "parameter.h"
+#include "parameter_value.h"
 
-class Parameter
+class ParameterValue
 {
 public:
-                         Parameter ();
-    explicit             Parameter (const std::string& value);
+                         ParameterValue();
+    explicit             ParameterValue(const std::string&    value);
 
-    inline   std::string value     ()                  const;
-    inline   bool        operator==(const Parameter&   rValue) const;
-    inline   bool        operator!=(const Parameter&   rValue) const;
-    inline   bool        operator< (const Parameter&   rValue) const;
+    inline   std::string value         ()                     const;
+    inline   bool        operator==    (const ParameterValue& rValue) const;
+    inline   bool        operator!=    (const ParameterValue& rValue) const;
+    inline   bool        operator<     (const ParameterValue& rValue) const;
 private:
     std::string mValue;
 };
 
-inline ParameterSPtr parameterRef()
+inline ParameterValueSPtr parameterValueRef()
 {
-    return boost::make_shared<Parameter>();
+    return boost::make_shared<ParameterValue>();
 }
 
-inline ParameterSPtr parameterRef(const std::string& value)
+inline ParameterValueSPtr parameterValueRef(const std::string& value)
 {
-    return boost::make_shared<Parameter>(value);
+    return boost::make_shared<ParameterValue>(value);
 }
 
-inline std::string Parameter::value() const
+inline std::string ParameterValue::value() const
 {
     return mValue;
 }
 
-inline bool Parameter::operator==(const Parameter& rValue) const
+inline bool ParameterValue::operator==(const ParameterValue& rValue) const
 {
     return value() == rValue.value();
 }
 
-inline bool Parameter::operator!=(const Parameter& rValue) const
+inline bool ParameterValue::operator!=(const ParameterValue& rValue) const
 {
     return value() != rValue.value();
 }
 
-inline bool Parameter::operator<(const Parameter& rValue) const
+inline bool ParameterValue::operator<(const ParameterValue& rValue) const
 {
     return value() < rValue.value();
 }
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_PARAMETER_COMPIL_H_
+#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_PARAMETER_VALUE_COMPIL_H_
 
 // Forward declarations
-class Parameter;
-typedef Parameter*                         ParameterRPtr;
-typedef boost::shared_ptr<Parameter>       ParameterSPtr;
-typedef boost::shared_ptr<const Parameter> ParameterSCPtr;
-typedef boost::weak_ptr<Parameter>         ParameterWPtr;
+class ParameterValue;
+typedef ParameterValue*                         ParameterValueRPtr;
+typedef boost::shared_ptr<ParameterValue>       ParameterValueSPtr;
+typedef boost::shared_ptr<const ParameterValue> ParameterValueSCPtr;
+typedef boost::weak_ptr<ParameterValue>         ParameterValueWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_PARAMETER_COMPIL_H_
+#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_PARAMETER_VALUE_COMPIL_H_
 

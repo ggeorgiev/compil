@@ -771,20 +771,21 @@ EDestructorSpecifier CppImplementer::destructorSpecifier(const StructureSPtr& pS
 }
 
 
-std::string CppImplementer::inheritClass(const EnumerationSPtr& pEnumeration,
-                                         const StructureSPtr& pStructure)
+ConstructorNameSPtr CppImplementer::inheritClass(const EnumerationSPtr& pEnumeration,
+                                                 const StructureSPtr& pStructure)
 {
     TypeSPtr pParameterType = pEnumeration->parameterType().lock();
     
     if (pEnumeration->flags())
     if (mpConfiguration->mFlagsEnumeration == ImplementerConfiguration::flags_enumeration_use_core_template)
-        return "flags_enumeration<" + 
+    {
+        return constructorNameRef("flags_enumeration<" +
                cppType(pParameterType)->value() +
                ", " +
                mpFrm->cppInnerEnumType(pEnumeration, pStructure)->value() +
-               ">";
-        
-    return "";
+               ">");
+    }
+    return ConstructorNameSPtr();
 }
 
 bool CppImplementer::implementEnumerationMethods(const EnumerationSPtr& pEnumeration)

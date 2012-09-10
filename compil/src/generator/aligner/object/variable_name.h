@@ -41,7 +41,6 @@
 #define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_VARIABLE_NAME_COMPIL_H_
 
 #include "variable_name.h"
-#include "parameter.h"
 
 class VariableName
 {
@@ -53,11 +52,6 @@ public:
     inline   bool        operator==  (const VariableName& rValue) const;
     inline   bool        operator!=  (const VariableName& rValue) const;
     inline   bool        operator<   (const VariableName& rValue) const;
-    
-    inline operator ParameterSPtr()
-    {
-        return parameterRef(value());
-    }
 private:
     std::string mValue;
 };
