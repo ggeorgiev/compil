@@ -420,6 +420,20 @@ TableAligner& operator<<(TableAligner& aligner, const Destructor& destructor)
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const FunctionCallSPtr& function)
+{
+    if (function->namespace_())
+        aligner << function->namespace_() << "::";
+    aligner << function->name() << Aligner::FunctionSpace();
+    aligner << "(";
+    if (function->parameters().size() > 0)
+        aligner << function->parameters()[0];
+    for (size_t i = 1; i < function->parameters().size(); ++i)
+        aligner << ", " << function->parameters()[i];
+    aligner << ")";
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const EDestructorSpecifier& destructorSpecifier)
 {
     if (destructorSpecifier != EDestructorSpecifier::invalid())
@@ -469,21 +483,6 @@ TableAligner& operator<<(TableAligner& aligner, const EMethodSpecifier& methodSp
         aligner << methodSpecifier.shortName()
                 << ' ';
     }
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const FunctionCall& function)
-{
-    if (function.mNamespace)
-    if (!function.mNamespace->isVoid())
-        aligner << function.mNamespace << "::";
-    aligner << function.mName << Aligner::FunctionSpace();
-    aligner << "(";
-    if (function.mvParameter.size() > 0)
-        aligner << function.mvParameter[0];
-    for (size_t i = 1; i < function.mvParameter.size(); ++i)
-        aligner << ", " << function.mvParameter[i];
-    aligner << ")";
     return aligner;
 }
 

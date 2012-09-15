@@ -209,17 +209,16 @@ LineAligner& operator<<(LineAligner& aligner, const Argument& argument)
     return aligner;
 }
 
-LineAligner& operator<<(LineAligner& aligner, const FunctionCall& function)
+LineAligner& operator<<(LineAligner& aligner, const FunctionCallSPtr& function)
 {
-    if (function.mNamespace)
-    if (!function.mNamespace->isVoid())
-        aligner << function.mNamespace << "::";
-    aligner << function.mName << Aligner::FunctionSpace();
+    if (function->namespace_())
+        aligner << function->namespace_() << "::";
+    aligner << function->name() << Aligner::FunctionSpace();
     aligner << "(";
-    if (function.mvParameter.size() > 0)
-        aligner << function.mvParameter[0];
-    for (size_t i = 1; i < function.mvParameter.size(); ++i)
-        aligner << ", " << function.mvParameter[i];
+    if (function->parameters().size() > 0)
+        aligner << function->parameters()[0];
+    for (size_t i = 1; i < function->parameters().size(); ++i)
+        aligner << ", " << function->parameters()[i];
     aligner << ")";
     return aligner;
 }

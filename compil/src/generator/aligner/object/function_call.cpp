@@ -1,70 +1,100 @@
-// CompIL - Component Interface Language
-// Copyright 2011 George Georgiev.  All rights reserved.
-// 
-// Redistribution and use in source and binary forms, with or without
-// modification, are permitted provided that the following conditions are
-// met:
-//
-//     * Redistributions of source code must retain the above copyright
-// notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
-// copyright notice, this list of conditions and the following disclaimer
-// in the documentation and/or other materials provided with the
-// distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
-// written permission.
-//
-// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
-// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
-// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
-// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
-// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
-// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
-// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
-// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
-// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
-// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-// Author: george.georgiev@hotmail.com (George Georgiev)
-//
+// Boost C++ Utility
+#include <boost/assert.hpp>
 
 #include "function_call.h"
-
-namespace compil
-{
 
 FunctionCall::FunctionCall()
 {
 }
 
-FunctionCall::FunctionCall(const FunctionNameSPtr& name)
-    : mName(name)
+FunctionCall::~FunctionCall()
 {
 }
 
-FunctionCall::FunctionCall(const FunctionNameSPtr& name, const ParameterValueSPtr& parameter)
-    : mName(name)
+const NamespaceSPtr& FunctionCall::namespace_() const
 {
-    mvParameter.push_back(parameter);
+    return mNamespace;
 }
 
-FunctionCall::FunctionCall(const NamespaceSPtr& namesp, const FunctionNameSPtr& name)
-    : mNamespace(namesp), mName(name)
+FunctionCall& FunctionCall::set_namespace(const NamespaceSPtr& namespace_)
 {
-}
-
-FunctionCall::FunctionCall(const NamespaceSPtr& namesp, const FunctionNameSPtr& name, const ParameterValueSPtr& parameter)
-    : mNamespace(namesp), mName(name)
-{
-    mvParameter.push_back(parameter);
-}
-
-FunctionCall& FunctionCall::operator <<(const ParameterValueSPtr& parameter)
-{
-    mvParameter.push_back(parameter);
+    mNamespace = namespace_;
     return *this;
 }
 
+FunctionCall& FunctionCall::operator<<(const NamespaceSPtr& namespace_)
+{
+    return set_namespace(namespace_);
 }
+
+const FunctionCallSPtr& operator<<(const FunctionCallSPtr& object, const NamespaceSPtr& namespace_)
+{
+    BOOST_ASSERT(object);
+    *object << namespace_;
+    return object;
+}
+
+const FunctionNameSPtr& FunctionCall::name() const
+{
+    return mName;
+}
+
+FunctionCall& FunctionCall::set_name(const FunctionNameSPtr& name)
+{
+    mName = name;
+    return *this;
+}
+
+FunctionCall& FunctionCall::operator<<(const FunctionNameSPtr& name)
+{
+    return set_name(name);
+}
+
+const FunctionCallSPtr& operator<<(const FunctionCallSPtr& object, const FunctionNameSPtr& name)
+{
+    BOOST_ASSERT(object);
+    *object << name;
+    return object;
+}
+
+const std::vector<ParameterValueSPtr>& FunctionCall::parameters() const
+{
+    return mParameters;
+}
+
+FunctionCall& FunctionCall::set_parameters(const std::vector<ParameterValueSPtr>& parameters)
+{
+    mParameters = parameters;
+    return *this;
+}
+
+std::vector<ParameterValueSPtr>& FunctionCall::mutable_parameters()
+{
+    return mParameters;
+}
+
+FunctionCall& FunctionCall::operator<<(const std::vector<ParameterValueSPtr>& parameters)
+{
+    return set_parameters(parameters);
+}
+
+const FunctionCallSPtr& operator<<(const FunctionCallSPtr& object, const std::vector<ParameterValueSPtr>& parameters)
+{
+    BOOST_ASSERT(object);
+    *object << parameters;
+    return object;
+}
+
+FunctionCall& FunctionCall::operator<<(const ParameterValueSPtr& parametersItem)
+{
+    mParameters.push_back(parametersItem);
+    return *this;
+}
+
+const FunctionCallSPtr& operator<<(const FunctionCallSPtr& object, const ParameterValueSPtr& parametersItem)
+{
+    BOOST_ASSERT(object);
+    *object << parametersItem;
+    return object;
+}
+

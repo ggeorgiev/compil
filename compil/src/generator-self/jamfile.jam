@@ -53,6 +53,7 @@ lib generator-self-compil :
     generator/aligner/object/destructor_specifier.compil
     generator/aligner/object/destructor_name.compil
     generator/aligner/object/destructor.compil
+    generator/aligner/object/function_call.compil
     generator/aligner/object/function_name.compil
     generator/aligner/object/initialization.compil
     generator/aligner/object/method_declaration.compil

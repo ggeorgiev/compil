@@ -32,16 +32,14 @@
 
 compil { }
 
-import "argument.compil";
-import "constructor_specifier.compil";
-import "constructor_name.compil";
 import "namespace.compil";
+import "function_name.compil";
+import "parameter_value.compil";
 
 streamable
-structure Constructor
+structure FunctionCall
 {
-    ConstructorSpecifier specifier;
     reference<Namespace> namespace;
-    reference<ConstructorName> name;
-    vector<reference<Argument>> arguments;
+    reference<FunctionName> name;
+    vector<reference<ParameterValue>> parameters;
 }

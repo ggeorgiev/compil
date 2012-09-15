@@ -19,6 +19,7 @@
 /* Begin PBXFileReference section */
 		5E03543315FB4744007DE619 /* type_decoration.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = type_decoration.compil; sourceTree = "<group>"; };
 		5E65F2481604F2DF00B40931 /* cast_operator.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = cast_operator.compil; sourceTree = "<group>"; };
+		5E65F24B1604FCE700B40931 /* function_call.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = function_call.compil; sourceTree = "<group>"; };
 		5E88A19515E188BB002D43A5 /* compile.bat */ = {isa = PBXFileReference; lastKnownFileType = text; path = compile.bat; sourceTree = "<group>"; };
 		5E88A19815E188BB002D43A5 /* configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = configuration.cpp; sourceTree = "<group>"; };
 		5E88A19915E188BB002D43A5 /* configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = configuration.h; sourceTree = "<group>"; };
@@ -831,6 +832,7 @@
 				5EB29D8515F4158B00894479 /* destructor_name.compil */,
 				5EB29D8415F414F300894479 /* destructor_specifier.compil */,
 				5EB29D8315F414D300894479 /* destructor.compil */,
+				5E65F24B1604FCE700B40931 /* function_call.compil */,
 				5E88A2A415E188BB002D43A5 /* function_name.compil */,
 				5E88A2A515E188BB002D43A5 /* initialization.compil */,
 				5EB29D9115F42BAD00894479 /* method_declaration.compil */,
