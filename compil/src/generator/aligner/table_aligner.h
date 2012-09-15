@@ -106,7 +106,7 @@ TableAligner& serialize(TableAligner& aligner, const DecoratedType& decoratedTyp
 TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionSpace&);
 TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionDefinitionTypeSpace&);
 TableAligner& operator<<(TableAligner& aligner, const ArgumentSPtr&);
-TableAligner& operator<<(TableAligner& aligner, const CastOperator&);
+TableAligner& operator<<(TableAligner& aligner, const CastOperatorSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const Constructor&);
 TableAligner& operator<<(TableAligner& aligner, const DecoratedType&);
 TableAligner& operator<<(TableAligner& aligner, const DecoratedTypeSPtr&);

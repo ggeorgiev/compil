@@ -56,7 +56,7 @@ Function::Function(const FunctionNameSPtr& name,
 {
 }
 
-Function::Function(const CastOperator& castOperator, 
+Function::Function(const CastOperatorSPtr& castOperator, 
                    const EMethodDeclaration& declaration)
     : mCastOperator(castOperator), mDeclaration(declaration)
 {
@@ -130,7 +130,7 @@ Function::Function(const NamespaceSPtr& namesp,
 }
 
 Function::Function(const NamespaceSPtr& namesp,
-                   const CastOperator& castOperator,
+                   const CastOperatorSPtr& castOperator,
                    const EMethodDeclaration& declaration)
     : mNamespace(namesp), mCastOperator(castOperator), mDeclaration(declaration)
 {

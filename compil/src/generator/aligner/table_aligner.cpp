@@ -249,10 +249,10 @@ TableAligner& operator<<(TableAligner& aligner, const ArgumentSPtr& argument)
     return aligner;
 }
 
-TableAligner& operator<<(TableAligner& aligner, const CastOperator& castOperator)
+TableAligner& operator<<(TableAligner& aligner, const CastOperatorSPtr& castOperator)
 {
     aligner << "operator ";
-    serialize(aligner, *castOperator.mDecoratedType, false);
+    serialize(aligner, *castOperator->type(), false);
     aligner << TableAligner::col();
     return aligner;
 }

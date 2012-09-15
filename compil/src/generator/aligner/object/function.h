@@ -59,7 +59,7 @@ public:
     Function(const FunctionNameSPtr& name, 
              const EMethodDeclaration& declaration);
              
-    Function(const CastOperator& castOperator, 
+    Function(const CastOperatorSPtr& castOperator, 
              const EMethodDeclaration& declaration);
              
     Function(const DecoratedTypeSPtr& returnType, 
@@ -105,7 +105,7 @@ public:
              const EMethodDeclaration& declaration);
              
     Function(const NamespaceSPtr& namesp, 
-             const CastOperator& castOperator, 
+             const CastOperatorSPtr& castOperator,
              const EMethodDeclaration& declaration);
              
     Function(const DecoratedTypeSPtr& returnType, 
@@ -199,7 +199,7 @@ public:
     DecoratedTypeSPtr mReturnType;
     NamespaceSPtr mNamespace;
     FunctionNameSPtr mName;
-    CastOperator mCastOperator;
+    CastOperatorSPtr mCastOperator;
     std::vector<ArgumentSPtr> mvArgument;
     EMethodDeclaration mDeclaration;
 };

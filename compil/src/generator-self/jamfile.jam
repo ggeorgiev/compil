@@ -45,6 +45,7 @@ lib generator-self-compil :
     compiler/model/version.compil
     
     generator/aligner/object/argument.compil
+    generator/aligner/object/cast_operator.compil
     generator/aligner/object/constructor_specifier.compil
     generator/aligner/object/constructor_name.compil
     generator/aligner/object/constructor.compil

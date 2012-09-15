@@ -321,7 +321,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
     {
         commentInTable("Cast operator that casts the enum to its native type");
         table() << TableAligner::row()
-                << Function(CastOperator(impl->cppDecoratedType(pParameterType)), EMethodDeclaration::const_())
+                << Function(castOperatorRef() << impl->cppDecoratedType(pParameterType), EMethodDeclaration::const_())
                 << ";";
     }
 
@@ -998,7 +998,7 @@ void CppHeaderGenerator::generateIdentifierDeclaration(const IdentifierSPtr& pId
     else if (pIdentifier->cast() == CastableType::ECast::weak())
     {
         table() << TableAligner::row()
-                << Function(CastOperator(impl->cppDecoratedType(pParameterType)), EMethodDeclaration::const_())
+                << Function(castOperatorRef() << impl->cppDecoratedType(pParameterType), EMethodDeclaration::const_())
                 << ";";
     }
     eot(declarationStream);

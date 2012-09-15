@@ -286,7 +286,8 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     {
         fdef()  << TableAligner::row()
                 << Function(frm->cppEnumNamespace(pEnumeration),
-                            CastOperator(impl->cppDecoratedType(pParameterType)), EMethodDeclaration::const_());
+                            castOperatorRef() << impl->cppDecoratedType(pParameterType),
+                            EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << frm->memberName("value")
@@ -869,7 +870,8 @@ void CppGenerator::generateIdentifierDefinition(const IdentifierSPtr& pIdentifie
     {
         fdef()  << TableAligner::row()
                 << Function(frm->cppClassNamespace(pIdentifier),
-                            CastOperator(impl->cppDecoratedType(pParameterType)), EMethodDeclaration::const_());
+                            castOperatorRef() << impl->cppDecoratedType(pParameterType),
+                            EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << frm->memberName("value")

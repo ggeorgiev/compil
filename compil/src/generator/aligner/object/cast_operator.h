@@ -4,17 +4,17 @@
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-//
-//     * Redistributions of source code must retain the above copyright
+// 
+// * Redistributions of source code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
+// * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+// * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
-//
+// 
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,27 +28,55 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Author: george.georgiev@hotmail.com (George Georgiev)
-//
+// 
 
+// Boost C++ Smart Pointers
+#include <boost/make_shared.hpp>
+#include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
 
-#ifndef _ALIGNER_CAST_OPERATOR_H__
-#define _ALIGNER_CAST_OPERATOR_H__
+#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CAST_OPERATOR_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CAST_OPERATOR_COMPIL_H_
 
+#include "cast_operator.h"
 #include "decorated_type.h"
-
-namespace compil
-{
 
 class CastOperator
 {
 public:
-    CastOperator();
-    explicit CastOperator(const DecoratedTypeSPtr& decoratedType);
-    
-    operator bool() const;
+    // Default constructor
+                                     CastOperator ();
+    // Destructor
+    /*lax*/                          ~CastOperator();
 
-    DecoratedTypeSPtr mDecoratedType;
+    // Getter method for the data field type
+            const DecoratedTypeSPtr& type         ()                              const;
+    // Setter method for the data field type
+            CastOperator&            set_type     (const DecoratedTypeSPtr& type);
+    // Store operator for the data field type
+            CastOperator&            operator<<   (const DecoratedTypeSPtr& type);
+
+private:
+    // variable for the data field type
+    DecoratedTypeSPtr mType;
 };
 
+// Reference store operator for the data field type
+const CastOperatorSPtr& operator<<(const CastOperatorSPtr& , const DecoratedTypeSPtr& );
+
+inline CastOperatorSPtr castOperatorRef()
+{
+    return boost::make_shared<CastOperator>();
 }
-#endif
+
+#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CAST_OPERATOR_COMPIL_H_
+
+// Forward declarations
+class CastOperator;
+typedef CastOperator*                         CastOperatorRPtr;
+typedef boost::shared_ptr<CastOperator>       CastOperatorSPtr;
+typedef boost::shared_ptr<const CastOperator> CastOperatorSCPtr;
+typedef boost::weak_ptr<CastOperator>         CastOperatorWPtr;
+
+#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CAST_OPERATOR_COMPIL_H_
+
