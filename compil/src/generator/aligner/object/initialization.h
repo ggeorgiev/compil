@@ -52,25 +52,25 @@ public:
     /*lax*/                            ~Initialization    ();
 
     // Getter method for the data field constructorName
-            const ConstructorNameSPtr& constructorName    ()                          const;
+            const ConstructorNameSPtr& constructorName    ()                                           const;
     // Setter method for the data field constructorName
             Initialization&            set_constructorName(const ConstructorNameSPtr& constructorName);
     // Store operator for the data field constructorName
             Initialization&            operator<<         (const ConstructorNameSPtr& constructorName);
 
     // Getter method for the data field variableName
-            const VariableNameSPtr&    variableName       ()                          const;
+            const VariableNameSPtr&    variableName       ()                                           const;
     // Setter method for the data field variableName
-            Initialization&            set_variableName   (const VariableNameSPtr&    variableName);
+            Initialization&            set_variableName   (const VariableNameSPtr& variableName);
     // Store operator for the data field variableName
-            Initialization&            operator<<         (const VariableNameSPtr&    variableName);
+            Initialization&            operator<<         (const VariableNameSPtr& variableName);
 
     // Getter method for the data field parameter
-            const ParameterValueSPtr&  parameter          ()                          const;
+            const ParameterValueSPtr&  parameter          ()                                           const;
     // Setter method for the data field parameter
-            Initialization&            set_parameter      (const ParameterValueSPtr&  parameter);
+            Initialization&            set_parameter      (const ParameterValueSPtr& parameter);
     // Store operator for the data field parameter
-            Initialization&            operator<<         (const ParameterValueSPtr&  parameter);
+            Initialization&            operator<<         (const ParameterValueSPtr& parameter);
 
 private:
     // variable for the data field constructorName
@@ -84,9 +84,9 @@ private:
 // Reference store operator for the data field constructorName
 const InitializationSPtr& operator<<(const InitializationSPtr& , const ConstructorNameSPtr& );
 // Reference store operator for the data field variableName
-const InitializationSPtr& operator<<(const InitializationSPtr& , const VariableNameSPtr&    );
+const InitializationSPtr& operator<<(const InitializationSPtr& , const VariableNameSPtr& );
 // Reference store operator for the data field parameter
-const InitializationSPtr& operator<<(const InitializationSPtr& , const ParameterValueSPtr&  );
+const InitializationSPtr& operator<<(const InitializationSPtr& , const ParameterValueSPtr& );
 
 inline InitializationSPtr initializationRef()
 {

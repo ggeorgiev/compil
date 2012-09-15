@@ -55,30 +55,30 @@ public:
     /*lax*/                                  ~Constructor     ();
 
     // Getter method for the data field specifier
-            const EConstructorSpecifier&     specifier        ()                                const;
+            const EConstructorSpecifier&     specifier        ()                                           const;
     // Setter method for the data field specifier
-            Constructor&                     set_specifier    (const EConstructorSpecifier&     specifier);
+            Constructor&                     set_specifier    (const EConstructorSpecifier& specifier);
     // Provides mutable access to field specifier
             EConstructorSpecifier&           mutable_specifier();
     // Store operator for the data field specifier
-            Constructor&                     operator<<       (const EConstructorSpecifier&     specifier);
+            Constructor&                     operator<<       (const EConstructorSpecifier& specifier);
 
     // Getter method for the data field namespace
-            const NamespaceSPtr&             namespace_       ()                                const;
+            const NamespaceSPtr&             namespace_       ()                                           const;
     // Setter method for the data field namespace
-            Constructor&                     set_namespace    (const NamespaceSPtr&             namespace_);
+            Constructor&                     set_namespace    (const NamespaceSPtr& namespace_);
     // Store operator for the data field namespace
-            Constructor&                     operator<<       (const NamespaceSPtr&             namespace_);
+            Constructor&                     operator<<       (const NamespaceSPtr& namespace_);
 
     // Getter method for the data field name
-            const ConstructorNameSPtr&       name             ()                                const;
+            const ConstructorNameSPtr&       name             ()                                           const;
     // Setter method for the data field name
-            Constructor&                     set_name         (const ConstructorNameSPtr&       name);
+            Constructor&                     set_name         (const ConstructorNameSPtr& name);
     // Store operator for the data field name
-            Constructor&                     operator<<       (const ConstructorNameSPtr&       name);
+            Constructor&                     operator<<       (const ConstructorNameSPtr& name);
 
     // Getter method for the data field arguments
-            const std::vector<ArgumentSPtr>& arguments        ()                                const;
+            const std::vector<ArgumentSPtr>& arguments        ()                                           const;
     // Setter method for the data field arguments
             Constructor&                     set_arguments    (const std::vector<ArgumentSPtr>& arguments);
     // Provides mutable access to field arguments
@@ -86,7 +86,7 @@ public:
     // Store operator for the data field arguments
             Constructor&                     operator<<       (const std::vector<ArgumentSPtr>& arguments);
     // Store operator for an item of data field arguments
-            Constructor&                     operator<<       (const ArgumentSPtr&              argumentsItem);
+            Constructor&                     operator<<       (const ArgumentSPtr& argumentsItem);
 
 private:
     // variable for the data field specifier
@@ -100,15 +100,15 @@ private:
 };
 
 // Reference store operator for the data field specifier
-const ConstructorSPtr& operator<<(const ConstructorSPtr& , const EConstructorSpecifier&     );
+const ConstructorSPtr& operator<<(const ConstructorSPtr& , const EConstructorSpecifier& );
 // Reference store operator for the data field namespace
-const ConstructorSPtr& operator<<(const ConstructorSPtr& , const NamespaceSPtr&             );
+const ConstructorSPtr& operator<<(const ConstructorSPtr& , const NamespaceSPtr& );
 // Reference store operator for the data field name
-const ConstructorSPtr& operator<<(const ConstructorSPtr& , const ConstructorNameSPtr&       );
+const ConstructorSPtr& operator<<(const ConstructorSPtr& , const ConstructorNameSPtr& );
 // Reference store operator for the data field arguments
 const ConstructorSPtr& operator<<(const ConstructorSPtr& , const std::vector<ArgumentSPtr>& );
 // Reference store operator for an item of data field arguments
-const ConstructorSPtr& operator<<(const ConstructorSPtr& , const ArgumentSPtr&              );
+const ConstructorSPtr& operator<<(const ConstructorSPtr& , const ArgumentSPtr& );
 
 inline ConstructorSPtr constructorRef()
 {

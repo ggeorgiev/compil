@@ -52,7 +52,7 @@ public:
     /*lax*/                         ~DecoratedType     ();
 
     // Getter method for the data field declaration
-            const ETypeDeclaration& declaration        ()                       const;
+            const ETypeDeclaration& declaration        ()                                    const;
     // Returns the default value invalid of the field declaration
     static  ETypeDeclaration        default_declaration();
     // Setter method for the data field declaration
@@ -63,31 +63,22 @@ public:
             DecoratedType&          operator<<         (const ETypeDeclaration& declaration);
 
     // Getter method for the data field type
-            const SimpleTypeSPtr&   type               ()                       const;
+            const SimpleTypeSPtr&   type               ()                                    const;
     // Setter method for the data field type
-            DecoratedType&          set_type           (const SimpleTypeSPtr&   type);
+            DecoratedType&          set_type           (const SimpleTypeSPtr& type);
     // Store operator for the data field type
-            DecoratedType&          operator<<         (const SimpleTypeSPtr&   type);
+            DecoratedType&          operator<<         (const SimpleTypeSPtr& type);
 
     // Getter method for the data field decoration
-            const ETypeDecoration&  decoration         ()                       const;
+            const ETypeDecoration&  decoration         ()                                    const;
     // Returns the default value invalid of the field decoration
     static  ETypeDecoration         default_decoration ();
     // Setter method for the data field decoration
-            DecoratedType&          set_decoration     (const ETypeDecoration&  decoration);
+            DecoratedType&          set_decoration     (const ETypeDecoration& decoration);
     // Provides mutable access to field decoration
             ETypeDecoration&        mutable_decoration ();
     // Store operator for the data field decoration
-            DecoratedType&          operator<<         (const ETypeDecoration&  decoration);
-
-    // Getter method for the data field aligned
-            bool                    aligned            ()                       const;
-    // Returns the default value true of the field aligned
-    static  bool                    default_aligned    ();
-    // Setter method for the data field aligned
-            DecoratedType&          set_aligned        (bool                    aligned);
-    // Store operator for the data field aligned
-            DecoratedType&          operator<<         (bool                    aligned);
+            DecoratedType&          operator<<         (const ETypeDecoration& decoration);
 
 private:
     // variable for the data field declaration
@@ -96,18 +87,14 @@ private:
     SimpleTypeSPtr   mType;
     // variable for the data field decoration
     ETypeDecoration  mDecoration;
-    // variable for the data field aligned
-    bool             mAligned;
 };
 
 // Reference store operator for the data field declaration
 const DecoratedTypeSPtr& operator<<(const DecoratedTypeSPtr& , const ETypeDeclaration& );
 // Reference store operator for the data field type
-const DecoratedTypeSPtr& operator<<(const DecoratedTypeSPtr& , const SimpleTypeSPtr&   );
+const DecoratedTypeSPtr& operator<<(const DecoratedTypeSPtr& , const SimpleTypeSPtr& );
 // Reference store operator for the data field decoration
-const DecoratedTypeSPtr& operator<<(const DecoratedTypeSPtr& , const ETypeDecoration&  );
-// Reference store operator for the data field aligned
-const DecoratedTypeSPtr& operator<<(const DecoratedTypeSPtr& , bool                    );
+const DecoratedTypeSPtr& operator<<(const DecoratedTypeSPtr& , const ETypeDecoration& );
 
 inline DecoratedTypeSPtr decoratedTypeRef()
 {

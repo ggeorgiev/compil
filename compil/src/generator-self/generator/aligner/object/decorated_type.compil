@@ -42,7 +42,5 @@ structure DecoratedType
     TypeDeclaration declaration = invalid;
     reference<SimpleType> type = optional;
     TypeDecoration decoration = invalid;
-
-    boolean aligned = true;
 }
 

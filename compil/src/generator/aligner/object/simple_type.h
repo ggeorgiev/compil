@@ -52,20 +52,20 @@ public:
     /*lax*/                      ~SimpleType  ();
 
     // Getter method for the data field namespace
-            const NamespaceSPtr& namespace_   ()                    const;
+            const NamespaceSPtr& namespace_   ()                                const;
     // Setter method for the data field namespace
             SimpleType&          set_namespace(const NamespaceSPtr& namespace_);
     // Store operator for the data field namespace
             SimpleType&          operator<<   (const NamespaceSPtr& namespace_);
 
     // Getter method for the data field value
-            const std::string&   value        ()                    const;
+            const std::string&   value        ()                                const;
     // Setter method for the data field value
-            SimpleType&          set_value    (const std::string&   value);
+            SimpleType&          set_value    (const std::string& value);
     // Provides mutable access to field value
             std::string&         mutable_value();
     // Store operator for the data field value
-            SimpleType&          operator<<   (const std::string&   value);
+            SimpleType&          operator<<   (const std::string& value);
 
 private:
     // variable for the data field namespace
@@ -77,7 +77,7 @@ private:
 // Reference store operator for the data field namespace
 const SimpleTypeSPtr& operator<<(const SimpleTypeSPtr& , const NamespaceSPtr& );
 // Reference store operator for the data field value
-const SimpleTypeSPtr& operator<<(const SimpleTypeSPtr& , const std::string&   );
+const SimpleTypeSPtr& operator<<(const SimpleTypeSPtr& , const std::string& );
 
 inline SimpleTypeSPtr simpleTypeRef()
 {

@@ -46,9 +46,9 @@ class FunctionName
 {
 public:
                          FunctionName();
-    explicit             FunctionName(const std::string&  value);
+    explicit             FunctionName(const std::string& value);
 
-    inline   std::string value       ()                   const;
+    inline   std::string value       ()                           const;
     inline   bool        operator==  (const FunctionName& rValue) const;
     inline   bool        operator!=  (const FunctionName& rValue) const;
     inline   bool        operator<   (const FunctionName& rValue) const;

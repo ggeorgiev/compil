@@ -46,9 +46,9 @@ class VariableName
 {
 public:
                          VariableName();
-    explicit             VariableName(const std::string&  value);
+    explicit             VariableName(const std::string& value);
 
-    inline   std::string value       ()                   const;
+    inline   std::string value       ()                           const;
     inline   bool        operator==  (const VariableName& rValue) const;
     inline   bool        operator!=  (const VariableName& rValue) const;
     inline   bool        operator<   (const VariableName& rValue) const;

@@ -47,7 +47,7 @@ class ConstructorName : public MethodName
 {
 public:
                   ConstructorName();
-    explicit      ConstructorName(const std::string&     value);
+    explicit      ConstructorName(const std::string& value);
 
     inline   bool operator==     (const ConstructorName& rValue) const;
     inline   bool operator!=     (const ConstructorName& rValue) const;

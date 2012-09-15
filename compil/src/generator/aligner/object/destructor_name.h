@@ -47,7 +47,7 @@ class DestructorName : public MethodName
 {
 public:
                   DestructorName();
-    explicit      DestructorName(const std::string&    value);
+    explicit      DestructorName(const std::string& value);
 
     inline   bool operator==    (const DestructorName& rValue) const;
     inline   bool operator!=    (const DestructorName& rValue) const;

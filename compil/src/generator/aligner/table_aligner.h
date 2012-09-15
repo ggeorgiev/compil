@@ -101,17 +101,19 @@ private:
 
 typedef boost::shared_ptr<TableAligner> TableAlignerPtr;
 
+TableAligner& serialize(TableAligner& aligner, const DecoratedType& decoratedType, bool align);
+
 TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionSpace&);
 TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionDefinitionTypeSpace&);
+TableAligner& operator<<(TableAligner& aligner, const ArgumentSPtr&);
+TableAligner& operator<<(TableAligner& aligner, const CastOperator&);
+TableAligner& operator<<(TableAligner& aligner, const Constructor&);
 TableAligner& operator<<(TableAligner& aligner, const DecoratedType&);
 TableAligner& operator<<(TableAligner& aligner, const DecoratedTypeSPtr&);
-TableAligner& operator<<(TableAligner& aligner, const Argument&);
-TableAligner& operator<<(TableAligner& aligner, const ArgumentSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const Function&);
 TableAligner& operator<<(TableAligner& aligner, const FunctionName&);
 TableAligner& operator<<(TableAligner& aligner, const FunctionNameSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const EConstructorSpecifier&);
-TableAligner& operator<<(TableAligner& aligner, const Constructor&);
 TableAligner& operator<<(TableAligner& aligner, const EDestructorSpecifier&);
 TableAligner& operator<<(TableAligner& aligner, const Destructor&);
 TableAligner& operator<<(TableAligner& aligner, const NamespaceSPtr&);

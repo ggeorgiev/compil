@@ -46,9 +46,9 @@ class ParameterValue
 {
 public:
                          ParameterValue();
-    explicit             ParameterValue(const std::string&    value);
+    explicit             ParameterValue(const std::string& value);
 
-    inline   std::string value         ()                     const;
+    inline   std::string value         ()                             const;
     inline   bool        operator==    (const ParameterValue& rValue) const;
     inline   bool        operator!=    (const ParameterValue& rValue) const;
     inline   bool        operator<     (const ParameterValue& rValue) const;

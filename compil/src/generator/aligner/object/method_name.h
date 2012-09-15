@@ -49,9 +49,9 @@ public:
                   MethodName();
     explicit      MethodName(const std::string& value);
 
-    inline   bool operator==(const MethodName&  rValue) const;
-    inline   bool operator!=(const MethodName&  rValue) const;
-    inline   bool operator< (const MethodName&  rValue) const;
+    inline   bool operator==(const MethodName& rValue) const;
+    inline   bool operator!=(const MethodName& rValue) const;
+    inline   bool operator< (const MethodName& rValue) const;
 };
 
 inline MethodNameSPtr methodNameRef()

@@ -6,7 +6,6 @@
 DecoratedType::DecoratedType()
         : mDeclaration(default_declaration())
         , mDecoration (default_decoration())
-        , mAligned    (default_aligned())
 {
 }
 
@@ -100,34 +99,6 @@ const DecoratedTypeSPtr& operator<<(const DecoratedTypeSPtr& object, const EType
 {
     BOOST_ASSERT(object);
     *object << decoration;
-    return object;
-}
-
-bool DecoratedType::aligned() const
-{
-    return mAligned;
-}
-
-bool DecoratedType::default_aligned()
-{
-    return true;
-}
-
-DecoratedType& DecoratedType::set_aligned(bool aligned)
-{
-    mAligned = aligned;
-    return *this;
-}
-
-DecoratedType& DecoratedType::operator<<(bool aligned)
-{
-    return set_aligned(aligned);
-}
-
-const DecoratedTypeSPtr& operator<<(const DecoratedTypeSPtr& object, bool aligned)
-{
-    BOOST_ASSERT(object);
-    *object << aligned;
     return object;
 }
 

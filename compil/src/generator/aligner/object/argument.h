@@ -55,7 +55,7 @@ public:
     class Builder
     {
         // hide evil auto created assignment operator, no implementation
-                void            operator= (const Builder&           );
+                void            operator= (const Builder& );
     public:
         // Default constructor. All fields without default values are left
         // uninitialized. Make sure you initialize all the necessary fields
@@ -63,7 +63,7 @@ public:
                                 Builder   ();
         // Use this constructor when you need to clone or create an object
         // just slightly different from another object
-                                Builder   (const Argument&          object);
+                                Builder   (const Argument& object);
         // Destructor of Builder
         /*lax*/                 ~Builder  ();
 
@@ -72,7 +72,7 @@ public:
         // reused to instantiate more objects. The data is not reset.
         // Second call of build() will instantiate object with the same
         // data.
-                const Argument& build     ()                        const;
+                const Argument& build     ()                              const;
 
         // Provides the internal instantiated builder object and
         // invalidates the builder status. Once finalize() is called, the
@@ -87,13 +87,13 @@ public:
                 void            clear_type();
 
         // Setter method for the data field name
-                Builder&        set_name  (const VariableNameSPtr&  name);
+                Builder&        set_name  (const VariableNameSPtr& name);
         // Clears the optional data field name
                 void            clear_name();
 
     protected:
         // constructor needed from potential derived classes
-                                Builder   (ArgumentRPtr             pObject);
+                                Builder   (ArgumentRPtr pObject);
 
         ArgumentRPtr mpObject;
     };
@@ -137,7 +137,7 @@ private:
 };
 
 ArgumentSPtr CreateArgument(const DecoratedTypeSPtr& type);
-ArgumentSPtr CreateArgument(const VariableNameSPtr&  name);
+ArgumentSPtr CreateArgument(const VariableNameSPtr& name);
 ArgumentSPtr CreateArgument(const DecoratedTypeSPtr& type, const VariableNameSPtr& name);
 
 #else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_ARGUMENT_COMPIL_H_

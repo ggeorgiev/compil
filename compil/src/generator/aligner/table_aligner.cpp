@@ -210,23 +210,6 @@ void TableAligner::newRow(Row::Type type, int indent)
 	newColumn();
 }
 
-TableAligner& operator<<(TableAligner& aligner, const Argument& argument)
-{
-    if (argument.exist_type())
-        aligner << argument.type();
-    aligner << argument.name();
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const ArgumentSPtr& argument)
-{
-    if (argument->type())
-        aligner << argument->type();
-    if (argument->exist_name())
-        aligner << argument->name();
-    return aligner;
-}
-
 TableAligner& operator<<(TableAligner& aligner, const TableAligner::col&)
 {
 	aligner.newColumn();
@@ -257,6 +240,23 @@ TableAligner& operator<<(TableAligner& aligner, const TableAligner::optional_new
 	return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const ArgumentSPtr& argument)
+{
+    if (argument->exist_type())
+        serialize(aligner, *argument->type(), false);
+    if (argument->exist_name())
+        aligner << argument->name();
+    return aligner;
+}
+
+TableAligner& operator<<(TableAligner& aligner, const CastOperator& castOperator)
+{
+    aligner << "operator ";
+    serialize(aligner, *castOperator.mDecoratedType, false);
+    aligner << TableAligner::col();
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionSpace&)
 {
     if (aligner.mpConfiguration->mFunctionSpace)
@@ -274,7 +274,7 @@ TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionDefinitio
 	return aligner;
 }
 
-TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedType)
+TableAligner& serialize(TableAligner& aligner, const DecoratedType& decoratedType, bool align)
 {
     if (decoratedType.declaration() != ETypeDeclaration::invalid())
         aligner << decoratedType.declaration() << ' ';
@@ -285,13 +285,13 @@ TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedTy
         if (decoratedType.decoration() != ETypeDecoration::invalid())
             aligner << decoratedType.decoration();
         aligner << ' ';
-        if (decoratedType.aligned())
+        if (align)
             aligner << TableAligner::col();
 	}
 	else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_name)
 	{
         aligner << ' ';
-        if (decoratedType.aligned())
+        if (align)
             aligner << TableAligner::col();
         if (decoratedType.decoration() != ETypeDecoration::invalid())
             aligner << decoratedType.decoration();
@@ -299,11 +299,11 @@ TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedTy
 	else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
 	{
         aligner << ' ';
-        if (decoratedType.aligned())
+        if (align)
             aligner << TableAligner::col();
         if (decoratedType.decoration() != ETypeDecoration::invalid())
             aligner << decoratedType.decoration();
-        if (decoratedType.aligned())
+        if (align)
             aligner << TableAligner::col();
 	}
     else
@@ -311,6 +311,11 @@ TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedTy
         assert(false && "unknown decoration");
     }
 	return aligner;
+}
+
+TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedType)
+{
+    return serialize(aligner, decoratedType, true);
 }
 
 TableAligner& operator<<(TableAligner& aligner, const DecoratedTypeSPtr& decoratedType)
@@ -335,9 +340,7 @@ TableAligner& operator<<(TableAligner& aligner, const Function& function)
     aligner << function.mName;
 
     if (function.mCastOperator)
-        aligner << "operator " 
-                << function.mCastOperator.mDecoratedType
-                << TableAligner::col();
+        aligner << function.mCastOperator;
 
     aligner << Aligner::FunctionSpace();
     

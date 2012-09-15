@@ -43,7 +43,6 @@ CastOperator::CastOperator()
 CastOperator::CastOperator(const DecoratedTypeSPtr& decoratedType)
 {
     mDecoratedType = boost::make_shared<DecoratedType>(*decoratedType);
-    mDecoratedType->set_aligned(false);
 }
 
 CastOperator::operator bool() const
