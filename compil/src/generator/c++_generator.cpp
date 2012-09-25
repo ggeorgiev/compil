@@ -1203,7 +1203,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                     eol(definitionStream);
                     
                     line()  << "return "
-                            << frm->updateMethodName(pField)
+                            << frm->setMethodName(pField)
                             << "("
                             << frm->cppVariableName(pField)
                             << ");";
