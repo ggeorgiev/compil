@@ -36,6 +36,9 @@
 
 #include "aligner_configuration.h"
 
+#include "cpp/format/argument.h"
+#include "cpp/format/method.h"
+
 #include "argument.h"
 #include "cast_operator.h"
 #include "constructor.h"
@@ -117,6 +120,7 @@ extern NamespaceNameSPtr nsBuilder;
 
 extern SimpleTypeSPtr builder;
 extern SimpleTypeSPtr chr;
+extern SimpleTypeSPtr integer;
 
 extern VariableNameSPtr bits;
 extern VariableNameSPtr child;

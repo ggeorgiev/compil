@@ -32,17 +32,22 @@
 
 compil { }
 
+import "argument.compil";
 import "decorated_type.compil";
-import "variable_name.compil";
+import "method_name.compil";
+import "method_specifier.compil";
+import "method_declaration.compil";
+import "namespace.compil";
 
-controlled immutable 
-structure Argument
-{
-    reference<DecoratedType> type = optional;
-    reference<VariableName> name = optional;
-}
+package cpp.frm;
 
-function object
-factory<Argument> CreateArgument
+streamable
+structure Method 
 {
+    MethodSpecifier specifier;
+    reference<DecoratedType> return;
+    reference<Namespace> namespace;
+    reference<MethodName> name;
+    vector<reference<Argument>> arguments;
+    MethodDeclaration declaration;
 }

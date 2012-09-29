@@ -105,6 +105,7 @@ TableAligner& serialize(TableAligner& aligner, const DecoratedType& decoratedTyp
 
 TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionSpace&);
 TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionDefinitionTypeSpace&);
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ArgumentSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const ArgumentSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const CastOperatorSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const Constructor&);
@@ -121,6 +122,7 @@ TableAligner& operator<<(TableAligner& aligner, const NamespaceSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const ParameterValueSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const EMethodDeclaration&);
 TableAligner& operator<<(TableAligner& aligner, const EMethodSpecifier&);
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const InitializationSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const SimpleType&);
 TableAligner& operator<<(TableAligner& aligner, const SimpleTypeSPtr&);

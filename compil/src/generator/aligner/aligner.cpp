@@ -106,6 +106,7 @@ NamespaceNameSPtr nsBuilder = namespaceNameRef("Builder");
 
 SimpleTypeSPtr builder = simpleTypeRef() << "Builder";
 SimpleTypeSPtr chr     = simpleTypeRef() << "char";
+SimpleTypeSPtr integer = simpleTypeRef() << "int";
 
 VariableNameSPtr bits = variableNameRef("bits");
 VariableNameSPtr child = variableNameRef("child");

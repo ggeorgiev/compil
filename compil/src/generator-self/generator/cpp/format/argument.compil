@@ -33,9 +33,13 @@
 compil { }
 
 import "decorated_type.compil";
+import "variable_name.compil";
+
+package cpp.frm;
 
 streamable
-structure CastOperator
+structure Argument
 {
     reference<DecoratedType> type;
+    reference<VariableName> name;
 }

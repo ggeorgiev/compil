@@ -31,63 +31,84 @@
 // 
 
 // Boost C++ Smart Pointers
+#include <boost/make_shared.hpp>
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_METHOD_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_METHOD_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_ARGUMENT_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_ARGUMENT_COMPIL_H_
 
-#include "method.h"
-#include "method_name.h"
-#include "method_specifier.h"
-#include "namespace.h"
+#include "argument.h"
+#include "decorated_type.h"
+#include "variable_name.h"
 
-class Method
+namespace cpp
+{
+
+namespace frm
+{
+
+class Argument
 {
 public:
     // Default constructor
-                                    Method       ();
+                                     Argument  ();
     // Destructor
-    /*lax*/                         ~Method      ();
+    /*lax*/                          ~Argument ();
 
-    // Getter method for the data field specifier
-            const EMethodSpecifier& specifier    ()                                  const;
-    // Setter method for the data field specifier
-            Method&                 set_specifier(const EMethodSpecifier& specifier);
-    // Store operator for the data field specifier
-            Method&                 operator<<   (const EMethodSpecifier& specifier);
+    // Getter method for the data field type
+            const DecoratedTypeSPtr& type      ()                              const;
+    // Setter method for the data field type
+            Argument&                set_type  (const DecoratedTypeSPtr& type);
+    // Store operator for the data field type
+            Argument&                operator<<(const DecoratedTypeSPtr& type);
 
     // Getter method for the data field name
-            const MethodNameSPtr&   name         ()                                  const;
+            const VariableNameSPtr&  name      ()                              const;
     // Setter method for the data field name
-            Method&                 set_name     (const MethodNameSPtr& name);
+            Argument&                set_name  (const VariableNameSPtr& name);
     // Store operator for the data field name
-            Method&                 operator<<   (const MethodNameSPtr& name);
-
-    // Getter method for the data field namespace
-            const NamespaceSPtr&    namespace_   ()                                  const;
-    // Setter method for the data field namespace
-            Method&                 set_namespace(const NamespaceSPtr& namespace_);
-    // Store operator for the data field namespace
-            Method&                 operator<<   (const NamespaceSPtr& namespace_);
+            Argument&                operator<<(const VariableNameSPtr& name);
 
 private:
-    // variable for the data field specifier
-    EMethodSpecifier mSpecifier;
+    // variable for the data field type
+    DecoratedTypeSPtr mType;
     // variable for the data field name
-    MethodNameSPtr   mName;
-    // variable for the data field namespace
-    NamespaceSPtr    mNamespace;
+    VariableNameSPtr  mName;
 };
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_METHOD_COMPIL_H_
+// Reference store operator for the data field type
+const ArgumentSPtr& operator<<(const ArgumentSPtr& , const DecoratedTypeSPtr& );
+// Reference store operator for the data field name
+const ArgumentSPtr& operator<<(const ArgumentSPtr& , const VariableNameSPtr& );
+
+inline ArgumentSPtr argumentRef()
+{
+    return boost::make_shared<Argument>();
+}
+
+}
+
+}
+
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_ARGUMENT_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
-class Method;
-typedef Method*                         MethodRPtr;
-typedef boost::shared_ptr<Method>       MethodSPtr;
-typedef boost::shared_ptr<const Method> MethodSCPtr;
-typedef boost::weak_ptr<Method>         MethodWPtr;
+class Argument;
+typedef Argument*                         ArgumentRPtr;
+typedef boost::shared_ptr<Argument>       ArgumentSPtr;
+typedef boost::shared_ptr<const Argument> ArgumentSCPtr;
+typedef boost::weak_ptr<Argument>         ArgumentWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_METHOD_COMPIL_H_
+}
+
+}
+
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_ARGUMENT_COMPIL_H_
 

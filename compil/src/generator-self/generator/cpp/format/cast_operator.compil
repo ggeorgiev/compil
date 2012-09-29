@@ -32,14 +32,14 @@
 
 compil { }
 
-import "method_name.compil";
-import "method_specifier.compil";
+import "decorated_type.compil";
+import "method_declaration.compil";
 import "namespace.compil";
 
 streamable
-structure Method 
+structure CastOperator
 {
-    MethodSpecifier specifier;
-    reference<MethodName> name;
+    reference<DecoratedType> type;
     reference<Namespace> namespace;
+    MethodDeclaration declaration;
 }

@@ -5,7 +5,8 @@ boost-defines ;
 gtest-defines ;
 
 project generator
-    : requirements 
+    : requirements
+        <include>.
         <include>aligner
         <include>aligner/object
         <include>formatter
@@ -13,6 +14,9 @@ project generator
     ;
 
 lib gen :
+    cpp/format/argument.cpp
+    cpp/format/method.cpp
+
     aligner/object/argument.cpp
     aligner/object/cast_operator.cpp
     aligner/object/constructor_name.cpp

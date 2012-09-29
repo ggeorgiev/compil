@@ -34,3 +34,54 @@ const CastOperatorSPtr& operator<<(const CastOperatorSPtr& object, const Decorat
     return object;
 }
 
+const NamespaceSPtr& CastOperator::namespace_() const
+{
+    return mNamespace;
+}
+
+CastOperator& CastOperator::set_namespace(const NamespaceSPtr& namespace_)
+{
+    mNamespace = namespace_;
+    return *this;
+}
+
+CastOperator& CastOperator::operator<<(const NamespaceSPtr& namespace_)
+{
+    return set_namespace(namespace_);
+}
+
+const CastOperatorSPtr& operator<<(const CastOperatorSPtr& object, const NamespaceSPtr& namespace_)
+{
+    BOOST_ASSERT(object);
+    *object << namespace_;
+    return object;
+}
+
+const EMethodDeclaration& CastOperator::declaration() const
+{
+    return mDeclaration;
+}
+
+CastOperator& CastOperator::set_declaration(const EMethodDeclaration& declaration)
+{
+    mDeclaration = declaration;
+    return *this;
+}
+
+EMethodDeclaration& CastOperator::mutable_declaration()
+{
+    return mDeclaration;
+}
+
+CastOperator& CastOperator::operator<<(const EMethodDeclaration& declaration)
+{
+    return set_declaration(declaration);
+}
+
+const CastOperatorSPtr& operator<<(const CastOperatorSPtr& object, const EMethodDeclaration& declaration)
+{
+    BOOST_ASSERT(object);
+    *object << declaration;
+    return object;
+}
+

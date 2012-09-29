@@ -52,12 +52,15 @@ bool CppKeyword::isKeyword(const std::string& word)
     if (word == "enum")         return true;
     if (word == "explicit")     return true;
     if (word == "default")      return true;
+    if (word == "delete")       return true;
     if (word == "inline")       return true;
     if (word == "namespace")    return true;
+    if (word == "new")          return true;
     if (word == "operator")     return true;
     if (word == "private")      return true;
     if (word == "protected")    return true;
     if (word == "public")       return true;
+    if (word == "return")       return true;
     if (word == "static")       return true;
     if (word == "switch")       return true;
     if (word == "virtual")      return true;

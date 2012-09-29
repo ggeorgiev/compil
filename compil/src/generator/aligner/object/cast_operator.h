@@ -35,41 +35,67 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CAST_OPERATOR_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CAST_OPERATOR_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_CAST_OPERATOR_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_CAST_OPERATOR_COMPIL_H_
 
 #include "cast_operator.h"
 #include "decorated_type.h"
+#include "method_declaration.h"
+#include "namespace.h"
 
 class CastOperator
 {
 public:
     // Default constructor
-                                     CastOperator ();
+                                      CastOperator       ();
     // Destructor
-    /*lax*/                          ~CastOperator();
+    /*lax*/                           ~CastOperator      ();
 
     // Getter method for the data field type
-            const DecoratedTypeSPtr& type         ()                              const;
+            const DecoratedTypeSPtr&  type               ()                                      const;
     // Setter method for the data field type
-            CastOperator&            set_type     (const DecoratedTypeSPtr& type);
+            CastOperator&             set_type           (const DecoratedTypeSPtr& type);
     // Store operator for the data field type
-            CastOperator&            operator<<   (const DecoratedTypeSPtr& type);
+            CastOperator&             operator<<         (const DecoratedTypeSPtr& type);
+
+    // Getter method for the data field namespace
+            const NamespaceSPtr&      namespace_         ()                                      const;
+    // Setter method for the data field namespace
+            CastOperator&             set_namespace      (const NamespaceSPtr& namespace_);
+    // Store operator for the data field namespace
+            CastOperator&             operator<<         (const NamespaceSPtr& namespace_);
+
+    // Getter method for the data field declaration
+            const EMethodDeclaration& declaration        ()                                      const;
+    // Setter method for the data field declaration
+            CastOperator&             set_declaration    (const EMethodDeclaration& declaration);
+    // Provides mutable access to field declaration
+            EMethodDeclaration&       mutable_declaration();
+    // Store operator for the data field declaration
+            CastOperator&             operator<<         (const EMethodDeclaration& declaration);
 
 private:
     // variable for the data field type
-    DecoratedTypeSPtr mType;
+    DecoratedTypeSPtr  mType;
+    // variable for the data field namespace
+    NamespaceSPtr      mNamespace;
+    // variable for the data field declaration
+    EMethodDeclaration mDeclaration;
 };
 
 // Reference store operator for the data field type
 const CastOperatorSPtr& operator<<(const CastOperatorSPtr& , const DecoratedTypeSPtr& );
+// Reference store operator for the data field namespace
+const CastOperatorSPtr& operator<<(const CastOperatorSPtr& , const NamespaceSPtr& );
+// Reference store operator for the data field declaration
+const CastOperatorSPtr& operator<<(const CastOperatorSPtr& , const EMethodDeclaration& );
 
-inline CastOperatorSPtr castOperatorRef()
+inline  CastOperatorSPtr castOperatorRef()
 {
     return boost::make_shared<CastOperator>();
 }
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CAST_OPERATOR_COMPIL_H_
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_CAST_OPERATOR_COMPIL_H_
 
 // Forward declarations
 class CastOperator;
@@ -78,5 +104,5 @@ typedef boost::shared_ptr<CastOperator>       CastOperatorSPtr;
 typedef boost::shared_ptr<const CastOperator> CastOperatorSCPtr;
 typedef boost::weak_ptr<CastOperator>         CastOperatorWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CAST_OPERATOR_COMPIL_H_
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_CAST_OPERATOR_COMPIL_H_
 

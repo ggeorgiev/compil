@@ -36,6 +36,8 @@
 #include "boost/lexical_cast.hpp"
 #include "boost/algorithm/string.hpp"
 
+namespace cf = cpp::frm;
+
 namespace compil
 {
 
@@ -73,10 +75,10 @@ void CppGenerator::generateEnumerationValueDefinition(const EnumerationValueSPtr
         assert(false && "unknown enumeration cast");
 
     fdef()  << TableAligner::row()
-            << Function((decoratedTypeRef() << ETypeDeclaration::const_()
-                                            << type),
-                        frm->cppEnumNamespace(pEnumeration),
-                        frm->methodName(pEnumerationValue->name()->value()));
+            << (cf::methodRef() << (decoratedTypeRef() << ETypeDeclaration::const_()
+                                                       << type)
+                                << frm->cppEnumNamespace(pEnumeration)
+                                << frm->methodName(pEnumerationValue->name()->value()));
     openBlock(definitionStream);
     line()  << "return ";
     if (pEnumeration->cast() == CastableType::ECast::strong())
@@ -156,8 +158,10 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
         generateEnumerationValueDefinition(Model::allEnumerationValue(pEnumeration));
 
     fdef()  << TableAligner::row()
-            << Function(impl->cppDecoratedType(pParameterType),
-                        frm->cppEnumNamespace(pEnumeration), fnValue, EMethodDeclaration::const_());
+            << (cf::methodRef() << impl->cppDecoratedType(pParameterType)
+                                << frm->cppEnumNamespace(pEnumeration)
+                                << fnValue
+                                << EMethodDeclaration::const_());
     openBlock(definitionStream);
     line()  << "return "
             << frm->memberName("value")
@@ -166,8 +170,11 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     eol(definitionStream);
 
     fdef()  << TableAligner::row()
-            << Function(const_char_ptr, frm->cppEnumNamespace(pEnumeration), fnShortName,
-                        CreateArgument(impl->cppDecoratedType(pParameterType), value));
+            << (cf::methodRef() << const_char_ptr
+                                << frm->cppEnumNamespace(pEnumeration)
+                                << fnShortName
+                                << (cf::argumentRef() << impl->cppDecoratedType(pParameterType)
+                                                      << value));
     openBlock(definitionStream);
 
     long min = pEnumeration->getMinValue();
@@ -246,8 +253,10 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
 
 
     fdef()  << TableAligner::row()
-            << Function(const_char_ptr, frm->cppEnumNamespace(pEnumeration),
-                        fnShortName, EMethodDeclaration::const_());
+            << (cf::methodRef() << const_char_ptr
+                                << frm->cppEnumNamespace(pEnumeration)
+                                << fnShortName
+                                << EMethodDeclaration::const_());
     openBlock(definitionStream);
     line()  << "return "
             << (functionCallRef() << fnShortName
@@ -260,8 +269,12 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     if (pEnumeration->cast() == CastableType::ECast::strong())
     {
         fdef()  << TableAligner::row()
-                << Function(bl, frm->cppEnumNamespace(pEnumeration), fnOperatorEq,
-                            CreateArgument(innerDecoratedType, rValue), EMethodDeclaration::const_());
+                << (cf::methodRef() << bl
+                                    << frm->cppEnumNamespace(pEnumeration)
+                                    << fnOperatorEq
+                                    << (cf::argumentRef() << innerDecoratedType
+                                                          << rValue)
+                                    << EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << frm->memberName("value")
@@ -272,8 +285,12 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
         eol(definitionStream);
 
         fdef()  << TableAligner::row()
-                << Function(bl, frm->cppEnumNamespace(pEnumeration), fnOperatorNe,
-                            CreateArgument(innerDecoratedType, rValue), EMethodDeclaration::const_());
+                << (cf::methodRef() << bl
+                                    << frm->cppEnumNamespace(pEnumeration)
+                                    << fnOperatorNe
+                                    << (cf::argumentRef() << innerDecoratedType
+                                                          << rValue)
+                                    << EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << frm->memberName("value")
@@ -286,9 +303,9 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     else if (pEnumeration->cast() == CastableType::ECast::weak())
     {
         fdef()  << TableAligner::row()
-                << Function(frm->cppEnumNamespace(pEnumeration),
-                            castOperatorRef() << impl->cppDecoratedType(pParameterType),
-                            EMethodDeclaration::const_());
+                << (castOperatorRef() << frm->cppEnumNamespace(pEnumeration)
+                                      << impl->cppDecoratedType(pParameterType)
+                                      << EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << frm->memberName("value")
@@ -300,9 +317,13 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     if (impl->implementFlagsEnumerationMethods(pEnumeration))
     {
         fdef()  << TableAligner::row()
-                << Function(vd, frm->cppEnumNamespace(pEnumeration), fnReset,
-                            CreateArgument(innerDecoratedType, mask),
-                            CreateArgument(innerDecoratedType, value));
+                << (cf::methodRef() << vd
+                                    << frm->cppEnumNamespace(pEnumeration)
+                                    << fnReset
+                                    << (cf::argumentRef() << innerDecoratedType
+                                                          << mask)
+                                    << (cf::argumentRef() << innerDecoratedType
+                                                          << value));
         openBlock(definitionStream);
         line()  << frm->memberName("value")
                 << " = value.value() | (this->value() & ~mask.value());";
@@ -311,8 +332,11 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
         eol(definitionStream);
 
         fdef()  << TableAligner::row()
-                << Function(vd, frm->cppEnumNamespace(pEnumeration), fnSet,
-                            CreateArgument(innerDecoratedType, mask));
+                << (cf::methodRef() << vd
+                                    << frm->cppEnumNamespace(pEnumeration)
+                                    << fnSet
+                                    << (cf::argumentRef() << innerDecoratedType
+                                                          << mask));
         openBlock(definitionStream);
         line()  << frm->memberName("value")
                 << " |= mask.value();";
@@ -321,8 +345,11 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
         eol(definitionStream);
 
         fdef()  << TableAligner::row()
-                << Function(vd, frm->cppEnumNamespace(pEnumeration), fnClear,
-                            CreateArgument(innerDecoratedType, mask));
+                << (cf::methodRef() << vd
+                                    << frm->cppEnumNamespace(pEnumeration)
+                                    << fnClear
+                                    << (cf::argumentRef() << innerDecoratedType
+                                                          << mask));
         openBlock(definitionStream);
         line()  << frm->memberName("value")
                 << " &= ~mask.value();";
@@ -331,8 +358,11 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
         eol(definitionStream);
 
         fdef()  << TableAligner::row()
-                << Function(vd, frm->cppEnumNamespace(pEnumeration), fnTurn,
-                            CreateArgument(innerDecoratedType, mask));
+                << (cf::methodRef() << vd
+                                    << frm->cppEnumNamespace(pEnumeration)
+                                    << fnTurn
+                                    << (cf::argumentRef() << innerDecoratedType
+                                                          << mask));
         openBlock(definitionStream);
         line()  << frm->memberName("value")
                 << " ^= mask.value();";
@@ -341,9 +371,14 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
         eol(definitionStream);
 
         fdef()  << TableAligner::row()
-                << Function(outerType, frm->cppEnumNamespace(pEnumeration), fnAssemble,
-                            CreateArgument(innerDecoratedType, mask),
-                            CreateArgument(innerDecoratedType, value), EMethodDeclaration::const_());
+                << (cf::methodRef() << outerType
+                                    << frm->cppEnumNamespace(pEnumeration)
+                                    << fnAssemble
+                                    << (cf::argumentRef() << innerDecoratedType
+                                                          << mask)
+                                    << (cf::argumentRef() << innerDecoratedType
+                                                          << value)
+                                    << EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << outerType
@@ -354,8 +389,12 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
         eol(definitionStream);
 
         fdef()  << TableAligner::row()
-                << Function(outerType, frm->cppEnumNamespace(pEnumeration), fnCombine,
-                            CreateArgument(innerDecoratedType, mask), EMethodDeclaration::const_());
+                << (cf::methodRef() << outerType
+                                    << frm->cppEnumNamespace(pEnumeration)
+                                    << fnCombine
+                                    << (cf::argumentRef() << innerDecoratedType
+                                                          << mask)
+                                    << EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << outerType
@@ -365,8 +404,12 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
         eol(definitionStream);
 
         fdef()  << TableAligner::row()
-                << Function(outerType, frm->cppEnumNamespace(pEnumeration), fnIntersect,
-                            CreateArgument(innerDecoratedType, mask), EMethodDeclaration::const_());
+                << (cf::methodRef() << outerType
+                                    << frm->cppEnumNamespace(pEnumeration)
+                                    << fnIntersect
+                                    << (cf::argumentRef() << innerDecoratedType
+                                                          << mask)
+                                    << EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << outerType
@@ -376,8 +419,12 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
         eol(definitionStream);
 
         fdef()  << TableAligner::row()
-                << Function(outerType, frm->cppEnumNamespace(pEnumeration), fnFlip,
-                            CreateArgument(innerDecoratedType, mask), EMethodDeclaration::const_());
+                << (cf::methodRef() << outerType
+                                    << frm->cppEnumNamespace(pEnumeration)
+                                    << fnFlip
+                                    << (cf::argumentRef() << innerDecoratedType
+                                                          << mask)
+                                    << EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << outerType
@@ -387,10 +434,14 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
         eol(definitionStream);
 
         fdef()  << TableAligner::row()
-                << Function(bl, frm->cppEnumNamespace(pEnumeration), fnTest,
-                            CreateArgument(innerDecoratedType, mask),
-                            CreateArgument(innerDecoratedType, value),
-                            EMethodDeclaration::const_());
+                << (cf::methodRef() << bl
+                                    << frm->cppEnumNamespace(pEnumeration)
+                                    << fnTest
+                                    << (cf::argumentRef() << innerDecoratedType
+                                                          << mask)
+                                    << (cf::argumentRef() << innerDecoratedType
+                                                          << value)
+                                    << EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return (this->value() & mask.value()) == value.value();";
         eol(definitionStream);
@@ -398,9 +449,12 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
         eol(definitionStream);
 
         fdef()  << TableAligner::row()
-                << Function(bl, frm->cppEnumNamespace(pEnumeration), fnIsSet,
-                            CreateArgument(innerDecoratedType, mask),
-                            EMethodDeclaration::const_());
+                << (cf::methodRef() << bl
+                                    << frm->cppEnumNamespace(pEnumeration)
+                                    << fnIsSet
+                                    << (cf::argumentRef() << innerDecoratedType
+                                                          << mask)
+                                    << EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return (value() & mask.value()) == mask.value();";
         eol(definitionStream);
@@ -408,9 +462,12 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
         eol(definitionStream);
 
         fdef()  << TableAligner::row()
-                << Function(bl, frm->cppEnumNamespace(pEnumeration), fnIsClear,
-                            CreateArgument(innerDecoratedType, mask),
-                            EMethodDeclaration::const_());
+                << (cf::methodRef() << bl
+                                    << frm->cppEnumNamespace(pEnumeration)
+                                    << fnIsClear
+                                    << (cf::argumentRef() << innerDecoratedType
+                                                          << mask)
+                                    << EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return (value() & mask.value()) == 0;";
         eol(definitionStream);
@@ -464,9 +521,9 @@ void CppGenerator::generateHierarchyFactoryDefinition(const FactorySPtr& pFactor
         StructureSPtr pStructure = *it;
 
         fdef()  << TableAligner::row()
-                << Function((decoratedTypeRef() << impl->identificationEnum(pParameterStructure)),
-                            frm->cppAutoClassNamespace(pStructure),
-                            impl->staticIdentificationMethodName(pParameterStructure));
+                << (cf::methodRef() << (decoratedTypeRef() << impl->identificationEnum(pParameterStructure))
+                                    << frm->cppAutoClassNamespace(pStructure)
+                                    << impl->staticIdentificationMethodName(pParameterStructure));
         openBlock(definitionStream);
         line()  << "return "
                 << frm->cppEnumNamespace(pEnumeration)
@@ -477,10 +534,10 @@ void CppGenerator::generateHierarchyFactoryDefinition(const FactorySPtr& pFactor
         eol(definitionStream);
 
         fdef()  << TableAligner::row()
-                << Function((decoratedTypeRef() << impl->identificationEnum(pParameterStructure)),
-                            frm->cppAutoClassNamespace(pStructure),
-                            impl->runtimeIdentificationMethodName(pParameterStructure),
-                            EMethodDeclaration::const_());
+                << (cf::methodRef() << (decoratedTypeRef() << impl->identificationEnum(pParameterStructure))
+                                    << frm->cppAutoClassNamespace(pStructure)
+                                    << impl->runtimeIdentificationMethodName(pParameterStructure)
+                                    << EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << impl->staticIdentificationMethodName(pParameterStructure)
@@ -490,10 +547,11 @@ void CppGenerator::generateHierarchyFactoryDefinition(const FactorySPtr& pFactor
     }
 
     fdef()  << TableAligner::row()
-            << Function((decoratedTypeRef() << impl->cppPtrType(pParameterType)),
-                        frm->cppClassNamespace(pFactory), fnClone,
-                        CreateArgument(impl->cppPtrDecoratedType(pParameterType),
-                                       frm->ptrVariableName(object)));
+            << (cf::methodRef() << (decoratedTypeRef() << impl->cppPtrType(pParameterType))
+                                << frm->cppClassNamespace(pFactory)
+                                << fnClone
+                                << (cf::argumentRef() << impl->cppPtrDecoratedType(pParameterType)
+                                                      << frm->ptrVariableName(object)));
     openBlock(definitionStream);
     line()  << "switch ("
             << frm->ptrVariableName(object)
@@ -566,11 +624,11 @@ void CppGenerator::generateHierarchyFactoryDefinition(const FactorySPtr& pFactor
         if (pParameterStructure == pStructure) continue;
 
         fdef()  << TableAligner::row()
-                << Function((decoratedTypeRef() << impl->cppPtrType(pStructure)),
-                            frm->cppClassNamespace(pFactory),
-                            frm->downcastMethodName(pStructure),
-                            CreateArgument(impl->cppPtrDecoratedType(pParameterStructure),
-                                           frm->ptrVariableName(object)));
+                << (cf::methodRef() << (decoratedTypeRef() << impl->cppPtrType(pStructure))
+                                    << frm->cppClassNamespace(pFactory)
+                                    << frm->downcastMethodName(pStructure)
+                                    << (cf::argumentRef() << impl->cppPtrDecoratedType(pParameterStructure)
+                                                          << frm->ptrVariableName(object)));
         openBlock(definitionStream);
         line()  << "bool b = ("
                 << frm->ptrVariableName(object)
@@ -743,8 +801,13 @@ void CppGenerator::generatePluginFactoryDefinition(const FactorySPtr& pFactory)
 
 
     fdef()  << TableAligner::row()
-            << Function(bl, frm->cppClassNamespace(pFactory), fnRegisterCloneFunction,
-                        CreateArgument(st, object), CreateArgument(cloneFunction, function));
+            << (cf::methodRef() << bl
+                                << frm->cppClassNamespace(pFactory)
+                                << fnRegisterCloneFunction
+                                << (cf::argumentRef() << st
+                                                      << object)
+                                << (cf::argumentRef() << cloneFunction
+                                                      << function));
     openBlock(definitionStream);
     line()  << "get().cloneFunctions[object] = function;";
     eol(definitionStream);
@@ -754,8 +817,13 @@ void CppGenerator::generatePluginFactoryDefinition(const FactorySPtr& pFactory)
     eol(definitionStream);
 
     fdef()  << TableAligner::row()
-            << Function(bl, frm->cppClassNamespace(pFactory), fnRegisterRelationship,
-                        CreateArgument(st, parent), CreateArgument(st, child));
+            << (cf::methodRef() << bl
+                                << frm->cppClassNamespace(pFactory)
+                                << fnRegisterRelationship
+                                << (cf::argumentRef() << st
+                                                      << parent)
+                                << (cf::argumentRef() << st
+                                                      << child));
     openBlock(definitionStream);
     line()  << "get().relationships.insert(Pair(parent, child));";
     eol(definitionStream);
@@ -765,8 +833,13 @@ void CppGenerator::generatePluginFactoryDefinition(const FactorySPtr& pFactory)
     eol(definitionStream);
 
     fdef()  << TableAligner::row()
-            << Function(bl, frm->cppClassNamespace(pFactory), fnIsParent,
-                        CreateArgument(st, parent), CreateArgument(st, child));
+            << (cf::methodRef() << bl
+                                << frm->cppClassNamespace(pFactory)
+                                << fnIsParent
+                                << (cf::argumentRef() << st
+                                                      << parent)
+                                << (cf::argumentRef() << st
+                                                      << child));
     openBlock(definitionStream);
     line()  << "return get().relationships.find(Pair(parent, child)) != get().relationships.end();";
     eol(definitionStream);
@@ -774,9 +847,10 @@ void CppGenerator::generatePluginFactoryDefinition(const FactorySPtr& pFactory)
     eol(definitionStream);
 
     fdef()  << TableAligner::row()
-            << Function((decoratedTypeRef() << frm->cppClassType(pFactory)
-                                            << ETypeDecoration::reference()),
-                        frm->cppClassNamespace(pFactory), fnGet);
+            << (cf::methodRef() << (decoratedTypeRef() << frm->cppClassType(pFactory)
+                                                       << ETypeDecoration::reference())
+                                << frm->cppClassNamespace(pFactory)
+                                << fnGet);
     openBlock(definitionStream);
     line()  << "static "
             << frm->cppClassType(pFactory)
@@ -831,8 +905,10 @@ void CppGenerator::generateIdentifierDefinition(const IdentifierSPtr& pIdentifie
     eol(definitionStream);
 
     fdef()  << TableAligner::row()
-            << Function(impl->cppDecoratedType(pParameterType),
-                        frm->cppClassNamespace(pIdentifier), fnValue, EMethodDeclaration::const_());
+            << (cf::methodRef() << impl->cppDecoratedType(pParameterType)
+                                << frm->cppClassNamespace(pIdentifier)
+                                << fnValue
+                                << EMethodDeclaration::const_());
     openBlock(definitionStream);
     line()  << "return "
             << frm->memberName("value")
@@ -843,9 +919,12 @@ void CppGenerator::generateIdentifierDefinition(const IdentifierSPtr& pIdentifie
     if (pIdentifier->cast() == CastableType::ECast::strong())
     {
         fdef()  << TableAligner::row()
-                << Function(bl, frm->cppClassNamespace(pIdentifier), fnOperatorEq,
-                            CreateArgument(impl->cppDecoratedType(pIdentifier), rValue),
-                            EMethodDeclaration::const_());
+                << (cf::methodRef() << bl
+                                    << frm->cppClassNamespace(pIdentifier)
+                                    << fnOperatorEq
+                                    << (cf::argumentRef() << impl->cppDecoratedType(pIdentifier)
+                                                          << rValue)
+                                    << EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << frm->memberName("value")
@@ -856,9 +935,12 @@ void CppGenerator::generateIdentifierDefinition(const IdentifierSPtr& pIdentifie
         eol(definitionStream);
 
         fdef()  << TableAligner::row()
-                << Function(bl, frm->cppClassNamespace(pIdentifier), fnOperatorNe,
-                            CreateArgument(impl->cppDecoratedType(pIdentifier), rValue),
-                            EMethodDeclaration::const_());
+                << (cf::methodRef() << bl
+                                    << frm->cppClassNamespace(pIdentifier)
+                                    << fnOperatorNe
+                                    << (cf::argumentRef() << impl->cppDecoratedType(pIdentifier)
+                                                          << rValue)
+                                    << EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << frm->memberName("value")
@@ -871,9 +953,9 @@ void CppGenerator::generateIdentifierDefinition(const IdentifierSPtr& pIdentifie
     else if (pIdentifier->cast() == CastableType::ECast::weak())
     {
         fdef()  << TableAligner::row()
-                << Function(frm->cppClassNamespace(pIdentifier),
-                            castOperatorRef() << impl->cppDecoratedType(pParameterType),
-                            EMethodDeclaration::const_());
+                << (castOperatorRef() << frm->cppClassNamespace(pIdentifier)
+                                      << impl->cppDecoratedType(pParameterType)
+                                      << EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << frm->memberName("value")
@@ -963,10 +1045,11 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
     if ((!pStructure->immutable() || pStructure->isBuildable()) && !pStructure->isOverriden(pField))
     {
         fdef()  << TableAligner::row()
-                << Function(resultType,
-                            namesp, frm->setMethodName(pField),
-                            CreateArgument(impl->cppInnerSetDecoratedType(pField->type(), pStructure),
-                                           frm->cppVariableName(pField)));
+                << (cf::methodRef() << resultType
+                                    << namesp
+                                    << frm->setMethodName(pField)
+                                    << (cf::argumentRef() << impl->cppInnerSetDecoratedType(pField->type(), pStructure)
+                                                          << frm->cppVariableName(pField)));
         openBlock(definitionStream);
 
         if (pStructure == pBelongStructure)
@@ -1030,10 +1113,10 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
         if (impl->needMutableMethod(pField, pStructure))
         {
             fdef()  << TableAligner::row()
-                    << Function((decoratedTypeRef() << impl->cppType(pField->type())
-                                                    << ETypeDecoration::reference()),
-                                namesp,
-                                frm->mutableMethodName(pField));
+                    << (cf::methodRef() << (decoratedTypeRef() << impl->cppType(pField->type())
+                                                               << ETypeDecoration::reference())
+                                        << namesp
+                                        << frm->mutableMethodName(pField));
             openBlock(definitionStream);
             
             if (pStructure->controlled())
@@ -1058,10 +1141,12 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
         if (pStructure->streamable())
         {
             fdef()  << TableAligner::row()
-                    << Function(resultType,
-                                namesp, fnOperatorStore,
-                                CreateArgument(impl->cppInnerSetDecoratedType(pField->type(), pStructure),
-                                               frm->cppVariableName(pField)));
+                    << (cf::methodRef() << resultType
+                                        << namesp
+                                        << fnOperatorStore
+                                        << (cf::argumentRef() << impl->cppInnerSetDecoratedType(pField->type(),
+                                                                                                pStructure)
+                                                              << frm->cppVariableName(pField)));
             openBlock(definitionStream);
             
             line()  << "return "
@@ -1081,11 +1166,12 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                 addDependency(impl->assert_dependency());
             
                 fdef()  << TableAligner::row()
-                        << Function(reference,
-                                    fnOperatorStore,
-                                    CreateArgument(reference, object),
-                                    CreateArgument(impl->cppSetDecoratedType(pField->type()),
-                                                   frm->cppVariableName(pField)));
+                        << (cf::methodRef() << reference
+                                            << fnOperatorStore
+                                            << (cf::argumentRef() << reference
+                                                                  << object)
+                                            << (cf::argumentRef() << impl->cppSetDecoratedType(pField->type())
+                                                                  << frm->cppVariableName(pField)));
                 openBlock(definitionStream);
                 
                 line()  << impl->assert_method()
@@ -1107,12 +1193,14 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
             UnaryContainerSPtr pUnaryContainer = ObjectFactory::downcastUnaryContainer(pField->type());
             if (pUnaryContainer)
             {
+                DecoratedTypeSPtr type = impl->cppInnerSetDecoratedType(pUnaryContainer->parameterType().lock(),
+                                                                        pStructure);
                 fdef()  << TableAligner::row()
-                        << Function(resultType,
-                                    namesp, fnOperatorStore,
-                                    CreateArgument(impl->cppInnerSetDecoratedType(
-                                                       pUnaryContainer->parameterType().lock(), pStructure),
-                                                   frm->cppItemVariableName(pField)));
+                        << (cf::methodRef() << resultType
+                                            << namesp
+                                            << fnOperatorStore
+                                            << (cf::argumentRef() << type
+                                                                  << frm->cppItemVariableName(pField)));
                 openBlock(definitionStream);
 
                 if (pStructure->controlled())
@@ -1149,13 +1237,15 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                 
                 if (!pStructure->immutable())
                 {
+                    DecoratedTypeSPtr type = impl->cppInnerSetDecoratedType(pUnaryContainer->parameterType().lock(),
+                                                                                            pStructure);
                     fdef()  << TableAligner::row()
-                            << Function(reference,
-                                        fnOperatorStore,
-                                        CreateArgument(reference, object),
-                                        CreateArgument(impl->cppInnerSetDecoratedType(
-                                                           pUnaryContainer->parameterType().lock(), pStructure),
-                                                       frm->cppItemVariableName(pField)));
+                            << (cf::methodRef() << reference
+                                                << fnOperatorStore
+                                                << (cf::argumentRef() << reference
+                                                                      << object)
+                                                << (cf::argumentRef() << type
+                                                                      << frm->cppItemVariableName(pField)));
                     openBlock(definitionStream);
                     
                     line()  << impl->assert_method()
@@ -1185,11 +1275,15 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
             if (  pField->defaultValue()
                 && !pField->defaultValue()->optional())
             {
+                DecoratedTypeSPtr type = impl->cppInnerSetDecoratedType(pField->type(),
+                                                                        pStructure);
+
                 fdef()  << TableAligner::row()
-                        << Function(resultType,
-                                    namesp, frm->updateMethodName(pField),
-                                    CreateArgument(impl->cppInnerSetDecoratedType(pField->type(), pStructure),
-                                                   frm->cppVariableName(pField)));
+                        << (cf::methodRef() << resultType
+                                            << namesp
+                                            << frm->updateMethodName(pField)
+                                            << (cf::argumentRef() << type
+                                                                  << frm->cppVariableName(pField)));
                 openBlock(definitionStream);
                 
                 if (pStructure == pBelongStructure)
@@ -1245,7 +1339,9 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
             }
 
             fdef()  << TableAligner::row()
-                    << Function(vd, namesp, frm->destroyMethodName(pField));
+                    << (cf::methodRef() << vd
+                                        << namesp
+                                        << frm->destroyMethodName(pField));
             openBlock(definitionStream);
 
             if (pField->defaultValue() && !pField->defaultValue()->optional())
@@ -1424,9 +1520,9 @@ void CppGenerator::generateStructureFieldConstantDefinition(const StructureSPtr&
                                                             const DefaultValueSPtr& pDefaultValue)
 {
     fdef()  << TableAligner::row()
-            << Function((decoratedTypeRef() << impl->cppType(pField->type())),
-                        frm->cppAutoClassNamespace(pStructure),
-                        frm->constantMethodName(pStructure, pField));
+            << (cf::methodRef() << (decoratedTypeRef() << impl->cppType(pField->type()))
+                                << frm->cppAutoClassNamespace(pStructure)
+                                << frm->constantMethodName(pStructure, pField));
 
     openBlock(definitionStream);
     if (pDefaultValue->value() == "null")
@@ -1464,8 +1560,10 @@ void CppGenerator::generateStructureFieldDefinition(const FieldSPtr& pField)
     assert(pStructure);
 
     fdef()  << TableAligner::row()
-            << Function(impl->cppDecoratedType(pField->type()),
-                        frm->cppAutoClassNamespace(pStructure), frm->getMethodName(pField), EMethodDeclaration::const_());
+            << (cf::methodRef() << impl->cppDecoratedType(pField->type())
+                                << frm->cppAutoClassNamespace(pStructure)
+                                << frm->getMethodName(pField)
+                                << EMethodDeclaration::const_());
 
     openBlock(definitionStream);
 
@@ -1492,8 +1590,10 @@ void CppGenerator::generateStructureFieldDefinition(const FieldSPtr& pField)
     if (pStructure->controlled())
     {
         fdef()  << TableAligner::row()
-                << Function(bl, frm->cppAutoClassNamespace(pStructure),
-                            frm->availableMethodName(pField), EMethodDeclaration::const_());
+                << (cf::methodRef() << bl
+                                    << frm->cppAutoClassNamespace(pStructure)
+                                    << frm->availableMethodName(pField)
+                                    << EMethodDeclaration::const_());
 
         openBlock(definitionStream);
 
@@ -1527,8 +1627,10 @@ void CppGenerator::generateStructureFieldOverrideDefinition(const FieldOverrideS
     ReferenceSPtr pReference = ObjectFactory::downcastReference(pField->type());
 
     fdef()  << TableAligner::row()
-            << Function((decoratedTypeRef() << impl->cppType(pField->type())),
-                        frm->cppAutoClassNamespace(pStructure), frm->getMethodName(pField), EMethodDeclaration::const_());
+            << (cf::methodRef() << (decoratedTypeRef() << impl->cppType(pField->type()))
+                                << frm->cppAutoClassNamespace(pStructure)
+                                << frm->getMethodName(pField)
+                                << EMethodDeclaration::const_());
 
     openBlock(definitionStream);
     line() << "return boost::static_pointer_cast<"
@@ -1546,12 +1648,13 @@ void CppGenerator::generateStructureFieldOverrideDefinition(const FieldOverrideS
     *namesp << nsBuilder;
 
     fdef()  << TableAligner::row()
-            << Function((decoratedTypeRef() << (simpleTypeRef() << classNamesp
-                                                                << builder->value())
-                                            << ETypeDecoration::reference()),
-                        namesp, frm->setMethodName(pField),
-                        CreateArgument(impl->cppInnerSetDecoratedType(pField->type(), pStructure),
-                                       frm->cppVariableName(pField)));
+            << (cf::methodRef() << (decoratedTypeRef() << (simpleTypeRef() << classNamesp
+                                                                           << builder->value())
+                                                       << ETypeDecoration::reference())
+                                << namesp
+                                << frm->setMethodName(pField)
+                                << (cf::argumentRef() << impl->cppInnerSetDecoratedType(pField->type(), pStructure)
+                                                      << frm->cppVariableName(pField)));
 
     openBlock(definitionStream);
     line() << frm->cppAutoClassNamespace(pFieldOverride->overriddenField()->structure().lock())
@@ -1606,9 +1709,11 @@ void CppGenerator::generateStructureInprocIdentificationMethodsDefinition(
 
 
             fdef()  << TableAligner::row()
-                    << Function(frm->cppRawPtrDecoratedType(pParameterType),
-                                frm->cppAutoClassNamespace(pStructure), fnClone,
-                                CreateArgument(impl->cppDecoratedType(pParameterType), object));
+                    << (cf::methodRef() << frm->cppRawPtrDecoratedType(pParameterType)
+                                        << frm->cppAutoClassNamespace(pStructure)
+                                        << fnClone
+                                        << (cf::argumentRef() << impl->cppDecoratedType(pParameterType)
+                                                              << object));
             openBlock(definitionStream);
             line()  << "return new "
                     << impl->cppType(pStructure)
@@ -1697,8 +1802,9 @@ void CppGenerator::generateStructureInprocIdentificationMethodsDefinition(
     }
 
     fdef()  << TableAligner::row()
-            << Function(st, frm->cppAutoClassNamespace(pStructure),
-                        impl->staticMethodName(fnInprocId->value()));
+            << (cf::methodRef() << st
+                                << frm->cppAutoClassNamespace(pStructure)
+                                << impl->staticMethodName(fnInprocId->value()));
     openBlock(definitionStream);
     line()  << "return (size_t)\"";
     if (pStructure->package())
@@ -1716,8 +1822,10 @@ void CppGenerator::generateStructureInprocIdentificationMethodsDefinition(
     eol(definitionStream);
 
     fdef()  << TableAligner::row()
-            << Function(st, frm->cppAutoClassNamespace(pStructure),
-                        impl->runtimeMethodName(fnInprocId->value()), EMethodDeclaration::const_());
+            << (cf::methodRef() << st
+                                << frm->cppAutoClassNamespace(pStructure)
+                                << impl->runtimeMethodName(fnInprocId->value())
+                                << EMethodDeclaration::const_());
     openBlock(definitionStream);
     line()  << "return "
             << impl->staticMethodName(fnInprocId->value())
@@ -2052,8 +2160,8 @@ void CppGenerator::generateStructureOperatorMethodsDefinition(
     if (!pOperator->flags().isSet(flags))
         return;
 
-    FunctionNameSPtr fnOperator;
-    FunctionNameSPtr fnFunction;
+    MethodNameSPtr fnOperator;
+    MethodNameSPtr fnFunction;
     if (pOperator->action() == EOperatorAction::equalTo())
     {
         fnOperator = fnOperatorEq;
@@ -2070,7 +2178,7 @@ void CppGenerator::generateStructureOperatorMethodsDefinition(
         assert(false && "unknown operator action");
     }
 
-    FunctionNameSPtr fnName;
+    MethodNameSPtr fnName;
     if (flags.isSet(EOperatorFlags::functor()))
     {
         fnName = fnOperatorFn;
@@ -2111,21 +2219,24 @@ void CppGenerator::generateStructureOperatorMethodsDefinition(
     if (arguments == 1)
     {
         fdef()  << TableAligner::row()
-                << Function(bl,
-                            nmspace,
-                            fnName,
-                            CreateArgument(type, object),
-                            declaration);
+                << (cf::methodRef() << bl
+                                    << nmspace
+                                    << fnName
+                                    << (cf::argumentRef() << type
+                                                          << object)
+                                    << declaration);
     }
     else
     {
         fdef()  << TableAligner::row()
-                << Function(bl,
-                            nmspace,
-                            fnName,
-                            CreateArgument(type, object1),
-                            CreateArgument(type, object2),
-                            declaration);
+                << (cf::methodRef() << bl
+                                    << nmspace
+                                    << fnName
+                                    << (cf::argumentRef() << type
+                                                          << object1)
+                                    << (cf::argumentRef() << type
+                                                          << object2)
+                                    << declaration);
     }
 
     openBlock(definitionStream);
@@ -2298,8 +2409,9 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             if (!pField) continue;
 
             fdef()  << TableAligner::row()
-                    << Function(decoratedTypeRef() << (simpleTypeRef() << "int"),
-                                frm->cppAutoClassNamespace(pStructure), frm->bitmaskMethodName(pField));
+                    << (cf::methodRef() << (decoratedTypeRef() << integer)
+                                        << frm->cppAutoClassNamespace(pStructure)
+                                        << frm->bitmaskMethodName(pField));
             openBlock(definitionStream);
             line()  << "return "
                     << frm->bitmask(pField->bitmask())
@@ -2442,8 +2554,10 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         }
 
         fdef()  << TableAligner::row()
-                << Function(structBuilderNamespace, fnBuilder,
-                            CreateArgument(frm->cppRawPtrDecoratedType(pStructure), frm->ptrVariableName(object)));
+                << (cf::methodRef() << structBuilderNamespace
+                                    << fnBuilder
+                                    << (cf::argumentRef() << frm->cppRawPtrDecoratedType(pStructure)
+                                                          << frm->ptrVariableName(object)));
         eofd(definitionStream);
 
         if (pBaseStructure)
@@ -2489,8 +2603,10 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
 
 
         fdef()  << TableAligner::row()
-                << Function(impl->cppDecoratedType(pStructure),
-                            structBuilderNamespace, fnBuild, EMethodDeclaration::const_());
+                << (cf::methodRef() << impl->cppDecoratedType(pStructure)
+                                    << structBuilderNamespace
+                                    << fnBuild
+                                    << EMethodDeclaration::const_());
         openBlock(definitionStream);
         
         if (pStructure->isInitializable())
@@ -2517,8 +2633,9 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
 
 
         fdef()  << TableAligner::row()
-                << Function((decoratedTypeRef() << impl->cppPtrType(pStructure)),
-                            structBuilderNamespace, fnFinalize);
+                << (cf::methodRef() << (decoratedTypeRef() << impl->cppPtrType(pStructure))
+                                    << structBuilderNamespace
+                                    << fnFinalize);
         openBlock(definitionStream);
 
         if (pStructure->isInitializable())
@@ -2642,11 +2759,13 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         StructureSPtr pRecursivelyBaseStructure = pStructure->recursivelyBaseStructure();
         if (pStructure != pRecursivelyBaseStructure)
         {
+            DecoratedTypeSPtr type = frm->cppSharedPtrDecoratedType(pRecursivelyBaseStructure);
             fdef()  << TableAligner::row()
-                    << Function((decoratedTypeRef() << frm->cppSharedPtrName(pStructure)),
-                                frm->cppAutoClassNamespace(pStructure), fnDowncast,
-                                CreateArgument(frm->cppSharedPtrDecoratedType(pRecursivelyBaseStructure),
-                                               object));
+                    << (cf::methodRef() << (decoratedTypeRef() << frm->cppSharedPtrName(pStructure))
+                                        << frm->cppAutoClassNamespace(pStructure)
+                                        << fnDowncast
+                                        << (cf::argumentRef() << type
+                                                              << object));
             openBlock(definitionStream);
             line()  << "return boost::static_pointer_cast<"
                     << frm->cppMainClassType(pStructure)
@@ -2662,8 +2781,9 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         if (pStructure != pRecursivelyBaseStructure || pStructure->partial())
         {
             fdef()  << TableAligner::row()
-                    << Function((decoratedTypeRef() << frm->cppSharedPtrName(pStructure)),
-                                frm->cppAutoClassNamespace(pStructure), fnSharedFromThis);
+                    << (cf::methodRef() << (decoratedTypeRef() << frm->cppSharedPtrName(pStructure))
+                                        << frm->cppAutoClassNamespace(pStructure)
+                                        << fnSharedFromThis);
             openBlock(definitionStream);
             line()  << "return boost::static_pointer_cast<"
                     << frm->cppMainClassType(pStructure)
@@ -2677,8 +2797,10 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             eol(definitionStream);
 
             fdef()  << TableAligner::row()
-                    << Function((decoratedTypeRef() << frm->cppSharedConstPtrName(pStructure)),
-                                frm->cppAutoClassNamespace(pStructure), fnSharedFromThis, EMethodDeclaration::const_());
+                    << (cf::methodRef() << (decoratedTypeRef() << frm->cppSharedConstPtrName(pStructure))
+                                        << frm->cppAutoClassNamespace(pStructure)
+                                        << fnSharedFromThis
+                                        << EMethodDeclaration::const_());
             openBlock(definitionStream);
             line()  << "return boost::static_pointer_cast<const "
                     << frm->cppMainClassType(pStructure)
@@ -2696,7 +2818,10 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
     if (pStructure->isInitializable())
     {
         fdef()  << TableAligner::row()
-                << Function(bl, frm->cppAutoClassNamespace(pStructure), fnIsInitialized, EMethodDeclaration::const_());
+                << (cf::methodRef() << bl
+                                    << frm->cppAutoClassNamespace(pStructure)
+                                    << fnIsInitialized
+                                    << EMethodDeclaration::const_());
         openBlock(definitionStream);
 
         StructureSPtr pStruct = pBaseStructure;
@@ -2739,7 +2864,10 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
     if (pStructure->isOptional())
     {
         fdef()  << TableAligner::row()
-                << Function(bl, frm->cppAutoClassNamespace(pStructure), fnIsVoid, EMethodDeclaration::const_());
+                << (cf::methodRef() << bl
+                                    << frm->cppAutoClassNamespace(pStructure)
+                                    << fnIsVoid
+                                    << EMethodDeclaration::const_());
         openBlock(definitionStream);
         if (pBaseStructure)
         {

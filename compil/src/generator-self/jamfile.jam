@@ -44,28 +44,29 @@ lib generator-self-compil :
     compiler/model/upcopy.compil
     compiler/model/version.compil
     
-    generator/aligner/object/argument.compil
-    generator/aligner/object/cast_operator.compil
-    generator/aligner/object/constructor_specifier.compil
-    generator/aligner/object/constructor_name.compil
-    generator/aligner/object/constructor.compil
-    generator/aligner/object/decorated_type.compil
-    generator/aligner/object/destructor_specifier.compil
-    generator/aligner/object/destructor_name.compil
-    generator/aligner/object/destructor.compil
-    generator/aligner/object/function_call.compil
-    generator/aligner/object/function_name.compil
-    generator/aligner/object/initialization.compil
-    generator/aligner/object/method_declaration.compil
-    generator/aligner/object/method_name.compil
-    generator/aligner/object/method_specifier.compil
-    generator/aligner/object/namespace_name.compil
-    generator/aligner/object/namespace.compil
-    generator/aligner/object/parameter_value.compil
-    generator/aligner/object/simple_type.compil
-    generator/aligner/object/type_declaration.compil
-    generator/aligner/object/type_decoration.compil
-    generator/aligner/object/variable_name.compil
+    generator/cpp/format/argument.compil
+    generator/cpp/format/cast_operator.compil
+    generator/cpp/format/constructor_specifier.compil
+    generator/cpp/format/constructor_name.compil
+    generator/cpp/format/constructor.compil
+    generator/cpp/format/decorated_type.compil
+    generator/cpp/format/destructor_specifier.compil
+    generator/cpp/format/destructor_name.compil
+    generator/cpp/format/destructor.compil
+    generator/cpp/format/function_call.compil
+    generator/cpp/format/function_name.compil
+    generator/cpp/format/initialization.compil
+    generator/cpp/format/method_declaration.compil
+    generator/cpp/format/method_name.compil
+    generator/cpp/format/method_specifier.compil
+    generator/cpp/format/method.compil
+    generator/cpp/format/namespace_name.compil
+    generator/cpp/format/namespace.compil
+    generator/cpp/format/parameter_value.compil
+    generator/cpp/format/simple_type.compil
+    generator/cpp/format/type_declaration.compil
+    generator/cpp/format/type_decoration.compil
+    generator/cpp/format/variable_name.compil
 
     [ convert _ cpp 
       :

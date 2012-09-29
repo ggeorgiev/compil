@@ -37,6 +37,8 @@ import "constructor_specifier.compil";
 import "constructor_name.compil";
 import "namespace.compil";
 
+package cpp.frm;
+
 streamable
 structure Constructor
 {
