@@ -11,9 +11,9 @@ Upcopy::~Upcopy()
 {
 }
 
-UpcopySPtr Upcopy::downcast(const ObjectSPtr& pObject)
+UpcopySPtr Upcopy::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Upcopy>(pObject);
+    return boost::static_pointer_cast<Upcopy>(object);
 }
 
 const CommentSPtr& Upcopy::comment() const

@@ -11,9 +11,9 @@ Type::~Type()
 {
 }
 
-TypeSPtr Type::downcast(const ObjectSPtr& pObject)
+TypeSPtr Type::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Type>(pObject);
+    return boost::static_pointer_cast<Type>(object);
 }
 
 TypeSPtr Type::shared_from_this()

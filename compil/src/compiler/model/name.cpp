@@ -11,9 +11,9 @@ Name::~Name()
 {
 }
 
-NameSPtr Name::downcast(const ObjectSPtr& pObject)
+NameSPtr Name::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Name>(pObject);
+    return boost::static_pointer_cast<Name>(object);
 }
 
 const std::string& Name::value() const

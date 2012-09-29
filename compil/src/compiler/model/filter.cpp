@@ -11,9 +11,9 @@ Filter::~Filter()
 {
 }
 
-FilterSPtr Filter::downcast(const ObjectSPtr& pObject)
+FilterSPtr Filter::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Filter>(pObject);
+    return boost::static_pointer_cast<Filter>(object);
 }
 
 const CommentSPtr& Filter::comment() const

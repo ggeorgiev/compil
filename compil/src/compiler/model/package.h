@@ -57,7 +57,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  PackageSPtr                     downcast        (const ObjectSPtr& pObject);
+    static  PackageSPtr                     downcast        (const ObjectSPtr& object);
 
     // Identifier for the objects from Package class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -76,7 +76,7 @@ public:
             const std::vector<std::string>& elements        ()                                         const;
     // Setter method for the data field elements
             Package&                        set_elements    (const std::vector<std::string>& elements);
-    // Provide mutable access to field elements
+    // Provides mutable access to field elements
             std::vector<std::string>&       mutable_elements();
 
 private:

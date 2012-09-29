@@ -11,9 +11,9 @@ Package::~Package()
 {
 }
 
-PackageSPtr Package::downcast(const ObjectSPtr& pObject)
+PackageSPtr Package::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Package>(pObject);
+    return boost::static_pointer_cast<Package>(object);
 }
 
 const std::vector<std::string>& Package::elements() const

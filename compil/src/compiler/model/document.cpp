@@ -11,9 +11,9 @@ Document::~Document()
 {
 }
 
-DocumentSPtr Document::downcast(const ObjectSPtr& pObject)
+DocumentSPtr Document::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Document>(pObject);
+    return boost::static_pointer_cast<Document>(object);
 }
 
 const std::vector<CommentSPtr>& Document::comments() const

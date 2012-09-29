@@ -69,7 +69,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  EnumerationSPtr                          downcast                 (const ObjectSPtr& pObject);
+    static  EnumerationSPtr                          downcast                 (const ObjectSPtr& object);
 
     // Returns the alter value identifier of the field literal
     static  Type::ELiteral                           alter_literal            ();
@@ -99,7 +99,7 @@ public:
             const std::vector<EnumerationValueSPtr>& enumerationValues        ()                                                           const;
     // Setter method for the data field enumerationValues
             Enumeration&                             set_enumerationValues    (const std::vector<EnumerationValueSPtr>& enumerationValues);
-    // Provide mutable access to field enumerationValues
+    // Provides mutable access to field enumerationValues
             std::vector<EnumerationValueSPtr>&       mutable_enumerationValues();
 
     // Getter method for the data field structure

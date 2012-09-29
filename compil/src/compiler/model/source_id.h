@@ -86,12 +86,12 @@ public:
 
         // Setter method for the data field value
                 Builder&        set_value                 (const std::string& value);
-        // Provide mutable access to field value
+        // Provides mutable access to field value
                 std::string&    mutable_value             ();
 
         // Setter method for the data field uniquePresentation
                 Builder&        set_uniquePresentation    (const std::string& uniquePresentation);
-        // Provide mutable access to field uniquePresentation
+        // Provides mutable access to field uniquePresentation
                 std::string&    mutable_uniquePresentation();
 
         // Setter method for the data field parent
@@ -99,7 +99,7 @@ public:
 
         // Setter method for the data field original
                 Builder&        set_original              (const std::string& original);
-        // Provide mutable access to field original
+        // Provides mutable access to field original
                 std::string&    mutable_original          ();
 
     protected:

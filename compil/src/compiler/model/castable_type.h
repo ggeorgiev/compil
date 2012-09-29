@@ -54,7 +54,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  CastableTypeSPtr downcast     (const ObjectSPtr& pObject);
+    static  CastableTypeSPtr downcast     (const ObjectSPtr& object);
 
     // This enumeration class provides namespaced set of constant values.
     // It is designed to provide type control over operations with enum
@@ -113,7 +113,7 @@ public:
     const ECast&  cast        ()                  const;
     // Setter method for the data field cast
     CastableType& set_cast    (const ECast& cast);
-    // Provide mutable access to field cast
+    // Provides mutable access to field cast
     ECast&        mutable_cast();
 
 private:

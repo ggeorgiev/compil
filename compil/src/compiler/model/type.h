@@ -57,7 +57,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  TypeSPtr           downcast        (const ObjectSPtr& pObject);
+    static  TypeSPtr           downcast        (const ObjectSPtr& object);
     // shared_from_this is a helper method that overrides the
     // shared_from_this method that is implemented in
     // boost::enable_shared_from_this base class. The only purpose of this
@@ -167,7 +167,7 @@ public:
     const ELiteral& literal        ()                        const;
     // Setter method for the data field literal
     Type&           set_literal    (const ELiteral& literal);
-    // Provide mutable access to field literal
+    // Provides mutable access to field literal
     ELiteral&       mutable_literal();
 
     // This enumeration class provides namespaced set of constant values.
@@ -229,7 +229,7 @@ public:
     const EKind& kind        ()                  const;
     // Setter method for the data field kind
     Type&        set_kind    (const EKind& kind);
-    // Provide mutable access to field kind
+    // Provides mutable access to field kind
     EKind&       mutable_kind();
 
 private:

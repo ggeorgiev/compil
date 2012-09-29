@@ -11,9 +11,9 @@ CastableType::~CastableType()
 {
 }
 
-CastableTypeSPtr CastableType::downcast(const ObjectSPtr& pObject)
+CastableTypeSPtr CastableType::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<CastableType>(pObject);
+    return boost::static_pointer_cast<CastableType>(object);
 }
 
 CastableType::ECast::ECast()

@@ -11,9 +11,9 @@ Identification::~Identification()
 {
 }
 
-IdentificationSPtr Identification::downcast(const ObjectSPtr& pObject)
+IdentificationSPtr Identification::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Identification>(pObject);
+    return boost::static_pointer_cast<Identification>(object);
 }
 
 Identification::EType::EType()

@@ -11,9 +11,9 @@ UnaryContainer::~UnaryContainer()
 {
 }
 
-UnaryContainerSPtr UnaryContainer::downcast(const ObjectSPtr& pObject)
+UnaryContainerSPtr UnaryContainer::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<UnaryContainer>(pObject);
+    return boost::static_pointer_cast<UnaryContainer>(object);
 }
 
 UnaryContainer::ESize::ESize()

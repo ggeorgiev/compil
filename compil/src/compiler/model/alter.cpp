@@ -11,9 +11,9 @@ Alter::~Alter()
 {
 }
 
-AlterSPtr Alter::downcast(const ObjectSPtr& pObject)
+AlterSPtr Alter::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Alter>(pObject);
+    return boost::static_pointer_cast<Alter>(object);
 }
 
 const FieldSPtr& Alter::field() const

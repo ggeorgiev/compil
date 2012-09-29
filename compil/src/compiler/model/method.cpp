@@ -11,9 +11,9 @@ Method::~Method()
 {
 }
 
-MethodSPtr Method::downcast(const ObjectSPtr& pObject)
+MethodSPtr Method::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Method>(pObject);
+    return boost::static_pointer_cast<Method>(object);
 }
 
 const InterfaceWPtr& Method::interface_() const

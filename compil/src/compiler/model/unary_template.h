@@ -55,7 +55,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  UnaryTemplateSPtr downcast             (const ObjectSPtr& pObject);
+    static  UnaryTemplateSPtr downcast             (const ObjectSPtr& object);
 
     // Identifier for the objects from UnaryTemplate class.
     // Note: it is not defined in the respective cpp file. Instead it is

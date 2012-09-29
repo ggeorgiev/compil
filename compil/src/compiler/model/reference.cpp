@@ -11,9 +11,9 @@ Reference::~Reference()
 {
 }
 
-ReferenceSPtr Reference::downcast(const ObjectSPtr& pObject)
+ReferenceSPtr Reference::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Reference>(pObject);
+    return boost::static_pointer_cast<Reference>(object);
 }
 
 bool Reference::weak() const

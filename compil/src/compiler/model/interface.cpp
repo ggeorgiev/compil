@@ -11,9 +11,9 @@ Interface::~Interface()
 {
 }
 
-InterfaceSPtr Interface::downcast(const ObjectSPtr& pObject)
+InterfaceSPtr Interface::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Interface>(pObject);
+    return boost::static_pointer_cast<Interface>(object);
 }
 
 const CommentSPtr& Interface::comment() const

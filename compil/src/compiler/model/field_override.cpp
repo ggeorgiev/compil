@@ -11,9 +11,9 @@ FieldOverride::~FieldOverride()
 {
 }
 
-FieldOverrideSPtr FieldOverride::downcast(const ObjectSPtr& pObject)
+FieldOverrideSPtr FieldOverride::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<FieldOverride>(pObject);
+    return boost::static_pointer_cast<FieldOverride>(object);
 }
 
 const FieldSPtr& FieldOverride::field() const

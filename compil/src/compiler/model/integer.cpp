@@ -14,9 +14,9 @@ Integer::~Integer()
 {
 }
 
-IntegerSPtr Integer::downcast(const ObjectSPtr& pObject)
+IntegerSPtr Integer::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Integer>(pObject);
+    return boost::static_pointer_cast<Integer>(object);
 }
 
 Type::ELiteral Integer::alter_literal()

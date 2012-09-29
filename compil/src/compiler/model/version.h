@@ -54,7 +54,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  VersionSPtr downcast       (const ObjectSPtr& pObject);
+    static  VersionSPtr downcast       (const ObjectSPtr& object);
 
     // Identifier for the objects from Version class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -67,10 +67,10 @@ public:
     // the polymorphic behavior of the virtual methods. Allows having a
     // RTTI like mechanism significantly cheaper than the RTTI provided by
     // the compilers themselves.
-    virtual EObjectId   runtimeObjectId()                          const;
+    virtual EObjectId   runtimeObjectId()                         const;
 
     // Getter method for the data field number
-            long        number         ()                          const;
+            long        number         ()                         const;
     // Setter method for the data field number
             Version&    set_number     (long number);
 

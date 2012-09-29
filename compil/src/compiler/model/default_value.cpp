@@ -12,9 +12,9 @@ DefaultValue::~DefaultValue()
 {
 }
 
-DefaultValueSPtr DefaultValue::downcast(const ObjectSPtr& pObject)
+DefaultValueSPtr DefaultValue::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<DefaultValue>(pObject);
+    return boost::static_pointer_cast<DefaultValue>(object);
 }
 
 bool DefaultValue::optional() const

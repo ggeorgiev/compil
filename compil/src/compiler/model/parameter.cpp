@@ -11,9 +11,9 @@ Parameter::~Parameter()
 {
 }
 
-ParameterSPtr Parameter::downcast(const ObjectSPtr& pObject)
+ParameterSPtr Parameter::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Parameter>(pObject);
+    return boost::static_pointer_cast<Parameter>(object);
 }
 
 const MethodWPtr& Parameter::method() const

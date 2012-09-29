@@ -11,9 +11,9 @@ UnaryTemplate::~UnaryTemplate()
 {
 }
 
-UnaryTemplateSPtr UnaryTemplate::downcast(const ObjectSPtr& pObject)
+UnaryTemplateSPtr UnaryTemplate::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<UnaryTemplate>(pObject);
+    return boost::static_pointer_cast<UnaryTemplate>(object);
 }
 
 const TypeWPtr& UnaryTemplate::parameterType() const

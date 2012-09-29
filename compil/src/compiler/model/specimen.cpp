@@ -12,9 +12,9 @@ Specimen::~Specimen()
 {
 }
 
-SpecimenSPtr Specimen::downcast(const ObjectSPtr& pObject)
+SpecimenSPtr Specimen::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Specimen>(pObject);
+    return boost::static_pointer_cast<Specimen>(object);
 }
 
 Type::EKind Specimen::alter_kind()

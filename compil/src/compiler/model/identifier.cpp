@@ -12,9 +12,9 @@ Identifier::~Identifier()
 {
 }
 
-IdentifierSPtr Identifier::downcast(const ObjectSPtr& pObject)
+IdentifierSPtr Identifier::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Identifier>(pObject);
+    return boost::static_pointer_cast<Identifier>(object);
 }
 
 Type::EKind Identifier::alter_kind()

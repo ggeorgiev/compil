@@ -11,9 +11,9 @@ Comment::~Comment()
 {
 }
 
-CommentSPtr Comment::downcast(const ObjectSPtr& pObject)
+CommentSPtr Comment::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Comment>(pObject);
+    return boost::static_pointer_cast<Comment>(object);
 }
 
 const std::vector<std::string>& Comment::lines() const

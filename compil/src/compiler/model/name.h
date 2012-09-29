@@ -56,7 +56,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  NameSPtr           downcast       (const ObjectSPtr& pObject);
+    static  NameSPtr           downcast       (const ObjectSPtr& object);
 
     // Identifier for the objects from Name class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -69,13 +69,13 @@ public:
     // the polymorphic behavior of the virtual methods. Allows having a
     // RTTI like mechanism significantly cheaper than the RTTI provided by
     // the compilers themselves.
-    virtual EObjectId          runtimeObjectId()                          const;
+    virtual EObjectId          runtimeObjectId()                         const;
 
     // Getter method for the data field value
-            const std::string& value          ()                          const;
+            const std::string& value          ()                         const;
     // Setter method for the data field value
             Name&              set_value      (const std::string& value);
-    // Provide mutable access to field value
+    // Provides mutable access to field value
             std::string&       mutable_value  ();
 
 private:

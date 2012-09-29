@@ -68,7 +68,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  StructureSPtr                  downcast             (const ObjectSPtr& pObject);
+    static  StructureSPtr                  downcast             (const ObjectSPtr& object);
     // shared_from_this is a helper method that overrides the
     // shared_from_this method that is implemented in
     // boost::enable_shared_from_this base class. The only purpose of this
@@ -134,7 +134,7 @@ public:
             const std::vector<ObjectSPtr>& objects              ()                                       const;
     // Setter method for the data field objects
             Structure&                     set_objects          (const std::vector<ObjectSPtr>& objects);
-    // Provide mutable access to field objects
+    // Provides mutable access to field objects
             std::vector<ObjectSPtr>&       mutable_objects      ();
 
     // Getter method for the data field baseStructure

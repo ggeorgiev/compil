@@ -54,7 +54,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  SpecimenSPtr        downcast            (const ObjectSPtr& pObject);
+    static  SpecimenSPtr        downcast            (const ObjectSPtr& object);
 
     // Returns the alter value object of the field kind
     static  Type::EKind         alter_kind          ();

@@ -253,9 +253,9 @@ Operator::~Operator()
 {
 }
 
-OperatorSPtr Operator::downcast(const ObjectSPtr& pObject)
+OperatorSPtr Operator::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Operator>(pObject);
+    return boost::static_pointer_cast<Operator>(object);
 }
 
 const EOperatorAction& Operator::action() const

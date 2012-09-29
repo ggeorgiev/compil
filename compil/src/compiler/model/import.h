@@ -56,7 +56,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  ImportSPtr         downcast       (const ObjectSPtr& pObject);
+    static  ImportSPtr         downcast       (const ObjectSPtr& object);
 
     // Identifier for the objects from Import class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -75,7 +75,7 @@ public:
             const std::string& source         ()                          const;
     // Setter method for the data field source
             Import&            set_source     (const std::string& source);
-    // Provide mutable access to field source
+    // Provides mutable access to field source
             std::string&       mutable_source ();
 
 private:

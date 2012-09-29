@@ -59,7 +59,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  MethodSPtr                     downcast       (const ObjectSPtr& pObject);
+    static  MethodSPtr                     downcast       (const ObjectSPtr& object);
 
     // Identifier for the objects from Method class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -93,7 +93,7 @@ public:
             const std::vector<ObjectSPtr>& objects        ()                                       const;
     // Setter method for the data field objects
             Method&                        set_objects    (const std::vector<ObjectSPtr>& objects);
-    // Provide mutable access to field objects
+    // Provides mutable access to field objects
             std::vector<ObjectSPtr>&       mutable_objects();
 
 private:

@@ -67,7 +67,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  FactorySPtr downcast       (const ObjectSPtr& pObject);
+    static  FactorySPtr downcast       (const ObjectSPtr& object);
 
     // Returns the alter value object of the field kind
     static  Type::EKind alter_kind     ();
@@ -83,7 +83,7 @@ public:
     // the polymorphic behavior of the virtual methods. Allows having a
     // RTTI like mechanism significantly cheaper than the RTTI provided by
     // the compilers themselves.
-    virtual EObjectId   runtimeObjectId()                          const;
+    virtual EObjectId   runtimeObjectId()                         const;
 
     // This enumeration class provides namespaced set of constant values.
     // It is designed to provide type control over operations with enum
@@ -144,7 +144,7 @@ public:
     const EType&                   type           ()                                       const;
     // Setter method for the data field type
     Factory&                       set_type       (const EType& type);
-    // Provide mutable access to field type
+    // Provides mutable access to field type
     EType&                         mutable_type   ();
 
     // Getter method for the data field function
@@ -156,7 +156,7 @@ public:
     const std::vector<FilterSPtr>& filters        ()                                       const;
     // Setter method for the data field filters
     Factory&                       set_filters    (const std::vector<FilterSPtr>& filters);
-    // Provide mutable access to field filters
+    // Provides mutable access to field filters
     std::vector<FilterSPtr>&       mutable_filters();
 
 private:

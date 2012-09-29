@@ -57,7 +57,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  CommentSPtr                     downcast       (const ObjectSPtr& pObject);
+    static  CommentSPtr                     downcast       (const ObjectSPtr& object);
 
     // Identifier for the objects from Comment class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -76,7 +76,7 @@ public:
             const std::vector<std::string>& lines          ()                                      const;
     // Setter method for the data field lines
             Comment&                        set_lines      (const std::vector<std::string>& lines);
-    // Provide mutable access to field lines
+    // Provides mutable access to field lines
             std::vector<std::string>&       mutable_lines  ();
 
 private:

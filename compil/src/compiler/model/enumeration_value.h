@@ -59,7 +59,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  EnumerationValueSPtr   downcast         (const ObjectSPtr& pObject);
+    static  EnumerationValueSPtr   downcast         (const ObjectSPtr& object);
 
     // Identifier for the objects from EnumerationValue class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -109,7 +109,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  AbsoluteEnumerationValueSPtr downcast                 (const ObjectSPtr& pObject);
+    static  AbsoluteEnumerationValueSPtr downcast                 (const ObjectSPtr& object);
 
     // Identifier for the objects from AbsoluteEnumerationValue class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -122,10 +122,10 @@ public:
     // the polymorphic behavior of the virtual methods. Allows having a
     // RTTI like mechanism significantly cheaper than the RTTI provided by
     // the compilers themselves.
-    virtual EObjectId                    runtimeObjectId          ()                          const;
+    virtual EObjectId                    runtimeObjectId          ()                         const;
 
     // Getter method for the data field value
-            long                         value                    ()                          const;
+            long                         value                    ()                         const;
     // Setter method for the data field value
             AbsoluteEnumerationValue&    set_value                (long value);
 
@@ -145,7 +145,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  ComposedEnumerationValueSPtr             downcast                 (const ObjectSPtr& pObject);
+    static  ComposedEnumerationValueSPtr             downcast                 (const ObjectSPtr& object);
 
     // Identifier for the objects from ComposedEnumerationValue class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -164,7 +164,7 @@ public:
             const std::vector<EnumerationValueSPtr>& values                   ()                                                const;
     // Setter method for the data field values
             ComposedEnumerationValue&                set_values               (const std::vector<EnumerationValueSPtr>& values);
-    // Provide mutable access to field values
+    // Provides mutable access to field values
             std::vector<EnumerationValueSPtr>&       mutable_values           ();
 
 private:

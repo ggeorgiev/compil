@@ -12,9 +12,9 @@ FactoryPartial::~FactoryPartial()
 {
 }
 
-FactorySPtr FactoryPartial::downcast(const ObjectSPtr& pObject)
+FactorySPtr FactoryPartial::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Factory>(pObject);
+    return boost::static_pointer_cast<Factory>(object);
 }
 
 Type::EKind FactoryPartial::alter_kind()

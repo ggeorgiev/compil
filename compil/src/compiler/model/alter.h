@@ -56,7 +56,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  AlterSPtr               downcast        (const ObjectSPtr& pObject);
+    static  AlterSPtr               downcast        (const ObjectSPtr& object);
 
     // Identifier for the objects from Alter class.
     // Note: it is not defined in the respective cpp file. Instead it is

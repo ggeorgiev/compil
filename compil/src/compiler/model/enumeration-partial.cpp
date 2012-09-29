@@ -13,9 +13,9 @@ EnumerationPartial::~EnumerationPartial()
 {
 }
 
-EnumerationSPtr EnumerationPartial::downcast(const ObjectSPtr& pObject)
+EnumerationSPtr EnumerationPartial::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Enumeration>(pObject);
+    return boost::static_pointer_cast<Enumeration>(object);
 }
 
 Type::ELiteral EnumerationPartial::alter_literal()

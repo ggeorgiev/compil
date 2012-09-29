@@ -234,7 +234,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  OperatorSPtr           downcast         (const ObjectSPtr& pObject);
+    static  OperatorSPtr           downcast         (const ObjectSPtr& object);
 
     // Identifier for the objects from Operator class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -253,14 +253,14 @@ public:
             const EOperatorAction& action           ()                               const;
     // Setter method for the data field action
             Operator&              set_action       (const EOperatorAction& action);
-    // Provide mutable access to field action
+    // Provides mutable access to field action
             EOperatorAction&       mutable_action   ();
 
     // Getter method for the data field flags
             const EOperatorFlags&  flags            ()                               const;
     // Setter method for the data field flags
             Operator&              set_flags        (const EOperatorFlags& flags);
-    // Provide mutable access to field flags
+    // Provides mutable access to field flags
             EOperatorFlags&        mutable_flags    ();
 
     // Getter method for the data field structure

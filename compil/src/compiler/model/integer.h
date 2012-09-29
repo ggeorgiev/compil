@@ -56,7 +56,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  IntegerSPtr         downcast       (const ObjectSPtr& pObject);
+    static  IntegerSPtr         downcast       (const ObjectSPtr& object);
 
     // Returns the alter value integer of the field literal
     static  Type::ELiteral      alter_literal  ();
@@ -78,20 +78,20 @@ public:
     // the polymorphic behavior of the virtual methods. Allows having a
     // RTTI like mechanism significantly cheaper than the RTTI provided by
     // the compilers themselves.
-    virtual EObjectId           runtimeObjectId()                          const;
+    virtual EObjectId           runtimeObjectId()                         const;
 
     // Getter method for the data field min
-            const std::string&  min            ()                          const;
+            const std::string&  min            ()                         const;
     // Setter method for the data field min
             Integer&            set_min        (const std::string& min);
-    // Provide mutable access to field min
+    // Provides mutable access to field min
             std::string&        mutable_min    ();
 
     // Getter method for the data field max
-            const std::string&  max            ()                          const;
+            const std::string&  max            ()                         const;
     // Setter method for the data field max
             Integer&            set_max        (const std::string& max);
-    // Provide mutable access to field max
+    // Provides mutable access to field max
             std::string&        mutable_max    ();
 
 private:

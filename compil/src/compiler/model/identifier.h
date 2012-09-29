@@ -54,7 +54,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  IdentifierSPtr downcast       (const ObjectSPtr& pObject);
+    static  IdentifierSPtr downcast       (const ObjectSPtr& object);
 
     // Returns the alter value object of the field kind
     static  Type::EKind    alter_kind     ();
@@ -70,7 +70,7 @@ public:
     // the polymorphic behavior of the virtual methods. Allows having a
     // RTTI like mechanism significantly cheaper than the RTTI provided by
     // the compilers themselves.
-    virtual EObjectId      runtimeObjectId()                          const;
+    virtual EObjectId      runtimeObjectId()                         const;
 };
 
 }

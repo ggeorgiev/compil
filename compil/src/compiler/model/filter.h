@@ -58,7 +58,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  FilterSPtr         downcast       (const ObjectSPtr& pObject);
+    static  FilterSPtr         downcast       (const ObjectSPtr& object);
 
     // Identifier for the objects from Filter class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -87,7 +87,7 @@ public:
             const std::string& method         ()                           const;
     // Setter method for the data field method
             Filter&            set_method     (const std::string& method);
-    // Provide mutable access to field method
+    // Provides mutable access to field method
             std::string&       mutable_method ();
 
 private:

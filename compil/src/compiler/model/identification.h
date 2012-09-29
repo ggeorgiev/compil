@@ -56,7 +56,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  IdentificationSPtr downcast       (const ObjectSPtr& pObject);
+    static  IdentificationSPtr downcast       (const ObjectSPtr& object);
 
     // Identifier for the objects from Identification class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -69,7 +69,7 @@ public:
     // the polymorphic behavior of the virtual methods. Allows having a
     // RTTI like mechanism significantly cheaper than the RTTI provided by
     // the compilers themselves.
-    virtual EObjectId          runtimeObjectId()                          const;
+    virtual EObjectId          runtimeObjectId()                         const;
 
     // This enumeration class provides namespaced set of constant values.
     // It is designed to provide type control over operations with enum
@@ -128,7 +128,7 @@ public:
     const EType&         type         ()                               const;
     // Setter method for the data field type
     Identification&      set_type     (const EType& type);
-    // Provide mutable access to field type
+    // Provides mutable access to field type
     EType&               mutable_type ();
 
     // Getter method for the data field structure

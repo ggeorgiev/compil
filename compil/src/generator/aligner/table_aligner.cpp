@@ -518,12 +518,7 @@ TableAligner& operator<<(TableAligner& aligner, const EMethodSpecifier& methodSp
 
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr& method)
 {
-    if (method->specifier() != EMethodSpecifier::invalid())
-    {
-        aligner << method->specifier()
-                << ' ';
-    }
-
+    aligner << method->specifier();
     aligner << TableAligner::col();
     aligner << method->return_();
 

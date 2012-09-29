@@ -58,7 +58,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  DocumentSPtr                    downcast        (const ObjectSPtr& pObject);
+    static  DocumentSPtr                    downcast        (const ObjectSPtr& object);
 
     // Identifier for the objects from Document class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -77,14 +77,14 @@ public:
             const std::vector<CommentSPtr>& comments        ()                                         const;
     // Setter method for the data field comments
             Document&                       set_comments    (const std::vector<CommentSPtr>& comments);
-    // Provide mutable access to field comments
+    // Provides mutable access to field comments
             std::vector<CommentSPtr>&       mutable_comments();
 
     // Getter method for the data field version
             const Version&                  version         ()                                         const;
     // Setter method for the data field version
             Document&                       set_version     (const Version& version);
-    // Provide mutable access to field version
+    // Provides mutable access to field version
             Version&                        mutable_version ();
 
 private:

@@ -13,9 +13,9 @@ StructurePartial::~StructurePartial()
 {
 }
 
-StructureSPtr StructurePartial::downcast(const ObjectSPtr& pObject)
+StructureSPtr StructurePartial::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Structure>(pObject);
+    return boost::static_pointer_cast<Structure>(object);
 }
 
 StructureSPtr StructurePartial::shared_from_this()

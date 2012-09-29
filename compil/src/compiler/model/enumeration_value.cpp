@@ -11,9 +11,9 @@ EnumerationValue::~EnumerationValue()
 {
 }
 
-EnumerationValueSPtr EnumerationValue::downcast(const ObjectSPtr& pObject)
+EnumerationValueSPtr EnumerationValue::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<EnumerationValue>(pObject);
+    return boost::static_pointer_cast<EnumerationValue>(object);
 }
 
 const EnumerationWPtr& EnumerationValue::enumeration() const
@@ -57,9 +57,9 @@ AbsoluteEnumerationValue::~AbsoluteEnumerationValue()
 {
 }
 
-AbsoluteEnumerationValueSPtr AbsoluteEnumerationValue::downcast(const ObjectSPtr& pObject)
+AbsoluteEnumerationValueSPtr AbsoluteEnumerationValue::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<AbsoluteEnumerationValue>(pObject);
+    return boost::static_pointer_cast<AbsoluteEnumerationValue>(object);
 }
 
 long AbsoluteEnumerationValue::value() const
@@ -81,9 +81,9 @@ ComposedEnumerationValue::~ComposedEnumerationValue()
 {
 }
 
-ComposedEnumerationValueSPtr ComposedEnumerationValue::downcast(const ObjectSPtr& pObject)
+ComposedEnumerationValueSPtr ComposedEnumerationValue::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<ComposedEnumerationValue>(pObject);
+    return boost::static_pointer_cast<ComposedEnumerationValue>(object);
 }
 
 const std::vector<EnumerationValueSPtr>& ComposedEnumerationValue::values() const

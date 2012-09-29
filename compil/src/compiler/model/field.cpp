@@ -11,9 +11,9 @@ Field::~Field()
 {
 }
 
-FieldSPtr Field::downcast(const ObjectSPtr& pObject)
+FieldSPtr Field::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Field>(pObject);
+    return boost::static_pointer_cast<Field>(object);
 }
 
 const StructureWPtr& Field::structure() const

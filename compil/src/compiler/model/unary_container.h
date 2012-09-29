@@ -54,7 +54,7 @@ public:
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  UnaryContainerSPtr downcast       (const ObjectSPtr& pObject);
+    static  UnaryContainerSPtr downcast       (const ObjectSPtr& object);
 
     // Identifier for the objects from UnaryContainer class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -67,7 +67,7 @@ public:
     // the polymorphic behavior of the virtual methods. Allows having a
     // RTTI like mechanism significantly cheaper than the RTTI provided by
     // the compilers themselves.
-    virtual EObjectId          runtimeObjectId()                          const;
+    virtual EObjectId          runtimeObjectId()                         const;
 
     // This enumeration class provides namespaced set of constant values.
     // It is designed to provide type control over operations with enum
@@ -126,7 +126,7 @@ public:
     const ESize&    size        ()                  const;
     // Setter method for the data field size
     UnaryContainer& set_size    (const ESize& size);
-    // Provide mutable access to field size
+    // Provides mutable access to field size
     ESize&          mutable_size();
 
 private:

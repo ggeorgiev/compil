@@ -11,9 +11,9 @@ Import::~Import()
 {
 }
 
-ImportSPtr Import::downcast(const ObjectSPtr& pObject)
+ImportSPtr Import::downcast(const ObjectSPtr& object)
 {
-    return boost::static_pointer_cast<Import>(pObject);
+    return boost::static_pointer_cast<Import>(object);
 }
 
 const std::string& Import::source() const

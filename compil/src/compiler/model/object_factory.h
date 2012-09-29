@@ -184,37 +184,37 @@ private:
 class ObjectFactory
 {
 public:
-    static ObjectSPtr                   clone                           (const ObjectSPtr& pObject);
-    static AbsoluteEnumerationValueSPtr downcastAbsoluteEnumerationValue(const ObjectSPtr& pObject);
-    static AlterSPtr                    downcastAlter                   (const ObjectSPtr& pObject);
-    static CommentSPtr                  downcastComment                 (const ObjectSPtr& pObject);
-    static ComposedEnumerationValueSPtr downcastComposedEnumerationValue(const ObjectSPtr& pObject);
-    static DefaultValueSPtr             downcastDefaultValue            (const ObjectSPtr& pObject);
-    static DocumentSPtr                 downcastDocument                (const ObjectSPtr& pObject);
-    static EnumerationSPtr              downcastEnumeration             (const ObjectSPtr& pObject);
-    static EnumerationValueSPtr         downcastEnumerationValue        (const ObjectSPtr& pObject);
-    static FactorySPtr                  downcastFactory                 (const ObjectSPtr& pObject);
-    static FieldSPtr                    downcastField                   (const ObjectSPtr& pObject);
-    static FieldOverrideSPtr            downcastFieldOverride           (const ObjectSPtr& pObject);
-    static FilterSPtr                   downcastFilter                  (const ObjectSPtr& pObject);
-    static IdentificationSPtr           downcastIdentification          (const ObjectSPtr& pObject);
-    static IdentifierSPtr               downcastIdentifier              (const ObjectSPtr& pObject);
-    static ImportSPtr                   downcastImport                  (const ObjectSPtr& pObject);
-    static IntegerSPtr                  downcastInteger                 (const ObjectSPtr& pObject);
-    static InterfaceSPtr                downcastInterface               (const ObjectSPtr& pObject);
-    static MethodSPtr                   downcastMethod                  (const ObjectSPtr& pObject);
-    static NameSPtr                     downcastName                    (const ObjectSPtr& pObject);
-    static OperatorSPtr                 downcastOperator                (const ObjectSPtr& pObject);
-    static PackageSPtr                  downcastPackage                 (const ObjectSPtr& pObject);
-    static ParameterSPtr                downcastParameter               (const ObjectSPtr& pObject);
-    static ReferenceSPtr                downcastReference               (const ObjectSPtr& pObject);
-    static SpecimenSPtr                 downcastSpecimen                (const ObjectSPtr& pObject);
-    static StructureSPtr                downcastStructure               (const ObjectSPtr& pObject);
-    static TypeSPtr                     downcastType                    (const ObjectSPtr& pObject);
-    static UnaryContainerSPtr           downcastUnaryContainer          (const ObjectSPtr& pObject);
-    static UnaryTemplateSPtr            downcastUnaryTemplate           (const ObjectSPtr& pObject);
-    static UpcopySPtr                   downcastUpcopy                  (const ObjectSPtr& pObject);
-    static VersionSPtr                  downcastVersion                 (const ObjectSPtr& pObject);
+    static ObjectSPtr                   clone                           (const ObjectSPtr& object);
+    static AbsoluteEnumerationValueSPtr downcastAbsoluteEnumerationValue(const ObjectSPtr& object);
+    static AlterSPtr                    downcastAlter                   (const ObjectSPtr& object);
+    static CommentSPtr                  downcastComment                 (const ObjectSPtr& object);
+    static ComposedEnumerationValueSPtr downcastComposedEnumerationValue(const ObjectSPtr& object);
+    static DefaultValueSPtr             downcastDefaultValue            (const ObjectSPtr& object);
+    static DocumentSPtr                 downcastDocument                (const ObjectSPtr& object);
+    static EnumerationSPtr              downcastEnumeration             (const ObjectSPtr& object);
+    static EnumerationValueSPtr         downcastEnumerationValue        (const ObjectSPtr& object);
+    static FactorySPtr                  downcastFactory                 (const ObjectSPtr& object);
+    static FieldSPtr                    downcastField                   (const ObjectSPtr& object);
+    static FieldOverrideSPtr            downcastFieldOverride           (const ObjectSPtr& object);
+    static FilterSPtr                   downcastFilter                  (const ObjectSPtr& object);
+    static IdentificationSPtr           downcastIdentification          (const ObjectSPtr& object);
+    static IdentifierSPtr               downcastIdentifier              (const ObjectSPtr& object);
+    static ImportSPtr                   downcastImport                  (const ObjectSPtr& object);
+    static IntegerSPtr                  downcastInteger                 (const ObjectSPtr& object);
+    static InterfaceSPtr                downcastInterface               (const ObjectSPtr& object);
+    static MethodSPtr                   downcastMethod                  (const ObjectSPtr& object);
+    static NameSPtr                     downcastName                    (const ObjectSPtr& object);
+    static OperatorSPtr                 downcastOperator                (const ObjectSPtr& object);
+    static PackageSPtr                  downcastPackage                 (const ObjectSPtr& object);
+    static ParameterSPtr                downcastParameter               (const ObjectSPtr& object);
+    static ReferenceSPtr                downcastReference               (const ObjectSPtr& object);
+    static SpecimenSPtr                 downcastSpecimen                (const ObjectSPtr& object);
+    static StructureSPtr                downcastStructure               (const ObjectSPtr& object);
+    static TypeSPtr                     downcastType                    (const ObjectSPtr& object);
+    static UnaryContainerSPtr           downcastUnaryContainer          (const ObjectSPtr& object);
+    static UnaryTemplateSPtr            downcastUnaryTemplate           (const ObjectSPtr& object);
+    static UpcopySPtr                   downcastUpcopy                  (const ObjectSPtr& object);
+    static VersionSPtr                  downcastVersion                 (const ObjectSPtr& object);
 };
 
 }
