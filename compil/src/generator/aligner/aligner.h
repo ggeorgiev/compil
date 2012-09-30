@@ -41,7 +41,6 @@
 #include "cpp/format/function.h"
 #include "cpp/format/method.h"
 
-#include "argument.h"
 #include "cast_operator.h"
 #include "decorated_type.h"
 #include "destructor.h"

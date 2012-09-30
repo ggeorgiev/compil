@@ -240,15 +240,6 @@ TableAligner& operator<<(TableAligner& aligner, const TableAligner::optional_new
 	return aligner;
 }
 
-TableAligner& operator<<(TableAligner& aligner, const ArgumentSPtr& argument)
-{
-    if (argument->exist_type())
-        serialize(aligner, *argument->type(), false);
-    if (argument->exist_name())
-        aligner << argument->name();
-    return aligner;
-}
-
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ArgumentSPtr& argument)
 {
     if (argument->type())

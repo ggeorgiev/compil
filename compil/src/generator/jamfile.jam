@@ -20,7 +20,6 @@ lib gen :
     cpp/format/function.cpp
     cpp/format/method.cpp
 
-    aligner/object/argument.cpp
     aligner/object/cast_operator.cpp
     aligner/object/constructor_name.cpp
     aligner/object/constructor_specifier.cpp

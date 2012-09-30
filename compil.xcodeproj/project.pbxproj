@@ -189,8 +189,6 @@
 		5E88A22B15E188BB002D43A5 /* line_aligner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = line_aligner.cpp; sourceTree = "<group>"; };
 		5E88A22C15E188BB002D43A5 /* line_aligner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = line_aligner.h; sourceTree = "<group>"; };
 		5E88A22D15E188BB002D43A5 /* main_aligner_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main_aligner_unittest.cpp; sourceTree = "<group>"; };
-		5E88A22F15E188BB002D43A5 /* argument.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = argument.cpp; sourceTree = "<group>"; };
-		5E88A23015E188BB002D43A5 /* argument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = argument.h; sourceTree = "<group>"; };
 		5E88A23115E188BB002D43A5 /* cast_operator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = cast_operator.cpp; sourceTree = "<group>"; };
 		5E88A23215E188BB002D43A5 /* cast_operator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = cast_operator.h; sourceTree = "<group>"; };
 		5E88A23715E188BB002D43A5 /* decorated_type.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = decorated_type.cpp; sourceTree = "<group>"; };
@@ -765,8 +763,6 @@
 		5E88A22E15E188BB002D43A5 /* object */ = {
 			isa = PBXGroup;
 			children = (
-				5E88A22F15E188BB002D43A5 /* argument.cpp */,
-				5E88A23015E188BB002D43A5 /* argument.h */,
 				5E88A23115E188BB002D43A5 /* cast_operator.cpp */,
 				5E88A23215E188BB002D43A5 /* cast_operator.h */,
 				5EA4A52815FC306E00065BEF /* constructor_name.cpp */,

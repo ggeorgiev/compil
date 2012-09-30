@@ -193,22 +193,6 @@ LineAligner& operator<<(LineAligner& aligner, const DecoratedTypeSPtr& decorated
     return aligner << *decoratedType;
 }
 
-LineAligner& operator<<(LineAligner& aligner, const Argument& argument)
-{
-    if (argument.exist_type())
-        aligner << argument.type();
-    
-    if (argument.name())
-    {
-        if (argument.exist_type())
-        if (argument.type()->decoration() != ETypeDecoration::invalid())
-        if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
-            aligner << ' ';
-        aligner << argument.name();
-    }
-    return aligner;
-}
-
 LineAligner& operator<<(LineAligner& aligner, const FunctionCallSPtr& function)
 {
     if (function->namespace_())
