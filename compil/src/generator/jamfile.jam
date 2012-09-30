@@ -18,13 +18,14 @@ lib gen :
     cpp/format/cast_operator.cpp
     cpp/format/comment.cpp
     cpp/format/constructor_name.cpp
+    cpp/format/constructor_specifier.cpp
     cpp/format/constructor.cpp
     cpp/format/function.cpp
     cpp/format/method.cpp
     cpp/format/initialization.cpp
 
 
-    aligner/object/constructor_specifier.cpp
+
     aligner/object/decorated_type.cpp
     aligner/object/destructor_specifier.cpp
     aligner/object/destructor_name.cpp

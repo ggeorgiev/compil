@@ -258,9 +258,9 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
     table() << (cf::constructorRef() << frm->cppConstructorName(pEnumeration))
             << ";";
 
-    EConstructorSpecifier specifier;
+    cf::EConstructorSpecifier specifier;
     if (pEnumeration->cast() == CastableType::ECast::strong())
-        specifier = EConstructorSpecifier::explicit_();
+        specifier = cf::EConstructorSpecifier::explicit_();
 
     commentInTable("Constructor from an integer value.");
     if (pEnumeration->cast() == CastableType::ECast::strong())
@@ -516,7 +516,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     table() << (cf::constructorRef() << frm->cppConstructorName(pSpecimen))
             << ";";
 
-    table() << (cf::constructorRef() << EConstructorSpecifier::explicit_()
+    table() << (cf::constructorRef() << cf::EConstructorSpecifier::explicit_()
                                      << frm->cppConstructorName(pSpecimen)
                                      << (cf::argumentRef() << impl->cppDecoratedType(pParameterType)
                                                            << value))
@@ -1045,9 +1045,9 @@ void CppHeaderGenerator::generateIdentifierDeclaration(const IdentifierSPtr& pId
     table() << (cf::constructorRef() << frm->cppConstructorName(pIdentifier))
             << ";";
 
-    EConstructorSpecifier specifier;
+    cf::EConstructorSpecifier specifier;
     if (pIdentifier->cast() == CastableType::ECast::strong())
-        specifier = EConstructorSpecifier::explicit_();
+        specifier = cf::EConstructorSpecifier::explicit_();
     table() << (cf::constructorRef() << specifier
                                      << frm->cppConstructorName(pIdentifier)
                                      << (cf::argumentRef() << impl->cppDecoratedType(pParameterType)

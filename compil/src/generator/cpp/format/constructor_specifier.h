@@ -34,10 +34,16 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_SPECIFIER_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_SPECIFIER_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_CONSTRUCTOR_SPECIFIER_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_CONSTRUCTOR_SPECIFIER_COMPIL_H_
 
 #include "constructor_specifier.h"
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // This enumeration class provides namespaced set of constant values.
 // It is designed to provide type control over operations with enum values
@@ -89,7 +95,17 @@ private:
     long mValue;
 };
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_SPECIFIER_COMPIL_H_
+}
+
+}
+
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_CONSTRUCTOR_SPECIFIER_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
 class EConstructorSpecifier;
@@ -98,5 +114,9 @@ typedef boost::shared_ptr<EConstructorSpecifier>       ConstructorSpecifierSPtr;
 typedef boost::shared_ptr<const EConstructorSpecifier> ConstructorSpecifierSCPtr;
 typedef boost::weak_ptr<EConstructorSpecifier>         ConstructorSpecifierWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_SPECIFIER_COMPIL_H_
+}
+
+}
+
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_CONSTRUCTOR_SPECIFIER_COMPIL_H_
 

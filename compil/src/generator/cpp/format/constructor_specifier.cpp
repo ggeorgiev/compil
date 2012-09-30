@@ -1,5 +1,11 @@
 #include "constructor_specifier.h"
 
+namespace cpp
+{
+
+namespace frm
+{
+
 EConstructorSpecifier::EConstructorSpecifier()
         : mValue(kInvalid)
 {
@@ -48,5 +54,9 @@ bool EConstructorSpecifier::operator==(const EConstructorSpecifier& rValue) cons
 bool EConstructorSpecifier::operator!=(const EConstructorSpecifier& rValue) const
 {
     return mValue != rValue.mValue;
+}
+
+}
+
 }
 

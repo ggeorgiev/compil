@@ -294,6 +294,23 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::CastOperatorSPtr
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ConstructorNameSPtr& name)
+{
+    if (name)
+        aligner << name->value();
+    return aligner;
+}
+
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::EConstructorSpecifier& constructorSpecifier)
+{
+    if (constructorSpecifier != cpp::frm::EConstructorSpecifier::invalid())
+    {
+        aligner << constructorSpecifier.shortName()
+                << ' ';
+    }
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ConstructorSPtr& constructor)
 {
     aligner << constructor->comment();
@@ -502,16 +519,6 @@ TableAligner& operator<<(TableAligner& aligner, const FunctionNameSPtr& function
 {
     if (functionName)
         aligner << functionName->value();
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const EConstructorSpecifier& constructorSpecifier)
-{
-    if (constructorSpecifier != EConstructorSpecifier::invalid())
-    {
-        aligner << constructorSpecifier.shortName()
-                << ' ';
-    }
     return aligner;
 }
 
