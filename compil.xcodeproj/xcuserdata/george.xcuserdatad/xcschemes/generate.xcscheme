@@ -40,6 +40,10 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
+            argument = "/Users/george/github/compil/src/generator-self/compiler/model/structure.compil"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/containers.compil"
             isEnabled = "NO">
          </CommandLineArgument>
@@ -65,7 +69,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/specimens.compil"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/strong_enumeration.compil"
@@ -74,6 +78,10 @@
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/structure_streamable.compil"
             isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/george/github/compil/src/generator-test/structures.compil"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/weak_enumeration.compil"

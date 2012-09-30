@@ -119,8 +119,7 @@ bool CppFlagsEnumerationGenerator::generate()
     closeBlock(declarationStream);
     eol(declarationStream);
     
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << decoratedType
+    fdef()  << (cf::methodRef() << decoratedType
                                 << fnValue
                                 << EMethodDeclaration::const_());
     openBlock(declarationStream);
@@ -132,8 +131,7 @@ bool CppFlagsEnumerationGenerator::generate()
     
     commentInLine(declarationStream,
                   "Resets the flags included in the mask to the state in value");
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << vd
+    fdef()  << (cf::methodRef() << vd
                                 << fnReset
                                 << argMask
                                 << argValue);
@@ -145,8 +143,7 @@ bool CppFlagsEnumerationGenerator::generate()
     
     commentInLine(declarationStream,
                   "Sets the flags included in the mask. Equivalent to reset(mask, all).");
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << vd
+    fdef()  << (cf::methodRef() << vd
                                 << fnSet
                                 << argMask);
     openBlock(declarationStream);
@@ -157,8 +154,7 @@ bool CppFlagsEnumerationGenerator::generate()
     
     commentInLine(declarationStream,
                    "Clears the flags included in the mask. Equivalent to reset(mask, nil).");
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << vd
+    fdef()  << (cf::methodRef() << vd
                                 << fnClear
                                 << argMask);
     openBlock(declarationStream);
@@ -169,8 +165,7 @@ bool CppFlagsEnumerationGenerator::generate()
     
     commentInLine(declarationStream,
                    "Turns the flags included in the mask.");
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << vd
+    fdef()  << (cf::methodRef() << vd
                                 << fnTurn
                                 << argMask);
     openBlock(declarationStream);
@@ -182,8 +177,7 @@ bool CppFlagsEnumerationGenerator::generate()
     commentInLine(declarationStream,
                   "Returns assemble of the current flags with the flags from the mask to "
                   "the state in value. This is immutable version of reset.");
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << decoratedInherit
+    fdef()  << (cf::methodRef() << decoratedInherit
                                 << fnAssemble
                                 << argMask
                                 << argValue
@@ -198,8 +192,7 @@ bool CppFlagsEnumerationGenerator::generate()
     commentInLine(declarationStream,
                   "Returns combination of the flags included in the mask. "
                   "This is immutable version of set.");
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << decoratedInherit
+    fdef()  << (cf::methodRef() << decoratedInherit
                                 << fnCombine
                                 << argMask
                                 << EMethodDeclaration::const_());
@@ -213,8 +206,7 @@ bool CppFlagsEnumerationGenerator::generate()
     commentInLine(declarationStream,
                   "Returns intersection of the flags included in the mask. "
                   "This is immutable version of clear.");
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << decoratedInherit
+    fdef()  << (cf::methodRef() << decoratedInherit
                                 << fnIntersect
                                 << argMask
                                 << EMethodDeclaration::const_());
@@ -228,8 +220,7 @@ bool CppFlagsEnumerationGenerator::generate()
     commentInLine(declarationStream,
                   "Returns flipped the flags included in the mask. "
                   "This is immutable version of turn.");
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << decoratedInherit
+    fdef()  << (cf::methodRef() << decoratedInherit
                                 << fnFlip
                                 << argMask
                                 << EMethodDeclaration::const_());
@@ -242,8 +233,7 @@ bool CppFlagsEnumerationGenerator::generate()
     
     commentInLine(declarationStream,
                   "Tests if the flags included in the mask are the same state as state in value");
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << bl
+    fdef()  << (cf::methodRef() << bl
                                 << fnTest
                                 << argMask
                                 << argValue
@@ -255,8 +245,7 @@ bool CppFlagsEnumerationGenerator::generate()
     
     commentInLine(declarationStream,
                   "Tests if the flags included in the mask are set. Equivalent to test(mask, all).");
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << bl
+    fdef()  << (cf::methodRef() << bl
                                 << fnIsSet
                                 << argMask
                                 << EMethodDeclaration::const_());
@@ -267,8 +256,7 @@ bool CppFlagsEnumerationGenerator::generate()
     
     commentInLine(declarationStream,
                   "Tests if the flags included in the mask are clear. Equivalent to test(mask, nil).");
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << bl
+    fdef()  << (cf::methodRef() << bl
                                 << fnIsClear
                                 << argMask
                                 << EMethodDeclaration::const_());

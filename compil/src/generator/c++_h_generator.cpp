@@ -203,8 +203,7 @@ void CppHeaderGenerator::generateEnumerationValueDeclaration(const EnumerationVa
     if (pEnumerationValue->comment())
         commentInTable(pEnumerationValue->comment());
 
-    table() << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::static_()
+    table() << (cf::methodRef() << EMethodSpecifier::static_()
                                 << (decoratedTypeRef() << ETypeDeclaration::const_()
                                                        << type)
                                 << frm->methodName(pEnumerationValue->name()->value()))
@@ -291,15 +290,13 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
             "3rd party libraries or serialization functionality).");
     }
 
-    table() << TableAligner::row()
-            << (cf::methodRef() << impl->cppDecoratedType(pParameterType)
+    table() << (cf::methodRef() << impl->cppDecoratedType(pParameterType)
                                 << fnValue
                                 << EMethodDeclaration::const_())
             << ";";
 
     commentInTable("Returns short name for a specified enum value");
-    table() << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::static_()
+    table() << (cf::methodRef() << EMethodSpecifier::static_()
                                 << const_char_ptr
                                 << fnShortName
                                 << (cf::argumentRef() << impl->cppDecoratedType(pParameterType)
@@ -307,8 +304,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
             << ";";
 
     commentInTable("Returns short name of the enum value");
-    table() << TableAligner::row()
-            << (cf::methodRef() << const_char_ptr
+    table() << (cf::methodRef() << const_char_ptr
                                 << fnShortName
                                 << EMethodDeclaration::const_())
             << ";";
@@ -316,8 +312,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
     if (pEnumeration->cast() == CastableType::ECast::strong())
     {
         commentInTable("returns true if the value of the enum is equal to the value of the argument");
-        table() << TableAligner::row()
-                << (cf::methodRef() << bl
+        table() << (cf::methodRef() << bl
                                     << fnOperatorEq
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << rValue)
@@ -325,8 +320,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
                 << ";";
 
         commentInTable("returns true if the value of the enum is not equal to the value of the argument");
-        table() << TableAligner::row()
-                << (cf::methodRef() << bl
+        table() << (cf::methodRef() << bl
                                     << fnOperatorNe
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << rValue)
@@ -345,8 +339,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
     if (impl->implementFlagsEnumerationMethods(pEnumeration))
     {
         commentInTable("Resets the flags included in the mask to the state in value");
-        table() << TableAligner::row()
-                << (cf::methodRef() << vd
+        table() << (cf::methodRef() << vd
                                     << fnReset
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << mask)
@@ -355,24 +348,21 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
                 << ";";
 
         commentInTable("Sets the flags included in the mask. Equivalent to reset(mask, all).");
-        table() << TableAligner::row()
-                << (cf::methodRef() << vd
+        table() << (cf::methodRef() << vd
                                     << fnSet
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << mask))
                 << ";";
 
         commentInTable("Clears the flags included in the mask. Equivalent to reset(mask, nil).");
-        table() << TableAligner::row()
-                << (cf::methodRef() << vd
+        table() << (cf::methodRef() << vd
                                     << fnClear
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << mask))
                 << ";";
 
         commentInTable("Turns the flags included in the mask.");
-        table() << TableAligner::row()
-                << (cf::methodRef() << vd
+        table() << (cf::methodRef() << vd
                                     << fnTurn
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << mask))
@@ -381,8 +371,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
 
         commentInTable("Returns assemble of the current flags with the flags from the mask to "
                        "the state in value. This is immutable version of reset.");
-        table() << TableAligner::row()
-                << (cf::methodRef() << innerType
+        table() << (cf::methodRef() << innerType
                                     << fnAssemble
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << mask)
@@ -393,8 +382,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
 
         commentInTable("Returns combination of the flags included in the mask. "
                        "This is immutable version of set.");
-        table() << TableAligner::row()
-                << (cf::methodRef() << innerType
+        table() << (cf::methodRef() << innerType
                                     << fnCombine
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << mask)
@@ -403,8 +391,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
 
         commentInTable("Returns intersection of the flags included in the mask. "
                        "This is immutable version of clear.");
-        table() << TableAligner::row()
-                << (cf::methodRef() << innerType
+        table() << (cf::methodRef() << innerType
                                     << fnIntersect
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << mask)
@@ -413,8 +400,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
 
         commentInTable("Returns flipped the flags included in the mask. "
                        "This is immutable version of turn.");
-        table() << TableAligner::row()
-                << (cf::methodRef() << innerType
+        table() << (cf::methodRef() << innerType
                                     << fnFlip
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << mask)
@@ -422,8 +408,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
                 << ";";
 
         commentInTable("Tests if the flags included in the mask are the same state as state in value");
-        table() << TableAligner::row()
-                << (cf::methodRef() << bl
+        table() << (cf::methodRef() << bl
                                     << fnTest
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << mask)
@@ -433,8 +418,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
                 << ";";
 
         commentInTable("Tests if the flags included in the mask are set. Equivalent to test(mask, all).");
-        table() << TableAligner::row()
-                << (cf::methodRef() << bl
+        table() << (cf::methodRef() << bl
                                     << fnIsSet
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << mask)
@@ -442,8 +426,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
                 << ";";
 
         commentInTable("Tests if the flags included in the mask are clear. Equivalent to test(mask, nil).");
-        table() << TableAligner::row()
-                << (cf::methodRef() << bl
+        table() << (cf::methodRef() << bl
                                     << fnIsClear
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << mask)
@@ -544,8 +527,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     table() << TableAligner::row();
     if (!pBaseSpecimen)
     {
-        table() << TableAligner::row()
-                << (cf::methodRef() << EMethodSpecifier::inline_()
+        table() << (cf::methodRef() << EMethodSpecifier::inline_()
                                     << (decoratedTypeRef() << impl->cppType(pParameterType))
                                     << fnValue
                                     << EMethodDeclaration::const_())
@@ -554,8 +536,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     
     if (pParameterType->hasOperator(EOperatorAction::equalTo(), EOperatorFlags::native()))
     {
-        table() << TableAligner::row()
-                << (cf::methodRef() << EMethodSpecifier::inline_()
+        table() << (cf::methodRef() << EMethodSpecifier::inline_()
                                     << bl
                                     << fnOperatorEq
                                     << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
@@ -566,8 +547,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
 
     if (pParameterType->hasOperator(EOperatorAction::notEqualTo(), EOperatorFlags::native()))
     {
-        table() << TableAligner::row()
-                << (cf::methodRef() << EMethodSpecifier::inline_()
+        table() << (cf::methodRef() << EMethodSpecifier::inline_()
                                     << bl
                                     << fnOperatorNe
                                     << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
@@ -578,8 +558,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     
     if (pParameterType->hasOperator(EOperatorAction::lessThan(), EOperatorFlags::native()))
     {
-        table() << TableAligner::row()
-                << (cf::methodRef() << EMethodSpecifier::inline_()
+        table() << (cf::methodRef() << EMethodSpecifier::inline_()
                                     << bl
                                     << fnOperatorLt
                                     << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
@@ -590,8 +569,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     
     eot(declarationStream);
     
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::inline_()
+    fdef()  << (cf::methodRef() << EMethodSpecifier::inline_()
                                 << (decoratedTypeRef() << frm->cppSharedPtrName(pSpecimen))
                                 << frm->methodName(frm->cppRefName(pSpecimen->name()->value())));
     openBlock(inlineDefinitionStream);
@@ -601,8 +579,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     closeBlock(inlineDefinitionStream);
     eol(inlineDefinitionStream);
     
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::inline_()
+    fdef()  << (cf::methodRef() << EMethodSpecifier::inline_()
                                 << (decoratedTypeRef() << frm->cppSharedPtrName(pSpecimen))
                                 << frm->methodName(frm->cppRefName(pSpecimen->name()->value()))
                                 << (cf::argumentRef() << impl->cppDecoratedType(pParameterType)
@@ -616,8 +593,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     
     if (!pBaseSpecimen)
     {
-        fdef()  << TableAligner::row()
-                << (cf::methodRef() << EMethodSpecifier::inline_()
+        fdef()  << (cf::methodRef() << EMethodSpecifier::inline_()
                                     << (decoratedTypeRef() << impl->cppType(pParameterType))
                                     << frm->cppClassNamespace(pSpecimen)
                                     << fnValue
@@ -632,8 +608,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     
     if (pParameterType->hasOperator(EOperatorAction::equalTo(), EOperatorFlags::native()))
     {
-        fdef()  << TableAligner::row()
-                << (cf::methodRef() << EMethodSpecifier::inline_()
+        fdef()  << (cf::methodRef() << EMethodSpecifier::inline_()
                                     << bl
                                     << frm->cppClassNamespace(pSpecimen)
                                     << fnOperatorEq
@@ -652,8 +627,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     
     if (pParameterType->hasOperator(EOperatorAction::notEqualTo(), EOperatorFlags::native()))
     {
-        fdef()  << TableAligner::row()
-                << (cf::methodRef() << EMethodSpecifier::inline_()
+        fdef()  << (cf::methodRef() << EMethodSpecifier::inline_()
                                     << bl
                                     << frm->cppClassNamespace(pSpecimen)
                                     << fnOperatorNe
@@ -672,8 +646,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     
     if (pParameterType->hasOperator(EOperatorAction::lessThan(), EOperatorFlags::native()))
     {
-        fdef()  << TableAligner::row()
-                << (cf::methodRef() << EMethodSpecifier::inline_()
+        fdef()  << (cf::methodRef() << EMethodSpecifier::inline_()
                                     << bl
                                     << frm->cppClassNamespace(pSpecimen)
                                     << fnOperatorLt
@@ -733,8 +706,7 @@ void CppHeaderGenerator::generateHierarchyFactoryDeclaration(const FactorySPtr& 
 
     if (!pParameterStructure->abstract())
     {
-        table() << TableAligner::row()
-                << (cf::methodRef() << EMethodSpecifier::static_()
+        table() << (cf::methodRef() << EMethodSpecifier::static_()
                                     << (decoratedTypeRef() << impl->cppPtrType(pParameterType))
                                     << fnClone
                                     << (cf::argumentRef() << impl->cppPtrDecoratedType(pParameterType)
@@ -754,8 +726,7 @@ void CppHeaderGenerator::generateHierarchyFactoryDeclaration(const FactorySPtr& 
 
         addDependencies(impl->dependencies(pStructure));
 
-        table() << TableAligner::row()
-                << (cf::methodRef() << EMethodSpecifier::static_()
+        table() << (cf::methodRef() << EMethodSpecifier::static_()
                                     << (decoratedTypeRef() << impl->cppPtrType(pStructure))
                                     << frm->downcastMethodName(pStructure)
                                     << (cf::argumentRef() << impl->cppPtrDecoratedType(pParameterStructure)
@@ -817,8 +788,7 @@ void CppHeaderGenerator::generateObjectFactoryDeclaration(const FactorySPtr& pFa
                                              << frm->cppVariableName(*it));
             }
 
-            table() << TableAligner::row()
-                    << method
+            table() << method
                     << ";";
         }
         eot(declarationStream);
@@ -888,8 +858,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
     commentInTable(
         "Register clone function method. Use to register objects that the factory"
         " needs to support");
-    table() << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::static_()
+    table() << (cf::methodRef() << EMethodSpecifier::static_()
                                 << bl
                                 << fnRegisterCloneFunction
                                 << (cf::argumentRef() << st
@@ -903,8 +872,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
 
     commentInTable(
         "Register relationship method. Use to register relationships between objects.");
-    table() << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::static_()
+    table() << (cf::methodRef() << EMethodSpecifier::static_()
                                 << bl
                                 << fnRegisterRelationship
                                 << (cf::argumentRef() << st
@@ -915,8 +883,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
 
     commentInTable(
         "Returns is the parent/child pair is registered in the factory.");
-    table() << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::static_()
+    table() << (cf::methodRef() << EMethodSpecifier::static_()
                                 << bl
                                 << fnIsParent
                                 << (cf::argumentRef() << st
@@ -935,8 +902,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
         " creating circular dependency.");
     table() << TableAligner::row_line()
             << "template<class T>";
-    table() << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::static_()
+    table() << (cf::methodRef() << EMethodSpecifier::static_()
                                 << TPtr
                                 << fnClone
                                 << (cf::argumentRef() << cstTRef
@@ -962,8 +928,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
         " if the argument object is from the same class or a derived one from the argument class.");
     table() << TableAligner::row_line()
             << "template<class T>";
-    table() << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::static_()
+    table() << (cf::methodRef() << EMethodSpecifier::static_()
                                 << bl
                                 << fnIsDerivedFrom
                                 << (cf::argumentRef() << impl->cppDecoratedType(pParameterType)
@@ -991,8 +956,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
         "The same as previous one. Just a helper that accepts pointer instead of an object.");
     table() << TableAligner::row_line()
             << "template<class T>";
-    table() << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::static_()
+    table() << (cf::methodRef() << EMethodSpecifier::static_()
                                 << bl
                                 << fnIsDerivedFrom
                                 << (cf::argumentRef() << impl->cppPtrDecoratedType(pParameterType)
@@ -1012,8 +976,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
 
     commentInTable(
         "Global singleton accessor.");
-    table() << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::static_()
+    table() << (cf::methodRef() << EMethodSpecifier::static_()
                                 << (decoratedTypeRef() << frm->cppClassType(pFactory)
                                                        << ETypeDecoration::reference())
                                 << fnGet)
@@ -1096,25 +1059,23 @@ void CppHeaderGenerator::generateIdentifierDeclaration(const IdentifierSPtr& pId
                                                            << value))
             << ";";
 
-    table() << TableAligner::row()
-            << TableAligner::row()
-            << (cf::methodRef() << impl->cppDecoratedType(pParameterType)
+    table() << TableAligner::row();
+    
+    table() << (cf::methodRef() << impl->cppDecoratedType(pParameterType)
                                 << fnValue
                                 << EMethodDeclaration::const_())
             << ";";
 
     if (pIdentifier->cast() == CastableType::ECast::strong())
     {
-        table() << TableAligner::row()
-                << (cf::methodRef() << bl
+        table() << (cf::methodRef() << bl
                                     << fnOperatorEq
                                     << (cf::argumentRef() << impl->cppDecoratedType(pIdentifier)
                                                           << rValue)
                                     << EMethodDeclaration::const_())
                 << ";";
 
-        table() << TableAligner::row()
-                << (cf::methodRef() << bl
+        table() << (cf::methodRef() << bl
                                     << fnOperatorNe
                                     << (cf::argumentRef() << impl->cppDecoratedType(pIdentifier)
                                                           << rValue)
@@ -1181,8 +1142,7 @@ void CppHeaderGenerator::generateStructureRuntimeIdentificationMethodsDeclaratio
             "all the other identifiers of the other class objects. This allows all identifiers "
             "to be maintained from a single place, which reduces the risk of value collisions");
 
-    table() << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::static_()
+    table() << (cf::methodRef() << EMethodSpecifier::static_()
                                 << (decoratedTypeRef() << impl->identificationEnum(pBaseStructure))
                                 << impl->staticIdentificationMethodName(pBaseStructure))
             << ";";
@@ -1192,8 +1152,7 @@ void CppHeaderGenerator::generateStructureRuntimeIdentificationMethodsDeclaratio
             "behavior of the virtual methods. Allows having a RTTI like mechanism significantly "
             "cheaper than the RTTI provided by the compilers themselves.");
 
-    table() << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::virtual_()
+    table() << (cf::methodRef() << EMethodSpecifier::virtual_()
                                 << (decoratedTypeRef() << impl->identificationEnum(pBaseStructure))
                                 << impl->runtimeIdentificationMethodName(pBaseStructure)
                                 << EMethodDeclaration::const_())
@@ -1219,8 +1178,7 @@ void CppHeaderGenerator::generateStructureInprocIdentificationMethodsDeclaration
                 "Static clone method that implements the plugin factory " + factory->name()->value() +
                 " clone function prototype. It will be registered in the factory for potential use from its"
                 " clone method. Most likely you will never need to use this method from anywhere else.");
-            table() << TableAligner::row()
-                    << (cf::methodRef() << EMethodSpecifier::static_()
+            table() << (cf::methodRef() << EMethodSpecifier::static_()
                                         << frm->cppRawPtrDecoratedType(pParameterType)
                                         << fnClone
                                         << (cf::argumentRef() << impl->cppDecoratedType(pParameterType)
@@ -1237,8 +1195,7 @@ void CppHeaderGenerator::generateStructureInprocIdentificationMethodsDeclaration
             "There is no guarantee that the id will be the same from session to session. "
             "Do not use for serialization.");
 
-    table() << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::static_()
+    table() << (cf::methodRef() << EMethodSpecifier::static_()
                                 << st
                                 << impl->staticMethodName(fnInprocId->value()))
             << ";";
@@ -1247,8 +1204,7 @@ void CppHeaderGenerator::generateStructureInprocIdentificationMethodsDeclaration
             "This virtual method provides runtime inproc object identification based on the polymorphic "
             "behavior of the virtual methods. Allows having a RTTI like mechanism significantly "
             "cheaper than the RTTI provided by the compilers themselves.");
-    table() << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::virtual_()
+    table() << (cf::methodRef() << EMethodSpecifier::virtual_()
                                 << st
                                 << impl->runtimeMethodName(fnInprocId->value())
                                 << EMethodDeclaration::const_())
@@ -1329,8 +1285,7 @@ void CppHeaderGenerator::generateStructureOperatorMethodsDeclaration(
 
     if (arguments == 1)
     {
-        table() << TableAligner::row()
-                << (cf::methodRef() << specifier
+        table() << (cf::methodRef() << specifier
                                     << bl
                                     << fnName
                                     << (cf::argumentRef() << type
@@ -1340,8 +1295,7 @@ void CppHeaderGenerator::generateStructureOperatorMethodsDeclaration(
     }
     else
     {
-        table() << TableAligner::row()
-                << (cf::methodRef() << specifier
+        table() << (cf::methodRef() << specifier
                                     << bl
                                     << fnName
                                     << (cf::argumentRef() << type
@@ -1450,8 +1404,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
 
         commentInTable("Getter method for the data field " + pField->name()->value());
 
-        table() << TableAligner::row()
-                << (cf::methodRef() << impl->cppInnerDecoratedType(pField->type(), pCurrStructure)
+        table() << (cf::methodRef() << impl->cppInnerDecoratedType(pField->type(), pCurrStructure)
                                     << frm->getMethodName(pField)
                                     << EMethodDeclaration::const_())
                 << ";";
@@ -1480,8 +1433,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                         "() from the Builder class");
                 }
             }
-            table() << TableAligner::row()
-                    << (cf::methodRef() << bl
+            table() << (cf::methodRef() << bl
                                         << frm->availableMethodName(pField)
                                         << EMethodDeclaration::const_())
                     << ";";
@@ -1493,8 +1445,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                 "Returns the default value " + frm->defaultValue(pField) +
                 " of the field " + pField->name()->value());
 
-            table() << TableAligner::row()
-                    << (cf::methodRef() << EMethodSpecifier::static_()
+            table() << (cf::methodRef() << EMethodSpecifier::static_()
                                         << (decoratedTypeRef() << impl->cppType(pField->type()))
                                         << frm->defaultMethodName(pField))
                     << ";";
@@ -1524,8 +1475,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                                ", no implementation");
         }
         
-        table() << TableAligner::row()
-                << (cf::methodRef() << resultType
+        table() << (cf::methodRef() << resultType
                                     << frm->setMethodName(pField)
                                     << (cf::argumentRef() << impl->cppInnerSetDecoratedType(pField->type(),
                                                                                             pCurrStructure)
@@ -1535,8 +1485,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
         if (impl->needMutableMethod(pField, pCurrStructure))
         {
             commentInTable("Provides mutable access to field " + pField->name()->value());
-            table() << TableAligner::row()
-                    << (cf::methodRef() << (decoratedTypeRef() << impl->cppInnerType(pField->type(), pCurrStructure)
+            table() << (cf::methodRef() << (decoratedTypeRef() << impl->cppInnerType(pField->type(), pCurrStructure)
                                                                << ETypeDecoration::reference())
                                         << frm->mutableMethodName(pField))
                     << ";";
@@ -1545,8 +1494,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
         if (pCurrStructure->streamable())
         {
             commentInTable("Store operator for the data field " + pField->name()->value());
-            table() << TableAligner::row()
-                    << (cf::methodRef() << resultType
+            table() << (cf::methodRef() << resultType
                                         << fnOperatorStore
                                         << (cf::argumentRef() << impl->cppInnerSetDecoratedType(pField->type(),
                                                                                                 pCurrStructure)
@@ -1559,8 +1507,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                 DecoratedTypeSPtr type = impl->cppInnerSetDecoratedType(pUnaryContainer->parameterType().lock(),
                                                                         pCurrStructure);
                 commentInTable("Store operator for an item of data field " + pField->name()->value());
-                table() << TableAligner::row()
-                        << (cf::methodRef() << resultType
+                table() << (cf::methodRef() << resultType
                                             << fnOperatorStore
                                             << (cf::argumentRef() << type
                                                                   << frm->cppItemVariableName(pField)))
@@ -1579,8 +1526,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                 commentInTable("Updates the data field " + pField->name()->value() +
                                ". If the new value is equal to the default it clears the field else"
                                " it sets it to the new value");
-                table() << TableAligner::row()
-                        << (cf::methodRef() << resultType
+                table() << (cf::methodRef() << resultType
                                             << frm->updateMethodName(pField)
                                             << (cf::argumentRef() << impl->cppInnerSetDecoratedType(pField->type(),
                                                                                                     pCurrStructure)
@@ -1603,8 +1549,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                     "not be instantiated before the field data is set again");
             }
 
-            table() << TableAligner::row()
-                    << (cf::methodRef() << vd
+            table() << (cf::methodRef() << vd
                                         << frm->destroyMethodName(pField))
                     << ";";
         }
@@ -1629,8 +1574,7 @@ void CppHeaderGenerator::generateStructureFieldOverrideMethodsDeclaration(const 
             table() << TableAligner::row();
 
         commentInTable("Override getter method for the data field " + pField->name()->value());
-        table() << TableAligner::row()
-                << (cf::methodRef() << (decoratedTypeRef() << impl->cppInnerType(pField->type(), pStructure))
+        table() << (cf::methodRef() << (decoratedTypeRef() << impl->cppInnerType(pField->type(), pStructure))
                                     << frm->getMethodName(pField)
                                     << EMethodDeclaration::const_())
                 << ";";
@@ -1651,8 +1595,7 @@ void CppHeaderGenerator::generateStructureFieldOverrideMethodsDeclaration(const 
             table() << TableAligner::row();
 
         commentInTable("Override setter method for the data field " + pField->name()->value());
-        table() << TableAligner::row()
-                << (cf::methodRef() << resultType
+        table() << (cf::methodRef() << resultType
                                     << frm->setMethodName(pField)
                                     << (cf::argumentRef() << impl->cppInnerSetDecoratedType(pField->type(),
                                                                                             pStructure)
@@ -1724,8 +1667,7 @@ void CppHeaderGenerator::generateStructureObjectMethodsDeclaration(const ObjectS
                 commentInTable(
                     "Returns the alter value " + frm->defaultValue(pAlter) +
                     " of the field " + pAlter->field()->name()->value());
-                table() << TableAligner::row()
-                        << (cf::methodRef() << EMethodSpecifier::static_()
+                table() << (cf::methodRef() << EMethodSpecifier::static_()
                                             << (decoratedTypeRef() << impl->cppType(pAlter->field()->type()))
                                             << frm->alterMethodName(pAlter->field()))
                         << ";";
@@ -1872,8 +1814,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
 
         commentInTable(
             "hide evil auto created assignment operator, no implementation");
-        table() << TableAligner::row()
-                << (cf::methodRef() << vd
+        table() << (cf::methodRef() << vd
                                     << fnOperatorE
                                     << (cf::argumentRef() << (decoratedTypeRef() << ETypeDeclaration::const_()
                                                                                  << builder
@@ -1954,8 +1895,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
             "more objects. The data is not reset. Second call of " + fnBuild->value() + "() will instantiate "
             "object with the same data.");
 
-        table() << TableAligner::row()
-                << (cf::methodRef() << impl->cppDecoratedType(pStructure)
+        table() << (cf::methodRef() << impl->cppDecoratedType(pStructure)
                                     << fnBuild
                                     << EMethodDeclaration::const_())
                 << ";";
@@ -1967,8 +1907,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
             "the builder status. Once " + fnFinalize->value() + "() is called, the builder can not be used again. "
             "Use " + fnFinalize->value() + "() when you no longer are going to use this builder.");
 
-        table() << TableAligner::row()
-                << (cf::methodRef() << (decoratedTypeRef() << impl->cppPtrType(pStructure))
+        table() << (cf::methodRef() << (decoratedTypeRef() << impl->cppPtrType(pStructure))
                                     << fnFinalize)
                 << ";";
 
@@ -2045,8 +1984,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
             commentInTable(
                 "Note that it does not provide any type checks. Use it on your own risk.");
 
-            table() << TableAligner::row()
-                    << (cf::methodRef() << EMethodSpecifier::static_()
+            table() << (cf::methodRef() << EMethodSpecifier::static_()
                                         << (decoratedTypeRef() << frm->cppSharedPtrName(pStructure))
                                         << fnDowncast
                                         << (cf::argumentRef() << frm->cppSharedPtrDecoratedType(pRecursivelyBaseStructure)
@@ -2063,16 +2001,15 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                 "is implemented in "
                 "boost::enable_shared_from_this base class. The only purpose of this helper method is to "
                 "eliminate the need of downcasting to shared_ptr to this class.");
-            table() << TableAligner::row()
-                    << (cf::methodRef() << (decoratedTypeRef() << frm->cppSharedPtrName(pStructure))
+            table() << (cf::methodRef() << (decoratedTypeRef() << frm->cppSharedPtrName(pStructure))
                                         << fnSharedFromThis)
                     << ";";
 
-            commentInTable(
+            cf::CommentSPtr comment = cf::commentRef() << 
                 "This method is exactly the same as the previous one with exception that it allows "
-                "shared_from_this to be called from const methods.");
-            table() << TableAligner::row()
-                    << (cf::methodRef() << (decoratedTypeRef() << frm->cppSharedConstPtrName(pStructure))
+                "shared_from_this to be called from const methods.";
+            table() << (cf::methodRef() << comment
+                                        << (decoratedTypeRef() << frm->cppSharedConstPtrName(pStructure))
                                         << fnSharedFromThis
                                         << EMethodDeclaration::const_())
                     << ";";
@@ -2095,8 +2032,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                 "not be changed. Called by the Builder class.");
         }
 
-        table() << TableAligner::row()
-                << (cf::methodRef() << methodSpecifier
+        table() << (cf::methodRef() << methodSpecifier
                                     << bl
                                     << fnIsInitialized
                                     << EMethodDeclaration::const_())
@@ -2107,9 +2043,9 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
     {
         encapsulateInTable("public");
 
-        table() << TableAligner::row()
-                << TableAligner::row()
-                << (cf::methodRef() << methodSpecifier
+        table() << TableAligner::row();
+        
+        table() << (cf::methodRef() << methodSpecifier
                                     << bl
                                     << fnIsVoid
                                     << EMethodDeclaration::const_())
@@ -2141,8 +2077,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
 
                 commentInTable("Returns unique bitmask value for the field " + pField->name()->value());
 
-                table() << TableAligner::row()
-                        << (cf::methodRef() << EMethodSpecifier::static_()
+                table() << (cf::methodRef() << EMethodSpecifier::static_()
                                             << (decoratedTypeRef() << integer)
                                             << frm->bitmaskMethodName(pField))
                         << ";";
@@ -2177,8 +2112,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
     {
         addDependencies(impl->classReferenceDependencies());
         
-        fdef()  << TableAligner::row()
-                << (cf::methodRef() << EMethodSpecifier::inline_()
+        fdef()  << (cf::methodRef() << EMethodSpecifier::inline_()
                                     << (decoratedTypeRef() << frm->cppSharedPtrName(pStructure))
                                     << frm->methodName(frm->cppRefName(pStructure->name()->value())));
         openBlock(inlineDefinitionStream);
@@ -2199,8 +2133,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                 continue;
         
             commentInTable("Reference store operator for the data field " + pField->name()->value());
-            table() << TableAligner::row()
-                    << (cf::methodRef() << resultType
+            table() << (cf::methodRef() << resultType
                                         << fnOperatorStore
                                         << (cf::argumentRef() << resultType)
                                         << (cf::argumentRef() << impl->cppSetDecoratedType(pField->type())))
@@ -2211,8 +2144,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
             {
                 DecoratedTypeSPtr type = impl->cppSetDecoratedType(pUnaryContainer->parameterType().lock());
                 commentInTable("Reference store operator for an item of data field " + pField->name()->value());
-                table() << TableAligner::row()
-                        << (cf::methodRef() << resultType
+                table() << (cf::methodRef() << resultType
                                             << fnOperatorStore
                                             << (cf::argumentRef() << resultType)
                                             << (cf::argumentRef() << type))

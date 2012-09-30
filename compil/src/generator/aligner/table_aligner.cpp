@@ -257,6 +257,22 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ArgumentSPtr& ar
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::CommentSPtr& comment)
+{
+    if (!comment)
+        return aligner;
+        
+    std::vector<std::string> paragraphs = comment->paragraphs();
+    std::vector<std::string>::iterator it;
+    for (it = paragraphs.begin(); it != paragraphs.end(); ++it)
+    {
+        aligner << TableAligner::row_comment()
+                << *it;
+    }
+    
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ConstructorSPtr& constructor)
 {
     aligner << constructor->specifier();
@@ -311,6 +327,10 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr& fu
 
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr& method)
 {
+    aligner << method->comment();
+    
+    aligner << TableAligner::row();
+    
     aligner << method->specifier();
     aligner << TableAligner::col();
     aligner << method->return_();

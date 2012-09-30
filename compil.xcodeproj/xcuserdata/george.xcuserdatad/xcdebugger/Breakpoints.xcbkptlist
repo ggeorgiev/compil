@@ -164,19 +164,6 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "compil/src/generator/c++_h_generator.cpp"
-         timestampString = "370729239.859847"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "2123"
-         endingLineNumber = "2123"
-         landmarkName = "CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr&amp; pStructure)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "compil/src/compiler/model/specimen.cpp"
          timestampString = "370729235.168963"
          startingColumnNumber = "9223372036854775807"

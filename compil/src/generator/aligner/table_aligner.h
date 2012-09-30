@@ -102,6 +102,7 @@ private:
 typedef boost::shared_ptr<TableAligner> TableAlignerPtr;
 
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ArgumentSPtr&);
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::CommentSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ConstructorSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr&);
