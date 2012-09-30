@@ -117,10 +117,6 @@ public:
     virtual EMethodSpecifier methodSpecifier(const StructureSPtr& pStructure);
     virtual EDestructorSpecifier destructorSpecifier(const StructureSPtr& pStructure);
                                      
-    virtual bool hasOperator(const TypeSPtr& pType,
-                             const EOperatorAction& action,
-                             const EOperatorFlags& flags) const;
-    
     ConstructorNameSPtr inheritClass(const EnumerationSPtr& pEnumeration,
                                      const StructureSPtr& pStructure);
     virtual bool implementEnumerationMethods(const EnumerationSPtr& pEnumeration);

@@ -36,6 +36,7 @@ lib compiler
     model/identification.cpp
     model/identifier.cpp
     model/import.cpp
+    model/integer-partial.cpp
     model/integer.cpp
     model/interface.cpp
     model/method.cpp
@@ -48,6 +49,7 @@ lib compiler
     model/parameter.cpp
     model/reference.cpp
     model/source_id.cpp
+    model/specimen-partial.cpp
     model/specimen.cpp
     model/structure.cpp
     model/structure-partial.cpp

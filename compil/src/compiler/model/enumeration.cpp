@@ -43,5 +43,17 @@ long Enumeration::getMaxValue() const
     return max;
 }
 
+
+bool Enumeration::hasOperator(const EOperatorAction& action,
+                              const EOperatorFlags& flags) const
+{
+    if (action == EOperatorAction::lessThan())
+    {
+        if (cast() == Enumeration::ECast::strong())
+            return false;
+    }
+    return true;
+}
+
 }
 

@@ -1931,7 +1931,7 @@ std::string CppGenerator::computeStructureOperatorExpression(
                 if (refflags == stopFlags)
                     return "";
 
-                if (impl->hasOperator(pType, action, refflags))
+                if (pType->hasOperator(action, refflags))
                 {
                     if (refflags.isSet(EOperatorFlags::object()) && flags.isSet(EOperatorFlags::reference()))
                     {

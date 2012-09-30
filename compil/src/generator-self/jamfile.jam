@@ -26,7 +26,6 @@ lib generator-self-compil :
     compiler/model/identification.compil
     compiler/model/identifier.compil
     compiler/model/import.compil
-    compiler/model/integer.compil
     compiler/model/interface.compil
     compiler/model/method.compil
     compiler/model/name.compil
@@ -37,7 +36,6 @@ lib generator-self-compil :
     compiler/model/parameter.compil
     compiler/model/reference.compil
     compiler/model/source_id.compil
-    compiler/model/specimen.compil
     compiler/model/unary_container.compil
     compiler/model/unary_template.compil
     compiler/model/upcopy.compil
@@ -75,6 +73,8 @@ lib generator-self-compil :
       :
         compiler/model/enumeration.compil
         compiler/model/factory.compil
+        compiler/model/integer.compil
+        compiler/model/specimen.compil
         compiler/model/structure.compil
         compiler/model/type.compil
       :

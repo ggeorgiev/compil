@@ -551,34 +551,43 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
                                     << EMethodDeclaration::const_())
                 << ";";
     }
+    
+    if (pParameterType->hasOperator(EOperatorAction::equalTo(), EOperatorFlags::native()))
+    {
+        table() << TableAligner::row()
+                << (cf::methodRef() << EMethodSpecifier::inline_()
+                                    << bl
+                                    << fnOperatorEq
+                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                                          << rValue)
+                                    << EMethodDeclaration::const_())
+                << ";";
+    }
 
-    table() << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::inline_()
-                                << bl
-                                << fnOperatorEq
-                                << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
-                                                      << rValue)
-                                << EMethodDeclaration::const_())
-            << ";";
-
-    table() << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::inline_()
-                                << bl
-                                << fnOperatorNe
-                                << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
-                                                      << rValue)
-                                << EMethodDeclaration::const_())
-            << ";";
-
-    table() << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::inline_()
-                                << bl
-                                << fnOperatorLt
-                                << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
-                                                      << rValue)
-                                << EMethodDeclaration::const_())
-            << ";";
-
+    if (pParameterType->hasOperator(EOperatorAction::notEqualTo(), EOperatorFlags::native()))
+    {
+        table() << TableAligner::row()
+                << (cf::methodRef() << EMethodSpecifier::inline_()
+                                    << bl
+                                    << fnOperatorNe
+                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                                          << rValue)
+                                    << EMethodDeclaration::const_())
+                << ";";
+    }
+    
+    if (pParameterType->hasOperator(EOperatorAction::lessThan(), EOperatorFlags::native()))
+    {
+        table() << TableAligner::row()
+                << (cf::methodRef() << EMethodSpecifier::inline_()
+                                    << bl
+                                    << fnOperatorLt
+                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                                          << rValue)
+                                    << EMethodDeclaration::const_())
+                << ";";
+    }
+    
     eot(declarationStream);
     
     fdef()  << TableAligner::row()
@@ -620,58 +629,67 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
         closeBlock(inlineDefinitionStream);
         eol(inlineDefinitionStream);
     }
-
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::inline_()
-                                << bl
-                                << frm->cppClassNamespace(pSpecimen)
-                                << fnOperatorEq
-                                << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
-                                                      << rValue)
-                                << EMethodDeclaration::const_());
-    openBlock(inlineDefinitionStream);
-    line()  << "return "
-            << fnValue
-            << "() == rValue."
-            << fnValue
-            << "();";
-    closeBlock(inlineDefinitionStream);
-    eol(inlineDefinitionStream);
-
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::inline_()
-                                << bl
-                                << frm->cppClassNamespace(pSpecimen)
-                                << fnOperatorNe
-                                << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
-                                                      << rValue)
-                                << EMethodDeclaration::const_());
-    openBlock(inlineDefinitionStream);
-    line()  << "return "
-            << fnValue
-            << "() != rValue."
-            << fnValue
-            << "();";
-    closeBlock(inlineDefinitionStream);
-    eol(inlineDefinitionStream);
-
-    fdef()  << TableAligner::row()
-            << (cf::methodRef() << EMethodSpecifier::inline_()
-                                << bl
-                                << frm->cppClassNamespace(pSpecimen)
-                                << fnOperatorLt
-                                << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
-                                                      << rValue)
-                                << EMethodDeclaration::const_());
-    openBlock(inlineDefinitionStream);
-    line()  << "return "
-            << fnValue
-            << "() < rValue."
-            << fnValue
-            << "();";
-    closeBlock(inlineDefinitionStream);
-    eol(inlineDefinitionStream);
-
+    
+    if (pParameterType->hasOperator(EOperatorAction::equalTo(), EOperatorFlags::native()))
+    {
+        fdef()  << TableAligner::row()
+                << (cf::methodRef() << EMethodSpecifier::inline_()
+                                    << bl
+                                    << frm->cppClassNamespace(pSpecimen)
+                                    << fnOperatorEq
+                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                                          << rValue)
+                                    << EMethodDeclaration::const_());
+        openBlock(inlineDefinitionStream);
+        line()  << "return "
+                << fnValue
+                << "() == rValue."
+                << fnValue
+                << "();";
+        closeBlock(inlineDefinitionStream);
+        eol(inlineDefinitionStream);
+    }
+    
+    if (pParameterType->hasOperator(EOperatorAction::notEqualTo(), EOperatorFlags::native()))
+    {
+        fdef()  << TableAligner::row()
+                << (cf::methodRef() << EMethodSpecifier::inline_()
+                                    << bl
+                                    << frm->cppClassNamespace(pSpecimen)
+                                    << fnOperatorNe
+                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                                          << rValue)
+                                    << EMethodDeclaration::const_());
+        openBlock(inlineDefinitionStream);
+        line()  << "return "
+                << fnValue
+                << "() != rValue."
+                << fnValue
+                << "();";
+        closeBlock(inlineDefinitionStream);
+        eol(inlineDefinitionStream);
+    }
+    
+    if (pParameterType->hasOperator(EOperatorAction::lessThan(), EOperatorFlags::native()))
+    {
+        fdef()  << TableAligner::row()
+                << (cf::methodRef() << EMethodSpecifier::inline_()
+                                    << bl
+                                    << frm->cppClassNamespace(pSpecimen)
+                                    << fnOperatorLt
+                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                                          << rValue)
+                                    << EMethodDeclaration::const_());
+        openBlock(inlineDefinitionStream);
+        line()  << "return "
+                << fnValue
+                << "() < rValue."
+                << fnValue
+                << "();";
+        closeBlock(inlineDefinitionStream);
+        eol(inlineDefinitionStream);
+    }
+    
     if (!pBaseSpecimen)
     {
         line()  << "private:";

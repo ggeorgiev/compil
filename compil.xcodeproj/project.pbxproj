@@ -405,6 +405,12 @@
 		5EC0D2271618D2D200802C95 /* type.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type.h; sourceTree = "<group>"; };
 		5EC0D2291618D3C600802C95 /* type-partial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "type-partial.cpp"; sourceTree = "<group>"; };
 		5EC0D22A1618D3C600802C95 /* type-partial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "type-partial.h"; sourceTree = "<group>"; };
+		5EC0D22B1618DD9100802C95 /* specimen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = specimen.h; sourceTree = "<group>"; };
+		5EC0D22C1618DEA700802C95 /* specimen-partial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "specimen-partial.cpp"; sourceTree = "<group>"; };
+		5EC0D22D1618DEA800802C95 /* specimen-partial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "specimen-partial.h"; sourceTree = "<group>"; };
+		5EC0D22E1618E1B100802C95 /* integer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = integer.h; sourceTree = "<group>"; };
+		5EC0D22F1618E2A500802C95 /* integer-partial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "integer-partial.cpp"; sourceTree = "<group>"; };
+		5EC0D2301618E2A600802C95 /* integer-partial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "integer-partial.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -599,6 +605,8 @@
 				5E88A1C615E188BB002D43A5 /* identifier.h */,
 				5E88A1C715E188BB002D43A5 /* import.cpp */,
 				5E88A1C815E188BB002D43A5 /* import.h */,
+				5EC0D22F1618E2A500802C95 /* integer-partial.cpp */,
+				5EC0D2301618E2A600802C95 /* integer-partial.h */,
 				5E88A1C915E188BB002D43A5 /* integer.cpp */,
 				5E88A1CA15E188BB002D43A5 /* integer.h */,
 				5E88A1CB15E188BB002D43A5 /* interface.cpp */,
@@ -624,6 +632,8 @@
 				5E88A1DF15E188BB002D43A5 /* reference.h */,
 				5E88A1E015E188BB002D43A5 /* source_id.cpp */,
 				5E88A1E115E188BB002D43A5 /* source_id.h */,
+				5EC0D22C1618DEA700802C95 /* specimen-partial.cpp */,
+				5EC0D22D1618DEA800802C95 /* specimen-partial.h */,
 				5E88A1E215E188BB002D43A5 /* specimen.cpp */,
 				5E88A1E315E188BB002D43A5 /* specimen.h */,
 				5E88A1E415E188BB002D43A5 /* structure-partial.cpp */,
@@ -867,6 +877,7 @@
 				5E88A28915E188BB002D43A5 /* identifier.compil */,
 				5E88A28A15E188BB002D43A5 /* import.compil */,
 				5E88A28B15E188BB002D43A5 /* integer.compil */,
+				5EC0D22E1618E1B100802C95 /* integer.h */,
 				5E88A28C15E188BB002D43A5 /* interface.compil */,
 				5E88A28D15E188BB002D43A5 /* method.compil */,
 				5E88A28E15E188BB002D43A5 /* name.compil */,
@@ -878,6 +889,7 @@
 				5E88A29415E188BB002D43A5 /* reference.compil */,
 				5E88A29515E188BB002D43A5 /* source_id.compil */,
 				5E88A29615E188BB002D43A5 /* specimen.compil */,
+				5EC0D22B1618DD9100802C95 /* specimen.h */,
 				5E88A29715E188BB002D43A5 /* structure.compil */,
 				5E88A29815E188BB002D43A5 /* structure.h */,
 				5E88A29915E188BB002D43A5 /* type.compil */,

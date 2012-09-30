@@ -49,6 +49,9 @@ class Enumeration : public EnumerationPartial
 public:
     long getMinValue() const;
     long getMaxValue() const;
+
+    virtual bool hasOperator(const EOperatorAction& action,
+                             const EOperatorFlags& flags) const;
 };
 
 }

@@ -386,12 +386,12 @@ EObjectId Import::runtimeObjectId() const
     return staticObjectId();
 }
 
-EObjectId Integer::staticObjectId()
+EObjectId IntegerPartial::staticObjectId()
 {
     return EObjectId::integer();
 }
 
-EObjectId Integer::runtimeObjectId() const
+EObjectId IntegerPartial::runtimeObjectId() const
 {
     return staticObjectId();
 }
@@ -476,12 +476,12 @@ EObjectId Reference::runtimeObjectId() const
     return staticObjectId();
 }
 
-EObjectId Specimen::staticObjectId()
+EObjectId SpecimenPartial::staticObjectId()
 {
     return EObjectId::specimen();
 }
 
-EObjectId Specimen::runtimeObjectId() const
+EObjectId SpecimenPartial::runtimeObjectId() const
 {
     return staticObjectId();
 }

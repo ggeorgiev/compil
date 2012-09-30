@@ -808,23 +808,6 @@ bool CppImplementer::implementFlagsEnumerationMethods(const EnumerationSPtr& pEn
     return true;
 }
 
-bool CppImplementer::hasOperator(const TypeSPtr& pType,
-                                 const EOperatorAction& action,
-                                 const EOperatorFlags& flags) const
-{
-    StructureSPtr pStructure = ObjectFactory::downcastStructure(pType);
-    if (pStructure)
-        return pStructure->hasOperator(action, flags);
-        
-    if (action == EOperatorAction::lessThan())
-    {
-        EnumerationSPtr pEnumeration = ObjectFactory::downcastEnumeration(pType);
-        if (pEnumeration && pEnumeration->cast() == Enumeration::ECast::strong())
-            return false;
-    }
-    return true;
-}
-
 bool CppImplementer::boost_smart_ptr_needed()
 {
     return mpConfiguration->mPointer == ImplementerConfiguration::use_boost_pointers;

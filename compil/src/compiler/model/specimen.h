@@ -30,75 +30,23 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 // 
 
-// Boost C++ Smart Pointers
-#include <boost/shared_ptr.hpp>
-#include <boost/weak_ptr.hpp>
-
 #ifndef __GENERATOR_SELF_COMPILER_MODEL_SPECIMEN_COMPIL_H_
 #define __GENERATOR_SELF_COMPILER_MODEL_SPECIMEN_COMPIL_H_
 
-#include "specimen.h"
-#include "unary_template.h"
+#include "specimen-partial.h"
 
 namespace compil
 {
 
-class Specimen : public UnaryTemplate
+class Specimen : public SpecimenPartial
 {
 public:
-    // Default constructor
-                                Specimen            ();
-    // Destructor
-    virtual                     ~Specimen           ();
-
-    // Downcast method is syntactic sugar for boost::static_pointer_cast.
-    // Note that it does not provide any type checks. Use it on your own
-    // risk.
-    static  SpecimenSPtr        downcast            (const ObjectSPtr& object);
-
-    // Returns the alter value object of the field kind
-    static  TypePartial::EKind  alter_kind          ();
-
-    // Identifier for the objects from Specimen class.
-    // Note: it is not defined in the respective cpp file. Instead it is
-    // defined in the factory class together with all the other identifiers
-    // of the other class objects. This allows all identifiers to be
-    // maintained from a single place, which reduces the risk of value
-    // collisions
-    static  EObjectId           staticObjectId      ();
-    // This virtual method provides runtime object identification based on
-    // the polymorphic behavior of the virtual methods. Allows having a
-    // RTTI like mechanism significantly cheaper than the RTTI provided by
-    // the compilers themselves.
-    virtual EObjectId           runtimeObjectId     ()                                 const;
-
-    // Getter method for the data field baseSpecimen
-            const SpecimenWPtr& baseSpecimen        ()                                 const;
-    // Returns the default value null of the field baseSpecimen
-    static  SpecimenWPtr        default_baseSpecimen();
-    // Setter method for the data field baseSpecimen
-            Specimen&           set_baseSpecimen    (const SpecimenSPtr& baseSpecimen);
-
-private:
-    // variable for the data field baseSpecimen
-    SpecimenWPtr mBaseSpecimen;
+    Specimen();
+    virtual ~Specimen();
+    
+    virtual bool hasOperator(const EOperatorAction& action,
+                             const EOperatorFlags& flags) const;
 };
-
-}
-
-#else // __GENERATOR_SELF_COMPILER_MODEL_SPECIMEN_COMPIL_H_
-
-namespace compil
-{
-
-// Forward declarations
-class Specimen;
-typedef Specimen*                         SpecimenRPtr;
-typedef boost::shared_ptr<Specimen>       SpecimenSPtr;
-typedef boost::shared_ptr<const Specimen> SpecimenSCPtr;
-typedef boost::weak_ptr<Specimen>         SpecimenWPtr;
-
-class EObjectId;
 
 }
 

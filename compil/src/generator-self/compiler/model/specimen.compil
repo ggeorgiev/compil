@@ -36,6 +36,7 @@ import "unary_template.compil";
 
 package compil;
 
+partial
 structure Specimen 
     inherit UnaryTemplate
         alter kind = object

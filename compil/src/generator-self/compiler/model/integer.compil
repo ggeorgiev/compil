@@ -36,6 +36,7 @@ import "castable_type.compil";
 
 package compil;
 
+partial
 structure Integer 
     inherit CastableType
         alter literal = integer,

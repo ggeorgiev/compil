@@ -45,7 +45,7 @@ TEST(SpecimenTest, compare)
     specimen::StringSpecimen specimen1a("text1");
     specimen::StringSpecimen specimen1b("text1");
     specimen::StringSpecimen specimen2("text2");
-    
+
     EXPECT_EQ(specimen1a, specimen1b);
     EXPECT_NE(specimen1a, specimen2);
  

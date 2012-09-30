@@ -5,38 +5,24 @@ namespace compil
 
 Specimen::Specimen()
 {
-    set_kind(alter_kind());
 }
 
 Specimen::~Specimen()
 {
 }
 
-SpecimenSPtr Specimen::downcast(const ObjectSPtr& object)
+bool Specimen::hasOperator(const EOperatorAction& action,
+                           const EOperatorFlags& flags) const
 {
-    return boost::static_pointer_cast<Specimen>(object);
-}
-
-TypePartial::EKind Specimen::alter_kind()
-{
-    return TypePartial::EKind::object();
-}
-
-const SpecimenWPtr& Specimen::baseSpecimen() const
-{
-    return mBaseSpecimen;
-}
-
-SpecimenWPtr Specimen::default_baseSpecimen()
-{
-    static SpecimenWPtr defaultObject;
-    return defaultObject;
-}
-
-Specimen& Specimen::set_baseSpecimen(const SpecimenSPtr& baseSpecimen)
-{
-    mBaseSpecimen = baseSpecimen;
-    return *this;
+    SpecimenSPtr base = baseSpecimen().lock();
+    if (base)
+        return base->hasOperator(action, flags);
+        
+    TypeSPtr type = parameterType().lock();
+    if (type)
+        return type->hasOperator(action, flags);
+        
+    return false;
 }
 
 }
