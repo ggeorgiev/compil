@@ -35,13 +35,20 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DESTRUCTOR_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DESTRUCTOR_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_DESTRUCTOR_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_DESTRUCTOR_COMPIL_H_
 
+#include "comment.h"
 #include "destructor.h"
 #include "destructor_name.h"
 #include "destructor_specifier.h"
 #include "namespace.h"
+
+namespace cpp
+{
+
+namespace frm
+{
 
 class Destructor
 {
@@ -50,6 +57,13 @@ public:
                                         Destructor       ();
     // Destructor
     /*lax*/                             ~Destructor      ();
+
+    // Getter method for the data field comment
+            const CommentSPtr&          comment          ()                                      const;
+    // Setter method for the data field comment
+            Destructor&                 set_comment      (const CommentSPtr& comment);
+    // Store operator for the data field comment
+            Destructor&                 operator<<       (const CommentSPtr& comment);
 
     // Getter method for the data field specifier
             const EDestructorSpecifier& specifier        ()                                      const;
@@ -75,6 +89,8 @@ public:
             Destructor&                 operator<<       (const NamespaceSPtr& namespace_);
 
 private:
+    // variable for the data field comment
+    CommentSPtr          mComment;
     // variable for the data field specifier
     EDestructorSpecifier mSpecifier;
     // variable for the data field name
@@ -83,6 +99,8 @@ private:
     NamespaceSPtr        mNamespace;
 };
 
+// Reference store operator for the data field comment
+const DestructorSPtr& operator<<(const DestructorSPtr& , const CommentSPtr& );
 // Reference store operator for the data field specifier
 const DestructorSPtr& operator<<(const DestructorSPtr& , const EDestructorSpecifier& );
 // Reference store operator for the data field name
@@ -95,7 +113,17 @@ inline DestructorSPtr destructorRef()
     return boost::make_shared<Destructor>();
 }
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DESTRUCTOR_COMPIL_H_
+}
+
+}
+
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_DESTRUCTOR_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
 class Destructor;
@@ -104,5 +132,9 @@ typedef boost::shared_ptr<Destructor>       DestructorSPtr;
 typedef boost::shared_ptr<const Destructor> DestructorSCPtr;
 typedef boost::weak_ptr<Destructor>         DestructorWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DESTRUCTOR_COMPIL_H_
+}
+
+}
+
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_DESTRUCTOR_COMPIL_H_
 

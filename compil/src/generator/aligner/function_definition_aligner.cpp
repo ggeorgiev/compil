@@ -84,19 +84,6 @@ FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner,
     return aligner;
 }
 
-FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, 
-                                      const Destructor& destructor)
-{
-    aligner << destructor.namespace_()
-            << "::";
-    
-    aligner << '~';
-    ((TableAligner&)aligner) << destructor.name();
-    aligner << Aligner::FunctionSpace();
-    aligner << "()";
-    return aligner;
-}
-
 FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, char ch)
 {
     ((TableAligner&)aligner) << ch;

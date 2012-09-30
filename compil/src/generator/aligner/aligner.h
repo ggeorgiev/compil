@@ -39,12 +39,12 @@
 #include "cpp/format/argument.h"
 #include "cpp/format/cast_operator.h"
 #include "cpp/format/constructor.h"
+#include "cpp/format/destructor.h"
 #include "cpp/format/function.h"
 #include "cpp/format/method.h"
 #include "cpp/format/initialization.h"
 
 #include "decorated_type.h"
-#include "destructor.h"
 #include "function_call.h"
 #include "method_declaration.h"
 #include "method_name.h"

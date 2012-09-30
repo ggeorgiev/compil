@@ -54,8 +54,6 @@ FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner,
                                       const Aligner::FunctionSpace&);
 FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, 
                                       const Aligner::FunctionDefinitionTypeSpace&);
-FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner,
-                                      const Destructor&);                              
 FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, 
                                       const TableAligner::col&);
 FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, 

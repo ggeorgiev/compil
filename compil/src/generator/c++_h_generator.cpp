@@ -847,7 +847,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
 
     commentInTable("Destructor");
     table() << TableAligner::row()
-            << (Destructor() << frm->cppDestructorName(pFactory))
+            << (cf::destructorRef() << frm->cppDestructorName(pFactory))
             << ";";
 
     table() << TableAligner::row();
@@ -1871,9 +1871,8 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
 
         commentInTable("Destructor of Builder");
 
-        table() << TableAligner::row()
-                << (Destructor() << EDestructorSpecifier::lax()
-                                 << destructorNameRef("Builder"))
+        table() << (cf::destructorRef() << EDestructorSpecifier::lax()
+                                        << destructorNameRef("Builder"))
                 << ";";
 
         table() << TableAligner::row();
@@ -1953,9 +1952,8 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
     commentInTable("Destructor");
 
     EDestructorSpecifier destructorSpecifier = impl->destructorSpecifier(pStructure);
-    table() << TableAligner::row()
-            << (Destructor() << destructorSpecifier
-                             << frm->cppAutoDestructorName(pStructure))
+    table() << (cf::destructorRef() << destructorSpecifier
+                                    << frm->cppAutoDestructorName(pStructure))
             << ";";
 
     if (impl->mpConfiguration->mPointer == ImplementerConfiguration::use_boost_pointers)

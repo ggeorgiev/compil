@@ -3,12 +3,41 @@
 
 #include "destructor.h"
 
+namespace cpp
+{
+
+namespace frm
+{
+
 Destructor::Destructor()
 {
 }
 
 Destructor::~Destructor()
 {
+}
+
+const CommentSPtr& Destructor::comment() const
+{
+    return mComment;
+}
+
+Destructor& Destructor::set_comment(const CommentSPtr& comment)
+{
+    mComment = comment;
+    return *this;
+}
+
+Destructor& Destructor::operator<<(const CommentSPtr& comment)
+{
+    return set_comment(comment);
+}
+
+const DestructorSPtr& operator<<(const DestructorSPtr& object, const CommentSPtr& comment)
+{
+    BOOST_ASSERT(object);
+    *object << comment;
+    return object;
 }
 
 const EDestructorSpecifier& Destructor::specifier() const
@@ -83,5 +112,9 @@ const DestructorSPtr& operator<<(const DestructorSPtr& object, const NamespaceSP
     BOOST_ASSERT(object);
     *object << namespace_;
     return object;
+}
+
+}
+
 }
 

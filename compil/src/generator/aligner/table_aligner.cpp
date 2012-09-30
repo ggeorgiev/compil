@@ -342,6 +342,33 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ConstructorSPtr&
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::DestructorSPtr& destructor)
+{
+    aligner << destructor->comment();
+    
+    aligner << TableAligner::row();
+    
+    aligner << destructor->specifier();
+        
+    aligner << TableAligner::col();
+    aligner << TableAligner::col();
+    
+    if (destructor->namespace_())
+    {
+        aligner << destructor->namespace_()
+                << "::";
+    }
+    aligner << '~';
+    if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
+        aligner << TableAligner::col();
+    aligner << destructor->name();
+    aligner << Aligner::FunctionSpace();
+    aligner << "("
+            << TableAligner::col()
+            << ")";
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr& function)
 {
     aligner << TableAligner::col();
@@ -519,23 +546,6 @@ TableAligner& operator<<(TableAligner& aligner, const FunctionNameSPtr& function
 {
     if (functionName)
         aligner << functionName->value();
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const Destructor& destructor)
-{
-    aligner << destructor.specifier();
-        
-    aligner << TableAligner::col();
-    aligner << TableAligner::col();
-    aligner << '~';
-    if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
-        aligner << TableAligner::col();
-    aligner << destructor.name();
-    aligner << Aligner::FunctionSpace();
-    aligner << "("
-            << TableAligner::col()
-            << ")";
     return aligner;
 }
 

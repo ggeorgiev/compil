@@ -32,6 +32,7 @@
 
 compil { }
 
+import "comment.compil";
 import "destructor_name.compil";
 import "destructor_specifier.compil";
 import "namespace.compil";
@@ -41,6 +42,7 @@ package cpp.frm;
 streamable
 structure Destructor
 {
+    reference<Comment> comment;
     DestructorSpecifier specifier;
     reference<DestructorName> name;
     reference<Namespace> namespace;
