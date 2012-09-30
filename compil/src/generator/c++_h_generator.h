@@ -35,6 +35,7 @@
 #define _CPP_HEADER_GENERATOR_H__
 
 #include "generator.h"
+#include "method_group.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -51,21 +52,6 @@ public:
     
     virtual bool generate();
     
-    enum StructureObjectType
-    {
-        invalid_StructureObjectType = 0,
-        READING = 1,
-        WRITING = 2,
-        READING_WRITING = READING | WRITING,
-        BUILDER = 4,
-        BUILDER_WRITING = BUILDER | WRITING,
-        SPECIFIC_RESULT_ONLY = 8,
-        BUILDER_WRITING_SPECIFIC_RESULT_ONLY = BUILDER | WRITING | SPECIFIC_RESULT_ONLY,
-        OVERRIDDEN = 16,
-        BUILDER_WRITING_SPECIFIC_RESULT_ONLY_OVERRIDDEN = BUILDER_WRITING_SPECIFIC_RESULT_ONLY | 
-                                                          OVERRIDDEN,
-    };
-
     virtual void generateImport(const ImportSPtr& pImport);
     virtual void generateForwardClassDeclarations(const TypeSPtr& pType);
     
@@ -102,14 +88,15 @@ public:
 
     virtual void generateStructureFieldMethodsDeclaration(const StructureSPtr& pCurrStructure,
                                                           const FieldSPtr& pField,
-                                                          StructureObjectType sot);
+                                                          const EMethodGroup& mg);
     virtual void generateStructureFieldOverrideMethodsDeclaration(const FieldOverrideSPtr& pFieldOverride,
-                                                                  StructureObjectType sot);
-    virtual void generateStructureObjectMethodsDeclaration(const ObjectSPtr& pObject, StructureObjectType sot);
+                                                                  const EMethodGroup& mg);
+    virtual void generateStructureObjectMethodsDeclaration(const ObjectSPtr& pObject,
+                                                           const EMethodGroup& mg);
     
     virtual void generateImmutableBaseStructureBuilderDeclaration(const StructureSPtr& pCurrStructure,
                                                                   const StructureSPtr& pStructure,
-                                                                  bool overriden);
+                                                                  const EMethodGroup& overridden);
     virtual void generateStructureDeclaration(const StructureSPtr& pStructure);
     
     virtual void generateObjectDeclaration(const ObjectSPtr& pObject);

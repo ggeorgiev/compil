@@ -1418,14 +1418,14 @@ void CppHeaderGenerator::generateStructureObjectMemberDeclaration(const ObjectSP
 
 void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const StructureSPtr& pCurrStructure,
                                                                   const FieldSPtr& pField,
-                                                                  StructureObjectType sot)
+                                                                  const EMethodGroup& mg)
 {
     StructureSPtr pStructure = pField->structure().lock();
 
     if (!table().isEmpty())
         table() << TableAligner::row();
 
-    if (((sot & READING) != 0) && ((sot & SPECIFIC_RESULT_ONLY) == 0))
+    if (mg.isSet(EMethodGroup::reading()) && mg.isClear(EMethodGroup::special()))
     {
         if (pField->comment())
             commentInTable(pField->comment());
@@ -1484,22 +1484,22 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
     }
 
     DecoratedTypeSPtr resultType;
-    if ((sot & BUILDER) == 0)
+    if (mg.isClear(EMethodGroup::builder()))
         resultType = decoratedTypeRef() << impl->cppType(pCurrStructure)
                                         << ETypeDecoration::reference();
     else
         resultType = decoratedTypeRef() << builder
                                         << ETypeDecoration::reference();
 
-    if ((sot & WRITING) != 0)
+    if (mg.isSet(EMethodGroup::writing()))
     {
-        if ((sot & BUILDER) == 0)
+        if (mg.isClear(EMethodGroup::builder()))
         {
             commentInTable("Setter method for the data field " + pField->name()->value());
         }
         else
         {
-            if ((sot & OVERRIDDEN) == 0)
+            if (mg.isClear(EMethodGroup::overridden()))
                 commentInTable("Setter method for the data field " + pField->name()->value());
             else
                 commentInTable("Hide setter method for the data field " + pField->name()->value() +
@@ -1553,7 +1553,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
 
     if (pStructure->controlled())
     {
-        if (((sot & WRITING) != 0) && ((sot & SPECIFIC_RESULT_ONLY) == 0))
+        if (mg.isSet(EMethodGroup::writing()) && mg.isClear(EMethodGroup::special()))
         {
             if (   pField->defaultValue()
                 && !pField->defaultValue()->optional())
@@ -1594,7 +1594,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
 }
 
 void CppHeaderGenerator::generateStructureFieldOverrideMethodsDeclaration(const FieldOverrideSPtr& pFieldOverride,
-                                                                          StructureObjectType sot)
+                                                                          const EMethodGroup& mg)
 {
     const FieldSPtr& pField = pFieldOverride->field();
     StructureSPtr pStructure = pField->structure().lock();
@@ -1602,7 +1602,7 @@ void CppHeaderGenerator::generateStructureFieldOverrideMethodsDeclaration(const 
     addDependencies(impl->dependencies(pField));
 
 
-    if (((sot & READING) != 0) && ((sot & SPECIFIC_RESULT_ONLY) == 0))
+    if (mg.isSet(EMethodGroup::reading()) && mg.isClear(EMethodGroup::special()))
     {
         if (pField->comment())
             commentInTable(pField->comment());
@@ -1618,10 +1618,10 @@ void CppHeaderGenerator::generateStructureFieldOverrideMethodsDeclaration(const 
                 << ";";
     }
 
-    if ((sot & WRITING) != 0)
+    if (mg.isSet(EMethodGroup::writing()))
     {
         DecoratedTypeSPtr resultType;
-        if ((sot & BUILDER) == 0)
+        if (mg.isClear(EMethodGroup::builder()))
             resultType = decoratedTypeRef() << impl->cppType(pStructure)
                                             << ETypeDecoration::reference();
         else
@@ -1644,7 +1644,7 @@ void CppHeaderGenerator::generateStructureFieldOverrideMethodsDeclaration(const 
 }
 
 void CppHeaderGenerator::generateStructureObjectMethodsDeclaration(const ObjectSPtr& pObject,
-                                                                   StructureObjectType sot)
+                                                                   const EMethodGroup& mg)
 {
     switch (pObject->runtimeObjectId().value())
     {
@@ -1652,18 +1652,18 @@ void CppHeaderGenerator::generateStructureObjectMethodsDeclaration(const ObjectS
         {
             FieldSPtr pField = boost::static_pointer_cast<Field>(pObject);
             StructureSPtr pStructure = pField->structure().lock();
-            generateStructureFieldMethodsDeclaration(pStructure, pField, sot);
+            generateStructureFieldMethodsDeclaration(pStructure, pField, mg);
             break;
         }
         case EObjectId::kFieldOverride:
         {
             FieldOverrideSPtr pFieldOverride = boost::static_pointer_cast<FieldOverride>(pObject);
-            generateStructureFieldOverrideMethodsDeclaration(pFieldOverride, sot);
+            generateStructureFieldOverrideMethodsDeclaration(pFieldOverride, mg);
             break;
         }
         case EObjectId::kIdentification:
         {
-            if ((sot & BUILDER) != 0)
+            if (mg.isSet(EMethodGroup::builder()))
                 break;
             IdentificationSPtr pIdentification = boost::static_pointer_cast<Identification>(pObject);
             generateStructureIdentificationMethodsDeclaration(pIdentification);
@@ -1676,7 +1676,7 @@ void CppHeaderGenerator::generateStructureObjectMethodsDeclaration(const ObjectS
         }
         case EObjectId::kOperator:
         {
-            if ((sot & BUILDER) != 0)
+            if (mg.isSet(EMethodGroup::builder()))
                 break;
             OperatorSPtr pOperator = boost::static_pointer_cast<Operator>(pObject);
             generateStructureOperatorMethodsDeclaration(pOperator);
@@ -1684,7 +1684,7 @@ void CppHeaderGenerator::generateStructureObjectMethodsDeclaration(const ObjectS
         }
         case EObjectId::kEnumeration:
         {
-            if ((sot & BUILDER) != 0)
+            if (mg.isSet(EMethodGroup::builder()))
                 break;
 
             if (!table().isEmpty())
@@ -1699,7 +1699,7 @@ void CppHeaderGenerator::generateStructureObjectMethodsDeclaration(const ObjectS
         }
         case EObjectId::kAlter:
         {
-            if (((sot & READING) != 0) && ((sot & SPECIFIC_RESULT_ONLY) == 0))
+            if (mg.isSet(EMethodGroup::reading()) && mg.isClear(EMethodGroup::special()))
             {
                 AlterSPtr pAlter = boost::static_pointer_cast<Alter>(pObject);
                 table() << TableAligner::row();
@@ -1722,11 +1722,11 @@ void CppHeaderGenerator::generateStructureObjectMethodsDeclaration(const ObjectS
 
 void CppHeaderGenerator::generateImmutableBaseStructureBuilderDeclaration(const StructureSPtr& pCurrStructure,
                                                                           const StructureSPtr& pStructure,
-                                                                          bool overriden)
+                                                                          const EMethodGroup& overridden)
 {
     if (!pStructure) return;
 
-    generateImmutableBaseStructureBuilderDeclaration(pCurrStructure, pStructure->baseStructure().lock(), overriden);
+    generateImmutableBaseStructureBuilderDeclaration(pCurrStructure, pStructure->baseStructure().lock(), overridden);
 
     const std::vector<ObjectSPtr>& objects = pStructure->objects();
     std::vector<ObjectSPtr>::const_iterator it;
@@ -1738,11 +1738,16 @@ void CppHeaderGenerator::generateImmutableBaseStructureBuilderDeclaration(const 
             case EObjectId::kField:
             {
                 FieldSPtr pField = boost::static_pointer_cast<Field>(pObject);
-                if (pCurrStructure->isOverriden(pField) != overriden) continue;
+                if (pCurrStructure->isOverriden(pField) != overridden.isSet(EMethodGroup::overridden()))
+                    continue;
                 
-                generateStructureFieldMethodsDeclaration(pCurrStructure, pField,
-                    (overriden ? BUILDER_WRITING_SPECIFIC_RESULT_ONLY_OVERRIDDEN
-                               : BUILDER_WRITING_SPECIFIC_RESULT_ONLY));
+                EMethodGroup mg;
+                mg.set(EMethodGroup::builder());
+                mg.set(EMethodGroup::writing());
+                mg.set(EMethodGroup::special());
+                mg.set(overridden);
+                
+                generateStructureFieldMethodsDeclaration(pCurrStructure, pField, mg);
                 break;
             }
             case EObjectId::kIdentification:
@@ -1867,7 +1872,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                     << ";";
         }
 
-        generateImmutableBaseStructureBuilderDeclaration(pStructure, pBaseStructure, true);
+        generateImmutableBaseStructureBuilderDeclaration(pStructure, pBaseStructure, EMethodGroup::overridden());
 
 
         table() << TableAligner::row_line(-1)
@@ -1950,10 +1955,15 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                 << ";";
 
         table() << TableAligner::row();
-        generateImmutableBaseStructureBuilderDeclaration(pStructure, pBaseStructure, false);
+        generateImmutableBaseStructureBuilderDeclaration(pStructure, pBaseStructure, EMethodGroup::nil());
 
         for (it = objects.begin(); it != objects.end(); ++it)
-            generateStructureObjectMethodsDeclaration(*it, BUILDER_WRITING);
+        {
+            EMethodGroup mg;
+            mg.set(EMethodGroup::builder());
+            mg.set(EMethodGroup::writing());
+            generateStructureObjectMethodsDeclaration(*it, mg);
+        }
 
         table() << TableAligner::row()
                 << TableAligner::row_line(-1)
@@ -2092,8 +2102,10 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
     std::vector<ObjectSPtr>::const_iterator it;
     for (it = objects.begin(); it != objects.end(); ++it)
     {
-        generateStructureObjectMethodsDeclaration(*it, pStructure->immutable() ?
-                                                       READING : READING_WRITING);
+        EMethodGroup mg = EMethodGroup::reading();
+        if (!pStructure->immutable())
+            mg.set(EMethodGroup::writing());
+        generateStructureObjectMethodsDeclaration(*it, mg);
     }
     eot(declarationStream);
 

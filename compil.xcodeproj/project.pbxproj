@@ -376,6 +376,9 @@
 		5E963A3B1617D6AB008099AA /* function.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = function.h; sourceTree = "<group>"; };
 		5EA486AA1618A25300B42BC8 /* constructor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = constructor.cpp; sourceTree = "<group>"; };
 		5EA486AB1618A25300B42BC8 /* constructor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constructor.h; sourceTree = "<group>"; };
+		5EA486AD1618AA1F00B42BC8 /* method_group.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_group.compil; sourceTree = "<group>"; };
+		5EA486AE1618AB6B00B42BC8 /* method_group.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = method_group.cpp; sourceTree = "<group>"; };
+		5EA486AF1618AB6C00B42BC8 /* method_group.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = method_group.h; sourceTree = "<group>"; };
 		5EA4A52415FC2D4300065BEF /* constructor_specifier.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = constructor_specifier.cpp; sourceTree = "<group>"; };
 		5EA4A52515FC2D4400065BEF /* constructor_specifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constructor_specifier.h; sourceTree = "<group>"; };
 		5EA4A52815FC306E00065BEF /* constructor_name.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = constructor_name.cpp; sourceTree = "<group>"; };
@@ -711,6 +714,8 @@
 				5E88A27515E188BB002D43A5 /* jamfile.jam */,
 				5E88A27615E188BB002D43A5 /* main.cpp */,
 				5E88A27715E188BB002D43A5 /* main_generator_unittest.cpp */,
+				5EA486AE1618AB6B00B42BC8 /* method_group.cpp */,
+				5EA486AF1618AB6C00B42BC8 /* method_group.h */,
 			);
 			path = generator;
 			sourceTree = "<group>";
@@ -876,6 +881,7 @@
 		5E88A29E15E188BB002D43A5 /* generator */ = {
 			isa = PBXGroup;
 			children = (
+				5EA486AD1618AA1F00B42BC8 /* method_group.compil */,
 				5E5F992A1617790300B91C54 /* cpp */,
 			);
 			path = generator;

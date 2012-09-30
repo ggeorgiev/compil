@@ -62,6 +62,8 @@ lib gen :
     generator_configuration.cpp
     generator.cpp
     
+    method_group.cpp
+    
     boost_program_options
     boost_system
     boost_filesystem

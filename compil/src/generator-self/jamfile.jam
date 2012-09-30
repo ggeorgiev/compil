@@ -44,6 +44,8 @@ lib generator-self-compil :
     compiler/model/upcopy.compil
     compiler/model/version.compil
     
+    generator/method_group.compil
+    
     generator/cpp/format/argument.compil
     generator/cpp/format/cast_operator.compil
     generator/cpp/format/constructor_specifier.compil
