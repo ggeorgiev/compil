@@ -48,6 +48,7 @@ lib generator-self-compil :
     
     generator/cpp/format/argument.compil
     generator/cpp/format/cast_operator.compil
+    generator/cpp/format/comment.compil
     generator/cpp/format/constructor_specifier.compil
     generator/cpp/format/constructor_name.compil
     generator/cpp/format/constructor.compil

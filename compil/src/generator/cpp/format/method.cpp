@@ -17,6 +17,29 @@ Method::~Method()
 {
 }
 
+const CommentSPtr& Method::comment() const
+{
+    return mComment;
+}
+
+Method& Method::set_comment(const CommentSPtr& comment)
+{
+    mComment = comment;
+    return *this;
+}
+
+Method& Method::operator<<(const CommentSPtr& comment)
+{
+    return set_comment(comment);
+}
+
+const MethodSPtr& operator<<(const MethodSPtr& object, const CommentSPtr& comment)
+{
+    BOOST_ASSERT(object);
+    *object << comment;
+    return object;
+}
+
 const EMethodSpecifier& Method::specifier() const
 {
     return mSpecifier;

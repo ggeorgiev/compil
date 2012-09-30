@@ -41,6 +41,7 @@
 #define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_METHOD_COMPIL_H_
 
 #include "argument.h"
+#include "comment.h"
 #include "decorated_type.h"
 #include "method.h"
 #include "method_declaration.h"
@@ -61,6 +62,13 @@ public:
                                              Method             ();
     // Destructor
     /*lax*/                                  ~Method            ();
+
+    // Getter method for the data field comment
+            const CommentSPtr&               comment            ()                                           const;
+    // Setter method for the data field comment
+            Method&                          set_comment        (const CommentSPtr& comment);
+    // Store operator for the data field comment
+            Method&                          operator<<         (const CommentSPtr& comment);
 
     // Getter method for the data field specifier
             const EMethodSpecifier&          specifier          ()                                           const;
@@ -113,6 +121,8 @@ public:
             Method&                          operator<<         (const EMethodDeclaration& declaration);
 
 private:
+    // variable for the data field comment
+    CommentSPtr               mComment;
     // variable for the data field specifier
     EMethodSpecifier          mSpecifier;
     // variable for the data field return
@@ -127,6 +137,8 @@ private:
     EMethodDeclaration        mDeclaration;
 };
 
+// Reference store operator for the data field comment
+const MethodSPtr& operator<<(const MethodSPtr& , const CommentSPtr& );
 // Reference store operator for the data field specifier
 const MethodSPtr& operator<<(const MethodSPtr& , const EMethodSpecifier& );
 // Reference store operator for the data field return

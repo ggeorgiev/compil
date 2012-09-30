@@ -32,24 +32,10 @@
 
 compil { }
 
-import "argument.compil";
-import "comment.compil";
-import "decorated_type.compil";
-import "method_name.compil";
-import "method_specifier.compil";
-import "method_declaration.compil";
-import "namespace.compil";
-
 package cpp.frm;
 
 streamable
-structure Method
+structure Comment 
 {
-    reference<Comment> comment;
-    MethodSpecifier specifier;
-    reference<DecoratedType> return;
-    reference<Namespace> namespace;
-    reference<MethodName> name;
-    vector<reference<Argument>> arguments;
-    MethodDeclaration declaration;
+    vector<string> paragraphs;
 }

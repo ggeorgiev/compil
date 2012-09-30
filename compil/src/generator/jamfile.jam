@@ -15,6 +15,7 @@ project generator
 
 lib gen :
     cpp/format/argument.cpp
+    cpp/format/comment.cpp
     cpp/format/constructor.cpp
     cpp/format/function.cpp
     cpp/format/method.cpp
