@@ -240,7 +240,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
     line()  << "class "
             << frm->cppInnerEnumType(pEnumeration, pStructure);
 
-    ConstructorNameSPtr inheritClass = impl->inheritClass(pEnumeration, pStructure);
+    cf::ConstructorNameSPtr inheritClass = impl->inheritClass(pEnumeration, pStructure);
     if (inheritClass)
     {
         line()  << " : public "

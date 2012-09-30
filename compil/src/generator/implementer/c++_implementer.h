@@ -117,8 +117,8 @@ public:
     virtual EMethodSpecifier methodSpecifier(const StructureSPtr& pStructure);
     virtual EDestructorSpecifier destructorSpecifier(const StructureSPtr& pStructure);
                                      
-    ConstructorNameSPtr inheritClass(const EnumerationSPtr& pEnumeration,
-                                     const StructureSPtr& pStructure);
+    cpp::frm::ConstructorNameSPtr inheritClass(const EnumerationSPtr& pEnumeration,
+                                               const StructureSPtr& pStructure);
     virtual bool implementEnumerationMethods(const EnumerationSPtr& pEnumeration);
     virtual bool implementFlagsEnumerationMethods(const EnumerationSPtr& pEnumeration);
                              

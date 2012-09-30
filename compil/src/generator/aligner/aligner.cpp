@@ -35,7 +35,7 @@
 namespace compil
 {
 
-ConstructorNameSPtr builderConstructorName = constructorNameRef("Builder");
+cpp::frm::ConstructorNameSPtr builderConstructorName = cpp::frm::constructorNameRef("Builder");
 
 DecoratedTypeSPtr bl             = decoratedTypeRef() << (simpleTypeRef() << "bool");
 DecoratedTypeSPtr vd             = decoratedTypeRef() << (simpleTypeRef() << "void");

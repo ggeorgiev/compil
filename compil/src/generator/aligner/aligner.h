@@ -57,7 +57,7 @@
 
 namespace compil
 {
-extern ConstructorNameSPtr builderConstructorName;
+extern cpp::frm::ConstructorNameSPtr builderConstructorName;
 
 extern DecoratedTypeSPtr bl;
 extern DecoratedTypeSPtr vd;

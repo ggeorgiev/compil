@@ -282,9 +282,9 @@ SimpleTypeSPtr CppFormatter::cppInnerEnumType(const EnumerationSPtr& pEnumeratio
                            << enumName(pEnumeration->name()->value());
 }
 
-ConstructorNameSPtr CppFormatter::cppConstructorName(const EnumerationSPtr& pEnumeration)
+cpp::frm::ConstructorNameSPtr CppFormatter::cppConstructorName(const EnumerationSPtr& pEnumeration)
 {
-    return constructorNameRef(enumName(pEnumeration->name()->value()));
+    return cpp::frm::constructorNameRef(enumName(pEnumeration->name()->value()));
 }
 
 NamespaceSPtr CppFormatter::cppEnumNamespace(const EnumerationSPtr& pEnumeration)
@@ -316,9 +316,9 @@ NamespaceSPtr CppFormatter::cppClassNamespace(const TypeSPtr& pType)
     return nmspace;
 }
 
-ConstructorNameSPtr CppFormatter::cppConstructorName(const TypeSPtr& pType)
+cpp::frm::ConstructorNameSPtr CppFormatter::cppConstructorName(const TypeSPtr& pType)
 {
-    return constructorNameRef(cppClassName(pType->name()->value()));
+    return cpp::frm::constructorNameRef(cppClassName(pType->name()->value()));
 }
 
 DestructorNameSPtr CppFormatter::cppDestructorName(const TypeSPtr& pType)
@@ -341,9 +341,9 @@ NamespaceSPtr CppFormatter::cppAutoClassNamespace(const StructureSPtr& pStructur
     return nmspace;
 }
 
-ConstructorNameSPtr CppFormatter::cppAutoConstructorName(const StructureSPtr& pStructure)
+cpp::frm::ConstructorNameSPtr CppFormatter::cppAutoConstructorName(const StructureSPtr& pStructure)
 {
-    return constructorNameRef(cppAutoClassType(pStructure)->value());
+    return cpp::frm::constructorNameRef(cppAutoClassType(pStructure)->value());
 }
 
 DestructorNameSPtr CppFormatter::cppAutoDestructorName(const StructureSPtr& pStructure)
