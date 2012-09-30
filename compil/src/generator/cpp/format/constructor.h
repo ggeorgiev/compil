@@ -41,6 +41,7 @@
 #define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_CONSTRUCTOR_COMPIL_H_
 
 #include "argument.h"
+#include "comment.h"
 #include "constructor.h"
 #include "constructor_name.h"
 #include "constructor_specifier.h"
@@ -59,6 +60,13 @@ public:
                                              Constructor      ();
     // Destructor
     /*lax*/                                  ~Constructor     ();
+
+    // Getter method for the data field comment
+            const CommentSPtr&               comment          ()                                           const;
+    // Setter method for the data field comment
+            Constructor&                     set_comment      (const CommentSPtr& comment);
+    // Store operator for the data field comment
+            Constructor&                     operator<<       (const CommentSPtr& comment);
 
     // Getter method for the data field specifier
             const EConstructorSpecifier&     specifier        ()                                           const;
@@ -95,6 +103,8 @@ public:
             Constructor&                     operator<<       (const ArgumentSPtr& argumentsItem);
 
 private:
+    // variable for the data field comment
+    CommentSPtr               mComment;
     // variable for the data field specifier
     EConstructorSpecifier     mSpecifier;
     // variable for the data field namespace
@@ -105,6 +115,8 @@ private:
     std::vector<ArgumentSPtr> mArguments;
 };
 
+// Reference store operator for the data field comment
+const ConstructorSPtr& operator<<(const ConstructorSPtr& , const CommentSPtr& );
 // Reference store operator for the data field specifier
 const ConstructorSPtr& operator<<(const ConstructorSPtr& , const EConstructorSpecifier& );
 // Reference store operator for the data field namespace

@@ -17,6 +17,29 @@ Constructor::~Constructor()
 {
 }
 
+const CommentSPtr& Constructor::comment() const
+{
+    return mComment;
+}
+
+Constructor& Constructor::set_comment(const CommentSPtr& comment)
+{
+    mComment = comment;
+    return *this;
+}
+
+Constructor& Constructor::operator<<(const CommentSPtr& comment)
+{
+    return set_comment(comment);
+}
+
+const ConstructorSPtr& operator<<(const ConstructorSPtr& object, const CommentSPtr& comment)
+{
+    BOOST_ASSERT(object);
+    *object << comment;
+    return object;
+}
+
 const EConstructorSpecifier& Constructor::specifier() const
 {
     return mSpecifier;

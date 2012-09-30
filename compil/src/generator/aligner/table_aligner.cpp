@@ -296,6 +296,10 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::CastOperatorSPtr
 
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ConstructorSPtr& constructor)
 {
+    aligner << constructor->comment();
+    
+    aligner << TableAligner::row();
+
     aligner << constructor->specifier();
         
     aligner << TableAligner::col();

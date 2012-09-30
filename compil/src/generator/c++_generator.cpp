@@ -99,8 +99,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     DecoratedTypeSPtr innerDecoratedType = impl->cppInnerDecoratedType(pEnumeration, pStructure);
 
 
-    fdef()  << TableAligner::row()
-            << (cf::constructorRef() << frm->cppEnumNamespace(pEnumeration)
+    fdef()  << (cf::constructorRef() << frm->cppEnumNamespace(pEnumeration)
                                      << frm->cppConstructorName(pEnumeration));
     eofd(definitionStream);
 
@@ -129,8 +128,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     closeBlock(definitionStream);
     eol(definitionStream);
 
-    fdef()  << TableAligner::row()
-            << (cf::constructorRef() << frm->cppEnumNamespace(pEnumeration)
+    fdef()  << (cf::constructorRef() << frm->cppEnumNamespace(pEnumeration)
                                      << frm->cppConstructorName(pEnumeration)
                                      << (cf::argumentRef() << impl->cppDecoratedType(pParameterType)
                                                            << value));
@@ -463,15 +461,13 @@ void CppGenerator::generateSpecimenDefinition(const SpecimenSPtr& pSpecimen)
 {
     SpecimenSPtr pBaseSpecimen = pSpecimen->baseSpecimen().lock();
 
-    fdef()  << TableAligner::row()
-            << (cf::constructorRef() << frm->cppClassNamespace(pSpecimen)
+    fdef()  << (cf::constructorRef() << frm->cppClassNamespace(pSpecimen)
                                      << frm->cppConstructorName(pSpecimen));
     openBlock(definitionStream);
     closeBlock(definitionStream);
     eol(definitionStream);
 
-    fdef()  << TableAligner::row()
-            << (cf::constructorRef() << frm->cppClassNamespace(pSpecimen)
+    fdef()  << (cf::constructorRef() << frm->cppClassNamespace(pSpecimen)
                                      << frm->cppConstructorName(pSpecimen)
                                      << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen->parameterType().lock())
                                                            << value));
@@ -770,8 +766,7 @@ void CppGenerator::generateObjectFactoryDefinition(const FactorySPtr& pFactory)
 
 void CppGenerator::generatePluginFactoryDefinition(const FactorySPtr& pFactory)
 {
-    fdef()  << TableAligner::row()
-            << (cf::constructorRef() << frm->cppClassNamespace(pFactory)
+    fdef()  << (cf::constructorRef() << frm->cppClassNamespace(pFactory)
                                      << frm->cppConstructorName(pFactory));
     openBlock(definitionStream);
     closeBlock(definitionStream);
@@ -865,15 +860,13 @@ void CppGenerator::generateIdentifierDefinition(const IdentifierSPtr& pIdentifie
 {
     TypeSPtr pParameterType = pIdentifier->parameterType().lock();
 
-    fdef()  << TableAligner::row()
-            << (cf::constructorRef() << frm->cppClassNamespace(pIdentifier)
+    fdef()  << (cf::constructorRef() << frm->cppClassNamespace(pIdentifier)
                                      << frm->cppConstructorName(pIdentifier));
     openBlock(definitionStream);
     closeBlock(definitionStream);
     eol(definitionStream);
 
-    fdef()  << TableAligner::row()
-            << (cf::constructorRef() << frm->cppClassNamespace(pIdentifier)
+    fdef()  << (cf::constructorRef() << frm->cppClassNamespace(pIdentifier)
                                      << frm->cppConstructorName(pIdentifier)
                                      << (cf::argumentRef() << impl->cppDecoratedType(pParameterType)
                                                            << value));
@@ -2401,8 +2394,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
     {
         if (!pStructure->abstract())
         {
-            fdef()  << TableAligner::row()
-                    << (cf::constructorRef() << structBuilderNamespace
+            fdef()  << (cf::constructorRef() << structBuilderNamespace
                                              << builderConstructorName);
             eofd(definitionStream);
 
@@ -2427,8 +2419,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             closeBlock(definitionStream);
             eol(definitionStream);
 
-            fdef()  << TableAligner::row()
-                    << (cf::constructorRef() << structBuilderNamespace
+            fdef()  << (cf::constructorRef() << structBuilderNamespace
                                              << builderConstructorName
                                              << (cf::argumentRef() << impl->cppDecoratedType(pStructure)
                                                                    << object));
@@ -2485,8 +2476,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                 UpcopySPtr pUpcopy = ObjectFactory::downcastUpcopy(*it);
                 if (!pUpcopy) continue;
 
-                fdef()  << TableAligner::row()
-                        << (cf::constructorRef() << structBuilderNamespace
+                fdef()  << (cf::constructorRef() << structBuilderNamespace
                                                  << builderConstructorName
                                                  << (cf::argumentRef() << impl->cppDecoratedType(pUpcopy->baseStructure())
                                                                        << object));
@@ -2645,8 +2635,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         eol(definitionStream);
     }
 
-    fdef()  << TableAligner::row()
-            << (cf::constructorRef() << frm->cppAutoClassNamespace(pStructure)
+    fdef()  << (cf::constructorRef() << frm->cppAutoClassNamespace(pStructure)
                                      << frm->cppAutoConstructorName(pStructure));
 
     if (pBaseStructure && pStructure->isBuildable())
