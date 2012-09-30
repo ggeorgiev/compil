@@ -36,6 +36,8 @@ import "namespace.compil";
 import "function_name.compil";
 import "parameter_value.compil";
 
+package cpp.frm;
+
 streamable
 structure FunctionCall
 {

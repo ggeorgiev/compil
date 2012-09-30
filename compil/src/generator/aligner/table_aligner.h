@@ -111,7 +111,7 @@ TableAligner& operator<<(TableAligner& aligner, const CastOperatorSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const Constructor&);
 TableAligner& operator<<(TableAligner& aligner, const DecoratedType&);
 TableAligner& operator<<(TableAligner& aligner, const DecoratedTypeSPtr&);
-TableAligner& operator<<(TableAligner& aligner, const Function&);
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const FunctionName&);
 TableAligner& operator<<(TableAligner& aligner, const FunctionNameSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const FunctionCallSPtr&);

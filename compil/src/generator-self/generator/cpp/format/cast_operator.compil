@@ -36,6 +36,8 @@ import "decorated_type.compil";
 import "method_declaration.compil";
 import "namespace.compil";
 
+package cpp.frm;
+
 streamable
 structure CastOperator
 {

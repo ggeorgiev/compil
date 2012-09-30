@@ -37,6 +37,8 @@ import "namespace.compil";
 import "parameter_value.compil";
 import "variable_name.compil";
 
+package cpp.frm;
+
 streamable
 structure Initialization
 {

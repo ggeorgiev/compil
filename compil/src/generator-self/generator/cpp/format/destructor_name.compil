@@ -34,6 +34,8 @@ compil { }
 
 import "method_name.compil";
 
+package cpp.frm;
+
 specimen<string> DestructorName
     inherit MethodName
 {

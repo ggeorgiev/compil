@@ -786,17 +786,19 @@ void CppHeaderGenerator::generateObjectFactoryDeclaration(const FactorySPtr& pFa
         std::vector<compil::FieldSPtr> iteration;
         while (pParameterStructure->fieldIterate(iteration))
         {
-            Function function(specifier,
-                              (decoratedTypeRef() << impl->cppPtrType(pParameterStructure)),
-                              methodName);
+            cf::MethodSPtr method = cf::methodRef() << specifier
+                                                    << (decoratedTypeRef() << impl->cppPtrType(pParameterStructure))
+                                                    << methodName;
 
             std::vector<compil::FieldSPtr>::iterator it;
             for (it = iteration.begin(); it != iteration.end(); ++it)
-                function << CreateArgument(impl->cppSetDecoratedType((*it)->type()),
-                                           frm->cppVariableName(*it));
+            {
+                method << (cf::argumentRef() << impl->cppSetDecoratedType((*it)->type())
+                                             << frm->cppVariableName(*it));
+            }
 
             table() << TableAligner::row()
-                    << function
+                    << method
                     << ";";
         }
         eot(declarationStream);
@@ -1593,6 +1595,9 @@ void CppHeaderGenerator::generateStructureFieldOverrideMethodsDeclaration(const 
 {
     const FieldSPtr& pField = pFieldOverride->field();
     StructureSPtr pStructure = pField->structure().lock();
+    
+    addDependencies(impl->dependencies(pField));
+
 
     if (((sot & READING) != 0) && ((sot & SPECIFIC_RESULT_ONLY) == 0))
     {
@@ -1612,21 +1617,26 @@ void CppHeaderGenerator::generateStructureFieldOverrideMethodsDeclaration(const 
 
     if ((sot & WRITING) != 0)
     {
-        if ((sot & BUILDER) != 0)
-        {
-            if (!table().isEmpty())
-                table() << TableAligner::row();
+        DecoratedTypeSPtr resultType;
+        if ((sot & BUILDER) == 0)
+            resultType = decoratedTypeRef() << impl->cppType(pStructure)
+                                            << ETypeDecoration::reference();
+        else
+            resultType = decoratedTypeRef() << builder
+                                            << ETypeDecoration::reference();
 
-            commentInTable("Override setter method for the data field " + pField->name()->value());
-            table() << TableAligner::row()
-                    << (cf::methodRef() << (decoratedTypeRef() << builder
-                                                               << ETypeDecoration::reference())
-                                        << frm->setMethodName(pField)
-                                        << (cf::argumentRef() << impl->cppInnerSetDecoratedType(pField->type(),
-                                                                                                pStructure)
-                                                              << frm->cppVariableName(pField)))
-                    << ";";
-        }
+
+        if (!table().isEmpty())
+            table() << TableAligner::row();
+
+        commentInTable("Override setter method for the data field " + pField->name()->value());
+        table() << TableAligner::row()
+                << (cf::methodRef() << resultType
+                                    << frm->setMethodName(pField)
+                                    << (cf::argumentRef() << impl->cppInnerSetDecoratedType(pField->type(),
+                                                                                            pStructure)
+                                                          << frm->cppVariableName(pField)))
+                << ";";
     }
 }
 
@@ -1726,7 +1736,7 @@ void CppHeaderGenerator::generateImmutableBaseStructureBuilderDeclaration(const 
             {
                 FieldSPtr pField = boost::static_pointer_cast<Field>(pObject);
                 if (pCurrStructure->isOverriden(pField) != overriden) continue;
-
+                
                 generateStructureFieldMethodsDeclaration(pCurrStructure, pField,
                     (overriden ? BUILDER_WRITING_SPECIFIC_RESULT_ONLY_OVERRIDDEN
                                : BUILDER_WRITING_SPECIFIC_RESULT_ONLY));

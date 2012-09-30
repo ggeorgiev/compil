@@ -37,6 +37,7 @@
 #include "aligner_configuration.h"
 
 #include "cpp/format/argument.h"
+#include "cpp/format/function.h"
 #include "cpp/format/method.h"
 
 #include "argument.h"
@@ -45,7 +46,6 @@
 #include "decorated_type.h"
 #include "destructor.h"
 #include "function_call.h"
-#include "function.h"
 #include "method_declaration.h"
 #include "method_name.h"
 #include "initialization.h"

@@ -34,6 +34,8 @@ compil { }
 
 import "function_name.compil";
 
+package cpp.frm;
+
 specimen<string> MethodName
     inherit FunctionName
 {

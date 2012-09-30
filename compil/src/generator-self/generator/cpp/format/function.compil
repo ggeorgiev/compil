@@ -32,9 +32,16 @@
 
 compil { }
 
+import "argument.compil";
+import "decorated_type.compil";
+import "function_name.compil";
+
 package cpp.frm;
 
-strong enum TypeDeclaration
+streamable
+structure Function 
 {
-    const;
+    reference<DecoratedType> return;
+    reference<FunctionName> name;
+    vector<reference<Argument>> arguments;
 }

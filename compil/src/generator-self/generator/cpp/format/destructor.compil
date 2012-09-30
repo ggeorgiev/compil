@@ -36,6 +36,8 @@ import "destructor_name.compil";
 import "destructor_specifier.compil";
 import "namespace.compil";
 
+package cpp.frm;
+
 streamable
 structure Destructor
 {

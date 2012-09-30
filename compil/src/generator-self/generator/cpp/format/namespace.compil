@@ -34,6 +34,8 @@ compil { }
 
 import "namespace_name.compil";
 
+package cpp.frm;
+
 controlled streamable
 structure Namespace
 {

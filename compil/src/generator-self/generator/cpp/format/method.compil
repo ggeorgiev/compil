@@ -32,8 +32,7 @@
 
 compil { }
 
-import "argument.compil";
-import "decorated_type.compil";
+import "function.compil";
 import "method_name.compil";
 import "method_specifier.compil";
 import "method_declaration.compil";
@@ -42,12 +41,11 @@ import "namespace.compil";
 package cpp.frm;
 
 streamable
-structure Method 
+structure Method
+    inherit Function
 {
     MethodSpecifier specifier;
-    reference<DecoratedType> return;
     reference<Namespace> namespace;
-    reference<MethodName> name;
-    vector<reference<Argument>> arguments;
+    override reference<MethodName> name;
     MethodDeclaration declaration;
 }

@@ -55,6 +55,7 @@ lib generator-self-compil :
     generator/cpp/format/destructor.compil
     generator/cpp/format/function_call.compil
     generator/cpp/format/function_name.compil
+    generator/cpp/format/function.compil
     generator/cpp/format/initialization.compil
     generator/cpp/format/method_declaration.compil
     generator/cpp/format/method_name.compil

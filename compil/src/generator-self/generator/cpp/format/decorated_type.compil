@@ -36,6 +36,8 @@ import "type_declaration.compil";
 import "simple_type.compil";
 import "type_decoration.compil";
 
+package cpp.frm;
+
 streamable
 structure DecoratedType
 {

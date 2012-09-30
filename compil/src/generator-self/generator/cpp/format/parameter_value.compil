@@ -32,6 +32,8 @@
 
 compil { }
 
+package cpp.frm;
+
 specimen<string> ParameterValue
 {
 }

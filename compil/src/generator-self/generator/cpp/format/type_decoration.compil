@@ -32,6 +32,8 @@
 
 compil { }
 
+package cpp.frm;
+
 strong enum TypeDecoration
 {
     pointer;

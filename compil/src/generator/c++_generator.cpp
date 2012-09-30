@@ -711,17 +711,19 @@ void CppGenerator::generateObjectFactoryDefinition(const FactorySPtr& pFactory)
     std::vector<compil::FieldSPtr> iteration;
     while (pParameterStructure->fieldIterate(iteration))
     {
-        Function function((decoratedTypeRef() << impl->cppPtrType(pParameterType)),
-                          nmspace,
-                          methodName);
+        cf::MethodSPtr method = cf::methodRef() << (decoratedTypeRef() << impl->cppPtrType(pParameterType))
+                                                << nmspace
+                                                << methodName;
 
         std::vector<compil::FieldSPtr>::iterator it;
         for (it = iteration.begin(); it != iteration.end(); ++it)
-            function << CreateArgument(impl->cppSetDecoratedType((*it)->type()),
-                                       frm->cppVariableName(*it));
+        {
+            method << (cf::argumentRef() << impl->cppSetDecoratedType((*it)->type())
+                                         << frm->cppVariableName(*it));
+        }
 
         fdef()  << TableAligner::row()
-                << function;
+                << method;
         openBlock(definitionStream);
 
         if (!pParameterStructure->immutable())
@@ -1645,26 +1647,40 @@ void CppGenerator::generateStructureFieldOverrideDefinition(const FieldOverrideS
 
     NamespaceSPtr classNamesp = frm->cppAutoClassNamespace(pStructure);
     NamespaceSPtr namesp = boost::make_shared<Namespace>(*classNamesp);
-    *namesp << nsBuilder;
+        
+    DecoratedTypeSPtr resultType;
+    if (pStructure->immutable())
+    {
+        resultType = decoratedTypeRef() << (simpleTypeRef() << classNamesp
+                                                            << builder->value())
+                                        << ETypeDecoration::reference();
+        *namesp << nsBuilder;
+    }
+    else
+    {
+        resultType = decoratedTypeRef() << impl->cppType(pStructure)
+                                        << ETypeDecoration::reference();
+    }
 
     fdef()  << TableAligner::row()
-            << (cf::methodRef() << (decoratedTypeRef() << (simpleTypeRef() << classNamesp
-                                                                           << builder->value())
-                                                       << ETypeDecoration::reference())
+            << (cf::methodRef() << resultType
                                 << namesp
                                 << frm->setMethodName(pField)
                                 << (cf::argumentRef() << impl->cppInnerSetDecoratedType(pField->type(), pStructure)
                                                       << frm->cppVariableName(pField)));
 
     openBlock(definitionStream);
-    line() << frm->cppAutoClassNamespace(pFieldOverride->overriddenField()->structure().lock())
-           << "::"
-           << nsBuilder->value()
-           << "::"
-           << frm->setMethodName(pField)
-           << "("
-           << frm->cppVariableName(pField)
-           << ");";
+    line()  << frm->cppAutoClassNamespace(pFieldOverride->overriddenField()->structure().lock())
+            << "::";
+    if (pStructure->immutable())
+    {
+        line()  << nsBuilder->value()
+                << "::";
+    }
+    line()  << frm->setMethodName(pField)
+            << "("
+            << frm->cppVariableName(pField)
+            << ");";
     eol(definitionStream);
     line() << "return *this;";
     eol(definitionStream);

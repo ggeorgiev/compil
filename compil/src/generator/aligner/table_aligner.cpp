@@ -351,42 +351,28 @@ TableAligner& operator<<(TableAligner& aligner, const DecoratedTypeSPtr& decorat
     return aligner;
 }
 
-TableAligner& operator<<(TableAligner& aligner, const Function& function)
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr& function)
 {
-    if (function.mSpecifier != EMethodSpecifier::invalid())
-        aligner << function.mSpecifier.shortName() << ' ';
-
     aligner << TableAligner::col();
 
-    if (function.mReturnType)
-        aligner << function.mReturnType;
-    
-    if (function.mNamespace)
-    if (!function.mNamespace->isVoid())
-        aligner << function.mNamespace << "::";
+    aligner << function->return_();
+    aligner << function->name();
         
-    aligner << function.mName;
+    aligner << Aligner::FunctionSpace();
+    aligner << "("
+            << TableAligner::col();
 
-    if (function.mCastOperator)
-        aligner << function.mCastOperator;
-    else
+    if (function->arguments().size() > 0)
+        aligner << function->arguments()[0];
+    for (size_t i = 1; i < function->arguments().size(); ++i)
     {
-        aligner << Aligner::FunctionSpace();
-        
-        aligner << "("
-                << TableAligner::col();
-        if (function.mvArgument.size() > 0)
-            aligner << function.mvArgument[0];
-        for (size_t i = 1; i < function.mvArgument.size(); ++i)
-            aligner << ","
-                    << TableAligner::optional_new_line()
-                    << " "
-                    << function.mvArgument[i];
-        aligner << ")";
+        aligner << ","
+                << TableAligner::optional_new_line()
+                << " "
+                << function->arguments()[i];
     }
-    
-    if (function.mDeclaration != EMethodDeclaration::invalid())
-        aligner << ' ' << TableAligner::col() << function.mDeclaration;
+    aligner << ")";
+
     return aligner;
 }
 
@@ -544,6 +530,7 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr& meth
                 << method->arguments()[i];
     }
     aligner << ")";
+    
     if (method->declaration() != EMethodDeclaration::invalid())
     {
         aligner << ' '
