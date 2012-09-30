@@ -37,14 +37,20 @@
 // Standard Template Library
 #include <vector>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_CONSTRUCTOR_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_CONSTRUCTOR_COMPIL_H_
 
 #include "argument.h"
 #include "constructor.h"
 #include "constructor_name.h"
 #include "constructor_specifier.h"
 #include "namespace.h"
+
+namespace cpp
+{
+
+namespace frm
+{
 
 class Constructor
 {
@@ -115,7 +121,17 @@ inline ConstructorSPtr constructorRef()
     return boost::make_shared<Constructor>();
 }
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_COMPIL_H_
+}
+
+}
+
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_CONSTRUCTOR_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
 class Constructor;
@@ -124,5 +140,9 @@ typedef boost::shared_ptr<Constructor>       ConstructorSPtr;
 typedef boost::shared_ptr<const Constructor> ConstructorSCPtr;
 typedef boost::weak_ptr<Constructor>         ConstructorWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_CONSTRUCTOR_COMPIL_H_
+}
+
+}
+
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_CONSTRUCTOR_COMPIL_H_
 

@@ -3,6 +3,12 @@
 
 #include "constructor.h"
 
+namespace cpp
+{
+
+namespace frm
+{
+
 Constructor::Constructor()
 {
 }
@@ -124,5 +130,9 @@ const ConstructorSPtr& operator<<(const ConstructorSPtr& object, const ArgumentS
     BOOST_ASSERT(object);
     *object << argumentsItem;
     return object;
+}
+
+}
+
 }
 

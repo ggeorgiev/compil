@@ -98,7 +98,7 @@ bool CppFlagsEnumerationGenerator::generate()
     line()  << "// Default constructor - sets the value to invalid";
     eol(declarationStream);
     fdef()  << TableAligner::row()
-            << (Constructor() << class_name);
+            << (cf::constructorRef() << class_name);
     eofd(declarationStream);
     line()  << ": " 
             << (initializationRef() << memberValue
@@ -108,8 +108,9 @@ bool CppFlagsEnumerationGenerator::generate()
     eol(declarationStream);
     
     fdef()  << TableAligner::row()
-            << (Constructor() << class_name
-                              << CreateArgument(decoratedType, value));
+            << (cf::constructorRef() << class_name
+                                     << (cf::argumentRef() << decoratedType
+                                                           << value));
     eofd(declarationStream);
     line()  << ": " 
             << (initializationRef() << memberValue

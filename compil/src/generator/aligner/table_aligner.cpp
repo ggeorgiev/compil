@@ -257,6 +257,107 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ArgumentSPtr& ar
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ConstructorSPtr& constructor)
+{
+    aligner << constructor->specifier();
+        
+    aligner << TableAligner::col();
+    aligner << TableAligner::col();
+    if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
+        aligner << TableAligner::col();
+        
+    if (constructor->namespace_())
+    {
+        aligner << constructor->namespace_()
+                << "::";
+    }
+    aligner << constructor->name();
+    
+    aligner << Aligner::FunctionSpace();
+    aligner << "("
+            << TableAligner::col();
+    if (constructor->arguments().size() > 0)
+        aligner << constructor->arguments()[0];
+    for (size_t i = 1; i < constructor->arguments().size(); ++i)
+        aligner << ", " << constructor->arguments()[i];
+    aligner << ")";
+    return aligner;
+}
+
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr& function)
+{
+    aligner << TableAligner::col();
+
+    aligner << function->return_();
+    aligner << function->name();
+        
+    aligner << Aligner::FunctionSpace();
+    aligner << "("
+            << TableAligner::col();
+
+    if (function->arguments().size() > 0)
+        aligner << function->arguments()[0];
+    for (size_t i = 1; i < function->arguments().size(); ++i)
+    {
+        aligner << ","
+                << TableAligner::optional_new_line()
+                << " "
+                << function->arguments()[i];
+    }
+    aligner << ")";
+
+    return aligner;
+}
+
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr& method)
+{
+    aligner << method->specifier();
+    aligner << TableAligner::col();
+    aligner << method->return_();
+
+    if (method->namespace_())
+    {
+        aligner << method->namespace_()
+                << "::";
+    }
+
+    aligner << method->name();
+
+    aligner << Aligner::FunctionSpace();
+    aligner << "("
+            << TableAligner::col();
+
+    if (method->arguments().size() > 0)
+        aligner << method->arguments()[0];
+    for (size_t i = 1; i < method->arguments().size(); ++i)
+    {
+        aligner << ","
+                << TableAligner::optional_new_line()
+                << " "
+                << method->arguments()[i];
+    }
+    aligner << ")";
+    
+    if (method->declaration() != EMethodDeclaration::invalid())
+    {
+        aligner << ' '
+                << TableAligner::col()
+                << method->declaration();
+    }
+
+    return aligner;
+}
+
+
+
+
+
+
+
+
+
+
+
 TableAligner& operator<<(TableAligner& aligner, const CastOperatorSPtr& castOperator)
 {
     aligner << TableAligner::col();
@@ -351,30 +452,7 @@ TableAligner& operator<<(TableAligner& aligner, const DecoratedTypeSPtr& decorat
     return aligner;
 }
 
-TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr& function)
-{
-    aligner << TableAligner::col();
 
-    aligner << function->return_();
-    aligner << function->name();
-        
-    aligner << Aligner::FunctionSpace();
-    aligner << "("
-            << TableAligner::col();
-
-    if (function->arguments().size() > 0)
-        aligner << function->arguments()[0];
-    for (size_t i = 1; i < function->arguments().size(); ++i)
-    {
-        aligner << ","
-                << TableAligner::optional_new_line()
-                << " "
-                << function->arguments()[i];
-    }
-    aligner << ")";
-
-    return aligner;
-}
 
 TableAligner& operator<<(TableAligner& aligner, const FunctionName& functionName)
 {
@@ -396,26 +474,6 @@ TableAligner& operator<<(TableAligner& aligner, const EConstructorSpecifier& con
         aligner << constructorSpecifier.shortName()
                 << ' ';
     }
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const Constructor& constructor)
-{
-    aligner << constructor.specifier();
-        
-    aligner << TableAligner::col();
-    aligner << TableAligner::col();
-    if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
-        aligner << TableAligner::col();
-    aligner << constructor.name()->value();
-    aligner << Aligner::FunctionSpace();
-    aligner << "("
-            << TableAligner::col();
-    if (constructor.arguments().size() > 0)
-        aligner << constructor.arguments()[0];
-    for (size_t i = 1; i < constructor.arguments().size(); ++i)
-        aligner << ", " << constructor.arguments()[i];
-    aligner << ")";
     return aligner;
 }
 
@@ -499,45 +557,6 @@ TableAligner& operator<<(TableAligner& aligner, const EMethodSpecifier& methodSp
         aligner << methodSpecifier.shortName()
                 << ' ';
     }
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr& method)
-{
-    aligner << method->specifier();
-    aligner << TableAligner::col();
-    aligner << method->return_();
-
-    if (method->namespace_())
-    {
-        aligner << method->namespace_()
-                << "::";
-    }
-
-    aligner << method->name();
-
-    aligner << Aligner::FunctionSpace();
-    aligner << "("
-            << TableAligner::col();
-
-    if (method->arguments().size() > 0)
-        aligner << method->arguments()[0];
-    for (size_t i = 1; i < method->arguments().size(); ++i)
-    {
-        aligner << ","
-                << TableAligner::optional_new_line()
-                << " "
-                << method->arguments()[i];
-    }
-    aligner << ")";
-    
-    if (method->declaration() != EMethodDeclaration::invalid())
-    {
-        aligner << ' '
-                << TableAligner::col()
-                << method->declaration();
-    }
-
     return aligner;
 }
 

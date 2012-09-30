@@ -62,7 +62,7 @@ FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner,
     return aligner;
 }
 
-FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, 
+FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner,
                                       const Aligner::FunctionSpace&)
 {
     if (aligner.mpConfiguration->mFunctionSpace)
@@ -81,27 +81,6 @@ FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner,
                                       const DecoratedType& decoratedType)
 {
     ((TableAligner&)aligner) << decoratedType;
-    return aligner;
-}
-
-FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, 
-                                      const Constructor& constructor)
-{
-    if (constructor.namespace_())
-    if (!constructor.namespace_()->isVoid())
-    {
-        aligner << constructor.namespace_()
-                << "::";
-    }
-    
-    ((TableAligner&)aligner) << constructor.name()->value();
-    aligner << Aligner::FunctionSpace();
-    aligner << "(";
-    if (constructor.arguments().size() > 0)
-        aligner << constructor.arguments()[0];
-    for (size_t i = 1; i < constructor.arguments().size(); ++i)
-        aligner << ", " << constructor.arguments()[i];
-    aligner << ")";
     return aligner;
 }
 

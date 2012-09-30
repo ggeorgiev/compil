@@ -257,7 +257,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
     else
         commentInTable("Default constructor - sets the value to invalid");
     table() << TableAligner::row()
-            << (Constructor() << frm->cppConstructorName(pEnumeration))
+            << (cf::constructorRef() << frm->cppConstructorName(pEnumeration))
             << ";";
 
     EConstructorSpecifier specifier;
@@ -274,9 +274,10 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
     }
     
     table() << TableAligner::row()
-            << (Constructor() << specifier
-                              << frm->cppConstructorName(pEnumeration)
-                              << CreateArgument(impl->cppDecoratedType(pParameterType), value))
+            << (cf::constructorRef() << specifier
+                                     << frm->cppConstructorName(pEnumeration)
+                                     << (cf::argumentRef() << impl->cppDecoratedType(pParameterType)
+                                                           << value))
             << ";";
 
     table() << TableAligner::row();
@@ -530,13 +531,14 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     eol(declarationStream, -1);
 
     table() << TableAligner::row()
-            << (Constructor() << frm->cppConstructorName(pSpecimen))
+            << (cf::constructorRef() << frm->cppConstructorName(pSpecimen))
             << ";";
 
     table() << TableAligner::row();
-    table() << (Constructor() << EConstructorSpecifier::explicit_()
-                              << frm->cppConstructorName(pSpecimen)
-                              << CreateArgument(impl->cppDecoratedType(pParameterType), value))
+    table() << (cf::constructorRef() << EConstructorSpecifier::explicit_()
+                                     << frm->cppConstructorName(pSpecimen)
+                                     << (cf::argumentRef() << impl->cppDecoratedType(pParameterType)
+                                                           << value))
             << ";";
 
     table() << TableAligner::row();
@@ -855,7 +857,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
 
     commentInTable("Default constructor");
     table() << TableAligner::row()
-            << (Constructor() << frm->cppConstructorName(pFactory))
+            << (cf::constructorRef() << frm->cppConstructorName(pFactory))
             << ";";
 
     commentInTable("Destructor");
@@ -1063,16 +1065,17 @@ void CppHeaderGenerator::generateIdentifierDeclaration(const IdentifierSPtr& pId
     eol(declarationStream, -1);
 
     table() << TableAligner::row()
-            << (Constructor() << frm->cppConstructorName(pIdentifier))
+            << (cf::constructorRef() << frm->cppConstructorName(pIdentifier))
             << ";";
 
     EConstructorSpecifier specifier;
     if (pIdentifier->cast() == CastableType::ECast::strong())
         specifier = EConstructorSpecifier::explicit_();
     table() << TableAligner::row()
-            << (Constructor() << specifier
-                              << frm->cppConstructorName(pIdentifier)
-                              << CreateArgument(impl->cppDecoratedType(pParameterType), value))
+            << (cf::constructorRef() << specifier
+                                     << frm->cppConstructorName(pIdentifier)
+                                     << (cf::argumentRef() << impl->cppDecoratedType(pParameterType)
+                                                           << value))
             << ";";
 
     table() << TableAligner::row()
@@ -1860,7 +1863,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                 "hide default constructor for abstract object, no implementation");
 
             table() << TableAligner::row()
-                    << (Constructor() << builderConstructorName)
+                    << (cf::constructorRef() << builderConstructorName)
                     << ";";
         }
 
@@ -1877,7 +1880,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                 "Make sure you initialize all the necessary fields before instantiating");
 
             table() << TableAligner::row()
-                    << (Constructor() << builderConstructorName)
+                    << (cf::constructorRef() << builderConstructorName)
                     << ";";
 
             commentInTable(
@@ -1885,8 +1888,9 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                 "an object just slightly different from another object");
 
             table() << TableAligner::row()
-                    << (Constructor() << builderConstructorName
-                                      << CreateArgument(impl->cppDecoratedType(pStructure), object))
+                    << (cf::constructorRef() << builderConstructorName
+                                             << (cf::argumentRef() << impl->cppDecoratedType(pStructure)
+                                                                   << object))
                     << ";";
 
             std::vector<ObjectSPtr>::const_iterator it;
@@ -1904,9 +1908,9 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                     "will have their default value or will be uninitialized.");
 
                 table() << TableAligner::row()
-                        << (Constructor() << builderConstructorName
-                                          << CreateArgument(impl->cppDecoratedType(pUpcopy->baseStructure()),
-                                                            object))
+                        << (cf::constructorRef() << builderConstructorName
+                                                 << (cf::argumentRef() << impl->cppDecoratedType(pUpcopy->baseStructure())
+                                                                       << object))
                         << ";";
             }
         }
@@ -1959,9 +1963,9 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
             "constructor needed from potential derived classes");
 
         table() << TableAligner::row()
-                << (Constructor() << builderConstructorName
-                                  << CreateArgument(frm->cppRawPtrDecoratedType(pStructure),
-                                                    frm->ptrVariableName(object)))
+                << (cf::constructorRef() << builderConstructorName
+                                         << (cf::argumentRef() << frm->cppRawPtrDecoratedType(pStructure)
+                                                               << frm->ptrVariableName(object)))
                 << ";";
         eot(declarationStream);
 
@@ -1988,7 +1992,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
     commentInTable("Default constructor");
 
     table() << TableAligner::row()
-            << (Constructor() << frm->cppAutoConstructorName(pStructure))
+            << (cf::constructorRef() << frm->cppAutoConstructorName(pStructure))
             << ";";
 
     commentInTable("Destructor");

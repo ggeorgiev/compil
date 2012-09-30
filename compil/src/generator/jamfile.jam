@@ -15,6 +15,7 @@ project generator
 
 lib gen :
     cpp/format/argument.cpp
+    cpp/format/constructor.cpp
     cpp/format/function.cpp
     cpp/format/method.cpp
 
@@ -22,7 +23,6 @@ lib gen :
     aligner/object/cast_operator.cpp
     aligner/object/constructor_name.cpp
     aligner/object/constructor_specifier.cpp
-    aligner/object/constructor.cpp
     aligner/object/decorated_type.cpp
     aligner/object/destructor_specifier.cpp
     aligner/object/destructor_name.cpp

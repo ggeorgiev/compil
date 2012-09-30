@@ -101,17 +101,23 @@ private:
 
 typedef boost::shared_ptr<TableAligner> TableAlignerPtr;
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ArgumentSPtr&);
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ConstructorSPtr&);
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr&);
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr&);
+
+
+
 TableAligner& serialize(TableAligner& aligner, const DecoratedType& decoratedType, bool align);
+
+
 
 TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionSpace&);
 TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionDefinitionTypeSpace&);
-TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ArgumentSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const ArgumentSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const CastOperatorSPtr&);
-TableAligner& operator<<(TableAligner& aligner, const Constructor&);
 TableAligner& operator<<(TableAligner& aligner, const DecoratedType&);
 TableAligner& operator<<(TableAligner& aligner, const DecoratedTypeSPtr&);
-TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const FunctionName&);
 TableAligner& operator<<(TableAligner& aligner, const FunctionNameSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const FunctionCallSPtr&);
@@ -122,7 +128,6 @@ TableAligner& operator<<(TableAligner& aligner, const NamespaceSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const ParameterValueSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const EMethodDeclaration&);
 TableAligner& operator<<(TableAligner& aligner, const EMethodSpecifier&);
-TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const InitializationSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const SimpleType&);
 TableAligner& operator<<(TableAligner& aligner, const SimpleTypeSPtr&);
