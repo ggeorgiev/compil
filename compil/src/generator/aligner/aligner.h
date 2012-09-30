@@ -41,13 +41,13 @@
 #include "cpp/format/constructor.h"
 #include "cpp/format/function.h"
 #include "cpp/format/method.h"
+#include "cpp/format/initialization.h"
 
 #include "decorated_type.h"
 #include "destructor.h"
 #include "function_call.h"
 #include "method_declaration.h"
 #include "method_name.h"
-#include "initialization.h"
 #include "simple_type.h"
 
 #include <boost/shared_ptr.hpp>

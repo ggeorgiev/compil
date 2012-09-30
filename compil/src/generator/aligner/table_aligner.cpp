@@ -389,6 +389,23 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr& meth
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::InitializationSPtr& initialization)
+{
+    BOOST_ASSERT(!initialization->variableName() != !initialization->constructorName());
+
+    if (initialization->variableName())
+        aligner << initialization->variableName();
+    else
+        aligner << initialization->constructorName();
+
+    aligner << Aligner::FunctionSpace()
+            << "("
+            << initialization->parameter()
+            << ")";
+            
+    return aligner;
+}
+
 
 
 
@@ -576,24 +593,6 @@ TableAligner& operator<<(TableAligner& aligner, const EMethodSpecifier& methodSp
     }
     return aligner;
 }
-
-TableAligner& operator<<(TableAligner& aligner, const InitializationSPtr& initialization)
-{
-    BOOST_ASSERT(!initialization->variableName() != !initialization->constructorName());
-
-    if (initialization->variableName())
-        aligner << initialization->variableName();
-    else
-        aligner << initialization->constructorName();
-
-    aligner << Aligner::FunctionSpace()
-            << "("
-            << initialization->parameter()
-            << ")";
-            
-    return aligner;
-}
-
 
 TableAligner& operator<<(TableAligner& aligner, const SimpleType& type)
 {

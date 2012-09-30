@@ -35,13 +35,19 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_INITIALIZATION_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_INITIALIZATION_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_INITIALIZATION_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_INITIALIZATION_COMPIL_H_
 
 #include "constructor_name.h"
 #include "initialization.h"
 #include "parameter_value.h"
 #include "variable_name.h"
+
+namespace cpp
+{
+
+namespace frm
+{
 
 class Initialization
 {
@@ -93,7 +99,17 @@ inline InitializationSPtr initializationRef()
     return boost::make_shared<Initialization>();
 }
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_INITIALIZATION_COMPIL_H_
+}
+
+}
+
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_INITIALIZATION_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
 class Initialization;
@@ -102,5 +118,9 @@ typedef boost::shared_ptr<Initialization>       InitializationSPtr;
 typedef boost::shared_ptr<const Initialization> InitializationSCPtr;
 typedef boost::weak_ptr<Initialization>         InitializationWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_INITIALIZATION_COMPIL_H_
+}
+
+}
+
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_INITIALIZATION_COMPIL_H_
 

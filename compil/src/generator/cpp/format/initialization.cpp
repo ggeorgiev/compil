@@ -3,6 +3,12 @@
 
 #include "initialization.h"
 
+namespace cpp
+{
+
+namespace frm
+{
+
 Initialization::Initialization()
 {
 }
@@ -78,5 +84,9 @@ const InitializationSPtr& operator<<(const InitializationSPtr& object, const Par
     BOOST_ASSERT(object);
     *object << parameter;
     return object;
+}
+
+}
+
 }
 

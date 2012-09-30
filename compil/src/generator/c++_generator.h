@@ -64,7 +64,7 @@ public:
     
     virtual void generateIdentifierDefinition(const IdentifierSPtr& pIdentifier);
     
-    virtual void generateInitialization(const InitializationSPtr& initialization);
+    virtual void generateInitialization(const cpp::frm::InitializationSPtr& initialization);
     
     virtual void generateStructureFieldMemberInitialization(const FieldSPtr& pField);
     virtual void generateStructureObjectMemberInitialization(const ObjectSPtr& pObject);

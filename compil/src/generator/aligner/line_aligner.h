@@ -65,14 +65,17 @@ private:
 
 typedef boost::shared_ptr<LineAligner> LineAlignerPtr;
 
+LineAligner& operator<<(LineAligner& aligner, const cpp::frm::InitializationSPtr&);
+
+
+
+
 LineAligner& operator<<(LineAligner& aligner, const Aligner::FunctionSpace&);
 LineAligner& operator<<(LineAligner& aligner, const DecoratedType&);
 LineAligner& operator<<(LineAligner& aligner, const DecoratedTypeSPtr&);
 LineAligner& operator<<(LineAligner& aligner, const FunctionCallSPtr&);
 LineAligner& operator<<(LineAligner& aligner, const FunctionName&);
 LineAligner& operator<<(LineAligner& aligner, const FunctionNameSPtr&);
-//LineAligner& operator<<(LineAligner& aligner, const EMethodDeclaration&);
-LineAligner& operator<<(LineAligner& aligner, const InitializationSPtr&);
 LineAligner& operator<<(LineAligner& aligner, const NamespaceSPtr&);
 LineAligner& operator<<(LineAligner& aligner, const ParameterValueSPtr&);
 LineAligner& operator<<(LineAligner& aligner, const SimpleType&);

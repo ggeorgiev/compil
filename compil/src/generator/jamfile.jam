@@ -20,6 +20,7 @@ lib gen :
     cpp/format/constructor.cpp
     cpp/format/function.cpp
     cpp/format/method.cpp
+    cpp/format/initialization.cpp
 
     aligner/object/constructor_name.cpp
     aligner/object/constructor_specifier.cpp
@@ -29,7 +30,6 @@ lib gen :
     aligner/object/destructor.cpp
     aligner/object/function_call.cpp
     aligner/object/function_name.cpp
-    aligner/object/initialization.cpp
     aligner/object/method_declaration.cpp
     aligner/object/method_name.cpp
     aligner/object/method_specifier.cpp

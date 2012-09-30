@@ -101,8 +101,8 @@ bool CppFlagsEnumerationGenerator::generate()
             << (cf::constructorRef() << class_name);
     eofd(declarationStream);
     line()  << ": " 
-            << (initializationRef() << memberValue
-                                    << parameterValueRef("0"));
+            << (cf::initializationRef() << memberValue
+                                        << parameterValueRef("0"));
     openBlock(declarationStream, 1);
     closeBlock(declarationStream);
     eol(declarationStream);
@@ -113,8 +113,8 @@ bool CppFlagsEnumerationGenerator::generate()
                                                            << value));
     eofd(declarationStream);
     line()  << ": " 
-            << (initializationRef() << memberValue
-                                    << frm->parameterValue(value));
+            << (cf::initializationRef() << memberValue
+                                        << frm->parameterValue(value));
     openBlock(declarationStream, 1);
     closeBlock(declarationStream);
     eol(declarationStream);

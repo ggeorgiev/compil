@@ -114,16 +114,16 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
 
     if (pEnumeration->flags())
     {
-        line()  << (initializationRef() << constructorName
-                                        << variableName
-                                        << parameterValueRef("0"));
+        line()  << (cf::initializationRef() << constructorName
+                                            << variableName
+                                            << parameterValueRef("0"));
     }
     else
     {
-        line()  << (initializationRef() << constructorName
-                                        << variableName
-                                        << parameterValueRef(frm->enumValueName(
-                                           Model::invalidEnumerationValue(pEnumeration))));
+        std::string invalid = frm->enumValueName(Model::invalidEnumerationValue(pEnumeration));
+        line()  << (cf::initializationRef() << constructorName
+                                            << variableName
+                                            << parameterValueRef(invalid));
     }
     openBlock(definitionStream, 2);
     closeBlock(definitionStream);
@@ -137,9 +137,9 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     eofd(definitionStream);
 
     line()  << ": "
-            << (initializationRef() << constructorName
-                                    << variableName
-                                    << frm->parameterValue(value));
+            << (cf::initializationRef() << constructorName
+                                        << variableName
+                                        << frm->parameterValue(value));
     openBlock(definitionStream, 2);
     closeBlock(definitionStream);
     eol(definitionStream);
@@ -479,11 +479,15 @@ void CppGenerator::generateSpecimenDefinition(const SpecimenSPtr& pSpecimen)
 
     line()  << ": ";
     if (pBaseSpecimen)
-        line()  << (initializationRef() << frm->cppConstructorName(pBaseSpecimen)
-                                        << frm->parameterValue(value));
+    {
+        line()  << (cf::initializationRef() << frm->cppConstructorName(pBaseSpecimen)
+                                            << frm->parameterValue(value));
+    }
     else
-        line()  << (initializationRef() << frm->memberVariableName(value)
-                                        << frm->parameterValue(value));
+    {
+        line()  << (cf::initializationRef() << frm->memberVariableName(value)
+                                            << frm->parameterValue(value));
+    }
     openBlock(definitionStream, 2);
     closeBlock(definitionStream);
     eol(definitionStream);
@@ -876,8 +880,8 @@ void CppGenerator::generateIdentifierDefinition(const IdentifierSPtr& pIdentifie
     eofd(definitionStream);
 
     line()  << ": "
-            << (initializationRef() << frm->memberVariableName(value)
-                                    << frm->parameterValue(value));
+            << (cf::initializationRef() << frm->memberVariableName(value)
+                                        << frm->parameterValue(value));
     openBlock(definitionStream, 2);
     closeBlock(definitionStream);
     eol(definitionStream);
@@ -939,7 +943,7 @@ void CppGenerator::generateIdentifierDefinition(const IdentifierSPtr& pIdentifie
     }
 }
 
-void CppGenerator::generateInitialization(const InitializationSPtr& initialization)
+void CppGenerator::generateInitialization(const cpp::frm::InitializationSPtr& initialization)
 {
     if (table().isEmpty())
     {
@@ -959,8 +963,8 @@ void CppGenerator::generateStructureFieldMemberInitialization(const FieldSPtr& p
     if (impl->needConstructorInitialization(pField))
     {
         generateInitialization(
-            initializationRef() << frm->memberVariableName(frm->cppVariableName(pField))
-                                << parameterValueRef(frm->defaultMethodName(pField)->value() + "()"));
+            cf::initializationRef() << frm->memberVariableName(frm->cppVariableName(pField))
+                                    << parameterValueRef(frm->defaultMethodName(pField)->value() + "()"));
     }
 }
 
@@ -2416,8 +2420,8 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             {
                 table() << TableAligner::row()
                         << ": "
-                        << (initializationRef() << frm->memberPtrVariableName(object)
-                                                << parameterValueRef(newObject));
+                        << (cf::initializationRef() << frm->memberPtrVariableName(object)
+                                                    << parameterValueRef(newObject));
             }
             openBlock(definitionStream, 2);
             closeBlock(definitionStream);
@@ -2454,8 +2458,8 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             {
                 table() << TableAligner::row()
                         << ": "
-                        << (initializationRef() << frm->memberPtrVariableName(object)
-                                                << parameterValueRef(newObject));
+                        << (cf::initializationRef() << frm->memberPtrVariableName(object)
+                                                    << parameterValueRef(newObject));
             }
 
             openBlock(definitionStream, 2);
@@ -2500,12 +2504,11 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                 }
                 else
                 {
+                    std::string value = "new " + frm->cppMainClassType(pStructure)->value() + "()";
                     table() << TableAligner::row()
                             << ": "
-                            << (initializationRef() << frm->memberPtrVariableName(object)
-                                                    << parameterValueRef("new " +
-                                                                         frm->cppMainClassType(pStructure)->value() +
-                                                                         "()"));
+                            << (cf::initializationRef() << frm->memberPtrVariableName(object)
+                                                        << parameterValueRef(value));
                 }
 
                 openBlock(definitionStream, 2);
@@ -2541,8 +2544,8 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         {
             table() << TableAligner::row()
                     << ": "
-                    << (initializationRef() << frm->memberPtrVariableName(object)
-                                            << frm->parameterValue(frm->ptrVariableName(object)));
+                    << (cf::initializationRef() << frm->memberPtrVariableName(object)
+                                                << frm->parameterValue(frm->ptrVariableName(object)));
         }
         openBlock(definitionStream, 2);
         closeBlock(definitionStream);
@@ -2673,15 +2676,15 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         {
             init << ".finalize()";
             generateInitialization(
-                (initializationRef() << frm->cppConstructorName(pBaseStructure)
-                                     << parameterValueRef(init.str())));
+                cf::initializationRef() << frm->cppConstructorName(pBaseStructure)
+                                        << parameterValueRef(init.str()));
         }
     }
 
     if (pStructure->controlled() && pStructure->hasField())
         generateInitialization(
-            initializationRef() << frm->memberVariableName(bits)
-                                << parameterValueRef("0"));
+            cf::initializationRef() << frm->memberVariableName(bits)
+                                    << parameterValueRef("0"));
 
     for (it = objects.begin(); it != objects.end(); ++it)
     {

@@ -93,6 +93,34 @@ std::string LineAligner::str(int indent) const
     return out.str();
 }
 
+LineAligner& operator<<(LineAligner& aligner, const cpp::frm::InitializationSPtr& initialization)
+{
+    BOOST_ASSERT(!initialization->variableName() != !initialization->constructorName());
+
+    if (initialization->variableName())
+        aligner << initialization->variableName();
+    else
+        aligner << initialization->constructorName();
+
+    aligner << Aligner::FunctionSpace()
+            << "("
+            << initialization->parameter()
+            << ")";
+            
+    return aligner;
+}
+
+
+
+
+
+
+
+
+
+
+
+
 static bool is_space(char ch)
 {
     return ch == ' ';
@@ -216,23 +244,6 @@ LineAligner& operator<<(LineAligner& aligner, const FunctionName& functionName)
 LineAligner& operator<<(LineAligner& aligner, const FunctionNameSPtr& functionName)
 {
     aligner.line() << functionName->value();
-    return aligner;
-}
-
-LineAligner& operator<<(LineAligner& aligner, const InitializationSPtr& initialization)
-{
-    BOOST_ASSERT(!initialization->variableName() != !initialization->constructorName());
-
-    if (initialization->variableName())
-        aligner << initialization->variableName();
-    else
-        aligner << initialization->constructorName();
-
-    aligner << Aligner::FunctionSpace()
-            << "("
-            << initialization->parameter()
-            << ")";
-            
     return aligner;
 }
 
