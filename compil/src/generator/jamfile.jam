@@ -15,12 +15,12 @@ project generator
 
 lib gen :
     cpp/format/argument.cpp
+    cpp/format/cast_operator.cpp
     cpp/format/comment.cpp
     cpp/format/constructor.cpp
     cpp/format/function.cpp
     cpp/format/method.cpp
 
-    aligner/object/cast_operator.cpp
     aligner/object/constructor_name.cpp
     aligner/object/constructor_specifier.cpp
     aligner/object/decorated_type.cpp

@@ -297,10 +297,9 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     }
     else if (pEnumeration->cast() == CastableType::ECast::weak())
     {
-        fdef()  << TableAligner::row()
-                << (castOperatorRef() << frm->cppEnumNamespace(pEnumeration)
-                                      << impl->cppDecoratedType(pParameterType)
-                                      << EMethodDeclaration::const_());
+        fdef()  << (cf::castOperatorRef() << frm->cppEnumNamespace(pEnumeration)
+                                          << impl->cppDecoratedType(pParameterType)
+                                          << EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << frm->memberName("value")
@@ -928,10 +927,9 @@ void CppGenerator::generateIdentifierDefinition(const IdentifierSPtr& pIdentifie
     }
     else if (pIdentifier->cast() == CastableType::ECast::weak())
     {
-        fdef()  << TableAligner::row()
-                << (castOperatorRef() << frm->cppClassNamespace(pIdentifier)
-                                      << impl->cppDecoratedType(pParameterType)
-                                      << EMethodDeclaration::const_());
+        fdef()  << (cf::castOperatorRef() << frm->cppClassNamespace(pIdentifier)
+                                          << impl->cppDecoratedType(pParameterType)
+                                          << EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << frm->memberName("value")

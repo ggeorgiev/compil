@@ -264,6 +264,36 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::CommentSPtr& com
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::CastOperatorSPtr& castOperator)
+{
+    aligner << castOperator->comment();
+    
+    aligner << TableAligner::row();
+
+    aligner << TableAligner::col();
+    
+    if (castOperator->namespace_())
+    {
+        aligner << castOperator->namespace_()
+                << "::";
+    }
+    aligner << "operator ";
+    serialize(aligner, *castOperator->type(), false);
+    
+    aligner << Aligner::FunctionSpace()
+            << "("
+            << TableAligner::col()
+            << ")";
+    
+    if (castOperator->declaration() != EMethodDeclaration::invalid())
+    {
+        aligner << ' '
+                << TableAligner::col()
+                << castOperator->declaration();
+    }
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ConstructorSPtr& constructor)
 {
     aligner << constructor->specifier();
@@ -369,31 +399,7 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr& meth
 
 
 
-TableAligner& operator<<(TableAligner& aligner, const CastOperatorSPtr& castOperator)
-{
-    aligner << TableAligner::col();
-    
-    if (castOperator->namespace_())
-    {
-        aligner << castOperator->namespace_()
-                << "::";
-    }
-    aligner << "operator ";
-    serialize(aligner, *castOperator->type(), false);
-    
-    aligner << Aligner::FunctionSpace()
-            << "("
-            << TableAligner::col()
-            << ")";
-    
-    if (castOperator->declaration() != EMethodDeclaration::invalid())
-    {
-        aligner << ' '
-                << TableAligner::col()
-                << castOperator->declaration();
-    }
-    return aligner;
-}
+
 
 TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionSpace&)
 {

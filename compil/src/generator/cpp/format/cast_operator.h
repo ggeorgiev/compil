@@ -39,9 +39,16 @@
 #define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_CAST_OPERATOR_COMPIL_H_
 
 #include "cast_operator.h"
+#include "comment.h"
 #include "decorated_type.h"
 #include "method_declaration.h"
 #include "namespace.h"
+
+namespace cpp
+{
+
+namespace frm
+{
 
 class CastOperator
 {
@@ -50,6 +57,13 @@ public:
                                       CastOperator       ();
     // Destructor
     /*lax*/                           ~CastOperator      ();
+
+    // Getter method for the data field comment
+            const CommentSPtr&        comment            ()                                      const;
+    // Setter method for the data field comment
+            CastOperator&             set_comment        (const CommentSPtr& comment);
+    // Store operator for the data field comment
+            CastOperator&             operator<<         (const CommentSPtr& comment);
 
     // Getter method for the data field type
             const DecoratedTypeSPtr&  type               ()                                      const;
@@ -75,6 +89,8 @@ public:
             CastOperator&             operator<<         (const EMethodDeclaration& declaration);
 
 private:
+    // variable for the data field comment
+    CommentSPtr        mComment;
     // variable for the data field type
     DecoratedTypeSPtr  mType;
     // variable for the data field namespace
@@ -83,6 +99,8 @@ private:
     EMethodDeclaration mDeclaration;
 };
 
+// Reference store operator for the data field comment
+const CastOperatorSPtr& operator<<(const CastOperatorSPtr& , const CommentSPtr& );
 // Reference store operator for the data field type
 const CastOperatorSPtr& operator<<(const CastOperatorSPtr& , const DecoratedTypeSPtr& );
 // Reference store operator for the data field namespace
@@ -90,12 +108,22 @@ const CastOperatorSPtr& operator<<(const CastOperatorSPtr& , const NamespaceSPtr
 // Reference store operator for the data field declaration
 const CastOperatorSPtr& operator<<(const CastOperatorSPtr& , const EMethodDeclaration& );
 
-inline  CastOperatorSPtr castOperatorRef()
+inline CastOperatorSPtr castOperatorRef()
 {
     return boost::make_shared<CastOperator>();
 }
 
+}
+
+}
+
 #else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_CAST_OPERATOR_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
 class CastOperator;
@@ -103,6 +131,10 @@ typedef CastOperator*                         CastOperatorRPtr;
 typedef boost::shared_ptr<CastOperator>       CastOperatorSPtr;
 typedef boost::shared_ptr<const CastOperator> CastOperatorSCPtr;
 typedef boost::weak_ptr<CastOperator>         CastOperatorWPtr;
+
+}
+
+}
 
 #endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_CAST_OPERATOR_COMPIL_H_
 

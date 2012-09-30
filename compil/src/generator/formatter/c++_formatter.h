@@ -51,7 +51,6 @@
 
 #include "decorated_type.h"
 #include "namespace.h"
-#include "cast_operator.h"
 #include "method_name.h"
 #include "variable_name.h"
 #include "parameter_value.h"

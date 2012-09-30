@@ -3,12 +3,41 @@
 
 #include "cast_operator.h"
 
+namespace cpp
+{
+
+namespace frm
+{
+
 CastOperator::CastOperator()
 {
 }
 
 CastOperator::~CastOperator()
 {
+}
+
+const CommentSPtr& CastOperator::comment() const
+{
+    return mComment;
+}
+
+CastOperator& CastOperator::set_comment(const CommentSPtr& comment)
+{
+    mComment = comment;
+    return *this;
+}
+
+CastOperator& CastOperator::operator<<(const CommentSPtr& comment)
+{
+    return set_comment(comment);
+}
+
+const CastOperatorSPtr& operator<<(const CastOperatorSPtr& object, const CommentSPtr& comment)
+{
+    BOOST_ASSERT(object);
+    *object << comment;
+    return object;
 }
 
 const DecoratedTypeSPtr& CastOperator::type() const
@@ -83,5 +112,9 @@ const CastOperatorSPtr& operator<<(const CastOperatorSPtr& object, const EMethod
     BOOST_ASSERT(object);
     *object << declaration;
     return object;
+}
+
+}
+
 }
 
