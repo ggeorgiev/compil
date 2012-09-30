@@ -17,9 +17,9 @@ IdentifierSPtr Identifier::downcast(const ObjectSPtr& object)
     return boost::static_pointer_cast<Identifier>(object);
 }
 
-Type::EKind Identifier::alter_kind()
+TypePartial::EKind Identifier::alter_kind()
 {
-    return Type::EKind::object();
+    return TypePartial::EKind::object();
 }
 
 }

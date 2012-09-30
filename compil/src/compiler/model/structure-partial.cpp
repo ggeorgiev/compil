@@ -30,14 +30,14 @@ StructureSCPtr StructurePartial::shared_from_this() const
         boost::enable_shared_from_this<Object>::shared_from_this());
 }
 
-Type::ELiteral StructurePartial::alter_literal()
+TypePartial::ELiteral StructurePartial::alter_literal()
 {
-    return Type::ELiteral::structure();
+    return TypePartial::ELiteral::structure();
 }
 
-Type::EKind StructurePartial::alter_kind()
+TypePartial::EKind StructurePartial::alter_kind()
 {
-    return Type::EKind::object();
+    return TypePartial::EKind::object();
 }
 
 bool StructurePartial::abstract() const

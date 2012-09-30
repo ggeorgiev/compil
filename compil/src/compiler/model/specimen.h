@@ -57,7 +57,7 @@ public:
     static  SpecimenSPtr        downcast            (const ObjectSPtr& object);
 
     // Returns the alter value object of the field kind
-    static  Type::EKind         alter_kind          ();
+    static  TypePartial::EKind  alter_kind          ();
 
     // Identifier for the objects from Specimen class.
     // Note: it is not defined in the respective cpp file. Instead it is

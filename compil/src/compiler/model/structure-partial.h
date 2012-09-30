@@ -80,10 +80,10 @@ public:
             StructureSCPtr                 shared_from_this     ()                                       const;
 
     // Returns the alter value structure of the field literal
-    static  Type::ELiteral                 alter_literal        ();
+    static  TypePartial::ELiteral          alter_literal        ();
 
     // Returns the alter value object of the field kind
-    static  Type::EKind                    alter_kind           ();
+    static  TypePartial::EKind             alter_kind           ();
 
     // Identifier for the objects from Structure class.
     // Note: it is not defined in the respective cpp file. Instead it is

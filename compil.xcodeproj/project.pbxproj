@@ -402,6 +402,9 @@
 		5EB29D8715F4167B00894479 /* destructor_name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = destructor_name.h; sourceTree = "<group>"; };
 		5EB29D8815F4167D00894479 /* destructor_specifier.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = destructor_specifier.cpp; sourceTree = "<group>"; };
 		5EB29D8915F4167D00894479 /* destructor_specifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = destructor_specifier.h; sourceTree = "<group>"; };
+		5EC0D2271618D2D200802C95 /* type.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type.h; sourceTree = "<group>"; };
+		5EC0D2291618D3C600802C95 /* type-partial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "type-partial.cpp"; sourceTree = "<group>"; };
+		5EC0D22A1618D3C600802C95 /* type-partial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "type-partial.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -628,6 +631,8 @@
 				5E88A1E615E188BB002D43A5 /* structure.cpp */,
 				5E88A1E715E188BB002D43A5 /* structure.h */,
 				5E88A1E815E188BB002D43A5 /* structure_unittest.cpp */,
+				5EC0D2291618D3C600802C95 /* type-partial.cpp */,
+				5EC0D22A1618D3C600802C95 /* type-partial.h */,
 				5E88A1E915E188BB002D43A5 /* type.cpp */,
 				5E88A1EA15E188BB002D43A5 /* type.h */,
 				5E88A1EB15E188BB002D43A5 /* unary_container.cpp */,
@@ -876,6 +881,7 @@
 				5E88A29715E188BB002D43A5 /* structure.compil */,
 				5E88A29815E188BB002D43A5 /* structure.h */,
 				5E88A29915E188BB002D43A5 /* type.compil */,
+				5EC0D2271618D2D200802C95 /* type.h */,
 				5E88A29A15E188BB002D43A5 /* unary_container.compil */,
 				5E88A29B15E188BB002D43A5 /* unary_template.compil */,
 				5E88A29C15E188BB002D43A5 /* upcopy.compil */,

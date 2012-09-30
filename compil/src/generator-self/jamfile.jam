@@ -38,7 +38,6 @@ lib generator-self-compil :
     compiler/model/reference.compil
     compiler/model/source_id.compil
     compiler/model/specimen.compil
-    compiler/model/type.compil
     compiler/model/unary_container.compil
     compiler/model/unary_template.compil
     compiler/model/upcopy.compil
@@ -77,6 +76,7 @@ lib generator-self-compil :
         compiler/model/enumeration.compil
         compiler/model/factory.compil
         compiler/model/structure.compil
+        compiler/model/type.compil
       :
         <compil-type>partial
     ]

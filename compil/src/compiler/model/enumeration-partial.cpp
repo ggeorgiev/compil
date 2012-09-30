@@ -18,14 +18,14 @@ EnumerationSPtr EnumerationPartial::downcast(const ObjectSPtr& object)
     return boost::static_pointer_cast<Enumeration>(object);
 }
 
-Type::ELiteral EnumerationPartial::alter_literal()
+TypePartial::ELiteral EnumerationPartial::alter_literal()
 {
-    return Type::ELiteral::identifier();
+    return TypePartial::ELiteral::identifier();
 }
 
-Type::EKind EnumerationPartial::alter_kind()
+TypePartial::EKind EnumerationPartial::alter_kind()
 {
-    return Type::EKind::object();
+    return TypePartial::EKind::object();
 }
 
 bool EnumerationPartial::flags() const

@@ -19,14 +19,14 @@ IntegerSPtr Integer::downcast(const ObjectSPtr& object)
     return boost::static_pointer_cast<Integer>(object);
 }
 
-Type::ELiteral Integer::alter_literal()
+TypePartial::ELiteral Integer::alter_literal()
 {
-    return Type::ELiteral::integer();
+    return TypePartial::ELiteral::integer();
 }
 
-Type::EKind Integer::alter_kind()
+TypePartial::EKind Integer::alter_kind()
 {
-    return Type::EKind::builtin();
+    return TypePartial::EKind::builtin();
 }
 
 CastableType::ECast Integer::alter_cast()

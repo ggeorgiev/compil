@@ -32,42 +32,10 @@
 
 compil { }
 
-import "package.compil";
 import "comment.compil";
-import "name.compil";
 
-package compil;
+package cpp.frm;
 
-partial sharable
-structure Type 
-    inherit Object
+specimen<Comment> MethodDocumentation
 {
-    runtime identification;
-
-    reference<Package> package = null;
-    reference<Comment> comment;
-    reference<Name> name;
-    
-    strong enum Literal
-    {
-        boolean;
-        integer;
-        real;
-        string;
-        binary;
-        reference;
-        identifier;
-        structure;
-    }
-    
-    Literal literal;
-    
-    strong enum Kind
-    {
-        builtin;
-        object;
-        string;
-    }
-    
-    Kind kind;
 }

@@ -17,9 +17,9 @@ SpecimenSPtr Specimen::downcast(const ObjectSPtr& object)
     return boost::static_pointer_cast<Specimen>(object);
 }
 
-Type::EKind Specimen::alter_kind()
+TypePartial::EKind Specimen::alter_kind()
 {
-    return Type::EKind::object();
+    return TypePartial::EKind::object();
 }
 
 const SpecimenWPtr& Specimen::baseSpecimen() const

@@ -30,44 +30,18 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-compil { }
+#ifndef __TYPE_H_
+#define __TYPE_H_
 
-import "package.compil";
-import "comment.compil";
-import "name.compil";
+#include "compiler/model/type-partial.h"
 
-package compil;
-
-partial sharable
-structure Type 
-    inherit Object
+namespace compil
 {
-    runtime identification;
 
-    reference<Package> package = null;
-    reference<Comment> comment;
-    reference<Name> name;
-    
-    strong enum Literal
-    {
-        boolean;
-        integer;
-        real;
-        string;
-        binary;
-        reference;
-        identifier;
-        structure;
-    }
-    
-    Literal literal;
-    
-    strong enum Kind
-    {
-        builtin;
-        object;
-        string;
-    }
-    
-    Kind kind;
+class Type : public TypePartial
+{
+};
+
 }
+
+#endif //__TYPE_H_

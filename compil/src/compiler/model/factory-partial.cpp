@@ -17,9 +17,9 @@ FactorySPtr FactoryPartial::downcast(const ObjectSPtr& object)
     return boost::static_pointer_cast<Factory>(object);
 }
 
-Type::EKind FactoryPartial::alter_kind()
+TypePartial::EKind FactoryPartial::alter_kind()
 {
-    return Type::EKind::object();
+    return TypePartial::EKind::object();
 }
 
 FactoryPartial::EType::EType()

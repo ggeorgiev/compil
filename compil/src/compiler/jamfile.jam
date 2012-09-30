@@ -51,6 +51,7 @@ lib compiler
     model/specimen.cpp
     model/structure.cpp
     model/structure-partial.cpp
+    model/type-partial.cpp
     model/type.cpp
     model/unary_container.cpp
     model/unary_template.cpp

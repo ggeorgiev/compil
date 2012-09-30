@@ -47,17 +47,17 @@ class Identifier : public UnaryTemplate
 {
 public:
     // Default constructor
-                           Identifier     ();
+                               Identifier     ();
     // Destructor
-    virtual                ~Identifier    ();
+    virtual                    ~Identifier    ();
 
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  IdentifierSPtr downcast       (const ObjectSPtr& object);
+    static  IdentifierSPtr     downcast       (const ObjectSPtr& object);
 
     // Returns the alter value object of the field kind
-    static  Type::EKind    alter_kind     ();
+    static  TypePartial::EKind alter_kind     ();
 
     // Identifier for the objects from Identifier class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -65,12 +65,12 @@ public:
     // of the other class objects. This allows all identifiers to be
     // maintained from a single place, which reduces the risk of value
     // collisions
-    static  EObjectId      staticObjectId ();
+    static  EObjectId          staticObjectId ();
     // This virtual method provides runtime object identification based on
     // the polymorphic behavior of the virtual methods. Allows having a
     // RTTI like mechanism significantly cheaper than the RTTI provided by
     // the compilers themselves.
-    virtual EObjectId      runtimeObjectId()                         const;
+    virtual EObjectId          runtimeObjectId()                         const;
 };
 
 }

@@ -496,12 +496,12 @@ EObjectId StructurePartial::runtimeObjectId() const
     return staticObjectId();
 }
 
-EObjectId Type::staticObjectId()
+EObjectId TypePartial::staticObjectId()
 {
     return EObjectId::type();
 }
 
-EObjectId Type::runtimeObjectId() const
+EObjectId TypePartial::runtimeObjectId() const
 {
     return staticObjectId();
 }
