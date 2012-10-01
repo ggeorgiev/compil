@@ -108,16 +108,16 @@ SimpleTypeSPtr builder = simpleTypeRef() << "Builder";
 SimpleTypeSPtr chr     = simpleTypeRef() << "char";
 SimpleTypeSPtr integer = simpleTypeRef() << "int";
 
-VariableNameSPtr bits = variableNameRef("bits");
-VariableNameSPtr child = variableNameRef("child");
-VariableNameSPtr function = variableNameRef("function");
-VariableNameSPtr mask = variableNameRef("mask");
-VariableNameSPtr object = variableNameRef("object");
-VariableNameSPtr object1 = variableNameRef("object1");
-VariableNameSPtr object2 = variableNameRef("object2");
-VariableNameSPtr parent = variableNameRef("parent");
-VariableNameSPtr rValue = variableNameRef("rValue");
-VariableNameSPtr value = variableNameRef("value");
+cpp::frm::VariableNameSPtr bits     = cpp::frm::variableNameRef("bits");
+cpp::frm::VariableNameSPtr child    = cpp::frm::variableNameRef("child");
+cpp::frm::VariableNameSPtr function = cpp::frm::variableNameRef("function");
+cpp::frm::VariableNameSPtr mask     = cpp::frm::variableNameRef("mask");
+cpp::frm::VariableNameSPtr object   = cpp::frm::variableNameRef("object");
+cpp::frm::VariableNameSPtr object1  = cpp::frm::variableNameRef("object1");
+cpp::frm::VariableNameSPtr object2  = cpp::frm::variableNameRef("object2");
+cpp::frm::VariableNameSPtr parent   = cpp::frm::variableNameRef("parent");
+cpp::frm::VariableNameSPtr rValue   = cpp::frm::variableNameRef("rValue");
+cpp::frm::VariableNameSPtr value    = cpp::frm::variableNameRef("value");
 
 
 Aligner::Aligner(const AlignerConfigurationPtr& pConfiguration)

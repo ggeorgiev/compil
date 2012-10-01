@@ -110,6 +110,13 @@ LineAligner& operator<<(LineAligner& aligner, const cpp::frm::InitializationSPtr
     return aligner;
 }
 
+LineAligner& operator<<(LineAligner& aligner, const cpp::frm::VariableNameSPtr& name)
+{
+    if (name)
+        aligner << name->value();
+    return aligner;
+}
+
 
 
 
@@ -309,12 +316,6 @@ LineAligner& operator<<(LineAligner& aligner, const SimpleTypeSPtr& type)
         aligner << type->namespace_() << "::";
     
     aligner << type->value();
-    return aligner;
-}
-
-LineAligner& operator<<(LineAligner& aligner, const VariableNameSPtr& name)
-{
-    aligner << name->value();
     return aligner;
 }
 

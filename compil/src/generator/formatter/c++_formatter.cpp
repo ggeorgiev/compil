@@ -202,22 +202,22 @@ std::string CppFormatter::globalVariable(const std::string& variable)
     return result;
 }
 
-VariableNameSPtr CppFormatter::memberVariableName(const VariableNameSPtr& name)
+cpp::frm::VariableNameSPtr CppFormatter::memberVariableName(const cpp::frm::VariableNameSPtr& name)
 {
-    return variableNameRef(memberName(name->value()));
+    return cpp::frm::variableNameRef(memberName(name->value()));
 }
 
-VariableNameSPtr CppFormatter::ptrVariableName(const VariableNameSPtr& name)
+cpp::frm::VariableNameSPtr CppFormatter::ptrVariableName(const cpp::frm::VariableNameSPtr& name)
 {
-    return variableNameRef(ptrName(name->value()));
+    return cpp::frm::variableNameRef(ptrName(name->value()));
 }
 
-VariableNameSPtr CppFormatter::memberPtrVariableName(const VariableNameSPtr& name)
+cpp::frm::VariableNameSPtr CppFormatter::memberPtrVariableName(const cpp::frm::VariableNameSPtr& name)
 {
-    return variableNameRef(memberPtrName(name->value()));
+    return cpp::frm::variableNameRef(memberPtrName(name->value()));
 }
 
-ParameterValueSPtr CppFormatter::parameterValue(const VariableNameSPtr& name)
+ParameterValueSPtr CppFormatter::parameterValue(const cpp::frm::VariableNameSPtr& name)
 {
     return parameterValueRef(name->value());
 }
@@ -420,14 +420,14 @@ std::string CppFormatter::cppMemberName(const FieldSPtr& pField)
     return memberName(pField->name()->value());
 }
 
-VariableNameSPtr CppFormatter::cppVariableName(const FieldSPtr& pField)
+cpp::frm::VariableNameSPtr CppFormatter::cppVariableName(const FieldSPtr& pField)
 {
-    return variableNameRef(name(pField->name()->value()));
+    return cpp::frm::variableNameRef(name(pField->name()->value()));
 }
 
-VariableNameSPtr CppFormatter::cppItemVariableName(const FieldSPtr& pField)
+cpp::frm::VariableNameSPtr CppFormatter::cppItemVariableName(const FieldSPtr& pField)
 {
-    return variableNameRef(name(pField->name()->value() + "Item"));
+    return cpp::frm::variableNameRef(name(pField->name()->value() + "Item"));
 }
 
 ParameterValueSPtr CppFormatter::cppVariableNameAsParameter(const FieldSPtr& pField)

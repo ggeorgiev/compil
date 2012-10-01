@@ -121,16 +121,16 @@ extern SimpleTypeSPtr builder;
 extern SimpleTypeSPtr chr;
 extern SimpleTypeSPtr integer;
 
-extern VariableNameSPtr bits;
-extern VariableNameSPtr child;
-extern VariableNameSPtr function;
-extern VariableNameSPtr mask;
-extern VariableNameSPtr object;
-extern VariableNameSPtr object1;
-extern VariableNameSPtr object2;
-extern VariableNameSPtr parent;
-extern VariableNameSPtr rValue;
-extern VariableNameSPtr value;
+extern cpp::frm::VariableNameSPtr bits;
+extern cpp::frm::VariableNameSPtr child;
+extern cpp::frm::VariableNameSPtr function;
+extern cpp::frm::VariableNameSPtr mask;
+extern cpp::frm::VariableNameSPtr object;
+extern cpp::frm::VariableNameSPtr object1;
+extern cpp::frm::VariableNameSPtr object2;
+extern cpp::frm::VariableNameSPtr parent;
+extern cpp::frm::VariableNameSPtr rValue;
+extern cpp::frm::VariableNameSPtr value;
 
 
 class Aligner

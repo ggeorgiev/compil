@@ -107,7 +107,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
 
 
     cf::ConstructorNameSPtr constructorName = impl->inheritClass(pEnumeration, pStructure);
-    VariableNameSPtr variableName;
+    cf::VariableNameSPtr variableName;
     if (!constructorName)
         variableName = frm->memberVariableName(value);
 

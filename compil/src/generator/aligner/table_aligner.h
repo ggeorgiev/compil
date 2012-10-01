@@ -111,6 +111,7 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::DestructorSPtr&)
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::InitializationSPtr&);
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::VariableNameSPtr&);
 
 
 
@@ -133,7 +134,6 @@ TableAligner& operator<<(TableAligner& aligner, const SimpleType&);
 TableAligner& operator<<(TableAligner& aligner, const SimpleTypeSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const ETypeDeclaration&);
 TableAligner& operator<<(TableAligner& aligner, const ETypeDecoration&);
-TableAligner& operator<<(TableAligner& aligner, const VariableNameSPtr&);
 
 TableAligner& operator<<(TableAligner& aligner, const TableAligner::col&);
 TableAligner& operator<<(TableAligner& aligner, const TableAligner::row&);

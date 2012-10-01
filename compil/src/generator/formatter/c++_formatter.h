@@ -39,6 +39,7 @@
 
 #include "cpp/format/constructor_name.h"
 #include "cpp/format/destructor_name.h"
+#include "cpp/format/variable_name.h"
 
 #include "alter.h"
 #include "field.h"
@@ -53,7 +54,7 @@
 #include "decorated_type.h"
 #include "namespace.h"
 #include "method_name.h"
-#include "variable_name.h"
+
 #include "parameter_value.h"
 
 #include <boost/shared_ptr.hpp>
@@ -100,11 +101,11 @@ public:
     
     virtual std::string globalVariable(const std::string& variable);
     
-    virtual VariableNameSPtr memberVariableName(const VariableNameSPtr& name);
-    virtual VariableNameSPtr ptrVariableName(const VariableNameSPtr& name);
-    virtual VariableNameSPtr memberPtrVariableName(const VariableNameSPtr& name);
+    virtual cpp::frm::VariableNameSPtr memberVariableName(const cpp::frm::VariableNameSPtr& name);
+    virtual cpp::frm::VariableNameSPtr ptrVariableName(const cpp::frm::VariableNameSPtr& name);
+    virtual cpp::frm::VariableNameSPtr memberPtrVariableName(const cpp::frm::VariableNameSPtr& name);
     
-    virtual ParameterValueSPtr parameterValue(const VariableNameSPtr& name);
+    virtual ParameterValueSPtr parameterValue(const cpp::frm::VariableNameSPtr& name);
     
     virtual NamespaceSPtr cppPackageNamespace(const PackageSPtr& pPackage);
 
@@ -141,8 +142,8 @@ public:
     virtual DecoratedTypeSPtr cppSharedPtrDecoratedType(const TypeSPtr& pType);
         
     virtual std::string cppMemberName(const FieldSPtr& pField);
-    virtual VariableNameSPtr cppVariableName(const FieldSPtr& pField);
-    virtual VariableNameSPtr cppItemVariableName(const FieldSPtr& pField);
+    virtual cpp::frm::VariableNameSPtr cppVariableName(const FieldSPtr& pField);
+    virtual cpp::frm::VariableNameSPtr cppItemVariableName(const FieldSPtr& pField);
     virtual ParameterValueSPtr cppVariableNameAsParameter(const FieldSPtr& pField);
     
     virtual MethodNameSPtr getMethodName(const FieldSPtr& pField);

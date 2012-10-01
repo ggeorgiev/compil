@@ -37,10 +37,16 @@
 // Standard Template Library
 #include <string>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_VARIABLE_NAME_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_VARIABLE_NAME_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_VARIABLE_NAME_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_VARIABLE_NAME_COMPIL_H_
 
 #include "variable_name.h"
+
+namespace cpp
+{
+
+namespace frm
+{
 
 class VariableName
 {
@@ -86,7 +92,17 @@ inline bool VariableName::operator<(const VariableName& rValue) const
     return value() < rValue.value();
 }
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_VARIABLE_NAME_COMPIL_H_
+}
+
+}
+
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_VARIABLE_NAME_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
 class VariableName;
@@ -95,5 +111,9 @@ typedef boost::shared_ptr<VariableName>       VariableNameSPtr;
 typedef boost::shared_ptr<const VariableName> VariableNameSCPtr;
 typedef boost::weak_ptr<VariableName>         VariableNameWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_VARIABLE_NAME_COMPIL_H_
+}
+
+}
+
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_VARIABLE_NAME_COMPIL_H_
 

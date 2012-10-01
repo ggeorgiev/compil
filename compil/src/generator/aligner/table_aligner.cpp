@@ -468,6 +468,13 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::InitializationSP
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::VariableNameSPtr& name)
+{
+    if (name)
+        aligner << name->value();
+    return aligner;
+}
+
 
 
 
@@ -656,13 +663,6 @@ TableAligner& operator<<(TableAligner& aligner, const ETypeDecoration& decoratio
             BOOST_ASSERT(false && "unknown type decoration");
     }
 
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const VariableNameSPtr& name)
-{
-    if (name)
-        aligner << name->value();
     return aligner;
 }
 

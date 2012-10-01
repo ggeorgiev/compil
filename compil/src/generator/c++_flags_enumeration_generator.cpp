@@ -77,9 +77,9 @@ bool CppFlagsEnumerationGenerator::generate()
                                                                << ETypeDecoration::reference();
     
     cf::ConstructorNameSPtr class_name = cf::constructorNameRef("flags_enumeration");
-    VariableNameSPtr memberValue = frm->memberVariableName(value);
+    cf::VariableNameSPtr memberValue = frm->memberVariableName(value);
     cf::ArgumentSPtr argMask = cf::argumentRef() << decoratedInheritRef
-                                                 << variableNameRef("mask");
+                                                 << cf::variableNameRef("mask");
     cf::ArgumentSPtr argValue = cf::argumentRef() << decoratedInheritRef
                                                   << value;
     
