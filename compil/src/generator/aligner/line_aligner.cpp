@@ -144,12 +144,38 @@ LineAligner& operator<<(LineAligner& aligner, const cpp::frm::InitializationSPtr
     return aligner;
 }
 
+LineAligner& operator<<(LineAligner& aligner, const cpp::frm::SimpleTypeSPtr& type)
+{
+    if (type->namespace_())
+    if (!type->namespace_()->isVoid())
+        aligner << type->namespace_() << "::";
+    
+    aligner << type->value();
+    return aligner;
+}
+
 LineAligner& operator<<(LineAligner& aligner, const cpp::frm::VariableNameSPtr& name)
 {
     if (name)
         aligner << name->value();
     return aligner;
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -288,25 +314,6 @@ LineAligner& operator<<(LineAligner& aligner, const ETypeDecoration& decoration)
     return aligner;
 }
 
-LineAligner& operator<<(LineAligner& aligner, const SimpleType& type)
-{
-    if (type.namespace_())
-    if (!type.namespace_()->isVoid())
-        aligner << type.namespace_() << "::";
-        
-    aligner << type.value();
-    return aligner;
-}
-
-LineAligner& operator<<(LineAligner& aligner, const SimpleTypeSPtr& type)
-{
-    if (type->namespace_())
-    if (!type->namespace_()->isVoid())
-        aligner << type->namespace_() << "::";
-    
-    aligner << type->value();
-    return aligner;
-}
 
 LineAligner& operator<<(LineAligner& aligner, char ch)
 {

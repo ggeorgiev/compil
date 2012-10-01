@@ -192,7 +192,7 @@ void CppHeaderGenerator::generateEnumerationValueDeclaration(const EnumerationVa
     EnumerationSPtr pEnumeration = pEnumerationValue->enumeration().lock();
     StructureSPtr pStructure = pEnumeration->structure().lock();
 
-    SimpleTypeSPtr type;
+    cf::SimpleTypeSPtr type;
     if (pEnumeration->cast() == CastableType::ECast::weak())
         type = impl->cppType(pEnumeration->parameterType().lock());
     else if (pEnumeration->cast() == CastableType::ECast::strong())

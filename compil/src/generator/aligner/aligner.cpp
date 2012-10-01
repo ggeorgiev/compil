@@ -37,18 +37,18 @@ namespace compil
 
 cpp::frm::ConstructorNameSPtr builderConstructorName = cpp::frm::constructorNameRef("Builder");
 
-cpp::frm::DecoratedTypeSPtr bl             = cpp::frm::decoratedTypeRef() << (simpleTypeRef() << "bool");
-cpp::frm::DecoratedTypeSPtr vd             = cpp::frm::decoratedTypeRef() << (simpleTypeRef() << "void");
-cpp::frm::DecoratedTypeSPtr st             = cpp::frm::decoratedTypeRef() << (simpleTypeRef() << "size_t");
+cpp::frm::DecoratedTypeSPtr bl             = cpp::frm::decoratedTypeRef() << (cpp::frm::simpleTypeRef() << "bool");
+cpp::frm::DecoratedTypeSPtr vd             = cpp::frm::decoratedTypeRef() << (cpp::frm::simpleTypeRef() << "void");
+cpp::frm::DecoratedTypeSPtr st             = cpp::frm::decoratedTypeRef() << (cpp::frm::simpleTypeRef() << "size_t");
 cpp::frm::DecoratedTypeSPtr const_char_ptr = cpp::frm::decoratedTypeRef() << ETypeDeclaration::const_()
-                                                                          << (simpleTypeRef() << "char")
+                                                                          << (cpp::frm::simpleTypeRef() << "char")
                                                                           << ETypeDecoration::pointer();
-cpp::frm::DecoratedTypeSPtr cloneFunction  = cpp::frm::decoratedTypeRef() << (simpleTypeRef() << "fnClone");
+cpp::frm::DecoratedTypeSPtr cloneFunction  = cpp::frm::decoratedTypeRef() << (cpp::frm::simpleTypeRef() << "fnClone");
 
 cpp::frm::DecoratedTypeSPtr cstTRef        = cpp::frm::decoratedTypeRef() << ETypeDeclaration::const_()
-                                                                          << (simpleTypeRef() << "T")
+                                                                          << (cpp::frm::simpleTypeRef() << "T")
                                                                           << ETypeDecoration::reference();
-cpp::frm::DecoratedTypeSPtr TPtr           = cpp::frm::decoratedTypeRef() << (simpleTypeRef() << "T")
+cpp::frm::DecoratedTypeSPtr TPtr           = cpp::frm::decoratedTypeRef() << (cpp::frm::simpleTypeRef() << "T")
                                                                           << ETypeDecoration::pointer();
 
 MethodNameSPtr fnValue                  = methodNameRef("value");
@@ -104,9 +104,9 @@ MethodNameSPtr fnIsClear                = methodNameRef("isClear");
 
 NamespaceNameSPtr nsBuilder = namespaceNameRef("Builder");
 
-SimpleTypeSPtr builder = simpleTypeRef() << "Builder";
-SimpleTypeSPtr chr     = simpleTypeRef() << "char";
-SimpleTypeSPtr integer = simpleTypeRef() << "int";
+cpp::frm::SimpleTypeSPtr builder = cpp::frm::simpleTypeRef() << "Builder";
+cpp::frm::SimpleTypeSPtr chr     = cpp::frm::simpleTypeRef() << "char";
+cpp::frm::SimpleTypeSPtr integer = cpp::frm::simpleTypeRef() << "int";
 
 cpp::frm::VariableNameSPtr bits     = cpp::frm::variableNameRef("bits");
 cpp::frm::VariableNameSPtr child    = cpp::frm::variableNameRef("child");

@@ -47,7 +47,6 @@
 
 #include "method_declaration.h"
 #include "method_name.h"
-#include "simple_type.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -116,9 +115,9 @@ extern MethodNameSPtr fnIsClear;
 
 extern NamespaceNameSPtr nsBuilder;
 
-extern SimpleTypeSPtr builder;
-extern SimpleTypeSPtr chr;
-extern SimpleTypeSPtr integer;
+extern cpp::frm::SimpleTypeSPtr builder;
+extern cpp::frm::SimpleTypeSPtr chr;
+extern cpp::frm::SimpleTypeSPtr integer;
 
 extern cpp::frm::VariableNameSPtr bits;
 extern cpp::frm::VariableNameSPtr child;

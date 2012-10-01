@@ -3,6 +3,12 @@
 
 #include "simple_type.h"
 
+namespace cpp
+{
+
+namespace frm
+{
+
 SimpleType::SimpleType()
 {
 }
@@ -60,5 +66,9 @@ const SimpleTypeSPtr& operator<<(const SimpleTypeSPtr& object, const std::string
     BOOST_ASSERT(object);
     *object << value;
     return object;
+}
+
+}
+
 }
 

@@ -51,7 +51,6 @@
 #include "factory.h"
 #include "interface.h"
 #include "document.h"
-#include "simple_type.h"
 
 #include "namespace.h"
 #include "method_name.h"
@@ -110,34 +109,34 @@ public:
     
     virtual NamespaceSPtr cppPackageNamespace(const PackageSPtr& pPackage);
 
-    virtual SimpleTypeSPtr cppEnumType(const EnumerationSPtr& pEnumeration);
-    virtual SimpleTypeSPtr cppInnerEnumType(const EnumerationSPtr& pEnumeration,
-                                            const StructureSPtr& pStructure);
+    virtual cpp::frm::SimpleTypeSPtr cppEnumType(const EnumerationSPtr& pEnumeration);
+    virtual cpp::frm::SimpleTypeSPtr cppInnerEnumType(const EnumerationSPtr& pEnumeration,
+                                                      const StructureSPtr& pStructure);
     virtual cpp::frm::ConstructorNameSPtr cppConstructorName(const EnumerationSPtr& pEnumeration);
     virtual NamespaceSPtr cppEnumNamespace(const EnumerationSPtr& pEnumeration);
     
-    virtual SimpleTypeSPtr cppClassType(const TypeSPtr& pType);
+    virtual cpp::frm::SimpleTypeSPtr cppClassType(const TypeSPtr& pType);
     virtual NamespaceSPtr cppClassNamespace(const TypeSPtr& pType);
     virtual cpp::frm::ConstructorNameSPtr cppConstructorName(const TypeSPtr& pType);
     virtual cpp::frm::DestructorNameSPtr cppDestructorName(const TypeSPtr& pType);
     
-    virtual SimpleTypeSPtr cppAutoClassType(const StructureSPtr& pStructure);
+    virtual cpp::frm::SimpleTypeSPtr cppAutoClassType(const StructureSPtr& pStructure);
     virtual NamespaceSPtr cppAutoClassNamespace(const StructureSPtr& pStructure);
     virtual cpp::frm::ConstructorNameSPtr cppAutoConstructorName(const StructureSPtr& pStructure);
     virtual cpp::frm::DestructorNameSPtr cppAutoDestructorName(const StructureSPtr& pStructure);
     
-    virtual SimpleTypeSPtr cppMainClassType(const StructureSPtr& pStructure);
+    virtual cpp::frm::SimpleTypeSPtr cppMainClassType(const StructureSPtr& pStructure);
     virtual NamespaceSPtr cppMainClassNamespace(const StructureSPtr& pStructure);
     
-    virtual SimpleTypeSPtr cppPartialClassType(const StructureSPtr& pStructure);
+    virtual cpp::frm::SimpleTypeSPtr cppPartialClassType(const StructureSPtr& pStructure);
     
     virtual std::string constValueName(const EnumerationValueSPtr& pEnumerationValue);
     virtual std::string enumValueName(const EnumerationValueSPtr& pEnumerationValue);
     
-    virtual SimpleTypeSPtr cppRawPtrName(const TypeSPtr& pType);
-    virtual SimpleTypeSPtr cppSharedPtrName(const TypeSPtr& pType);
-    virtual SimpleTypeSPtr cppSharedConstPtrName(const TypeSPtr& pType);
-    virtual SimpleTypeSPtr cppWeakPtrName(const TypeSPtr& pType);
+    virtual cpp::frm::SimpleTypeSPtr cppRawPtrName(const TypeSPtr& pType);
+    virtual cpp::frm::SimpleTypeSPtr cppSharedPtrName(const TypeSPtr& pType);
+    virtual cpp::frm::SimpleTypeSPtr cppSharedConstPtrName(const TypeSPtr& pType);
+    virtual cpp::frm::SimpleTypeSPtr cppWeakPtrName(const TypeSPtr& pType);
     
     virtual cpp::frm::DecoratedTypeSPtr cppRawPtrDecoratedType(const TypeSPtr& pType);
     virtual cpp::frm::DecoratedTypeSPtr cppSharedPtrDecoratedType(const TypeSPtr& pType);

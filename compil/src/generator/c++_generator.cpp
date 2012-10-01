@@ -66,7 +66,7 @@ void CppGenerator::generateEnumerationValueDefinition(const EnumerationValueSPtr
     TypeSPtr pParameterType = pEnumeration->parameterType().lock();
     StructureSPtr pStructure = pEnumeration->structure().lock();
 
-    SimpleTypeSPtr type;
+    cf::SimpleTypeSPtr type;
     if (pEnumeration->cast() == CastableType::ECast::weak())
         type = impl->cppType(pParameterType);
     else if (pEnumeration->cast() == CastableType::ECast::strong())
@@ -1006,8 +1006,8 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
         else
             accessObject = frm->memberPtrName("object") + "->";
 
-        resultType = cf::decoratedTypeRef() << (simpleTypeRef() << classNamesp
-                                                                << builder->value())
+        resultType = cf::decoratedTypeRef() << (cf::simpleTypeRef() << classNamesp
+                                                                    << builder->value())
                                             << ETypeDecoration::reference();
     }
 
@@ -1065,8 +1065,8 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
         else
         {
             line()  << "return ("
-                    << (cf::decoratedTypeRef() << (simpleTypeRef() << classNamesp
-                                                                   << builder->value())
+                    << (cf::decoratedTypeRef() << (cf::simpleTypeRef() << classNamesp
+                                                                       << builder->value())
                                                << ETypeDecoration::reference())
                     << ")"
                     << (cf::functionCallRef() << belongClassBuilderNamesp
@@ -1287,8 +1287,8 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                 else
                 {
                     line()  << "return ("
-                            << (cf::decoratedTypeRef() << (simpleTypeRef() << classNamesp
-                                                                           << builder->value())
+                            << (cf::decoratedTypeRef() << (cf::simpleTypeRef() << classNamesp
+                                                                               << builder->value())
                                                        << ETypeDecoration::reference())
                             << ")"
                             << (cf::functionCallRef() << belongClassBuilderNamesp
@@ -1607,9 +1607,9 @@ void CppGenerator::generateStructureFieldOverrideDefinition(const FieldOverrideS
     cf::DecoratedTypeSPtr resultType;
     if (pStructure->immutable())
     {
-        resultType = cf::decoratedTypeRef() << (simpleTypeRef() << classNamesp
-                                                                << builder->value())
-                                        << ETypeDecoration::reference();
+        resultType = cf::decoratedTypeRef() << (cf::simpleTypeRef() << classNamesp
+                                                                    << builder->value())
+                                            << ETypeDecoration::reference();
         *namesp << nsBuilder;
     }
     else

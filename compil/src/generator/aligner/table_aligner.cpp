@@ -531,6 +531,16 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::InitializationSP
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::SimpleTypeSPtr& type)
+{
+    if (type->namespace_())
+    if (!type->namespace_()->isVoid())
+        aligner << type->namespace_() << "::";
+    
+    aligner << type->value();
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::VariableNameSPtr& name)
 {
     if (name)
@@ -615,26 +625,6 @@ TableAligner& operator<<(TableAligner& aligner, const EMethodSpecifier& methodSp
         aligner << methodSpecifier.shortName()
                 << ' ';
     }
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const SimpleType& type)
-{
-    if (type.namespace_())
-    if (!type.namespace_()->isVoid())
-        aligner << type.namespace_() << "::";
-    
-    aligner << type.value();
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const SimpleTypeSPtr& type)
-{
-    if (type->namespace_())
-    if (!type->namespace_()->isVoid())
-        aligner << type->namespace_() << "::";
-    
-    aligner << type->value();
     return aligner;
 }
 

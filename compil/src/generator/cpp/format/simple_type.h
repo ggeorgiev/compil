@@ -37,11 +37,17 @@
 // Standard Template Library
 #include <string>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_SIMPLE_TYPE_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_SIMPLE_TYPE_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_SIMPLE_TYPE_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_SIMPLE_TYPE_COMPIL_H_
 
 #include "namespace.h"
 #include "simple_type.h"
+
+namespace cpp
+{
+
+namespace frm
+{
 
 class SimpleType
 {
@@ -84,7 +90,17 @@ inline SimpleTypeSPtr simpleTypeRef()
     return boost::make_shared<SimpleType>();
 }
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_SIMPLE_TYPE_COMPIL_H_
+}
+
+}
+
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_SIMPLE_TYPE_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
 class SimpleType;
@@ -93,5 +109,9 @@ typedef boost::shared_ptr<SimpleType>       SimpleTypeSPtr;
 typedef boost::shared_ptr<const SimpleType> SimpleTypeSCPtr;
 typedef boost::weak_ptr<SimpleType>         SimpleTypeWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_SIMPLE_TYPE_COMPIL_H_
+}
+
+}
+
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_SIMPLE_TYPE_COMPIL_H_
 

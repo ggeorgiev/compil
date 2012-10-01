@@ -59,9 +59,9 @@ public:
     virtual bool needMutableMethod(const FieldSPtr& pField, const StructureSPtr& pCurrentStructure);
     virtual bool needConstructorInitialization(const FieldSPtr& pField);
     
-    virtual SimpleTypeSPtr cppType(const TypeSPtr& pType);
-    virtual SimpleTypeSPtr cppInnerType(const TypeSPtr& pType,
-                                        const StructureSPtr& pStructure);
+    virtual cpp::frm::SimpleTypeSPtr cppType(const TypeSPtr& pType);
+    virtual cpp::frm::SimpleTypeSPtr cppInnerType(const TypeSPtr& pType,
+                                                  const StructureSPtr& pStructure);
     
     virtual cpp::frm::DecoratedTypeSPtr cppDecoratedType(const TypeSPtr& pType);
     virtual cpp::frm::DecoratedTypeSPtr cppSetDecoratedType(const TypeSPtr& pType);
@@ -78,7 +78,7 @@ public:
     virtual std::vector<Dependency> dependencies(const TypeSPtr& pType);
     virtual std::vector<Dependency> dependencies(const FieldSPtr& pField);
     
-    virtual SimpleTypeSPtr cppPtrType(const TypeSPtr& pType);
+    virtual cpp::frm::SimpleTypeSPtr cppPtrType(const TypeSPtr& pType);
     virtual cpp::frm::DecoratedTypeSPtr cppPtrDecoratedType(const TypeSPtr& pType);
     
     virtual std::string cppNullPtr(const TypeSPtr& pType);
@@ -106,7 +106,7 @@ public:
     virtual MethodNameSPtr runtimeMethodName(const std::string& name);
     
     virtual std::string identificationName(const StructureSPtr& pStructure);
-    virtual SimpleTypeSPtr identificationEnum(const StructureSPtr& pStructure);
+    virtual cpp::frm::SimpleTypeSPtr identificationEnum(const StructureSPtr& pStructure);
     virtual MethodNameSPtr staticIdentificationMethodName(const StructureSPtr& pStructure);
     virtual MethodNameSPtr runtimeIdentificationMethodName(const StructureSPtr& pStructure);
     
@@ -124,10 +124,10 @@ public:
     virtual bool implementFlagsEnumerationMethods(const EnumerationSPtr& pEnumeration);
                              
     virtual bool boost_smart_ptr_needed();
-    virtual SimpleTypeSPtr boost_shared_ptr(const SimpleTypeSPtr& type);
-    virtual SimpleTypeSPtr boost_shared_const_ptr(const SimpleTypeSPtr& type);
-    virtual SimpleTypeSPtr boost_weak_ptr(const SimpleTypeSPtr& type);
-    virtual SimpleTypeSPtr boost_enable_shared_from_this(const SimpleTypeSPtr& type);
+    virtual cpp::frm::SimpleTypeSPtr boost_shared_ptr(const cpp::frm::SimpleTypeSPtr& type);
+    virtual cpp::frm::SimpleTypeSPtr boost_shared_const_ptr(const cpp::frm::SimpleTypeSPtr& type);
+    virtual cpp::frm::SimpleTypeSPtr boost_weak_ptr(const cpp::frm::SimpleTypeSPtr& type);
+    virtual cpp::frm::SimpleTypeSPtr boost_enable_shared_from_this(const cpp::frm::SimpleTypeSPtr& type);
     
     virtual std::string applicationExtension();
     virtual std::string applicationHeaderExtension();
