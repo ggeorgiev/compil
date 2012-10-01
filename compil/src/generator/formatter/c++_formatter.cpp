@@ -403,16 +403,16 @@ SimpleTypeSPtr CppFormatter::cppWeakPtrName(const TypeSPtr& pType)
                            << cppWeakPtrName(pType->name()->value());
 }
 
-DecoratedTypeSPtr CppFormatter::cppRawPtrDecoratedType(const TypeSPtr& pType)
+cpp::frm::DecoratedTypeSPtr CppFormatter::cppRawPtrDecoratedType(const TypeSPtr& pType)
 {
-    return decoratedTypeRef() << cppRawPtrName(pType);
+    return cpp::frm::decoratedTypeRef() << cppRawPtrName(pType);
 }
 
-DecoratedTypeSPtr CppFormatter::cppSharedPtrDecoratedType(const TypeSPtr& pType)
+cpp::frm::DecoratedTypeSPtr CppFormatter::cppSharedPtrDecoratedType(const TypeSPtr& pType)
 {
-    return decoratedTypeRef() << ETypeDeclaration::const_()
-                              << cppSharedPtrName(pType)
-                              << ETypeDecoration::reference();
+    return cpp::frm::decoratedTypeRef() << ETypeDeclaration::const_()
+                                        << cppSharedPtrName(pType)
+                                        << ETypeDecoration::reference();
 }
 
 std::string CppFormatter::cppMemberName(const FieldSPtr& pField)

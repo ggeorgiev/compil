@@ -63,11 +63,11 @@ public:
     virtual SimpleTypeSPtr cppInnerType(const TypeSPtr& pType,
                                         const StructureSPtr& pStructure);
     
-    virtual DecoratedTypeSPtr cppDecoratedType(const TypeSPtr& pType);
-    virtual DecoratedTypeSPtr cppSetDecoratedType(const TypeSPtr& pType);
-    virtual DecoratedTypeSPtr cppInnerDecoratedType(const TypeSPtr& pType,
+    virtual cpp::frm::DecoratedTypeSPtr cppDecoratedType(const TypeSPtr& pType);
+    virtual cpp::frm::DecoratedTypeSPtr cppSetDecoratedType(const TypeSPtr& pType);
+    virtual cpp::frm::DecoratedTypeSPtr cppInnerDecoratedType(const TypeSPtr& pType,
                                                     const StructureSPtr& pStructure);
-    virtual DecoratedTypeSPtr cppInnerSetDecoratedType(const TypeSPtr& pType,
+    virtual cpp::frm::DecoratedTypeSPtr cppInnerSetDecoratedType(const TypeSPtr& pType,
                                                        const StructureSPtr& pStructure);
     
     virtual std::string cppGetReturn(const FieldSPtr& pField);
@@ -79,7 +79,7 @@ public:
     virtual std::vector<Dependency> dependencies(const FieldSPtr& pField);
     
     virtual SimpleTypeSPtr cppPtrType(const TypeSPtr& pType);
-    virtual DecoratedTypeSPtr cppPtrDecoratedType(const TypeSPtr& pType);
+    virtual cpp::frm::DecoratedTypeSPtr cppPtrDecoratedType(const TypeSPtr& pType);
     
     virtual std::string cppNullPtr(const TypeSPtr& pType);
     virtual std::string cppConvertRawPtr(const TypeSPtr& pType, const std::string& variable);

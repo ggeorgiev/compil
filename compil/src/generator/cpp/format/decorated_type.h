@@ -35,13 +35,19 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DECORATED_TYPE_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DECORATED_TYPE_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_DECORATED_TYPE_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_DECORATED_TYPE_COMPIL_H_
 
 #include "decorated_type.h"
 #include "simple_type.h"
 #include "type_declaration.h"
 #include "type_decoration.h"
+
+namespace cpp
+{
+
+namespace frm
+{
 
 class DecoratedType
 {
@@ -101,7 +107,17 @@ inline DecoratedTypeSPtr decoratedTypeRef()
     return boost::make_shared<DecoratedType>();
 }
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DECORATED_TYPE_COMPIL_H_
+}
+
+}
+
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_DECORATED_TYPE_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
 class DecoratedType;
@@ -110,5 +126,9 @@ typedef boost::shared_ptr<DecoratedType>       DecoratedTypeSPtr;
 typedef boost::shared_ptr<const DecoratedType> DecoratedTypeSCPtr;
 typedef boost::weak_ptr<DecoratedType>         DecoratedTypeWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DECORATED_TYPE_COMPIL_H_
+}
+
+}
+
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_DECORATED_TYPE_COMPIL_H_
 

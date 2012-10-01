@@ -240,10 +240,52 @@ TableAligner& operator<<(TableAligner& aligner, const TableAligner::optional_new
 	return aligner;
 }
 
+static TableAligner& serialize(TableAligner& aligner, const cpp::frm::DecoratedTypeSPtr& type, bool align)
+{
+    if (!type)
+        return aligner;
+
+    if (type->declaration() != ETypeDeclaration::invalid())
+        aligner << type->declaration() << ' ';
+    aligner << type->type();
+        
+	if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
+	{
+        if (type->decoration() != ETypeDecoration::invalid())
+            aligner << type->decoration();
+        aligner << ' ';
+        if (align)
+            aligner << TableAligner::col();
+	}
+	else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_name)
+	{
+        aligner << ' ';
+        if (align)
+            aligner << TableAligner::col();
+        if (type->decoration() != ETypeDecoration::invalid())
+            aligner << type->decoration();
+	}
+	else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
+	{
+        aligner << ' ';
+        if (align)
+            aligner << TableAligner::col();
+        if (type->decoration() != ETypeDecoration::invalid())
+            aligner << type->decoration();
+        if (align)
+            aligner << TableAligner::col();
+	}
+    else
+    {
+        assert(false && "unknown decoration");
+    }
+	return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ArgumentSPtr& argument)
 {
     if (argument->type())
-        serialize(aligner, *argument->type(), false);
+        serialize(aligner, argument->type(), false);
     aligner << argument->name();
     return aligner;
 }
@@ -278,7 +320,7 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::CastOperatorSPtr
                 << "::";
     }
     aligner << "operator ";
-    serialize(aligner, *castOperator->type(), false);
+    serialize(aligner, castOperator->type(), false);
     
     aligner << Aligner::FunctionSpace()
             << "("
@@ -342,6 +384,11 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ConstructorSPtr&
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::DecoratedTypeSPtr& type)
+{
+    return serialize(aligner, type, true);
+}
+
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::EDestructorSpecifier& destructorSpecifier)
 {
     if (destructorSpecifier != cpp::frm::EDestructorSpecifier::invalid())
@@ -401,7 +448,8 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr& fu
 {
     aligner << TableAligner::col();
 
-    aligner << function->return_();
+    serialize(aligner, function->return_(), true);
+    
     aligner << function->name();
         
     aligner << Aligner::FunctionSpace();
@@ -430,7 +478,8 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr& meth
     
     aligner << method->specifier();
     aligner << TableAligner::col();
-    aligner << method->return_();
+
+    serialize(aligner, method->return_(), true);
 
     if (method->namespace_())
     {
@@ -517,59 +566,6 @@ TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionDefinitio
         aligner << ' ';
 	return aligner;
 }
-
-TableAligner& serialize(TableAligner& aligner, const DecoratedType& decoratedType, bool align)
-{
-    if (decoratedType.declaration() != ETypeDeclaration::invalid())
-        aligner << decoratedType.declaration() << ' ';
-    aligner << decoratedType.type();
-        
-	if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
-	{
-        if (decoratedType.decoration() != ETypeDecoration::invalid())
-            aligner << decoratedType.decoration();
-        aligner << ' ';
-        if (align)
-            aligner << TableAligner::col();
-	}
-	else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_name)
-	{
-        aligner << ' ';
-        if (align)
-            aligner << TableAligner::col();
-        if (decoratedType.decoration() != ETypeDecoration::invalid())
-            aligner << decoratedType.decoration();
-	}
-	else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
-	{
-        aligner << ' ';
-        if (align)
-            aligner << TableAligner::col();
-        if (decoratedType.decoration() != ETypeDecoration::invalid())
-            aligner << decoratedType.decoration();
-        if (align)
-            aligner << TableAligner::col();
-	}
-    else
-    {
-        assert(false && "unknown decoration");
-    }
-	return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const DecoratedType& decoratedType)
-{
-    return serialize(aligner, decoratedType, true);
-}
-
-TableAligner& operator<<(TableAligner& aligner, const DecoratedTypeSPtr& decoratedType)
-{
-    if (decoratedType)
-        aligner << *decoratedType;
-    return aligner;
-}
-
-
 
 TableAligner& operator<<(TableAligner& aligner, const FunctionName& functionName)
 {

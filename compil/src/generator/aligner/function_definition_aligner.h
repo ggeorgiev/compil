@@ -34,7 +34,6 @@
 
 #include "table_aligner.h"
 #include "aligner_configuration.h"
-#include "decorated_type.h"
 
 #include <vector>
 

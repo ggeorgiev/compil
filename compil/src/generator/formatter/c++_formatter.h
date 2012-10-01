@@ -38,6 +38,7 @@
 #include "c++_keyword.h"
 
 #include "cpp/format/constructor_name.h"
+#include "cpp/format/decorated_type.h"
 #include "cpp/format/destructor_name.h"
 #include "cpp/format/variable_name.h"
 
@@ -50,8 +51,8 @@
 #include "factory.h"
 #include "interface.h"
 #include "document.h"
+#include "simple_type.h"
 
-#include "decorated_type.h"
 #include "namespace.h"
 #include "method_name.h"
 
@@ -138,8 +139,8 @@ public:
     virtual SimpleTypeSPtr cppSharedConstPtrName(const TypeSPtr& pType);
     virtual SimpleTypeSPtr cppWeakPtrName(const TypeSPtr& pType);
     
-    virtual DecoratedTypeSPtr cppRawPtrDecoratedType(const TypeSPtr& pType);
-    virtual DecoratedTypeSPtr cppSharedPtrDecoratedType(const TypeSPtr& pType);
+    virtual cpp::frm::DecoratedTypeSPtr cppRawPtrDecoratedType(const TypeSPtr& pType);
+    virtual cpp::frm::DecoratedTypeSPtr cppSharedPtrDecoratedType(const TypeSPtr& pType);
         
     virtual std::string cppMemberName(const FieldSPtr& pField);
     virtual cpp::frm::VariableNameSPtr cppVariableName(const FieldSPtr& pField);

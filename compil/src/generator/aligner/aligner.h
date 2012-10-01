@@ -45,7 +45,6 @@
 #include "cpp/format/method.h"
 #include "cpp/format/initialization.h"
 
-#include "decorated_type.h"
 #include "method_declaration.h"
 #include "method_name.h"
 #include "simple_type.h"
@@ -59,14 +58,14 @@ namespace compil
 {
 extern cpp::frm::ConstructorNameSPtr builderConstructorName;
 
-extern DecoratedTypeSPtr bl;
-extern DecoratedTypeSPtr vd;
-extern DecoratedTypeSPtr st;
-extern DecoratedTypeSPtr const_char_ptr;
-extern DecoratedTypeSPtr cloneFunction;
+extern cpp::frm::DecoratedTypeSPtr bl;
+extern cpp::frm::DecoratedTypeSPtr vd;
+extern cpp::frm::DecoratedTypeSPtr st;
+extern cpp::frm::DecoratedTypeSPtr const_char_ptr;
+extern cpp::frm::DecoratedTypeSPtr cloneFunction;
 
-extern DecoratedTypeSPtr cstTRef;
-extern DecoratedTypeSPtr TPtr;
+extern cpp::frm::DecoratedTypeSPtr cstTRef;
+extern cpp::frm::DecoratedTypeSPtr TPtr;
 
 extern MethodNameSPtr fnValue;
 extern MethodNameSPtr fnShortName;

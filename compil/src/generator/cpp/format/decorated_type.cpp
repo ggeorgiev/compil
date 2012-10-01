@@ -3,6 +3,12 @@
 
 #include "decorated_type.h"
 
+namespace cpp
+{
+
+namespace frm
+{
+
 DecoratedType::DecoratedType()
         : mDeclaration(default_declaration())
         , mDecoration (default_decoration())
@@ -100,5 +106,9 @@ const DecoratedTypeSPtr& operator<<(const DecoratedTypeSPtr& object, const EType
     BOOST_ASSERT(object);
     *object << decoration;
     return object;
+}
+
+}
+
 }
 

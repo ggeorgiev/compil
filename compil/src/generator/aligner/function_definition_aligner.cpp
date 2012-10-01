@@ -77,13 +77,6 @@ FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner,
     return aligner;
 }
 
-FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, 
-                                      const DecoratedType& decoratedType)
-{
-    ((TableAligner&)aligner) << decoratedType;
-    return aligner;
-}
-
 FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, char ch)
 {
     ((TableAligner&)aligner) << ch;

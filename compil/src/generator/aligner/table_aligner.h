@@ -108,6 +108,7 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::EConstructorSpec
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ConstructorSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::EDestructorSpecifier&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::DestructorSPtr&);
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::DecoratedTypeSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionCallSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr&);
@@ -116,14 +117,11 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::VariableNameSPtr
 
 
 
-TableAligner& serialize(TableAligner& aligner, const DecoratedType& decoratedType, bool align);
 
 
 
 TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionSpace&);
 TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionDefinitionTypeSpace&);
-TableAligner& operator<<(TableAligner& aligner, const DecoratedType&);
-TableAligner& operator<<(TableAligner& aligner, const DecoratedTypeSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const FunctionName&);
 TableAligner& operator<<(TableAligner& aligner, const FunctionNameSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const NamespaceSPtr&);

@@ -93,6 +93,26 @@ std::string LineAligner::str(int indent) const
     return out.str();
 }
 
+LineAligner& operator<<(LineAligner& aligner, const cpp::frm::DecoratedTypeSPtr& type)
+{
+    if (type->declaration() != ETypeDeclaration::invalid())
+        aligner << type->declaration() << ' ';
+    aligner << type->type();
+    if (type->decoration() != ETypeDecoration::invalid())
+    {
+        if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
+            aligner << type->decoration();
+        else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_name)
+            aligner << ' ' << type->decoration();
+        else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
+            aligner << ' ' << type->decoration();
+        else
+            assert(false && "unknown decoration type");
+    }
+
+    return aligner;
+}
+
 LineAligner& operator<<(LineAligner& aligner, const cpp::frm::FunctionCallSPtr& function)
 {
     if (function->namespace_())
@@ -208,30 +228,6 @@ LineAligner& operator<<(LineAligner& aligner, const Aligner::FunctionSpace&)
     return aligner;
 }
 
-LineAligner& operator<<(LineAligner& aligner, const DecoratedType& decoratedType)
-{
-    if (decoratedType.declaration() != ETypeDeclaration::invalid())
-        aligner << decoratedType.declaration() << ' ';
-    aligner << decoratedType.type();
-    if (decoratedType.decoration() != ETypeDecoration::invalid())
-    {
-        if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
-            aligner << decoratedType.decoration();
-        else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_name)
-            aligner << ' ' << decoratedType.decoration();
-        else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
-            aligner << ' ' << decoratedType.decoration();
-        else
-            assert(false && "unknown decoration type");
-    }
-
-    return aligner;
-}
-
-LineAligner& operator<<(LineAligner& aligner, const DecoratedTypeSPtr& decoratedType)
-{
-    return aligner << *decoratedType;
-}
 
 
 
