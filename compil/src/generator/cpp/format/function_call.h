@@ -37,13 +37,19 @@
 // Standard Template Library
 #include <vector>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_FUNCTION_CALL_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_FUNCTION_CALL_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_FUNCTION_CALL_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_FUNCTION_CALL_COMPIL_H_
 
 #include "function_call.h"
 #include "function_name.h"
 #include "namespace.h"
 #include "parameter_value.h"
+
+namespace cpp
+{
+
+namespace frm
+{
 
 class FunctionCall
 {
@@ -101,7 +107,17 @@ inline FunctionCallSPtr functionCallRef()
     return boost::make_shared<FunctionCall>();
 }
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_FUNCTION_CALL_COMPIL_H_
+}
+
+}
+
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_FUNCTION_CALL_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
 class FunctionCall;
@@ -110,5 +126,9 @@ typedef boost::shared_ptr<FunctionCall>       FunctionCallSPtr;
 typedef boost::shared_ptr<const FunctionCall> FunctionCallSCPtr;
 typedef boost::weak_ptr<FunctionCall>         FunctionCallWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_FUNCTION_CALL_COMPIL_H_
+}
+
+}
+
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_FUNCTION_CALL_COMPIL_H_
 

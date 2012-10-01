@@ -93,6 +93,20 @@ std::string LineAligner::str(int indent) const
     return out.str();
 }
 
+LineAligner& operator<<(LineAligner& aligner, const cpp::frm::FunctionCallSPtr& function)
+{
+    if (function->namespace_())
+        aligner << function->namespace_() << "::";
+    aligner << function->name() << Aligner::FunctionSpace();
+    aligner << "(";
+    if (function->parameters().size() > 0)
+        aligner << function->parameters()[0];
+    for (size_t i = 1; i < function->parameters().size(); ++i)
+        aligner << ", " << function->parameters()[i];
+    aligner << ")";
+    return aligner;
+}
+
 LineAligner& operator<<(LineAligner& aligner, const cpp::frm::InitializationSPtr& initialization)
 {
     BOOST_ASSERT(!initialization->variableName() != !initialization->constructorName());
@@ -116,15 +130,6 @@ LineAligner& operator<<(LineAligner& aligner, const cpp::frm::VariableNameSPtr& 
         aligner << name->value();
     return aligner;
 }
-
-
-
-
-
-
-
-
-
 
 
 
@@ -228,19 +233,7 @@ LineAligner& operator<<(LineAligner& aligner, const DecoratedTypeSPtr& decorated
     return aligner << *decoratedType;
 }
 
-LineAligner& operator<<(LineAligner& aligner, const FunctionCallSPtr& function)
-{
-    if (function->namespace_())
-        aligner << function->namespace_() << "::";
-    aligner << function->name() << Aligner::FunctionSpace();
-    aligner << "(";
-    if (function->parameters().size() > 0)
-        aligner << function->parameters()[0];
-    for (size_t i = 1; i < function->parameters().size(); ++i)
-        aligner << ", " << function->parameters()[i];
-    aligner << ")";
-    return aligner;
-}
+
 
 LineAligner& operator<<(LineAligner& aligner, const FunctionName& functionName)
 {

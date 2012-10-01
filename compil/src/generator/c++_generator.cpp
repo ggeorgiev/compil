@@ -254,8 +254,8 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
                                 << EMethodDeclaration::const_());
     openBlock(definitionStream);
     line()  << "return "
-            << (functionCallRef() << fnShortName
-                                  << parameterValueRef("value()"))
+            << (cf::functionCallRef() << fnShortName
+                                      << parameterValueRef("value()"))
             << ";";
     eol(definitionStream);
     closeBlock(definitionStream);
@@ -739,8 +739,8 @@ void CppGenerator::generateObjectFactoryDefinition(const FactorySPtr& pFactory)
                 if (!pFilter)
                 {
                     line()  << "builder."
-                            << (functionCallRef() << frm->setMethodName(*it)
-                                                  << frm->cppVariableNameAsParameter(*it))
+                            << (cf::functionCallRef() << frm->setMethodName(*it)
+                                                      << frm->cppVariableNameAsParameter(*it))
                             << ";";
                 }
                 else
@@ -748,9 +748,9 @@ void CppGenerator::generateObjectFactoryDefinition(const FactorySPtr& pFactory)
                     line()  << "builder."
                             << frm->setMethodName(*it)
                             << "("
-                            << (functionCallRef() << frm->cppMainClassNamespace(pParameterStructure)
-                                                  << functionNameRef(pFilter->method())
-                                                  << frm->cppVariableNameAsParameter(*it))
+                            << (cf::functionCallRef() << frm->cppMainClassNamespace(pParameterStructure)
+                                                      << functionNameRef(pFilter->method())
+                                                      << frm->cppVariableNameAsParameter(*it))
                             << ");";
                 }
                 eol(definitionStream);
@@ -1045,7 +1045,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                         << TableAligner::col()
                         << "= "
                         << TableAligner::col()
-                        << (functionCallRef() << frm->bitmaskMethodName(pField))
+                        << (cf::functionCallRef() << frm->bitmaskMethodName(pField))
                         << ";";
             }
             eot(definitionStream);
@@ -1069,9 +1069,9 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                                                             << builder->value())
                                            << ETypeDecoration::reference())
                     << ")"
-                    << (functionCallRef() << belongClassBuilderNamesp
-                                          << frm->setMethodName(pField)
-                                          << frm->cppVariableNameAsParameter(pField))
+                    << (cf::functionCallRef() << belongClassBuilderNamesp
+                                              << frm->setMethodName(pField)
+                                              << frm->cppVariableNameAsParameter(pField))
                     << ";";
             eol(definitionStream);
         }
@@ -1092,7 +1092,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                 line()  << accessObject
                         << frm->memberName("bits")
                         << " |= "
-                        << (functionCallRef() << frm->bitmaskMethodName(pField))
+                        << (cf::functionCallRef() << frm->bitmaskMethodName(pField))
                         << ";";
                 eol(definitionStream);
             }
@@ -1173,7 +1173,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                     line()  << accessObject
                             << frm->memberName("bits")
                             << " |= "
-                            << (functionCallRef() << frm->bitmaskMethodName(pField))
+                            << (cf::functionCallRef() << frm->bitmaskMethodName(pField))
                             << ";";
                     eol(definitionStream);
                 }
@@ -1291,9 +1291,9 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                                                                        << builder->value())
                                                    << ETypeDecoration::reference())
                             << ")"
-                            << (functionCallRef() << belongClassBuilderNamesp
-                                                  << frm->updateMethodName(pField)
-                                                  << frm->cppVariableNameAsParameter(pField))
+                            << (cf::functionCallRef() << belongClassBuilderNamesp
+                                                      << frm->updateMethodName(pField)
+                                                      << frm->cppVariableNameAsParameter(pField))
                             << ";";
                     eol(definitionStream);
                 }
@@ -1318,7 +1318,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                         << TableAligner::col()
                         << TableAligner::col()
                         << accessObject
-                        << (functionCallRef() << frm->defaultMethodName(pField))
+                        << (cf::functionCallRef() << frm->defaultMethodName(pField))
                         << ";";
             }
             else
@@ -1466,7 +1466,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                     << TableAligner::col()
                     << "~"
                     << TableAligner::col()
-                    << (functionCallRef() << frm->bitmaskMethodName(pField))
+                    << (cf::functionCallRef() << frm->bitmaskMethodName(pField))
                     << ";";
             eot(definitionStream);
 
@@ -1559,7 +1559,7 @@ void CppGenerator::generateStructureFieldDefinition(const FieldSPtr& pField)
         line()  << "return ("
                 << frm->memberName("bits")
                 << " & "
-                << (functionCallRef() << frm->bitmaskMethodName(pField))
+                << (cf::functionCallRef() << frm->bitmaskMethodName(pField))
                 << ") != 0;";
         eol(definitionStream);
 
@@ -2403,9 +2403,9 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             {
                 table() << TableAligner::row()
                         << ": "
-                        << (functionCallRef() << frm->cppAutoClassNamespace(pBaseStructure)
-                                              << fnBuilder
-                                              << parameterValueRef(newObject));
+                        << (cf::functionCallRef() << frm->cppAutoClassNamespace(pBaseStructure)
+                                                  << fnBuilder
+                                                  << parameterValueRef(newObject));
             }
             else
             {
@@ -2440,9 +2440,9 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             {
                 table() << TableAligner::row()
                         << ": "
-                        << (functionCallRef() << frm->cppAutoClassNamespace(pBaseStructure)
-                                              << fnBuilder
-                                              << parameterValueRef(newObject));
+                        << (cf::functionCallRef() << frm->cppAutoClassNamespace(pBaseStructure)
+                                                  << fnBuilder
+                                                  << parameterValueRef(newObject));
             }
             else
             {
@@ -2483,13 +2483,12 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
 
                 if (pBaseStructure)
                 {
+                    std::string value = "new " + frm->cppMainClassType(pStructure)->value() + "()";
                     table() << TableAligner::row()
                             << ": "
-                            << (functionCallRef() << frm->cppAutoClassNamespace(pBaseStructure)
-                                                  << fnBuilder
-                                                  << parameterValueRef("new " +
-                                                                       frm->cppMainClassType(pStructure)->value() +
-                                                                       "()"));
+                            << (cf::functionCallRef() << frm->cppAutoClassNamespace(pBaseStructure)
+                                                      << fnBuilder
+                                                      << parameterValueRef(value));
                 }
                 else
                 {
@@ -2525,9 +2524,9 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         {
             table() << TableAligner::row()
                     << ": "
-                    << (functionCallRef() << frm->cppAutoClassNamespace(pBaseStructure)
-                                          << fnBuilder
-                                          << parameterValueRef(frm->ptrVariableName(object)->value()));
+                    << (cf::functionCallRef() << frm->cppAutoClassNamespace(pBaseStructure)
+                                              << fnBuilder
+                                              << parameterValueRef(frm->ptrVariableName(object)->value()));
         }
         else
         {
@@ -2781,8 +2780,8 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             if (pStruct->controlled() && pStruct->hasField())
             {
                 line()  << "if (!"
-                        << (functionCallRef() << frm->cppAutoClassNamespace(pStruct)
-                                              << fnIsInitialized)
+                        << (cf::functionCallRef() << frm->cppAutoClassNamespace(pStruct)
+                                                  << fnIsInitialized)
                         << ") return false;";
                 eol(definitionStream);
                 break;
@@ -2802,7 +2801,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             if (pField->defaultValue()) continue;
 
             line()  << "if (!"
-                    << (functionCallRef() << frm->validMethodName(pField))
+                    << (cf::functionCallRef() << frm->validMethodName(pField))
                     << ") return false;";
             eol(definitionStream);
         }
@@ -2822,8 +2821,8 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         if (pBaseStructure)
         {
             line()  << "if (!"
-                    << (functionCallRef() << frm->cppAutoClassNamespace(pBaseStructure)
-                                          << fnIsVoid)
+                    << (cf::functionCallRef() << frm->cppAutoClassNamespace(pBaseStructure)
+                                              << fnIsVoid)
                     << ") return false;";
             eol(definitionStream);
         }
@@ -2838,13 +2837,13 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             if (pField->defaultValue()->optional())
             {
                 line()  << "if ("
-                        << (functionCallRef() << frm->existMethodName(pField))
+                        << (cf::functionCallRef() << frm->existMethodName(pField))
                         << ") return false;";
             }
             else
             {
                 line()  << "if ("
-                        << (functionCallRef() << frm->changedMethodName(pField))
+                        << (cf::functionCallRef() << frm->changedMethodName(pField))
                         << ") return false;";
             }
             eol(definitionStream);

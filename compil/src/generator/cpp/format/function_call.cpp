@@ -3,6 +3,12 @@
 
 #include "function_call.h"
 
+namespace cpp
+{
+
+namespace frm
+{
+
 FunctionCall::FunctionCall()
 {
 }
@@ -96,5 +102,9 @@ const FunctionCallSPtr& operator<<(const FunctionCallSPtr& object, const Paramet
     BOOST_ASSERT(object);
     *object << parametersItem;
     return object;
+}
+
+}
+
 }
 

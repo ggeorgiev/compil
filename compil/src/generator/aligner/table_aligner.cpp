@@ -383,6 +383,20 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::DestructorSPtr& 
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionCallSPtr& function)
+{
+    if (function->namespace_())
+        aligner << function->namespace_() << "::";
+    aligner << function->name() << Aligner::FunctionSpace();
+    aligner << "(";
+    if (function->parameters().size() > 0)
+        aligner << function->parameters()[0];
+    for (size_t i = 1; i < function->parameters().size(); ++i)
+        aligner << ", " << function->parameters()[i];
+    aligner << ")";
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr& function)
 {
     aligner << TableAligner::col();
@@ -567,20 +581,6 @@ TableAligner& operator<<(TableAligner& aligner, const FunctionNameSPtr& function
 {
     if (functionName)
         aligner << functionName->value();
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const FunctionCallSPtr& function)
-{
-    if (function->namespace_())
-        aligner << function->namespace_() << "::";
-    aligner << function->name() << Aligner::FunctionSpace();
-    aligner << "(";
-    if (function->parameters().size() > 0)
-        aligner << function->parameters()[0];
-    for (size_t i = 1; i < function->parameters().size(); ++i)
-        aligner << ", " << function->parameters()[i];
-    aligner << ")";
     return aligner;
 }
 

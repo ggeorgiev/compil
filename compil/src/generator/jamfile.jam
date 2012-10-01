@@ -23,6 +23,7 @@ lib gen :
     cpp/format/destructor_specifier.cpp
     cpp/format/destructor_name.cpp
     cpp/format/destructor.cpp
+    cpp/format/function_call.cpp
     cpp/format/function.cpp
     cpp/format/method.cpp
     cpp/format/initialization.cpp
@@ -31,7 +32,6 @@ lib gen :
 
     aligner/object/decorated_type.cpp
 
-    aligner/object/function_call.cpp
     aligner/object/function_name.cpp
     aligner/object/method_declaration.cpp
     aligner/object/method_name.cpp
