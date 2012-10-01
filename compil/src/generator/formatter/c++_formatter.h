@@ -38,9 +38,9 @@
 #include "c++_keyword.h"
 
 #include "cpp/format/constructor_name.h"
+#include "cpp/format/destructor_name.h"
 
 #include "alter.h"
-#include "destructor_name.h"
 #include "field.h"
 #include "enumeration.h"
 #include "specimen.h"
@@ -117,12 +117,12 @@ public:
     virtual SimpleTypeSPtr cppClassType(const TypeSPtr& pType);
     virtual NamespaceSPtr cppClassNamespace(const TypeSPtr& pType);
     virtual cpp::frm::ConstructorNameSPtr cppConstructorName(const TypeSPtr& pType);
-    virtual DestructorNameSPtr cppDestructorName(const TypeSPtr& pType);
+    virtual cpp::frm::DestructorNameSPtr cppDestructorName(const TypeSPtr& pType);
     
     virtual SimpleTypeSPtr cppAutoClassType(const StructureSPtr& pStructure);
     virtual NamespaceSPtr cppAutoClassNamespace(const StructureSPtr& pStructure);
     virtual cpp::frm::ConstructorNameSPtr cppAutoConstructorName(const StructureSPtr& pStructure);
-    virtual DestructorNameSPtr cppAutoDestructorName(const StructureSPtr& pStructure);
+    virtual cpp::frm::DestructorNameSPtr cppAutoDestructorName(const StructureSPtr& pStructure);
     
     virtual SimpleTypeSPtr cppMainClassType(const StructureSPtr& pStructure);
     virtual NamespaceSPtr cppMainClassNamespace(const StructureSPtr& pStructure);

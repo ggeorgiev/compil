@@ -34,13 +34,14 @@
 #ifndef _CPP_IMPLEMENTER_H__
 #define _CPP_IMPLEMENTER_H__
 
+#include "cpp/format/destructor_specifier.h"
+
 #include "implementer_configuration.h"
 #include "c++_formatter.h"
 #include "dependency.h"
 #include "factory.h"
 #include "model.h"
 #include "method_specifier.h"
-#include "destructor_specifier.h"
 
 namespace compil
 {
@@ -115,7 +116,7 @@ public:
                                               const FactorySPtr& pFactory);
   
     virtual EMethodSpecifier methodSpecifier(const StructureSPtr& pStructure);
-    virtual EDestructorSpecifier destructorSpecifier(const StructureSPtr& pStructure);
+    virtual cpp::frm::EDestructorSpecifier destructorSpecifier(const StructureSPtr& pStructure);
                                      
     cpp::frm::ConstructorNameSPtr inheritClass(const EnumerationSPtr& pEnumeration,
                                                const StructureSPtr& pStructure);

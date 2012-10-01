@@ -2541,7 +2541,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         eol(definitionStream);
 
         fdef()  << (cf::destructorRef() << structBuilderNamespace
-                                        << destructorNameRef("Builder"));
+                                        << cf::destructorNameRef("Builder"));
         openBlock(definitionStream);
 
         line()  << "delete ("

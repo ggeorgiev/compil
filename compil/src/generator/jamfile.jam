@@ -20,6 +20,8 @@ lib gen :
     cpp/format/constructor_name.cpp
     cpp/format/constructor_specifier.cpp
     cpp/format/constructor.cpp
+    cpp/format/destructor_specifier.cpp
+    cpp/format/destructor_name.cpp
     cpp/format/destructor.cpp
     cpp/format/function.cpp
     cpp/format/method.cpp
@@ -28,8 +30,7 @@ lib gen :
 
 
     aligner/object/decorated_type.cpp
-    aligner/object/destructor_specifier.cpp
-    aligner/object/destructor_name.cpp
+
     aligner/object/function_call.cpp
     aligner/object/function_name.cpp
     aligner/object/method_declaration.cpp

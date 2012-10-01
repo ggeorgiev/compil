@@ -342,6 +342,20 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ConstructorSPtr&
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::EDestructorSpecifier& destructorSpecifier)
+{
+    if (destructorSpecifier != cpp::frm::EDestructorSpecifier::invalid())
+    {
+        if (destructorSpecifier == cpp::frm::EDestructorSpecifier::lax())
+            aligner << "/*lax*/";
+        else
+            aligner << destructorSpecifier.shortName();
+    
+        aligner << ' ';
+    }
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::DestructorSPtr& destructor)
 {
     aligner << destructor->comment();
@@ -560,20 +574,6 @@ TableAligner& operator<<(TableAligner& aligner, const FunctionCallSPtr& function
     for (size_t i = 1; i < function->parameters().size(); ++i)
         aligner << ", " << function->parameters()[i];
     aligner << ")";
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const EDestructorSpecifier& destructorSpecifier)
-{
-    if (destructorSpecifier != EDestructorSpecifier::invalid())
-    {
-        if (destructorSpecifier == EDestructorSpecifier::lax())
-            aligner << "/*lax*/";
-        else
-            aligner << destructorSpecifier.shortName();
-    
-        aligner << ' ';
-    }
     return aligner;
 }
 

@@ -37,11 +37,17 @@
 // Standard Template Library
 #include <string>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DESTRUCTOR_NAME_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DESTRUCTOR_NAME_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_DESTRUCTOR_NAME_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_DESTRUCTOR_NAME_COMPIL_H_
 
 #include "destructor_name.h"
 #include "method_name.h"
+
+namespace cpp
+{
+
+namespace frm
+{
 
 class DestructorName : public MethodName
 {
@@ -79,7 +85,17 @@ inline bool DestructorName::operator<(const DestructorName& rValue) const
     return value() < rValue.value();
 }
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DESTRUCTOR_NAME_COMPIL_H_
+}
+
+}
+
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_DESTRUCTOR_NAME_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
 class DestructorName;
@@ -88,5 +104,9 @@ typedef boost::shared_ptr<DestructorName>       DestructorNameSPtr;
 typedef boost::shared_ptr<const DestructorName> DestructorNameSCPtr;
 typedef boost::weak_ptr<DestructorName>         DestructorNameWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_DESTRUCTOR_NAME_COMPIL_H_
+}
+
+}
+
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_DESTRUCTOR_NAME_COMPIL_H_
 

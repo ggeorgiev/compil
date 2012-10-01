@@ -756,18 +756,18 @@ EMethodSpecifier CppImplementer::methodSpecifier(const StructureSPtr& pStructure
     return EMethodSpecifier::invalid();
 }
 
-EDestructorSpecifier CppImplementer::destructorSpecifier(const StructureSPtr& pStructure)
+cpp::frm::EDestructorSpecifier CppImplementer::destructorSpecifier(const StructureSPtr& pStructure)
 {
     StructureSPtr pStruct = pStructure;
     while (pStruct)
     {
         if (pStruct->hasRuntimeIdentification())
-            return EDestructorSpecifier::virtual_();
+            return cpp::frm::EDestructorSpecifier::virtual_();
         
         pStruct = pStruct->baseStructure().lock();
     }
 
-    return EDestructorSpecifier::lax();
+    return cpp::frm::EDestructorSpecifier::lax();
 }
 
 

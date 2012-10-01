@@ -1871,8 +1871,8 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
 
         commentInTable("Destructor of Builder");
 
-        table() << (cf::destructorRef() << EDestructorSpecifier::lax()
-                                        << destructorNameRef("Builder"))
+        table() << (cf::destructorRef() << cf::EDestructorSpecifier::lax()
+                                        << cf::destructorNameRef("Builder"))
                 << ";";
 
         table() << TableAligner::row();
@@ -1951,7 +1951,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
 
     commentInTable("Destructor");
 
-    EDestructorSpecifier destructorSpecifier = impl->destructorSpecifier(pStructure);
+    cf::EDestructorSpecifier destructorSpecifier = impl->destructorSpecifier(pStructure);
     table() << (cf::destructorRef() << destructorSpecifier
                                     << frm->cppAutoDestructorName(pStructure))
             << ";";

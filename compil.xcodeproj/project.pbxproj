@@ -409,6 +409,10 @@
 		5EC0D24A16190C2F00802C95 /* constructor_specifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constructor_specifier.h; sourceTree = "<group>"; };
 		5EC0D24B16190F2000802C95 /* destructor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = destructor.cpp; sourceTree = "<group>"; };
 		5EC0D24C16190F2100802C95 /* destructor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = destructor.h; sourceTree = "<group>"; };
+		5EC0D25A1619133C00802C95 /* destructor_name.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = destructor_name.cpp; sourceTree = "<group>"; };
+		5EC0D25B1619133C00802C95 /* destructor_name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = destructor_name.h; sourceTree = "<group>"; };
+		5EC0D25C1619133C00802C95 /* destructor_specifier.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = destructor_specifier.cpp; sourceTree = "<group>"; };
+		5EC0D25D1619133C00802C95 /* destructor_specifier.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = destructor_specifier.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -442,6 +446,10 @@
 				5EC0D24A16190C2F00802C95 /* constructor_specifier.h */,
 				5EA486AA1618A25300B42BC8 /* constructor.cpp */,
 				5EA486AB1618A25300B42BC8 /* constructor.h */,
+				5EC0D25A1619133C00802C95 /* destructor_name.cpp */,
+				5EC0D25B1619133C00802C95 /* destructor_name.h */,
+				5EC0D25C1619133C00802C95 /* destructor_specifier.cpp */,
+				5EC0D25D1619133C00802C95 /* destructor_specifier.h */,
 				5EC0D24B16190F2000802C95 /* destructor.cpp */,
 				5EC0D24C16190F2100802C95 /* destructor.h */,
 				5E963A3A1617D6AB008099AA /* function.cpp */,

@@ -321,9 +321,9 @@ cpp::frm::ConstructorNameSPtr CppFormatter::cppConstructorName(const TypeSPtr& p
     return cpp::frm::constructorNameRef(cppClassName(pType->name()->value()));
 }
 
-DestructorNameSPtr CppFormatter::cppDestructorName(const TypeSPtr& pType)
+cpp::frm::DestructorNameSPtr CppFormatter::cppDestructorName(const TypeSPtr& pType)
 {
-    return destructorNameRef(cppClassName(pType->name()->value()));
+    return cpp::frm::destructorNameRef(cppClassName(pType->name()->value()));
 }
 
 SimpleTypeSPtr CppFormatter::cppAutoClassType(const StructureSPtr& pStructure)
@@ -346,9 +346,9 @@ cpp::frm::ConstructorNameSPtr CppFormatter::cppAutoConstructorName(const Structu
     return cpp::frm::constructorNameRef(cppAutoClassType(pStructure)->value());
 }
 
-DestructorNameSPtr CppFormatter::cppAutoDestructorName(const StructureSPtr& pStructure)
+cpp::frm::DestructorNameSPtr CppFormatter::cppAutoDestructorName(const StructureSPtr& pStructure)
 {
-    return destructorNameRef(cppAutoClassType(pStructure)->value());
+    return cpp::frm::destructorNameRef(cppAutoClassType(pStructure)->value());
 }
 
 SimpleTypeSPtr CppFormatter::cppMainClassType(const StructureSPtr& pStructure)

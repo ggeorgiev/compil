@@ -1,5 +1,11 @@
 #include "destructor_specifier.h"
 
+namespace cpp
+{
+
+namespace frm
+{
+
 EDestructorSpecifier::EDestructorSpecifier()
         : mValue(kInvalid)
 {
@@ -54,5 +60,9 @@ bool EDestructorSpecifier::operator==(const EDestructorSpecifier& rValue) const
 bool EDestructorSpecifier::operator!=(const EDestructorSpecifier& rValue) const
 {
     return mValue != rValue.mValue;
+}
+
+}
+
 }
 
