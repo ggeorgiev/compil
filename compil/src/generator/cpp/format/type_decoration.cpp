@@ -1,5 +1,11 @@
 #include "type_decoration.h"
 
+namespace cpp
+{
+
+namespace frm
+{
+
 ETypeDecoration::ETypeDecoration()
         : mValue(kInvalid)
 {
@@ -54,5 +60,9 @@ bool ETypeDecoration::operator==(const ETypeDecoration& rValue) const
 bool ETypeDecoration::operator!=(const ETypeDecoration& rValue) const
 {
     return mValue != rValue.mValue;
+}
+
+}
+
 }
 

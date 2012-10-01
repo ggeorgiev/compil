@@ -95,10 +95,10 @@ std::string LineAligner::str(int indent) const
 
 LineAligner& operator<<(LineAligner& aligner, const cpp::frm::DecoratedTypeSPtr& type)
 {
-    if (type->declaration() != ETypeDeclaration::invalid())
+    if (type->declaration() != cpp::frm::ETypeDeclaration::invalid())
         aligner << type->declaration() << ' ';
     aligner << type->type();
-    if (type->decoration() != ETypeDecoration::invalid())
+    if (type->decoration() != cpp::frm::ETypeDecoration::invalid())
     {
         if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
             aligner << type->decoration();
@@ -151,6 +151,30 @@ LineAligner& operator<<(LineAligner& aligner, const cpp::frm::SimpleTypeSPtr& ty
         aligner << type->namespace_() << "::";
     
     aligner << type->value();
+    return aligner;
+}
+
+LineAligner& operator<<(LineAligner& aligner, const cpp::frm::ETypeDeclaration& declaration)
+{
+    if (declaration != cpp::frm::ETypeDeclaration::invalid())
+        aligner.line() << declaration.shortName();
+    return aligner;
+}
+
+LineAligner& operator<<(LineAligner& aligner, const cpp::frm::ETypeDecoration& decoration)
+{
+    switch (decoration.value())
+    {
+        case cpp::frm::ETypeDecoration::kPointer:
+            aligner << '*';
+            break;
+        case cpp::frm::ETypeDecoration::kReference:
+            aligner << '&';
+            break;
+        default:
+            BOOST_ASSERT(false && "unknown type decoration");
+    }
+
     return aligner;
 }
 
@@ -289,31 +313,6 @@ LineAligner& operator<<(LineAligner& aligner, const ParameterValueSPtr& paramete
     aligner << parameter->value();
     return aligner;
 }
-
-LineAligner& operator<<(LineAligner& aligner, const ETypeDeclaration& declaration)
-{
-    if (declaration != ETypeDeclaration::invalid())
-        aligner.line() << declaration.shortName();
-    return aligner;
-}
-
-LineAligner& operator<<(LineAligner& aligner, const ETypeDecoration& decoration)
-{
-    switch (decoration.value())
-    {
-        case ETypeDecoration::kPointer:
-            aligner << '*';
-            break;
-        case ETypeDecoration::kReference:
-            aligner << '&';
-            break;
-        default:
-            BOOST_ASSERT(false && "unknown type decoration");
-    }
-
-    return aligner;
-}
-
 
 LineAligner& operator<<(LineAligner& aligner, char ch)
 {

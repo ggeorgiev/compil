@@ -98,7 +98,7 @@ void CppHeaderGenerator::generateForwardClassDeclarations(const TypeSPtr& pType)
             << "typedef "
             << TableAligner::col()
             << (cf::decoratedTypeRef() << frm->cppClassType(pType)
-                                       << ETypeDecoration::pointer())
+                                       << cf::ETypeDecoration::pointer())
             << TableAligner::col()
             << frm->cppRawPtrName(pType)
             << ";";
@@ -204,7 +204,7 @@ void CppHeaderGenerator::generateEnumerationValueDeclaration(const EnumerationVa
         commentInTable(pEnumerationValue->comment());
 
     table() << (cf::methodRef() << EMethodSpecifier::static_()
-                                << (cf::decoratedTypeRef() << ETypeDeclaration::const_()
+                                << (cf::decoratedTypeRef() << cf::ETypeDeclaration::const_()
                                                            << type)
                                 << frm->methodName(pEnumerationValue->name()->value()))
             << ";";
@@ -975,7 +975,7 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
         "Global singleton accessor.");
     table() << (cf::methodRef() << EMethodSpecifier::static_()
                                 << (cf::decoratedTypeRef() << frm->cppClassType(pFactory)
-                                                           << ETypeDecoration::reference())
+                                                           << cf::ETypeDecoration::reference())
                                 << fnGet)
             << ";";
 
@@ -1450,12 +1450,12 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
     if (mg.isClear(EMethodGroup::builder()))
     {
         resultType = cf::decoratedTypeRef() << impl->cppType(pCurrStructure)
-                                            << ETypeDecoration::reference();
+                                            << cf::ETypeDecoration::reference();
     }
     else
     {
         resultType = cf::decoratedTypeRef() << builder
-                                            << ETypeDecoration::reference();
+                                            << cf::ETypeDecoration::reference();
     }
 
     if (mg.isSet(EMethodGroup::writing()))
@@ -1484,7 +1484,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
         {
             commentInTable("Provides mutable access to field " + pField->name()->value());
             table() << (cf::methodRef() << (cf::decoratedTypeRef() << impl->cppInnerType(pField->type(), pCurrStructure)
-                                                                   << ETypeDecoration::reference())
+                                                                   << cf::ETypeDecoration::reference())
                                         << frm->mutableMethodName(pField))
                     << ";";
         }
@@ -1584,12 +1584,12 @@ void CppHeaderGenerator::generateStructureFieldOverrideMethodsDeclaration(const 
         if (mg.isClear(EMethodGroup::builder()))
         {
             resultType = cf::decoratedTypeRef() << impl->cppType(pStructure)
-                                                << ETypeDecoration::reference();
+                                                << cf::ETypeDecoration::reference();
         }
         else
         {
             resultType = cf::decoratedTypeRef() << builder
-                                                << ETypeDecoration::reference();
+                                                << cf::ETypeDecoration::reference();
         }
 
         if (!table().isEmpty())
@@ -1817,9 +1817,9 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
             "hide evil auto created assignment operator, no implementation");
         table() << (cf::methodRef() << vd
                                     << fnOperatorE
-                                    << (cf::argumentRef() << (cf::decoratedTypeRef() << ETypeDeclaration::const_()
+                                    << (cf::argumentRef() << (cf::decoratedTypeRef() << cf::ETypeDeclaration::const_()
                                                                                      << builder
-                                                                                     << ETypeDecoration::reference())))
+                                                                                     << cf::ETypeDecoration::reference())))
                 << ";";
 
         if (pStructure->abstract())

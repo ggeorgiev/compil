@@ -69,6 +69,8 @@ LineAligner& operator<<(LineAligner& aligner, const cpp::frm::DecoratedTypeSPtr&
 LineAligner& operator<<(LineAligner& aligner, const cpp::frm::FunctionCallSPtr&);
 LineAligner& operator<<(LineAligner& aligner, const cpp::frm::InitializationSPtr&);
 LineAligner& operator<<(LineAligner& aligner, const cpp::frm::SimpleTypeSPtr&);
+LineAligner& operator<<(LineAligner& aligner, const cpp::frm::ETypeDeclaration&);
+LineAligner& operator<<(LineAligner& aligner, const cpp::frm::ETypeDecoration&);
 LineAligner& operator<<(LineAligner& aligner, const cpp::frm::VariableNameSPtr&);
 
 
@@ -78,8 +80,6 @@ LineAligner& operator<<(LineAligner& aligner, const FunctionName&);
 LineAligner& operator<<(LineAligner& aligner, const FunctionNameSPtr&);
 LineAligner& operator<<(LineAligner& aligner, const NamespaceSPtr&);
 LineAligner& operator<<(LineAligner& aligner, const ParameterValueSPtr&);
-LineAligner& operator<<(LineAligner& aligner, const ETypeDeclaration&);
-LineAligner& operator<<(LineAligner& aligner, const ETypeDecoration&);
 
 
 LineAligner& operator<<(LineAligner& aligner, char ch);

@@ -74,7 +74,7 @@ void CppGenerator::generateEnumerationValueDefinition(const EnumerationValueSPtr
     else
         assert(false && "unknown enumeration cast");
 
-    fdef()  << (cf::methodRef() << (cf::decoratedTypeRef() << ETypeDeclaration::const_()
+    fdef()  << (cf::methodRef() << (cf::decoratedTypeRef() << cf::ETypeDeclaration::const_()
                                                            << type)
                                 << frm->cppEnumNamespace(pEnumeration)
                                 << frm->methodName(pEnumerationValue->name()->value()));
@@ -823,7 +823,7 @@ void CppGenerator::generatePluginFactoryDefinition(const FactorySPtr& pFactory)
     eol(definitionStream);
 
     fdef()  << (cf::methodRef() << (cf::decoratedTypeRef() << frm->cppClassType(pFactory)
-                                                           << ETypeDecoration::reference())
+                                                           << cf::ETypeDecoration::reference())
                                 << frm->cppClassNamespace(pFactory)
                                 << fnGet);
     openBlock(definitionStream);
@@ -995,7 +995,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
 
     std::string accessObject;
     cf::DecoratedTypeSPtr resultType = cf::decoratedTypeRef() << impl->cppType(pStructure)
-                                                              << ETypeDecoration::reference();
+                                                              << cf::ETypeDecoration::reference();
 
     if (pStructure->immutable())
     {
@@ -1008,7 +1008,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
 
         resultType = cf::decoratedTypeRef() << (cf::simpleTypeRef() << classNamesp
                                                                     << builder->value())
-                                            << ETypeDecoration::reference();
+                                            << cf::ETypeDecoration::reference();
     }
 
 
@@ -1067,7 +1067,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
             line()  << "return ("
                     << (cf::decoratedTypeRef() << (cf::simpleTypeRef() << classNamesp
                                                                        << builder->value())
-                                               << ETypeDecoration::reference())
+                                               << cf::ETypeDecoration::reference())
                     << ")"
                     << (cf::functionCallRef() << belongClassBuilderNamesp
                                               << frm->setMethodName(pField)
@@ -1082,7 +1082,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
         if (impl->needMutableMethod(pField, pStructure))
         {
             fdef()  << (cf::methodRef() << (cf::decoratedTypeRef() << impl->cppType(pField->type())
-                                                                   << ETypeDecoration::reference())
+                                                                   << cf::ETypeDecoration::reference())
                                         << namesp
                                         << frm->mutableMethodName(pField));
             openBlock(definitionStream);
@@ -1289,7 +1289,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                     line()  << "return ("
                             << (cf::decoratedTypeRef() << (cf::simpleTypeRef() << classNamesp
                                                                                << builder->value())
-                                                       << ETypeDecoration::reference())
+                                                       << cf::ETypeDecoration::reference())
                             << ")"
                             << (cf::functionCallRef() << belongClassBuilderNamesp
                                                       << frm->updateMethodName(pField)
@@ -1609,13 +1609,13 @@ void CppGenerator::generateStructureFieldOverrideDefinition(const FieldOverrideS
     {
         resultType = cf::decoratedTypeRef() << (cf::simpleTypeRef() << classNamesp
                                                                     << builder->value())
-                                            << ETypeDecoration::reference();
+                                            << cf::ETypeDecoration::reference();
         *namesp << nsBuilder;
     }
     else
     {
         resultType = cf::decoratedTypeRef() << impl->cppType(pStructure)
-                                            << ETypeDecoration::reference();
+                                            << cf::ETypeDecoration::reference();
     }
 
     fdef()  << (cf::methodRef() << resultType

@@ -105,21 +105,21 @@ cpp::frm::DecoratedTypeSPtr CppImplementer::cppDecoratedType(const TypeSPtr& pTy
         case Type::EKind::kBuiltin:
             return cpp::frm::decoratedTypeRef() << cppType(pType);
         case Type::EKind::kObject:
-            return cpp::frm::decoratedTypeRef() << ETypeDeclaration::const_()
+            return cpp::frm::decoratedTypeRef() << cpp::frm::ETypeDeclaration::const_()
                                                 << cppType(pType)
-                                                << ETypeDecoration::reference();
+                                                << cpp::frm::ETypeDecoration::reference();
         case Type::EKind::kString:
             switch (mpConfiguration->mString)
             {
                 case ImplementerConfiguration::use_char_pointer:
-                    return cpp::frm::decoratedTypeRef() << ETypeDeclaration::const_()
+                    return cpp::frm::decoratedTypeRef() << cpp::frm::ETypeDeclaration::const_()
                                                         << (cpp::frm::simpleTypeRef() << "char")
-                                                        << ETypeDecoration::pointer();
+                                                        << cpp::frm::ETypeDecoration::pointer();
                 case ImplementerConfiguration::use_stl_string:
-                    return cpp::frm::decoratedTypeRef() << ETypeDeclaration::const_()
+                    return cpp::frm::decoratedTypeRef() << cpp::frm::ETypeDeclaration::const_()
                                                         << (cpp::frm::simpleTypeRef() << nsStd
                                                                                       << "string")
-                                                        << ETypeDecoration::reference();
+                                                        << cpp::frm::ETypeDecoration::reference();
                 default: assert(false && "unknown string implementation type");
             }
             break;
@@ -134,9 +134,9 @@ cpp::frm::DecoratedTypeSPtr CppImplementer::cppSetDecoratedType(const TypeSPtr& 
 {
     ReferenceSPtr pReference = ObjectFactory::downcastReference(pType);
     if (pReference)
-        return cpp::frm::decoratedTypeRef() << ETypeDeclaration::const_()
+        return cpp::frm::decoratedTypeRef() << cpp::frm::ETypeDeclaration::const_()
                                             << mpFrm->cppSharedPtrName(pReference->parameterType().lock())
-                                            << ETypeDecoration::reference();
+                                            << cpp::frm::ETypeDecoration::reference();
     return cppDecoratedType(pType);
 }
 
@@ -146,9 +146,9 @@ cpp::frm::DecoratedTypeSPtr CppImplementer::cppInnerDecoratedType(const TypeSPtr
     if (pType->runtimeObjectId() == EObjectId::enumeration())
     {
         EnumerationSPtr pEnumeration = ObjectFactory::downcastEnumeration(pType);
-        return cpp::frm::decoratedTypeRef() << ETypeDeclaration::const_()
+        return cpp::frm::decoratedTypeRef() << cpp::frm::ETypeDeclaration::const_()
                                             << mpFrm->cppInnerEnumType(pEnumeration, pStructure)
-                                            << ETypeDecoration::reference();
+                                            << cpp::frm::ETypeDecoration::reference();
     }
     return cppDecoratedType(pType);
 }
@@ -159,9 +159,9 @@ cpp::frm::DecoratedTypeSPtr CppImplementer::cppInnerSetDecoratedType(const TypeS
     ReferenceSPtr pReference = ObjectFactory::downcastReference(pType);
     if (pReference)
     {
-        return cpp::frm::decoratedTypeRef() << ETypeDeclaration::const_()
+        return cpp::frm::decoratedTypeRef() << cpp::frm::ETypeDeclaration::const_()
                                             << mpFrm->cppSharedPtrName(pReference->parameterType().lock())
-                                            << ETypeDecoration::reference();
+                                            << cpp::frm::ETypeDecoration::reference();
     }
     return cppInnerDecoratedType(pType, pStructure);
 }

@@ -1,5 +1,11 @@
 #include "type_declaration.h"
 
+namespace cpp
+{
+
+namespace frm
+{
+
 ETypeDeclaration::ETypeDeclaration()
         : mValue(kInvalid)
 {
@@ -48,5 +54,9 @@ bool ETypeDeclaration::operator==(const ETypeDeclaration& rValue) const
 bool ETypeDeclaration::operator!=(const ETypeDeclaration& rValue) const
 {
     return mValue != rValue.mValue;
+}
+
+}
+
 }
 

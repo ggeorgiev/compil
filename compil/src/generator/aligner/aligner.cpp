@@ -40,16 +40,16 @@ cpp::frm::ConstructorNameSPtr builderConstructorName = cpp::frm::constructorName
 cpp::frm::DecoratedTypeSPtr bl             = cpp::frm::decoratedTypeRef() << (cpp::frm::simpleTypeRef() << "bool");
 cpp::frm::DecoratedTypeSPtr vd             = cpp::frm::decoratedTypeRef() << (cpp::frm::simpleTypeRef() << "void");
 cpp::frm::DecoratedTypeSPtr st             = cpp::frm::decoratedTypeRef() << (cpp::frm::simpleTypeRef() << "size_t");
-cpp::frm::DecoratedTypeSPtr const_char_ptr = cpp::frm::decoratedTypeRef() << ETypeDeclaration::const_()
+cpp::frm::DecoratedTypeSPtr const_char_ptr = cpp::frm::decoratedTypeRef() << cpp::frm::ETypeDeclaration::const_()
                                                                           << (cpp::frm::simpleTypeRef() << "char")
-                                                                          << ETypeDecoration::pointer();
+                                                                          << cpp::frm::ETypeDecoration::pointer();
 cpp::frm::DecoratedTypeSPtr cloneFunction  = cpp::frm::decoratedTypeRef() << (cpp::frm::simpleTypeRef() << "fnClone");
 
-cpp::frm::DecoratedTypeSPtr cstTRef        = cpp::frm::decoratedTypeRef() << ETypeDeclaration::const_()
+cpp::frm::DecoratedTypeSPtr cstTRef        = cpp::frm::decoratedTypeRef() << cpp::frm::ETypeDeclaration::const_()
                                                                           << (cpp::frm::simpleTypeRef() << "T")
-                                                                          << ETypeDecoration::reference();
+                                                                          << cpp::frm::ETypeDecoration::reference();
 cpp::frm::DecoratedTypeSPtr TPtr           = cpp::frm::decoratedTypeRef() << (cpp::frm::simpleTypeRef() << "T")
-                                                                          << ETypeDecoration::pointer();
+                                                                          << cpp::frm::ETypeDecoration::pointer();
 
 MethodNameSPtr fnValue                  = methodNameRef("value");
 MethodNameSPtr fnShortName              = methodNameRef("shortName");

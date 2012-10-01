@@ -72,9 +72,9 @@ bool CppFlagsEnumerationGenerator::generate()
     cf::DecoratedTypeSPtr decoratedType = cf::decoratedTypeRef() << (cpp::frm::simpleTypeRef() << type);
     std::string inherit = "F";
     cf::DecoratedTypeSPtr decoratedInherit = cf::decoratedTypeRef() << (cpp::frm::simpleTypeRef() << inherit);
-    cf::DecoratedTypeSPtr decoratedInheritRef = cf::decoratedTypeRef() << ETypeDeclaration::const_()
+    cf::DecoratedTypeSPtr decoratedInheritRef = cf::decoratedTypeRef() << cpp::frm::ETypeDeclaration::const_()
                                                                        << (cpp::frm::simpleTypeRef() << inherit)
-                                                                       << ETypeDecoration::reference();
+                                                                       << cpp::frm::ETypeDecoration::reference();
     
     cf::ConstructorNameSPtr class_name = cf::constructorNameRef("flags_enumeration");
     cf::VariableNameSPtr memberValue = frm->memberVariableName(value);

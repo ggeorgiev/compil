@@ -34,54 +34,62 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_TYPE_DECLARATION_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_TYPE_DECLARATION_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_TYPE_DECORATION_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_TYPE_DECORATION_COMPIL_H_
 
-#include "type_declaration.h"
+#include "type_decoration.h"
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // This enumeration class provides namespaced set of constant values.
 // It is designed to provide type control over operations with enum values
 // without need to wait all compilers you are going to use for this project
 // to support C++0x standard. The type control do not prevent the variables
 // to be used in switch statements.
-class ETypeDeclaration
+class ETypeDecoration
 {
 public:
     // Default constructor - sets the value to invalid
-                         ETypeDeclaration();
+                         ETypeDecoration();
     // Constructor from an integer value.
     // Note: Avoid using this constructor if possible. It is appropriate
     // only in case of importing value from components that you do not have
     // control over (such as 3rd party libraries or serialization
     // functionality).
-    explicit             ETypeDeclaration(long value);
+    explicit             ETypeDecoration(long value);
 
     // Returns the integer value of the enum.
     // Note: Avoid using this method if possible. It is appropriate only in
     // case of exporting value to components that you do not have control
     // over (such as 3rd party libraries or serialization functionality).
-             long        value           ()                               const;
+             long        value          ()                              const;
     // Returns short name for a specified enum value
-    static   const char* shortName       (long value);
+    static   const char* shortName      (long value);
     // Returns short name of the enum value
-             const char* shortName       ()                               const;
+             const char* shortName      ()                              const;
     // returns true if the value of the enum is equal to the value of the
     // argument
-             bool        operator==      (const ETypeDeclaration& rValue) const;
+             bool        operator==     (const ETypeDecoration& rValue) const;
     // returns true if the value of the enum is not equal to the value of
     // the argument
-             bool        operator!=      (const ETypeDeclaration& rValue) const;
+             bool        operator!=     (const ETypeDecoration& rValue) const;
 
     // static methods for enum class objects
-    static const ETypeDeclaration invalid();
-    static const ETypeDeclaration const_ ();
+    static const ETypeDecoration invalid  ();
+    static const ETypeDecoration pointer  ();
+    static const ETypeDecoration reference();
 
     // This enum provides static constants that could be used in a switch
     // statements
     enum
     {
-        kInvalid = 0,
-        kConst   = 1,
+        kInvalid   = 0,
+        kPointer   = 1,
+        kReference = 2,
     };
 
 private:
@@ -89,14 +97,28 @@ private:
     long mValue;
 };
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_TYPE_DECLARATION_COMPIL_H_
+}
+
+}
+
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_TYPE_DECORATION_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
-class ETypeDeclaration;
-typedef ETypeDeclaration*                         TypeDeclarationRPtr;
-typedef boost::shared_ptr<ETypeDeclaration>       TypeDeclarationSPtr;
-typedef boost::shared_ptr<const ETypeDeclaration> TypeDeclarationSCPtr;
-typedef boost::weak_ptr<ETypeDeclaration>         TypeDeclarationWPtr;
+class ETypeDecoration;
+typedef ETypeDecoration*                         TypeDecorationRPtr;
+typedef boost::shared_ptr<ETypeDecoration>       TypeDecorationSPtr;
+typedef boost::shared_ptr<const ETypeDecoration> TypeDecorationSCPtr;
+typedef boost::weak_ptr<ETypeDecoration>         TypeDecorationWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_TYPE_DECLARATION_COMPIL_H_
+}
+
+}
+
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_TYPE_DECORATION_COMPIL_H_
 

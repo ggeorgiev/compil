@@ -245,13 +245,13 @@ static TableAligner& serialize(TableAligner& aligner, const cpp::frm::DecoratedT
     if (!type)
         return aligner;
 
-    if (type->declaration() != ETypeDeclaration::invalid())
+    if (type->declaration() != cpp::frm::ETypeDeclaration::invalid())
         aligner << type->declaration() << ' ';
     aligner << type->type();
         
 	if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
 	{
-        if (type->decoration() != ETypeDecoration::invalid())
+        if (type->decoration() != cpp::frm::ETypeDecoration::invalid())
             aligner << type->decoration();
         aligner << ' ';
         if (align)
@@ -262,7 +262,7 @@ static TableAligner& serialize(TableAligner& aligner, const cpp::frm::DecoratedT
         aligner << ' ';
         if (align)
             aligner << TableAligner::col();
-        if (type->decoration() != ETypeDecoration::invalid())
+        if (type->decoration() != cpp::frm::ETypeDecoration::invalid())
             aligner << type->decoration();
 	}
 	else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
@@ -270,7 +270,7 @@ static TableAligner& serialize(TableAligner& aligner, const cpp::frm::DecoratedT
         aligner << ' ';
         if (align)
             aligner << TableAligner::col();
-        if (type->decoration() != ETypeDecoration::invalid())
+        if (type->decoration() != cpp::frm::ETypeDecoration::invalid())
             aligner << type->decoration();
         if (align)
             aligner << TableAligner::col();
@@ -541,6 +541,30 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::SimpleTypeSPtr& 
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ETypeDeclaration& declaration)
+{
+    if (declaration != cpp::frm::ETypeDeclaration::invalid())
+        aligner << declaration.shortName();
+    return aligner;
+}
+
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ETypeDecoration& decoration)
+{
+    switch (decoration.value())
+    {
+        case cpp::frm::ETypeDecoration::kPointer:
+            aligner << '*';
+            break;
+        case cpp::frm::ETypeDecoration::kReference:
+            aligner << '&';
+            break;
+        default:
+            BOOST_ASSERT(false && "unknown type decoration");
+    }
+
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::VariableNameSPtr& name)
 {
     if (name)
@@ -625,30 +649,6 @@ TableAligner& operator<<(TableAligner& aligner, const EMethodSpecifier& methodSp
         aligner << methodSpecifier.shortName()
                 << ' ';
     }
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const ETypeDeclaration& declaration)
-{
-    if (declaration != ETypeDeclaration::invalid())
-        aligner << declaration.shortName();
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const ETypeDecoration& decoration)
-{
-    switch (decoration.value())
-    {
-        case ETypeDecoration::kPointer:
-            aligner << '*';
-            break;
-        case ETypeDecoration::kReference:
-            aligner << '&';
-            break;
-        default:
-            BOOST_ASSERT(false && "unknown type decoration");
-    }
-
     return aligner;
 }
 

@@ -29,6 +29,8 @@ lib gen :
     cpp/format/method.cpp
     cpp/format/initialization.cpp
     cpp/format/simple_type.cpp
+    cpp/format/type_declaration.cpp
+    cpp/format/type_decoration.cpp
     cpp/format/variable_name.cpp
 
 
@@ -40,8 +42,6 @@ lib gen :
     aligner/object/namespace_name.cpp
     aligner/object/namespace.cpp
     aligner/object/parameter_value.cpp
-    aligner/object/type_declaration.cpp
-    aligner/object/type_decoration.cpp
 
     aligner/aligner.cpp
     aligner/aligner_configuration.cpp
