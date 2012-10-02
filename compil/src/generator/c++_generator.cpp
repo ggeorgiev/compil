@@ -676,7 +676,7 @@ void CppGenerator::generateObjectFactoryDefinition(const FactorySPtr& pFactory)
     TypeSPtr pParameterType = pFactory->parameterType().lock();
     StructureSPtr pParameterStructure =  ObjectFactory::downcastStructure(pParameterType);
 
-    NamespaceSPtr nmspace;
+    cf::NamespaceSPtr nmspace;
     MethodNameSPtr methodName;
     if (pFactory->function())
     {
@@ -987,10 +987,10 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
     StructureSPtr pBelongStructure = pField->structure().lock();
     assert(pBelongStructure);
 
-    NamespaceSPtr classNamesp = frm->cppAutoClassNamespace(pStructure);
-    NamespaceSPtr namesp = boost::make_shared<Namespace>(*classNamesp);
+    cf::NamespaceSPtr classNamesp = frm->cppAutoClassNamespace(pStructure);
+    cf::NamespaceSPtr namesp = boost::make_shared<cf::Namespace>(*classNamesp);
     
-    NamespaceSPtr belongClassBuilderNamesp = frm->cppAutoClassNamespace(pBelongStructure);
+    cf::NamespaceSPtr belongClassBuilderNamesp = frm->cppAutoClassNamespace(pBelongStructure);
     *belongClassBuilderNamesp << nsBuilder;
 
     std::string accessObject;
@@ -1601,8 +1601,8 @@ void CppGenerator::generateStructureFieldOverrideDefinition(const FieldOverrideS
     closeBlock(definitionStream);
     eol(definitionStream);
 
-    NamespaceSPtr classNamesp = frm->cppAutoClassNamespace(pStructure);
-    NamespaceSPtr namesp = boost::make_shared<Namespace>(*classNamesp);
+    cf::NamespaceSPtr classNamesp = frm->cppAutoClassNamespace(pStructure);
+    cf::NamespaceSPtr namesp = boost::make_shared<cf::Namespace>(*classNamesp);
         
     cf::DecoratedTypeSPtr resultType;
     if (pStructure->immutable())
@@ -2161,7 +2161,7 @@ void CppGenerator::generateStructureOperatorMethodsDefinition(
 
     StructureSPtr pStructure = pOperator->structure().lock();
 
-    NamespaceSPtr nmspace = frm->cppAutoClassNamespace(pStructure);
+    cf::NamespaceSPtr nmspace = frm->cppAutoClassNamespace(pStructure);
     if (flags.isSet(EOperatorFlags::functor()))
         *nmspace << namespaceNameRef(fnFunction->value());
 
@@ -2386,7 +2386,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         }
     }
     
-    NamespaceSPtr structBuilderNamespace = frm->cppAutoClassNamespace(pStructure);
+    cf::NamespaceSPtr structBuilderNamespace = frm->cppAutoClassNamespace(pStructure);
     *structBuilderNamespace << nsBuilder;
 
     if (pStructure->isBuildable())

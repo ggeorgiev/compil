@@ -3,6 +3,12 @@
 
 #include "namespace.h"
 
+namespace cpp
+{
+
+namespace frm
+{
+
 int Namespace::bitmask_names()
 {
     return 0x1;
@@ -82,5 +88,9 @@ void Namespace::clear_names()
 {
     mNames.clear();
     mBits &= ~bitmask_names();
+}
+
+}
+
 }
 

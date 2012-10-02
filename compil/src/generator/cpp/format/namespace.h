@@ -37,11 +37,17 @@
 // Standard Template Library
 #include <vector>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_NAMESPACE_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_NAMESPACE_COMPIL_H_
 
 #include "namespace.h"
 #include "namespace_name.h"
+
+namespace cpp
+{
+
+namespace frm
+{
 
 class Namespace
 {
@@ -92,7 +98,17 @@ inline NamespaceSPtr namespaceRef()
     return boost::make_shared<Namespace>();
 }
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_COMPIL_H_
+}
+
+}
+
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_NAMESPACE_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
 class Namespace;
@@ -101,5 +117,9 @@ typedef boost::shared_ptr<Namespace>       NamespaceSPtr;
 typedef boost::shared_ptr<const Namespace> NamespaceSCPtr;
 typedef boost::weak_ptr<Namespace>         NamespaceWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_COMPIL_H_
+}
+
+}
+
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_NAMESPACE_COMPIL_H_
 

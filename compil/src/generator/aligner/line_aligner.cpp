@@ -144,6 +144,21 @@ LineAligner& operator<<(LineAligner& aligner, const cpp::frm::InitializationSPtr
     return aligner;
 }
 
+LineAligner& operator<<(LineAligner& aligner, const cpp::frm::NamespaceSPtr& namespace_)
+{
+    if (namespace_)
+    {
+        const std::vector<NamespaceNameSPtr>& names = namespace_->names();
+        for (size_t i = 0; i < names.size(); ++i)
+        {
+            if (i > 0)
+                aligner << "::";
+            aligner << names[i]->value();
+        }
+    }
+    return aligner;
+}
+
 LineAligner& operator<<(LineAligner& aligner, const cpp::frm::SimpleTypeSPtr& type)
 {
     if (type->namespace_())
@@ -290,21 +305,6 @@ LineAligner& operator<<(LineAligner& aligner, const FunctionName& functionName)
 LineAligner& operator<<(LineAligner& aligner, const FunctionNameSPtr& functionName)
 {
     aligner.line() << functionName->value();
-    return aligner;
-}
-
-LineAligner& operator<<(LineAligner& aligner, const NamespaceSPtr& namespace_)
-{
-    if (namespace_)
-    {
-        const std::vector<NamespaceNameSPtr>& names = namespace_->names();
-        for (size_t i = 0; i < names.size(); ++i)
-        {
-            if (i > 0)
-                aligner << "::";
-            aligner << names[i]->value();
-        }
-    }
     return aligner;
 }
 

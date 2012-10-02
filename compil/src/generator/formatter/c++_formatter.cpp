@@ -222,9 +222,9 @@ ParameterValueSPtr CppFormatter::parameterValue(const cpp::frm::VariableNameSPtr
     return parameterValueRef(name->value());
 }
 
-NamespaceSPtr CppFormatter::cppPackageNamespace(const PackageSPtr& pPackage)
+cpp::frm::NamespaceSPtr CppFormatter::cppPackageNamespace(const PackageSPtr& pPackage)
 {
-    NamespaceSPtr nmspace = boost::make_shared<Namespace>();
+    cpp::frm::NamespaceSPtr nmspace = cpp::frm::namespaceRef();
     if (pPackage == mpCurrentPackage)
         return nmspace;
         
@@ -246,13 +246,13 @@ cpp::frm::SimpleTypeSPtr CppFormatter::cppEnumType(const EnumerationSPtr& pEnume
 {
     StructureSPtr pStructure = pEnumeration->structure().lock();
     
-    NamespaceSPtr nmspace;
+    cpp::frm::NamespaceSPtr nmspace;
     if (pStructure)
         nmspace = cppAutoClassNamespace(pStructure);
     else
-        nmspace = boost::make_shared<Namespace>();
+        nmspace = cpp::frm::namespaceRef();
         
-    NamespaceSPtr packageNamespace = cppPackageNamespace(pEnumeration->package());
+    cpp::frm::NamespaceSPtr packageNamespace = cppPackageNamespace(pEnumeration->package());
     if (!packageNamespace->isVoid())
     {
         nmspace->mutable_names().insert(nmspace->mutable_names().end(),
@@ -266,7 +266,7 @@ cpp::frm::SimpleTypeSPtr CppFormatter::cppEnumType(const EnumerationSPtr& pEnume
 cpp::frm::SimpleTypeSPtr CppFormatter::cppInnerEnumType(const EnumerationSPtr& pEnumeration,
                                               const StructureSPtr& pStructure)
 {
-    NamespaceSPtr nmspace;
+    cpp::frm::NamespaceSPtr nmspace;
     StructureSPtr pEnumStructure = pEnumeration->structure().lock();
     if (  !pStructure || !pEnumStructure
        || !pStructure->isRecursivelyInherit(pEnumStructure))
@@ -275,7 +275,7 @@ cpp::frm::SimpleTypeSPtr CppFormatter::cppInnerEnumType(const EnumerationSPtr& p
     }
     else
     {
-        nmspace = boost::make_shared<Namespace>();
+        nmspace = cpp::frm::namespaceRef();
     }
 
     return cpp::frm::simpleTypeRef() << nmspace
@@ -287,14 +287,14 @@ cpp::frm::ConstructorNameSPtr CppFormatter::cppConstructorName(const Enumeration
     return cpp::frm::constructorNameRef(enumName(pEnumeration->name()->value()));
 }
 
-NamespaceSPtr CppFormatter::cppEnumNamespace(const EnumerationSPtr& pEnumeration)
+cpp::frm::NamespaceSPtr CppFormatter::cppEnumNamespace(const EnumerationSPtr& pEnumeration)
 {
-    NamespaceSPtr nmspace;
+    cpp::frm::NamespaceSPtr nmspace;
     StructureSPtr pStructure = pEnumeration->structure().lock();
     if (pStructure)
         nmspace = cppAutoClassNamespace(pStructure);
     else
-        nmspace = boost::make_shared<Namespace>();
+        nmspace = cpp::frm::namespaceRef();
 
     *nmspace << namespaceNameRef(enumName(pEnumeration->name()->value()));
         
@@ -309,10 +309,10 @@ cpp::frm::SimpleTypeSPtr CppFormatter::cppClassType(const TypeSPtr& pType)
     return cpp::frm::simpleTypeRef() << cppClassName(pType->name()->value());
 }
     
-NamespaceSPtr CppFormatter::cppClassNamespace(const TypeSPtr& pType)
+cpp::frm::NamespaceSPtr CppFormatter::cppClassNamespace(const TypeSPtr& pType)
 {
-    NamespaceSPtr nmspace = boost::make_shared<Namespace>();
-    *nmspace << namespaceNameRef(cppClassName(pType->name()->value()));
+    cpp::frm::NamespaceSPtr nmspace = cpp::frm::namespaceRef();
+    nmspace << namespaceNameRef(cppClassName(pType->name()->value()));
     return nmspace;
 }
 
@@ -334,10 +334,10 @@ cpp::frm::SimpleTypeSPtr CppFormatter::cppAutoClassType(const StructureSPtr& pSt
         return cppMainClassType(pStructure);
 }
 
-NamespaceSPtr CppFormatter::cppAutoClassNamespace(const StructureSPtr& pStructure)
+cpp::frm::NamespaceSPtr CppFormatter::cppAutoClassNamespace(const StructureSPtr& pStructure)
 {
-    NamespaceSPtr nmspace = boost::make_shared<Namespace>();
-    *nmspace << namespaceNameRef(cppAutoClassType(pStructure)->value());
+    cpp::frm::NamespaceSPtr nmspace = cpp::frm::namespaceRef();
+    nmspace << namespaceNameRef(cppAutoClassType(pStructure)->value());
     return nmspace;
 }
 
@@ -357,10 +357,10 @@ cpp::frm::SimpleTypeSPtr CppFormatter::cppMainClassType(const StructureSPtr& pSt
                                      << cppClassName(pStructure->name()->value());
 }
     
-NamespaceSPtr CppFormatter::cppMainClassNamespace(const StructureSPtr& pStructure)
+cpp::frm::NamespaceSPtr CppFormatter::cppMainClassNamespace(const StructureSPtr& pStructure)
 {
-    NamespaceSPtr nmspace = boost::make_shared<Namespace>();
-    *nmspace << namespaceNameRef(cppMainClassType(pStructure)->value());
+    cpp::frm::NamespaceSPtr nmspace = cpp::frm::namespaceRef();
+    nmspace << namespaceNameRef(cppMainClassType(pStructure)->value());
     return nmspace;
 }
 

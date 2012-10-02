@@ -39,10 +39,10 @@
 namespace compil
 {
 
-NamespaceSPtr nsStd = namespaceRef() << namespaceNameRef("std");
-NamespaceSPtr nsBoost = namespaceRef() << namespaceNameRef("boost");
-NamespaceSPtr nsBoostPosixTime = namespaceRef() << namespaceNameRef("boost")
-                                                << namespaceNameRef("posix_time");
+cpp::frm::NamespaceSPtr nsStd = cpp::frm::namespaceRef() << namespaceNameRef("std");
+cpp::frm::NamespaceSPtr nsBoost = cpp::frm::namespaceRef() << namespaceNameRef("boost");
+cpp::frm::NamespaceSPtr nsBoostPosixTime = cpp::frm::namespaceRef() << namespaceNameRef("boost")
+                                                                    << namespaceNameRef("posix_time");
 
 CppImplementer::CppImplementer(const ImplementerConfigurationPtr& pConfig, const CppFormatterPtr& pFrm)
         : mpConfiguration(pConfig)

@@ -40,6 +40,7 @@
 #include "cpp/format/constructor_name.h"
 #include "cpp/format/decorated_type.h"
 #include "cpp/format/destructor_name.h"
+#include "cpp/format/namespace.h"
 #include "cpp/format/variable_name.h"
 
 #include "alter.h"
@@ -52,7 +53,6 @@
 #include "interface.h"
 #include "document.h"
 
-#include "namespace.h"
 #include "method_name.h"
 
 #include "parameter_value.h"
@@ -107,26 +107,26 @@ public:
     
     virtual ParameterValueSPtr parameterValue(const cpp::frm::VariableNameSPtr& name);
     
-    virtual NamespaceSPtr cppPackageNamespace(const PackageSPtr& pPackage);
+    virtual cpp::frm::NamespaceSPtr cppPackageNamespace(const PackageSPtr& pPackage);
 
     virtual cpp::frm::SimpleTypeSPtr cppEnumType(const EnumerationSPtr& pEnumeration);
     virtual cpp::frm::SimpleTypeSPtr cppInnerEnumType(const EnumerationSPtr& pEnumeration,
                                                       const StructureSPtr& pStructure);
     virtual cpp::frm::ConstructorNameSPtr cppConstructorName(const EnumerationSPtr& pEnumeration);
-    virtual NamespaceSPtr cppEnumNamespace(const EnumerationSPtr& pEnumeration);
+    virtual cpp::frm::NamespaceSPtr cppEnumNamespace(const EnumerationSPtr& pEnumeration);
     
     virtual cpp::frm::SimpleTypeSPtr cppClassType(const TypeSPtr& pType);
-    virtual NamespaceSPtr cppClassNamespace(const TypeSPtr& pType);
+    virtual cpp::frm::NamespaceSPtr cppClassNamespace(const TypeSPtr& pType);
     virtual cpp::frm::ConstructorNameSPtr cppConstructorName(const TypeSPtr& pType);
     virtual cpp::frm::DestructorNameSPtr cppDestructorName(const TypeSPtr& pType);
     
     virtual cpp::frm::SimpleTypeSPtr cppAutoClassType(const StructureSPtr& pStructure);
-    virtual NamespaceSPtr cppAutoClassNamespace(const StructureSPtr& pStructure);
+    virtual cpp::frm::NamespaceSPtr cppAutoClassNamespace(const StructureSPtr& pStructure);
     virtual cpp::frm::ConstructorNameSPtr cppAutoConstructorName(const StructureSPtr& pStructure);
     virtual cpp::frm::DestructorNameSPtr cppAutoDestructorName(const StructureSPtr& pStructure);
     
     virtual cpp::frm::SimpleTypeSPtr cppMainClassType(const StructureSPtr& pStructure);
-    virtual NamespaceSPtr cppMainClassNamespace(const StructureSPtr& pStructure);
+    virtual cpp::frm::NamespaceSPtr cppMainClassNamespace(const StructureSPtr& pStructure);
     
     virtual cpp::frm::SimpleTypeSPtr cppPartialClassType(const StructureSPtr& pStructure);
     

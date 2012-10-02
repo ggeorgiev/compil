@@ -470,6 +470,23 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr& fu
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::InitializationSPtr& initialization)
+{
+    BOOST_ASSERT(!initialization->variableName() != !initialization->constructorName());
+
+    if (initialization->variableName())
+        aligner << initialization->variableName();
+    else
+        aligner << initialization->constructorName();
+
+    aligner << Aligner::FunctionSpace()
+            << "("
+            << initialization->parameter()
+            << ")";
+            
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr& method)
 {
     aligner << method->comment();
@@ -514,20 +531,18 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr& meth
     return aligner;
 }
 
-TableAligner& operator<<(TableAligner& aligner, const cpp::frm::InitializationSPtr& initialization)
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::NamespaceSPtr& namespace_)
 {
-    BOOST_ASSERT(!initialization->variableName() != !initialization->constructorName());
-
-    if (initialization->variableName())
-        aligner << initialization->variableName();
-    else
-        aligner << initialization->constructorName();
-
-    aligner << Aligner::FunctionSpace()
-            << "("
-            << initialization->parameter()
-            << ")";
-            
+    if (namespace_)
+    {
+        const std::vector<NamespaceNameSPtr>& names = namespace_->names();
+        for (size_t i = 0; i < names.size(); ++i)
+        {
+            if (i > 0)
+                aligner << "::";
+            aligner << names[i]->value();
+        }
+    }
     return aligner;
 }
 
@@ -611,21 +626,6 @@ TableAligner& operator<<(TableAligner& aligner, const FunctionNameSPtr& function
 {
     if (functionName)
         aligner << functionName->value();
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const NamespaceSPtr& namespace_)
-{
-    if (namespace_)
-    {
-        const std::vector<NamespaceNameSPtr>& names = namespace_->names();
-        for (size_t i = 0; i < names.size(); ++i)
-        {
-            if (i > 0)
-                aligner << "::";
-            aligner << names[i]->value();
-        }
-    }
     return aligner;
 }
 
