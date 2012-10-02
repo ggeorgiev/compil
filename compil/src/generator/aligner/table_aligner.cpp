@@ -327,7 +327,7 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::CastOperatorSPtr
             << TableAligner::col()
             << ")";
     
-    if (castOperator->declaration() != EMethodDeclaration::invalid())
+    if (castOperator->declaration() != cpp::frm::EMethodDeclaration::invalid())
     {
         aligner << ' '
                 << TableAligner::col()
@@ -444,6 +444,13 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionCallSPtr
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionNameSPtr& name)
+{
+    if (name)
+        aligner << name->value();
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr& function)
 {
     aligner << TableAligner::col();
@@ -487,6 +494,24 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::InitializationSP
     return aligner;
 }
 
+
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::EMethodDeclaration& declaration)
+{
+    if (declaration != cpp::frm::EMethodDeclaration::invalid())
+        aligner << declaration.shortName();
+    return aligner;
+}
+
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::EMethodSpecifier& methodSpecifier)
+{
+    if (methodSpecifier != cpp::frm::EMethodSpecifier::invalid())
+    {
+        aligner << methodSpecifier.shortName()
+                << ' ';
+    }
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr& method)
 {
     aligner << method->comment();
@@ -521,7 +546,7 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr& meth
     }
     aligner << ")";
     
-    if (method->declaration() != EMethodDeclaration::invalid())
+    if (method->declaration() != cpp::frm::EMethodDeclaration::invalid())
     {
         aligner << ' '
                 << TableAligner::col()
@@ -531,18 +556,33 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr& meth
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::NamespaceNameSPtr& name)
+{
+    if (name)
+        aligner << name->value();
+    return aligner;
+}
+
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::NamespaceSPtr& namespace_)
 {
     if (namespace_)
     {
-        const std::vector<NamespaceNameSPtr>& names = namespace_->names();
-        for (size_t i = 0; i < names.size(); ++i)
+        const std::vector<cpp::frm::NamespaceNameSPtr>& names = namespace_->names();
+        if (names.size() > 0)
+            aligner << names[0];
+        for (size_t i = 1; i < names.size(); ++i)
         {
-            if (i > 0)
-                aligner << "::";
-            aligner << names[i]->value();
+            aligner << "::"
+                    << names[i];
         }
     }
+    return aligner;
+}
+
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ParameterValueSPtr& parameter)
+{
+    if (parameter)
+        aligner << parameter->value();
     return aligner;
 }
 
@@ -616,41 +656,6 @@ TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionDefinitio
 	return aligner;
 }
 
-TableAligner& operator<<(TableAligner& aligner, const FunctionName& functionName)
-{
-    aligner << functionName.value();
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const FunctionNameSPtr& functionName)
-{
-    if (functionName)
-        aligner << functionName->value();
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const ParameterValueSPtr& parameter)
-{
-    aligner << parameter->value();
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const EMethodDeclaration& declaration)
-{
-    if (declaration != EMethodDeclaration::invalid())
-        aligner << declaration.shortName();
-    return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const EMethodSpecifier& methodSpecifier)
-{
-    if (methodSpecifier != EMethodSpecifier::invalid())
-    {
-        aligner << methodSpecifier.shortName()
-                << ' ';
-    }
-    return aligner;
-}
 
 TableAligner& operator<<(TableAligner& aligner, char ch)
 {

@@ -37,11 +37,17 @@
 // Standard Template Library
 #include <string>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_METHOD_NAME_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_METHOD_NAME_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_METHOD_NAME_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_METHOD_NAME_COMPIL_H_
 
 #include "function_name.h"
 #include "method_name.h"
+
+namespace cpp
+{
+
+namespace frm
+{
 
 class MethodName : public FunctionName
 {
@@ -79,7 +85,17 @@ inline bool MethodName::operator<(const MethodName& rValue) const
     return value() < rValue.value();
 }
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_METHOD_NAME_COMPIL_H_
+}
+
+}
+
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_METHOD_NAME_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
 class MethodName;
@@ -88,5 +104,9 @@ typedef boost::shared_ptr<MethodName>       MethodNameSPtr;
 typedef boost::shared_ptr<const MethodName> MethodNameSCPtr;
 typedef boost::weak_ptr<MethodName>         MethodNameWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_METHOD_NAME_COMPIL_H_
+}
+
+}
+
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_METHOD_NAME_COMPIL_H_
 

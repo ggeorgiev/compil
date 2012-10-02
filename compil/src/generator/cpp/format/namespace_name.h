@@ -37,63 +37,83 @@
 // Standard Template Library
 #include <string>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_PARAMETER_VALUE_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_PARAMETER_VALUE_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_NAMESPACE_NAME_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_NAMESPACE_NAME_COMPIL_H_
 
-#include "parameter_value.h"
+#include "namespace_name.h"
 
-class ParameterValue
+namespace cpp
+{
+
+namespace frm
+{
+
+class NamespaceName
 {
 public:
-                         ParameterValue();
-    explicit             ParameterValue(const std::string& value);
+                         NamespaceName();
+    explicit             NamespaceName(const std::string& value);
 
-    inline   std::string value         ()                             const;
-    inline   bool        operator==    (const ParameterValue& rValue) const;
-    inline   bool        operator!=    (const ParameterValue& rValue) const;
-    inline   bool        operator<     (const ParameterValue& rValue) const;
+    inline   std::string value        ()                            const;
+    inline   bool        operator==   (const NamespaceName& rValue) const;
+    inline   bool        operator!=   (const NamespaceName& rValue) const;
+    inline   bool        operator<    (const NamespaceName& rValue) const;
 private:
     std::string mValue;
 };
 
-inline ParameterValueSPtr parameterValueRef()
+inline NamespaceNameSPtr namespaceNameRef()
 {
-    return boost::make_shared<ParameterValue>();
+    return boost::make_shared<NamespaceName>();
 }
 
-inline ParameterValueSPtr parameterValueRef(const std::string& value)
+inline NamespaceNameSPtr namespaceNameRef(const std::string& value)
 {
-    return boost::make_shared<ParameterValue>(value);
+    return boost::make_shared<NamespaceName>(value);
 }
 
-inline std::string ParameterValue::value() const
+inline std::string NamespaceName::value() const
 {
     return mValue;
 }
 
-inline bool ParameterValue::operator==(const ParameterValue& rValue) const
+inline bool NamespaceName::operator==(const NamespaceName& rValue) const
 {
     return value() == rValue.value();
 }
 
-inline bool ParameterValue::operator!=(const ParameterValue& rValue) const
+inline bool NamespaceName::operator!=(const NamespaceName& rValue) const
 {
     return value() != rValue.value();
 }
 
-inline bool ParameterValue::operator<(const ParameterValue& rValue) const
+inline bool NamespaceName::operator<(const NamespaceName& rValue) const
 {
     return value() < rValue.value();
 }
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_PARAMETER_VALUE_COMPIL_H_
+}
+
+}
+
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_NAMESPACE_NAME_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
-class ParameterValue;
-typedef ParameterValue*                         ParameterValueRPtr;
-typedef boost::shared_ptr<ParameterValue>       ParameterValueSPtr;
-typedef boost::shared_ptr<const ParameterValue> ParameterValueSCPtr;
-typedef boost::weak_ptr<ParameterValue>         ParameterValueWPtr;
+class NamespaceName;
+typedef NamespaceName*                         NamespaceNameRPtr;
+typedef boost::shared_ptr<NamespaceName>       NamespaceNameSPtr;
+typedef boost::shared_ptr<const NamespaceName> NamespaceNameSCPtr;
+typedef boost::weak_ptr<NamespaceName>         NamespaceNameWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_PARAMETER_VALUE_COMPIL_H_
+}
+
+}
+
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_NAMESPACE_NAME_COMPIL_H_
 

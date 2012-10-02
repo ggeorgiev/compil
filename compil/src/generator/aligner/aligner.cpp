@@ -51,58 +51,58 @@ cpp::frm::DecoratedTypeSPtr cstTRef        = cpp::frm::decoratedTypeRef() << cpp
 cpp::frm::DecoratedTypeSPtr TPtr           = cpp::frm::decoratedTypeRef() << (cpp::frm::simpleTypeRef() << "T")
                                                                           << cpp::frm::ETypeDecoration::pointer();
 
-MethodNameSPtr fnValue                  = methodNameRef("value");
-MethodNameSPtr fnShortName              = methodNameRef("shortName");
-MethodNameSPtr fnBuild                  = methodNameRef("build");
-MethodNameSPtr fnClone                  = methodNameRef("clone");
-MethodNameSPtr fnCreate                 = methodNameRef("create");
-MethodNameSPtr fnFinalize               = methodNameRef("finalize");
+cpp::frm::MethodNameSPtr fnValue                  = cpp::frm::methodNameRef("value");
+cpp::frm::MethodNameSPtr fnShortName              = cpp::frm::methodNameRef("shortName");
+cpp::frm::MethodNameSPtr fnBuild                  = cpp::frm::methodNameRef("build");
+cpp::frm::MethodNameSPtr fnClone                  = cpp::frm::methodNameRef("clone");
+cpp::frm::MethodNameSPtr fnCreate                 = cpp::frm::methodNameRef("create");
+cpp::frm::MethodNameSPtr fnFinalize               = cpp::frm::methodNameRef("finalize");
 
-MethodNameSPtr fnBuilder                = methodNameRef("Builder");
-MethodNameSPtr fnDowncast               = methodNameRef("downcast");
-MethodNameSPtr fnSharedFromThis         = methodNameRef("shared_from_this");
+cpp::frm::MethodNameSPtr fnBuilder                = cpp::frm::methodNameRef("Builder");
+cpp::frm::MethodNameSPtr fnDowncast               = cpp::frm::methodNameRef("downcast");
+cpp::frm::MethodNameSPtr fnSharedFromThis         = cpp::frm::methodNameRef("shared_from_this");
 
 
-MethodNameSPtr fnIsInitialized          = methodNameRef("isInitialized");
-MethodNameSPtr fnIsVoid                 = methodNameRef("isVoid");
+cpp::frm::MethodNameSPtr fnIsInitialized          = cpp::frm::methodNameRef("isInitialized");
+cpp::frm::MethodNameSPtr fnIsVoid                 = cpp::frm::methodNameRef("isVoid");
 
-MethodNameSPtr fnInprocId               = methodNameRef("inprocId");
-MethodNameSPtr fnGet                    = methodNameRef("get");
-MethodNameSPtr fnRegisterCloneFunction  = methodNameRef("registerCloneFunction");
-MethodNameSPtr fnRegisterRelationship   = methodNameRef("registerRelationship");
-MethodNameSPtr fnIsParent               = methodNameRef("isParent");
-MethodNameSPtr fnIsDerivedFrom          = methodNameRef("isDerivedFrom");
+cpp::frm::MethodNameSPtr fnInprocId               = cpp::frm::methodNameRef("inprocId");
+cpp::frm::MethodNameSPtr fnGet                    = cpp::frm::methodNameRef("get");
+cpp::frm::MethodNameSPtr fnRegisterCloneFunction  = cpp::frm::methodNameRef("registerCloneFunction");
+cpp::frm::MethodNameSPtr fnRegisterRelationship   = cpp::frm::methodNameRef("registerRelationship");
+cpp::frm::MethodNameSPtr fnIsParent               = cpp::frm::methodNameRef("isParent");
+cpp::frm::MethodNameSPtr fnIsDerivedFrom          = cpp::frm::methodNameRef("isDerivedFrom");
 
-MethodNameSPtr fnOperatorE              = methodNameRef("operator=");
-MethodNameSPtr fnOperatorEq             = methodNameRef("operator==");
-MethodNameSPtr fnOperatorNe             = methodNameRef("operator!=");
-MethodNameSPtr fnOperatorLt             = methodNameRef("operator<");
-MethodNameSPtr fnOperatorStore          = methodNameRef("operator<<");
-MethodNameSPtr fnOperatorStoreEq        = methodNameRef("operator<<=");
-MethodNameSPtr fnOperatorPlusEq         = methodNameRef("operator+=");
-MethodNameSPtr fnOperatorFn             = methodNameRef("operator()");
+cpp::frm::MethodNameSPtr fnOperatorE              = cpp::frm::methodNameRef("operator=");
+cpp::frm::MethodNameSPtr fnOperatorEq             = cpp::frm::methodNameRef("operator==");
+cpp::frm::MethodNameSPtr fnOperatorNe             = cpp::frm::methodNameRef("operator!=");
+cpp::frm::MethodNameSPtr fnOperatorLt             = cpp::frm::methodNameRef("operator<");
+cpp::frm::MethodNameSPtr fnOperatorStore          = cpp::frm::methodNameRef("operator<<");
+cpp::frm::MethodNameSPtr fnOperatorStoreEq        = cpp::frm::methodNameRef("operator<<=");
+cpp::frm::MethodNameSPtr fnOperatorPlusEq         = cpp::frm::methodNameRef("operator+=");
+cpp::frm::MethodNameSPtr fnOperatorFn             = cpp::frm::methodNameRef("operator()");
 
-MethodNameSPtr fnFunctionalOperatorEq   = methodNameRef("isEqual");
-MethodNameSPtr fnFunctionalOperatorLt   = methodNameRef("lessThan");
+cpp::frm::MethodNameSPtr fnFunctionalOperatorEq   = cpp::frm::methodNameRef("isEqual");
+cpp::frm::MethodNameSPtr fnFunctionalOperatorLt   = cpp::frm::methodNameRef("lessThan");
 
-MethodNameSPtr fnUpdate                 = methodNameRef("update");
-MethodNameSPtr fnObtain                 = methodNameRef("obtain");
+cpp::frm::MethodNameSPtr fnUpdate                 = cpp::frm::methodNameRef("update");
+cpp::frm::MethodNameSPtr fnObtain                 = cpp::frm::methodNameRef("obtain");
 
-MethodNameSPtr fnReset                  = methodNameRef("reset");
-MethodNameSPtr fnSet                    = methodNameRef("set");
-MethodNameSPtr fnClear                  = methodNameRef("clear");
-MethodNameSPtr fnTurn                   = methodNameRef("turn");
+cpp::frm::MethodNameSPtr fnReset                  = cpp::frm::methodNameRef("reset");
+cpp::frm::MethodNameSPtr fnSet                    = cpp::frm::methodNameRef("set");
+cpp::frm::MethodNameSPtr fnClear                  = cpp::frm::methodNameRef("clear");
+cpp::frm::MethodNameSPtr fnTurn                   = cpp::frm::methodNameRef("turn");
 
-MethodNameSPtr fnAssemble               = methodNameRef("assemble");
-MethodNameSPtr fnCombine                = methodNameRef("combine");
-MethodNameSPtr fnIntersect              = methodNameRef("intersect");
-MethodNameSPtr fnFlip                   = methodNameRef("flip");
+cpp::frm::MethodNameSPtr fnAssemble               = cpp::frm::methodNameRef("assemble");
+cpp::frm::MethodNameSPtr fnCombine                = cpp::frm::methodNameRef("combine");
+cpp::frm::MethodNameSPtr fnIntersect              = cpp::frm::methodNameRef("intersect");
+cpp::frm::MethodNameSPtr fnFlip                   = cpp::frm::methodNameRef("flip");
 
-MethodNameSPtr fnTest                   = methodNameRef("test");
-MethodNameSPtr fnIsSet                  = methodNameRef("isSet");
-MethodNameSPtr fnIsClear                = methodNameRef("isClear");
+cpp::frm::MethodNameSPtr fnTest                   = cpp::frm::methodNameRef("test");
+cpp::frm::MethodNameSPtr fnIsSet                  = cpp::frm::methodNameRef("isSet");
+cpp::frm::MethodNameSPtr fnIsClear                = cpp::frm::methodNameRef("isClear");
 
-NamespaceNameSPtr nsBuilder = namespaceNameRef("Builder");
+cpp::frm::NamespaceNameSPtr nsBuilder = cpp::frm::namespaceNameRef("Builder");
 
 cpp::frm::SimpleTypeSPtr builder = cpp::frm::simpleTypeRef() << "Builder";
 cpp::frm::SimpleTypeSPtr chr     = cpp::frm::simpleTypeRef() << "char";

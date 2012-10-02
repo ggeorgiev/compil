@@ -39,10 +39,10 @@
 namespace compil
 {
 
-cpp::frm::NamespaceSPtr nsStd = cpp::frm::namespaceRef() << namespaceNameRef("std");
-cpp::frm::NamespaceSPtr nsBoost = cpp::frm::namespaceRef() << namespaceNameRef("boost");
-cpp::frm::NamespaceSPtr nsBoostPosixTime = cpp::frm::namespaceRef() << namespaceNameRef("boost")
-                                                                    << namespaceNameRef("posix_time");
+cpp::frm::NamespaceSPtr nsStd = cpp::frm::namespaceRef() << cpp::frm::namespaceNameRef("std");
+cpp::frm::NamespaceSPtr nsBoost = cpp::frm::namespaceRef() << cpp::frm::namespaceNameRef("boost");
+cpp::frm::NamespaceSPtr nsBoostPosixTime = cpp::frm::namespaceRef() << cpp::frm::namespaceNameRef("boost")
+                                                                    << cpp::frm::namespaceNameRef("posix_time");
 
 CppImplementer::CppImplementer(const ImplementerConfigurationPtr& pConfig, const CppFormatterPtr& pFrm)
         : mpConfiguration(pConfig)
@@ -282,7 +282,7 @@ cpp::frm::SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
             if (simpleType->namespace_())
             if (!simpleType->namespace_()->isVoid())
             {
-                const std::vector<NamespaceNameSPtr>& names = simpleType->namespace_()->names();
+                const std::vector<cpp::frm::NamespaceNameSPtr>& names = simpleType->namespace_()->names();
                 for (size_t i = 0; i < names.size(); ++i)
                     result += names[i]->value() + "::";
             }
@@ -641,14 +641,14 @@ std::vector<StructureSPtr> CppImplementer::hierarchie(const ModelPtr& pModel,
     return hierarchie;
 }
 
-MethodNameSPtr CppImplementer::staticMethodName(const std::string& name)
+cpp::frm::MethodNameSPtr CppImplementer::staticMethodName(const std::string& name)
 {
     std::string uname = name;
     std::transform(uname.begin(), uname.begin() + 1, uname.begin(), toupper);
     return mpFrm->methodName("static" + uname);
 }
 
-MethodNameSPtr CppImplementer::runtimeMethodName(const std::string& name)
+cpp::frm::MethodNameSPtr CppImplementer::runtimeMethodName(const std::string& name)
 {
     std::string uname = name;
     std::transform(uname.begin(), uname.begin() + 1, uname.begin(), toupper);
@@ -665,12 +665,12 @@ cpp::frm::SimpleTypeSPtr CppImplementer::identificationEnum(const StructureSPtr&
     return cpp::frm::simpleTypeRef() << mpFrm->enumName(identificationName(pStructure));
 }
 
-MethodNameSPtr CppImplementer::staticIdentificationMethodName(const StructureSPtr& pStructure)
+cpp::frm::MethodNameSPtr CppImplementer::staticIdentificationMethodName(const StructureSPtr& pStructure)
 {
     return staticMethodName(identificationName(pStructure));
 }
 
-MethodNameSPtr CppImplementer::runtimeIdentificationMethodName(const StructureSPtr& pStructure)
+cpp::frm::MethodNameSPtr CppImplementer::runtimeIdentificationMethodName(const StructureSPtr& pStructure)
 {
     return runtimeMethodName(identificationName(pStructure));
 }
@@ -744,18 +744,18 @@ EnumerationSPtr CppImplementer::objectEnumeration(const ModelPtr& pModel,
 }
 
 
-EMethodSpecifier CppImplementer::methodSpecifier(const StructureSPtr& pStructure)
+cpp::frm::EMethodSpecifier CppImplementer::methodSpecifier(const StructureSPtr& pStructure)
 {
     StructureSPtr pStruct = pStructure;
     while (pStruct)
     {
         if (pStruct->hasRuntimeIdentification())
-            return EMethodSpecifier::virtual_();
+            return cpp::frm::EMethodSpecifier::virtual_();
         
         pStruct = pStruct->baseStructure().lock();
     }
 
-    return EMethodSpecifier::invalid();
+    return cpp::frm::EMethodSpecifier::invalid();
 }
 
 cpp::frm::EDestructorSpecifier CppImplementer::destructorSpecifier(const StructureSPtr& pStructure)

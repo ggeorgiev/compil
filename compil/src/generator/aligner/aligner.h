@@ -45,9 +45,6 @@
 #include "cpp/format/method.h"
 #include "cpp/format/initialization.h"
 
-#include "method_declaration.h"
-#include "method_name.h"
-
 #include <boost/shared_ptr.hpp>
 
 #include <string>
@@ -66,54 +63,54 @@ extern cpp::frm::DecoratedTypeSPtr cloneFunction;
 extern cpp::frm::DecoratedTypeSPtr cstTRef;
 extern cpp::frm::DecoratedTypeSPtr TPtr;
 
-extern MethodNameSPtr fnValue;
-extern MethodNameSPtr fnShortName;
-extern MethodNameSPtr fnBuild;
-extern MethodNameSPtr fnClone;
-extern MethodNameSPtr fnCreate;
-extern MethodNameSPtr fnFinalize;
+extern cpp::frm::MethodNameSPtr fnValue;
+extern cpp::frm::MethodNameSPtr fnShortName;
+extern cpp::frm::MethodNameSPtr fnBuild;
+extern cpp::frm::MethodNameSPtr fnClone;
+extern cpp::frm::MethodNameSPtr fnCreate;
+extern cpp::frm::MethodNameSPtr fnFinalize;
 
-extern MethodNameSPtr fnBuilder;
-extern MethodNameSPtr fnDowncast;
-extern MethodNameSPtr fnSharedFromThis;
+extern cpp::frm::MethodNameSPtr fnBuilder;
+extern cpp::frm::MethodNameSPtr fnDowncast;
+extern cpp::frm::MethodNameSPtr fnSharedFromThis;
 
-extern MethodNameSPtr fnIsInitialized;
-extern MethodNameSPtr fnIsVoid;
+extern cpp::frm::MethodNameSPtr fnIsInitialized;
+extern cpp::frm::MethodNameSPtr fnIsVoid;
 
-extern MethodNameSPtr fnInprocId;
-extern MethodNameSPtr fnGet;
-extern MethodNameSPtr fnRegisterCloneFunction;
-extern MethodNameSPtr fnRegisterRelationship;
-extern MethodNameSPtr fnIsParent;
-extern MethodNameSPtr fnIsDerivedFrom;
+extern cpp::frm::MethodNameSPtr fnInprocId;
+extern cpp::frm::MethodNameSPtr fnGet;
+extern cpp::frm::MethodNameSPtr fnRegisterCloneFunction;
+extern cpp::frm::MethodNameSPtr fnRegisterRelationship;
+extern cpp::frm::MethodNameSPtr fnIsParent;
+extern cpp::frm::MethodNameSPtr fnIsDerivedFrom;
 
-extern MethodNameSPtr fnOperatorE;
-extern MethodNameSPtr fnOperatorEq;
-extern MethodNameSPtr fnOperatorNe;
-extern MethodNameSPtr fnOperatorLt;
-extern MethodNameSPtr fnOperatorFn;
-extern MethodNameSPtr fnOperatorStore;
-extern MethodNameSPtr fnOperatorStoreEq;
-extern MethodNameSPtr fnOperatorPlusEq;
+extern cpp::frm::MethodNameSPtr fnOperatorE;
+extern cpp::frm::MethodNameSPtr fnOperatorEq;
+extern cpp::frm::MethodNameSPtr fnOperatorNe;
+extern cpp::frm::MethodNameSPtr fnOperatorLt;
+extern cpp::frm::MethodNameSPtr fnOperatorFn;
+extern cpp::frm::MethodNameSPtr fnOperatorStore;
+extern cpp::frm::MethodNameSPtr fnOperatorStoreEq;
+extern cpp::frm::MethodNameSPtr fnOperatorPlusEq;
 
-extern MethodNameSPtr fnFunctionalOperatorEq;
-extern MethodNameSPtr fnFunctionalOperatorLt;
+extern cpp::frm::MethodNameSPtr fnFunctionalOperatorEq;
+extern cpp::frm::MethodNameSPtr fnFunctionalOperatorLt;
 
-extern MethodNameSPtr fnReset;
-extern MethodNameSPtr fnSet;
-extern MethodNameSPtr fnClear;
-extern MethodNameSPtr fnTurn;
+extern cpp::frm::MethodNameSPtr fnReset;
+extern cpp::frm::MethodNameSPtr fnSet;
+extern cpp::frm::MethodNameSPtr fnClear;
+extern cpp::frm::MethodNameSPtr fnTurn;
 
-extern MethodNameSPtr fnAssemble;
-extern MethodNameSPtr fnCombine;
-extern MethodNameSPtr fnIntersect;
-extern MethodNameSPtr fnFlip;
+extern cpp::frm::MethodNameSPtr fnAssemble;
+extern cpp::frm::MethodNameSPtr fnCombine;
+extern cpp::frm::MethodNameSPtr fnIntersect;
+extern cpp::frm::MethodNameSPtr fnFlip;
 
-extern MethodNameSPtr fnTest;
-extern MethodNameSPtr fnIsSet;
-extern MethodNameSPtr fnIsClear;
+extern cpp::frm::MethodNameSPtr fnTest;
+extern cpp::frm::MethodNameSPtr fnIsSet;
+extern cpp::frm::MethodNameSPtr fnIsClear;
 
-extern NamespaceNameSPtr nsBuilder;
+extern cpp::frm::NamespaceNameSPtr nsBuilder;
 
 extern cpp::frm::SimpleTypeSPtr builder;
 extern cpp::frm::SimpleTypeSPtr chr;

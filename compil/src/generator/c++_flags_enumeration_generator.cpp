@@ -101,7 +101,7 @@ bool CppFlagsEnumerationGenerator::generate()
     eofd(declarationStream);
     line()  << ": " 
             << (cf::initializationRef() << memberValue
-                                        << parameterValueRef("0"));
+                                        << cf::parameterValueRef("0"));
     openBlock(declarationStream, 1);
     closeBlock(declarationStream);
     eol(declarationStream);
@@ -119,7 +119,7 @@ bool CppFlagsEnumerationGenerator::generate()
     
     fdef()  << (cf::methodRef() << decoratedType
                                 << fnValue
-                                << EMethodDeclaration::const_());
+                                << cf::EMethodDeclaration::const_());
     openBlock(declarationStream);
     line()  << "return "
             << memberValue
@@ -179,7 +179,7 @@ bool CppFlagsEnumerationGenerator::generate()
                                 << fnAssemble
                                 << argMask
                                 << argValue
-                                << EMethodDeclaration::const_());
+                                << cf::EMethodDeclaration::const_());
     openBlock(declarationStream);
     line()  << "return "
             << inherit
@@ -193,7 +193,7 @@ bool CppFlagsEnumerationGenerator::generate()
     fdef()  << (cf::methodRef() << decoratedInherit
                                 << fnCombine
                                 << argMask
-                                << EMethodDeclaration::const_());
+                                << cf::EMethodDeclaration::const_());
     openBlock(declarationStream);
     line()  << "return "
             << inherit
@@ -207,7 +207,7 @@ bool CppFlagsEnumerationGenerator::generate()
     fdef()  << (cf::methodRef() << decoratedInherit
                                 << fnIntersect
                                 << argMask
-                                << EMethodDeclaration::const_());
+                                << cf::EMethodDeclaration::const_());
     openBlock(declarationStream);
     line()  << "return "
             << inherit
@@ -221,7 +221,7 @@ bool CppFlagsEnumerationGenerator::generate()
     fdef()  << (cf::methodRef() << decoratedInherit
                                 << fnFlip
                                 << argMask
-                                << EMethodDeclaration::const_());
+                                << cf::EMethodDeclaration::const_());
     openBlock(declarationStream);
     line()  << "return "
             << inherit
@@ -235,7 +235,7 @@ bool CppFlagsEnumerationGenerator::generate()
                                 << fnTest
                                 << argMask
                                 << argValue
-                                << EMethodDeclaration::const_());
+                                << cf::EMethodDeclaration::const_());
     openBlock(declarationStream);
     line()  << "return (this->value() & mask.value()) == value.value();";
     closeBlock(declarationStream);
@@ -246,7 +246,7 @@ bool CppFlagsEnumerationGenerator::generate()
     fdef()  << (cf::methodRef() << bl
                                 << fnIsSet
                                 << argMask
-                                << EMethodDeclaration::const_());
+                                << cf::EMethodDeclaration::const_());
     openBlock(declarationStream);
     line()  << "return (value() & mask.value()) == mask.value();";
     closeBlock(declarationStream);
@@ -257,7 +257,7 @@ bool CppFlagsEnumerationGenerator::generate()
     fdef()  << (cf::methodRef() << bl
                                 << fnIsClear
                                 << argMask
-                                << EMethodDeclaration::const_());
+                                << cf::EMethodDeclaration::const_());
     openBlock(declarationStream);
     line()  << "return (value() & mask.value()) == 0;";
     closeBlock(declarationStream);

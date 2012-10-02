@@ -40,7 +40,9 @@
 #include "cpp/format/constructor_name.h"
 #include "cpp/format/decorated_type.h"
 #include "cpp/format/destructor_name.h"
+#include "cpp/format/method_name.h"
 #include "cpp/format/namespace.h"
+#include "cpp/format/parameter_value.h"
 #include "cpp/format/variable_name.h"
 
 #include "alter.h"
@@ -53,9 +55,7 @@
 #include "interface.h"
 #include "document.h"
 
-#include "method_name.h"
 
-#include "parameter_value.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -81,7 +81,7 @@ public:
     
     virtual std::string cppRefName(const std::string& rawName);
     
-    virtual MethodNameSPtr methodName(const std::string& rawName);
+    virtual cpp::frm::MethodNameSPtr methodName(const std::string& rawName);
     
     virtual std::string name(const std::string& rawName);
     virtual std::string memberName(const std::string& rawName);
@@ -105,7 +105,7 @@ public:
     virtual cpp::frm::VariableNameSPtr ptrVariableName(const cpp::frm::VariableNameSPtr& name);
     virtual cpp::frm::VariableNameSPtr memberPtrVariableName(const cpp::frm::VariableNameSPtr& name);
     
-    virtual ParameterValueSPtr parameterValue(const cpp::frm::VariableNameSPtr& name);
+    virtual cpp::frm::ParameterValueSPtr parameterValue(const cpp::frm::VariableNameSPtr& name);
     
     virtual cpp::frm::NamespaceSPtr cppPackageNamespace(const PackageSPtr& pPackage);
 
@@ -144,31 +144,31 @@ public:
     virtual std::string cppMemberName(const FieldSPtr& pField);
     virtual cpp::frm::VariableNameSPtr cppVariableName(const FieldSPtr& pField);
     virtual cpp::frm::VariableNameSPtr cppItemVariableName(const FieldSPtr& pField);
-    virtual ParameterValueSPtr cppVariableNameAsParameter(const FieldSPtr& pField);
+    virtual cpp::frm::ParameterValueSPtr cppVariableNameAsParameter(const FieldSPtr& pField);
     
-    virtual MethodNameSPtr getMethodName(const FieldSPtr& pField);
-    virtual MethodNameSPtr setMethodName(const FieldSPtr& pField);
-    virtual MethodNameSPtr mutableMethodName(const FieldSPtr& pField);
-    virtual MethodNameSPtr updateMethodName(const FieldSPtr& pField);
+    virtual cpp::frm::MethodNameSPtr getMethodName(const FieldSPtr& pField);
+    virtual cpp::frm::MethodNameSPtr setMethodName(const FieldSPtr& pField);
+    virtual cpp::frm::MethodNameSPtr mutableMethodName(const FieldSPtr& pField);
+    virtual cpp::frm::MethodNameSPtr updateMethodName(const FieldSPtr& pField);
     
-    virtual MethodNameSPtr constantMethodName(const StructureSPtr& pStructure,
+    virtual cpp::frm::MethodNameSPtr constantMethodName(const StructureSPtr& pStructure,
                                             const FieldSPtr& pField);
-    virtual MethodNameSPtr defaultMethodName(const FieldSPtr& pField);
-    virtual MethodNameSPtr alterMethodName(const FieldSPtr& pField);
+    virtual cpp::frm::MethodNameSPtr defaultMethodName(const FieldSPtr& pField);
+    virtual cpp::frm::MethodNameSPtr alterMethodName(const FieldSPtr& pField);
 
-    virtual MethodNameSPtr destroyMethodName(const FieldSPtr& pField);
-    virtual MethodNameSPtr clearMethodName(const FieldSPtr& pField);
-    virtual MethodNameSPtr eraseMethodName(const FieldSPtr& pField);
-    virtual MethodNameSPtr resetMethodName(const FieldSPtr& pField);
+    virtual cpp::frm::MethodNameSPtr destroyMethodName(const FieldSPtr& pField);
+    virtual cpp::frm::MethodNameSPtr clearMethodName(const FieldSPtr& pField);
+    virtual cpp::frm::MethodNameSPtr eraseMethodName(const FieldSPtr& pField);
+    virtual cpp::frm::MethodNameSPtr resetMethodName(const FieldSPtr& pField);
     
-    virtual MethodNameSPtr availableMethodName(const FieldSPtr& pField);
-    virtual MethodNameSPtr existMethodName(const FieldSPtr& pField);
-    virtual MethodNameSPtr validMethodName(const FieldSPtr& pField);
-    virtual MethodNameSPtr changedMethodName(const FieldSPtr& pField);
+    virtual cpp::frm::MethodNameSPtr availableMethodName(const FieldSPtr& pField);
+    virtual cpp::frm::MethodNameSPtr existMethodName(const FieldSPtr& pField);
+    virtual cpp::frm::MethodNameSPtr validMethodName(const FieldSPtr& pField);
+    virtual cpp::frm::MethodNameSPtr changedMethodName(const FieldSPtr& pField);
     
-    virtual MethodNameSPtr bitmaskMethodName(const FieldSPtr& pField);
+    virtual cpp::frm::MethodNameSPtr bitmaskMethodName(const FieldSPtr& pField);
     
-    virtual MethodNameSPtr downcastMethodName(const StructureSPtr& pStructure);
+    virtual cpp::frm::MethodNameSPtr downcastMethodName(const StructureSPtr& pStructure);
     
     virtual std::string defaultValue(const Type::ELiteral literal, const std::string& value) const;
     virtual std::string defaultValue(const AlterSPtr& pAlter) const;

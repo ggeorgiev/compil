@@ -127,6 +127,13 @@ LineAligner& operator<<(LineAligner& aligner, const cpp::frm::FunctionCallSPtr& 
     return aligner;
 }
 
+LineAligner& operator<<(LineAligner& aligner, const cpp::frm::FunctionNameSPtr& name)
+{
+    if (name)
+        aligner << name->value();
+    return aligner;
+}
+
 LineAligner& operator<<(LineAligner& aligner, const cpp::frm::InitializationSPtr& initialization)
 {
     BOOST_ASSERT(!initialization->variableName() != !initialization->constructorName());
@@ -144,18 +151,33 @@ LineAligner& operator<<(LineAligner& aligner, const cpp::frm::InitializationSPtr
     return aligner;
 }
 
+LineAligner& operator<<(LineAligner& aligner, const cpp::frm::NamespaceNameSPtr& name)
+{
+    if (name)
+        aligner << name->value();
+    return aligner;
+}
+
 LineAligner& operator<<(LineAligner& aligner, const cpp::frm::NamespaceSPtr& namespace_)
 {
     if (namespace_)
     {
-        const std::vector<NamespaceNameSPtr>& names = namespace_->names();
-        for (size_t i = 0; i < names.size(); ++i)
+        const std::vector<cpp::frm::NamespaceNameSPtr>& names = namespace_->names();
+        if (names.size() > 0)
+            aligner << names[0];
+        for (size_t i = 1; i < names.size(); ++i)
         {
-            if (i > 0)
-                aligner << "::";
-            aligner << names[i]->value();
+            aligner << "::"
+                    << names[i];
         }
     }
+    return aligner;
+}
+
+LineAligner& operator<<(LineAligner& aligner, const cpp::frm::ParameterValueSPtr& parameter)
+{
+    if (parameter)
+        aligner << parameter->value();
     return aligner;
 }
 
@@ -296,23 +318,7 @@ LineAligner& operator<<(LineAligner& aligner, const Aligner::FunctionSpace&)
 
 
 
-LineAligner& operator<<(LineAligner& aligner, const FunctionName& functionName)
-{
-    aligner.line() << functionName.value();
-    return aligner;
-}
 
-LineAligner& operator<<(LineAligner& aligner, const FunctionNameSPtr& functionName)
-{
-    aligner.line() << functionName->value();
-    return aligner;
-}
-
-LineAligner& operator<<(LineAligner& aligner, const ParameterValueSPtr& parameter)
-{
-    aligner << parameter->value();
-    return aligner;
-}
 
 LineAligner& operator<<(LineAligner& aligner, char ch)
 {

@@ -37,63 +37,83 @@
 // Standard Template Library
 #include <string>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_FUNCTION_NAME_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_FUNCTION_NAME_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_PARAMETER_VALUE_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_PARAMETER_VALUE_COMPIL_H_
 
-#include "function_name.h"
+#include "parameter_value.h"
 
-class FunctionName
+namespace cpp
+{
+
+namespace frm
+{
+
+class ParameterValue
 {
 public:
-                         FunctionName();
-    explicit             FunctionName(const std::string& value);
+                         ParameterValue();
+    explicit             ParameterValue(const std::string& value);
 
-    inline   std::string value       ()                           const;
-    inline   bool        operator==  (const FunctionName& rValue) const;
-    inline   bool        operator!=  (const FunctionName& rValue) const;
-    inline   bool        operator<   (const FunctionName& rValue) const;
+    inline   std::string value         ()                             const;
+    inline   bool        operator==    (const ParameterValue& rValue) const;
+    inline   bool        operator!=    (const ParameterValue& rValue) const;
+    inline   bool        operator<     (const ParameterValue& rValue) const;
 private:
     std::string mValue;
 };
 
-inline FunctionNameSPtr functionNameRef()
+inline ParameterValueSPtr parameterValueRef()
 {
-    return boost::make_shared<FunctionName>();
+    return boost::make_shared<ParameterValue>();
 }
 
-inline FunctionNameSPtr functionNameRef(const std::string& value)
+inline ParameterValueSPtr parameterValueRef(const std::string& value)
 {
-    return boost::make_shared<FunctionName>(value);
+    return boost::make_shared<ParameterValue>(value);
 }
 
-inline std::string FunctionName::value() const
+inline std::string ParameterValue::value() const
 {
     return mValue;
 }
 
-inline bool FunctionName::operator==(const FunctionName& rValue) const
+inline bool ParameterValue::operator==(const ParameterValue& rValue) const
 {
     return value() == rValue.value();
 }
 
-inline bool FunctionName::operator!=(const FunctionName& rValue) const
+inline bool ParameterValue::operator!=(const ParameterValue& rValue) const
 {
     return value() != rValue.value();
 }
 
-inline bool FunctionName::operator<(const FunctionName& rValue) const
+inline bool ParameterValue::operator<(const ParameterValue& rValue) const
 {
     return value() < rValue.value();
 }
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_FUNCTION_NAME_COMPIL_H_
+}
+
+}
+
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_PARAMETER_VALUE_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
-class FunctionName;
-typedef FunctionName*                         FunctionNameRPtr;
-typedef boost::shared_ptr<FunctionName>       FunctionNameSPtr;
-typedef boost::shared_ptr<const FunctionName> FunctionNameSCPtr;
-typedef boost::weak_ptr<FunctionName>         FunctionNameWPtr;
+class ParameterValue;
+typedef ParameterValue*                         ParameterValueRPtr;
+typedef boost::shared_ptr<ParameterValue>       ParameterValueSPtr;
+typedef boost::shared_ptr<const ParameterValue> ParameterValueSCPtr;
+typedef boost::weak_ptr<ParameterValue>         ParameterValueWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_FUNCTION_NAME_COMPIL_H_
+}
+
+}
+
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_PARAMETER_VALUE_COMPIL_H_
 

@@ -35,13 +35,13 @@
 #define _CPP_IMPLEMENTER_H__
 
 #include "cpp/format/destructor_specifier.h"
+#include "cpp/format/method_specifier.h"
 
 #include "implementer_configuration.h"
 #include "c++_formatter.h"
 #include "dependency.h"
 #include "factory.h"
 #include "model.h"
-#include "method_specifier.h"
 
 namespace compil
 {
@@ -102,20 +102,20 @@ public:
                                                   if_predicate if_pred = NULL,
                                                   less_predicate less_pred = alphabeticByName);
                                                  
-    virtual MethodNameSPtr staticMethodName(const std::string& name);
-    virtual MethodNameSPtr runtimeMethodName(const std::string& name);
+    virtual cpp::frm::MethodNameSPtr staticMethodName(const std::string& name);
+    virtual cpp::frm::MethodNameSPtr runtimeMethodName(const std::string& name);
     
     virtual std::string identificationName(const StructureSPtr& pStructure);
     virtual cpp::frm::SimpleTypeSPtr identificationEnum(const StructureSPtr& pStructure);
-    virtual MethodNameSPtr staticIdentificationMethodName(const StructureSPtr& pStructure);
-    virtual MethodNameSPtr runtimeIdentificationMethodName(const StructureSPtr& pStructure);
+    virtual cpp::frm::MethodNameSPtr staticIdentificationMethodName(const StructureSPtr& pStructure);
+    virtual cpp::frm::MethodNameSPtr runtimeIdentificationMethodName(const StructureSPtr& pStructure);
     
     virtual EnumerationSPtr objectEnumeration(const ModelPtr& pModel, const FactorySPtr& pFactory);
     virtual EnumerationSPtr objectEnumeration(const ModelPtr& pModel,
                                               const std::vector<StructureSPtr>& structs,
                                               const FactorySPtr& pFactory);
   
-    virtual EMethodSpecifier methodSpecifier(const StructureSPtr& pStructure);
+    virtual cpp::frm::EMethodSpecifier methodSpecifier(const StructureSPtr& pStructure);
     virtual cpp::frm::EDestructorSpecifier destructorSpecifier(const StructureSPtr& pStructure);
                                      
     cpp::frm::ConstructorNameSPtr inheritClass(const EnumerationSPtr& pEnumeration,

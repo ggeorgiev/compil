@@ -1,5 +1,11 @@
 #include "method_specifier.h"
 
+namespace cpp
+{
+
+namespace frm
+{
+
 EMethodSpecifier::EMethodSpecifier()
         : mValue(kInvalid)
 {
@@ -60,5 +66,9 @@ bool EMethodSpecifier::operator==(const EMethodSpecifier& rValue) const
 bool EMethodSpecifier::operator!=(const EMethodSpecifier& rValue) const
 {
     return mValue != rValue.mValue;
+}
+
+}
+
 }
 

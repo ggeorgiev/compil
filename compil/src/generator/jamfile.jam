@@ -25,23 +25,20 @@ lib gen :
     cpp/format/destructor_name.cpp
     cpp/format/destructor.cpp
     cpp/format/function_call.cpp
+    cpp/format/function_name.cpp
     cpp/format/function.cpp
     cpp/format/initialization.cpp
+    cpp/format/method_declaration.cpp
+    cpp/format/method_name.cpp
+    cpp/format/method_specifier.cpp
     cpp/format/method.cpp
+    cpp/format/namespace_name.cpp
     cpp/format/namespace.cpp
+    cpp/format/parameter_value.cpp
     cpp/format/simple_type.cpp
     cpp/format/type_declaration.cpp
     cpp/format/type_decoration.cpp
     cpp/format/variable_name.cpp
-
-
-
-    aligner/object/function_name.cpp
-    aligner/object/method_declaration.cpp
-    aligner/object/method_name.cpp
-    aligner/object/method_specifier.cpp
-    aligner/object/namespace_name.cpp
-    aligner/object/parameter_value.cpp
 
     aligner/aligner.cpp
     aligner/aligner_configuration.cpp

@@ -1,5 +1,11 @@
 #include "method_declaration.h"
 
+namespace cpp
+{
+
+namespace frm
+{
+
 EMethodDeclaration::EMethodDeclaration()
         : mValue(kInvalid)
 {
@@ -48,5 +54,9 @@ bool EMethodDeclaration::operator==(const EMethodDeclaration& rValue) const
 bool EMethodDeclaration::operator!=(const EMethodDeclaration& rValue) const
 {
     return mValue != rValue.mValue;
+}
+
+}
+
 }
 

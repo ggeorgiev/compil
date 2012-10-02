@@ -115,14 +115,14 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     {
         line()  << (cf::initializationRef() << constructorName
                                             << variableName
-                                            << parameterValueRef("0"));
+                                            << cf::parameterValueRef("0"));
     }
     else
     {
         std::string invalid = frm->enumValueName(Model::invalidEnumerationValue(pEnumeration));
         line()  << (cf::initializationRef() << constructorName
                                             << variableName
-                                            << parameterValueRef(invalid));
+                                            << cf::parameterValueRef(invalid));
     }
     openBlock(definitionStream, 2);
     closeBlock(definitionStream);
@@ -158,7 +158,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     fdef()  << (cf::methodRef() << impl->cppDecoratedType(pParameterType)
                                 << frm->cppEnumNamespace(pEnumeration)
                                 << fnValue
-                                << EMethodDeclaration::const_());
+                                << cf::EMethodDeclaration::const_());
     openBlock(definitionStream);
     line()  << "return "
             << frm->memberName("value")
@@ -251,11 +251,11 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     fdef()  << (cf::methodRef() << const_char_ptr
                                 << frm->cppEnumNamespace(pEnumeration)
                                 << fnShortName
-                                << EMethodDeclaration::const_());
+                                << cf::EMethodDeclaration::const_());
     openBlock(definitionStream);
     line()  << "return "
             << (cf::functionCallRef() << fnShortName
-                                      << parameterValueRef("value()"))
+                                      << cf::parameterValueRef("value()"))
             << ";";
     eol(definitionStream);
     closeBlock(definitionStream);
@@ -268,7 +268,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
                                     << fnOperatorEq
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << rValue)
-                                    << EMethodDeclaration::const_());
+                                    << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << frm->memberName("value")
@@ -283,7 +283,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
                                     << fnOperatorNe
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << rValue)
-                                    << EMethodDeclaration::const_());
+                                    << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << frm->memberName("value")
@@ -297,7 +297,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     {
         fdef()  << (cf::castOperatorRef() << frm->cppEnumNamespace(pEnumeration)
                                           << impl->cppDecoratedType(pParameterType)
-                                          << EMethodDeclaration::const_());
+                                          << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << frm->memberName("value")
@@ -365,7 +365,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
                                                           << mask)
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << value)
-                                    << EMethodDeclaration::const_());
+                                    << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << outerType
@@ -380,7 +380,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
                                     << fnCombine
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << mask)
-                                    << EMethodDeclaration::const_());
+                                    << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << outerType
@@ -394,7 +394,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
                                     << fnIntersect
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << mask)
-                                    << EMethodDeclaration::const_());
+                                    << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << outerType
@@ -408,7 +408,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
                                     << fnFlip
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << mask)
-                                    << EMethodDeclaration::const_());
+                                    << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << outerType
@@ -424,7 +424,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
                                                           << mask)
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << value)
-                                    << EMethodDeclaration::const_());
+                                    << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return (this->value() & mask.value()) == value.value();";
         eol(definitionStream);
@@ -436,7 +436,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
                                     << fnIsSet
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << mask)
-                                    << EMethodDeclaration::const_());
+                                    << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return (value() & mask.value()) == mask.value();";
         eol(definitionStream);
@@ -448,7 +448,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
                                     << fnIsClear
                                     << (cf::argumentRef() << innerDecoratedType
                                                           << mask)
-                                    << EMethodDeclaration::const_());
+                                    << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return (value() & mask.value()) == 0;";
         eol(definitionStream);
@@ -519,7 +519,7 @@ void CppGenerator::generateHierarchyFactoryDefinition(const FactorySPtr& pFactor
         fdef()  << (cf::methodRef() << (cf::decoratedTypeRef() << impl->identificationEnum(pParameterStructure))
                                     << frm->cppAutoClassNamespace(pStructure)
                                     << impl->runtimeIdentificationMethodName(pParameterStructure)
-                                    << EMethodDeclaration::const_());
+                                    << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << impl->staticIdentificationMethodName(pParameterStructure)
@@ -677,10 +677,10 @@ void CppGenerator::generateObjectFactoryDefinition(const FactorySPtr& pFactory)
     StructureSPtr pParameterStructure =  ObjectFactory::downcastStructure(pParameterType);
 
     cf::NamespaceSPtr nmspace;
-    MethodNameSPtr methodName;
+    cf::MethodNameSPtr methodName;
     if (pFactory->function())
     {
-        methodName = methodNameRef(pFactory->name()->value());
+        methodName = cf::methodNameRef(pFactory->name()->value());
     }
     else
     {
@@ -749,7 +749,7 @@ void CppGenerator::generateObjectFactoryDefinition(const FactorySPtr& pFactory)
                             << frm->setMethodName(*it)
                             << "("
                             << (cf::functionCallRef() << frm->cppMainClassNamespace(pParameterStructure)
-                                                      << functionNameRef(pFilter->method())
+                                                      << cf::functionNameRef(pFilter->method())
                                                       << frm->cppVariableNameAsParameter(*it))
                             << ");";
                 }
@@ -881,7 +881,7 @@ void CppGenerator::generateIdentifierDefinition(const IdentifierSPtr& pIdentifie
     fdef()  << (cf::methodRef() << impl->cppDecoratedType(pParameterType)
                                 << frm->cppClassNamespace(pIdentifier)
                                 << fnValue
-                                << EMethodDeclaration::const_());
+                                << cf::EMethodDeclaration::const_());
     openBlock(definitionStream);
     line()  << "return "
             << frm->memberName("value")
@@ -896,7 +896,7 @@ void CppGenerator::generateIdentifierDefinition(const IdentifierSPtr& pIdentifie
                                     << fnOperatorEq
                                     << (cf::argumentRef() << impl->cppDecoratedType(pIdentifier)
                                                           << rValue)
-                                    << EMethodDeclaration::const_());
+                                    << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << frm->memberName("value")
@@ -911,7 +911,7 @@ void CppGenerator::generateIdentifierDefinition(const IdentifierSPtr& pIdentifie
                                     << fnOperatorNe
                                     << (cf::argumentRef() << impl->cppDecoratedType(pIdentifier)
                                                           << rValue)
-                                    << EMethodDeclaration::const_());
+                                    << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << frm->memberName("value")
@@ -925,7 +925,7 @@ void CppGenerator::generateIdentifierDefinition(const IdentifierSPtr& pIdentifie
     {
         fdef()  << (cf::castOperatorRef() << frm->cppClassNamespace(pIdentifier)
                                           << impl->cppDecoratedType(pParameterType)
-                                          << EMethodDeclaration::const_());
+                                          << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
         line()  << "return "
                 << frm->memberName("value")
@@ -956,7 +956,7 @@ void CppGenerator::generateStructureFieldMemberInitialization(const FieldSPtr& p
     {
         generateInitialization(
             cf::initializationRef() << frm->memberVariableName(frm->cppVariableName(pField))
-                                    << parameterValueRef(frm->defaultMethodName(pField)->value() + "()"));
+                                    << cf::parameterValueRef(frm->defaultMethodName(pField)->value() + "()"));
     }
 }
 
@@ -1523,7 +1523,7 @@ void CppGenerator::generateStructureFieldDefinition(const FieldSPtr& pField)
     fdef()  << (cf::methodRef() << impl->cppDecoratedType(pField->type())
                                 << frm->cppAutoClassNamespace(pStructure)
                                 << frm->getMethodName(pField)
-                                << EMethodDeclaration::const_());
+                                << cf::EMethodDeclaration::const_());
 
     openBlock(definitionStream);
 
@@ -1552,7 +1552,7 @@ void CppGenerator::generateStructureFieldDefinition(const FieldSPtr& pField)
         fdef()  << (cf::methodRef() << bl
                                     << frm->cppAutoClassNamespace(pStructure)
                                     << frm->availableMethodName(pField)
-                                    << EMethodDeclaration::const_());
+                                    << cf::EMethodDeclaration::const_());
 
         openBlock(definitionStream);
 
@@ -1588,7 +1588,7 @@ void CppGenerator::generateStructureFieldOverrideDefinition(const FieldOverrideS
     fdef()  << (cf::methodRef() << (cf::decoratedTypeRef() << impl->cppType(pField->type()))
                                 << frm->cppAutoClassNamespace(pStructure)
                                 << frm->getMethodName(pField)
-                                << EMethodDeclaration::const_());
+                                << cf::EMethodDeclaration::const_());
 
     openBlock(definitionStream);
     line() << "return boost::static_pointer_cast<"
@@ -1793,7 +1793,7 @@ void CppGenerator::generateStructureInprocIdentificationMethodsDefinition(
     fdef()  << (cf::methodRef() << st
                                 << frm->cppAutoClassNamespace(pStructure)
                                 << impl->runtimeMethodName(fnInprocId->value())
-                                << EMethodDeclaration::const_());
+                                << cf::EMethodDeclaration::const_());
     openBlock(definitionStream);
     line()  << "return "
             << impl->staticMethodName(fnInprocId->value())
@@ -1812,7 +1812,7 @@ std::string CppGenerator::computeStructureOperatorExpression(
                     bool reverse)
 {
     std::string native;
-    FunctionNameSPtr fnFunction;
+    cf::FunctionNameSPtr fnFunction;
     if (action == EOperatorAction::equalTo())
     {
         native = "==";
@@ -2128,8 +2128,8 @@ void CppGenerator::generateStructureOperatorMethodsDefinition(
     if (!pOperator->flags().isSet(flags))
         return;
 
-    MethodNameSPtr fnOperator;
-    MethodNameSPtr fnFunction;
+    cf::MethodNameSPtr fnOperator;
+    cf::MethodNameSPtr fnFunction;
     if (pOperator->action() == EOperatorAction::equalTo())
     {
         fnOperator = fnOperatorEq;
@@ -2146,7 +2146,7 @@ void CppGenerator::generateStructureOperatorMethodsDefinition(
         assert(false && "unknown operator action");
     }
 
-    MethodNameSPtr fnName;
+    cf::MethodNameSPtr fnName;
     if (flags.isSet(EOperatorFlags::functor()))
     {
         fnName = fnOperatorFn;
@@ -2163,7 +2163,7 @@ void CppGenerator::generateStructureOperatorMethodsDefinition(
 
     cf::NamespaceSPtr nmspace = frm->cppAutoClassNamespace(pStructure);
     if (flags.isSet(EOperatorFlags::functor()))
-        *nmspace << namespaceNameRef(fnFunction->value());
+        *nmspace << cf::namespaceNameRef(fnFunction->value());
 
     int arguments;
     if (flags.isClear(EOperatorFlags::member()) || flags.isSet(EOperatorFlags::functor()))
@@ -2180,9 +2180,9 @@ void CppGenerator::generateStructureOperatorMethodsDefinition(
     else
         assert(false && "unknown operator parameter");
 
-    EMethodDeclaration declaration;
+    cf::EMethodDeclaration declaration;
     if (flags.isSet(EOperatorFlags::member()) || flags.isSet(EOperatorFlags::functor()))
-        declaration = EMethodDeclaration::const_();
+        declaration = cf::EMethodDeclaration::const_();
 
     if (arguments == 1)
     {
@@ -2405,14 +2405,14 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                         << ": "
                         << (cf::functionCallRef() << frm->cppAutoClassNamespace(pBaseStructure)
                                                   << fnBuilder
-                                                  << parameterValueRef(newObject));
+                                                  << cf::parameterValueRef(newObject));
             }
             else
             {
                 table() << TableAligner::row()
                         << ": "
                         << (cf::initializationRef() << frm->memberPtrVariableName(object)
-                                                    << parameterValueRef(newObject));
+                                                    << cf::parameterValueRef(newObject));
             }
             openBlock(definitionStream, 2);
             closeBlock(definitionStream);
@@ -2442,14 +2442,14 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                         << ": "
                         << (cf::functionCallRef() << frm->cppAutoClassNamespace(pBaseStructure)
                                                   << fnBuilder
-                                                  << parameterValueRef(newObject));
+                                                  << cf::parameterValueRef(newObject));
             }
             else
             {
                 table() << TableAligner::row()
                         << ": "
                         << (cf::initializationRef() << frm->memberPtrVariableName(object)
-                                                    << parameterValueRef(newObject));
+                                                    << cf::parameterValueRef(newObject));
             }
 
             openBlock(definitionStream, 2);
@@ -2488,7 +2488,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                             << ": "
                             << (cf::functionCallRef() << frm->cppAutoClassNamespace(pBaseStructure)
                                                       << fnBuilder
-                                                      << parameterValueRef(value));
+                                                      << cf::parameterValueRef(value));
                 }
                 else
                 {
@@ -2496,7 +2496,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                     table() << TableAligner::row()
                             << ": "
                             << (cf::initializationRef() << frm->memberPtrVariableName(object)
-                                                        << parameterValueRef(value));
+                                                        << cf::parameterValueRef(value));
                 }
 
                 openBlock(definitionStream, 2);
@@ -2526,7 +2526,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                     << ": "
                     << (cf::functionCallRef() << frm->cppAutoClassNamespace(pBaseStructure)
                                               << fnBuilder
-                                              << parameterValueRef(frm->ptrVariableName(object)->value()));
+                                              << cf::parameterValueRef(frm->ptrVariableName(object)->value()));
         }
         else
         {
@@ -2564,7 +2564,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         fdef()  << (cf::methodRef() << impl->cppDecoratedType(pStructure)
                                     << structBuilderNamespace
                                     << fnBuild
-                                    << EMethodDeclaration::const_());
+                                    << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
         
         if (pStructure->isInitializable())
@@ -2639,7 +2639,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
     {
         std::stringstream init;
         init    << "*";
-        std::vector<NamespaceNameSPtr> names = frm->cppAutoClassNamespace(pBaseStructure)->names();
+        std::vector<cf::NamespaceNameSPtr> names = frm->cppAutoClassNamespace(pBaseStructure)->names();
         for (size_t i = 0; i < names.size(); ++i)
             init    << names[i]->value() + "::";
         init    << "Builder()";
@@ -2663,14 +2663,14 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             init << ".finalize()";
             generateInitialization(
                 cf::initializationRef() << frm->cppConstructorName(pBaseStructure)
-                                        << parameterValueRef(init.str()));
+                                        << cf::parameterValueRef(init.str()));
         }
     }
 
     if (pStructure->controlled() && pStructure->hasField())
         generateInitialization(
             cf::initializationRef() << frm->memberVariableName(bits)
-                                    << parameterValueRef("0"));
+                                    << cf::parameterValueRef("0"));
 
     for (it = objects.begin(); it != objects.end(); ++it)
     {
@@ -2751,7 +2751,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
             fdef()  << (cf::methodRef() << (cf::decoratedTypeRef() << frm->cppSharedConstPtrName(pStructure))
                                         << frm->cppAutoClassNamespace(pStructure)
                                         << fnSharedFromThis
-                                        << EMethodDeclaration::const_());
+                                        << cf::EMethodDeclaration::const_());
             openBlock(definitionStream);
             line()  << "return boost::static_pointer_cast<const "
                     << frm->cppMainClassType(pStructure)
@@ -2771,7 +2771,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         fdef()  << (cf::methodRef() << bl
                                     << frm->cppAutoClassNamespace(pStructure)
                                     << fnIsInitialized
-                                    << EMethodDeclaration::const_());
+                                    << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
 
         StructureSPtr pStruct = pBaseStructure;
@@ -2816,7 +2816,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
         fdef()  << (cf::methodRef() << bl
                                     << frm->cppAutoClassNamespace(pStructure)
                                     << fnIsVoid
-                                    << EMethodDeclaration::const_());
+                                    << cf::EMethodDeclaration::const_());
         openBlock(definitionStream);
         if (pBaseStructure)
         {

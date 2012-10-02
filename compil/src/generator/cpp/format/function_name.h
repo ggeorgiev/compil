@@ -37,63 +37,83 @@
 // Standard Template Library
 #include <string>
 
-#ifndef __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_NAME_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_NAME_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_FUNCTION_NAME_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_FUNCTION_NAME_COMPIL_H_
 
-#include "namespace_name.h"
+#include "function_name.h"
 
-class NamespaceName
+namespace cpp
+{
+
+namespace frm
+{
+
+class FunctionName
 {
 public:
-                         NamespaceName();
-    explicit             NamespaceName(const std::string& value);
+                         FunctionName();
+    explicit             FunctionName(const std::string& value);
 
-    inline   std::string value        ()                            const;
-    inline   bool        operator==   (const NamespaceName& rValue) const;
-    inline   bool        operator!=   (const NamespaceName& rValue) const;
-    inline   bool        operator<    (const NamespaceName& rValue) const;
+    inline   std::string value       ()                           const;
+    inline   bool        operator==  (const FunctionName& rValue) const;
+    inline   bool        operator!=  (const FunctionName& rValue) const;
+    inline   bool        operator<   (const FunctionName& rValue) const;
 private:
     std::string mValue;
 };
 
-inline NamespaceNameSPtr namespaceNameRef()
+inline FunctionNameSPtr functionNameRef()
 {
-    return boost::make_shared<NamespaceName>();
+    return boost::make_shared<FunctionName>();
 }
 
-inline NamespaceNameSPtr namespaceNameRef(const std::string& value)
+inline FunctionNameSPtr functionNameRef(const std::string& value)
 {
-    return boost::make_shared<NamespaceName>(value);
+    return boost::make_shared<FunctionName>(value);
 }
 
-inline std::string NamespaceName::value() const
+inline std::string FunctionName::value() const
 {
     return mValue;
 }
 
-inline bool NamespaceName::operator==(const NamespaceName& rValue) const
+inline bool FunctionName::operator==(const FunctionName& rValue) const
 {
     return value() == rValue.value();
 }
 
-inline bool NamespaceName::operator!=(const NamespaceName& rValue) const
+inline bool FunctionName::operator!=(const FunctionName& rValue) const
 {
     return value() != rValue.value();
 }
 
-inline bool NamespaceName::operator<(const NamespaceName& rValue) const
+inline bool FunctionName::operator<(const FunctionName& rValue) const
 {
     return value() < rValue.value();
 }
 
-#else // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_NAME_COMPIL_H_
+}
+
+}
+
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_FUNCTION_NAME_COMPIL_H_
+
+namespace cpp
+{
+
+namespace frm
+{
 
 // Forward declarations
-class NamespaceName;
-typedef NamespaceName*                         NamespaceNameRPtr;
-typedef boost::shared_ptr<NamespaceName>       NamespaceNameSPtr;
-typedef boost::shared_ptr<const NamespaceName> NamespaceNameSCPtr;
-typedef boost::weak_ptr<NamespaceName>         NamespaceNameWPtr;
+class FunctionName;
+typedef FunctionName*                         FunctionNameRPtr;
+typedef boost::shared_ptr<FunctionName>       FunctionNameSPtr;
+typedef boost::shared_ptr<const FunctionName> FunctionNameSCPtr;
+typedef boost::weak_ptr<FunctionName>         FunctionNameWPtr;
 
-#endif // __GENERATOR_SELF_GENERATOR_ALIGNER_OBJECT_NAMESPACE_NAME_COMPIL_H_
+}
+
+}
+
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_FUNCTION_NAME_COMPIL_H_
 

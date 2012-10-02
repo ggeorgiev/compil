@@ -89,12 +89,12 @@ std::string CppFormatter::cppRefName(const std::string& rawName)
     return rawName + "Ref";
 }
 
-MethodNameSPtr CppFormatter::methodName(const std::string& rawName)
+cpp::frm::MethodNameSPtr CppFormatter::methodName(const std::string& rawName)
 {
     std::string result = rawName;
     std::transform(result.begin() + 0, result.begin() + 1, result.begin() + 0, tolower);
     result = mpKeyword->escapeKeyword(result);
-    return methodNameRef(result);
+    return cpp::frm::methodNameRef(result);
 }    
 
 std::string CppFormatter::name(const std::string& rawName)
@@ -217,9 +217,9 @@ cpp::frm::VariableNameSPtr CppFormatter::memberPtrVariableName(const cpp::frm::V
     return cpp::frm::variableNameRef(memberPtrName(name->value()));
 }
 
-ParameterValueSPtr CppFormatter::parameterValue(const cpp::frm::VariableNameSPtr& name)
+cpp::frm::ParameterValueSPtr CppFormatter::parameterValue(const cpp::frm::VariableNameSPtr& name)
 {
-    return parameterValueRef(name->value());
+    return cpp::frm::parameterValueRef(name->value());
 }
 
 cpp::frm::NamespaceSPtr CppFormatter::cppPackageNamespace(const PackageSPtr& pPackage)
@@ -237,7 +237,7 @@ cpp::frm::NamespaceSPtr CppFormatter::cppPackageNamespace(const PackageSPtr& pPa
     const std::vector<std::string>& elements = pPackage->elements();
     std::vector<std::string>::const_iterator it;
     for (it = elements.begin(); it != elements.end(); ++it)
-        *nmspace << namespaceNameRef(*it);
+        *nmspace << cpp::frm::namespaceNameRef(*it);
 
     return nmspace;
 }
@@ -296,7 +296,7 @@ cpp::frm::NamespaceSPtr CppFormatter::cppEnumNamespace(const EnumerationSPtr& pE
     else
         nmspace = cpp::frm::namespaceRef();
 
-    *nmspace << namespaceNameRef(enumName(pEnumeration->name()->value()));
+    *nmspace << cpp::frm::namespaceNameRef(enumName(pEnumeration->name()->value()));
         
     return nmspace;
 }
@@ -312,7 +312,7 @@ cpp::frm::SimpleTypeSPtr CppFormatter::cppClassType(const TypeSPtr& pType)
 cpp::frm::NamespaceSPtr CppFormatter::cppClassNamespace(const TypeSPtr& pType)
 {
     cpp::frm::NamespaceSPtr nmspace = cpp::frm::namespaceRef();
-    nmspace << namespaceNameRef(cppClassName(pType->name()->value()));
+    nmspace << cpp::frm::namespaceNameRef(cppClassName(pType->name()->value()));
     return nmspace;
 }
 
@@ -337,7 +337,7 @@ cpp::frm::SimpleTypeSPtr CppFormatter::cppAutoClassType(const StructureSPtr& pSt
 cpp::frm::NamespaceSPtr CppFormatter::cppAutoClassNamespace(const StructureSPtr& pStructure)
 {
     cpp::frm::NamespaceSPtr nmspace = cpp::frm::namespaceRef();
-    nmspace << namespaceNameRef(cppAutoClassType(pStructure)->value());
+    nmspace << cpp::frm::namespaceNameRef(cppAutoClassType(pStructure)->value());
     return nmspace;
 }
 
@@ -360,7 +360,7 @@ cpp::frm::SimpleTypeSPtr CppFormatter::cppMainClassType(const StructureSPtr& pSt
 cpp::frm::NamespaceSPtr CppFormatter::cppMainClassNamespace(const StructureSPtr& pStructure)
 {
     cpp::frm::NamespaceSPtr nmspace = cpp::frm::namespaceRef();
-    nmspace << namespaceNameRef(cppMainClassType(pStructure)->value());
+    nmspace << cpp::frm::namespaceNameRef(cppMainClassType(pStructure)->value());
     return nmspace;
 }
 
@@ -430,33 +430,33 @@ cpp::frm::VariableNameSPtr CppFormatter::cppItemVariableName(const FieldSPtr& pF
     return cpp::frm::variableNameRef(name(pField->name()->value() + "Item"));
 }
 
-ParameterValueSPtr CppFormatter::cppVariableNameAsParameter(const FieldSPtr& pField)
+cpp::frm::ParameterValueSPtr CppFormatter::cppVariableNameAsParameter(const FieldSPtr& pField)
 {
-    return parameterValueRef(name(pField->name()->value()));
+    return cpp::frm::parameterValueRef(name(pField->name()->value()));
 }
 
-MethodNameSPtr CppFormatter::getMethodName(const FieldSPtr& pField)
+cpp::frm::MethodNameSPtr CppFormatter::getMethodName(const FieldSPtr& pField)
 {
     return methodName(pField->name()->value());
 }
     
-MethodNameSPtr CppFormatter::setMethodName(const FieldSPtr& pField)
+cpp::frm::MethodNameSPtr CppFormatter::setMethodName(const FieldSPtr& pField)
 {
     return methodName("set_" + pField->name()->value());
 }
 
-MethodNameSPtr CppFormatter::mutableMethodName(const FieldSPtr& pField)
+cpp::frm::MethodNameSPtr CppFormatter::mutableMethodName(const FieldSPtr& pField)
 {
     return methodName("mutable_" + pField->name()->value());
 }
 
-MethodNameSPtr CppFormatter::updateMethodName(const FieldSPtr& pField)
+cpp::frm::MethodNameSPtr CppFormatter::updateMethodName(const FieldSPtr& pField)
 {
     return methodName("update_" + pField->name()->value());
 }
 
-MethodNameSPtr CppFormatter::constantMethodName(const StructureSPtr& pStructure,
-                                                const FieldSPtr& pField)
+cpp::frm::MethodNameSPtr CppFormatter::constantMethodName(const StructureSPtr& pStructure,
+                                                          const FieldSPtr& pField)
 {
     if (pField->structure().lock() == pStructure)
         return defaultMethodName(pField);
@@ -465,17 +465,17 @@ MethodNameSPtr CppFormatter::constantMethodName(const StructureSPtr& pStructure,
 }
     
 
-MethodNameSPtr CppFormatter::defaultMethodName(const FieldSPtr& pField)
+cpp::frm::MethodNameSPtr CppFormatter::defaultMethodName(const FieldSPtr& pField)
 {
     return methodName("default_" + pField->name()->value());
 }
 
-MethodNameSPtr CppFormatter::alterMethodName(const FieldSPtr& pField)
+cpp::frm::MethodNameSPtr CppFormatter::alterMethodName(const FieldSPtr& pField)
 {
     return methodName("alter_" + pField->name()->value());
 }
 
-MethodNameSPtr CppFormatter::destroyMethodName(const FieldSPtr& pField)
+cpp::frm::MethodNameSPtr CppFormatter::destroyMethodName(const FieldSPtr& pField)
 {
     if (pField->defaultValue())
     {
@@ -491,22 +491,22 @@ MethodNameSPtr CppFormatter::destroyMethodName(const FieldSPtr& pField)
     return eraseMethodName(pField);
 }
 
-MethodNameSPtr CppFormatter::clearMethodName(const FieldSPtr& pField)
+cpp::frm::MethodNameSPtr CppFormatter::clearMethodName(const FieldSPtr& pField)
 {
     return methodName("clear_" + pField->name()->value());
 }
     
-MethodNameSPtr CppFormatter::resetMethodName(const FieldSPtr& pField)
+cpp::frm::MethodNameSPtr CppFormatter::resetMethodName(const FieldSPtr& pField)
 {
     return methodName("reset_" + pField->name()->value());
 }
 
-MethodNameSPtr CppFormatter::eraseMethodName(const FieldSPtr& pField)
+cpp::frm::MethodNameSPtr CppFormatter::eraseMethodName(const FieldSPtr& pField)
 {
     return methodName("erase_" + pField->name()->value());
 }
     
-MethodNameSPtr CppFormatter::availableMethodName(const FieldSPtr& pField)
+cpp::frm::MethodNameSPtr CppFormatter::availableMethodName(const FieldSPtr& pField)
 {
     if (pField->defaultValue())
     {
@@ -523,27 +523,27 @@ MethodNameSPtr CppFormatter::availableMethodName(const FieldSPtr& pField)
 }
 
 
-MethodNameSPtr CppFormatter::existMethodName(const FieldSPtr& pField)
+cpp::frm::MethodNameSPtr CppFormatter::existMethodName(const FieldSPtr& pField)
 {
     return methodName("exist_" + pField->name()->value());
 }
 
-MethodNameSPtr CppFormatter::changedMethodName(const FieldSPtr& pField)
+cpp::frm::MethodNameSPtr CppFormatter::changedMethodName(const FieldSPtr& pField)
 {
     return methodName("changed_" + pField->name()->value());
 }
 
-MethodNameSPtr CppFormatter::validMethodName(const FieldSPtr& pField)
+cpp::frm::MethodNameSPtr CppFormatter::validMethodName(const FieldSPtr& pField)
 {
     return methodName("valid_" + pField->name()->value());
 }
 
-MethodNameSPtr CppFormatter::bitmaskMethodName(const FieldSPtr& pField)
+cpp::frm::MethodNameSPtr CppFormatter::bitmaskMethodName(const FieldSPtr& pField)
 {
     return methodName("bitmask_" + pField->name()->value());
 }
 
-MethodNameSPtr CppFormatter::downcastMethodName(const StructureSPtr& pStructure)
+cpp::frm::MethodNameSPtr CppFormatter::downcastMethodName(const StructureSPtr& pStructure)
 {
     return methodName("downcast" + pStructure->name()->value());
 }
