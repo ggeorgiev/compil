@@ -2912,7 +2912,8 @@ void CppGenerator::generateObjectDefinition(const ObjectSPtr& pObject)
 
 bool CppGenerator::generate()
 {
-    addDependency(Dependency(mpModel->name()->value() + ".h", Dependency::quote_type));
+    addDependency(impl->cppHeaderFileDependency(mpModel->name()->value(),
+                                                mpModel->package()));
 
     openNamespace(definitionStream);
 

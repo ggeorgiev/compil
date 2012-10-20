@@ -34,6 +34,8 @@
 #include "aligner.h"
 #include "object_factory.h"
 
+#include "boost/filesystem.hpp"
+
 #include <sstream>
 
 namespace compil
@@ -867,29 +869,56 @@ std::string CppImplementer::applicationHeaderExtension()
     return "";
 }
 
-Dependency CppImplementer::cppHeaderFileDependency(const ObjectSPtr& object)
+Dependency CppImplementer::cppHeaderFileDependency(const std::string filename,
+                                                   const PackageSPtr& package)
 {
-    if (!object)
+    std::string h_ext = applicationHeaderExtension();
+    
+    boost::filesystem::path pth(filename);
+    if (!pth.has_stem())
+        return Dependency();
+
+    pth.replace_extension(h_ext);
+       
+    if (mpConfiguration->mCppIncludePath == ImplementerConfiguration::include_path_based_on_import)
+    {
+        return Dependency(pth.string(),
+                          Dependency::quote_type,
+                          Dependency::application_level);
+    }
+    
+    if (mpConfiguration->mCppIncludePath == ImplementerConfiguration::include_path_based_on_package)
+    {
+        if (!package)
+            return Dependency();
+        
+
+        boost::filesystem::path result;
+        const std::vector<PackageElement>& elements = package->elements();
+        for (std::vector<PackageElement>::const_iterator it = elements.begin(); it != elements.end(); ++it)
+            result /= it->value();
+        result /= pth.filename();
+    
+        return Dependency(result.string(),
+                          Dependency::quote_type,
+                          Dependency::application_level);
+    }
+    
+    assert(false && "unknown mCppIncludePath");
+    return Dependency();
+}
+
+Dependency CppImplementer::cppHeaderFileDependency(const TypeSPtr& type)
+{
+    if (!type)
         return Dependency();
         
-    SourceIdSPtr sourceId = object->sourceId();
+    SourceIdSPtr sourceId = type->sourceId();
     if (!sourceId)
         return Dependency();    
     
-    
     std::string source = sourceId->original();
-
-    std::string compil_ext = ".compil";
-    std::string::size_type where = source.find(compil_ext);
-    if (where == std::string::npos)
-        return Dependency();
-       
-    std::string h_ext = applicationHeaderExtension(); 
-    std::string result = source;
-    result.replace(result.begin() + where, result.begin() + ((size_t)where + compil_ext.size()), 
-                   h_ext.begin(), h_ext.end());
-                   
-    return Dependency(result, Dependency::quote_type, Dependency::application_level);
+    return cppHeaderFileDependency(source, type->package());
 }
 
 }

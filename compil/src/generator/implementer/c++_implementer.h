@@ -132,7 +132,9 @@ public:
     virtual std::string applicationExtension();
     virtual std::string applicationHeaderExtension();
     
-    virtual Dependency cppHeaderFileDependency(const ObjectSPtr& object);
+    virtual Dependency cppHeaderFileDependency(const std::string filename,
+                                               const PackageSPtr& package);
+    virtual Dependency cppHeaderFileDependency(const TypeSPtr& type);
     
     ImplementerConfigurationPtr mpConfiguration;
     

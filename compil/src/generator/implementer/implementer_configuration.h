@@ -47,6 +47,10 @@ public:
     
     virtual std::string name();
     
+    void addCommonOptions(bpo::options_description& options);
+    virtual bpo::options_description commandLineOptions();
+    virtual bpo::options_description configurationOptions();
+    
     enum ECppExtension
     {
         invalid_cpp_extension = 0,
@@ -66,6 +70,13 @@ public:
     
     ECppHeaderExtension applicationCppHeaderExtension;
     ECppHeaderExtension coreCppHeaderExtension;
+    
+    enum ECppIncludePath
+    {
+        invalid_cpp_include_path = 0,
+        include_path_based_on_import,
+        include_path_based_on_package,
+    } mCppIncludePath;
     
     enum FlagsEnumeration
     {

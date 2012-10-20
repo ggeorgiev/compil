@@ -32,11 +32,14 @@
 
 #include "implementer_configuration.h"
 
+#include "boost/algorithm/string.hpp"
+
 ImplementerConfiguration::ImplementerConfiguration()
     : applicationCppExtension(use_cpp)
     , coreCppExtension(use_cpp)
     , applicationCppHeaderExtension(use_h)
     , coreCppHeaderExtension(use_hpp)
+    , mCppIncludePath(include_path_based_on_import)
     , mFlagsEnumeration(flags_enumeration_use_core_template)
     , mIntegerTypes(use_native)
     , mNullOr0(use_null)
@@ -58,4 +61,51 @@ std::string ImplementerConfiguration::staticName()
 std::string ImplementerConfiguration::name()
 {
     return staticName();
+}
+
+void validate(boost::any& v, 
+              const std::vector<std::string>& values,
+              ImplementerConfiguration::ECppIncludePath* target_type, int)
+{
+    // Make sure no previous assignment to 'a' was made.
+    boost::program_options::validators::check_first_occurrence(v);
+    // Extract the first string from 'values'. If there is more than
+    // one string, it's an error, and exception will be thrown.
+    const std::string& s = boost::program_options::validators::get_single_string(values);
+    
+    if (boost::iequals(s, "include_path_based_on_import"))
+    {
+        v = boost::any(ImplementerConfiguration::include_path_based_on_import);
+    }
+    else if (boost::iequals(s, "include_path_based_on_package"))
+    {
+        v = boost::any(ImplementerConfiguration::include_path_based_on_package);
+    }
+    else
+    {
+        throw boost::program_options::validation_error(
+                  boost::program_options::validation_error::invalid_option_value);
+    }
+}
+
+void ImplementerConfiguration::addCommonOptions(bpo::options_description& options)
+{
+    options.add_options()
+        ("cpp.include_path", bpo::value<ECppIncludePath>(&mCppIncludePath),
+                             "how to form cpp include paths")
+        ;
+}
+
+bpo::options_description ImplementerConfiguration::commandLineOptions()
+{
+    bpo::options_description options("Implementer Configuration");
+    addCommonOptions(options);
+    return options;
+}
+
+bpo::options_description ImplementerConfiguration::configurationOptions()
+{
+    bpo::options_description options("Implementer Configuration");
+    addCommonOptions(options);
+    return options;
 }

@@ -42,11 +42,11 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-self/compiler/model/structure.compil"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/containers.compil"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/factories.compil"

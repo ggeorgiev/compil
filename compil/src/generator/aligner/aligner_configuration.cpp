@@ -76,20 +76,20 @@ static std::istream& operator>>(std::istream& in, AlignerConfiguration::EDecorat
 void AlignerConfiguration::addCommonOptions(bpo::options_description& options)
 {
     options.add_options()
-        ("aligner.decoration,v", bpo::value(&mDecoration)->default_value(part_of_the_type), "decoration")
+        ("aligner.decoration", bpo::value(&mDecoration)->default_value(part_of_the_type), "decoration")
         ;
 }
 
 bpo::options_description AlignerConfiguration::commandLineOptions()
 {
-    bpo::options_description options("General options");
+    bpo::options_description options("Aligner options");
     addCommonOptions(options);
     return options;
 }
 
 bpo::options_description AlignerConfiguration::configurationOptions()
 {
-    bpo::options_description options("Generation Configuration");
+    bpo::options_description options("Aligner Configuration");
     addCommonOptions(options);
     return options;
 }

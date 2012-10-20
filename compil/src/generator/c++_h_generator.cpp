@@ -2216,12 +2216,11 @@ bool CppHeaderGenerator::generate()
     commentInLine(forwardDeclarationStream, "Forward declarations");
 
     if (mType == "partial")
-        addDependency(Dependency(mpModel->name()->value() +
-                                 "-partial" +
-                                 impl->applicationHeaderExtension(), Dependency::quote_type));
+        addDependency(impl->cppHeaderFileDependency(mpModel->name()->value() + "-partial",
+                                                    mpModel->package()));
     else
-        addDependency(Dependency(mpModel->name()->value() +
-                                 impl->applicationHeaderExtension(), Dependency::quote_type));
+        addDependency(impl->cppHeaderFileDependency(mpModel->name()->value(),
+                                                    mpModel->package()));
 
     const std::vector<ObjectSPtr>& objects = mpModel->objects();
     std::vector<ObjectSPtr>::const_iterator it;
