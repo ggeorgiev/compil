@@ -45,6 +45,7 @@ lib compiler
     model/object_factory.cpp
     model/object.cpp
     model/operator.cpp
+    model/package_element.cpp
     model/package.cpp
     model/parameter.cpp
     model/reference.cpp

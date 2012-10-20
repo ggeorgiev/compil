@@ -173,13 +173,15 @@ public:
     static const char* p_filterInNonObjectFactory;
     static const char* p_filterInFactoryForNonStructure;
     
+    static const char* p_asteriskPackageElement;
+
     static const char* v_unacceptableParameterType;
     static const char* v_notUnique;
 
     static const char* v_partualObjectInNonPartialGenerator;
     static const char* v_baseStructureMustBeSharableForSharableStructure;
-
-    Message(Severity severity, const std::string& text, 
+    
+    Message(Severity severity, const std::string& text,
             const SourceIdSPtr& pSourceId, int line, int column);
     ~Message();
 

@@ -55,11 +55,12 @@ public:
     
     virtual StreamPtr openInputStream(const SourceIdSPtr& pSourceId);
     virtual std::string getUniquePresentationString(const std::string& source);
+    virtual std::vector<PackageElement> getExternalElements(const std::string& source);
     
 private:
+    void fillSourceFields(const std::string& source, SourceId::Builder& builder);
 
     std::vector<boost::filesystem::path> mImportDirectories; 
-
 };
 
 typedef boost::shared_ptr<FileSourceProvider> FileSourceProviderPtr;

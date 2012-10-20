@@ -35,10 +35,12 @@
 #include <boost/weak_ptr.hpp>
 // Standard Template Library
 #include <string>
+#include <vector>
 
 #ifndef __GENERATOR_SELF_COMPILER_MODEL_SOURCE_ID_COMPIL_H_
 #define __GENERATOR_SELF_COMPILER_MODEL_SOURCE_ID_COMPIL_H_
 
+#include "package_element.h"
 #include "source_id.h"
 
 namespace compil
@@ -58,85 +60,95 @@ public:
     class Builder
     {
         // hide evil auto created assignment operator, no implementation
-                void            operator=                 (const Builder& );
+                void                         operator=                 (const Builder& );
     public:
         // Default constructor. All fields without default values are left
         // uninitialized. Make sure you initialize all the necessary fields
         // before instantiating
-                                Builder                   ();
+                                             Builder                   ();
         // Use this constructor when you need to clone or create an object
         // just slightly different from another object
-                                Builder                   (const SourceId& object);
+                                             Builder                   (const SourceId& object);
         // Destructor of Builder
-        /*lax*/                 ~Builder                  ();
+        /*lax*/                              ~Builder                  ();
 
         // Instantiates SourceId instance with the current initialization
         // of the fields. After the instance is ready the builder could be
         // reused to instantiate more objects. The data is not reset.
         // Second call of build() will instantiate object with the same
         // data.
-                const SourceId& build                     ()                                      const;
+                const SourceId&              build                     ()                                                    const;
 
         // Provides the internal instantiated builder object and
         // invalidates the builder status. Once finalize() is called, the
         // builder can not be used again. Use finalize() when you no longer
         // are going to use this builder.
-                SourceIdSPtr    finalize                  ();
+                SourceIdSPtr                 finalize                  ();
 
 
         // Setter method for the data field value
-                Builder&        set_value                 (const std::string& value);
+                Builder&                     set_value                 (const std::string& value);
         // Provides mutable access to field value
-                std::string&    mutable_value             ();
+                std::string&                 mutable_value             ();
+
+        // Setter method for the data field externalElements
+                Builder&                     set_externalElements      (const std::vector<PackageElement>& externalElements);
+        // Provides mutable access to field externalElements
+                std::vector<PackageElement>& mutable_externalElements  ();
 
         // Setter method for the data field uniquePresentation
-                Builder&        set_uniquePresentation    (const std::string& uniquePresentation);
+                Builder&                     set_uniquePresentation    (const std::string& uniquePresentation);
         // Provides mutable access to field uniquePresentation
-                std::string&    mutable_uniquePresentation();
+                std::string&                 mutable_uniquePresentation();
 
         // Setter method for the data field parent
-                Builder&        set_parent                (const SourceIdSPtr& parent);
+                Builder&                     set_parent                (const SourceIdSPtr& parent);
 
         // Setter method for the data field original
-                Builder&        set_original              (const std::string& original);
+                Builder&                     set_original              (const std::string& original);
         // Provides mutable access to field original
-                std::string&    mutable_original          ();
+                std::string&                 mutable_original          ();
 
     protected:
         // constructor needed from potential derived classes
-                                Builder                   (SourceIdRPtr pObject);
+                                             Builder                   (SourceIdRPtr pObject);
 
         SourceIdRPtr mpObject;
     };
 
     // Default constructor
-                                SourceId          ();
+                                               SourceId          ();
     // Destructor
-    /*lax*/                     ~SourceId         ();
+    /*lax*/                                    ~SourceId         ();
 
     // Getter method for the data field value
-            const std::string&  value             () const;
+            const std::string&                 value             () const;
+
+    // Getter method for the data field externalElements
+            const std::vector<PackageElement>& externalElements  () const;
 
     // Getter method for the data field uniquePresentation
-            const std::string&  uniquePresentation() const;
+            const std::string&                 uniquePresentation() const;
 
     // Getter method for the data field parent
-            const SourceIdSPtr& parent            () const;
+            const SourceIdSPtr&                parent            () const;
     // Returns the default value null of the field parent
-    static  SourceIdSPtr        default_parent    ();
+    static  SourceIdSPtr                       default_parent    ();
 
     // Getter method for the data field original
-            const std::string&  original          () const;
+            const std::string&                 original          () const;
 
 private:
     // variable for the data field value
-    std::string  mValue;
+    std::string                 mValue;
+    // variable for the data field externalElements
+    std::vector<PackageElement> mExternalElements;
     // variable for the data field uniquePresentation
-    std::string  mUniquePresentation;
+    std::string                 mUniquePresentation;
     // variable for the data field parent
-    SourceIdSPtr mParent;
+    SourceIdSPtr                mParent;
     // variable for the data field original
-    std::string  mOriginal;
+    std::string                 mOriginal;
 };
 
 }

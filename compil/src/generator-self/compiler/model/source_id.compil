@@ -32,6 +32,8 @@
 
 compil { }
 
+import "package_element.compil";
+
 package compil;
 
 immutable
@@ -39,6 +41,7 @@ structure SourceId
 {
 
     string value;
+    vector<PackageElement> externalElements;
     string uniquePresentation;
     reference<SourceId> parent = null;
     string original = optional;

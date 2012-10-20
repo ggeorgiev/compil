@@ -296,8 +296,11 @@ cpp::frm::SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
     {
         if (name == "datetime")
         {
-            std::vector<std::string> elements;
-            elements.push_back("time");
+            PackageElement peTime;
+            peTime.set_value("time");
+        
+            std::vector<PackageElement> elements;
+            elements.push_back(peTime);
             
             if (pType->package()->elements() == elements)
             {
@@ -458,8 +461,11 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
     
     if (pType->package())
     {
-        std::vector<std::string> elements;
-        elements.push_back("time");
+        PackageElement peTime;
+        peTime.set_value("time");
+    
+        std::vector<PackageElement> elements;
+        elements.push_back(peTime);
         
         if (pType->package()->elements() == elements)
         {
@@ -699,7 +705,7 @@ EnumerationSPtr CppImplementer::objectEnumeration(const ModelPtr& pModel,
     pEnumeration->set_cast(CastableType::ECast::strong());
     pEnumeration->set_flags(false);
     
-    std::vector<std::string> package_elements;
+    std::vector<PackageElement> package_elements;
     pEnumeration->set_parameterType(pModel->findType(PackageSPtr(), package_elements, "integer"));
     
     NameSPtr pName(new Name());

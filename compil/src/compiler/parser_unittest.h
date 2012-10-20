@@ -55,9 +55,22 @@ public:
     
     virtual bool parse(const char* text)
     {
+        compil::PackageElement el1;
+        el1.set_value("external1")
+           .set_external(true);
+
+        compil::PackageElement el2;
+        el2.set_value("external2")
+           .set_external(true);
+
+        std::vector<compil::PackageElement> externalElements;
+        externalElements.push_back(el1);
+        externalElements.push_back(el2);
+        
         mpSourceId =
             compil::SourceId::Builder()
                 .set_value("source_id")
+                .set_externalElements(externalElements)
                 .finalize();    
     
         StreamPtr pInput = getInput(text);

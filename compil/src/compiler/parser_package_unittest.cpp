@@ -42,7 +42,7 @@ TEST_F(ParserPackageTests, packageNameSemicolon)
         
     ASSERT_TRUE(mpModel->package());
     EXPECT_EQ(1U, mpModel->package()->elements().size());
-    EXPECT_STREQ("pname", mpModel->package()->elements()[0].c_str());
+    EXPECT_STREQ("pname", mpModel->package()->elements()[0].value().c_str());
 }
 
 TEST_F(ParserPackageTests, packageNameDot)
@@ -70,6 +70,45 @@ TEST_F(ParserPackageTests, packageNameDotNameSemicolon)
         
     ASSERT_TRUE(mpModel->package());
     EXPECT_EQ(2U, mpModel->package()->elements().size());
-    EXPECT_STREQ("pname1", mpModel->package()->elements()[0].c_str());
-    EXPECT_STREQ("pname2", mpModel->package()->elements()[1].c_str());
+    EXPECT_STREQ("pname1", mpModel->package()->elements()[0].value().c_str());
+    EXPECT_STREQ("pname2", mpModel->package()->elements()[1].value().c_str());
+}
+
+TEST_F(ParserPackageTests, packageAsterisk)
+{
+    ASSERT_TRUE( parse(
+        "package *;") );
+        
+    ASSERT_TRUE(mpModel->package());
+    EXPECT_EQ(1U, mpModel->package()->elements().size());
+    EXPECT_STREQ("external2", mpModel->package()->elements()[0].value().c_str());
+    EXPECT_TRUE(mpModel->package()->elements()[0].external());
+}
+
+TEST_F(ParserPackageTests, packageAsteriskDotAsterisk)
+{
+    ASSERT_TRUE( parse(
+        "package *.*;") );
+        
+    ASSERT_TRUE(mpModel->package());
+    EXPECT_EQ(2U, mpModel->package()->elements().size());
+    EXPECT_STREQ("external1", mpModel->package()->elements()[0].value().c_str());
+    EXPECT_TRUE(mpModel->package()->elements()[0].external());
+    EXPECT_STREQ("external2", mpModel->package()->elements()[1].value().c_str());
+    EXPECT_TRUE(mpModel->package()->elements()[1].external());
+}
+
+TEST_F(ParserPackageTests, packageAsteriskDotAsteriskDotName)
+{
+    ASSERT_TRUE( parse(
+        "package *.*.pname;") );
+        
+    ASSERT_TRUE(mpModel->package());
+    EXPECT_EQ(3U, mpModel->package()->elements().size());
+    EXPECT_STREQ("external1", mpModel->package()->elements()[0].value().c_str());
+    EXPECT_TRUE(mpModel->package()->elements()[0].external());
+    EXPECT_STREQ("external2", mpModel->package()->elements()[1].value().c_str());
+    EXPECT_TRUE(mpModel->package()->elements()[1].external());
+    EXPECT_STREQ("pname", mpModel->package()->elements()[2].value().c_str());
+    EXPECT_FALSE(mpModel->package()->elements()[2].external());
 }

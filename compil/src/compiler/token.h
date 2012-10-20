@@ -82,6 +82,9 @@ public:
         // A delimiter - ';', ','
         TYPE_DELIMITER,
         
+        // An asterisk - '*'
+        TYPE_ASTERISK,
+        
         // A dot - '.'
         TYPE_DOT,
 

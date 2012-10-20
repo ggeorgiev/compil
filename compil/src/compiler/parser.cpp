@@ -64,7 +64,7 @@ Parser::Parser()
         bInit = true;
 
         Model model;
-        std::vector<std::string> package_elements;
+        std::vector<PackageElement> package_elements;
         pParameterTypeEnumerationValidator->addAcceptableType(
             model.findType(PackageSPtr(), package_elements, "small"));
         pParameterTypeEnumerationValidator->addAcceptableType(
@@ -192,13 +192,17 @@ PackageSPtr Parser::parsePackage()
     {
         mpTokenizer->shift();
 
-        if (!expect(Token::TYPE_IDENTIFIER))
+        if (expect(Token::TYPE_IDENTIFIER) || expect(Token::TYPE_ASTERISK))
+        {
+            elements.push_back(mpTokenizer->current()->text());
+        }
+        else
         {
             *this << (errorMessage(Message::p_expectStatementName)
                         << Message::Statement("package"));
             return PackageSPtr();
         }
-        elements.push_back(mpTokenizer->current()->text());
+
         mpTokenizer->shift();
 
     } while (expect(Token::TYPE_DOT));
@@ -208,13 +212,35 @@ PackageSPtr Parser::parsePackage()
         *this << errorMessage(Message::p_expectSemicolon);
         return PackageSPtr();
     }
+    
+    std::vector<PackageElement>::const_reverse_iterator eit = mpSourceId->externalElements().rbegin();
+    std::vector<PackageElement> packageElements;
+    for (std::vector<std::string>::reverse_iterator it = elements.rbegin(); it != elements.rend(); ++it)
+    {
+        PackageElement pe;
+        if (*it == "*")
+        {
+            if (eit == mpSourceId->externalElements().rend())
+            {
+                *this << errorMessage(Message::p_asteriskPackageElement);
+                return PackageSPtr();
+            }
+            pe = *eit;
+            ++eit;
+        }
+        else
+        {
+            pe.set_value(*it);
+        }
+        packageElements.insert(packageElements.begin(), pe);
+    }
 
-    pPackage->set_elements(elements);
+    pPackage->set_elements(packageElements);
     return pPackage;
 }
 
 
-bool Parser::parseType(std::vector<std::string>& package_elements, TokenPtr& pNameToken)
+bool Parser::parseType(std::vector<PackageElement>& package_elements, TokenPtr& pNameToken)
 {
     pNameToken = mpTokenizer->current();
 
@@ -224,8 +250,11 @@ bool Parser::parseType(std::vector<std::string>& package_elements, TokenPtr& pNa
         mpTokenizer->shift();
         if (!expect(Token::TYPE_IDENTIFIER))
             return false;
+            
+        PackageElement pe;
+        pe.set_value(pNameToken->text());
 
-        package_elements.push_back(pNameToken->text());
+        package_elements.push_back(pe);
         pNameToken = mpTokenizer->current();
         mpTokenizer->shift();
     }
@@ -240,7 +269,7 @@ bool Parser::parseParameterType(InitTypeMethod initTypeMethod,
 {
     TypeSPtr pType;
 
-    std::vector<std::string> package_elements;
+    std::vector<PackageElement> package_elements;
     if (!check(Token::TYPE_ANGLE_BRACKET, "<"))
     {
         if (defaultTypeName.empty())
@@ -615,7 +644,7 @@ SpecimenSPtr Parser::parseSpecimen(const CommentSPtr& pComment)
             return SpecimenSPtr();
         }
 
-        std::vector<std::string> package_elements;
+        std::vector<PackageElement> package_elements;
         TokenPtr pTypeNameToken;
         if (!parseType(package_elements, pTypeNameToken))
             return SpecimenSPtr();
@@ -876,7 +905,7 @@ FieldSPtr Parser::parseField(const CommentSPtr& pComment,
 
     assert(check(Token::TYPE_IDENTIFIER));
 
-    std::vector<std::string> package_elements;
+    std::vector<PackageElement> package_elements;
     TokenPtr pTypeNameToken;
     if (!parseType(package_elements, pTypeNameToken))
         return FieldSPtr();
@@ -1079,7 +1108,7 @@ UpcopySPtr Parser::parseUpcopy(const CommentSPtr& pComment,
         return UpcopySPtr();
     }
 
-    std::vector<std::string> package_elements;
+    std::vector<PackageElement> package_elements;
     TokenPtr pTypeNameToken;
     if (!parseType(package_elements, pTypeNameToken))
         return UpcopySPtr();
@@ -1250,7 +1279,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
             return StructureSPtr();
         }
 
-        std::vector<std::string> package_elements;
+        std::vector<PackageElement> package_elements;
         TokenPtr pTypeNameToken;
         if (!parseType(package_elements, pTypeNameToken))
             return StructureSPtr();
@@ -1573,7 +1602,7 @@ ParameterSPtr Parser::parseParameter(const CommentSPtr pComment)
         return ParameterSPtr();
     }
 
-    std::vector<std::string> package_elements;
+    std::vector<PackageElement> package_elements;
     TypeSPtr pType = mpModel->findType(mpPackage, package_elements, mpTokenizer->current()->text());
     if (!pType)
     {

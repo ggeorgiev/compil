@@ -62,13 +62,13 @@ public:
 
     static bool isVisible(const PackageSPtr& pTypePackage,
                           const PackageSPtr& pCurrentPackage,
-                          const std::vector<std::string>& lookup_package_elements);
+                          const std::vector<PackageElement>& lookup_package_elements);
                      
     TypeSPtr findType(const PackageSPtr& pPackage,
-                      const std::vector<std::string>& package_elements, 
+                      const std::vector<PackageElement>& package_elements, 
                       const std::string& name) const;
     TypeSPtr findType(const PackageSPtr& pPackage,
-                      const std::vector<std::string>& package_elements, 
+                      const std::vector<PackageElement>& package_elements, 
                       const std::vector<ObjectSPtr>& objects, 
                       const std::string& name) const;
     void addType(const TypeSPtr& pType);

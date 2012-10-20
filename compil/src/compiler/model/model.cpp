@@ -197,9 +197,12 @@ Model::Model()
         pBinaryType->set_kind(Type::EKind::string());
         //pBinaryType->set_cast(CastableType::ECast::weak());
         
+        PackageElement peTime;
+        peTime.set_value("time");
+        
         PackageSPtr pPackage(new Package());
-        std::vector<std::string> elements;
-        elements.push_back("time");
+        std::vector<PackageElement> elements;
+        elements.push_back(peTime);
         pPackage->set_elements(elements);
         
         pName.reset(new Name());
@@ -316,13 +319,15 @@ void Model::setPackage(const PackageSPtr& pPackage)
 
 bool Model::isVisible(const PackageSPtr& pTypePackage,
                       const PackageSPtr& pCurrentPackage,
-                      const std::vector<std::string>& lookup_package_elements)
+                      const std::vector<PackageElement>& lookup_package_elements)
 {
-    std::vector<std::string> type_package_elements;
-    if (pTypePackage) type_package_elements = pTypePackage->elements();
+    std::vector<PackageElement> type_package_elements;
+    if (pTypePackage)
+        type_package_elements = pTypePackage->elements();
 
-    std::vector<std::string> current_package_elements;
-    if (pCurrentPackage) current_package_elements = pCurrentPackage->elements();
+    std::vector<PackageElement> current_package_elements;
+    if (pCurrentPackage)
+        current_package_elements = pCurrentPackage->elements();
 
     if (type_package_elements == current_package_elements)
     if (lookup_package_elements.size() == 0)
@@ -335,7 +340,7 @@ bool Model::isVisible(const PackageSPtr& pTypePackage,
 }
     
 TypeSPtr Model::findType(const PackageSPtr& pPackage,
-                         const std::vector<std::string>& package_elements, 
+                         const std::vector<PackageElement>& package_elements,
                          const std::string& name) const
 {
     std::vector<TypeSPtr>::const_iterator it;
@@ -350,7 +355,7 @@ TypeSPtr Model::findType(const PackageSPtr& pPackage,
 }
 
 TypeSPtr Model::findType(const PackageSPtr& pPackage,
-                         const std::vector<std::string>& package_elements,
+                         const std::vector<PackageElement>& package_elements,
                          const std::vector<ObjectSPtr>& objects, const std::string& name) const
 {
     std::vector<ObjectSPtr>::const_iterator it;

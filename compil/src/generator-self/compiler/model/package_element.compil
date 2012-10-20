@@ -32,15 +32,12 @@
 
 compil { }
 
-import "object.compil";
-import "package_element.compil";
-
 package compil;
 
-structure Package 
-    inherit Object
+structure PackageElement
 {
-    runtime identification;
-    
-    vector<PackageElement> elements;
+    native operator == ;
+
+    boolean external = false;
+    string value;
 }

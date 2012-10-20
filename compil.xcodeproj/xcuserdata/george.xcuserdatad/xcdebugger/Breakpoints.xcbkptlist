@@ -164,19 +164,6 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "compil/src/generator/c++_h_generator.cpp"
-         timestampString = "370754200.201271"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "2052"
-         endingLineNumber = "2052"
-         landmarkName = "CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr&amp; pStructure)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
          filePath = "compil/src/compiler/model/specimen.cpp"
          timestampString = "370729235.168963"
          startingColumnNumber = "9223372036854775807"
@@ -184,6 +171,58 @@
          startingLineNumber = "17"
          endingLineNumber = "17"
          landmarkName = "Specimen::hasOperator(const EOperatorAction&amp; action, const EOperatorFlags&amp; flags)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "../ggeorgiev_frodo_home_mac/src/docx/part/revision_part-mixin-gtest.cpp"
+         timestampString = "371960837.879325"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "736"
+         endingLineNumber = "736"
+         landmarkName = "TEST(RevisionPartTests, acceptAllChangesJoinParagraphs)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/file_source_provider.cpp"
+         timestampString = "372391983.338814"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "56"
+         endingLineNumber = "56"
+         landmarkName = "FileSourceProvider::setImportDirectories(const std::vector&lt;std::string&gt;&amp; importDirectories)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/compiler/parser_package_unittest.cpp"
+         timestampString = "372462111.495905"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "79"
+         endingLineNumber = "79"
+         landmarkName = "TEST_F(ParserPackageTests, packageAsterisk)"
+         landmarkType = "7">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/compiler/parser.cpp"
+         timestampString = "372462322.650324"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "218"
+         endingLineNumber = "218"
+         landmarkName = "Parser::parsePackage()"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

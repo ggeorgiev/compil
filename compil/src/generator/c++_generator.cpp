@@ -1355,8 +1355,11 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                         {
                             if (pField->type()->name()->value() == "datetime")
                             {
-                                std::vector<std::string> elements;
-                                elements.push_back("time");
+                                PackageElement peTime;
+                                peTime.set_value("time");
+                            
+                                std::vector<PackageElement> elements;
+                                elements.push_back(peTime);
 
                                 if (pField->type()->package()->elements() == elements)
                                 {
@@ -1778,10 +1781,10 @@ void CppGenerator::generateStructureInprocIdentificationMethodsDefinition(
     line()  << "return (size_t)\"";
     if (pStructure->package())
     {
-        std::vector<std::string> elements = pStructure->package()->elements();
-        for(std::vector<std::string>::iterator it = elements.begin(); it != elements.end(); ++it)
+        const std::vector<PackageElement>& elements = pStructure->package()->elements();
+        for(std::vector<PackageElement>::const_iterator it = elements.begin(); it != elements.end(); ++it)
         {
-            line()  << *it
+            line()  << it->value()
                     << ".";
         }
     }

@@ -125,7 +125,10 @@ const char* Message::p_filterInNonObjectFactory =
 
 const char* Message::p_filterInFactoryForNonStructure =
     "Only structure parameter type factory accepts filters";
- 
+    
+const char* Message::p_asteriskPackageElement =
+    "Asterisk package element can not be resolved";
+
 const char* Message::v_unacceptableParameterType =
     "Unacceptable %statement% parameter type. It should be\n"
     "    %options%";

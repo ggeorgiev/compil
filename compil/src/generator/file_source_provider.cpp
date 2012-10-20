@@ -74,18 +74,16 @@ SourceIdSPtr FileSourceProvider::sourceId(const SourceIdSPtr& pCurrentSourceId, 
         path source_location = current_location / source;
         if (exists(source_location)) 
         {
-            return builder.set_value(source_location.string())
-                          .set_uniquePresentation(getUniquePresentationString(source_location.string()))
-                          .finalize();
+            fillSourceFields(source_location.string(), builder);
+            return builder.finalize();
         }
     }
     
     path source_location = source;
     if (exists(source_location)) 
     {
-        return builder.set_value(source_location.string())
-                      .set_uniquePresentation(getUniquePresentationString(source_location.string()))
-                      .finalize();
+        fillSourceFields(source_location.string(), builder);
+        return builder.finalize();
     }
     
     std::vector<path>::const_iterator it;
@@ -94,9 +92,8 @@ SourceIdSPtr FileSourceProvider::sourceId(const SourceIdSPtr& pCurrentSourceId, 
         path source_location = *it / source;
         if (exists(source_location)) 
         {
-            return builder.set_value(source_location.string())
-                          .set_uniquePresentation(getUniquePresentationString(source_location.string()))
-                          .finalize();
+            fillSourceFields(source_location.string(), builder);
+            return builder.finalize();
         }
     }
     
@@ -114,7 +111,6 @@ std::string FileSourceProvider::getUniquePresentationString(const std::string& s
 {
     path src_path = absolute(source);
     path root = absolute(".");
-    
     
     path::iterator i = src_path.begin();
     for (path::iterator it = root.begin(); it != root.end(); ++it)
@@ -136,6 +132,33 @@ std::string FileSourceProvider::getUniquePresentationString(const std::string& s
         ++i;
     }
     return result;
+}
+
+std::vector<PackageElement> FileSourceProvider::getExternalElements(const std::string& source)
+{
+    path src_path = resolve(absolute(source));
+    if (!is_directory(src_path))
+        src_path = src_path.parent_path();
+    
+    std::vector<PackageElement> result;
+    while (src_path.has_parent_path())
+    {
+        PackageElement pe;
+        pe.set_value(src_path.filename().string())
+          .set_external(true);
+        
+        result.insert(result.begin(), pe);
+        src_path = src_path.parent_path();
+    }
+
+    return result;
+}
+
+void FileSourceProvider::fillSourceFields(const std::string& source, SourceId::Builder& builder)
+{
+    builder.set_value(source)
+           .set_uniquePresentation(getUniquePresentationString(source))
+           .set_externalElements(getExternalElements(source));
 }
 
 }

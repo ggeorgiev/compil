@@ -63,6 +63,22 @@ std::string& SourceId::Builder::mutable_value()
     return mpObject->mValue;
 }
 
+const std::vector<PackageElement>& SourceId::externalElements() const
+{
+    return mExternalElements;
+}
+
+SourceId::Builder& SourceId::Builder::set_externalElements(const std::vector<PackageElement>& externalElements)
+{
+    mpObject->mExternalElements = externalElements;
+    return *this;
+}
+
+std::vector<PackageElement>& SourceId::Builder::mutable_externalElements()
+{
+    return mpObject->mExternalElements;
+}
+
 const std::string& SourceId::uniquePresentation() const
 {
     return mUniquePresentation;

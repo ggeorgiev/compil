@@ -234,10 +234,13 @@ cpp::frm::NamespaceSPtr CppFormatter::cppPackageNamespace(const PackageSPtr& pPa
     if (mpCurrentPackage && (mpCurrentPackage->elements() == pPackage->elements()))
         return nmspace;
         
-    const std::vector<std::string>& elements = pPackage->elements();
-    std::vector<std::string>::const_iterator it;
+    const std::vector<PackageElement>& elements = pPackage->elements();
+    std::vector<PackageElement>::const_iterator it;
     for (it = elements.begin(); it != elements.end(); ++it)
-        *nmspace << cpp::frm::namespaceNameRef(*it);
+    {
+        if (!it->external())
+            *nmspace << cpp::frm::namespaceNameRef(it->value());
+    }
 
     return nmspace;
 }

@@ -238,6 +238,11 @@ static bool isOperator(int ch)
            (ch == '=');
 }
 
+static bool isAsterisk(int ch)
+{
+    return (ch == '*');
+}
+
 static bool isCStyleInitialCommentChar(int ch)
 {
     return (ch == '/'); // C style line and block comment initial character
@@ -869,6 +874,13 @@ void Tokenizer::shift()
     else if (isOperator(ch))
     {
         mpCurrent->setType(Token::TYPE_OPERATOR);
+        absorbed(ch);
+        mpCurrent->addChar(ch);
+        mpCurrent->setEndColumn(column());
+    }
+    else if (isAsterisk(ch))
+    {
+        mpCurrent->setType(Token::TYPE_ASTERISK);
         absorbed(ch);
         mpCurrent->addChar(ch);
         mpCurrent->setEndColumn(column());

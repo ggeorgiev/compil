@@ -374,6 +374,9 @@
 		5EA486B01618BE4E00B42BC8 /* comment.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = comment.compil; sourceTree = "<group>"; };
 		5EA486B11618BFB400B42BC8 /* comment.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = comment.cpp; sourceTree = "<group>"; };
 		5EA486B21618BFB400B42BC8 /* comment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = comment.h; sourceTree = "<group>"; };
+		5EB5E8FC1632F92B00C1F06F /* package_element.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = package_element.compil; sourceTree = "<group>"; };
+		5EB5E8FE1632FC0800C1F06F /* package_element.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = package_element.cpp; sourceTree = "<group>"; };
+		5EB5E8FF1632FC0800C1F06F /* package_element.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = package_element.h; sourceTree = "<group>"; };
 		5EC0D2271618D2D200802C95 /* type.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type.h; sourceTree = "<group>"; };
 		5EC0D2291618D3C600802C95 /* type-partial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "type-partial.cpp"; sourceTree = "<group>"; };
 		5EC0D22A1618D3C600802C95 /* type-partial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "type-partial.h"; sourceTree = "<group>"; };
@@ -662,6 +665,8 @@
 				5E88A1D715E188BB002D43A5 /* object_factory.h */,
 				5E88A1D815E188BB002D43A5 /* operator.cpp */,
 				5E88A1D915E188BB002D43A5 /* operator.h */,
+				5EB5E8FE1632FC0800C1F06F /* package_element.cpp */,
+				5EB5E8FF1632FC0800C1F06F /* package_element.h */,
 				5E88A1DA15E188BB002D43A5 /* package.cpp */,
 				5E88A1DB15E188BB002D43A5 /* package.h */,
 				5E88A1DC15E188BB002D43A5 /* parameter.cpp */,
@@ -872,6 +877,7 @@
 				5E88A28F15E188BB002D43A5 /* object.compil */,
 				5E88A29015E188BB002D43A5 /* object_factory.compil */,
 				5E88A29115E188BB002D43A5 /* operator.compil */,
+				5EB5E8FC1632F92B00C1F06F /* package_element.compil */,
 				5E88A29215E188BB002D43A5 /* package.compil */,
 				5E88A29315E188BB002D43A5 /* parameter.compil */,
 				5E88A29415E188BB002D43A5 /* reference.compil */,

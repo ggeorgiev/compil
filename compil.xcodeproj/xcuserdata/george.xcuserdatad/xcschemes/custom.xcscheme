@@ -7,8 +7,8 @@
       buildImplicitDependencies = "YES">
    </BuildAction>
    <TestAction
-      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.GDB"
-      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.GDB"
+      selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
+      selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
@@ -24,7 +24,7 @@
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <PathRunnable
-         FilePath = "/Users/george/github/intermediate/compiler/ef27f9a8a84252954bd5504269c0b5c1/compiler-unit">
+         FilePath = "/Users/george/ggeorgiev_frodo_home_mac/intermediate/docx/darwin-4.2.1/debug/address-model-64/link-static/threading-multi/docx-unit_test">
       </PathRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
