@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -50,17 +50,17 @@ public:
     virtual ~FileSourceProvider();
 
     virtual void setImportDirectories(const std::vector<std::string>& importDirectories);
-    
-    virtual SourceIdSPtr sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source);
-    
-    virtual StreamPtr openInputStream(const SourceIdSPtr& pSourceId);
-    virtual std::string getUniquePresentationString(const std::string& source);
-    virtual std::vector<PackageElement> getExternalElements(const std::string& source);
-    
-private:
-    void fillSourceFields(const std::string& source, SourceId::Builder& builder);
 
-    std::vector<boost::filesystem::path> mImportDirectories; 
+    virtual SourceIdSPtr sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source);
+
+    virtual StreamPtr openInputStream(const SourceIdSPtr& pSourceId);
+    static void fillSourceFields(const std::string& source, SourceId::Builder& builder);
+
+private:
+    static std::string getUniquePresentationString(const std::string& source);
+    static std::vector<PackageElement> getExternalElements(const std::string& source);
+
+    std::vector<boost::filesystem::path> mImportDirectories;
 };
 
 typedef boost::shared_ptr<FileSourceProvider> FileSourceProviderPtr;

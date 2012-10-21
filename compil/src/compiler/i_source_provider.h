@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -48,16 +48,15 @@ class ISourceProvider
 {
 public:
     virtual ~ISourceProvider() {}
-    
+
     // Determine unique source id. In the context of file system the
     // source provider will resolve the import source to absolute
     // path. Depending on the location of the file importing another
     // different source string could be resolved as the same source
     // and vise verse.
     virtual SourceIdSPtr sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source) = 0;
-    
+
     virtual StreamPtr openInputStream(const SourceIdSPtr& pSourceId) = 0;
-    virtual std::string getUniquePresentationString(const std::string& source) = 0;
 };
 
 typedef boost::shared_ptr<ISourceProvider> ISourceProviderPtr;
