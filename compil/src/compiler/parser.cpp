@@ -212,7 +212,7 @@ PackageSPtr Parser::parsePackage()
         *this << errorMessage(Message::p_expectSemicolon);
         return PackageSPtr();
     }
-    
+
     std::vector<PackageElement>::const_reverse_iterator eit = mpSourceId->externalElements().rbegin();
     std::vector<PackageElement> packageElements;
     for (std::vector<std::string>::reverse_iterator it = elements.rbegin(); it != elements.rend(); ++it)
@@ -230,6 +230,9 @@ PackageSPtr Parser::parsePackage()
         }
         else
         {
+            if (eit->value() == *it)
+                ++eit;
+
             pe.set_value(*it);
         }
         packageElements.insert(packageElements.begin(), pe);
@@ -250,7 +253,7 @@ bool Parser::parseType(std::vector<PackageElement>& package_elements, TokenPtr& 
         mpTokenizer->shift();
         if (!expect(Token::TYPE_IDENTIFIER))
             return false;
-            
+
         PackageElement pe;
         pe.set_value(pNameToken->text());
 
@@ -629,7 +632,7 @@ SpecimenSPtr Parser::parseSpecimen(const CommentSPtr& pComment)
     pName->set_value(mpTokenizer->current()->text());
 
     pSpecimen->set_name(pName);
-    
+
     mpTokenizer->shift();
     skipComments();
     if (check(Token::TYPE_IDENTIFIER, "inherit"))
@@ -1803,7 +1806,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
         mpTokenizer->shift();
         skipComments();
     }
-    
+
     TokenPtr pControlled;
     if (check(Token::TYPE_IDENTIFIER, "controlled"))
     {
@@ -1835,7 +1838,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
         mpTokenizer->shift();
         skipComments();
     }
-    
+
     TokenPtr pStreamable;
     if (check(Token::TYPE_IDENTIFIER, "streamable"))
     {
