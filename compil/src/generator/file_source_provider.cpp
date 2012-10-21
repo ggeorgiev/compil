@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -53,7 +53,7 @@ void FileSourceProvider::setImportDirectories(const std::vector<std::string>& im
 {
     std::vector<std::string>::const_iterator it;
     for (it = importDirectories.begin(); it != importDirectories.end(); ++it)
-    { 
+    {
         path it_path(*it);
         path absolute_path = absolute(it_path);
         mImportDirectories.push_back(absolute_path);
@@ -65,41 +65,41 @@ SourceIdSPtr FileSourceProvider::sourceId(const SourceIdSPtr& pCurrentSourceId, 
     SourceId::Builder builder;
     builder.set_original(source)
            .set_parent(pCurrentSourceId);
-    
+
     // first check the current source location
     if (pCurrentSourceId)
     {
         path current(pCurrentSourceId->value());
         path current_location = current.remove_filename();
         path source_location = current_location / source;
-        if (exists(source_location)) 
+        if (exists(source_location))
         {
-            fillSourceFields(source_location.string(), builder);
+            fillSourceFields(source_location.generic_string(), builder);
             return builder.finalize();
         }
     }
-    
+
     path source_location = source;
-    if (exists(source_location)) 
+    if (exists(source_location))
     {
-        fillSourceFields(source_location.string(), builder);
+        fillSourceFields(source_location.generic_string(), builder);
         return builder.finalize();
     }
-    
+
     std::vector<path>::const_iterator it;
     for (it = mImportDirectories.begin(); it != mImportDirectories.end(); ++it)
     {
         path source_location = *it / source;
-        if (exists(source_location)) 
+        if (exists(source_location))
         {
-            fillSourceFields(source_location.string(), builder);
+            fillSourceFields(source_location.generic_string(), builder);
             return builder.finalize();
         }
     }
-    
+
     return SourceIdSPtr();
 }
-    
+
 StreamPtr FileSourceProvider::openInputStream(const SourceIdSPtr& pSourceId)
 {
     boost::shared_ptr<std::ifstream> pInput(new std::ifstream());
@@ -111,7 +111,7 @@ std::string FileSourceProvider::getUniquePresentationString(const std::string& s
 {
     path src_path = absolute(source);
     path root = absolute(".");
-    
+
     path::iterator i = src_path.begin();
     for (path::iterator it = root.begin(); it != root.end(); ++it)
     {
@@ -122,7 +122,7 @@ std::string FileSourceProvider::getUniquePresentationString(const std::string& s
         if (i == src_path.end())
             break;
     }
-    
+
     std::string result;
     while (i != src_path.end())
     {
@@ -139,14 +139,14 @@ std::vector<PackageElement> FileSourceProvider::getExternalElements(const std::s
     path src_path = resolve(absolute(source));
     if (!is_directory(src_path))
         src_path = src_path.parent_path();
-    
+
     std::vector<PackageElement> result;
     while (src_path.has_parent_path())
     {
         PackageElement pe;
         pe.set_value(src_path.filename().string())
           .set_external(true);
-        
+
         result.insert(result.begin(), pe);
         src_path = src_path.parent_path();
     }

@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -59,10 +59,10 @@ CppImplementer::~CppImplementer()
 bool CppImplementer::needMutableMethod(const FieldSPtr& pField, const StructureSPtr& pCurrentStructure)
 {
     TypeSPtr pType = pField->type();
-    
+
     if (pField->structure().lock() != pCurrentStructure)
         return false;
-    
+
     switch (pType->kind().value())
     {
         case Type::EKind::kBuiltin:
@@ -190,7 +190,7 @@ cpp::frm::SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
     {
         if (name == "boolean")
             return cpp::frm::simpleTypeRef() << "bool";
-            
+
         switch (mpConfiguration->mIntegerTypes)
         {
             case ImplementerConfiguration::use_native:
@@ -268,9 +268,9 @@ cpp::frm::SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
         {
             switch (mpConfiguration->mString)
             {
-                case ImplementerConfiguration::use_char_pointer: 
+                case ImplementerConfiguration::use_char_pointer:
                     return cpp::frm::simpleTypeRef() << "const char*";
-                case ImplementerConfiguration::use_stl_string: 
+                case ImplementerConfiguration::use_stl_string:
                     return cpp::frm::simpleTypeRef() << nsStd
                                                      << "string";
                 default: assert(false && "unknown string implementation type");
@@ -293,17 +293,17 @@ cpp::frm::SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
                                              << result;
         }
     }
-    
+
     if (pType->package())
     {
         if (name == "datetime")
         {
             PackageElement peTime;
             peTime.set_value("time");
-        
+
             std::vector<PackageElement> elements;
             elements.push_back(peTime);
-            
+
             if (pType->package()->elements() == elements)
             {
                 return cpp::frm::simpleTypeRef() << nsBoostPosixTime
@@ -311,7 +311,7 @@ cpp::frm::SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
             }
         }
     }
-    
+
     if (pType->runtimeObjectId() == EObjectId::structure())
         return cpp::frm::simpleTypeRef() << mpFrm->cppPackageNamespace(pType->package())
                                          << mpFrm->cppClassName(name);
@@ -321,7 +321,7 @@ cpp::frm::SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
         return cpp::frm::simpleTypeRef() << mpFrm->cppClassName(name);
     if (pType->runtimeObjectId() == EObjectId::identifier())
         return cpp::frm::simpleTypeRef() << mpFrm->cppClassName(name);
-        
+
     return cpp::frm::simpleTypeRef() << mpFrm->cppPackageNamespace(pType->package())
                                      << name;
 }
@@ -340,66 +340,66 @@ cpp::frm::SimpleTypeSPtr CppImplementer::cppInnerType(const TypeSPtr& pType,
 std::vector<Dependency> CppImplementer::classPointerDependencies()
 {
     std::vector<Dependency> dep;
-    
+
     if (mpConfiguration->mPointer == ImplementerConfiguration::use_boost_pointers)
     {
         dep.push_back(
-            Dependency("boost/shared_ptr.hpp", 
-                        Dependency::system_type, 
+            Dependency("boost/shared_ptr.hpp",
+                        Dependency::system_type,
                         Dependency::boost_level,
                         Dependency::global_section,
                         "Boost C++ Smart Pointers"));
 
         dep.push_back(
-            Dependency("boost/weak_ptr.hpp", 
-                        Dependency::system_type, 
+            Dependency("boost/weak_ptr.hpp",
+                        Dependency::system_type,
                         Dependency::boost_level,
                         Dependency::global_section,
                         "Boost C++ Smart Pointers"));
     }
-    
+
     return dep;
 }
 
 std::vector<Dependency> CppImplementer::classReferenceDependencies()
 {
     std::vector<Dependency> dep;
-    
+
     if (mpConfiguration->mPointer == ImplementerConfiguration::use_boost_pointers)
     {
         dep.push_back(
             Dependency("boost/make_shared.hpp",
-                        Dependency::system_type, 
+                        Dependency::system_type,
                         Dependency::boost_level,
                         Dependency::global_section,
                         "Boost C++ Smart Pointers"));
     }
-    
+
     return dep;
 }
 
 std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
 {
     std::vector<Dependency> dep;
-    
+
     dep.push_back(cppHeaderFileDependency(pType));
-    
+
     UnaryTemplateSPtr pUnaryTemplate = ObjectFactory::downcastUnaryTemplate(pType);
     if (pUnaryTemplate)
         dep.push_back(cppHeaderFileDependency(pUnaryTemplate->parameterType().lock()));
-    
+
     IntegerSPtr pInteger = ObjectFactory::downcastInteger(pType);
-    
+
     if (pInteger)
     {
         if (mpConfiguration->mIntegerTypes == ImplementerConfiguration::use_intnn_t)
         {
             dep.push_back(
                 Dependency("sys/types.h",
-                           Dependency::system_type, 
+                           Dependency::system_type,
                            Dependency::system_level,
-                           Dependency::private_section, 
-                           "Standard C Library"));   
+                           Dependency::private_section,
+                           "Standard C Library"));
         }
         else
         if (mpConfiguration->mIntegerTypes == ImplementerConfiguration::use_boost_intnn_t)
@@ -412,7 +412,7 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
                            "Boost C++ Smart Pointers"));
         }
     }
-    
+
     EnumerationSPtr pEnumeration = ObjectFactory::downcastEnumeration(pType);
     if (pEnumeration)
     {
@@ -437,13 +437,13 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
             {
                 dep.push_back(
                     Dependency("string",
-                               Dependency::system_type, 
+                               Dependency::system_type,
                                Dependency::stl_level,
-                               Dependency::global_section, 
+                               Dependency::global_section,
                                "Standard Template Library"));
             }
         }
-        
+
         else
         if (name == "vector")
         {
@@ -453,22 +453,22 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
                            Dependency::stl_level,
                            Dependency::global_section,
                            "Standard Template Library"));
-                           
+
             UnaryContainerSPtr pUnaryContainer = boost::static_pointer_cast<UnaryContainer>(pType);
             std::vector<Dependency> subdep = dependencies(pUnaryContainer->parameterType().lock());
-            
+
             dep.insert(dep.begin(), subdep.begin(), subdep.end());
         }
     }
-    
+
     if (pType->package())
     {
         PackageElement peTime;
         peTime.set_value("time");
-    
+
         std::vector<PackageElement> elements;
         elements.push_back(peTime);
-        
+
         if (pType->package()->elements() == elements)
         {
             dep.push_back(
@@ -491,9 +491,9 @@ cpp::frm::SimpleTypeSPtr CppImplementer::cppPtrType(const TypeSPtr& pType)
 {
     switch (mpConfiguration->mPointer)
     {
-        case ImplementerConfiguration::use_raw_pointers: 
+        case ImplementerConfiguration::use_raw_pointers:
             return mpFrm->cppRawPtrName(pType);
-        case ImplementerConfiguration::use_boost_pointers: 
+        case ImplementerConfiguration::use_boost_pointers:
             return mpFrm->cppSharedPtrName(pType);
         default: assert(false && "unknown pointer type"); break;
     }
@@ -504,9 +504,9 @@ cpp::frm::DecoratedTypeSPtr CppImplementer::cppPtrDecoratedType(const TypeSPtr& 
 {
     switch (mpConfiguration->mPointer)
     {
-        case ImplementerConfiguration::use_raw_pointers: 
+        case ImplementerConfiguration::use_raw_pointers:
             return mpFrm->cppRawPtrDecoratedType(pType);
-        case ImplementerConfiguration::use_boost_pointers: 
+        case ImplementerConfiguration::use_boost_pointers:
             return mpFrm->cppSharedPtrDecoratedType(pType);
         default: assert(false && "unknown pointer type"); break;
     }
@@ -517,9 +517,9 @@ std::string CppImplementer::cppNullPtr(const TypeSPtr& pType)
 {
     switch (mpConfiguration->mPointer)
     {
-        case ImplementerConfiguration::use_raw_pointers: 
+        case ImplementerConfiguration::use_raw_pointers:
             return null();
-        case ImplementerConfiguration::use_boost_pointers: 
+        case ImplementerConfiguration::use_boost_pointers:
             return mpFrm->cppSharedPtrName(pType)->value() + "()";
         default: assert(false && "unknown pointer type"); break;
     }
@@ -530,9 +530,9 @@ std::string CppImplementer::cppConvertRawPtr(const TypeSPtr& pType, const std::s
 {
     switch (mpConfiguration->mPointer)
     {
-        case ImplementerConfiguration::use_raw_pointers: 
+        case ImplementerConfiguration::use_raw_pointers:
             return variable;
-        case ImplementerConfiguration::use_boost_pointers: 
+        case ImplementerConfiguration::use_boost_pointers:
             return mpFrm->cppSharedPtrName(pType)->value() + "(" + variable + ")";
         default: assert(false && "unknown pointer type"); break;
     }
@@ -554,9 +554,9 @@ Dependency CppImplementer::nullDependency()
 {
     if (mpConfiguration->mNullOr0 == ImplementerConfiguration::use_null)
     {
-        return Dependency("stddef.h", 
-                          Dependency::system_type, 
-                          Dependency::system_level, 
+        return Dependency("stddef.h",
+                          Dependency::system_type,
+                          Dependency::system_level,
                           Dependency::private_section,
                           "Standard C Library");
     }
@@ -581,13 +581,13 @@ Dependency CppImplementer::assert_dependency()
     {
         case ImplementerConfiguration::use_std_assert:
             return Dependency("assert.h",
-                              Dependency::system_type, 
+                              Dependency::system_type,
                               Dependency::system_level,
                               Dependency::private_section,
                               "Standard C library");
         case ImplementerConfiguration::use_boost_assert:
-            return Dependency("boost/assert.hpp", 
-                              Dependency::system_type, 
+            return Dependency("boost/assert.hpp",
+                              Dependency::system_type,
                               Dependency::boost_level,
                               Dependency::global_section,
                               "Boost C++ Utility");
@@ -598,16 +598,16 @@ Dependency CppImplementer::assert_dependency()
 
 Dependency CppImplementer::unordered_set_dependency()
 {
-    return Dependency("boost/unordered_set.hpp", 
-                      Dependency::system_type, 
+    return Dependency("boost/unordered_set.hpp",
+                      Dependency::system_type,
                       Dependency::boost_level,
                       Dependency::private_section,
                       "Boost C++ Unordered");
 }
 Dependency CppImplementer::unordered_map_dependency()
 {
-    return Dependency("boost/unordered_map.hpp", 
-                      Dependency::system_type, 
+    return Dependency("boost/unordered_map.hpp",
+                      Dependency::system_type,
                       Dependency::boost_level,
                       Dependency::private_section,
                       "Boost C++ Unordered");
@@ -618,7 +618,7 @@ bool CppImplementer::alphabeticByName(const StructureSPtr& pStructure1, const St
     return pStructure1->name()->value() < pStructure2->name()->value();
 }
 
-std::vector<StructureSPtr> CppImplementer::hierarchie(const ModelPtr& pModel, 
+std::vector<StructureSPtr> CppImplementer::hierarchie(const ModelPtr& pModel,
                                                       const StructureSPtr& pBaseStructure,
                                                       if_predicate if_pred,
                                                       less_predicate less_pred)
@@ -629,23 +629,23 @@ std::vector<StructureSPtr> CppImplementer::hierarchie(const ModelPtr& pModel,
     for (it = objects.begin(); it != objects.end(); ++it)
     {
         StructureSPtr pStructure = ObjectFactory::downcastStructure(*it);
-        if (!pStructure) 
+        if (!pStructure)
             continue;
-        
+
         if (pStructure != pBaseStructure)
         if (!pStructure->isRecursivelyInherit(pBaseStructure))
             continue;
-            
+
         if (if_pred)
         if (!if_pred(pStructure))
             continue;
-            
+
         hierarchie.push_back(pStructure);
     }
-    
+
     if (less_pred)
         std::sort(hierarchie.begin(), hierarchie.end(), less_pred);
-    
+
     return hierarchie;
 }
 
@@ -685,42 +685,42 @@ cpp::frm::MethodNameSPtr CppImplementer::runtimeIdentificationMethodName(const S
 
 EnumerationSPtr CppImplementer::objectEnumeration(const ModelPtr& pModel, const FactorySPtr& pFactory)
 {
-    std::vector<StructureSPtr> structs = 
-        hierarchie(pModel, 
+    std::vector<StructureSPtr> structs =
+        hierarchie(pModel,
                    ObjectFactory::downcastStructure(pFactory->parameterType().lock()),
                    &Structure::hasRuntimeIdentification);
     return objectEnumeration(pModel, structs, pFactory);
 }
 
 EnumerationSPtr CppImplementer::objectEnumeration(const ModelPtr& pModel,
-                                                  const std::vector<StructureSPtr>& structs, 
+                                                  const std::vector<StructureSPtr>& structs,
                                                   const FactorySPtr& pFactory)
 {
     SourceIdSPtr pSourceId(new SourceId());
-    
+
     EnumerationSPtr pEnumeration(new Enumeration());
     //pEnumeration->setComment(pComment);
-    
+
     pEnumeration->set_sourceId(pSourceId);
     pEnumeration->set_line(-1);
     pEnumeration->set_column(-1);
     pEnumeration->set_cast(CastableType::ECast::strong());
     pEnumeration->set_flags(false);
-    
+
     std::vector<PackageElement> package_elements;
     pEnumeration->set_parameterType(pModel->findType(PackageSPtr(), package_elements, "integer"));
-    
+
     NameSPtr pName(new Name());
     pName->set_sourceId(pSourceId);
     pName->set_line(-1);
     pName->set_column(-1);
-    pName->set_value(identificationName(ObjectFactory::downcastStructure(pFactory->parameterType().lock())));    
+    pName->set_value(identificationName(ObjectFactory::downcastStructure(pFactory->parameterType().lock())));
     pEnumeration->set_name(pName);
-    
+
     int mEnumValue = 1; // 0 reserved for invalid
-    
+
     std::vector<EnumerationValueSPtr> enumerationValues;
-    
+
     std::vector<StructureSPtr>::const_iterator it;
     for (it = structs.begin(); it != structs.end(); ++it)
     {
@@ -728,7 +728,7 @@ EnumerationSPtr CppImplementer::objectEnumeration(const ModelPtr& pModel,
 
         AbsoluteEnumerationValueSPtr pEnumerationValue(new AbsoluteEnumerationValue());
         //pEnumerationValue->setComment(pComment);
-        
+
         pEnumerationValue->set_sourceId(pSourceId);
         pEnumerationValue->set_line(-1);
         pEnumerationValue->set_column(-1);
@@ -738,16 +738,16 @@ EnumerationSPtr CppImplementer::objectEnumeration(const ModelPtr& pModel,
         pName->set_line(-1);
         pName->set_column(-1);
         pName->set_value(pStructure->name()->value());
-    
+
         pEnumerationValue->set_name(pName);
         pEnumerationValue->set_value(mEnumValue++);
         pEnumerationValue->set_enumeration(pEnumeration);
-        
+
         enumerationValues.push_back(pEnumerationValue);
     }
-    
+
     pEnumeration->set_enumerationValues(enumerationValues);
-    
+
     return pEnumeration;
 }
 
@@ -759,7 +759,7 @@ cpp::frm::EMethodSpecifier CppImplementer::methodSpecifier(const StructureSPtr& 
     {
         if (pStruct->hasRuntimeIdentification())
             return cpp::frm::EMethodSpecifier::virtual_();
-        
+
         pStruct = pStruct->baseStructure().lock();
     }
 
@@ -773,7 +773,7 @@ cpp::frm::EDestructorSpecifier CppImplementer::destructorSpecifier(const Structu
     {
         if (pStruct->hasRuntimeIdentification())
             return cpp::frm::EDestructorSpecifier::virtual_();
-        
+
         pStruct = pStruct->baseStructure().lock();
     }
 
@@ -785,7 +785,7 @@ cpp::frm::ConstructorNameSPtr CppImplementer::inheritClass(const EnumerationSPtr
                                                            const StructureSPtr& pStructure)
 {
     TypeSPtr pParameterType = pEnumeration->parameterType().lock();
-    
+
     if (pEnumeration->flags())
     if (mpConfiguration->mFlagsEnumeration == ImplementerConfiguration::flags_enumeration_use_core_template)
     {
@@ -803,7 +803,7 @@ bool CppImplementer::implementEnumerationMethods(const EnumerationSPtr& pEnumera
     if (pEnumeration->flags())
     if (mpConfiguration->mFlagsEnumeration == ImplementerConfiguration::flags_enumeration_use_core_template)
         return false;
-        
+
     return true;
 }
 
@@ -873,37 +873,37 @@ Dependency CppImplementer::cppHeaderFileDependency(const std::string filename,
                                                    const PackageSPtr& package)
 {
     std::string h_ext = applicationHeaderExtension();
-    
+
     boost::filesystem::path pth(filename);
     if (!pth.has_stem())
         return Dependency();
 
     pth.replace_extension(h_ext);
-       
+
     if (mpConfiguration->mCppIncludePath == ImplementerConfiguration::include_path_based_on_import)
     {
-        return Dependency(pth.string(),
+        return Dependency(pth.generic_string(),
                           Dependency::quote_type,
                           Dependency::application_level);
     }
-    
+
     if (mpConfiguration->mCppIncludePath == ImplementerConfiguration::include_path_based_on_package)
     {
         if (!package)
             return Dependency();
-        
+
 
         boost::filesystem::path result;
         const std::vector<PackageElement>& elements = package->elements();
         for (std::vector<PackageElement>::const_iterator it = elements.begin(); it != elements.end(); ++it)
             result /= it->value();
         result /= pth.filename();
-    
-        return Dependency(result.string(),
+
+        return Dependency(result.generic_string(),
                           Dependency::quote_type,
                           Dependency::application_level);
     }
-    
+
     assert(false && "unknown mCppIncludePath");
     return Dependency();
 }
@@ -912,11 +912,11 @@ Dependency CppImplementer::cppHeaderFileDependency(const TypeSPtr& type)
 {
     if (!type)
         return Dependency();
-        
+
     SourceIdSPtr sourceId = type->sourceId();
     if (!sourceId)
-        return Dependency();    
-    
+        return Dependency();
+
     std::string source = sourceId->original();
     return cppHeaderFileDependency(source, type->package());
 }

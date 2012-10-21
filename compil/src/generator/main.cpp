@@ -95,7 +95,7 @@ int main(int argc, const char **argv)
     compil::ModelPtr pModel(new compil::Model());
     {
         compil::SourceId::Builder builder;
-        compil::FileSourceProvider::fillSourceFields(input_file_path.string(), builder);
+        compil::FileSourceProvider::fillSourceFields(input_file_path.generic_string(), builder);
         compil::SourceIdSPtr pSourceId(builder.finalize());
 
         compil::NameSPtr pName(new compil::Name());
