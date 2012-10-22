@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -105,16 +105,16 @@ Model::Model()
     if (!bInit)
     {
         bInit = true;
-        
+
         NameSPtr pName;
-        
+
         pName.reset(new Name());
         pName->set_value("boolean");
         pBoolType->set_name(pName);
         pBoolType->set_literal(Type::ELiteral::boolean());
         pBoolType->set_kind(Type::EKind::builtin());
         //pBoolType->set_cast(CastableType::ECast::weak());
-        
+
         pName.reset(new Name());
         pName->set_value("size");
         pSizeType->set_name(pName);
@@ -144,7 +144,7 @@ Model::Model()
         pLongType->set_name(pName);
         pLongType->set_min("−9223372036854775808");
         pLongType->set_min("9223372036854775807");
-        
+
         pName.reset(new Name());
         pName->set_value("byte");
         pByteType->set_name(pName);
@@ -196,56 +196,56 @@ Model::Model()
         pBinaryType->set_literal(Type::ELiteral::binary());
         pBinaryType->set_kind(Type::EKind::string());
         //pBinaryType->set_cast(CastableType::ECast::weak());
-        
+
         PackageElement peTime;
         peTime.set_value("time");
-        
+
         PackageSPtr pPackage(new Package());
         std::vector<PackageElement> elements;
         elements.push_back(peTime);
         pPackage->set_elements(elements);
-        
+
         pName.reset(new Name());
         pName->set_value("binary");
         pBinaryType->set_name(pName);
         pBinaryType->set_literal(Type::ELiteral::binary());
         pBinaryType->set_kind(Type::EKind::string());
-        
+
         pName.reset(new Name());
         pName->set_value("date");
         pDateType->set_name(pName);
         pDateType->set_literal(Type::ELiteral::binary());
         pDateType->set_kind(Type::EKind::object());
         pDateType->set_package(pPackage);
-        
+
         pName.reset(new Name());
         pName->set_value("time");
         pTimeType->set_name(pName);
         pTimeType->set_literal(Type::ELiteral::binary());
         pTimeType->set_kind(Type::EKind::object());
         pTimeType->set_package(pPackage);
-        
+
         pName.reset(new Name());
         pName->set_value("datetime");
         pDatetimeType->set_name(pName);
         pDatetimeType->set_literal(Type::ELiteral::binary());
         pDatetimeType->set_kind(Type::EKind::object());
         pDatetimeType->set_package(pPackage);
-        
+
         pName.reset(new Name());
         pName->set_value("duration");
         pTimeDirationType->set_name(pName);
         pTimeDirationType->set_literal(Type::ELiteral::binary());
         pTimeDirationType->set_kind(Type::EKind::object());
         pTimeDirationType->set_package(pPackage);
-        
+
         pName.reset(new Name());
         pName->set_value("reference");
         pReference->set_name(pName);
         pReference->set_literal(Type::ELiteral::reference());
         pReference->set_kind(Type::EKind::object());
         pReference->set_cast(CastableType::ECast::weak());
-        
+
         pName.reset(new Name());
         pName->set_value("vector");
         pVector->set_name(pName);
@@ -255,19 +255,19 @@ Model::Model()
     }
 
     addType(pBoolType);
-    
+
     addType(pSizeType);
-    
+
     addType(pSmallType);
     addType(pShortType);
     addType(pIntegerType);
     addType(pLongType);
-    
+
     addType(pByteType);
     addType(pWordType);
     addType(pDWordType);
     addType(pQWordType);
-    
+
     addType(pReal32Type);
     addType(pReal64Type);
     addType(pStringType);
@@ -277,8 +277,8 @@ Model::Model()
     addType(pDateType);
     addType(pTimeType);
     addType(pDatetimeType);
-    addType(pTimeDirationType);    
-    
+    addType(pTimeDirationType);
+
     addUnfinishedUnaryTemplate(pReference);
     addUnfinishedUnaryTemplate(pVector);
 }
@@ -317,6 +317,18 @@ void Model::setPackage(const PackageSPtr& pPackage)
     mpPackage = pPackage;
 }
 
+static bool compareElementValues(const std::vector<PackageElement>& v1, const std::vector<PackageElement>& v2)
+{
+    if (v1.size() != v2.size())
+        return false;
+    for (size_t i = 0; i < v1.size(); ++i)
+    {
+        if (v1[i].value() != v2[i].value())
+            return false;
+    }
+    return true;
+}
+
 bool Model::isVisible(const PackageSPtr& pTypePackage,
                       const PackageSPtr& pCurrentPackage,
                       const std::vector<PackageElement>& lookup_package_elements)
@@ -329,16 +341,16 @@ bool Model::isVisible(const PackageSPtr& pTypePackage,
     if (pCurrentPackage)
         current_package_elements = pCurrentPackage->elements();
 
-    if (type_package_elements == current_package_elements)
+    if (compareElementValues(type_package_elements, current_package_elements))
     if (lookup_package_elements.size() == 0)
         return true;
-        
-    if (type_package_elements == lookup_package_elements)
+
+    if (compareElementValues(type_package_elements, lookup_package_elements))
         return true;
-        
+
     return false;
 }
-    
+
 TypeSPtr Model::findType(const PackageSPtr& pPackage,
                          const std::vector<PackageElement>& package_elements,
                          const std::string& name) const
@@ -368,7 +380,7 @@ TypeSPtr Model::findType(const PackageSPtr& pPackage,
                 return pEnumeration;
         }
     }
-    
+
     return findType(pPackage, package_elements, name);
 }
 
@@ -387,7 +399,7 @@ UnaryTemplateSPtr Model::findUnfinishedUnaryTemplate(const std::string& name)
     }
     return UnaryTemplateSPtr();
 }
- 
+
 void Model::addUnfinishedUnaryTemplate(const UnaryTemplateSPtr& pUnaryTemplate)
 {
     mUnfinishedUnaryTemplates.push_back(pUnaryTemplate);
@@ -424,7 +436,7 @@ void Model::addSpecimen(const SpecimenSPtr& pSpecimen)
 std::vector<FactorySPtr> Model::findPluginFactories(const StructureSPtr& pStructure)
 {
     std::set<TypeSPtr> set;
-    
+
     StructureSPtr pBase = pStructure;
     while (pBase)
     {
@@ -433,7 +445,7 @@ std::vector<FactorySPtr> Model::findPluginFactories(const StructureSPtr& pStruct
     }
 
     std::vector<FactorySPtr> factories;
-    
+
     std::vector<ObjectSPtr>::const_iterator it;
     for (it = mObjects.begin(); it != mObjects.end(); ++it)
     {
@@ -442,14 +454,14 @@ std::vector<FactorySPtr> Model::findPluginFactories(const StructureSPtr& pStruct
             FactorySPtr pFactory = ObjectFactory::downcastFactory(*it);
             if (pFactory->type() != Factory::EType::plugin())
                 continue;
-                
+
             if (set.find(pFactory->parameterType().lock()) == set.end())
                 continue;
-                
+
             factories.push_back(pFactory);
         }
     }
-    
+
     return factories;
 }
 
@@ -463,7 +475,7 @@ void Model::addStructure(const StructureSPtr& pStructure)
 {
     mObjects.push_back(pStructure);
     addType(pStructure);
-    
+
     const std::vector<ObjectSPtr>& objects = pStructure->objects();
     std::vector<ObjectSPtr>::const_iterator it;
     for (it = objects.begin(); it != objects.end(); ++it)

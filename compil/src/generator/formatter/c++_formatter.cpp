@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -95,7 +95,7 @@ cpp::frm::MethodNameSPtr CppFormatter::methodName(const std::string& rawName)
     std::transform(result.begin() + 0, result.begin() + 1, result.begin() + 0, tolower);
     result = mpKeyword->escapeKeyword(result);
     return cpp::frm::methodNameRef(result);
-}    
+}
 
 std::string CppFormatter::name(const std::string& rawName)
 {
@@ -147,7 +147,7 @@ std::string CppFormatter::value(int value)
     stream << value;
     return stream.str();
 }
-    
+
 std::string CppFormatter::bitmask(int bitmask)
 {
     std::stringstream stream;
@@ -185,10 +185,10 @@ std::string CppFormatter::headerGuard(const std::string& location, const std::st
     std::replace_if( guard.begin(), guard.end(), plus_char, 'p');
     std::replace_if( guard.begin(), guard.end(), not_a_good_char, '_');
     std::transform(guard.begin(), guard.end(), guard.begin(), toupper);
-    
+
     return guard;
 }
-    
+
 std::string CppFormatter::headerGuard(const DocumentSPtr& pDocument, const std::string& type)
 {
     return headerGuard(pDocument->sourceId()->uniquePresentation(), type);
@@ -222,19 +222,12 @@ cpp::frm::ParameterValueSPtr CppFormatter::parameterValue(const cpp::frm::Variab
     return cpp::frm::parameterValueRef(name->value());
 }
 
-cpp::frm::NamespaceSPtr CppFormatter::cppPackageNamespace(const PackageSPtr& pPackage)
+cpp::frm::NamespaceSPtr getPackageNamespace(const PackageSPtr& pPackage)
 {
     cpp::frm::NamespaceSPtr nmspace = cpp::frm::namespaceRef();
-    if (pPackage == mpCurrentPackage)
-        return nmspace;
-        
-    if (!pPackage)
-        return nmspace;
-        
-    if (mpCurrentPackage && (mpCurrentPackage->elements() == pPackage->elements()))
-        return nmspace;
-        
+
     const std::vector<PackageElement>& elements = pPackage->elements();
+
     std::vector<PackageElement>::const_iterator it;
     for (it = elements.begin(); it != elements.end(); ++it)
     {
@@ -244,17 +237,47 @@ cpp::frm::NamespaceSPtr CppFormatter::cppPackageNamespace(const PackageSPtr& pPa
 
     return nmspace;
 }
-    
+
+cpp::frm::NamespaceSPtr CppFormatter::cppPackageNamespace(const PackageSPtr& pPackage)
+{
+    cpp::frm::NamespaceSPtr nmspace = cpp::frm::namespaceRef();
+    if (pPackage == mpCurrentPackage)
+        return nmspace;
+
+    if (!pPackage)
+        return nmspace;
+
+    cpp::frm::NamespaceSPtr packageNamespace = getPackageNamespace(pPackage);
+    if (!mpCurrentPackage)
+        return packageNamespace;
+
+    cpp::frm::NamespaceSPtr currentNamespace = getPackageNamespace(mpCurrentPackage);
+    std::vector<cpp::frm::NamespaceNameSPtr>::const_iterator cit = currentNamespace->names().begin();
+    std::vector<cpp::frm::NamespaceNameSPtr>::const_iterator it = packageNamespace->names().begin();
+    while (cit != currentNamespace->names().end() && it != packageNamespace->names().end())
+    {
+        if ((*cit)->value() != (*it)->value())
+            break;
+        cit++;
+        it++;
+    }
+
+    for (; it != packageNamespace->names().end(); ++it)
+        *nmspace << *it;
+
+    return nmspace;
+}
+
 cpp::frm::SimpleTypeSPtr CppFormatter::cppEnumType(const EnumerationSPtr& pEnumeration)
 {
     StructureSPtr pStructure = pEnumeration->structure().lock();
-    
+
     cpp::frm::NamespaceSPtr nmspace;
     if (pStructure)
         nmspace = cppAutoClassNamespace(pStructure);
     else
         nmspace = cpp::frm::namespaceRef();
-        
+
     cpp::frm::NamespaceSPtr packageNamespace = cppPackageNamespace(pEnumeration->package());
     if (!packageNamespace->isVoid())
     {
@@ -300,7 +323,7 @@ cpp::frm::NamespaceSPtr CppFormatter::cppEnumNamespace(const EnumerationSPtr& pE
         nmspace = cpp::frm::namespaceRef();
 
     *nmspace << cpp::frm::namespaceNameRef(enumName(pEnumeration->name()->value()));
-        
+
     return nmspace;
 }
 
@@ -311,7 +334,7 @@ cpp::frm::SimpleTypeSPtr CppFormatter::cppClassType(const TypeSPtr& pType)
         return cpp::frm::simpleTypeRef() << enumName(pType->name()->value());
     return cpp::frm::simpleTypeRef() << cppClassName(pType->name()->value());
 }
-    
+
 cpp::frm::NamespaceSPtr CppFormatter::cppClassNamespace(const TypeSPtr& pType)
 {
     cpp::frm::NamespaceSPtr nmspace = cpp::frm::namespaceRef();
@@ -359,7 +382,7 @@ cpp::frm::SimpleTypeSPtr CppFormatter::cppMainClassType(const StructureSPtr& pSt
     return cpp::frm::simpleTypeRef() << cppPackageNamespace(pStructure->package())
                                      << cppClassName(pStructure->name()->value());
 }
-    
+
 cpp::frm::NamespaceSPtr CppFormatter::cppMainClassNamespace(const StructureSPtr& pStructure)
 {
     cpp::frm::NamespaceSPtr nmspace = cpp::frm::namespaceRef();
@@ -442,7 +465,7 @@ cpp::frm::MethodNameSPtr CppFormatter::getMethodName(const FieldSPtr& pField)
 {
     return methodName(pField->name()->value());
 }
-    
+
 cpp::frm::MethodNameSPtr CppFormatter::setMethodName(const FieldSPtr& pField)
 {
     return methodName("set_" + pField->name()->value());
@@ -466,7 +489,7 @@ cpp::frm::MethodNameSPtr CppFormatter::constantMethodName(const StructureSPtr& p
     else
         return alterMethodName(pField);
 }
-    
+
 
 cpp::frm::MethodNameSPtr CppFormatter::defaultMethodName(const FieldSPtr& pField)
 {
@@ -490,7 +513,7 @@ cpp::frm::MethodNameSPtr CppFormatter::destroyMethodName(const FieldSPtr& pField
         {
             return resetMethodName(pField);
         }
-    } 
+    }
     return eraseMethodName(pField);
 }
 
@@ -498,7 +521,7 @@ cpp::frm::MethodNameSPtr CppFormatter::clearMethodName(const FieldSPtr& pField)
 {
     return methodName("clear_" + pField->name()->value());
 }
-    
+
 cpp::frm::MethodNameSPtr CppFormatter::resetMethodName(const FieldSPtr& pField)
 {
     return methodName("reset_" + pField->name()->value());
@@ -508,7 +531,7 @@ cpp::frm::MethodNameSPtr CppFormatter::eraseMethodName(const FieldSPtr& pField)
 {
     return methodName("erase_" + pField->name()->value());
 }
-    
+
 cpp::frm::MethodNameSPtr CppFormatter::availableMethodName(const FieldSPtr& pField)
 {
     if (pField->defaultValue())
@@ -521,7 +544,7 @@ cpp::frm::MethodNameSPtr CppFormatter::availableMethodName(const FieldSPtr& pFie
         {
             return changedMethodName(pField);
         }
-    } 
+    }
     return validMethodName(pField);
 }
 
@@ -555,7 +578,7 @@ std::string CppFormatter::defaultValue(const Type::ELiteral literal, const std::
 {
     switch (literal.value())
     {
-        case Type::ELiteral::kString: 
+        case Type::ELiteral::kString:
             return "\"" + value + "\"";
         default:
             break;
@@ -570,7 +593,7 @@ std::string CppFormatter::defaultValue(const AlterSPtr& pAlter) const
 
 std::string CppFormatter::defaultValue(const FieldSPtr& pField) const
 {
-    return defaultValue(pField->type()->literal(), pField->defaultValue()->value());   
+    return defaultValue(pField->type()->literal(), pField->defaultValue()->value());
 }
 
 }
