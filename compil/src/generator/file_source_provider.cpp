@@ -144,8 +144,7 @@ std::vector<PackageElement> FileSourceProvider::getExternalElements(const std::s
     while (src_path.has_parent_path())
     {
         PackageElement pe;
-        pe.set_value(src_path.filename().string())
-          .set_external(true);
+        pe.set_value(src_path.filename().string());
 
         result.insert(result.begin(), pe);
         src_path = src_path.parent_path();

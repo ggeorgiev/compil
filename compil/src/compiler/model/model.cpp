@@ -203,7 +203,8 @@ Model::Model()
         PackageSPtr pPackage(new Package());
         std::vector<PackageElement> elements;
         elements.push_back(peTime);
-        pPackage->set_elements(elements);
+        pPackage->set_short(elements);
+        pPackage->set_levels(elements);
 
         pName.reset(new Name());
         pName->set_value("binary");
@@ -335,11 +336,11 @@ bool Model::isVisible(const PackageSPtr& pTypePackage,
 {
     std::vector<PackageElement> type_package_elements;
     if (pTypePackage)
-        type_package_elements = pTypePackage->elements();
+        type_package_elements = pTypePackage->short_();
 
     std::vector<PackageElement> current_package_elements;
     if (pCurrentPackage)
-        current_package_elements = pCurrentPackage->elements();
+        current_package_elements = pCurrentPackage->short_();
 
     if (compareElementValues(type_package_elements, current_package_elements))
     if (lookup_package_elements.size() == 0)

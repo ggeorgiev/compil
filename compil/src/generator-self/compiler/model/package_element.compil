@@ -36,8 +36,5 @@ package compil;
 
 structure PackageElement
 {
-    native operator == ;
-
-    boolean external = false;
     string value;
 }

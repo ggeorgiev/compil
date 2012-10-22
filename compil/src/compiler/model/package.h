@@ -50,14 +50,14 @@ class Package : public Object
 {
 public:
     // Default constructor
-                                               Package         ();
+                                               Package        ();
     // Destructor
-    virtual                                    ~Package        ();
+    virtual                                    ~Package       ();
 
     // Downcast method is syntactic sugar for boost::static_pointer_cast.
     // Note that it does not provide any type checks. Use it on your own
     // risk.
-    static  PackageSPtr                        downcast        (const ObjectSPtr& object);
+    static  PackageSPtr                        downcast       (const ObjectSPtr& object);
 
     // Identifier for the objects from Package class.
     // Note: it is not defined in the respective cpp file. Instead it is
@@ -65,23 +65,32 @@ public:
     // of the other class objects. This allows all identifiers to be
     // maintained from a single place, which reduces the risk of value
     // collisions
-    static  EObjectId                          staticObjectId  ();
+    static  EObjectId                          staticObjectId ();
     // This virtual method provides runtime object identification based on
     // the polymorphic behavior of the virtual methods. Allows having a
     // RTTI like mechanism significantly cheaper than the RTTI provided by
     // the compilers themselves.
-    virtual EObjectId                          runtimeObjectId ()                                            const;
+    virtual EObjectId                          runtimeObjectId()                                          const;
 
-    // Getter method for the data field elements
-            const std::vector<PackageElement>& elements        ()                                            const;
-    // Setter method for the data field elements
-            Package&                           set_elements    (const std::vector<PackageElement>& elements);
-    // Provides mutable access to field elements
-            std::vector<PackageElement>&       mutable_elements();
+    // Getter method for the data field short
+            const std::vector<PackageElement>& short_         ()                                          const;
+    // Setter method for the data field short
+            Package&                           set_short      (const std::vector<PackageElement>& short_);
+    // Provides mutable access to field short
+            std::vector<PackageElement>&       mutable_short  ();
+
+    // Getter method for the data field levels
+            const std::vector<PackageElement>& levels         ()                                          const;
+    // Setter method for the data field levels
+            Package&                           set_levels     (const std::vector<PackageElement>& levels);
+    // Provides mutable access to field levels
+            std::vector<PackageElement>&       mutable_levels ();
 
 private:
-    // variable for the data field elements
-    std::vector<PackageElement> mElements;
+    // variable for the data field short
+    std::vector<PackageElement> mShort;
+    // variable for the data field levels
+    std::vector<PackageElement> mLevels;
 };
 
 }

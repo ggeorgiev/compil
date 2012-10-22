@@ -1361,7 +1361,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                                 std::vector<PackageElement> elements;
                                 elements.push_back(peTime);
 
-                                if (pField->type()->package()->elements() == elements)
+                                if (pField->type()->package()->short_() == elements)
                                 {
                                     table() << TableAligner::row()
                                             << accessObject
@@ -1781,7 +1781,7 @@ void CppGenerator::generateStructureInprocIdentificationMethodsDefinition(
     line()  << "return (size_t)\"";
     if (pStructure->package())
     {
-        const std::vector<PackageElement>& elements = pStructure->package()->elements();
+        const std::vector<PackageElement>& elements = pStructure->package()->levels();
         for(std::vector<PackageElement>::const_iterator it = elements.begin(); it != elements.end(); ++it)
         {
             line()  << it->value()

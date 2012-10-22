@@ -304,7 +304,7 @@ cpp::frm::SimpleTypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
             std::vector<PackageElement> elements;
             elements.push_back(peTime);
 
-            if (pType->package()->elements() == elements)
+            if (pType->package()->short_() == elements)
             {
                 return cpp::frm::simpleTypeRef() << nsBoostPosixTime
                                                  << "ptime";
@@ -469,7 +469,7 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
         std::vector<PackageElement> elements;
         elements.push_back(peTime);
 
-        if (pType->package()->elements() == elements)
+        if (pType->package()->short_() == elements)
         {
             dep.push_back(
                 Dependency("boost/date_time/posix_time/posix_time.hpp",
@@ -894,7 +894,7 @@ Dependency CppImplementer::cppHeaderFileDependency(const std::string filename,
 
 
         boost::filesystem::path result;
-        const std::vector<PackageElement>& elements = package->elements();
+        const std::vector<PackageElement>& elements = package->levels();
         for (std::vector<PackageElement>::const_iterator it = elements.begin(); it != elements.end(); ++it)
             result /= it->value();
         result /= pth.filename();

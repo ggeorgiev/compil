@@ -226,14 +226,11 @@ cpp::frm::NamespaceSPtr getPackageNamespace(const PackageSPtr& pPackage)
 {
     cpp::frm::NamespaceSPtr nmspace = cpp::frm::namespaceRef();
 
-    const std::vector<PackageElement>& elements = pPackage->elements();
+    const std::vector<PackageElement>& elements = pPackage->short_();
 
     std::vector<PackageElement>::const_iterator it;
     for (it = elements.begin(); it != elements.end(); ++it)
-    {
-        if (!it->external())
-            *nmspace << cpp::frm::namespaceNameRef(it->value());
-    }
+        *nmspace << cpp::frm::namespaceNameRef(it->value());
 
     return nmspace;
 }

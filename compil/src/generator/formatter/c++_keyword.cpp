@@ -61,6 +61,7 @@ bool CppKeyword::isKeyword(const std::string& word)
     if (word == "protected")    return true;
     if (word == "public")       return true;
     if (word == "return")       return true;
+    if (word == "short")        return true;
     if (word == "static")       return true;
     if (word == "switch")       return true;
     if (word == "virtual")      return true;

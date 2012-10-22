@@ -48,31 +48,22 @@ class PackageElement
 {
 public:
     // Default constructor
-                               PackageElement  ();
+                               PackageElement ();
     // Destructor
-    /*lax*/                    ~PackageElement ();
+    /*lax*/                    ~PackageElement();
 
-            bool               operator==      (const PackageElement& object)     const;
+            bool               operator==     (const PackageElement& object)     const;
 
-            bool               operator==      (const PackageElementSPtr& object) const;
-
-    // Getter method for the data field external
-            bool               external        ()                                 const;
-    // Returns the default value false of the field external
-    static  bool               default_external();
-    // Setter method for the data field external
-            PackageElement&    set_external    (bool external);
+            bool               operator==     (const PackageElementSPtr& object) const;
 
     // Getter method for the data field value
-            const std::string& value           ()                                 const;
+            const std::string& value          ()                                 const;
     // Setter method for the data field value
-            PackageElement&    set_value       (const std::string& value);
+            PackageElement&    set_value      (const std::string& value);
     // Provides mutable access to field value
-            std::string&       mutable_value   ();
+            std::string&       mutable_value  ();
 
 private:
-    // variable for the data field external
-    bool        mExternal;
     // variable for the data field value
     std::string mValue;
 };

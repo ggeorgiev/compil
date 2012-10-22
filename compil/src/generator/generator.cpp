@@ -174,12 +174,9 @@ void Generator::openNamespace(int streamIndex)
 {
     if (mpModel->package())
     {
-        const std::vector<PackageElement>& elements = mpModel->package()->elements();
+        const std::vector<PackageElement>& elements = mpModel->package()->short_();
         for(std::vector<PackageElement>::const_iterator it = elements.begin(); it != elements.end(); ++it)
         {
-            if (it->external())
-                continue;
-                
             line() << "namespace " << it->value();
             openBlock(streamIndex, 0);
             --mIndent[streamIndex];
@@ -192,12 +189,9 @@ void Generator::closeNamespace(int streamIndex)
 {
     if (mpModel->package())
     {
-        const std::vector<PackageElement>& elements = mpModel->package()->elements();
+        const std::vector<PackageElement>& elements = mpModel->package()->short_();
         for(std::vector<PackageElement>::const_iterator it = elements.begin(); it != elements.end(); ++it)
         {
-            if (it->external())
-                continue;
-                
             ++mIndent[streamIndex];
             closeBlock(streamIndex);
             eol(streamIndex);

@@ -214,7 +214,8 @@ PackageSPtr Parser::parsePackage()
     }
 
     std::vector<PackageElement>::const_reverse_iterator eit = mpSourceId->externalElements().rbegin();
-    std::vector<PackageElement> packageElements;
+    std::vector<PackageElement> short_;
+    std::vector<PackageElement> levels;
     for (std::vector<std::string>::reverse_iterator it = elements.rbegin(); it != elements.rend(); ++it)
     {
         PackageElement pe;
@@ -234,11 +235,13 @@ PackageSPtr Parser::parsePackage()
                 ++eit;
 
             pe.set_value(*it);
+            short_.insert(short_.begin(), pe);
         }
-        packageElements.insert(packageElements.begin(), pe);
+        levels.insert(levels.begin(), pe);
     }
 
-    pPackage->set_elements(packageElements);
+    pPackage->set_short(short_);
+    pPackage->set_levels(levels);
     return pPackage;
 }
 

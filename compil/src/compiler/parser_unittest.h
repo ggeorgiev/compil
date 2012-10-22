@@ -56,12 +56,9 @@ public:
     virtual bool parse(const char* text)
     {
         compil::PackageElement el1;
-        el1.set_value("external1")
-           .set_external(true);
-
+        el1.set_value("external1");
         compil::PackageElement el2;
-        el2.set_value("external2")
-           .set_external(true);
+        el2.set_value("external2");
 
         std::vector<compil::PackageElement> externalElements;
         externalElements.push_back(el1);
