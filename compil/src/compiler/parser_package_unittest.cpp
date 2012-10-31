@@ -85,7 +85,8 @@ TEST_F(ParserPackageTests, packageAsterisk)
         
     ASSERT_TRUE(mpModel->package());
 
-    EXPECT_EQ(0U, mpModel->package()->short_().size());
+    EXPECT_EQ(1U, mpModel->package()->short_().size());
+    EXPECT_STREQ("external2", mpModel->package()->short_()[0].value().c_str());
 
     EXPECT_EQ(1U, mpModel->package()->levels().size());
     EXPECT_STREQ("external2", mpModel->package()->levels()[0].value().c_str());
@@ -98,7 +99,9 @@ TEST_F(ParserPackageTests, packageAsteriskDotAsterisk)
         
     ASSERT_TRUE(mpModel->package());
 
-    EXPECT_EQ(0U, mpModel->package()->short_().size());
+    EXPECT_EQ(2U, mpModel->package()->short_().size());
+    EXPECT_STREQ("external1", mpModel->package()->short_()[0].value().c_str());
+    EXPECT_STREQ("external2", mpModel->package()->short_()[1].value().c_str());
     
     EXPECT_EQ(2U, mpModel->package()->levels().size());
     EXPECT_STREQ("external1", mpModel->package()->levels()[0].value().c_str());
@@ -112,11 +115,28 @@ TEST_F(ParserPackageTests, packageAsteriskDotAsteriskDotName)
         
     ASSERT_TRUE(mpModel->package());
     
-    EXPECT_EQ(1U, mpModel->package()->short_().size());
-    EXPECT_STREQ("pname", mpModel->package()->short_()[0].value().c_str());
+    EXPECT_EQ(3U, mpModel->package()->short_().size());
+    EXPECT_STREQ("external1", mpModel->package()->short_()[0].value().c_str());
+    EXPECT_STREQ("external2", mpModel->package()->short_()[1].value().c_str());
+    EXPECT_STREQ("pname", mpModel->package()->short_()[2].value().c_str());
     
     EXPECT_EQ(3U, mpModel->package()->levels().size());
     EXPECT_STREQ("external1", mpModel->package()->levels()[0].value().c_str());
     EXPECT_STREQ("external2", mpModel->package()->levels()[1].value().c_str());
     EXPECT_STREQ("pname", mpModel->package()->levels()[2].value().c_str());
+}
+
+TEST_F(ParserPackageTests, packageDifferntShortAndLevels)
+{
+    ASSERT_TRUE( parse(
+        "package * | *.pname;") );
+        
+    ASSERT_TRUE(mpModel->package());
+    
+    EXPECT_EQ(1U, mpModel->package()->short_().size());
+    EXPECT_STREQ("external2", mpModel->package()->short_()[0].value().c_str());
+    
+    EXPECT_EQ(2U, mpModel->package()->levels().size());
+    EXPECT_STREQ("external2", mpModel->package()->levels()[0].value().c_str());
+    EXPECT_STREQ("pname", mpModel->package()->levels()[1].value().c_str());
 }

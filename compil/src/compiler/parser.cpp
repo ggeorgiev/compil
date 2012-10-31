@@ -182,41 +182,13 @@ void Parser::skipComments(CommentSPtr pComment)
     }
 }
 
-PackageSPtr Parser::parsePackage()
+bool Parser::convertStringElementsTpPackageElements(const std::vector<std::string>& string_elements,
+                                                    std::vector<PackageElement>& package_elements)
 {
-    PackageSPtr pPackage(new Package());
-    initilizeObject(pPackage);
-
-    std::vector<std::string> elements;
-    do
-    {
-        mpTokenizer->shift();
-
-        if (expect(Token::TYPE_IDENTIFIER) || expect(Token::TYPE_ASTERISK))
-        {
-            elements.push_back(mpTokenizer->current()->text());
-        }
-        else
-        {
-            *this << (errorMessage(Message::p_expectStatementName)
-                        << Message::Statement("package"));
-            return PackageSPtr();
-        }
-
-        mpTokenizer->shift();
-
-    } while (expect(Token::TYPE_DOT));
-
-    if (!expect(Token::TYPE_DELIMITER, ";"))
-    {
-        *this << errorMessage(Message::p_expectSemicolon);
-        return PackageSPtr();
-    }
-
     std::vector<PackageElement>::const_reverse_iterator eit = mpSourceId->externalElements().rbegin();
-    std::vector<PackageElement> short_;
-    std::vector<PackageElement> levels;
-    for (std::vector<std::string>::reverse_iterator it = elements.rbegin(); it != elements.rend(); ++it)
+
+    std::vector<std::string>::const_reverse_iterator it;
+    for (it = string_elements.rbegin(); it != string_elements.rend(); ++it)
     {
         PackageElement pe;
         if (*it == "*")
@@ -224,7 +196,7 @@ PackageSPtr Parser::parsePackage()
             if (eit == mpSourceId->externalElements().rend())
             {
                 *this << errorMessage(Message::p_asteriskPackageElement);
-                return PackageSPtr();
+                return false;
             }
             pe = *eit;
             ++eit;
@@ -235,10 +207,82 @@ PackageSPtr Parser::parsePackage()
                 ++eit;
 
             pe.set_value(*it);
-            short_.insert(short_.begin(), pe);
         }
-        levels.insert(levels.begin(), pe);
+        package_elements.insert(package_elements.begin(), pe);
     }
+    return true;
+}
+
+PackageSPtr Parser::parsePackage()
+{
+    PackageSPtr pPackage(new Package());
+    initilizeObject(pPackage);
+
+    std::vector<std::string> short_elements;
+    do
+    {
+        mpTokenizer->shift();
+        skipComments();
+
+        if (expect(Token::TYPE_IDENTIFIER) || expect(Token::TYPE_ASTERISK))
+        {
+            short_elements.push_back(mpTokenizer->current()->text());
+        }
+        else
+        {
+            *this << (errorMessage(Message::p_expectStatementName)
+                        << Message::Statement("package"));
+            return PackageSPtr();
+        }
+
+        mpTokenizer->shift();
+        skipComments();
+
+    } while (expect(Token::TYPE_DOT));
+    
+    std::vector<std::string> levels_elements;
+    if (check(Token::TYPE_BITWISE_OPERATOR, "|"))
+    {
+        do
+        {
+            mpTokenizer->shift();
+            skipComments();
+
+            if (expect(Token::TYPE_IDENTIFIER) || expect(Token::TYPE_ASTERISK))
+            {
+                levels_elements.push_back(mpTokenizer->current()->text());
+            }
+            else
+            {
+                *this << (errorMessage(Message::p_expectStatementName)
+                            << Message::Statement("package"));
+                return PackageSPtr();
+            }
+
+            mpTokenizer->shift();
+            skipComments();
+
+        } while (expect(Token::TYPE_DOT));
+    }
+    else
+    {
+        levels_elements = short_elements;
+    }
+
+    if (!expect(Token::TYPE_DELIMITER, ";"))
+    {
+        *this << errorMessage(Message::p_expectSemicolon);
+        return PackageSPtr();
+    }
+
+    std::vector<PackageElement> short_;
+    if (!convertStringElementsTpPackageElements(short_elements, short_))
+        return PackageSPtr();
+        
+    std::vector<PackageElement> levels;
+    if (!convertStringElementsTpPackageElements(levels_elements, levels))
+        return PackageSPtr();
+    
 
     pPackage->set_short(short_);
     pPackage->set_levels(levels);
