@@ -91,6 +91,9 @@ void validate(boost::any& v,
 void ImplementerConfiguration::addCommonOptions(bpo::options_description& options)
 {
     options.add_options()
+        
+        ("core_package",     bpo::value<std::string>(&corePackage),
+                             "package of the core")
         ("cpp.include_path", bpo::value<ECppIncludePath>(&mCppIncludePath),
                              "how to form cpp include paths")
         ;

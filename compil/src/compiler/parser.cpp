@@ -182,7 +182,7 @@ void Parser::skipComments(CommentSPtr pComment)
     }
 }
 
-bool Parser::convertStringElementsTpPackageElements(const std::vector<std::string>& string_elements,
+bool Parser::convertStringElementsToPackageElements(const std::vector<std::string>& string_elements,
                                                     std::vector<PackageElement>& package_elements)
 {
     std::vector<PackageElement>::const_reverse_iterator eit = mpSourceId->externalElements().rbegin();
@@ -276,11 +276,11 @@ PackageSPtr Parser::parsePackage()
     }
 
     std::vector<PackageElement> short_;
-    if (!convertStringElementsTpPackageElements(short_elements, short_))
+    if (!convertStringElementsToPackageElements(short_elements, short_))
         return PackageSPtr();
         
     std::vector<PackageElement> levels;
-    if (!convertStringElementsTpPackageElements(levels_elements, levels))
+    if (!convertStringElementsToPackageElements(levels_elements, levels))
         return PackageSPtr();
     
 

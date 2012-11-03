@@ -176,7 +176,7 @@ private:
     
     static Token::Type getTokenType(const Type::ELiteral& literal);
     
-    bool convertStringElementsTpPackageElements(const std::vector<std::string>& string_elements,
+    bool convertStringElementsToPackageElements(const std::vector<std::string>& string_elements,
                                                 std::vector<PackageElement>& package_elements);
 };
 

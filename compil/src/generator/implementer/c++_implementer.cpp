@@ -35,6 +35,7 @@
 #include "object_factory.h"
 
 #include "boost/filesystem.hpp"
+#include "boost/algorithm/string.hpp"
 
 #include <sstream>
 
@@ -378,6 +379,11 @@ std::vector<Dependency> CppImplementer::classReferenceDependencies()
     return dep;
 }
 
+static bool isDot(char ch)
+{
+    return ch == '.';
+}
+
 std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
 {
     std::vector<Dependency> dep;
@@ -419,8 +425,16 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
         if (pEnumeration->flags())
         if (mpConfiguration->mFlagsEnumeration == ImplementerConfiguration::flags_enumeration_use_core_template)
         {
+            std::string joined;
+            if (!mpConfiguration->corePackage.empty())
+            {
+                std::vector<std::string> elements;
+                boost::split(elements, mpConfiguration->corePackage, isDot);
+                joined = boost::algorithm::join(elements, "/");
+                joined += "/";
+            }
             dep.push_back(
-                Dependency("flags_enumeration.hpp",
+                Dependency(joined + "flags_enumeration.hpp",
                            Dependency::quote_type,
                            Dependency::core_level,
                            Dependency::private_section,

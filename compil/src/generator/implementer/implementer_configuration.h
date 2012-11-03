@@ -78,6 +78,8 @@ public:
         include_path_based_on_package,
     } mCppIncludePath;
     
+    std::string corePackage;
+    
     enum FlagsEnumeration
     {
         invalid_flags_enumeration = 0,
