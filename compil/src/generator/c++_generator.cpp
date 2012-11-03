@@ -177,7 +177,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     long max = pEnumeration->getMaxValue();
     if (!pEnumeration->flags() && (max - min < (long)enumerationValues.size() + 10))
     {
-        line()  << "static const char* names[] = ";
+        line()  << "static const char* names[] =";
         openBlock(definitionStream);
         for (long i = 0; i <= max; ++i)
         {
