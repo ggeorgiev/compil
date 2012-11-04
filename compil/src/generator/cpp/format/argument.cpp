@@ -17,23 +17,23 @@ Argument::~Argument()
 {
 }
 
-const DecoratedTypeSPtr& Argument::type() const
+const TypeSPtr& Argument::type() const
 {
     return mType;
 }
 
-Argument& Argument::set_type(const DecoratedTypeSPtr& type)
+Argument& Argument::set_type(const TypeSPtr& type)
 {
     mType = type;
     return *this;
 }
 
-Argument& Argument::operator<<(const DecoratedTypeSPtr& type)
+Argument& Argument::operator<<(const TypeSPtr& type)
 {
     return set_type(type);
 }
 
-const ArgumentSPtr& operator<<(const ArgumentSPtr& object, const DecoratedTypeSPtr& type)
+const ArgumentSPtr& operator<<(const ArgumentSPtr& object, const TypeSPtr& type)
 {
     BOOST_ASSERT(object);
     *object << type;

@@ -68,13 +68,9 @@ bool CppFlagsEnumerationGenerator::generate()
     
     includeHeaders(declarationStream, Dependency::private_section);
     
-    std::string type = "T";
-    cf::DecoratedTypeSPtr decoratedType = cf::decoratedTypeRef() << (cpp::frm::simpleTypeRef() << type);
-    std::string inherit = "F";
-    cf::DecoratedTypeSPtr decoratedInherit = cf::decoratedTypeRef() << (cpp::frm::simpleTypeRef() << inherit);
-    cf::DecoratedTypeSPtr decoratedInheritRef = cf::decoratedTypeRef() << cpp::frm::ETypeDeclaration::const_()
-                                                                       << (cpp::frm::simpleTypeRef() << inherit)
-                                                                       << cpp::frm::ETypeDecoration::reference();
+    cf::TypeSPtr decoratedType = T;
+    cf::TypeSPtr decoratedInherit = F;
+    cf::TypeSPtr decoratedInheritRef = cstFRef;
     
     cf::ConstructorNameSPtr class_name = cf::constructorNameRef("flags_enumeration");
     cf::VariableNameSPtr memberValue = frm->memberVariableName(value);
@@ -84,8 +80,10 @@ bool CppFlagsEnumerationGenerator::generate()
                                                   << value;
     
     line()  << "template<class "
-            << type
-            << ", class F>";
+            << T->name()->value()
+            << ", class "
+            << F->name()->value()
+            << ">";
     eol(declarationStream);
     
     line()  << "class "
@@ -182,7 +180,7 @@ bool CppFlagsEnumerationGenerator::generate()
                                 << cf::EMethodDeclaration::const_());
     openBlock(declarationStream);
     line()  << "return "
-            << inherit
+            << F->name()->value()
             << "(value.value() | (this->value() & ~mask.value()));";
     closeBlock(declarationStream);
     eol(declarationStream);
@@ -196,7 +194,7 @@ bool CppFlagsEnumerationGenerator::generate()
                                 << cf::EMethodDeclaration::const_());
     openBlock(declarationStream);
     line()  << "return "
-            << inherit
+            << F->name()->value()
             << "(value() | mask.value());";
     closeBlock(declarationStream);
     eol(declarationStream);
@@ -210,7 +208,7 @@ bool CppFlagsEnumerationGenerator::generate()
                                 << cf::EMethodDeclaration::const_());
     openBlock(declarationStream);
     line()  << "return "
-            << inherit
+            << F->name()->value()
             << "(value() & ~mask.value());";
     closeBlock(declarationStream);
     eol(declarationStream);
@@ -224,7 +222,7 @@ bool CppFlagsEnumerationGenerator::generate()
                                 << cf::EMethodDeclaration::const_());
     openBlock(declarationStream);
     line()  << "return "
-            << inherit
+            << F->name()->value()
             << "(value() ^ mask.value());";
     closeBlock(declarationStream);
     eol(declarationStream);
@@ -266,7 +264,7 @@ bool CppFlagsEnumerationGenerator::generate()
     line()  << "protected:";
     eol(declarationStream, -1);
 
-    line()  << type
+    line()  << T->name()->value()
             << " "
             << memberValue
             << ";";

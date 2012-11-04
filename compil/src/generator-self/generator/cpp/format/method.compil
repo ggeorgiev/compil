@@ -34,7 +34,7 @@ compil { }
 
 import "argument.compil";
 import "comment.compil";
-import "decorated_type.compil";
+import "type.compil";
 import "method_name.compil";
 import "method_specifier.compil";
 import "method_declaration.compil";
@@ -47,7 +47,7 @@ structure Method
 {
     reference<Comment> comment;
     MethodSpecifier specifier;
-    reference<DecoratedType> return;
+    reference<Type> return;
     reference<Namespace> namespace;
     reference<MethodName> name;
     vector<reference<Argument>> arguments;

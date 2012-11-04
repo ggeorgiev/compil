@@ -32,17 +32,8 @@
 
 compil { }
 
-import "type_declaration.compil";
-import "simple_type.compil";
-import "type_decoration.compil";
-
 package cpp.frm;
 
-streamable
-structure DecoratedType
+specimen<string> TypeName
 {
-    TypeDeclaration declaration = invalid;
-    reference<SimpleType> type = optional;
-    TypeDecoration decoration = invalid;
 }
-

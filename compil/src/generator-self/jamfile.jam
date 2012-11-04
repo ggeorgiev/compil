@@ -50,7 +50,6 @@ lib generator-self-compil :
     generator/cpp/format/constructor_specifier.compil
     generator/cpp/format/constructor_name.compil
     generator/cpp/format/constructor.compil
-    generator/cpp/format/decorated_type.compil
     generator/cpp/format/destructor_specifier.compil
     generator/cpp/format/destructor_name.compil
     generator/cpp/format/destructor.compil
@@ -65,9 +64,10 @@ lib generator-self-compil :
     generator/cpp/format/namespace_name.compil
     generator/cpp/format/namespace.compil
     generator/cpp/format/parameter_value.compil
-    generator/cpp/format/simple_type.compil
     generator/cpp/format/type_declaration.compil
     generator/cpp/format/type_decoration.compil
+    generator/cpp/format/type_name.compil
+    generator/cpp/format/type.compil
     generator/cpp/format/variable_name.compil
 
     [ convert _ cpp 

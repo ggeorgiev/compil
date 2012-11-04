@@ -41,9 +41,9 @@
 #define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_FUNCTION_COMPIL_H_
 
 #include "argument.h"
-#include "decorated_type.h"
 #include "function.h"
 #include "function_name.h"
+#include "type.h"
 
 namespace cpp
 {
@@ -60,11 +60,11 @@ public:
     /*lax*/                                  ~Function        ();
 
     // Getter method for the data field return
-            const DecoratedTypeSPtr&         return_          ()                                           const;
+            const TypeSPtr&                  return_          ()                                           const;
     // Setter method for the data field return
-            Function&                        set_return       (const DecoratedTypeSPtr& return_);
+            Function&                        set_return       (const TypeSPtr& return_);
     // Store operator for the data field return
-            Function&                        operator<<       (const DecoratedTypeSPtr& return_);
+            Function&                        operator<<       (const TypeSPtr& return_);
 
     // Getter method for the data field name
             const FunctionNameSPtr&          name             ()                                           const;
@@ -86,7 +86,7 @@ public:
 
 private:
     // variable for the data field return
-    DecoratedTypeSPtr         mReturn;
+    TypeSPtr                  mReturn;
     // variable for the data field name
     FunctionNameSPtr          mName;
     // variable for the data field arguments
@@ -94,7 +94,7 @@ private:
 };
 
 // Reference store operator for the data field return
-const FunctionSPtr& operator<<(const FunctionSPtr& , const DecoratedTypeSPtr& );
+const FunctionSPtr& operator<<(const FunctionSPtr& , const TypeSPtr& );
 // Reference store operator for the data field name
 const FunctionSPtr& operator<<(const FunctionSPtr& , const FunctionNameSPtr& );
 // Reference store operator for the data field arguments

@@ -38,7 +38,7 @@ long EDestructorSpecifier::value() const
 
 const char* EDestructorSpecifier::shortName(long value)
 {
-    static const char* names[] = 
+    static const char* names[] =
     {
         "", // alignment
         "lax",

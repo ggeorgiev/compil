@@ -33,7 +33,7 @@
 compil { }
 
 import "argument.compil";
-import "decorated_type.compil";
+import "type.compil";
 import "function_name.compil";
 
 package cpp.frm;
@@ -41,7 +41,7 @@ package cpp.frm;
 streamable
 structure Function 
 {
-    reference<DecoratedType> return;
+    reference<Type> return;
     reference<FunctionName> name;
     vector<reference<Argument>> arguments;
 }

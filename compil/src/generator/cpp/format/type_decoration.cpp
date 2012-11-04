@@ -38,7 +38,7 @@ long ETypeDecoration::value() const
 
 const char* ETypeDecoration::shortName(long value)
 {
-    static const char* names[] = 
+    static const char* names[] =
     {
         "", // alignment
         "pointer",

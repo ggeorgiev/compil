@@ -43,7 +43,7 @@ long EMethodSpecifier::value() const
 
 const char* EMethodSpecifier::shortName(long value)
 {
-    static const char* names[] = 
+    static const char* names[] =
     {
         "", // alignment
         "inline",

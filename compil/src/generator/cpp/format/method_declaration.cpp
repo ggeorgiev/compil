@@ -33,7 +33,7 @@ long EMethodDeclaration::value() const
 
 const char* EMethodDeclaration::shortName(long value)
 {
-    static const char* names[] = 
+    static const char* names[] =
     {
         "", // alignment
         "const",

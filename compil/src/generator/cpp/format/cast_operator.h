@@ -40,9 +40,9 @@
 
 #include "cast_operator.h"
 #include "comment.h"
-#include "decorated_type.h"
 #include "method_declaration.h"
 #include "namespace.h"
+#include "type.h"
 
 namespace cpp
 {
@@ -66,11 +66,11 @@ public:
             CastOperator&             operator<<         (const CommentSPtr& comment);
 
     // Getter method for the data field type
-            const DecoratedTypeSPtr&  type               ()                                      const;
+            const TypeSPtr&           type               ()                                      const;
     // Setter method for the data field type
-            CastOperator&             set_type           (const DecoratedTypeSPtr& type);
+            CastOperator&             set_type           (const TypeSPtr& type);
     // Store operator for the data field type
-            CastOperator&             operator<<         (const DecoratedTypeSPtr& type);
+            CastOperator&             operator<<         (const TypeSPtr& type);
 
     // Getter method for the data field namespace
             const NamespaceSPtr&      namespace_         ()                                      const;
@@ -92,7 +92,7 @@ private:
     // variable for the data field comment
     CommentSPtr        mComment;
     // variable for the data field type
-    DecoratedTypeSPtr  mType;
+    TypeSPtr           mType;
     // variable for the data field namespace
     NamespaceSPtr      mNamespace;
     // variable for the data field declaration
@@ -102,7 +102,7 @@ private:
 // Reference store operator for the data field comment
 const CastOperatorSPtr& operator<<(const CastOperatorSPtr& , const CommentSPtr& );
 // Reference store operator for the data field type
-const CastOperatorSPtr& operator<<(const CastOperatorSPtr& , const DecoratedTypeSPtr& );
+const CastOperatorSPtr& operator<<(const CastOperatorSPtr& , const TypeSPtr& );
 // Reference store operator for the data field namespace
 const CastOperatorSPtr& operator<<(const CastOperatorSPtr& , const NamespaceSPtr& );
 // Reference store operator for the data field declaration

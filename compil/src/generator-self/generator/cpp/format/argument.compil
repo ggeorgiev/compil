@@ -32,7 +32,7 @@
 
 compil { }
 
-import "decorated_type.compil";
+import "type.compil";
 import "variable_name.compil";
 
 package cpp.frm;
@@ -40,6 +40,6 @@ package cpp.frm;
 streamable
 structure Argument
 {
-    reference<DecoratedType> type;
+    reference<Type> type;
     reference<VariableName> name;
 }

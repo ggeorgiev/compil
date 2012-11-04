@@ -33,12 +33,17 @@
 compil { }
 
 import "namespace.compil";
+import "type_declaration.compil";
+import "type_decoration.compil";
+import "type_name.compil";
 
 package cpp.frm;
 
 streamable
-structure SimpleType
+structure Type
 {
+    TypeDeclaration declaration = invalid;
     reference<Namespace> namespace = optional;
-    string value;
+    reference<TypeName> name;
+    TypeDecoration decoration = invalid;
 }

@@ -20,7 +20,6 @@ lib gen :
     cpp/format/constructor_name.cpp
     cpp/format/constructor_specifier.cpp
     cpp/format/constructor.cpp
-    cpp/format/decorated_type.cpp
     cpp/format/destructor_specifier.cpp
     cpp/format/destructor_name.cpp
     cpp/format/destructor.cpp
@@ -35,9 +34,10 @@ lib gen :
     cpp/format/namespace_name.cpp
     cpp/format/namespace.cpp
     cpp/format/parameter_value.cpp
-    cpp/format/simple_type.cpp
     cpp/format/type_declaration.cpp
     cpp/format/type_decoration.cpp
+    cpp/format/type_name.cpp
+    cpp/format/type.cpp
     cpp/format/variable_name.cpp
 
     aligner/aligner.cpp

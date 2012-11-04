@@ -42,12 +42,12 @@
 
 #include "argument.h"
 #include "comment.h"
-#include "decorated_type.h"
 #include "method.h"
 #include "method_declaration.h"
 #include "method_name.h"
 #include "method_specifier.h"
 #include "namespace.h"
+#include "type.h"
 
 namespace cpp
 {
@@ -80,11 +80,11 @@ public:
             Method&                          operator<<         (const EMethodSpecifier& specifier);
 
     // Getter method for the data field return
-            const DecoratedTypeSPtr&         return_            ()                                           const;
+            const TypeSPtr&                  return_            ()                                           const;
     // Setter method for the data field return
-            Method&                          set_return         (const DecoratedTypeSPtr& return_);
+            Method&                          set_return         (const TypeSPtr& return_);
     // Store operator for the data field return
-            Method&                          operator<<         (const DecoratedTypeSPtr& return_);
+            Method&                          operator<<         (const TypeSPtr& return_);
 
     // Getter method for the data field namespace
             const NamespaceSPtr&             namespace_         ()                                           const;
@@ -126,7 +126,7 @@ private:
     // variable for the data field specifier
     EMethodSpecifier          mSpecifier;
     // variable for the data field return
-    DecoratedTypeSPtr         mReturn;
+    TypeSPtr                  mReturn;
     // variable for the data field namespace
     NamespaceSPtr             mNamespace;
     // variable for the data field name
@@ -142,7 +142,7 @@ const MethodSPtr& operator<<(const MethodSPtr& , const CommentSPtr& );
 // Reference store operator for the data field specifier
 const MethodSPtr& operator<<(const MethodSPtr& , const EMethodSpecifier& );
 // Reference store operator for the data field return
-const MethodSPtr& operator<<(const MethodSPtr& , const DecoratedTypeSPtr& );
+const MethodSPtr& operator<<(const MethodSPtr& , const TypeSPtr& );
 // Reference store operator for the data field namespace
 const MethodSPtr& operator<<(const MethodSPtr& , const NamespaceSPtr& );
 // Reference store operator for the data field name

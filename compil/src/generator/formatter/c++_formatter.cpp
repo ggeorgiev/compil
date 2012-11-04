@@ -265,7 +265,29 @@ cpp::frm::NamespaceSPtr CppFormatter::cppPackageNamespace(const PackageSPtr& pPa
     return nmspace;
 }
 
-cpp::frm::SimpleTypeSPtr CppFormatter::cppEnumType(const EnumerationSPtr& pEnumeration)
+cpp::frm::TypeSPtr CppFormatter::constType(const cpp::frm::TypeSPtr& type) const
+{
+    return cpp::frm::typeRef() << cpp::frm::ETypeDeclaration::const_()
+                               << type->namespace_()
+                               << type->name();
+}
+
+cpp::frm::TypeSPtr CppFormatter::constTypeRef(const cpp::frm::TypeSPtr& type) const
+{
+    return cpp::frm::typeRef() << cpp::frm::ETypeDeclaration::const_()
+                               << type->namespace_()
+                               << type->name()
+                               << cpp::frm::ETypeDecoration::reference();
+}
+
+cpp::frm::TypeSPtr CppFormatter::typeRef(const cpp::frm::TypeSPtr& type) const
+{
+    return cpp::frm::typeRef() << type->namespace_()
+                               << type->name()
+                               << cpp::frm::ETypeDecoration::reference();
+}
+
+cpp::frm::TypeSPtr CppFormatter::cppEnumType(const EnumerationSPtr& pEnumeration)
 {
     StructureSPtr pStructure = pEnumeration->structure().lock();
 
@@ -282,12 +304,12 @@ cpp::frm::SimpleTypeSPtr CppFormatter::cppEnumType(const EnumerationSPtr& pEnume
                                         packageNamespace->names().begin(),
                                         packageNamespace->names().end());
     }
-    return cpp::frm::simpleTypeRef() << nmspace
-                                     << enumName(pEnumeration->name()->value());
+    return cpp::frm::typeRef() << nmspace
+                               << cpp::frm::typeNameRef(enumName(pEnumeration->name()->value()));
 }
 
-cpp::frm::SimpleTypeSPtr CppFormatter::cppInnerEnumType(const EnumerationSPtr& pEnumeration,
-                                              const StructureSPtr& pStructure)
+cpp::frm::TypeSPtr CppFormatter::cppInnerEnumType(const EnumerationSPtr& pEnumeration,
+                                                  const StructureSPtr& pStructure)
 {
     cpp::frm::NamespaceSPtr nmspace;
     StructureSPtr pEnumStructure = pEnumeration->structure().lock();
@@ -301,8 +323,8 @@ cpp::frm::SimpleTypeSPtr CppFormatter::cppInnerEnumType(const EnumerationSPtr& p
         nmspace = cpp::frm::namespaceRef();
     }
 
-    return cpp::frm::simpleTypeRef() << nmspace
-                                     << enumName(pEnumeration->name()->value());
+    return cpp::frm::typeRef() << nmspace
+                               << cpp::frm::typeNameRef(enumName(pEnumeration->name()->value()));
 }
 
 cpp::frm::ConstructorNameSPtr CppFormatter::cppConstructorName(const EnumerationSPtr& pEnumeration)
@@ -324,12 +346,12 @@ cpp::frm::NamespaceSPtr CppFormatter::cppEnumNamespace(const EnumerationSPtr& pE
     return nmspace;
 }
 
-cpp::frm::SimpleTypeSPtr CppFormatter::cppClassType(const TypeSPtr& pType)
+cpp::frm::TypeSPtr CppFormatter::cppClassType(const TypeSPtr& pType)
 {
     EnumerationSPtr pEnumeration = ObjectFactory::downcastEnumeration(pType);
     if (pEnumeration)
-        return cpp::frm::simpleTypeRef() << enumName(pType->name()->value());
-    return cpp::frm::simpleTypeRef() << cppClassName(pType->name()->value());
+        return cpp::frm::typeRef() << cpp::frm::typeNameRef(enumName(pType->name()->value()));
+    return cpp::frm::typeRef() << cpp::frm::typeNameRef(cppClassName(pType->name()->value()));
 }
 
 cpp::frm::NamespaceSPtr CppFormatter::cppClassNamespace(const TypeSPtr& pType)
@@ -349,7 +371,7 @@ cpp::frm::DestructorNameSPtr CppFormatter::cppDestructorName(const TypeSPtr& pTy
     return cpp::frm::destructorNameRef(cppClassName(pType->name()->value()));
 }
 
-cpp::frm::SimpleTypeSPtr CppFormatter::cppAutoClassType(const StructureSPtr& pStructure)
+cpp::frm::TypeSPtr CppFormatter::cppAutoClassType(const StructureSPtr& pStructure)
 {
     if (pStructure->partial())
         return cppPartialClassType(pStructure);
@@ -360,36 +382,36 @@ cpp::frm::SimpleTypeSPtr CppFormatter::cppAutoClassType(const StructureSPtr& pSt
 cpp::frm::NamespaceSPtr CppFormatter::cppAutoClassNamespace(const StructureSPtr& pStructure)
 {
     cpp::frm::NamespaceSPtr nmspace = cpp::frm::namespaceRef();
-    nmspace << cpp::frm::namespaceNameRef(cppAutoClassType(pStructure)->value());
+    nmspace << cpp::frm::namespaceNameRef(cppAutoClassType(pStructure)->name()->value());
     return nmspace;
 }
 
 cpp::frm::ConstructorNameSPtr CppFormatter::cppAutoConstructorName(const StructureSPtr& pStructure)
 {
-    return cpp::frm::constructorNameRef(cppAutoClassType(pStructure)->value());
+    return cpp::frm::constructorNameRef(cppAutoClassType(pStructure)->name()->value());
 }
 
 cpp::frm::DestructorNameSPtr CppFormatter::cppAutoDestructorName(const StructureSPtr& pStructure)
 {
-    return cpp::frm::destructorNameRef(cppAutoClassType(pStructure)->value());
+    return cpp::frm::destructorNameRef(cppAutoClassType(pStructure)->name()->value());
 }
 
-cpp::frm::SimpleTypeSPtr CppFormatter::cppMainClassType(const StructureSPtr& pStructure)
+cpp::frm::TypeSPtr CppFormatter::cppMainClassType(const StructureSPtr& pStructure)
 {
-    return cpp::frm::simpleTypeRef() << cppPackageNamespace(pStructure->package())
-                                     << cppClassName(pStructure->name()->value());
+    return cpp::frm::typeRef() << cppPackageNamespace(pStructure->package())
+                               << cpp::frm::typeNameRef(cppClassName(pStructure->name()->value()));
 }
 
 cpp::frm::NamespaceSPtr CppFormatter::cppMainClassNamespace(const StructureSPtr& pStructure)
 {
     cpp::frm::NamespaceSPtr nmspace = cpp::frm::namespaceRef();
-    nmspace << cpp::frm::namespaceNameRef(cppMainClassType(pStructure)->value());
+    nmspace << cpp::frm::namespaceNameRef(cppMainClassType(pStructure)->name()->value());
     return nmspace;
 }
 
-cpp::frm::SimpleTypeSPtr CppFormatter::cppPartialClassType(const StructureSPtr& pStructure)
+cpp::frm::TypeSPtr CppFormatter::cppPartialClassType(const StructureSPtr& pStructure)
 {
-    return cpp::frm::simpleTypeRef() << cppClassName(pStructure->name()->value() + "Partial");
+    return cpp::frm::typeRef() << cpp::frm::typeNameRef(cppClassName(pStructure->name()->value() + "Partial"));
 }
 
 std::string CppFormatter::constValueName(const EnumerationValueSPtr& pEnumerationValue)
@@ -402,40 +424,43 @@ std::string CppFormatter::enumValueName(const EnumerationValueSPtr& pEnumeration
     return enumValueName(pEnumerationValue->name()->value());
 }
 
-cpp::frm::SimpleTypeSPtr CppFormatter::cppRawPtrName(const TypeSPtr& pType)
+cpp::frm::TypeSPtr CppFormatter::cppRawPtrName(const TypeSPtr& pType)
 {
-    return cpp::frm::simpleTypeRef() << cppPackageNamespace(pType->package())
-                                     << cppRawPtrName(pType->name()->value());
+    return cpp::frm::typeRef() << cppPackageNamespace(pType->package())
+                               << cpp::frm::typeNameRef(cppRawPtrName(pType->name()->value()));
 }
 
-cpp::frm::SimpleTypeSPtr CppFormatter::cppSharedPtrName(const TypeSPtr& pType)
+cpp::frm::TypeSPtr CppFormatter::cppSharedPtrName(const TypeSPtr& pType)
 {
-    return cpp::frm::simpleTypeRef() << cppPackageNamespace(pType->package())
-                                     << cppSharedPtrName(pType->name()->value());
+    return cpp::frm::typeRef() << cppPackageNamespace(pType->package())
+                               << cpp::frm::typeNameRef(cppSharedPtrName(pType->name()->value()));
 }
 
-cpp::frm::SimpleTypeSPtr CppFormatter::cppSharedConstPtrName(const TypeSPtr& pType)
+cpp::frm::TypeSPtr CppFormatter::cppSharedConstPtrName(const TypeSPtr& pType)
 {
-    return cpp::frm::simpleTypeRef() << cppPackageNamespace(pType->package())
-                                     << cppSharedConstPtrName(pType->name()->value());
+    return cpp::frm::typeRef() << cppPackageNamespace(pType->package())
+                               << cpp::frm::typeNameRef(cppSharedConstPtrName(pType->name()->value()));
 }
 
-cpp::frm::SimpleTypeSPtr CppFormatter::cppWeakPtrName(const TypeSPtr& pType)
+cpp::frm::TypeSPtr CppFormatter::cppWeakPtrName(const TypeSPtr& pType)
 {
-    return cpp::frm::simpleTypeRef() << cppPackageNamespace(pType->package())
-                                     << cppWeakPtrName(pType->name()->value());
+    return cpp::frm::typeRef() << cppPackageNamespace(pType->package())
+                               << cpp::frm::typeNameRef(cppWeakPtrName(pType->name()->value()));
 }
 
-cpp::frm::DecoratedTypeSPtr CppFormatter::cppRawPtrDecoratedType(const TypeSPtr& pType)
+cpp::frm::TypeSPtr CppFormatter::cppRawPtrDecoratedType(const TypeSPtr& pType)
 {
-    return cpp::frm::decoratedTypeRef() << cppRawPtrName(pType);
+    return cppRawPtrName(pType);
 }
 
-cpp::frm::DecoratedTypeSPtr CppFormatter::cppSharedPtrDecoratedType(const TypeSPtr& pType)
+cpp::frm::TypeSPtr CppFormatter::cppSharedPtrDecoratedType(const TypeSPtr& pType)
 {
-    return cpp::frm::decoratedTypeRef() << cpp::frm::ETypeDeclaration::const_()
-                                        << cppSharedPtrName(pType)
-                                        << cpp::frm::ETypeDecoration::reference();
+    cpp::frm::TypeSPtr type = cppSharedPtrName(pType);
+
+    return cpp::frm::typeRef() << cpp::frm::ETypeDeclaration::const_()
+                               << type->namespace_()
+                               << type->name()
+                               << cpp::frm::ETypeDecoration::reference();
 }
 
 std::string CppFormatter::cppMemberName(const FieldSPtr& pField)

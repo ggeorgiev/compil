@@ -33,7 +33,7 @@
 compil { }
 
 import "comment.compil";
-import "decorated_type.compil";
+import "type.compil";
 import "method_declaration.compil";
 import "namespace.compil";
 
@@ -43,7 +43,7 @@ streamable
 structure CastOperator
 {
     reference<Comment> comment;
-    reference<DecoratedType> type;
+    reference<Type> type;
     reference<Namespace> namespace;
     MethodDeclaration declaration;
 }

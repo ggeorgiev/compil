@@ -59,16 +59,16 @@ public:
     virtual bool needMutableMethod(const FieldSPtr& pField, const StructureSPtr& pCurrentStructure);
     virtual bool needConstructorInitialization(const FieldSPtr& pField);
     
-    virtual cpp::frm::SimpleTypeSPtr cppType(const TypeSPtr& pType);
-    virtual cpp::frm::SimpleTypeSPtr cppInnerType(const TypeSPtr& pType,
-                                                  const StructureSPtr& pStructure);
+    virtual cpp::frm::TypeSPtr cppType(const TypeSPtr& pType);
+    virtual cpp::frm::TypeSPtr cppInnerType(const TypeSPtr& pType,
+                                            const StructureSPtr& pStructure);
     
-    virtual cpp::frm::DecoratedTypeSPtr cppDecoratedType(const TypeSPtr& pType);
-    virtual cpp::frm::DecoratedTypeSPtr cppSetDecoratedType(const TypeSPtr& pType);
-    virtual cpp::frm::DecoratedTypeSPtr cppInnerDecoratedType(const TypeSPtr& pType,
-                                                    const StructureSPtr& pStructure);
-    virtual cpp::frm::DecoratedTypeSPtr cppInnerSetDecoratedType(const TypeSPtr& pType,
-                                                       const StructureSPtr& pStructure);
+    virtual cpp::frm::TypeSPtr cppDecoratedType(const TypeSPtr& pType);
+    virtual cpp::frm::TypeSPtr cppSetDecoratedType(const TypeSPtr& pType);
+    virtual cpp::frm::TypeSPtr cppInnerDecoratedType(const TypeSPtr& pType,
+                                                     const StructureSPtr& pStructure);
+    virtual cpp::frm::TypeSPtr cppInnerSetDecoratedType(const TypeSPtr& pType,
+                                                        const StructureSPtr& pStructure);
     
     virtual std::string cppGetReturn(const FieldSPtr& pField);
     
@@ -78,8 +78,8 @@ public:
     virtual std::vector<Dependency> dependencies(const TypeSPtr& pType);
     virtual std::vector<Dependency> dependencies(const FieldSPtr& pField);
     
-    virtual cpp::frm::SimpleTypeSPtr cppPtrType(const TypeSPtr& pType);
-    virtual cpp::frm::DecoratedTypeSPtr cppPtrDecoratedType(const TypeSPtr& pType);
+    virtual cpp::frm::TypeSPtr cppPtrType(const TypeSPtr& pType);
+    virtual cpp::frm::TypeSPtr cppPtrDecoratedType(const TypeSPtr& pType);
     
     virtual std::string cppNullPtr(const TypeSPtr& pType);
     virtual std::string cppConvertRawPtr(const TypeSPtr& pType, const std::string& variable);
@@ -106,7 +106,7 @@ public:
     virtual cpp::frm::MethodNameSPtr runtimeMethodName(const std::string& name);
     
     virtual std::string identificationName(const StructureSPtr& pStructure);
-    virtual cpp::frm::SimpleTypeSPtr identificationEnum(const StructureSPtr& pStructure);
+    virtual cpp::frm::TypeSPtr identificationEnum(const StructureSPtr& pStructure);
     virtual cpp::frm::MethodNameSPtr staticIdentificationMethodName(const StructureSPtr& pStructure);
     virtual cpp::frm::MethodNameSPtr runtimeIdentificationMethodName(const StructureSPtr& pStructure);
     
@@ -124,10 +124,10 @@ public:
     virtual bool implementFlagsEnumerationMethods(const EnumerationSPtr& pEnumeration);
                              
     virtual bool boost_smart_ptr_needed();
-    virtual cpp::frm::SimpleTypeSPtr boost_shared_ptr(const cpp::frm::SimpleTypeSPtr& type);
-    virtual cpp::frm::SimpleTypeSPtr boost_shared_const_ptr(const cpp::frm::SimpleTypeSPtr& type);
-    virtual cpp::frm::SimpleTypeSPtr boost_weak_ptr(const cpp::frm::SimpleTypeSPtr& type);
-    virtual cpp::frm::SimpleTypeSPtr boost_enable_shared_from_this(const cpp::frm::SimpleTypeSPtr& type);
+    virtual cpp::frm::TypeSPtr boost_shared_ptr(const cpp::frm::TypeSPtr& type);
+    virtual cpp::frm::TypeSPtr boost_shared_const_ptr(const cpp::frm::TypeSPtr& type);
+    virtual cpp::frm::TypeSPtr boost_weak_ptr(const cpp::frm::TypeSPtr& type);
+    virtual cpp::frm::TypeSPtr boost_enable_shared_from_this(const cpp::frm::TypeSPtr& type);
     
     virtual std::string applicationExtension();
     virtual std::string applicationHeaderExtension();

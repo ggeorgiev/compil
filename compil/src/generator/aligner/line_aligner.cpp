@@ -93,26 +93,6 @@ std::string LineAligner::str(int indent) const
     return out.str();
 }
 
-LineAligner& operator<<(LineAligner& aligner, const cpp::frm::DecoratedTypeSPtr& type)
-{
-    if (type->declaration() != cpp::frm::ETypeDeclaration::invalid())
-        aligner << type->declaration() << ' ';
-    aligner << type->type();
-    if (type->decoration() != cpp::frm::ETypeDecoration::invalid())
-    {
-        if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
-            aligner << type->decoration();
-        else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_name)
-            aligner << ' ' << type->decoration();
-        else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
-            aligner << ' ' << type->decoration();
-        else
-            assert(false && "unknown decoration type");
-    }
-
-    return aligner;
-}
-
 LineAligner& operator<<(LineAligner& aligner, const cpp::frm::FunctionCallSPtr& function)
 {
     if (function->namespace_())
@@ -181,16 +161,6 @@ LineAligner& operator<<(LineAligner& aligner, const cpp::frm::ParameterValueSPtr
     return aligner;
 }
 
-LineAligner& operator<<(LineAligner& aligner, const cpp::frm::SimpleTypeSPtr& type)
-{
-    if (type->namespace_())
-    if (!type->namespace_()->isVoid())
-        aligner << type->namespace_() << "::";
-    
-    aligner << type->value();
-    return aligner;
-}
-
 LineAligner& operator<<(LineAligner& aligner, const cpp::frm::ETypeDeclaration& declaration)
 {
     if (declaration != cpp::frm::ETypeDeclaration::invalid())
@@ -210,6 +180,39 @@ LineAligner& operator<<(LineAligner& aligner, const cpp::frm::ETypeDecoration& d
             break;
         default:
             BOOST_ASSERT(false && "unknown type decoration");
+    }
+
+    return aligner;
+}
+
+LineAligner& operator<<(LineAligner& aligner, const cpp::frm::TypeNameSPtr& name)
+{
+    if (name)
+        aligner << name->value();
+    return aligner;
+}
+
+LineAligner& operator<<(LineAligner& aligner, const cpp::frm::TypeSPtr& type)
+{
+    if (type->declaration() != cpp::frm::ETypeDeclaration::invalid())
+        aligner << type->declaration() << ' ';
+
+    if (type->namespace_())
+    if (!type->namespace_()->isVoid())
+        aligner << type->namespace_() << "::";
+    
+    aligner << type->name();
+    
+    if (type->decoration() != cpp::frm::ETypeDecoration::invalid())
+    {
+        if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
+            aligner << type->decoration();
+        else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_name)
+            aligner << ' ' << type->decoration();
+        else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
+            aligner << ' ' << type->decoration();
+        else
+            assert(false && "unknown decoration type");
     }
 
     return aligner;

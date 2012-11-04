@@ -38,11 +38,11 @@
 #include "c++_keyword.h"
 
 #include "cpp/format/constructor_name.h"
-#include "cpp/format/decorated_type.h"
 #include "cpp/format/destructor_name.h"
 #include "cpp/format/method_name.h"
 #include "cpp/format/namespace.h"
 #include "cpp/format/parameter_value.h"
+#include "cpp/format/type.h"
 #include "cpp/format/variable_name.h"
 
 #include "alter.h"
@@ -108,38 +108,43 @@ public:
     virtual cpp::frm::ParameterValueSPtr parameterValue(const cpp::frm::VariableNameSPtr& name);
     
     virtual cpp::frm::NamespaceSPtr cppPackageNamespace(const PackageSPtr& pPackage);
+    
+    virtual cpp::frm::TypeSPtr constType(const cpp::frm::TypeSPtr& type) const;
+    virtual cpp::frm::TypeSPtr constTypeRef(const cpp::frm::TypeSPtr& type) const;
+    virtual cpp::frm::TypeSPtr typeRef(const cpp::frm::TypeSPtr& type) const;
+    
 
-    virtual cpp::frm::SimpleTypeSPtr cppEnumType(const EnumerationSPtr& pEnumeration);
-    virtual cpp::frm::SimpleTypeSPtr cppInnerEnumType(const EnumerationSPtr& pEnumeration,
-                                                      const StructureSPtr& pStructure);
+    virtual cpp::frm::TypeSPtr cppEnumType(const EnumerationSPtr& pEnumeration);
+    virtual cpp::frm::TypeSPtr cppInnerEnumType(const EnumerationSPtr& pEnumeration,
+                                                const StructureSPtr& pStructure);
     virtual cpp::frm::ConstructorNameSPtr cppConstructorName(const EnumerationSPtr& pEnumeration);
     virtual cpp::frm::NamespaceSPtr cppEnumNamespace(const EnumerationSPtr& pEnumeration);
     
-    virtual cpp::frm::SimpleTypeSPtr cppClassType(const TypeSPtr& pType);
+    virtual cpp::frm::TypeSPtr cppClassType(const TypeSPtr& pType);
     virtual cpp::frm::NamespaceSPtr cppClassNamespace(const TypeSPtr& pType);
     virtual cpp::frm::ConstructorNameSPtr cppConstructorName(const TypeSPtr& pType);
     virtual cpp::frm::DestructorNameSPtr cppDestructorName(const TypeSPtr& pType);
     
-    virtual cpp::frm::SimpleTypeSPtr cppAutoClassType(const StructureSPtr& pStructure);
+    virtual cpp::frm::TypeSPtr cppAutoClassType(const StructureSPtr& pStructure);
     virtual cpp::frm::NamespaceSPtr cppAutoClassNamespace(const StructureSPtr& pStructure);
     virtual cpp::frm::ConstructorNameSPtr cppAutoConstructorName(const StructureSPtr& pStructure);
     virtual cpp::frm::DestructorNameSPtr cppAutoDestructorName(const StructureSPtr& pStructure);
     
-    virtual cpp::frm::SimpleTypeSPtr cppMainClassType(const StructureSPtr& pStructure);
+    virtual cpp::frm::TypeSPtr cppMainClassType(const StructureSPtr& pStructure);
     virtual cpp::frm::NamespaceSPtr cppMainClassNamespace(const StructureSPtr& pStructure);
     
-    virtual cpp::frm::SimpleTypeSPtr cppPartialClassType(const StructureSPtr& pStructure);
+    virtual cpp::frm::TypeSPtr cppPartialClassType(const StructureSPtr& pStructure);
     
     virtual std::string constValueName(const EnumerationValueSPtr& pEnumerationValue);
     virtual std::string enumValueName(const EnumerationValueSPtr& pEnumerationValue);
     
-    virtual cpp::frm::SimpleTypeSPtr cppRawPtrName(const TypeSPtr& pType);
-    virtual cpp::frm::SimpleTypeSPtr cppSharedPtrName(const TypeSPtr& pType);
-    virtual cpp::frm::SimpleTypeSPtr cppSharedConstPtrName(const TypeSPtr& pType);
-    virtual cpp::frm::SimpleTypeSPtr cppWeakPtrName(const TypeSPtr& pType);
+    virtual cpp::frm::TypeSPtr cppRawPtrName(const TypeSPtr& pType);
+    virtual cpp::frm::TypeSPtr cppSharedPtrName(const TypeSPtr& pType);
+    virtual cpp::frm::TypeSPtr cppSharedConstPtrName(const TypeSPtr& pType);
+    virtual cpp::frm::TypeSPtr cppWeakPtrName(const TypeSPtr& pType);
     
-    virtual cpp::frm::DecoratedTypeSPtr cppRawPtrDecoratedType(const TypeSPtr& pType);
-    virtual cpp::frm::DecoratedTypeSPtr cppSharedPtrDecoratedType(const TypeSPtr& pType);
+    virtual cpp::frm::TypeSPtr cppRawPtrDecoratedType(const TypeSPtr& pType);
+    virtual cpp::frm::TypeSPtr cppSharedPtrDecoratedType(const TypeSPtr& pType);
         
     virtual std::string cppMemberName(const FieldSPtr& pField);
     virtual cpp::frm::VariableNameSPtr cppVariableName(const FieldSPtr& pField);

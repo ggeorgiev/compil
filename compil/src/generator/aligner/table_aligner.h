@@ -111,7 +111,6 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::EConstructorSpec
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ConstructorSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::EDestructorSpecifier&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::DestructorSPtr&);
-TableAligner& operator<<(TableAligner& aligner, const cpp::frm::DecoratedTypeSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionCallSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionNameSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr&);
@@ -122,9 +121,10 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::NamespaceNameSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::NamespaceSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ParameterValueSPtr&);
-TableAligner& operator<<(TableAligner& aligner, const cpp::frm::SimpleTypeSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ETypeDeclaration&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ETypeDecoration&);
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::TypeNameSPtr&);
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::TypeSPtr&);
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::VariableNameSPtr&);
 
 TableAligner& operator<<(TableAligner& aligner, const TableAligner::col&);

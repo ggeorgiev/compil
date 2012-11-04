@@ -40,23 +40,23 @@ const CastOperatorSPtr& operator<<(const CastOperatorSPtr& object, const Comment
     return object;
 }
 
-const DecoratedTypeSPtr& CastOperator::type() const
+const TypeSPtr& CastOperator::type() const
 {
     return mType;
 }
 
-CastOperator& CastOperator::set_type(const DecoratedTypeSPtr& type)
+CastOperator& CastOperator::set_type(const TypeSPtr& type)
 {
     mType = type;
     return *this;
 }
 
-CastOperator& CastOperator::operator<<(const DecoratedTypeSPtr& type)
+CastOperator& CastOperator::operator<<(const TypeSPtr& type)
 {
     return set_type(type);
 }
 
-const CastOperatorSPtr& operator<<(const CastOperatorSPtr& object, const DecoratedTypeSPtr& type)
+const CastOperatorSPtr& operator<<(const CastOperatorSPtr& object, const TypeSPtr& type)
 {
     BOOST_ASSERT(object);
     *object << type;

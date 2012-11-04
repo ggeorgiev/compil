@@ -17,23 +17,23 @@ Function::~Function()
 {
 }
 
-const DecoratedTypeSPtr& Function::return_() const
+const TypeSPtr& Function::return_() const
 {
     return mReturn;
 }
 
-Function& Function::set_return(const DecoratedTypeSPtr& return_)
+Function& Function::set_return(const TypeSPtr& return_)
 {
     mReturn = return_;
     return *this;
 }
 
-Function& Function::operator<<(const DecoratedTypeSPtr& return_)
+Function& Function::operator<<(const TypeSPtr& return_)
 {
     return set_return(return_);
 }
 
-const FunctionSPtr& operator<<(const FunctionSPtr& object, const DecoratedTypeSPtr& return_)
+const FunctionSPtr& operator<<(const FunctionSPtr& object, const TypeSPtr& return_)
 {
     BOOST_ASSERT(object);
     *object << return_;

@@ -33,7 +33,7 @@ long ETypeDeclaration::value() const
 
 const char* ETypeDeclaration::shortName(long value)
 {
-    static const char* names[] = 
+    static const char* names[] =
     {
         "", // alignment
         "const",

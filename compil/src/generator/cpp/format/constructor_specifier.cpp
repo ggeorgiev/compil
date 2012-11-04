@@ -33,7 +33,7 @@ long EConstructorSpecifier::value() const
 
 const char* EConstructorSpecifier::shortName(long value)
 {
-    static const char* names[] = 
+    static const char* names[] =
     {
         "", // alignment
         "explicit",

@@ -68,23 +68,23 @@ const MethodSPtr& operator<<(const MethodSPtr& object, const EMethodSpecifier& s
     return object;
 }
 
-const DecoratedTypeSPtr& Method::return_() const
+const TypeSPtr& Method::return_() const
 {
     return mReturn;
 }
 
-Method& Method::set_return(const DecoratedTypeSPtr& return_)
+Method& Method::set_return(const TypeSPtr& return_)
 {
     mReturn = return_;
     return *this;
 }
 
-Method& Method::operator<<(const DecoratedTypeSPtr& return_)
+Method& Method::operator<<(const TypeSPtr& return_)
 {
     return set_return(return_);
 }
 
-const MethodSPtr& operator<<(const MethodSPtr& object, const DecoratedTypeSPtr& return_)
+const MethodSPtr& operator<<(const MethodSPtr& object, const TypeSPtr& return_)
 {
     BOOST_ASSERT(object);
     *object << return_;

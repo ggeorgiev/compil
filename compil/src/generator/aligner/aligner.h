@@ -54,14 +54,23 @@ namespace compil
 {
 extern cpp::frm::ConstructorNameSPtr builderConstructorName;
 
-extern cpp::frm::DecoratedTypeSPtr bl;
-extern cpp::frm::DecoratedTypeSPtr vd;
-extern cpp::frm::DecoratedTypeSPtr st;
-extern cpp::frm::DecoratedTypeSPtr const_char_ptr;
-extern cpp::frm::DecoratedTypeSPtr cloneFunction;
+extern cpp::frm::TypeSPtr bl;
+extern cpp::frm::TypeSPtr vd;
+extern cpp::frm::TypeSPtr st;
+extern cpp::frm::TypeSPtr const_char_ptr;
+extern cpp::frm::TypeSPtr cloneFunction;
 
-extern cpp::frm::DecoratedTypeSPtr cstTRef;
-extern cpp::frm::DecoratedTypeSPtr TPtr;
+extern cpp::frm::TypeSPtr T;
+extern cpp::frm::TypeSPtr cstTRef;
+extern cpp::frm::TypeSPtr TPtr;
+
+extern cpp::frm::TypeSPtr F;
+extern cpp::frm::TypeSPtr cstFRef;
+
+extern cpp::frm::TypeSPtr builder;
+extern cpp::frm::TypeSPtr cstBuilderRef;
+extern cpp::frm::TypeSPtr chr;
+extern cpp::frm::TypeSPtr integer;
 
 extern cpp::frm::MethodNameSPtr fnValue;
 extern cpp::frm::MethodNameSPtr fnShortName;
@@ -111,10 +120,6 @@ extern cpp::frm::MethodNameSPtr fnIsSet;
 extern cpp::frm::MethodNameSPtr fnIsClear;
 
 extern cpp::frm::NamespaceNameSPtr nsBuilder;
-
-extern cpp::frm::SimpleTypeSPtr builder;
-extern cpp::frm::SimpleTypeSPtr chr;
-extern cpp::frm::SimpleTypeSPtr integer;
 
 extern cpp::frm::VariableNameSPtr bits;
 extern cpp::frm::VariableNameSPtr child;

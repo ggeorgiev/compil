@@ -39,7 +39,7 @@
 #define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_ARGUMENT_COMPIL_H_
 
 #include "argument.h"
-#include "decorated_type.h"
+#include "type.h"
 #include "variable_name.h"
 
 namespace cpp
@@ -52,33 +52,33 @@ class Argument
 {
 public:
     // Default constructor
-                                     Argument  ();
+                                    Argument  ();
     // Destructor
-    /*lax*/                          ~Argument ();
+    /*lax*/                         ~Argument ();
 
     // Getter method for the data field type
-            const DecoratedTypeSPtr& type      ()                              const;
+            const TypeSPtr&         type      ()                             const;
     // Setter method for the data field type
-            Argument&                set_type  (const DecoratedTypeSPtr& type);
+            Argument&               set_type  (const TypeSPtr& type);
     // Store operator for the data field type
-            Argument&                operator<<(const DecoratedTypeSPtr& type);
+            Argument&               operator<<(const TypeSPtr& type);
 
     // Getter method for the data field name
-            const VariableNameSPtr&  name      ()                              const;
+            const VariableNameSPtr& name      ()                             const;
     // Setter method for the data field name
-            Argument&                set_name  (const VariableNameSPtr& name);
+            Argument&               set_name  (const VariableNameSPtr& name);
     // Store operator for the data field name
-            Argument&                operator<<(const VariableNameSPtr& name);
+            Argument&               operator<<(const VariableNameSPtr& name);
 
 private:
     // variable for the data field type
-    DecoratedTypeSPtr mType;
+    TypeSPtr         mType;
     // variable for the data field name
-    VariableNameSPtr  mName;
+    VariableNameSPtr mName;
 };
 
 // Reference store operator for the data field type
-const ArgumentSPtr& operator<<(const ArgumentSPtr& , const DecoratedTypeSPtr& );
+const ArgumentSPtr& operator<<(const ArgumentSPtr& , const TypeSPtr& );
 // Reference store operator for the data field name
 const ArgumentSPtr& operator<<(const ArgumentSPtr& , const VariableNameSPtr& );
 

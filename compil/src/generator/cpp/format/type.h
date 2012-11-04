@@ -35,13 +35,14 @@
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
-#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_DECORATED_TYPE_COMPIL_H_
-#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_DECORATED_TYPE_COMPIL_H_
+#ifndef __GENERATOR_SELF_GENERATOR_CPP_FORMAT_TYPE_COMPIL_H_
+#define __GENERATOR_SELF_GENERATOR_CPP_FORMAT_TYPE_COMPIL_H_
 
-#include "decorated_type.h"
-#include "simple_type.h"
+#include "namespace.h"
+#include "type.h"
 #include "type_declaration.h"
 #include "type_decoration.h"
+#include "type_name.h"
 
 namespace cpp
 {
@@ -49,69 +50,80 @@ namespace cpp
 namespace frm
 {
 
-class DecoratedType
+class Type
 {
 public:
     // Default constructor
-                                    DecoratedType      ();
+                                    Type               ();
     // Destructor
-    /*lax*/                         ~DecoratedType     ();
+    /*lax*/                         ~Type              ();
 
     // Getter method for the data field declaration
             const ETypeDeclaration& declaration        ()                                    const;
     // Returns the default value invalid of the field declaration
     static  ETypeDeclaration        default_declaration();
     // Setter method for the data field declaration
-            DecoratedType&          set_declaration    (const ETypeDeclaration& declaration);
+            Type&                   set_declaration    (const ETypeDeclaration& declaration);
     // Provides mutable access to field declaration
             ETypeDeclaration&       mutable_declaration();
     // Store operator for the data field declaration
-            DecoratedType&          operator<<         (const ETypeDeclaration& declaration);
+            Type&                   operator<<         (const ETypeDeclaration& declaration);
 
-    // Getter method for the data field type
-            const SimpleTypeSPtr&   type               ()                                    const;
-    // Setter method for the data field type
-            DecoratedType&          set_type           (const SimpleTypeSPtr& type);
-    // Store operator for the data field type
-            DecoratedType&          operator<<         (const SimpleTypeSPtr& type);
+    // Getter method for the data field namespace
+            const NamespaceSPtr&    namespace_         ()                                    const;
+    // Setter method for the data field namespace
+            Type&                   set_namespace      (const NamespaceSPtr& namespace_);
+    // Store operator for the data field namespace
+            Type&                   operator<<         (const NamespaceSPtr& namespace_);
+
+    // Getter method for the data field name
+            const TypeNameSPtr&     name               ()                                    const;
+    // Setter method for the data field name
+            Type&                   set_name           (const TypeNameSPtr& name);
+    // Store operator for the data field name
+            Type&                   operator<<         (const TypeNameSPtr& name);
 
     // Getter method for the data field decoration
             const ETypeDecoration&  decoration         ()                                    const;
     // Returns the default value invalid of the field decoration
     static  ETypeDecoration         default_decoration ();
     // Setter method for the data field decoration
-            DecoratedType&          set_decoration     (const ETypeDecoration& decoration);
+            Type&                   set_decoration     (const ETypeDecoration& decoration);
     // Provides mutable access to field decoration
             ETypeDecoration&        mutable_decoration ();
     // Store operator for the data field decoration
-            DecoratedType&          operator<<         (const ETypeDecoration& decoration);
+            Type&                   operator<<         (const ETypeDecoration& decoration);
 
 private:
     // variable for the data field declaration
     ETypeDeclaration mDeclaration;
-    // variable for the data field type
-    SimpleTypeSPtr   mType;
+    // variable for the data field namespace
+    NamespaceSPtr    mNamespace;
+    // variable for the data field name
+    TypeNameSPtr     mName;
     // variable for the data field decoration
     ETypeDecoration  mDecoration;
 };
 
 // Reference store operator for the data field declaration
-const DecoratedTypeSPtr& operator<<(const DecoratedTypeSPtr& , const ETypeDeclaration& );
-// Reference store operator for the data field type
-const DecoratedTypeSPtr& operator<<(const DecoratedTypeSPtr& , const SimpleTypeSPtr& );
+const TypeSPtr& operator<<(const TypeSPtr& , const ETypeDeclaration& );
+// Reference store operator for the data field namespace
+const TypeSPtr& operator<<(const TypeSPtr& , const NamespaceSPtr& );
+// Reference store operator for the data field name
+const TypeSPtr& operator<<(const TypeSPtr& , const TypeNameSPtr& );
 // Reference store operator for the data field decoration
-const DecoratedTypeSPtr& operator<<(const DecoratedTypeSPtr& , const ETypeDecoration& );
+const TypeSPtr& operator<<(const TypeSPtr& , const ETypeDecoration& );
 
-inline DecoratedTypeSPtr decoratedTypeRef()
+inline TypeSPtr typeRef()
 {
-    return boost::make_shared<DecoratedType>();
+    return boost::make_shared<Type>();
 }
 
 }
 
 }
 
-#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_DECORATED_TYPE_COMPIL_H_
+#else // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_TYPE_COMPIL_H_
 
 namespace cpp
 {
@@ -120,15 +132,15 @@ namespace frm
 {
 
 // Forward declarations
-class DecoratedType;
-typedef DecoratedType*                         DecoratedTypeRPtr;
-typedef boost::shared_ptr<DecoratedType>       DecoratedTypeSPtr;
-typedef boost::shared_ptr<const DecoratedType> DecoratedTypeSCPtr;
-typedef boost::weak_ptr<DecoratedType>         DecoratedTypeWPtr;
+class Type;
+typedef Type*                         TypeRPtr;
+typedef boost::shared_ptr<Type>       TypeSPtr;
+typedef boost::shared_ptr<const Type> TypeSCPtr;
+typedef boost::weak_ptr<Type>         TypeWPtr;
 
 }
 
 }
 
-#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_DECORATED_TYPE_COMPIL_H_
+#endif // __GENERATOR_SELF_GENERATOR_CPP_FORMAT_TYPE_COMPIL_H_
 

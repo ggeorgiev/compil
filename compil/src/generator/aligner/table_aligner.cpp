@@ -240,14 +240,19 @@ TableAligner& operator<<(TableAligner& aligner, const TableAligner::optional_new
 	return aligner;
 }
 
-static TableAligner& serialize(TableAligner& aligner, const cpp::frm::DecoratedTypeSPtr& type, bool align)
+static TableAligner& serialize(TableAligner& aligner, const cpp::frm::TypeSPtr& type, bool align)
 {
     if (!type)
         return aligner;
 
     if (type->declaration() != cpp::frm::ETypeDeclaration::invalid())
         aligner << type->declaration() << ' ';
-    aligner << type->type();
+
+    if (type->namespace_())
+    if (!type->namespace_()->isVoid())
+        aligner << type->namespace_() << "::";
+    
+    aligner << type->name();
         
 	if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
 	{
@@ -382,11 +387,6 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ConstructorSPtr&
         aligner << ", " << constructor->arguments()[i];
     aligner << ")";
     return aligner;
-}
-
-TableAligner& operator<<(TableAligner& aligner, const cpp::frm::DecoratedTypeSPtr& type)
-{
-    return serialize(aligner, type, true);
 }
 
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::EDestructorSpecifier& destructorSpecifier)
@@ -586,16 +586,6 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ParameterValueSP
     return aligner;
 }
 
-TableAligner& operator<<(TableAligner& aligner, const cpp::frm::SimpleTypeSPtr& type)
-{
-    if (type->namespace_())
-    if (!type->namespace_()->isVoid())
-        aligner << type->namespace_() << "::";
-    
-    aligner << type->value();
-    return aligner;
-}
-
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ETypeDeclaration& declaration)
 {
     if (declaration != cpp::frm::ETypeDeclaration::invalid())
@@ -620,23 +610,24 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ETypeDecoration&
     return aligner;
 }
 
-TableAligner& operator<<(TableAligner& aligner, const cpp::frm::VariableNameSPtr& name)
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::TypeNameSPtr& name)
 {
     if (name)
         aligner << name->value();
     return aligner;
 }
 
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::TypeSPtr& type)
+{
+    return serialize(aligner, type, true);
+}
 
-
-
-
-
-
-
-
-
-
+TableAligner& operator<<(TableAligner& aligner, const cpp::frm::VariableNameSPtr& name)
+{
+    if (name)
+        aligner << name->value();
+    return aligner;
+}
 
 
 TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionSpace&)
