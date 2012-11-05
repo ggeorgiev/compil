@@ -45,7 +45,7 @@ long EOperatorAction::value() const
 
 const char* EOperatorAction::shortName(long value)
 {
-    static const char* names[] = 
+    static const char* names[] =
     {
         "", // alignment
         "equalTo",

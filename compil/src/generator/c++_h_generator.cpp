@@ -98,6 +98,7 @@ void CppHeaderGenerator::generateForwardClassDeclarations(const TypeSPtr& pType)
             << "typedef "
             << TableAligner::col()
             << (frm->cppClassType(pType) << cf::ETypeDecoration::pointer())
+            << " "
             << TableAligner::col()
             << frm->cppRawPtrName(pType)
             << ";";
@@ -110,6 +111,7 @@ void CppHeaderGenerator::generateForwardClassDeclarations(const TypeSPtr& pType)
                 << "typedef "
                 << TableAligner::col()
                 << impl->boost_shared_ptr(frm->cppClassType(pType))
+                << " "
                 << TableAligner::col()
                 << frm->cppSharedPtrName(pType)
                 << ";";
@@ -118,6 +120,7 @@ void CppHeaderGenerator::generateForwardClassDeclarations(const TypeSPtr& pType)
                 << "typedef "
                 << TableAligner::col()
                 << impl->boost_shared_const_ptr(frm->cppClassType(pType))
+                << " "
                 << TableAligner::col()
                 << frm->cppSharedConstPtrName(pType)
                 << ";";
@@ -126,6 +129,7 @@ void CppHeaderGenerator::generateForwardClassDeclarations(const TypeSPtr& pType)
                 << "typedef "
                 << TableAligner::col()
                 << impl->boost_weak_ptr(frm->cppClassType(pType))
+                << " "
                 << TableAligner::col()
                 << frm->cppWeakPtrName(pType)
                 << ";";
@@ -481,6 +485,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
         commentInTable("Member variable that holds the enum value");
         table() << TableAligner::row()
                 << impl->cppDecoratedType(pParameterType)
+                << " "
                 << TableAligner::col()
                 << frm->memberName("value")
                 << ";";
@@ -1087,6 +1092,7 @@ void CppHeaderGenerator::generateIdentifierDeclaration(const IdentifierSPtr& pId
     eol(declarationStream, -1);
     table() << TableAligner::row()
             << impl->cppDecoratedType(pParameterType)
+            << " "
             << TableAligner::col()
             << frm->memberName("value")
             << ";";

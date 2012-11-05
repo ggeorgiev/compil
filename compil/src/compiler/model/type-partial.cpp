@@ -129,7 +129,7 @@ long TypePartial::ELiteral::value() const
 
 const char* TypePartial::ELiteral::shortName(long value)
 {
-    static const char* names[] = 
+    static const char* names[] =
     {
         "", // alignment
         "boolean",
@@ -212,7 +212,7 @@ long TypePartial::EKind::value() const
 
 const char* TypePartial::EKind::shortName(long value)
 {
-    static const char* names[] = 
+    static const char* names[] =
     {
         "", // alignment
         "builtin",

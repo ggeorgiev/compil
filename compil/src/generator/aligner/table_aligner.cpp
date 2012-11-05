@@ -240,7 +240,7 @@ TableAligner& operator<<(TableAligner& aligner, const TableAligner::optional_new
 	return aligner;
 }
 
-static TableAligner& serialize(TableAligner& aligner, const cpp::frm::TypeSPtr& type, bool align)
+static TableAligner& serialize(TableAligner& aligner, const cpp::frm::TypeSPtr& type, bool align, bool space)
 {
     if (!type)
         return aligner;
@@ -258,13 +258,15 @@ static TableAligner& serialize(TableAligner& aligner, const cpp::frm::TypeSPtr& 
 	{
         if (type->decoration() != cpp::frm::ETypeDecoration::invalid())
             aligner << type->decoration();
-        aligner << ' ';
+        if (space)
+            aligner << ' ';
         if (align)
             aligner << TableAligner::col();
 	}
 	else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_name)
 	{
-        aligner << ' ';
+        if (space)
+            aligner << ' ';
         if (align)
             aligner << TableAligner::col();
         if (type->decoration() != cpp::frm::ETypeDecoration::invalid())
@@ -272,7 +274,8 @@ static TableAligner& serialize(TableAligner& aligner, const cpp::frm::TypeSPtr& 
 	}
 	else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
 	{
-        aligner << ' ';
+        if (space)
+            aligner << ' ';
         if (align)
             aligner << TableAligner::col();
         if (type->decoration() != cpp::frm::ETypeDecoration::invalid())
@@ -290,7 +293,7 @@ static TableAligner& serialize(TableAligner& aligner, const cpp::frm::TypeSPtr& 
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ArgumentSPtr& argument)
 {
     if (argument->type())
-        serialize(aligner, argument->type(), false);
+        serialize(aligner, argument->type(), false, true);
     aligner << argument->name();
     return aligner;
 }
@@ -325,7 +328,7 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::CastOperatorSPtr
                 << "::";
     }
     aligner << "operator ";
-    serialize(aligner, castOperator->type(), false);
+    serialize(aligner, castOperator->type(), false, true);
     
     aligner << Aligner::FunctionSpace()
             << "("
@@ -455,7 +458,7 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::FunctionSPtr& fu
 {
     aligner << TableAligner::col();
 
-    serialize(aligner, function->return_(), true);
+    serialize(aligner, function->return_(), true, true);
     
     aligner << function->name();
         
@@ -521,7 +524,7 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::MethodSPtr& meth
     aligner << method->specifier();
     aligner << TableAligner::col();
 
-    serialize(aligner, method->return_(), true);
+    serialize(aligner, method->return_(), true, true);
 
     if (method->namespace_())
     {
@@ -619,7 +622,7 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::TypeNameSPtr& na
 
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::TypeSPtr& type)
 {
-    return serialize(aligner, type, true);
+    return serialize(aligner, type, false, false);
 }
 
 TableAligner& operator<<(TableAligner& aligner, const cpp::frm::VariableNameSPtr& name)

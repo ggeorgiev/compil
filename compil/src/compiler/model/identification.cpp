@@ -48,7 +48,7 @@ long Identification::EType::value() const
 
 const char* Identification::EType::shortName(long value)
 {
-    static const char* names[] = 
+    static const char* names[] =
     {
         "", // alignment
         "runtime",

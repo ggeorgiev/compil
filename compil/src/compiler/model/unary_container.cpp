@@ -48,7 +48,7 @@ long UnaryContainer::ESize::value() const
 
 const char* UnaryContainer::ESize::shortName(long value)
 {
-    static const char* names[] = 
+    static const char* names[] =
     {
         "", // alignment
         "fixed",

@@ -36,5 +36,6 @@ package compil;
 
 structure PackageElement
 {
+    native operator ==;
     string value;
 }

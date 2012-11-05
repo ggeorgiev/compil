@@ -183,7 +183,7 @@ long EObjectId::value() const
 
 const char* EObjectId::shortName(long value)
 {
-    static const char* names[] = 
+    static const char* names[] =
     {
         "", // alignment
         "AbsoluteEnumerationValue",

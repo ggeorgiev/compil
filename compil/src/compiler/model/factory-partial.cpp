@@ -59,7 +59,7 @@ long FactoryPartial::EType::value() const
 
 const char* FactoryPartial::EType::shortName(long value)
 {
-    static const char* names[] = 
+    static const char* names[] =
     {
         "", // alignment
         "hierarchy",

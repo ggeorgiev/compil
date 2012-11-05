@@ -97,7 +97,7 @@ long Parameter::EDirection::value() const
 
 const char* Parameter::EDirection::shortName(long value)
 {
-    static const char* names[] = 
+    static const char* names[] =
     {
         "", // alignment
         "in",

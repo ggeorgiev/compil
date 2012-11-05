@@ -48,7 +48,7 @@ long CastableType::ECast::value() const
 
 const char* CastableType::ECast::shortName(long value)
 {
-    static const char* names[] = 
+    static const char* names[] =
     {
         "", // alignment
         "weak",
