@@ -2717,6 +2717,27 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                                         << (cf::argumentRef() << type
                                                               << object));
             openBlock(definitionStream);
+            
+            std::vector<FactorySPtr> factories = mpModel->findPluginFactories(pStructure);
+            
+            for (std::vector<FactorySPtr>::iterator it = factories.begin(); it != factories.end(); ++it)
+            {
+                addDependency(impl->assert_dependency());
+                addDependencies(impl->dependencies(*it));
+                
+                line()  << impl->assert_method()
+                        << "("
+                        << impl->cppType(*it)
+                        << "::"
+                        << fnIsDerivedFrom
+                        << "<"
+                        << frm->cppMainClassType(pStructure)
+                        << ">("
+                        << object
+                        << "));";
+                eol(definitionStream);
+            }
+            
             line()  << "return boost::static_pointer_cast<"
                     << frm->cppMainClassType(pStructure)
                     << ">("
