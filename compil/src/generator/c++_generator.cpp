@@ -2726,7 +2726,9 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                 addDependencies(impl->dependencies(*it));
                 
                 line()  << impl->assert_method()
-                        << "("
+                        << "(!"
+                        << object
+                        << " || "
                         << impl->cppType(*it)
                         << "::"
                         << fnIsDerivedFrom

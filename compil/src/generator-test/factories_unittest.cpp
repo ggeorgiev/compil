@@ -102,6 +102,15 @@ TEST(FactoriesTest, hierarchyClone)
     }
 }
 
+TEST(FactoriesTest, pluginDowncast)
+{
+    ObjSPtr pObj(new ObjA());
+    ObjSPtr pObjNull;
+    
+    EXPECT_TRUE(ObjA::downcast(pObj));
+    EXPECT_FALSE(ObjA::downcast(pObjNull));
+}
+
 TEST(FactoriesTest, pluginClone)
 {
     {
