@@ -65,7 +65,6 @@
 		5E88A19515E188BB002D43A5 /* compile.bat */ = {isa = PBXFileReference; lastKnownFileType = text; path = compile.bat; sourceTree = "<group>"; };
 		5E88A19815E188BB002D43A5 /* configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = configuration.cpp; sourceTree = "<group>"; };
 		5E88A19915E188BB002D43A5 /* configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = configuration.h; sourceTree = "<group>"; };
-		5E88A19A15E188BB002D43A5 /* configuration_main_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = configuration_main_unittest.cpp; sourceTree = "<group>"; };
 		5E88A19B15E188BB002D43A5 /* configuration_manager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = configuration_manager.cpp; sourceTree = "<group>"; };
 		5E88A19C15E188BB002D43A5 /* configuration_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = configuration_manager.h; sourceTree = "<group>"; };
 		5E88A19D15E188BB002D43A5 /* configuration_manager_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = configuration_manager_unittest.cpp; sourceTree = "<group>"; };
@@ -77,7 +76,6 @@
 		5E88A1A415E188BB002D43A5 /* message_collector.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = message_collector.cpp; sourceTree = "<group>"; };
 		5E88A1A515E188BB002D43A5 /* message_collector.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = message_collector.h; sourceTree = "<group>"; };
 		5E88A1A615E188BB002D43A5 /* message_collector_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = message_collector_unittest.cpp; sourceTree = "<group>"; };
-		5E88A1A715E188BB002D43A5 /* message_main_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = message_main_unittest.cpp; sourceTree = "<group>"; };
 		5E88A1A915E188BB002D43A5 /* alter.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = alter.cpp; sourceTree = "<group>"; };
 		5E88A1AA15E188BB002D43A5 /* alter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = alter.h; sourceTree = "<group>"; };
 		5E88A1AB15E188BB002D43A5 /* castable_type.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = castable_type.cpp; sourceTree = "<group>"; };
@@ -114,7 +112,6 @@
 		5E88A1CA15E188BB002D43A5 /* integer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = integer.h; sourceTree = "<group>"; };
 		5E88A1CB15E188BB002D43A5 /* interface.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = interface.cpp; sourceTree = "<group>"; };
 		5E88A1CC15E188BB002D43A5 /* interface.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = interface.h; sourceTree = "<group>"; };
-		5E88A1CD15E188BB002D43A5 /* main_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main_unittest.cpp; sourceTree = "<group>"; };
 		5E88A1CE15E188BB002D43A5 /* method.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = method.cpp; sourceTree = "<group>"; };
 		5E88A1CF15E188BB002D43A5 /* method.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = method.h; sourceTree = "<group>"; };
 		5E88A1D015E188BB002D43A5 /* model.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = model.cpp; sourceTree = "<group>"; };
@@ -190,7 +187,6 @@
 		5E88A21715E188BB002D43A5 /* structure_sharable_validator_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = structure_sharable_validator_unittest.cpp; sourceTree = "<group>"; };
 		5E88A21815E188BB002D43A5 /* validator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = validator.cpp; sourceTree = "<group>"; };
 		5E88A21915E188BB002D43A5 /* validator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = validator.h; sourceTree = "<group>"; };
-		5E88A21A15E188BB002D43A5 /* validator_main_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = validator_main_unittest.cpp; sourceTree = "<group>"; };
 		5E88A21B15E188BB002D43A5 /* validator_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = validator_unittest.cpp; sourceTree = "<group>"; };
 		5E88A21E15E188BB002D43A5 /* boost_assert_handler.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = boost_assert_handler.cpp; sourceTree = "<group>"; };
 		5E88A21F15E188BB002D43A5 /* boost_assert_handler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = boost_assert_handler.h; sourceTree = "<group>"; };
@@ -590,7 +586,6 @@
 			children = (
 				5E88A19815E188BB002D43A5 /* configuration.cpp */,
 				5E88A19915E188BB002D43A5 /* configuration.h */,
-				5E88A19A15E188BB002D43A5 /* configuration_main_unittest.cpp */,
 				5E88A19B15E188BB002D43A5 /* configuration_manager.cpp */,
 				5E88A19C15E188BB002D43A5 /* configuration_manager.h */,
 				5E88A19D15E188BB002D43A5 /* configuration_manager_unittest.cpp */,
@@ -606,7 +601,6 @@
 				5E88A1A415E188BB002D43A5 /* message_collector.cpp */,
 				5E88A1A515E188BB002D43A5 /* message_collector.h */,
 				5E88A1A615E188BB002D43A5 /* message_collector_unittest.cpp */,
-				5E88A1A715E188BB002D43A5 /* message_main_unittest.cpp */,
 			);
 			path = message;
 			sourceTree = "<group>";
@@ -652,7 +646,6 @@
 				5E88A1CA15E188BB002D43A5 /* integer.h */,
 				5E88A1CB15E188BB002D43A5 /* interface.cpp */,
 				5E88A1CC15E188BB002D43A5 /* interface.h */,
-				5E88A1CD15E188BB002D43A5 /* main_unittest.cpp */,
 				5E88A1CE15E188BB002D43A5 /* method.cpp */,
 				5E88A1CF15E188BB002D43A5 /* method.h */,
 				5E88A1D015E188BB002D43A5 /* model.cpp */,
@@ -717,7 +710,6 @@
 				5E88A21715E188BB002D43A5 /* structure_sharable_validator_unittest.cpp */,
 				5E88A21815E188BB002D43A5 /* validator.cpp */,
 				5E88A21915E188BB002D43A5 /* validator.h */,
-				5E88A21A15E188BB002D43A5 /* validator_main_unittest.cpp */,
 				5E88A21B15E188BB002D43A5 /* validator_unittest.cpp */,
 			);
 			path = validator;
