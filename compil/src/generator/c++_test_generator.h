@@ -28,15 +28,47 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Author: george.georgiev@hotmail.com (George Georgiev)
-// based on code from Adam Bowen posted on stackoverflow.com
+//
 
-#include <iostream>
 
-#include "gtest/gtest.h"
+#ifndef _CPP_TEST_GENERATOR_H__
+#define _CPP_TEST_GENERATOR_H__
 
-GTEST_API_ int main(int argc, char **argv) {
-  std::cout << "Running main() from gtest_main.cc\n";
+#include "generator.h"
 
-  testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+#include <boost/shared_ptr.hpp>
+
+#include <memory>
+#include <string>
+
+namespace compil
+{
+
+class CppTestGenerator : public Generator
+{
+public:
+    CppTestGenerator();
+    virtual ~CppTestGenerator();
+    
+    virtual bool generate();
+    
+protected:
+    static const int mainStream;
+};
+
+typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
+
 }
+
+#else
+
+namespace compil
+{
+
+class CppTestGenerator;
+typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
+
+}
+
+#endif
+

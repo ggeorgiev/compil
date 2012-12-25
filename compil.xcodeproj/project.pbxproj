@@ -200,7 +200,6 @@
 		5E88A22A15E188BB002D43A5 /* function_definition_aligner_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = function_definition_aligner_unittest.cpp; sourceTree = "<group>"; };
 		5E88A22B15E188BB002D43A5 /* line_aligner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = line_aligner.cpp; sourceTree = "<group>"; };
 		5E88A22C15E188BB002D43A5 /* line_aligner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = line_aligner.h; sourceTree = "<group>"; };
-		5E88A22D15E188BB002D43A5 /* main_aligner_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main_aligner_unittest.cpp; sourceTree = "<group>"; };
 		5E88A24F15E188BB002D43A5 /* table_aligner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = table_aligner.cpp; sourceTree = "<group>"; };
 		5E88A25015E188BB002D43A5 /* table_aligner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = table_aligner.h; sourceTree = "<group>"; };
 		5E88A25115E188BB002D43A5 /* table_aligner_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = table_aligner_unittest.cpp; sourceTree = "<group>"; };
@@ -223,7 +222,6 @@
 		5E88A26315E188BB002D43A5 /* c++_keyword.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "c++_keyword.h"; sourceTree = "<group>"; };
 		5E88A26415E188BB002D43A5 /* formatter_configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = formatter_configuration.cpp; sourceTree = "<group>"; };
 		5E88A26515E188BB002D43A5 /* formatter_configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = formatter_configuration.h; sourceTree = "<group>"; };
-		5E88A26615E188BB002D43A5 /* main_formatter_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main_formatter_unittest.cpp; sourceTree = "<group>"; };
 		5E88A26715E188BB002D43A5 /* general_configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = general_configuration.cpp; sourceTree = "<group>"; };
 		5E88A26815E188BB002D43A5 /* general_configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = general_configuration.h; sourceTree = "<group>"; };
 		5E88A26915E188BB002D43A5 /* generator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = generator.cpp; sourceTree = "<group>"; };
@@ -236,7 +234,6 @@
 		5E88A27115E188BB002D43A5 /* dependency.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dependency.h; sourceTree = "<group>"; };
 		5E88A27215E188BB002D43A5 /* implementer_configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = implementer_configuration.cpp; sourceTree = "<group>"; };
 		5E88A27315E188BB002D43A5 /* implementer_configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = implementer_configuration.h; sourceTree = "<group>"; };
-		5E88A27415E188BB002D43A5 /* main_implementer_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main_implementer_unittest.cpp; sourceTree = "<group>"; };
 		5E88A27515E188BB002D43A5 /* jamfile.jam */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.jam; path = jamfile.jam; sourceTree = "<group>"; };
 		5E88A27615E188BB002D43A5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		5E88A27715E188BB002D43A5 /* main_generator_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main_generator_unittest.cpp; sourceTree = "<group>"; };
@@ -374,6 +371,8 @@
 		5EA486B01618BE4E00B42BC8 /* comment.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = comment.compil; sourceTree = "<group>"; };
 		5EA486B11618BFB400B42BC8 /* comment.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = comment.cpp; sourceTree = "<group>"; };
 		5EA486B21618BFB400B42BC8 /* comment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = comment.h; sourceTree = "<group>"; };
+		5EB1B413168A41C300811582 /* c++_test_generator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "c++_test_generator.cpp"; sourceTree = "<group>"; };
+		5EB1B414168A41C300811582 /* c++_test_generator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "c++_test_generator.h"; sourceTree = "<group>"; };
 		5EB5E8FC1632F92B00C1F06F /* package_element.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = package_element.compil; sourceTree = "<group>"; };
 		5EB5E8FE1632FC0800C1F06F /* package_element.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = package_element.cpp; sourceTree = "<group>"; };
 		5EB5E8FF1632FC0800C1F06F /* package_element.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = package_element.h; sourceTree = "<group>"; };
@@ -754,6 +753,8 @@
 				5E88A25715E188BB002D43A5 /* c++_generator.h */,
 				5E88A25815E188BB002D43A5 /* c++_h_generator.cpp */,
 				5E88A25915E188BB002D43A5 /* c++_h_generator.h */,
+				5EB1B413168A41C300811582 /* c++_test_generator.cpp */,
+				5EB1B414168A41C300811582 /* c++_test_generator.h */,
 				5E88A25A15E188BB002D43A5 /* compil_generator.cpp */,
 				5E88A25B15E188BB002D43A5 /* compil_generator.h */,
 				5E88A25C15E188BB002D43A5 /* compil_generator_unittest.cpp */,
@@ -788,7 +789,6 @@
 				5E88A22A15E188BB002D43A5 /* function_definition_aligner_unittest.cpp */,
 				5E88A22B15E188BB002D43A5 /* line_aligner.cpp */,
 				5E88A22C15E188BB002D43A5 /* line_aligner.h */,
-				5E88A22D15E188BB002D43A5 /* main_aligner_unittest.cpp */,
 				5E88A24F15E188BB002D43A5 /* table_aligner.cpp */,
 				5E88A25015E188BB002D43A5 /* table_aligner.h */,
 				5E88A25115E188BB002D43A5 /* table_aligner_unittest.cpp */,
@@ -805,7 +805,6 @@
 				5E88A26315E188BB002D43A5 /* c++_keyword.h */,
 				5E88A26415E188BB002D43A5 /* formatter_configuration.cpp */,
 				5E88A26515E188BB002D43A5 /* formatter_configuration.h */,
-				5E88A26615E188BB002D43A5 /* main_formatter_unittest.cpp */,
 			);
 			path = formatter;
 			sourceTree = "<group>";
@@ -819,7 +818,6 @@
 				5E88A27115E188BB002D43A5 /* dependency.h */,
 				5E88A27215E188BB002D43A5 /* implementer_configuration.cpp */,
 				5E88A27315E188BB002D43A5 /* implementer_configuration.h */,
-				5E88A27415E188BB002D43A5 /* main_implementer_unittest.cpp */,
 			);
 			path = implementer;
 			sourceTree = "<group>";

@@ -56,7 +56,7 @@ public:
         invalid_level = 0,
         application_level,
         core_level,
-        boost_level,
+        thirdparty_level,
         stl_level,
         system_level
     };

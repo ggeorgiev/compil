@@ -14,6 +14,7 @@
 
 #include "c++_generator.h"
 #include "c++_h_generator.h"
+#include "c++_test_generator.h"
 #include "c++_flags_enumeration_generator.h"
 
 #include "boost_path_resolve.h"
@@ -205,6 +206,33 @@ int main(int argc, const char **argv)
 
             compil::CppHeaderGenerator generator;
             bool bResult = generator.init("partial",
+                                          pConfigurationManager->getConfiguration<AlignerConfiguration>(),
+                                          pFormatter,
+                                          pImplementer,
+                                          pOutput,
+                                          pModel);
+            if (bResult) generator.generate();
+
+            closeStream(pOutput);
+
+            if (!bResult)
+                return 1;
+
+            std::vector<compil::Dependency> dependencies = generator.getCoreDependencies();
+            coreDependencies.insert(coreDependencies.end(), dependencies.begin(), dependencies.end());
+        }
+    }
+    else
+    if (pGeneratorConfiguration->type == "test")
+    {
+        {
+            boost::filesystem::path cpp_output = output;
+            cpp_output /= pModel->name()->value() + "-test" + pImplementer->applicationExtension();
+
+            boost::shared_ptr<std::ostream> pOutput = openStream(cpp_output);
+
+            compil::CppTestGenerator generator;
+            bool bResult = generator.init("test",
                                           pConfigurationManager->getConfiguration<AlignerConfiguration>(),
                                           pFormatter,
                                           pImplementer,

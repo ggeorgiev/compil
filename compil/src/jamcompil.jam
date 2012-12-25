@@ -9,7 +9,7 @@ type.register COMPIL : compil ;
 
 feature.feature <compil-binary> : : free ;
 feature.feature <compil-binary-dependencies> : : free dependency ;
-feature.feature <compil-type> : main partial : free optional ;
+feature.feature <compil-type> : main partial test : free optional ;
 
 class compil-scanner : common-scanner
 {
@@ -82,6 +82,12 @@ generators.register [
                          : COMPIL
                          : CPP(%-partial) H(%-partial)
                          : <compil-type>partial ] ;
+                         
+generators.register [
+    new compil-generator jamcompil.generate
+                         : COMPIL
+                         : CPP(%-test)
+                         : <compil-type>test ] ;
 
 toolset.flags jamcompil.generate COMPIL-COMMAND <compil-binary> ;
 toolset.flags jamcompil.generate COMPIL-DEPENDENCIES <compil-binary-dependencies> ;

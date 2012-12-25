@@ -1771,7 +1771,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
         {
             addDependency(Dependency("boost/enable_shared_from_this.hpp",
                                      Dependency::system_type,
-                                     Dependency::boost_level,
+                                     Dependency::thirdparty_level,
                                      Dependency::private_section,
                                      "Boost C++ Smart Pointers"));
             line()  << " : public "

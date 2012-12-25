@@ -13,7 +13,7 @@ project generator
         <include>implementer
     ;
 
-lib gen :
+lib generator-lib :
     cpp/format/argument.cpp
     cpp/format/cast_operator.cpp
     cpp/format/comment.cpp
@@ -55,6 +55,7 @@ lib gen :
     c++_flags_enumeration_generator.cpp
     c++_generator.cpp
     c++_h_generator.cpp
+    c++_test_generator.cpp
     compil_generator.cpp
     file_source_provider.cpp
     general_configuration.cpp
@@ -73,30 +74,12 @@ lib gen :
 exe generator :
     main.cpp 
     
-    gen
+    generator-lib
     ;
     
-gtest aligner 
-  :
-    [ glob aligner/*_unittest.cpp ]
-    gen
-  ;
-  
-gtest formatter 
-  :
-    [ glob formatter/*_unittest.cpp ]
-    gen
-  ;
-  
-gtest implementer 
-  :
-    [ glob implementer/*_unittest.cpp ]
-    gen
-  ;
-  
 gtest generator 
   :
-    [ glob *_unittest.cpp ]
-    gen
+    [ glob-tree *_unittest.cpp ]
+    generator-lib
   ;
 

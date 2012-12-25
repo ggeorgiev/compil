@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -28,15 +28,56 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Author: george.georgiev@hotmail.com (George Georgiev)
-// based on code from Adam Bowen posted on stackoverflow.com
+//
 
-#include <iostream>
+#include "c++_test_generator.h"
 
-#include "gtest/gtest.h"
+namespace compil
+{
 
-GTEST_API_ int main(int argc, char **argv) {
-  std::cout << "Running main() from gtest_main.cc\n";
+const int CppTestGenerator::mainStream = 0;
 
-  testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+CppTestGenerator::CppTestGenerator()
+{
+    for (int i = 0; i <= 0; ++i)
+    {
+        mStreams.push_back(boost::shared_ptr<std::stringstream>(new std::stringstream()));
+        mIndent.push_back(0);
+    }
 }
+
+CppTestGenerator::~CppTestGenerator()
+{
+}
+
+bool CppTestGenerator::generate()
+{
+    addDependency(impl->cppHeaderFileDependency(mpModel->name()->value(),
+                                                mpModel->package()));
+                                                
+    addDependency(Dependency("gtest/gtest.h",
+                             Dependency::system_type,
+                             Dependency::thirdparty_level,
+                             Dependency::private_section,
+                             "Google Test framework"));
+                             
+    includeHeaders(mainStream, Dependency::private_section);
+
+    line()  << "TEST(StructuresTest, isInitialize)"
+"{"
+"    StructureIsInitialize structure;"
+"    EXPECT_FALSE(structure.isInitialized());"
+""
+"    structure.set_r(5);"
+"    EXPECT_TRUE(structure.isInitialized());"
+""
+"    structure.erase_r();"
+"    EXPECT_FALSE(structure.isInitialized());"
+"}";
+    eol(mainStream);
+    
+    return serializeStreams();
+}
+
+}
+
