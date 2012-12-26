@@ -8,40 +8,26 @@ rule boost_library_location ( properties * )
 
 rule boost_search_library_location ( properties * )
 {
-    if [ os.name ] = NT
-    {
-        return ;
-    }
-    else
-    {
-        local directory = [ boost_library_location $(properties) ] ;
-        return <search>$(directory) ;
-    }
-}
-
-rule boost_path_library_location ( properties * )
-{
-    if [ os.name ] = NT
-    {
-        local directory = [ boost_library_location $(properties) ] ;
-        return <library-path>$(directory) ;
-    }
-    else
-    {
-        return ;
-    }
+    local directory = [ boost_library_location $(properties) ] ;
+    return <search>$(directory) ;
 }
 
 rule boost-defines ( )
 {
+	local prefix = ;
+	if [ os.name ] = NT
+	{
+		prefix = lib ;
+	}
+
     alias boost_requirements_for_all
       :
       :
       :
       :
         <include>$(ROOT)/boost/include
-        <conditional>@boost_path_library_location
         <define>BOOST_ENABLE_ASSERT_HANDLER
+		<define>BOOST_ALL_NO_LIB
       ;
 
     alias boost_templates
@@ -49,68 +35,48 @@ rule boost-defines ( )
         boost_requirements_for_all
       ;
 
-    if [ os.name ] = NT
-    {
-        alias boost_program_options
-          :
-            boost_requirements_for_all
-          ;
+    lib boost_program_options-lib
+      :
+      :
+        <name>$(prefix:E)boost_program_options
+        <conditional>@boost_search_library_location
+      ;
 
-        alias boost_system
-          :
-            boost_requirements_for_all
-          ;
-
-        alias boost_filesystem
-          :
-            boost_requirements_for_all
-          ;
-    }
-    else
-    {
-        lib boost_program_options-lib
-          :
-          :
-            <name>boost_program_options
-            <conditional>@boost_search_library_location
-          ;
-
-        alias boost_program_options
-          :
-            boost_requirements_for_all
-            boost_program_options-lib
-          ;
+    alias boost_program_options
+      :
+        boost_requirements_for_all
+        boost_program_options-lib
+      ;
       
       
-        lib boost_system-lib
-          :
-          :
-            <name>boost_system
-            <conditional>@boost_search_library_location
-          ;
+    lib boost_system-lib
+      :
+      :
+        <name>$(prefix:E)boost_system
+        <conditional>@boost_search_library_location
+      ;
         
-        alias boost_system
-          :
-            boost_requirements_for_all
-            boost_system-lib
-          ;
+    alias boost_system
+      :
+        boost_requirements_for_all
+        boost_system-lib
+      ;
    
      
-        lib boost_filesystem-lib
-          :
-          :
-            <name>boost_filesystem
-            <conditional>@boost_search_library_location
-          ;
+    lib boost_filesystem-lib
+      :
+      :
+        <name>$(prefix:E)boost_filesystem
+        <conditional>@boost_search_library_location
+      ;
           
-        alias boost_filesystem
-          :
-            boost_requirements_for_all
-            boost_filesystem-lib
-          :
-          :
-          :
-            <define>BOOST_FILESYSTEM_NO_DEPRECATED
-          ;
-    }
+    alias boost_filesystem
+      :
+        boost_requirements_for_all
+        boost_filesystem-lib
+      :
+      :
+      :
+        <define>BOOST_FILESYSTEM_NO_DEPRECATED
+      ;
 }

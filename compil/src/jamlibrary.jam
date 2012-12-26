@@ -12,7 +12,7 @@ rule library-directory ( properties * )
         
         local toolset = [ property.select <toolset> : $(properties) ] ;
         local toolset-version = [ property.select <toolset-$(toolset:G=):version> : $(properties) ] ;
-        toolset-directory = $(toolset:G=)-$(toolset-version:G=)/ ;
+        toolset-directory = $(toolset:G=)-$(toolset-version:G=)-mt/ ;
     }
         
     local variant = [ property.select <variant> : $(properties) ] ;
