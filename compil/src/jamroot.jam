@@ -2,6 +2,7 @@ path-constant TOP : . ;
 path-constant ROOT : $(TOP)/.. ;
 
 import jamcompil ;
+import jamcompilstable ;
 
 include $(TOP)/jamlibrary.jam ;
 
@@ -20,4 +21,4 @@ build-project generator ;
 build-project generator-test ;
 #build-project generator-self ;
 
-#build-project language ;
+build-project language ;

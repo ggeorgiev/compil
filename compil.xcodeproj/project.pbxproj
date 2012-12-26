@@ -37,6 +37,7 @@
 		5E3BEE8B161A8A6E00413F77 /* parameter_value.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parameter_value.h; sourceTree = "<group>"; };
 		5E3BEE8C161A8AFF00413F77 /* namespace_name.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = namespace_name.cpp; sourceTree = "<group>"; };
 		5E3BEE8D161A8AFF00413F77 /* namespace_name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = namespace_name.h; sourceTree = "<group>"; };
+		5E51C2ED168B08410089ABD8 /* jamcompilstable.jam */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.jam; path = jamcompilstable.jam; sourceTree = "<group>"; };
 		5E5F99281617767700B91C54 /* method.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = method.cpp; sourceTree = "<group>"; };
 		5E5F99291617767700B91C54 /* method.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = method.h; sourceTree = "<group>"; };
 		5E5F992C1617790300B91C54 /* argument.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = argument.compil; sourceTree = "<group>"; };
@@ -533,6 +534,7 @@
 				5E88A2AD15E188BB002D43A5 /* generator-test */,
 				5E88A2E515E188BC002D43A5 /* jamboost.jam */,
 				5E88A2E615E188BC002D43A5 /* jamcompil.jam */,
+				5E51C2ED168B08410089ABD8 /* jamcompilstable.jam */,
 				5E88A2E715E188BC002D43A5 /* jamgtest.jam */,
 				5E88A2E815E188BC002D43A5 /* jamlibrary.jam */,
 				5E88A2E915E188BC002D43A5 /* jamroot.jam */,

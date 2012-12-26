@@ -5,15 +5,16 @@ boost-defines ;
 gtest-defines ;
 
 project generator
-    : requirements
-        <include>.
-        <include>aligner
-        <include>aligner/object
-        <include>formatter
-        <include>implementer
-    ;
+  : requirements
+    <include>.
+    <include>aligner
+    <include>aligner/object
+    <include>formatter
+    <include>implementer
+  ;
 
-lib generator-lib :
+lib generator-lib
+  :
     cpp/format/argument.cpp
     cpp/format/cast_operator.cpp
     cpp/format/comment.cpp
@@ -69,7 +70,8 @@ lib generator-lib :
     boost_filesystem
     
     $(TOP)/compiler//compiler
-    ;
+    $(TOP)/language//language
+  ;
     
 exe generator
   :

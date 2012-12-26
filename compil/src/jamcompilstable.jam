@@ -24,36 +24,40 @@ type.set-scanner COMPILSTABLE : compil-stable-scanner ;
 
 class compil-stable-generator : generator
 {
-    import modules path targets jamcompilstable ;
+    import os modules path targets jamcompilstable ;
 
     rule __init__ ( * : * )
     {
         generator.__init__ $(1) : $(2) : $(3) : $(4) : $(5) : $(6) : $(7) : $(8) : $(9) ;
     }
+    
+    rule tool-directory
+    {
+        local os_name = [ os.name ] ;
+        
+        local directory = ;
+        if $(os_name) = NT
+        {
+            directory = windowsx86 ;
+        }
+        if $(os_name) = MACOSX
+        {
+            directory = macosxx86 ;
+        }
+            
+        return ../compil-stable/tool/$(directory)/bin ;
+    }
 
     rule run ( project name ? : property-set : sources * : multiple ? )
     {
         local compil-stable-binary = [ modules.peek jamcompilstable : .compil-stable-binary ] ;
-        local compil-stable-binary-dependencies ;
 
-        local compil-stable-main-target = [ targets.resolve-reference /generator : $(project) ] ;
-
-        compil-stable-main-target =
-            [ $(compil-stable-main-target[1]).main-target generator ] ;
-
-        compil-stable-binary-dependencies =
-            [ $(compil-stable-main-target).generate [ $(property-set).propagated ] ] ;
-
-        # Ignore usage-requirements returned as first element.
-        compil-stable-binary-dependencies = $(compil-stable-binary-dependencies[2-]) ;
-
+        local directory = [ tool-directory ] ;
+        compil-stable-binary = $(directory)/generator ;
         
-        compil-stable-binary = $(ROOT)/compil-stable/generator ;
-
         property-set = [ $(property-set).add-raw
             <dependency>$(compil-stable-binary-dependencies)
             <compil-stable-binary>$(compil-stable-binary)
-            <compil-stable-binary-dependencies>$(compil-stable-binary-dependencies)
         ] ;
 
         return [ generator.run $(project) $(name) : $(property-set) : $(sources) : $(multiple) ] ;

@@ -12,38 +12,42 @@ project language
     
 lib language
   :
-    $(TOP)/core/boost/boost_assert_handler.cpp  
+    $(TOP)/core/boost/boost_assert_handler.cpp
+    
+    c++/test_name.scompil
+    c++/test_suite.scompil
+    c++/test.scompil
   
-    c++/class_name.compil
-    c++/class.compil
-    c++/comment.compil
-    c++/const_declaration.compil
-    c++/constructor.compil
-    c++/copy_right_comment.compil
-    c++/destructor.compil
-    c++/document.compil
-    c++/header_guard.compil
-    c++/header_path.compil
-    c++/header_section.compil
-    c++/header_type.compil
-    c++/header.compil
-    c++/include.compil
-    c++/layer_comment.compil
-    c++/method_comment.compil
-    c++/method_name.compil
-    c++/method_specifier.compil
-    c++/method.compil
-    c++/namespace_name.compil
-    c++/namespace.compil
-    c++/type_decoration.compil
-    c++/type_name.compil
-    c++/type.compil
-    c++/variable_name.compil
-    c++/variable.compil
+    #c++/class_name.compil
+    #c++/class.compil
+    #c++/comment.compil
+    #c++/const_declaration.compil
+    #c++/constructor.compil
+    #c++/copy_right_comment.compil
+    #c++/destructor.compil
+    #c++/document.compil
+    #c++/header_guard.compil
+    #c++/header_path.compil
+    #c++/header_section.compil
+    #c++/header_type.compil
+    #c++/header.compil
+    #c++/include.compil
+    #c++/layer_comment.compil
+    #c++/method_comment.compil
+    #c++/method_name.compil
+    #c++/method_specifier.compil
+    #c++/method.compil
+    #c++/namespace_name.compil
+    #c++/namespace.compil
+    #c++/type_decoration.compil
+    #c++/type_name.compil
+    #c++/type.compil
+    #c++/variable_name.compil
+    #c++/variable.compil
     
     boost_templates
   :
-    <compil-type>main
+    <compil-stable-type>main
     <include>$(TOP)/c++
   ;
 
