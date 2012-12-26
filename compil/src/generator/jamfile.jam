@@ -71,11 +71,12 @@ lib generator-lib :
     $(TOP)/compiler//compiler
     ;
     
-exe generator :
+exe generator
+  :
     main.cpp 
     
     generator-lib
-    ;
+  ;
     
 gtest generator 
   :

@@ -74,8 +74,9 @@ lib compiler
     boost_templates
     boost_program_options
     boost_system
-    boost_filesystem
+    boost_filesystem/<link>static
   :
+    <link>static
   :
   :
     <include>.
