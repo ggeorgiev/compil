@@ -1,0 +1,96 @@
+import type ;
+import scanner ;
+import generators ;
+import feature ;
+import toolset ;
+import "class" : new ;
+
+type.register COMPILSTABLE : scompil ;
+
+feature.feature <compil-stable-binary> : : free ;
+feature.feature <compil-stable-binary-dependencies> : : free dependency ;
+feature.feature <compil-stable-type> : main partial test : free optional ;
+
+class compil-stable-scanner : common-scanner
+{
+    rule pattern ( )
+    {
+        return "[ \t]*import[ \t]*\"([^\"]*)\"[ \t]*;" ;
+    }
+}
+
+scanner.register compil-stable-scanner : include ;
+type.set-scanner COMPILSTABLE : compil-stable-scanner ;
+
+class compil-stable-generator : generator
+{
+    import modules path targets jamcompilstable ;
+
+    rule __init__ ( * : * )
+    {
+        generator.__init__ $(1) : $(2) : $(3) : $(4) : $(5) : $(6) : $(7) : $(8) : $(9) ;
+    }
+
+    rule run ( project name ? : property-set : sources * : multiple ? )
+    {
+        local compil-stable-binary = [ modules.peek jamcompilstable : .compil-stable-binary ] ;
+        local compil-stable-binary-dependencies ;
+
+        local compil-stable-main-target = [ targets.resolve-reference /generator : $(project) ] ;
+
+        compil-stable-main-target =
+            [ $(compil-stable-main-target[1]).main-target generator ] ;
+
+        compil-stable-binary-dependencies =
+            [ $(compil-stable-main-target).generate [ $(property-set).propagated ] ] ;
+
+        # Ignore usage-requirements returned as first element.
+        compil-stable-binary-dependencies = $(compil-stable-binary-dependencies[2-]) ;
+
+        
+        compil-stable-binary = $(ROOT)/compil-stable/generator ;
+
+        property-set = [ $(property-set).add-raw
+            <dependency>$(compil-stable-binary-dependencies)
+            <compil-stable-binary>$(compil-stable-binary)
+            <compil-stable-binary-dependencies>$(compil-stable-binary-dependencies)
+        ] ;
+
+        return [ generator.run $(project) $(name) : $(property-set) : $(sources) : $(multiple) ] ;
+    }
+}
+
+generators.register [
+    new compil-stable-generator jamcompilstable.generate
+                         : COMPILSTABLE
+                         : CPP H
+                         : <compil-stable-type>main ] ;
+
+generators.register [
+    new compil-stable-generator jamcompilstable.generate
+                         : COMPILSTABLE
+                         : CPP(%-partial) H(%-partial)
+                         : <compil-stable-type>partial ] ;
+                         
+generators.register [
+    new compil-stable-generator jamcompilstable.generate
+                         : COMPILSTABLE
+                         : CPP(%-test)
+                         : <compil-stable-type>test ] ;
+
+toolset.flags jamcompilstable.generate COMPIL-STABLE-COMMAND <compil-stable-binary> ;
+toolset.flags jamcompilstable.generate COMPIL-STABLE-DEPENDENCIES <compil-stable-binary-dependencies> ;
+toolset.flags jamcompilstable.generate COMPIL-STABLE-TYPE <compil-stable-type> ;
+toolset.flags jamcompilstable.generate IMPORTS <include> ;
+
+rule generate ( targets * : source * : properties * )
+{
+    DEPENDS $(targets) : [ on $(targets) return $(COMPIL-STABLE-DEPENDENCIES) ] ;
+}
+
+actions generate
+{
+    echo $(COMPIL-STABLE-COMMAND) -I$(IMPORTS:W) -t $(COMPIL-STABLE-TYPE) --core-directory=core/c++ $(>) -o $(<[1]:D)
+    $(COMPIL-STABLE-COMMAND) -I$(IMPORTS:W) -t $(COMPIL-STABLE-TYPE) --core-directory=core/c++ $(>) -o $(<[1]:D) || exit 1
+}
+
