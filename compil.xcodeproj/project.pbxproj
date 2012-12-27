@@ -392,7 +392,7 @@
 		5EB86F70168BA9540049B6A9 /* macro_parameter.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = macro_parameter.scompil; sourceTree = "<group>"; };
 		5EB86F72168BAE6A0049B6A9 /* list.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = list.scompil; sourceTree = "<group>"; };
 		5EB86F73168BCAA10049B6A9 /* scope.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = scope.scompil; sourceTree = "<group>"; };
-		5EB86F74168BCDD40049B6A9 /* compound_statement.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = compound_statement.scompil; sourceTree = "<group>"; };
+		5EB86F87168BDFA90049B6A9 /* compound_statement.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = compound_statement.scompil; sourceTree = "<group>"; };
 		5EC0D2271618D2D200802C95 /* type.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type.h; sourceTree = "<group>"; };
 		5EC0D2291618D3C600802C95 /* type-partial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "type-partial.cpp"; sourceTree = "<group>"; };
 		5EC0D22A1618D3C600802C95 /* type-partial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "type-partial.h"; sourceTree = "<group>"; };
@@ -1003,11 +1003,11 @@
 			isa = PBXGroup;
 			children = (
 				5EB86F6D168BA81D0049B6A9 /* preprocessor */,
+				5EB86F86168BDFA90049B6A9 /* statement */,
 				5EB86F68168BA7320049B6A9 /* test */,
 				5E88A2EC15E188BC002D43A5 /* class.compil */,
 				5E88A2ED15E188BC002D43A5 /* class_name.compil */,
 				5E88A2EE15E188BC002D43A5 /* comment.compil */,
-				5EB86F74168BCDD40049B6A9 /* compound_statement.scompil */,
 				5E88A2EF15E188BC002D43A5 /* const_declaration.compil */,
 				5E88A2F015E188BC002D43A5 /* constructor.compil */,
 				5E88A2F115E188BC002D43A5 /* copy_right_comment.compil */,
@@ -1063,6 +1063,14 @@
 				5EB86F73168BCAA10049B6A9 /* scope.scompil */,
 			);
 			path = all;
+			sourceTree = "<group>";
+		};
+		5EB86F86168BDFA90049B6A9 /* statement */ = {
+			isa = PBXGroup;
+			children = (
+				5EB86F87168BDFA90049B6A9 /* compound_statement.scompil */,
+			);
+			path = statement;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

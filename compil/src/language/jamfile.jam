@@ -17,7 +17,7 @@ lib language
     all/list.scompil
     all/scope.scompil
     
-    c++/compound_statement.scompil
+    c++/statement/compound_statement.scompil
 
     c++/preprocessor/macro.scompil
     c++/preprocessor/macro_parameter.scompil

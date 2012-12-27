@@ -38,7 +38,7 @@
 #include "formatter_configuration.h"
 #include "aligner_stream.h"
 
-#include "c++/compound_statement.h"
+#include "c++/statement/compound_statement.h"
 #include "c++/preprocessor/macro.h"
 
 class FormatterStream

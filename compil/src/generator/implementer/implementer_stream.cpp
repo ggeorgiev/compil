@@ -33,7 +33,7 @@
 #include "implementer_stream.h"
 
 #include "c++/preprocessor/macro.h"
-#include "c++/compound_statement.h"
+#include "c++/statement/compound_statement.h"
 
 using namespace lang;
 using namespace lang::cpp;
