@@ -54,7 +54,7 @@ class compil-stable-generator : generator
         local compil-stable-binary = [ modules.peek jamcompilstable : .compil-stable-binary ] ;
 
         local directory = [ tool-directory ] ;
-        compil-stable-binary = $(directory)/generator ;
+        compil-stable-binary = [ path.join $(directory) generator ] ;
         
         property-set = [ $(property-set).add-raw
             <dependency>$(compil-stable-binary-dependencies)
