@@ -393,6 +393,7 @@
 		5EB86F72168BAE6A0049B6A9 /* list.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = list.scompil; sourceTree = "<group>"; };
 		5EB86F73168BCAA10049B6A9 /* scope.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = scope.scompil; sourceTree = "<group>"; };
 		5EB86F87168BDFA90049B6A9 /* compound_statement.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = compound_statement.scompil; sourceTree = "<group>"; };
+		5EB86F88168BE0920049B6A9 /* statement.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = statement.scompil; sourceTree = "<group>"; };
 		5EC0D2271618D2D200802C95 /* type.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type.h; sourceTree = "<group>"; };
 		5EC0D2291618D3C600802C95 /* type-partial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "type-partial.cpp"; sourceTree = "<group>"; };
 		5EC0D22A1618D3C600802C95 /* type-partial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "type-partial.h"; sourceTree = "<group>"; };
@@ -1069,6 +1070,7 @@
 			isa = PBXGroup;
 			children = (
 				5EB86F87168BDFA90049B6A9 /* compound_statement.scompil */,
+				5EB86F88168BE0920049B6A9 /* statement.scompil */,
 			);
 			path = statement;
 			sourceTree = "<group>";

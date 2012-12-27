@@ -32,12 +32,9 @@
 
 compil { }
 
-import "c++/statement/statement.scompil";
-
 package lang.cpp;
 
 streamable
-structure CompoundStatement
+structure Statement
 {
-    vector<reference<Statement>> statements;
 }
