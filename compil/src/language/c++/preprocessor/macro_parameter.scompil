@@ -32,9 +32,13 @@
 
 compil { }
 
+import "c++/expression/expression.scompil";
+
 package lang.cpp;
 
-specimen<string> MacroParameter
+streamable
+structure MacroParameter
 {
+    reference<Expression> expression;
 }
 

@@ -33,6 +33,7 @@
 #include "c++_test_generator.h"
 #include "implementer_stream.h"
 
+#include "c++/expression/custom_expression.h"
 #include "c++/test/test_suite.h"
 #include "c++/statement/test_statement.h"
 #include "c++/statement/declaration_statement.h"
@@ -79,7 +80,7 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
                                          ? UnaryTestStatement::EType::isTrue()
                                          : UnaryTestStatement::EType::isFalse();
         test << (unaryTestStatementRef() << type
-                                         << (expressionRef() << std::string("structure.isInitialized()")));
+                                         << (customExpressionRef() << std::string("structure.isInitialized()")));
         
         suite << test;
     }

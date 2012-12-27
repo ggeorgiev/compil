@@ -32,8 +32,9 @@
 
 #include "implementer_stream.h"
 
-#include "c++/preprocessor/macro.h"
+#include "c++/expression/custom_expression.h"
 #include "c++/statement/compound_statement.h"
+#include "c++/statement/macro_statement.h"
 #include "c++/statement/statement_factory.h"
 #include "c++/statement/test_statement.h"
 
@@ -68,8 +69,8 @@ ImplementerStream& operator<<(ImplementerStream& stream, const TestSuite& suite)
         MacroStatementSPtr macro = macroStatementRef();
         macro << MacroName("TEST");
         
-        macro << MacroParameter(suite.name().value());
-        macro << MacroParameter(test->name().value());
+        macro << (macroParameterRef() << (customExpressionRef() << suite.name().value()));
+        macro << (macroParameterRef() << (customExpressionRef() << test->name().value()));
         macro << Statement::EClose::no();
         
         stream.mFormatter << macro;
@@ -97,7 +98,7 @@ ImplementerStream& operator<<(ImplementerStream& stream, const TestSuite& suite)
                         assert(false);
                 }
                 
-                macro << MacroParameter(teststatement->expression()->value());
+                macro << (macroParameterRef() << teststatement->expression());
                 statement = macro;
             }
                 

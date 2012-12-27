@@ -32,10 +32,11 @@
 
 compil { }
 
+import "c++/expression/custom_expression.scompil";
+
 package lang.cpp;
 
-streamable
-structure Expression
+hierarchy
+factory<Expression> ExpressionFactory
 {
-    runtime identification;
 }

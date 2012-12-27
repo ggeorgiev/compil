@@ -17,7 +17,9 @@ lib language
     all/list.scompil
     all/scope.scompil
     
+    c++/expression/custom_expression.scompil
     c++/expression/expression.scompil
+    c++/expression/expression_factory.scompil
     
     c++/class/class.scompil
     c++/class/class_name.scompil

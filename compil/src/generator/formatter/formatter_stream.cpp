@@ -32,6 +32,7 @@
 
 #include "formatter_stream.h"
 
+#include "c++/expression/expression_factory.h"
 #include "c++/statement/statement_factory.h"
 
 #include "all/list.h"
@@ -75,12 +76,25 @@ FormatterStream& operator<<(FormatterStream& stream, const CompoundStatementSPtr
     return stream << compoundStatement->close();
 }
 
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::CustomExpressionSPtr& expression)
+{
+    stream.mAligner << expression->value();
+    return stream;
+}
+
 FormatterStream& operator<<(FormatterStream& stream, const DeclarationStatementSPtr& statement)
 {
     stream.mAligner << statement->typeId().value();
     stream.mAligner << " ";
     stream.mAligner << statement->typeName();
     return stream << statement->close();
+}
+
+FormatterStream& operator<<(FormatterStream& stream, const ExpressionSPtr& expression)
+{
+    if (expression->runtimeExpressionId() == CustomExpression::staticExpressionId())
+        return stream << CustomExpression::downcast(expression);
+    return stream;
 }
 
 FormatterStream& operator<<(FormatterStream& stream, const MacroStatementSPtr& macro)
@@ -91,11 +105,13 @@ FormatterStream& operator<<(FormatterStream& stream, const MacroStatementSPtr& m
     list << List::ESquiggles::parentheses();
     list << List::EDelimiter::comma();
     
-    const std::vector<MacroParameter>& parameters = macro->parameters();
-    for (std::vector<MacroParameter>::const_iterator it = parameters.begin(); it != parameters.end(); ++it)
+    const std::vector<MacroParameterSPtr>& parameters = macro->parameters();
+    for (std::vector<MacroParameterSPtr>::const_iterator it = parameters.begin(); it != parameters.end(); ++it)
     {
-        const MacroParameter& parameter = *it;
-        list << parameter.value();
+        const MacroParameterSPtr& parameter = *it;
+        FormatterStream formatter(stream.mConfiguration, stream.mAligner.mConfiguration);
+        formatter << parameter->expression();
+        list << formatter.str();
     }
     
     stream.mAligner << list;
