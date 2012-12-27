@@ -45,7 +45,8 @@ class compil-stable-generator : generator
             directory = macosxx86 ;
         }
             
-        return ../compil-stable/tool/$(directory)/bin ;
+        local RESULT = [ path.native ../compil-stable/tool/$(directory)/bin ] ;
+        return $(RESULT) ;
     }
 
     rule run ( project name ? : property-set : sources * : multiple ? )
