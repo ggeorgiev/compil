@@ -32,14 +32,23 @@
 
 compil { }
 
-import "c++/statement/compound_statement.scompil";
-import "c++/statement/declaration_statement.scompil";
-import "c++/statement/macro_statement.scompil";
-import "c++/statement/test_statement.scompil";
+import "c++/statement/statement.scompil";
+import "c++/expression/expression.scompil";
 
 package lang.cpp;
 
-hierarchy
-factory<Statement> StatementFactory
+streamable
+structure UnaryTestStatement
+    inherit Statement
 {
+    runtime identification;
+    
+    strong enum Type
+    {
+        isTrue;
+        isFalse;
+    }
+    Type type;
+    
+    reference<Expression> expression;
 }

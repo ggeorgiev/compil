@@ -32,14 +32,18 @@
 
 compil { }
 
-import "c++/statement/compound_statement.scompil";
-import "c++/statement/declaration_statement.scompil";
-import "c++/statement/macro_statement.scompil";
-import "c++/statement/test_statement.scompil";
+import "c++/statement/statement.scompil";
+import "c++/preprocessor/macro_name.scompil";
+import "c++/preprocessor/macro_parameter.scompil";
 
 package lang.cpp;
 
-hierarchy
-factory<Statement> StatementFactory
+streamable
+structure MacroStatement
+    inherit Statement
 {
+    runtime identification;
+    
+    MacroName name;
+    vector<MacroParameter> parameters;
 }

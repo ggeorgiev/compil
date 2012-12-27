@@ -32,14 +32,10 @@
 
 compil { }
 
-import "c++/statement/compound_statement.scompil";
-import "c++/statement/declaration_statement.scompil";
-import "c++/statement/macro_statement.scompil";
-import "c++/statement/test_statement.scompil";
-
 package lang.cpp;
 
-hierarchy
-factory<Statement> StatementFactory
+streamable
+structure Expression
 {
+    string value;
 }

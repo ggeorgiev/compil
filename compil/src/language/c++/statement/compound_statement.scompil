@@ -39,6 +39,7 @@ package lang.cpp;
 streamable
 structure CompoundStatement
     inherit Statement
+        alter close = no
 {
     runtime identification;
     

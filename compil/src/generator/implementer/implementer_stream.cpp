@@ -34,6 +34,8 @@
 
 #include "c++/preprocessor/macro.h"
 #include "c++/statement/compound_statement.h"
+#include "c++/statement/statement_factory.h"
+#include "c++/statement/test_statement.h"
 
 using namespace lang;
 using namespace lang::cpp;
@@ -63,18 +65,46 @@ ImplementerStream& operator<<(ImplementerStream& stream, const TestSuite& suite)
     {
         const TestSPtr& test = *it;
 
-        MacroSPtr macro = macroRef();
+        MacroStatementSPtr macro = macroStatementRef();
         macro << MacroName("TEST");
         
         macro << MacroParameter(suite.name().value());
         macro << MacroParameter(test->name().value());
+        macro << Statement::EClose::no();
         
         stream.mFormatter << macro;
         
-        CompoundStatementSPtr statement = compoundStatementRef();
-        statement << test->statements();
+        CompoundStatementSPtr compoundStatement = compoundStatementRef();
         
-        stream.mFormatter << statement;
+        const std::vector<StatementSPtr>& statements = test->statements();
+        for (std::vector<StatementSPtr>::const_iterator it = statements.begin(); it != statements.end(); ++it)
+        {
+            StatementSPtr statement = *it;
+        
+            if (statement->runtimeStatementId() == UnaryTestStatement::staticStatementId())
+            {
+                UnaryTestStatementSPtr teststatement = UnaryTestStatement::downcast(statement);
+                MacroStatementSPtr macro = macroStatementRef();
+                switch (teststatement->type().value())
+                {
+                    case UnaryTestStatement::EType::kIsTrue:
+                        macro << MacroName("EXPECT_TRUE");
+                        break;
+                    case UnaryTestStatement::EType::kIsFalse:
+                        macro << MacroName("EXPECT_FALSE");
+                        break;
+                    default:
+                        assert(false);
+                }
+                
+                macro << MacroParameter(teststatement->expression()->value());
+                statement = macro;
+            }
+                
+            compoundStatement << statement;
+        }
+        
+        stream.mFormatter << compoundStatement;
     }
 
     return stream;

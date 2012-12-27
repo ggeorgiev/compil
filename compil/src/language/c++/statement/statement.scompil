@@ -40,4 +40,11 @@ sharable streamable
 structure Statement
 {
     runtime identification;
+    
+    strong enum Close
+    {
+        yes;
+        no;
+    }
+    Close close = yes;
 }

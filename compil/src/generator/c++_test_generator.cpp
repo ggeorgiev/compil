@@ -34,6 +34,7 @@
 #include "implementer_stream.h"
 
 #include "c++/test/test_suite.h"
+#include "c++/statement/test_statement.h"
 #include "c++/statement/declaration_statement.h"
 
 namespace compil
@@ -66,12 +67,22 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
     TestSuite suite;
     suite << TestSuiteName(pStructure->name()->value() + "Test");
     
-    TestSPtr test = testRef();
-    test << TestName("test")
-         << (declarationStatementRef() << ClassName(pStructure->name()->value())
-                                       << std::string("structure"));
-    
-    suite << test;
+    if (pStructure->isInitializable())
+    {
+        TestSPtr test = testRef();
+        test << TestName("isInitialized");
+        
+        test << (declarationStatementRef() << ClassName(pStructure->name()->value())
+                                           << std::string("structure"));
+                                           
+        UnaryTestStatement::EType type = pStructure->isOptional()
+                                         ? UnaryTestStatement::EType::isTrue()
+                                         : UnaryTestStatement::EType::isFalse();
+        test << (unaryTestStatementRef() << type
+                                         << (expressionRef() << std::string("structure.isInitialized()")));
+        
+        suite << test;
+    }
     
     ImplementerStream stream(impl->mpConfiguration, frm->mpFormatterConfiguration, mpAlignerConfiguration);
     

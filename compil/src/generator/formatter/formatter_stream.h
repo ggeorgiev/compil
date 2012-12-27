@@ -40,7 +40,7 @@
 
 #include "c++/statement/compound_statement.h"
 #include "c++/statement/declaration_statement.h"
-#include "c++/preprocessor/macro.h"
+#include "c++/statement/macro_statement.h"
 
 class FormatterStream
 {
@@ -60,8 +60,9 @@ typedef boost::weak_ptr<FormatterStream> FormatterStreamWPtr;
 
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::CompoundStatementSPtr&);
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::DeclarationStatementSPtr&);
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::MacroSPtr&);
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::MacroStatementSPtr&);
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::StatementSPtr&);
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::Statement::EClose&);
 
 #endif
 

@@ -72,7 +72,7 @@ FormatterStream& operator<<(FormatterStream& stream, const CompoundStatementSPtr
     }
     
     stream.mAligner << scope;
-    return stream;
+    return stream << compoundStatement->close();
 }
 
 FormatterStream& operator<<(FormatterStream& stream, const DeclarationStatementSPtr& statement)
@@ -80,11 +80,10 @@ FormatterStream& operator<<(FormatterStream& stream, const DeclarationStatementS
     stream.mAligner << statement->typeId().value();
     stream.mAligner << " ";
     stream.mAligner << statement->typeName();
-    stream.mAligner << ";";
-    return stream;
+    return stream << statement->close();
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const MacroSPtr& macro)
+FormatterStream& operator<<(FormatterStream& stream, const MacroStatementSPtr& macro)
 {
     stream.mAligner << macro->name().value();
     
@@ -100,8 +99,7 @@ FormatterStream& operator<<(FormatterStream& stream, const MacroSPtr& macro)
     }
     
     stream.mAligner << list;
-    
-    return stream;
+    return stream << macro->close();
 }
 
 FormatterStream& operator<<(FormatterStream& stream, const StatementSPtr& statement)
@@ -110,8 +108,15 @@ FormatterStream& operator<<(FormatterStream& stream, const StatementSPtr& statem
         return stream << CompoundStatement::downcast(statement);
     if (statement->runtimeStatementId() == DeclarationStatement::staticStatementId())
         return stream << DeclarationStatement::downcast(statement);
+    if (statement->runtimeStatementId() == MacroStatement::staticStatementId())
+        return stream << MacroStatement::downcast(statement);
          
     return stream;
 }
 
-
+FormatterStream& operator<<(FormatterStream& stream, const Statement::EClose& close)
+{
+    if (close == Statement::EClose::yes())
+        stream.mAligner << ";";
+    return stream;
+}
