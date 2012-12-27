@@ -43,15 +43,18 @@ lib generator-lib
 
     aligner/aligner.cpp
     aligner/aligner_configuration.cpp
+    aligner/aligner_stream.cpp
     aligner/function_definition_aligner.cpp
     aligner/line_aligner.cpp
     aligner/table_aligner.cpp
     formatter/c++_formatter.cpp
     formatter/c++_keyword.cpp
     formatter/formatter_configuration.cpp
+    formatter/formatter_stream.cpp
     implementer/c++_implementer.cpp
     implementer/dependency.cpp
     implementer/implementer_configuration.cpp
+    implementer/implementer_stream.cpp
     boost_path_resolve.cpp
     c++_flags_enumeration_generator.cpp
     c++_generator.cpp
@@ -71,6 +74,8 @@ lib generator-lib
     
     $(TOP)/compiler//compiler
     $(TOP)/language//language
+  :
+    <implicit-dependency>$(TOP)/language//language
   ;
     
 exe generator

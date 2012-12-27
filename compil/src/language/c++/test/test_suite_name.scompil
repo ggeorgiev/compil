@@ -30,49 +30,10 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
+compil { }
 
-#ifndef _CPP_TEST_GENERATOR_H__
-#define _CPP_TEST_GENERATOR_H__
+package lang.cpp;
 
-#include "generator.h"
-
-#include <boost/shared_ptr.hpp>
-
-#include <memory>
-#include <string>
-
-namespace compil
+specimen<string> TestSuiteName
 {
-
-class CppTestGenerator : public Generator
-{
-public:
-    CppTestGenerator();
-    virtual ~CppTestGenerator();
-    
-    virtual bool generate();
-    
-protected:
-    virtual void generateStructureDeclaration(const StructureSPtr& pStructure);
-
-    virtual void generateObjectDeclaration(const ObjectSPtr& pObject);
-
-    static const int mainStream;
-};
-
-typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
-
 }
-
-#else
-
-namespace compil
-{
-
-class CppTestGenerator;
-typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
-
-}
-
-#endif
-

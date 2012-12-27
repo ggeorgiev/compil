@@ -30,49 +30,50 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
+#include "implementer_stream.h"
 
-#ifndef _CPP_TEST_GENERATOR_H__
-#define _CPP_TEST_GENERATOR_H__
+#include "c++/preprocessor/macro.h"
+#include "c++/compound_statement.h"
 
-#include "generator.h"
+using namespace lang;
+using namespace lang::cpp;
 
-#include <boost/shared_ptr.hpp>
-
-#include <memory>
-#include <string>
-
-namespace compil
+ImplementerStream::ImplementerStream(const ImplementerConfigurationPtr& implementerConfiguration,
+                                     const FormatterConfigurationPtr& formatterConfiguration,
+                                     const AlignerConfigurationPtr& alignerConfiguration)
+    : mFormatter(formatterConfiguration, alignerConfiguration)
+    , mConfiguration(implementerConfiguration)
 {
-
-class CppTestGenerator : public Generator
-{
-public:
-    CppTestGenerator();
-    virtual ~CppTestGenerator();
-    
-    virtual bool generate();
-    
-protected:
-    virtual void generateStructureDeclaration(const StructureSPtr& pStructure);
-
-    virtual void generateObjectDeclaration(const ObjectSPtr& pObject);
-
-    static const int mainStream;
-};
-
-typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
-
 }
 
-#else
-
-namespace compil
+ImplementerStream::~ImplementerStream()
 {
-
-class CppTestGenerator;
-typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
-
 }
 
-#endif
+std::string ImplementerStream::str()
+{
+    return mFormatter.str();
+}
 
+ImplementerStream& operator<<(ImplementerStream& stream, const TestSuite& suite)
+{
+    const std::vector<lang::cpp::TestSPtr>& tests = suite.tests();
+    
+    for (std::vector<TestSPtr>::const_iterator it = tests.begin(); it != tests.end(); ++it)
+    {
+        const TestSPtr& test = *it;
+
+        Macro macro;
+        macro << MacroName("TEST");
+        
+        macro << MacroParameter(suite.name().value());
+        macro << MacroParameter(test->name().value());
+        
+        stream.mFormatter << macro;
+        
+        CompoundStatement statement;
+        stream.mFormatter << statement;
+    }
+
+    return stream;
+}

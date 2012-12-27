@@ -32,8 +32,14 @@
 
 compil { }
 
+import "test_suite_name.scompil";
+import "test.scompil";
+
 package lang.cpp;
 
-specimen<string> TestSuite
+streamable
+structure TestSuite
 {
+    TestSuiteName name;
+    vector<reference<Test>> tests;
 }

@@ -30,49 +30,35 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-
-#ifndef _CPP_TEST_GENERATOR_H__
-#define _CPP_TEST_GENERATOR_H__
-
-#include "generator.h"
-
 #include <boost/shared_ptr.hpp>
 
-#include <memory>
-#include <string>
+#ifndef _IMPLEMENTER_STREAM_H__
+#define _IMPLEMENTER_STREAM_H__
 
-namespace compil
-{
+#include "implementer_configuration.h"
 
-class CppTestGenerator : public Generator
+#include "formatter_stream.h"
+
+#include "c++/test/test_suite.h"
+
+class ImplementerStream
 {
 public:
-    CppTestGenerator();
-    virtual ~CppTestGenerator();
+    ImplementerStream(const ImplementerConfigurationPtr& implementerConfiguration,
+                      const FormatterConfigurationPtr& formatterConfiguration,
+                      const AlignerConfigurationPtr& alignerConfiguration);
+    virtual ~ImplementerStream();
     
-    virtual bool generate();
+    std::string str();
     
-protected:
-    virtual void generateStructureDeclaration(const StructureSPtr& pStructure);
-
-    virtual void generateObjectDeclaration(const ObjectSPtr& pObject);
-
-    static const int mainStream;
+    FormatterStream mFormatter;
+    ImplementerConfigurationPtr mConfiguration;
 };
 
-typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
+typedef boost::shared_ptr<ImplementerStream> ImplementerStreamSPtr;
+typedef boost::weak_ptr<ImplementerStream> ImplementerStreamWPtr;
 
-}
-
-#else
-
-namespace compil
-{
-
-class CppTestGenerator;
-typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
-
-}
+ImplementerStream& operator<<(ImplementerStream& stream, const lang::cpp::TestSuite&);
 
 #endif
 

@@ -30,49 +30,36 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-
-#ifndef _CPP_TEST_GENERATOR_H__
-#define _CPP_TEST_GENERATOR_H__
-
-#include "generator.h"
-
 #include <boost/shared_ptr.hpp>
 
-#include <memory>
-#include <string>
+#ifndef _ALIGNER_STREAM_H__
+#define _ALIGNER_STREAM_H__
 
-namespace compil
-{
+#include "aligner_configuration.h"
 
-class CppTestGenerator : public Generator
+#include "all/list.h"
+#include "all/scope.h"
+
+#include <iostream>
+
+class AlignerStream
 {
 public:
-    CppTestGenerator();
-    virtual ~CppTestGenerator();
+    AlignerStream(const AlignerConfigurationPtr& configuration);
+    virtual ~AlignerStream();
     
-    virtual bool generate();
+    std::string str();
     
-protected:
-    virtual void generateStructureDeclaration(const StructureSPtr& pStructure);
-
-    virtual void generateObjectDeclaration(const ObjectSPtr& pObject);
-
-    static const int mainStream;
+    std::ostringstream string;
+    AlignerConfigurationPtr mConfiguration;
 };
 
-typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
+typedef boost::shared_ptr<AlignerStream> AlignerStreamSPtr;
+typedef boost::weak_ptr<AlignerStream> AlignerStreamWPtr;
 
-}
-
-#else
-
-namespace compil
-{
-
-class CppTestGenerator;
-typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
-
-}
+AlignerStream& operator<<(AlignerStream& stream, const std::string&);
+AlignerStream& operator<<(AlignerStream& stream, const lang::List&);
+AlignerStream& operator<<(AlignerStream& stream, const lang::Scope&);
 
 #endif
 

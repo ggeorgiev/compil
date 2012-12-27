@@ -179,8 +179,9 @@ public:
     virtual std::string defaultValue(const AlterSPtr& pAlter) const;
     virtual std::string defaultValue(const FieldSPtr& pField) const;
     
-protected:
     FormatterConfigurationPtr mpFormatterConfiguration;
+
+protected:
     PackageSPtr mpCurrentPackage;
     CppKeywordPtr mpKeyword;
 };

@@ -14,10 +14,20 @@ lib language
   :
     $(TOP)/core/boost/boost_assert_handler.cpp
     
-    c++/test_name.scompil
-    c++/test_suite.scompil
-    c++/test.scompil
-  
+    all/list.scompil
+    all/scope.scompil
+    
+    c++/compound_statement.scompil
+
+    c++/preprocessor/macro.scompil
+    c++/preprocessor/macro_parameter.scompil
+    c++/preprocessor/macro_name.scompil
+    
+    c++/test/test.scompil
+    c++/test/test_name.scompil
+    c++/test/test_suite.scompil
+    c++/test/test_suite_name.scompil
+    
     #c++/class_name.compil
     #c++/class.compil
     #c++/comment.compil

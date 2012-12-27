@@ -30,49 +30,17 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
+compil { }
 
-#ifndef _CPP_TEST_GENERATOR_H__
-#define _CPP_TEST_GENERATOR_H__
+import "macro_name.scompil";
+import "macro_parameter.scompil";
 
-#include "generator.h"
+package lang.cpp;
 
-#include <boost/shared_ptr.hpp>
-
-#include <memory>
-#include <string>
-
-namespace compil
+streamable
+structure Macro 
 {
-
-class CppTestGenerator : public Generator
-{
-public:
-    CppTestGenerator();
-    virtual ~CppTestGenerator();
+    MacroName name;
     
-    virtual bool generate();
-    
-protected:
-    virtual void generateStructureDeclaration(const StructureSPtr& pStructure);
-
-    virtual void generateObjectDeclaration(const ObjectSPtr& pObject);
-
-    static const int mainStream;
-};
-
-typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
-
+    vector<MacroParameter> parameters;
 }
-
-#else
-
-namespace compil
-{
-
-class CppTestGenerator;
-typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
-
-}
-
-#endif
-

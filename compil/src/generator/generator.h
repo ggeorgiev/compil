@@ -109,6 +109,7 @@ protected:
     
     CppFormatterPtr frm;
     CppImplementerPtr impl;
+    AlignerConfigurationPtr mpAlignerConfiguration;
 
     ModelPtr mpModel;
     std::vector<boost::shared_ptr<std::stringstream> > mStreams;
@@ -118,7 +119,6 @@ protected:
 private:
     boost::shared_ptr<std::ostream> mpOutput;
 
-    AlignerConfigurationPtr mpAlignerConfiguration;
     LineAlignerPtr mpLineAligner;
     TableAlignerPtr mpTableAligner;
     FunctionDefinitionAlignerPtr mpFunctionDefinitionAligner;

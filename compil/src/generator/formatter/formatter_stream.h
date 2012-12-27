@@ -30,49 +30,35 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-
-#ifndef _CPP_TEST_GENERATOR_H__
-#define _CPP_TEST_GENERATOR_H__
-
-#include "generator.h"
-
 #include <boost/shared_ptr.hpp>
 
-#include <memory>
-#include <string>
+#ifndef _FORMATTER_STREAM_H__
+#define _FORMATTER_STREAM_H__
 
-namespace compil
-{
+#include "formatter_configuration.h"
+#include "aligner_stream.h"
 
-class CppTestGenerator : public Generator
+#include "c++/compound_statement.h"
+#include "c++/preprocessor/macro.h"
+
+class FormatterStream
 {
 public:
-    CppTestGenerator();
-    virtual ~CppTestGenerator();
+    FormatterStream(const FormatterConfigurationPtr& formatterConfiguration,
+                    const AlignerConfigurationPtr& alignerConfiguration);
+    virtual ~FormatterStream();
     
-    virtual bool generate();
-    
-protected:
-    virtual void generateStructureDeclaration(const StructureSPtr& pStructure);
+    std::string str();
 
-    virtual void generateObjectDeclaration(const ObjectSPtr& pObject);
-
-    static const int mainStream;
+    AlignerStream mAligner;
+    FormatterConfigurationPtr mConfiguration;
 };
 
-typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
+typedef boost::shared_ptr<FormatterStream> FormatterStreamSPtr;
+typedef boost::weak_ptr<FormatterStream> FormatterStreamWPtr;
 
-}
-
-#else
-
-namespace compil
-{
-
-class CppTestGenerator;
-typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
-
-}
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::CompoundStatement&);
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::Macro&);
 
 #endif
 

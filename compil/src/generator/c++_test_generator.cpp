@@ -31,6 +31,9 @@
 //
 
 #include "c++_test_generator.h"
+#include "implementer_stream.h"
+
+#include "c++/test/test_suite.h"
 
 namespace compil
 {
@@ -50,6 +53,39 @@ CppTestGenerator::~CppTestGenerator()
 {
 }
 
+void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStructure)
+{
+    lang::cpp::TestSuite suite;
+    suite << lang::cpp::TestSuiteName(pStructure->name()->value());
+    
+    lang::cpp::TestSPtr test = lang::cpp::testRef();
+    
+    test << lang::cpp::TestName("test");
+    suite << test;
+    
+    ImplementerStream stream(impl->mpConfiguration, frm->mpFormatterConfiguration, mpAlignerConfiguration);
+    
+    stream << suite;
+    
+    line() << stream.str();
+    eol(mainStream);
+}
+
+void CppTestGenerator::generateObjectDeclaration(const ObjectSPtr& pObject)
+{
+    switch (pObject->runtimeObjectId().value())
+    {
+        case EObjectId::kStructure:
+        {
+            StructureSPtr pStructure = boost::static_pointer_cast<Structure>(pObject);
+            generateStructureDeclaration(pStructure);
+            break;
+        }
+        default:
+            break;
+    }
+}
+
 bool CppTestGenerator::generate()
 {
     addDependency(impl->cppHeaderFileDependency(mpModel->name()->value(),
@@ -62,20 +98,17 @@ bool CppTestGenerator::generate()
                              "Google Test framework"));
                              
     includeHeaders(mainStream, Dependency::private_section);
-
-    line()  << "TEST(StructuresTest, isInitialize)"
-"{"
-"    StructureIsInitialize structure;"
-"    EXPECT_FALSE(structure.isInitialized());"
-""
-"    structure.set_r(5);"
-"    EXPECT_TRUE(structure.isInitialized());"
-""
-"    structure.erase_r();"
-"    EXPECT_FALSE(structure.isInitialized());"
-"}";
-    eol(mainStream);
     
+    const std::vector<ObjectSPtr>& objects = mpModel->objects();
+    std::vector<ObjectSPtr>::const_iterator it;
+    for (it = objects.begin(); it != objects.end(); ++it)
+    {
+		if ((*it)->sourceId() != mpModel->mainDocument()->sourceId())
+			continue;
+
+        generateObjectDeclaration(*it);
+    }
+
     return serializeStreams();
 }
 

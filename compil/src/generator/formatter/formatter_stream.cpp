@@ -30,49 +30,57 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
+#include "formatter_stream.h"
 
-#ifndef _CPP_TEST_GENERATOR_H__
-#define _CPP_TEST_GENERATOR_H__
+#include "all/list.h"
+#include "all/scope.h"
 
-#include "generator.h"
+using namespace lang;
+using namespace lang::cpp;
 
-#include <boost/shared_ptr.hpp>
-
-#include <memory>
-#include <string>
-
-namespace compil
+FormatterStream::FormatterStream(const FormatterConfigurationPtr& formatterConfiguration,
+                                 const AlignerConfigurationPtr& alignerConfiguration)
+    : mAligner(alignerConfiguration)
+    , mConfiguration(formatterConfiguration)
 {
-
-class CppTestGenerator : public Generator
-{
-public:
-    CppTestGenerator();
-    virtual ~CppTestGenerator();
-    
-    virtual bool generate();
-    
-protected:
-    virtual void generateStructureDeclaration(const StructureSPtr& pStructure);
-
-    virtual void generateObjectDeclaration(const ObjectSPtr& pObject);
-
-    static const int mainStream;
-};
-
-typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
-
 }
 
-#else
-
-namespace compil
+FormatterStream::~FormatterStream()
 {
-
-class CppTestGenerator;
-typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
-
 }
 
-#endif
+std::string FormatterStream::str()
+{
+    return mAligner.str();
+}
+
+FormatterStream& operator<<(FormatterStream& stream, const CompoundStatement& compoundStatement)
+{
+    Scope scope;
+    scope << Scope::ESquiggles::brackets();
+    
+    stream.mAligner << scope;
+    return stream;
+}
+
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::Macro& macro)
+{
+    stream.mAligner << macro.name().value();
+    
+    List list;
+    list << List::ESquiggles::parentheses();
+    list << List::EDelimiter::comma();
+    
+    const std::vector<MacroParameter>& parameters = macro.parameters();
+    for (std::vector<MacroParameter>::const_iterator it = parameters.begin(); it != parameters.end(); ++it)
+    {
+        const MacroParameter& parameter = *it;
+        list << parameter.value();
+    }
+    
+    stream.mAligner << list;
+    
+    return stream;
+}
+
 

@@ -32,14 +32,17 @@
 
 compil { }
 
-import "test_name.scompil";
-import "test_suite.scompil";
-
-package lang.cpp;
+package lang;
 
 streamable
-structure Test 
+structure Scope 
 {
-    TestSuite suite;
-    TestName name;
+    strong enum Squiggles
+    {
+        none;
+        brackets;
+    }
+    Squiggles squiggles;
+
+    vector<string> lines;
 }

@@ -30,49 +30,74 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
+#include "aligner_stream.h"
 
-#ifndef _CPP_TEST_GENERATOR_H__
-#define _CPP_TEST_GENERATOR_H__
+using namespace lang;
 
-#include "generator.h"
-
-#include <boost/shared_ptr.hpp>
-
-#include <memory>
-#include <string>
-
-namespace compil
+AlignerStream::AlignerStream(const AlignerConfigurationPtr& configuration)
+    : mConfiguration(configuration)
 {
-
-class CppTestGenerator : public Generator
-{
-public:
-    CppTestGenerator();
-    virtual ~CppTestGenerator();
-    
-    virtual bool generate();
-    
-protected:
-    virtual void generateStructureDeclaration(const StructureSPtr& pStructure);
-
-    virtual void generateObjectDeclaration(const ObjectSPtr& pObject);
-
-    static const int mainStream;
-};
-
-typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
-
 }
 
-#else
-
-namespace compil
+AlignerStream::~AlignerStream()
 {
-
-class CppTestGenerator;
-typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
-
 }
 
-#endif
+std::string AlignerStream::str()
+{
+    return string.str();
+}
 
+AlignerStream& operator<<(AlignerStream& stream, const std::string& string)
+{
+    stream.string << string;
+    
+    return stream;
+}
+
+AlignerStream& operator<<(AlignerStream& stream, const List& list)
+{
+    switch (list.squiggles().value())
+    {
+        case List::ESquiggles::kParentheses:
+            stream.string << "(";
+            break;
+    }
+    
+    const std::vector<std::string>& items = list.items();
+    for (std::vector<std::string>::const_iterator it = items.begin(); it != items.end(); ++it)
+    {
+        const std::string& item = *it;
+        
+        if (it != items.begin())
+        {
+            switch (list.delimiter().value())
+            {
+                case List::EDelimiter::kComma:
+                    stream.string << ", ";
+                    break;
+            }
+        }
+        
+        stream.string << item;
+    }
+    
+    switch (list.squiggles().value())
+    {
+        case List::ESquiggles::kParentheses:
+            stream.string << ")";
+            break;
+    }
+    
+    return stream;
+}
+
+AlignerStream& operator<<(AlignerStream& stream, const Scope&)
+{
+    stream.string << std::endl;
+    stream.string << "{";
+    stream.string << std::endl;
+    stream.string << "}";
+    stream.string << std::endl;
+    return stream;
+}
