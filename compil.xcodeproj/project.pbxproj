@@ -401,6 +401,18 @@
 		5EB86F94168C0A920049B6A9 /* test_statement.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_statement.scompil; sourceTree = "<group>"; };
 		5EB86F9D168CCD800049B6A9 /* expression_factory.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = expression_factory.scompil; sourceTree = "<group>"; };
 		5EB86F9F168CCD870049B6A9 /* custom_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = custom_expression.scompil; sourceTree = "<group>"; };
+		5EB86FA0168CDE1F0049B6A9 /* postfix_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = postfix_expression.scompil; sourceTree = "<group>"; };
+		5EB86FA1168CF8470049B6A9 /* dot_postfix_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = dot_postfix_expression.scompil; sourceTree = "<group>"; };
+		5EB86FA2168CF93F0049B6A9 /* custom_postfix_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = custom_postfix_expression.scompil; sourceTree = "<group>"; };
+		5EB86FA3168CFA390049B6A9 /* id_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = id_expression.scompil; sourceTree = "<group>"; };
+		5EB86FA5168CFABD0049B6A9 /* unqualified_id.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = unqualified_id.scompil; sourceTree = "<group>"; };
+		5EB86FA6168CFAC70049B6A9 /* unqualified_id_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = unqualified_id_expression.scompil; sourceTree = "<group>"; };
+		5EB86FA7168CFAE50049B6A9 /* identifier_unqualified_id.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = identifier_unqualified_id.scompil; sourceTree = "<group>"; };
+		5EB86FA9168CFD300049B6A9 /* identifier.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = identifier.scompil; sourceTree = "<group>"; };
+		5EB86FAA168D05410049B6A9 /* primary_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = primary_expression.scompil; sourceTree = "<group>"; };
+		5EB86FAB168D05970049B6A9 /* id_expression_primary_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = id_expression_primary_expression.scompil; sourceTree = "<group>"; };
+		5EB86FAC168D062E0049B6A9 /* primary_expression_postfix_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = primary_expression_postfix_expression.scompil; sourceTree = "<group>"; };
+		5EB86FAD168D080E0049B6A9 /* custom_id_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = custom_id_expression.scompil; sourceTree = "<group>"; };
 		5EC0D2271618D2D200802C95 /* type.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type.h; sourceTree = "<group>"; };
 		5EC0D2291618D3C600802C95 /* type-partial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "type-partial.cpp"; sourceTree = "<group>"; };
 		5EC0D22A1618D3C600802C95 /* type-partial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "type-partial.h"; sourceTree = "<group>"; };
@@ -1012,6 +1024,7 @@
 			children = (
 				5EB86F89168BE1910049B6A9 /* class */,
 				5EB86F91168C01E40049B6A9 /* expression */,
+				5EB86FA8168CFD2E0049B6A9 /* lexical */,
 				5EB86F6D168BA81D0049B6A9 /* preprocessor */,
 				5EB86F86168BDFA90049B6A9 /* statement */,
 				5EB86F68168BA7320049B6A9 /* test */,
@@ -1099,10 +1112,29 @@
 			isa = PBXGroup;
 			children = (
 				5EB86F9F168CCD870049B6A9 /* custom_expression.scompil */,
+				5EB86FAD168D080E0049B6A9 /* custom_id_expression.scompil */,
+				5EB86FA2168CF93F0049B6A9 /* custom_postfix_expression.scompil */,
+				5EB86FA1168CF8470049B6A9 /* dot_postfix_expression.scompil */,
 				5EB86F92168C01E50049B6A9 /* expression.scompil */,
+				5EB86FA3168CFA390049B6A9 /* id_expression.scompil */,
+				5EB86FAB168D05970049B6A9 /* id_expression_primary_expression.scompil */,
+				5EB86FA7168CFAE50049B6A9 /* identifier_unqualified_id.scompil */,
 				5EB86F9D168CCD800049B6A9 /* expression_factory.scompil */,
+				5EB86FA0168CDE1F0049B6A9 /* postfix_expression.scompil */,
+				5EB86FAA168D05410049B6A9 /* primary_expression.scompil */,
+				5EB86FAC168D062E0049B6A9 /* primary_expression_postfix_expression.scompil */,
+				5EB86FA6168CFAC70049B6A9 /* unqualified_id_expression.scompil */,
+				5EB86FA5168CFABD0049B6A9 /* unqualified_id.scompil */,
 			);
 			path = expression;
+			sourceTree = "<group>";
+		};
+		5EB86FA8168CFD2E0049B6A9 /* lexical */ = {
+			isa = PBXGroup;
+			children = (
+				5EB86FA9168CFD300049B6A9 /* identifier.scompil */,
+			);
+			path = lexical;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

@@ -33,10 +33,8 @@
 #include "c++_test_generator.h"
 #include "implementer_stream.h"
 
-#include "c++/expression/custom_expression.h"
-#include "c++/test/test_suite.h"
-#include "c++/statement/test_statement.h"
-#include "c++/statement/declaration_statement.h"
+#include "c++/expression/expression_factory.h"
+#include "c++/statement/statement_factory.h"
 
 namespace compil
 {
@@ -73,14 +71,31 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
         TestSPtr test = testRef();
         test << TestName("isInitialized");
         
+        lang::cpp::IdentifierSPtr structureIdentifier = identifierRef()
+            << "structure";
+        IdentifierUnqualifiedIdSPtr structureUnqualifiedId = identifierUnqualifiedIdRef()
+            << structureIdentifier;
+        UnqualifiedIdExpressionSPtr unqualifiedIdExpression = unqualifiedIdExpressionRef()
+            << structureUnqualifiedId;
+        IdExpressionPrimaryExpressionSPtr primaryExpression = idExpressionPrimaryExpressionRef()
+            << boost::shared_polymorphic_cast<IdExpression>(unqualifiedIdExpression);
+        PrimaryExpressionPostfixExpressionSPtr postfixExpression = primaryExpressionPostfixExpressionRef()
+            << boost::shared_polymorphic_cast<PrimaryExpression>(primaryExpression);
+        
+        CustomIdExpressionSPtr isInitialized = customIdExpressionRef()
+            << "isInitialized()";
+        DotPostfixExpressionSPtr structureIsInitialized = dotPostfixExpressionRef()
+            << boost::shared_polymorphic_cast<PostfixExpression>(postfixExpression)
+            << boost::shared_polymorphic_cast<IdExpression>(isInitialized);
+        
         test << (declarationStatementRef() << ClassName(pStructure->name()->value())
-                                           << std::string("structure"));
+                                           << structureIdentifier);
                                            
         UnaryTestStatement::EType type = pStructure->isOptional()
                                          ? UnaryTestStatement::EType::isTrue()
                                          : UnaryTestStatement::EType::isFalse();
         test << (unaryTestStatementRef() << type
-                                         << (customExpressionRef() << std::string("structure.isInitialized()")));
+                                         << structureIsInitialized);
         
         suite << test;
     }

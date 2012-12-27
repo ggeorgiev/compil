@@ -17,12 +17,25 @@ lib language
     all/list.scompil
     all/scope.scompil
     
-    c++/expression/custom_expression.scompil
-    c++/expression/expression.scompil
-    c++/expression/expression_factory.scompil
-    
     c++/class/class.scompil
     c++/class/class_name.scompil
+    
+    c++/expression/custom_expression.scompil
+    c++/expression/custom_id_expression.scompil
+    c++/expression/custom_postfix_expression.scompil
+    c++/expression/dot_postfix_expression.scompil
+    c++/expression/expression.scompil
+    c++/expression/id_expression.scompil
+    c++/expression/id_expression_primary_expression.scompil
+    c++/expression/identifier_unqualified_id.scompil
+    c++/expression/expression_factory.scompil
+    c++/expression/postfix_expression.scompil
+    c++/expression/primary_expression.scompil
+    c++/expression/primary_expression_postfix_expression.scompil
+    c++/expression/unqualified_id_expression.scompil
+    c++/expression/unqualified_id.scompil
+    
+    c++/lexical/identifier.scompil
     
     c++/statement/compound_statement.scompil
     c++/statement/declaration_statement.scompil

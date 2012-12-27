@@ -38,10 +38,8 @@
 #include "formatter_configuration.h"
 #include "aligner_stream.h"
 
-#include "c++/expression/custom_expression.h"
-#include "c++/statement/compound_statement.h"
-#include "c++/statement/declaration_statement.h"
-#include "c++/statement/macro_statement.h"
+#include "c++/expression/expression_factory.h"
+#include "c++/statement/statement_factory.h"
 
 class FormatterStream
 {
@@ -61,11 +59,17 @@ typedef boost::weak_ptr<FormatterStream> FormatterStreamWPtr;
 
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::CompoundStatementSPtr&);
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::CustomExpressionSPtr&);
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::CustomIdExpressionSPtr&);
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::DotPostfixExpressionSPtr&);
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::DeclarationStatementSPtr&);
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::ExpressionSPtr&);
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::MacroStatementSPtr&);
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::IdentifierUnqualifiedIdSPtr&);
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::IdExpressionPrimaryExpressionSPtr&);
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::PrimaryExpressionPostfixExpressionSPtr&);
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::StatementSPtr&);
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::Statement::EClose&);
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::UnqualifiedIdExpressionSPtr&);
 
 #endif
 

@@ -1,0 +1,1879 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<!-- saved from url=(0070)http://homepages.e3.net.nz/~djm/cppgrammar.html#pseudo-destructor-name -->
+<html><head><meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
+<title>C++ Grammar Summary</title>
+<link rel="shortcut icon" href="http://homepages.e3.net.nz/~djm/favicon.ico">
+<style>
+@import "djm.css";
+</style>
+<script src="./grammar_summary_files/quicklink.js"></script>
+</head>
+<body>
+
+<h1>C++ Grammar Summary</h1>
+<p>
+</p><div id="main">
+From the Annex A of ISO/IEC 14882:1998 (The C++ Standard). As
+it says there, this is not an exact statement of the language.
+<p>
+Go straight to:
+<a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#translation-unit"><i>translation-unit</i></a>.
+</p><p>
+</p><h4>A.1 Keywords</h4>
+
+<dl>
+<dt> <a name="typedef-name"></a><i>typedef-name</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="namespace-name"></a><i>namespace-name</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#original-namespace-name"><i>original-namespace-name</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#namespace-alias"><i>namespace-alias</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="namespace-alias"></a><i>namespace-alias</i>:</dt> 
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="typedef-name"></a><i>class-name</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-id"><i>template-id</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="enum-name"></a><i>enum-name</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="template-name"></a><i>template-name</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+</dl>
+
+<h4>A.2 Lexical conventions</h4>
+
+<dl>
+<dt> <a name="hex-quad"></a><i>hex-quad</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#hexadecimal-digit"><i>hexadecimal-digit</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#hexadecimal-digit"><i>hexadecimal-digit</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#hexadecimal-digit"><i>hexadecimal-digit</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#hexadecimal-digit"><i>hexadecimal-digit</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="universal-character-name"></a><i>universal-character-name</i>:</dt>
+<dd> <code>\u</code> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#hex-quad"><i>hex-quad</i></a></dd>
+<dd> <code>\U</code> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#hex-quad"><i>hex-quad</i></a>
+                     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#hex-quad"><i>hex-quad</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="preprocessing-token"></a><i>preprocessing-token</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#header-name"><i>header-name</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pp-number"><i>pp-number</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#character-literal"><i>character-literal</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#string-literal"><i>string-literal</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#preprocessing-op-or-punc"><i>preprocessing-op-or-punc</i></a></dd>
+<dd> each non-white-space character that cannot be one of the above</dd>
+</dl>
+
+<dl>
+<dt> <a name="token"></a><i>token</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#keyword"><i>keyword</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#literal"><i>literal</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#operator"><i>operator</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#punctuator"><i>punctuator</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="header-name"></a><i>header-name</i>:</dt>
+<dd> <code>&lt;</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#h-char-sequence"><i>h-char-sequence</i></a>
+     <code>&gt;</code></dd>
+<dd> <code>"</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#q-char-sequence"><i>q-char-sequence</i></a>
+     <code>"</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="h-char-sequence"></a><i>h-char-sequence</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#h-char"><i>h-char</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#h-char-sequence"><i>h-char-sequence</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#h-char"><i>h-char</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="h-char"></a><i>h-char</i>:</dt>
+<dd> any member of the source character set except new-line and &gt;</dd>
+</dl>
+
+<dl>
+<dt> <a name="q-char-sequence"></a><i>q-char-sequence</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#q-char"><i>q-char</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#q-char-sequence"><i>q-char-sequence</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#q-char"><i>q-char</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="q-char"></a><i>q-char</i>:</dt>
+<dd> any member of the source character set except new-line and "</dd>
+</dl>
+
+<dl>
+<dt> <a name="pp-number"></a><i>pp-number</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#digit"><i>digit</i></a></dd>
+<dd> <code>.</code> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#digit"><i>digit</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pp-number"><i>pp-number</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#digit"><i>digit</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pp-number"><i>pp-number</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nondigit"><i>nondigit</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pp-number"><i>pp-number</i></a>
+     <code>e</code> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#sign"><i>sign</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pp-number"><i>pp-number</i></a>
+     <code>E</code> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#sign"><i>sign</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pp-number"><i>pp-number</i></a>
+     <code>.</code> </dd>
+</dl>
+
+<dl>
+<dt> <a name="identifier"></a><i>identifier</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nondigit"><i>nondigit</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nondigit"><i>nondigit</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#digit"><i>digit</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="nondigit"></a><i>nondigit</i>: one of</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#universal-character-name"><i>universal-character-name</i></a></dd>
+<dd> <code>_ a b c d e f g h i j k l m</code></dd>
+<dd> <code>  n o p q r s t u v w x y z</code></dd>
+<dd> <code>  A B C D E F G H I J K L M</code></dd>
+<dd> <code>  N O P Q R S T U V W X Y Z</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="digit"></a><i>digit</i>: one of</dt>
+<dd> <code>0 1 2 3 4 5 6 7 8 9</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="preprocessing-op-or-punc"></a><i>preprocessing-op-or-punc</i>: one of</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#"><i></i></a></dd>
+<dd> <code>{ } [ ] # ## ( )</code></dd>
+<dd> <code>&lt;: :&gt; &lt;% %&gt; %: %:%: ; : ...</code></dd>
+<dd> <code>new delete ? :: . .*</code></dd>
+<dd> <code>+ - * / % ^ &amp; | _</code></dd>
+<dd> <code>! = &lt; &gt; += -= *= /= %=</code></dd>
+<dd> <code>^= &amp;= |= &lt;&lt; &gt;&gt; &lt;&lt;= &gt;&gt;= == !=</code></dd>
+<dd> <code>&lt;= &gt;= &amp;&amp; || ++ -- , -&gt;* -&gt;  </code></dd>
+<dd> <code>and and_eq bitand bitor compl not not_eq</code></dd>
+<dd> <code>or or_eq xor xor_eq</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="literal"></a><i>literal</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#integer-literal"><i>integer-literal</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#character-literal"><i>character-literal</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#floating-literal"><i>floating-literal</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#string-literal"><i>string-literal</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#boolean-literal"><i>boolean-literal</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="integer-literal"></a><i>integer-literal</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#decimal-literal"><i>decimal-literal</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#integer-suffix"><i>integer-suffix</i></a><sub><i>opt</i></sub></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#octal-literal"><i>octal-literal</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#integer-suffix"><i>integer-suffix</i></a><sub><i>opt</i></sub></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#hexadecimal-literal"><i>hexadecimal-literal</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#integer-suffix"><i>integer-suffix</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="decimal-literal"></a><i>decimal-literal</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nonzero-digit"><i>nonzero-digit</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#decimal-literal"><i>decimal-literal</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#digit"><i>digit</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="octal-literal"></a><i>octal-literal</i>:</dt>
+<dd> <code>0</code></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#octal-literal"><i>octal-literal</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#octal-digit"><i>octal-digit</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="hexadecimal-literal"></a><i>hexadecimal-literal</i>:</dt>
+<dd> <code>0x</code> 
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#hexadecimal-digit"><i>hexadecimal-digit</i></a></dd>
+<dd> <code>0X</code> 
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#hexadecimal-digit"><i>hexadecimal-digit</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#hexadecimal-literal"><i>hexadecimal-literal</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#hexadecimal-digit"><i>hexadecimal-digit</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="nonzero-digit"></a><i>nonzero-digit</i>: one of</dt>
+<dd> <code>1 2 3 4 5 6 7 8 9</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="octal-digit"></a><i>octal-digit</i>: one of</dt>
+<dd> <code>0 1 2 3 4 5 6 7 </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="hexadecimal-digit"></a><i>hexadecimal-digit</i>: one of</dt>
+<dd> <code>0 1 2 3 4 5 6 7 8 9</code></dd>
+<dd> <code>a b c d e f </code></dd>
+<dd> <code>A B C D E F </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="integer-suffix"></a><i>integer-suffix</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#unsigned-suffix"><i>unsigned-suffix</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#long-suffix"><i>long-suffix</i></a><sub><i>opt</i></sub></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#long-suffix"><i>long-suffix</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#unsigned-suffix"><i>unsigned-suffix</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="unsigned-suffix"></a><i>unsigned-suffix</i>: one of</dt>
+<dd> <code>u U</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="long-suffix"></a><i>long-suffix</i>: one of</dt>
+<dd> <code>l L</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="character-literal"></a><i>character-literal</i>:</dt>
+<dd> <code>'</code> 
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#c-char-sequence"><i>c-char-sequence</i></a>
+     <code>'</code> </dd>
+<dd> <code>L'</code> 
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#c-char-sequence"><i>c-char-sequence</i></a>
+     <code>'</code> </dd>
+</dl>
+
+<dl>
+<dt> <a name="c-char-sequence"></a><i>c-char-sequence</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#c-char"><i>c-char</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#c-char-sequence"><i>c-char-sequence</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#c-char"><i>c-char</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="c-char"></a><i>c-char</i>:</dt>
+<dd> any member of the source character set except the single-quote ',
+     backslash \, or new-line character</dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#escape-sequence"><i>escape-sequence</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#universal-character-name"><i>universal-character-name</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="escape-sequence"></a><i>escape-sequence</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#simple-escape-sequence"><i>simple-escape-sequence</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#octal-escape-sequence"><i>octal-escape-sequence</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#hexadecimal-escape-sequence"><i>hexadecimal-escape-sequence</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="simple-escape-sequence"></a><i>simple-escape-sequence</i>:
+     one of</dt>
+<dd> <code>\' \" \? \\ \a \b \f \n \r \t \v</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="octal-escape-sequence"></a><i>octal-escape-sequence</i>: </dt>
+<dd> <code>\</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#octal-digit"><i>octal-digit</i></a></dd>
+<dd> <code>\</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#octal-digit"><i>octal-digit</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#octal-digit"><i>octal-digit</i></a></dd>
+<dd> <code>\</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#octal-digit"><i>octal-digit</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#octal-digit"><i>octal-digit</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#octal-digit"><i>octal-digit</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="hexadecimal-escape-sequence"></a><i>hexadecimal-escape-sequence</i>: </dt>
+<dd> <code>\x</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#hexadecimal-digit"><i>hexadecimal-digit</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#hexadecimal-escape-sequence"><i>hexadecimal-escape-sequence</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#hexadecimal-digit"><i>hexadecimal-digit</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="floating-literal"></a><i>floating-literal</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#fractional-constant"><i>fractional-constant</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#exponent-part"><i>exponent-part</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#floating-suffix"><i>floating-suffix</i></a><sub><i>opt</i></sub></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#digit-sequence"><i>digit-sequence</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#exponent-part"><i>exponent-part</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#floating-suffix"><i>floating-suffix</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="fractional-constant"></a><i>fractional-constant</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#digit-sequence"><i>digit-sequence</i></a><sub><i>opt</i></sub>
+     <code> . </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#digit-sequence"><i>digit-sequence</i></a>
+</dd><dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#digit-sequence"><i>digit-sequence</i></a>
+     <code> . </code>
+</dd></dl>
+
+<dl>
+<dt> <a name="exponent-part"></a><i>exponent-part</i>:</dt>
+<dd> <code>e</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#sign"><i>sign</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#digit-sequence"><i>digit-sequence</i></a>
+</dd><dd> <code>E</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#sign"><i>sign</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#digit-sequence"><i>digit-sequence</i></a>
+</dd></dl>
+
+<dl>
+<dt> <a name="sign"></a><i>sign</i>: one of</dt>
+<dd> <code>+ -</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="digit-sequence"></a><i>digit-sequence</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#digit"><i>digit</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#digit-sequence"><i>digit-sequence</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#digit"><i>digit</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="floating-suffix"></a><i>floating-suffix</i>: one of</dt>
+<dd> <code>f l F L</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="string-literal"></a><i>string-literal</i>:</dt>
+<dd> <code>"</code> 
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#s-char-sequence"><i>s-char-sequence</i></a>
+     <code>"</code> </dd>
+<dd> <code>L"</code> 
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#s-char-sequence"><i>s-char-sequence</i></a>
+     <code>"</code> </dd>
+</dl>
+
+<dl>
+<dt> <a name="s-char-sequence"></a><i>s-char-sequence</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#s-char"><i>s-char</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#s-char-sequence"><i>s-char-sequence</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#s-char"><i>s-char</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="s-char"></a><i>s-char</i>:</dt>
+<dd> any member of the source character set except the double-quote ",
+     backslash \, or new-line character</dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#escape-sequence"><i>escape-sequence</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#universal-character-name"><i>universal-character-name</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="boolean-literal"></a><i>boolean-literal</i>:</dt>
+<dd> <code>false</code></dd>
+<dd> <code>true</code></dd>
+</dl>
+
+<h4>A.3 Basic concepts</h4>
+
+<dl>
+<dt> <a name="translation-unit"></a><i>translation-unit</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declaration-seq"><i>declaration-seq</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<h4>A.4 Expressions</h4>
+
+<dl>
+<dt> <a name="primary-expression"></a><i>primary-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#literal"><i>literal</i></a></dd>
+<dd> <code>this</code></dd>
+<dd> <code>(</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression"><i>expression</i></a>
+     <code>)</code></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#id-expression"><i>id-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="id-expression"></a><i>id-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#unqualified-id"><i>unqualified-id</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#qualified-id"><i>qualified-id</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="unqualified-id"></a><i>unqualified-id</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#operator-function-id"><i>operator-function-id</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#conversion-function-id"><i>conversion-function-id</i></a></dd>
+<dd> <code>~</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#class-name"><i>class-name</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-id"><i>template-id</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="qualified-id"></a><i>qualified-id</i>:</dt>
+<dd> <code>::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a>
+     <code>template</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#unqualified-id"><i>unqualified-id</i></a></dd>
+<dd> <code>::</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+<dd> <code>::</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#operator-function-id"><i>operator-function-id</i></a></dd>
+<dd> <code>::</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-id"><i>template-id</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="nested-name-specifier"></a><i>nested-name-specifier</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#class-or-namespace-name"><i>class-or-namespace-name</i></a>
+     <code>::</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a><sub><i>opt</i></sub></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#class-or-namespace-name"><i>class-or-namespace-name</i></a>
+     <code>:: template</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="class-or-namespace-name"></a><i>class-or-namespace-name</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#class-name"><i>class-name</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#namespace-name"><i>namespace-name</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="postfix-expression"></a><i>postfix-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#primary-expression"><i>primary-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#postfix-expression"><i>postfix-expression</i></a>
+     <code>[</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression"><i>expression</i></a>
+     <code>]</code></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#postfix-expression"><i>postfix-expression</i></a>
+     <code>(</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression-list"><i>expression-list</i></a><sub><i>opt</i></sub>
+     <code>)</code></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#simple-type-specifier"><i>simple-type-specifier</i></a>
+     <code>(</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression-list"><i>expression-list</i></a><sub><i>opt</i></sub>
+     <code>)</code></dd>
+<dd> <code>typename ::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a>
+     <code>(</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression-list"><i>expression-list</i></a><sub><i>opt</i></sub>
+     <code>)</code></dd>
+<dd> <code>typename ::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a>
+     <code>template</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-id"><i>template-id</i></a>
+     <code>(</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression-list"><i>expression-list</i></a><sub><i>opt</i></sub>
+     <code>)</code></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#postfix-expression"><i>postfix-expression</i></a>
+     <code> . template</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#id-expression"><i>id-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#postfix-expression"><i>postfix-expression</i></a>
+     <code> -&gt; template</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#id-expression"><i>id-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#postfix-expression"><i>postfix-expression</i></a>
+     <code> . </code>
+     <a href="./grammar_summary_files/grammar_summary.html"><i>pseudo-destructor-name</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#postfix-expression"><i>postfix-expression</i></a>
+     <code> -&gt; </code>
+     <a href="./grammar_summary_files/grammar_summary.html"><i>pseudo-destructor-name</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#postfix-expression"><i>postfix-expression</i></a>
+     <code> ++ </code></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#postfix-expression"><i>postfix-expression</i></a>
+     <code> -- </code></dd>
+<dd> <code>dynamic_cast &lt; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-id"><i>type-id</i></a>
+     <code> &gt; (</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression"><i>expression</i></a>
+     <code>)</code></dd>
+<dd> <code>static_cast &lt; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-id"><i>type-id</i></a>
+     <code> &gt; (</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression"><i>expression</i></a>
+     <code>)</code></dd>
+<dd> <code>reinterpret_cast &lt; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-id"><i>type-id</i></a>
+     <code> &gt; (</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression"><i>expression</i></a>
+     <code>)</code></dd>
+<dd> <code>const_cast &lt; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-id"><i>type-id</i></a>
+     <code> &gt; (</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression"><i>expression</i></a>
+     <code>)</code></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-id"><i>type-id</i></a>
+     <code> (</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression"><i>expression</i></a>
+     <code>)</code></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-id"><i>type-id</i></a>
+     <code> (</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-id"><i>type-id</i></a>
+     <code>)</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="expression-list"></a><i>expression-list</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#assignment-expression"><i>assignment-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression-list"><i>expression-list</i></a>
+     <code> , </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#assignment-expression"><i>assignment-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="pseudo-destructor-name"></a><i>pseudo-destructor-name</i>:</dt>
+<dd> <code>::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-name"><i>type-name</i></a>
+     <code> :: ~ </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-name"><i>type-name</i></a></dd>
+<dd> <code>::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a>
+     <code> template </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-id"><i>template-id</i></a>
+     <code> :: ~ </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-name"><i>type-name</i></a></dd>
+<dd> <code>::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a><sub><i>opt</i></sub>
+     <code> ~ </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-name"><i>type-name</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="unary-expression"></a><i>unary-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#postfix-expression"><i>postfix-expression</i></a></dd>
+<dd> <code>++</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#cast-expression"><i>cast-expression</i></a></dd>
+<dd> <code>--</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#cast-expression"><i>cast-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#unary-operator"><i>unary-operator</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#cast-expression"><i>cast-expression</i></a></dd>
+<dd> <code>sizeof</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#unary-expression"><i>unary-expression</i></a></dd>
+<dd> <code>sizeof ( </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-id"><i>type-id</i></a>
+     <code> ) </code></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-expression"><i>new-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#delete-expression"><i>delete-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="unary-operator"></a><i>unary-operator</i>: one of</dt>
+<dd> <code>* &amp; + - ! ~ </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="new-expression"></a><i>new-expression</i>:</dt>
+<dd> <code>::</code><sub><i>opt</i></sub>
+     <code> new </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-placement"><i>new-placement</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-type-id"><i>new-type-id</i></a>
+ <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-initializer"><i>new-initializer</i></a><sub><i>opt</i></sub></dd>
+<dd> <code>::</code><sub><i>opt</i></sub>
+     <code> new </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-placement"><i>new-placement</i></a><sub><i>opt</i></sub>
+     <code> ( </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-type-id"><i>type-id</i></a>
+     <code> ) </code>
+ <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-initializer"><i>new-initializer</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="new-placement"></a><i>new-placement</i>:</dt>
+<dd> <code>(</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression-list"><i>expression-list</i></a>
+     <code>)</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="new-type-id"></a><i>new-type-id</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-specifier-seq"><i>type-specifier-seq</i></a>
+   <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-declarator"><i>new-declarator</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="new-declarator"></a><i>new-declarator</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#ptr-operator"><i>ptr-operator</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-declarator"><i>new-declarator</i></a><sub><i>opt</i></sub></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#direct-new-declarator"><i>direct-new-declarator</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="direct-new-declarator"></a><i>direct-new-declarator</i>:</dt>
+<dd> <code>[</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression"><i>expression</i></a>
+     <code>]</code></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#direct-new-declarator"><i>direct-new-declarator</i></a>
+     <code>[</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#constant-expression"><i>constant-expression</i></a>
+     <code>]</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="new-initializer"></a><i>new-initializer</i>:</dt>
+<dd> <code>(</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression-list"><i>expression-list</i></a><sub><i>opt</i></sub>
+     <code>)</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="delete-expression"></a><i>delete-expression</i>:</dt>
+<dd> <code>::</code><sub><i>opt</i></sub>
+     <code> delete </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#cast-expression"><i>cast-expression</i></a></dd>
+<dd> <code>::</code><sub><i>opt</i></sub>
+     <code> delete [ ] </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#cast-expression"><i>cast-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="cast-expression"></a><i>cast-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#unary-expression"><i>unary-expression</i></a></dd>
+<dd> <code>(</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-id"><i>type-id</i></a>
+     <code>)</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#cast-expression"><i>cast-expression</i></a>
+</dd></dl>
+
+<dl>
+<dt> <a name="pm-expression"></a><i>pm-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#cast-expression"><i>cast-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pm-expression"><i>pm-expression</i></a>
+     <code> .* </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#cast-expression"><i>cast-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pm-expression"><i>pm-expression</i></a>
+     <code> -&gt;* </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#cast-expression"><i>cast-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="multiplicative-expression"></a><i>multiplicative-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pm-expression"><i>pm-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#multiplicative-expression"><i>multiplicative-expression</i></a>
+     <code> * </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pm-expression"><i>pm-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#multiplicative-expression"><i>multiplicative-expression</i></a>
+     <code> / </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pm-expression"><i>pm-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#multiplicative-expression"><i>multiplicative-expression</i></a>
+     <code> % </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pm-expression"><i>pm-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="additive-expression"></a><i>additive-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#multiplicative-expression"><i>multiplicative-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#additive-expression"><i>additive-expression</i></a>
+     <code> + </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#multiplicative-expression"><i>multiplicative-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#additive-expression"><i>additive-expression</i></a>
+     <code> - </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#multiplicative-expression"><i>multiplicative-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="shift-expression"></a><i>shift-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#additive-expression"><i>additive-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#shift-expression"><i>shift-expression</i></a>
+     <code> &lt;&lt; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#additive-expression"><i>additive-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#shift-expression"><i>shift-expression</i></a>
+     <code> &gt;&gt; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#additive-expression"><i>additive-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="relational-expression"></a><i>relational-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#shift-expression"><i>shift-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#relational-expression"><i>relational-expression</i></a>
+     <code> &lt; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#shift-expression"><i>shift-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#relational-expression"><i>relational-expression</i></a>
+     <code> &gt; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#shift-expression"><i>shift-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#relational-expression"><i>relational-expression</i></a>
+     <code> &lt;= </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#shift-expression"><i>shift-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#relational-expression"><i>relational-expression</i></a>
+     <code> &gt;= </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#shift-expression"><i>shift-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="equality-expression"></a><i>equality-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#relational-expression"><i>relational-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#equality-expression"><i>equality-expression</i></a>
+     <code> == </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#relational-expression"><i>relational-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#equality-expression"><i>equality-expression</i></a>
+     <code> != </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#relational-expression"><i>relational-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="and-expression"></a><i>and-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#equality-expression"><i>equality-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#and-expression"><i>and-expression</i></a>
+     <code> &amp; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#equality-expression"><i>equality-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="exclusive-or-expression"></a><i>exclusive-or-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#and-expression"><i>and-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#exclusive-or-expression"><i>exclusive-or-expression</i></a>
+     <code> ^ </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#and-expression"><i>and-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="inclusive-or-expression"></a><i>inclusive-or-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#exclusive-or-expression"><i>exclusive-or-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#inclusive-or-expression"><i>inclusive-or-expression</i></a>
+     <code> | </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#exclusive-or-expression"><i>exclusive-or-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="logical-and-expression"></a><i>logical-and-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#inclusive-or-expression"><i>inclusive-or-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#logical-and-expression"><i>logical-and-expression</i></a>
+     <code> &amp;&amp; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#inclusive-or-expression"><i>inclusive-or-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="logical-or-expression"></a><i>logical-or-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#logical-and-expression"><i>logical-and-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#logical-and-expression"><i>logical-and-expression</i></a>
+     <code> || </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#logical-or-expression"><i>logical-or-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="conditional-expression"></a><i>conditional-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#logical-or-expression"><i>logical-or-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#logical-or-expression"><i>logical-or-expression</i></a>
+     <code> ? </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression"><i>expression</i></a></dd>
+     <code> : </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#assignment-expression"><i>assignment-expression</i></a>
+</dl>
+
+<dl>
+<dt> <a name="assignment-expression"></a><i>assignment-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#conditional-expression"><i>conditional-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#logical-or-expression"><i>logical-or-expression</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#assignment-operator"><i>assignment-operator</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#assignment-expression"><i>assignment-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#throw-expression"><i>throw-expression</i></a></dd>
+</dl>
+
+
+<dl>
+<dt> <a name="assignment-operator"></a><i>assignment-operator</i>: one of</dt>
+<dd> <code> = *= /= %= += -= &lt;&lt;= &gt;&gt;= &amp;= ^= |= </code> </dd>
+</dl>
+
+<dl>
+<dt> <a name="expression"></a><i>expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#assignment-expression"><i>assignment-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression"><i>expression</i></a>
+     <code> , </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#assignment-expression"><i>assignment-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="constant-expression"></a><i>constant-expression</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#conditional-expression"><i>conditional-expression</i></a></dd>
+</dl>
+
+<h4>A.5 Statements</h4>
+
+<dl>
+<dt> <a name="statement"></a><i>statement</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#labeled-statement"><i>labeled-statement</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression-statement"><i>expression-statement</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#compound-statement"><i>compound-statement</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#selection-statement"><i>selection-statement</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#iteration-statement"><i>iteration-statement</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#jump-statement"><i>jump-statement</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declaration-statement"><i>declaration-statement</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#try-block"><i>try-block</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="labeled-statement"></a><i>labeled-statement</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a>
+     <code> : </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#statement"><i>statement</i></a></dd>
+<dd> <code>case </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#constant-expression"><i>constant-expression</i></a>
+     <code> : </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#statement"><i>statement</i></a></dd>
+<dd> <code>default : </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#statement"><i>statement</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="expression-statement"></a><a><i>expression-statement</i>:</a></dt><a>
+</a><dd><a> </a><a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression"><i>expression</i></a><sub><i>opt</i></sub>
+     <code> ; </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="compound-statement"></a><i>compound-statement</i>:</dt>
+<dd> <code>{ </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#statement-seq"><i>statement-seq</i></a><sub><i>opt</i></sub>
+     <code> } </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="statement-seq"></a><i>statement-seq</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#statement"><i>statement</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#statement-seq"><i>statement-seq</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#statement"><i>statement</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="selection-statement"></a><i>selection-statement</i>:</dt>
+<dd> <code>if ( </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#condition"><i>condition</i></a>
+     <code> ) </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#statement"><i>statement</i></a></dd>
+<dd> <code>if ( </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#condition"><i>condition</i></a>
+     <code> ) </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#statement"><i>statement</i></a>
+     <code> else </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#statement"><i>statement</i></a></dd>
+<dd> <code>switch ( </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#condition"><i>condition</i></a>
+     <code> ) </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#statement"><i>statement</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="condition"></a><i>condition</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression"><i>expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-specifier-seq"><i>type-specifier-seq</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declarator"><i>declarator</i></a>
+     <code> = </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#assignment-expression"><i>assignment-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="iteration-statement"></a><i>iteration-statement</i>:</dt>
+<dd> <code>while ( </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#condition"><i>condition</i></a>
+     <code> ) </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#statement"><i>statement</i></a></dd>
+<dd> <code>do </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#statement"><i>statement</i></a>
+     <code> while ( </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression"><i>expression</i></a>
+     <code> ) ; </code></dd>
+<dd> <code>for ( </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#for-init-statement"><i>for-init-statement</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#condition"><i>condition</i></a><sub><i>opt</i></sub>
+     <code> ; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression"><i>expression</i></a><sub><i>opt</i></sub>
+     <code> ) </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#statement"><i>statement</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="for-init-statement"></a><i>for-init-statement</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression-statement"><i>expression-statement</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#simple-declaration"><i>simple-declaration</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="jump-statement"></a><i>jump-statement</i>:</dt>
+<dd> <code>break ;</code></dd>
+<dd> <code>continue ;</code></dd>
+<dd> <code>return </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression"><i>expression</i></a><sub><i>opt</i></sub>
+     <code>  ; </code></dd>
+<dd> <code>goto </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a>
+     <code>  ; </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="declaration-statement"></a><i>declaration-statement</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#block-declaration"><i>block-declaration</i></a></dd>
+</dl>
+
+<h4>A.6 Declarations</h4>
+
+<dl>
+<dt> <a name="declaration-seq"></a><i>declaration-seq</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declaration"><i>declaration</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declaration-seq"><i>declaration-seq</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declaration"><i>declaration</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="declaration"></a><i>declaration</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#block-declaration"><i>block-declaration</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#function-definition"><i>function-definition</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-declaration"><i>template-declaration</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#explicit-instantiation"><i>explicit-instantiation</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#explicit-specialization"><i>explicit-specialization</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#linkage-specification"><i>linkage-specification</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#namespace-definition"><i>namespace-definition</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="block-declaration"></a><i>block-declaration</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#simple-declaration"><i>simple-declaration</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#asm-definition"><i>asm-definition</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#namespace-alias-definition"><i>namespace-alias-definition</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#using-declaration"><i>using-declaration</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#using-directive"><i>using-directive</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="simple-declaration"></a><i>simple-declaration</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#decl-specifier-seq"><i>decl-specifier-seq</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#init-declarator-list"><i>init-declarator-list</i></a><sub><i>opt</i></sub>
+     <code>  ; </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="decl-specifier"></a><i>decl-specifier</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#storage-class-specifier"><i>storage-class-specifier</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-specifier"><i>type-specifier</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#function-specifier"><i>function-specifier</i></a></dd>
+<dd> <code>friend</code></dd>
+<dd> <code>typedef</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="decl-specifier-seq"></a><i>decl-specifier-seq</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#decl-specifier-seq"><i>decl-specifier-seq</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#decl-specifier"><i>decl-specifier</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="storage-class-specifier"></a><i>storage-class-specifier</i>:</dt>
+<dd> <code>auto</code></dd>
+<dd> <code>register</code></dd>
+<dd> <code>static</code></dd>
+<dd> <code>extern</code></dd>
+<dd> <code>mutable</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="function-specifier"></a><i>function-specifier</i>:</dt>
+<dd> <code>inline</code></dd>
+<dd> <code>virtual</code></dd>
+<dd> <code>explicit</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="typedef-name"></a><i>typedef-name</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="type-specifier"></a><i>type-specifier</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#simple-type-specifier"><i>simple-type-specifier</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#class-specifier"><i>class-specifier</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#enum-specifier"><i>enum-specifier</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#elaborated-type-specifier"><i>elaborated-type-specifier</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#cv-qualifier"><i>cv-qualifier</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="simple-type-specifier"></a><i>simple-type-specifier</i>:</dt>
+<dd> <code>::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-name"><i>type-name</i></a></dd>
+<dd> <code>::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a>
+     <code>template</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-id"><i>template-id</i></a></dd>
+<dd> <code>char</code></dd>
+<dd> <code>wchar_t</code></dd>
+<dd> <code>bool</code></dd>
+<dd> <code>short</code></dd>
+<dd> <code>int</code></dd>
+<dd> <code>long</code></dd>
+<dd> <code>signed</code></dd>
+<dd> <code>unsigned</code></dd>
+<dd> <code>float</code></dd>
+<dd> <code>double</code></dd>
+<dd> <code>void</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="type-name"></a><i>type-name</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#class-name"><i>class-name</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#enum-name"><i>enum-name</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#typedef-name"><i>typedef-name</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="elaborated-type-specifier"></a><i>elaborated-type-specifier</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#class-key"><i>class-key</i></a>
+     <code>::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+<dd> <code>enum ::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+<dd> <code>typename ::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+<dd> <code>typename ::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a>
+     <code>template</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-id"><i>template-id</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="enum-name"></a><i>enum-name</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="enum-specifier"></a><i>enum-specifier</i>:</dt>
+<dd> <code>enum </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a><sub><i>opt</i></sub>
+     <code>{</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#enumerator-list"><i>enumerator-list</i></a><sub><i>opt</i></sub>
+     <code>}</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="enumerator-list"></a><i>enumerator-list</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#enumerator-definition"><i>enumerator-definition</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#enumerator-list"><i>enumerator-list</i></a>
+     <code> , </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#enumerator-definition"><i>enumerator-definition</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="enumerator-definition"></a><i>enumerator-definition</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#enumerator"><i>enumerator</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#enumerator"><i>enumerator</i></a>
+     <code> = </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#constant-expression"><i>constant-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="enumerator"></a><i>enumerator</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="namespace-name"></a><i>namespace-name</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#original-namespace-name"><i>original-namespace-name</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#namespace-alias"><i>namespace-alias</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="original-namespace-name"></a><i>original-namespace-name</i></dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="namespace-definition"></a><i>namespace-definition</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#named-namespace-definition"><i>named-namespace-definition</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#unnamed-namespace-definition"><i>unnamed-namespace-definition</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="named-namespace-definition"></a><i>named-namespace-definition</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#original-namespace-definition"><i>original-namespace-definition</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#extension-namespace-definition"><i>extension-namespace-definition</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="original-namespace-definition"></a><i>original-namespace-definition</i>:</dt>
+<dd> <code>namespace  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a>
+     <code>{ </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#namespace-body"><i>namespace-body</i></a>
+     <code> } </code> </dd>
+</dl>
+
+<dl>
+<dt> <a name="extension-namespace-definition"></a><i>extension-namespace-definition</i>:</dt>
+<dd> <code>namespace  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#original-namespace-name"><i>original-namespace-name</i></a>
+     <code>{ </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#namespace-body"><i>namespace-body</i></a>
+     <code> } </code> </dd>
+</dl>
+
+<dl>
+<dt> <a name="unnamed-namespace-definition"></a><i>unnamed-namespace-definition</i>:</dt>
+<dd> <code>namespace { </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#namespace-body"><i>namespace-body</i></a>
+     <code> } </code> </dd>
+</dl>
+
+<dl>
+<dt> <a name="namespace-body"></a><i>namespace-body</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declaration-seq"><i>declaration-seq</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="namespace-alias"></a><i>namespace-alias</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="namespace-alias-definition"></a><i>namespace-alias-definition</i>:</dt>
+<dd> <code>namespace  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a>
+     <code> = </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#qualified-namespace-specifier"><i>qualified-namespace-specifier</i></a>
+     <code> ; </code> </dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#"><i></i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="qualified-namespace-specifier"></a><i>qualified-namespace-specifier</i>:</dt>
+<dd> <code>::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#namespace-name"><i>namespace-name</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="using-declaration"></a><i>using-declaration</i>:</dt>
+<dd> <code>using  typename</code><sub><i>opt</i></sub>
+     <code> ::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#unqualified-id"><i>unqualified-id</i></a>
+     <code> ;  </code></dd>
+<dd> <code>using :: </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#unqualified-id"><i>unqualified-id</i></a>
+     <code>;  </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="using-directive"></a><i>using-directive</i>:</dt>
+<dd> <code>using  namespace ::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#namespace-name"><i>namespace-name</i></a>
+     <code>;  </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="asm-definition"></a><i>asm-definition</i>:</dt>
+<dd> <code>asm { </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#string-literal"><i>string-literal</i></a>
+     <code> } </code> </dd>
+</dl>
+
+<dl>
+<dt> <a name="linkage-specification"></a><i>linkage-specification</i>:</dt>
+<dd> <code>extern  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#string-literal"><i>string-literal</i></a>
+     <code> { </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declaration-seq"><i>declaration-seq</i></a><sub><i>opt</i></sub>
+     <code>}  </code></dd>
+<dd> <code>extern  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#string-literal"><i>string-literal</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declaration"><i>declaration</i></a></dd>
+</dl>
+
+<h4>A.7 Declarators</h4>
+
+<dl>
+<dt> <a name="init-declarator-list"></a><i>init-declarator-list</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#init-declarator"><i>init-declarator</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#init-declarator-list"><i>init-declarator-list</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#init-declarator"><i>init-declarator</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="init-declarator"></a><i>init-declarator</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declarator"><i>declarator</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#initializer"><i>initializer</i></a><sub><i>opt</i></sub>
+</dd></dl>
+
+<dl>
+<dt> <a name="declarator"></a><i>declarator</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#direct-declarator"><i>direct-declarator</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#ptr-operator"><i>ptr-operator</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declarator"><i>declarator</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="direct-declarator"></a><i>direct-declarator</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declarator-id"><i>declarator-id</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#direct-declarator"><i>direct-declarator</i></a>
+     <code> ( </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#parameter-declaration-clause"><i>parameter-declaration-clause</i></a>
+     <code> ) </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#cv-qualifier-seq"><i>cv-qualifier-seq</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#exception-specification"><i>exception-specification</i></a><sub><i>opt</i></sub></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#direct-declarator"><i>direct-declarator</i></a>
+     <code> [ </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#constant-expression"><i>constant-expression</i></a><sub><i>opt</i></sub>
+     <code> ] </code></dd>
+<dd> <code> ( </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declarator"><i>declarator</i></a>
+     <code> ) </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="ptr-operator"></a><i>ptr-operator</i>:</dt>
+<dd> <code> * </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#cv-qualifier-seq"><i>cv-qualifier-seq</i></a><sub><i>opt</i></sub></dd>
+<dd> <code> &amp; </code></dd>
+<dd> <code>::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a>
+     <code> * </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#cv-qualifier-seq"><i>cv-qualifier-seq</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="cv-qualifier-seq"></a><i>cv-qualifier-seq</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#cv-qualifier"><i>cv-qualifier</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#cv-qualifier-seq"><i>cv-qualifier-seq</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="cv-qualifier"></a><i>cv-qualifier</i>:</dt>
+<dd> <code> const</code></dd>
+<dd> <code> volatile</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="declarator-id"></a><i>declarator-id</i>:</dt>
+<dd> <code>::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-name"><i>type-name</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="type-id"></a><i>type-id</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-specifier-seq"><i>type-specifier-seq</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#abstract-declarator"><i>abstract-declarator</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="type-specifier-seq"></a><i>type-specifier-seq</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-specifier"><i>type-specifier</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-specifier-seq"><i>type-specifier-seq</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="abstract-declarator"></a><i>abstract-declarator</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#ptr-operator"><i>ptr-operator</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#abstract-declarator"><i>abstract-declarator</i></a><sub><i>opt</i></sub></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#direct-abstract-declarator"><i>direct-abstract-declarator</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="direct-abstract-declarator"></a><i>direct-abstract-declarator</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#direct-abstract-declarator"><i>direct-abstract-declarator</i></a><sub><i>opt</i></sub>
+     <code> ( </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#parameter-declaration-clause"><i>parameter-declaration-clause</i></a>
+     <code> ) </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#cv-qualifier-seq"><i>cv-qualifier-seq</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#exception-specification"><i>exception-specification</i></a><sub><i>opt</i></sub></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#direct-abstract-declarator"><i>direct-abstract-declarator</i></a><sub><i>opt</i></sub>
+     <code> [ </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#constant-expression"><i>constant-expression</i></a><sub><i>opt</i></sub>
+     <code> ] </code></dd>
+<dd> <code> ( </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#abstract-declarator"><i>abstract-declarator</i></a>
+     <code> ) </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="parameter-declaration-clause"></a><i>parameter-declaration-clause</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#parameter-declaration-list"><i>parameter-declaration-list</i></a><sub><i>opt</i></sub>
+     <code>...</code><sub><i>opt</i></sub></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#parameter-declaration-list"><i>parameter-declaration-list</i></a>
+     <code>, ...</code></dd>
+</dl>
+
+<dl>
+<dt> <a name="parameter-declaration-list"></a><i>parameter-declaration-list</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#parameter-declaration"><i>parameter-declaration</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#parameter-declaration-list"><i>parameter-declaration-list</i></a>
+     <code>, </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#parameter-declaration"><i>parameter-declaration</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="parameter-declaration"></a><i>parameter-declaration</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#decl-specifier-seq"><i>decl-specifier-seq</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declarator"><i>declarator</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#decl-specifier-seq"><i>decl-specifier-seq</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declarator"><i>declarator</i></a>
+     <code> = </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#assignment-expression"><i>assignment-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#decl-specifier-seq"><i>decl-specifier-seq</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#abstract-declarator"><i>abstract-declarator</i></a><sub><i>opt</i></sub></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#decl-specifier-seq"><i>decl-specifier-seq</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#abstract-declarator"><i>abstract-declarator</i></a><sub><i>opt</i></sub>
+     <code> = </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#assignment-expression"><i>assignment-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="function-definition"></a><i>function-definition</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#decl-specifier-seq"><i>decl-specifier-seq</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declarator"><i>declarator</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#ctor-initializer"><i>ctor-initializer</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#function-body"><i>function-body</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#decl-specifier-seq"><i>decl-specifier-seq</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declarator"><i>declarator</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#function-try-block"><i>function-try-block</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="function-body"></a><i>function-body</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#compound-statement"><i>compound-statement</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="initializer"></a><i>initializer</i>:</dt>
+<dd> <code> = </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#initializer-clause"><i>initializer-clause</i></a>
+     <code> ( </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression-list"><i>expression-list</i></a>
+     <code> ) </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="initializer-clause"></a><i>initializer-clause</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#assignment-expression"><i>assignment-expression</i></a></dd>
+<dd> <code> { </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#initializer-list"><i>initializer-list</i></a>
+     <code> ,</code><sub><i>opt</i></sub>
+     <code> } </code></dd>
+<dd> <code> { } </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="initializer-list"></a><i>initializer-list</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#initializer-clause"><i>initializer-clause</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#initializer-list"><i>initializer-list</i></a>
+     <code> , </code> 
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#initializer-clause"><i>initializer-clause</i></a></dd>
+</dl>
+
+<h4>A.8 Classes</h4>
+
+<dl>
+<dt> <a name="class-name"></a><i>class-name</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-id"><i>template-id</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="class-specifier"></a><i>class-specifier</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#class-head"><i>class-head</i></a>
+     <code> { </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#member-specification"><i>member-specification</i></a><sub><i>opt</i></sub>
+     <code> }  </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="class-head"></a><i>class-head</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#class-key"><i>class-key</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#base-clause"><i>base-clause</i></a><sub><i>opt</i></sub></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#class-key"><i>class-key</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#base-clause"><i>base-clause</i></a><sub><i>opt</i></sub></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#class-key"><i>class-key</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-id"><i>template-id</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#base-clause"><i>base-clause</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="class-key"></a><i>class-key</i>:</dt>
+<dd> <code>class </code></dd>
+<dd> <code>struct </code></dd>
+<dd> <code>union </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="member-specification"></a><i>member-specification</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#member-declaration"><i>member-declaration</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#member-specification"><i>member-specification</i></a><sub><i>opt</i></sub></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#access-specifier"><i>access-specifier</i></a>
+     <code> :  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#member-specification"><i>member-specification</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="member-declaration"></a><i>member-declaration</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#decl-specifier-seq"><i>decl-specifier-seq</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#member-declarator-list"><i>member-declarator-list</i></a><sub><i>opt</i></sub>
+     <code> ; </code></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#function-definition"><i>function-definition</i></a>
+     <code> ;</code><sub><i>opt</i></sub></dd>
+<dd> <code>::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a>
+     <code>template</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#unqualified-id"><i>unqualified-id</i></a>
+     <code> ; </code></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#using-declaration"><i>using-declaration</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-declaration"><i>template-declaration</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="member-declarator-list"></a><i>member-declarator-list</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#member-declarator"><i>member-declarator</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#member-declarator-list"><i>member-declarator-list</i></a>
+     <code> , </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#member-declarator"><i>member-declarator</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="member-declarator"></a><i>member-declarator</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declarator"><i>declarator</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pure-specifier"><i>pure-specifier</i></a><sub><i>opt</i></sub></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declarator"><i>declarator</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#constant-initializer"><i>constant-initializer</i></a><sub><i>opt</i></sub></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a><sub><i>opt</i></sub>
+     <code> : </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#constant-expression"><i>constant-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="pure-specifier"></a><i>pure-specifier</i>:</dt>
+<dd> <code>= 0  </code> </dd>
+</dl>
+
+<dl>
+<dt> <a name="constant-initializer"></a><i>constant-initializer</i>:</dt>
+<dd> <code>= </code> 
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#constant-expression"><i>constant-expression</i></a></dd>
+</dl>
+
+<h4>A.9 Derieved classes</h4>
+
+<dl>
+<dt> <a name="base-clause"></a><i>base-clause</i>:</dt>
+<dd> <code>: </code> 
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#base-specifier-list"><i>base-specifier-list</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="base-specifier-list"></a><i>base-specifier-list</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#base-specifier"><i>base-specifier</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#base-specifier-list"><i>base-specifier-list</i></a>
+     <code> , </code> 
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#base-specifier"><i>base-specifier</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="base-specifier"></a><i>base-specifier</i>:</dt>
+<dd> <code>::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#class-name"><i>class-name</i></a></dd>
+<dd> <code>virtual </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#access-specifier"><i>access-specifier</i></a><sub><i>opt</i></sub>
+     <code>::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#class-name"><i>class-name</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#access-specifier"><i>access-specifier</i></a><sub><i>opt</i></sub>
+     <code>virtual</code><sub><i>opt</i></sub>
+     <code>::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#class-name"><i>class-name</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="access-specifier"></a><i>access-specifier</i>:</dt>
+<dd> <code>private</code></dd>
+<dd> <code>protected</code></dd>
+<dd> <code>public</code></dd>
+</dl>
+
+<h4>A.10 Special member functions</h4>
+
+<dl>
+<dt> <a name="conversion-function-id"></a><i>conversion-function-id</i>:</dt>
+<dd> <code>operator</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#conversion-type-id"><i>conversion-type-id</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="conversion-type-id"></a><i>conversion-type-id</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-specifier-seq"><i>type-specifier-seq</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#conversion-declarator"><i>conversion-declarator</i><sub><i>opt</i></sub></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="conversion-declarator"></a><i>conversion-declarator</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#ptr-operator"><i>ptr-operator</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#conversion-declarator"><i>conversion-declarator</i><sub><i>opt</i></sub></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="ctor-initializer"></a><i>ctor-initializer</i>:</dt>
+<dd> <code>:</code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#mem-initializer-list"><i>mem-initializer-list</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="mem-initializer-list"></a><i>mem-initializer-list</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#mem-initializer"><i>mem-initializer</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#mem-initializer-list"><i>mem-initializer-list</i></a>
+     <code> , </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#mem-initializer"><i>mem-initializer</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="mem-initializer"></a><i>mem-initializer</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#mem-initializer-id"><i>mem-initializer-id</i></a>
+     <code> { </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#expression-list"><i>expression-list</i></a><sub><i>opt</i></sub>
+     <code> }  </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="mem-initializer-id"></a><i>mem-initializer-id</i>:</dt>
+<dd> <code>::</code><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#nested-name-specifier"><i>nested-name-specifier</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#class-name"><i>class-name</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+</dl>
+
+<h4>A.11 Overloading</h4>
+
+<dl>
+<dt> <a name="operator-function-id"></a><i>operator-function-id</i>:</dt>
+<dd> <code>operator </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#operator"><i>operator</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="operator"></a><i>operator</i>: one of</dt>
+<dd> <code>new delete new[] delete[]</code></dd>
+<dd> <code>+ - * / % ^ &amp; | ~</code></dd>
+<dd> <code>! = &lt; &gt; += -= *= /= %=</code></dd>
+<dd> <code>^= &amp;= |= &lt;&lt; &gt;&gt; &lt;&lt;= &gt;&gt;= == !=</code></dd>
+<dd> <code>&lt;= &gt;= &amp;&amp; || ++ -- , -&gt;* -&gt;  </code></dd>
+<dd> <code>() []</code></dd>
+</dl>
+
+<h4>A.12 Templates</h4>
+
+<dl>
+<dt> <a name="template-declaration"></a><i>template-declaration</i>:</dt>
+<dd> <code>export</code><sub><i>opt</i></sub>
+     <code> template &lt; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-parameter-list"><i>template-parameter-list</i></a>
+     <code> &gt; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declaration"><i>declaration</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="template-parameter-list"></a><i>template-parameter-list</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-parameter"><i>template-parameter</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-parameter-list"><i>template-parameter-list</i></a>
+     <code> , </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-parameter"><i>template-parameter</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="template-parameter"></a><i>template-parameter</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-parameter"><i>type-parameter</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#parameter-declaration"><i>parameter-declaration</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="type-parameter"></a><i>type-parameter</i>:</dt>
+<dd> <code>class </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a><sub><i>opt</i></sub></dd>
+<dd> <code>class </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a><sub><i>opt</i></sub>
+     <code> = </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-id"><i>type-id</i></a></dd>
+<dd> <code>typename </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a><sub><i>opt</i></sub></dd>
+<dd> <code>typename </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a><sub><i>opt</i></sub>
+     <code> = </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-id"><i>type-id</i></a></dd>
+<dd> <code> template &lt; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-parameter-list"><i>template-parameter-list</i></a>
+     <code> &gt; class </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a><sub><i>opt</i></sub></dd>
+<dd> <code> template &lt; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-parameter-list"><i>template-parameter-list</i></a>
+     <code> &gt; class </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a><sub><i>opt</i></sub>
+     <code> = </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#id-expression"><i>id-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="template-id"></a><i>template-id</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-name"><i>template-name</i></a>
+     <code> &lt; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-argument-list"><i>template-argument-list</i></a><sub><i>opt</i></sub>
+     <code> &gt; class </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="template-name"></a><i>template-name</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="template-argument-list"></a><i>template-argument-list</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-argument"><i>template-argument</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-argument-list"><i>template-argument-list</i></a>
+     <code> , </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#template-argument"><i>template-argument</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="template-argument"></a><i>template-argument</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#assignment-expression"><i>assignment-expression</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-id"><i>type-id</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#id-expression"><i>id-expression</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="explicit-instantiation"></a><i>explicit-instantiation</i>:</dt>
+<dd> <code>template  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declaration"><i>declaration</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="explicit-specialization"></a><i>explicit-specialization</i>:</dt>
+<dd> <code>template &lt; &gt; </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declaration"><i>declaration</i></a></dd>
+</dl>
+
+<h4>A.13 Exception handling</h4>
+
+<dl>
+<dt> <a name="try-block"></a><i>try-block</i>:</dt>
+<dd> <code> try </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#compound-statement"><i>compound-statement</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#handler-seq"><i>handler-seq</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="function-try-block"></a><i>function-try-block</i>:</dt>
+<dd> <code> try </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#ctor-initializer"><i>ctor-initializer</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#function-body-handler-seq"><i>function-body-handler-seq</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="handler-seq"></a><i>handler-seq</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#handler"><i>handler</i></a> 
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#handler-seq"><i>handler-seq</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="handler"></a><i>handler</i>:</dt>
+<dd> <code>catch {  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#exception-declaration"><i>exception-declaration</i></a>
+     <code> }  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#compound-statement"><i>compound-statement</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="exception-declaration"></a><i></i>exception-declaration:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-specifier-seq"><i>type-specifier-seq</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#declarator"><i>declarator</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-specifier-seq"><i>type-specifier-seq</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#abstract-declarator"><i>abstract-declarator</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-specifier-seq"><i>type-specifier-seq</i></a></dd>
+<dd> <code> ... </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="throw-expression"></a><i>throw-expression</i>:</dt>
+<dd> <code> throw </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#assignment-expression"><i>assignment-expression</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="exception-specification"></a><i>exception-specification</i>:</dt>
+<dd> <code> throw ( </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-id-list"><i>type-id-list</i></a><sub><i>opt</i></sub>
+     <code> ) </code></dd>
+</dl>
+
+<dl>
+<dt> <a name="type-id-list"></a><i>type-id-list</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-id"><i>type-id</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-id-list"><i>type-id-list</i></a>
+     <code> , </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#type-id"><i>type-id</i></a></dd>
+</dl>
+
+<h4>A.14 Preprocessing directives</h4>
+
+<dl>
+<dt> <a name="preprocessing-file"></a><i>preprocessing-file</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#group"><i>group</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="group"></a><i>group</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#group-part"><i>group-part</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#group"><i>group</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#group-part"><i>group-part</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="group-part"></a><i>group-part</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pp-tokens"><i>pp-tokens</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-line"><i>new-line</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#if-action"><i>if-action</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#control-line"><i>control-line</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="if-action"></a><i>if-action</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#if-group"><i>if-group</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#elif-groups"><i>elif-groups</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#else-group"><i>else-group</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#endif-line"><i>endif-line</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="if-group"></a><i>if-group</i>:</dt>
+<dd> <code># if  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#constant-expression"><i>constant-expression</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-line"><i>new-line</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#group"><i>group</i></a><sub><i>opt</i></sub></dd>
+<dd> <code># ifdef  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-line"><i>new-line</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#group"><i>group</i></a><sub><i>opt</i></sub></dd>
+<dd> <code># ifndef  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-line"><i>new-line</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#group"><i>group</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="elif-groups"></a><i>elif-groups</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#elif-group"><i>elif-group</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#elif-groups"><i>elif-groups</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#elif-group"><i>elif-group</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="elif-group"></a><i>elif-group</i>:</dt>
+<dd> <code># elif  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#constant-expression"><i>constant-expression</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-line"><i>new-line</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#group"><i>group</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="else-group"></a><i>else-group</i>:</dt>
+<dd> <code># else  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-line"><i>new-line</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#group"><i>group</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="endif-line"></a><i>endif-line</i>:</dt>
+<dd> <code># endif  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-line"><i>new-line</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="control-line"></a><i>control-line</i>:</dt>
+<dd> <code># include  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pp-tokens"><i>pp-tokens</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-line"><i>new-line</i></a></dd>
+<dd> <code># define  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#replacement-list"><i>replacement-list</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-line"><i>new-line</i></a></dd>
+<dd> <code># define  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#lparen"><i>lparen</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier-list"><i>identifier-list</i></a>
+     <code> ) </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#replacement-list"><i>replacement-list</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-line"><i>new-line</i></a></dd>
+<dd> <code># undef  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#identifier"><i>identifier</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-line"><i>new-line</i></a></dd>
+<dd> <code># line  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pp-tokens"><i>pp-tokens</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-line"><i>new-line</i></a></dd>
+<dd> <code># error  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pp-tokens"><i>pp-tokens</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-line"><i>new-line</i></a></dd>
+<dd> <code># pragma  </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pp-tokens"><i>pp-tokens</i></a><sub><i>opt</i></sub>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-line"><i>new-line</i></a></dd>
+<dd> <code># </code>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#new-line"><i>new-line</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="lparen"></a><i>lparen</i>:</dt>
+<dd> the left-parenthesis character without preceding white-space</dd>
+</dl>
+
+<dl>
+<dt> <a name="replacement-list"></a><i>replacement-list</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pp-tokens"><i>pp-tokens</i></a><sub><i>opt</i></sub></dd>
+</dl>
+
+<dl>
+<dt> <a name="pp-tokens"></a><i>pp-tokens</i>:</dt>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#preprocessing-token"><i>preprocessing-token</i></a></dd>
+<dd> <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#pp-tokens"><i>pp-tokens</i></a>
+     <a href="http://homepages.e3.net.nz/~djm/cppgrammar.html#preprocessing-token"><i>preprocessing-token</i></a></dd>
+</dl>
+
+<dl>
+<dt> <a name="new-line"></a><i>new-line</i>:</dt>
+<dd> the new-line character</dd>
+</dl>
+
+</div>
+
+<!--- ********************** Bottom ********************************* -->
+<div id="quicklink">
+<a href="http://homepages.e3.net.nz/~djm/index.html" class="imglink" onmouseover="linkOver(&#39;home&#39;)" onmouseout="linkOut(&#39;home&#39;)"><img src="./grammar_summary_files/home1.png" alt="Home" border="0" name="home"></a>
+<a href="mailto:djm6202@yahoo.co.nz" class="imglink" onmouseover="linkOver(&#39;mail&#39;)" onmouseout="linkOut(&#39;mail&#39;)"><img src="./grammar_summary_files/mail1.png" alt="Mail" border="0" name="mail"></a>
+</div>
+<div id="last">
+<h4>$LastChangedDate: 2003-03-23 $</h4>
+</div>
+
+
+
+
+</body></html>

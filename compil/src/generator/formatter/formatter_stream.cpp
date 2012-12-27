@@ -76,7 +76,13 @@ FormatterStream& operator<<(FormatterStream& stream, const CompoundStatementSPtr
     return stream << compoundStatement->close();
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::CustomExpressionSPtr& expression)
+FormatterStream& operator<<(FormatterStream& stream, const CustomExpressionSPtr& expression)
+{
+    stream.mAligner << expression->value();
+    return stream;
+}
+
+FormatterStream& operator<<(FormatterStream& stream, const CustomIdExpressionSPtr& expression)
 {
     stream.mAligner << expression->value();
     return stream;
@@ -86,14 +92,41 @@ FormatterStream& operator<<(FormatterStream& stream, const DeclarationStatementS
 {
     stream.mAligner << statement->typeId().value();
     stream.mAligner << " ";
-    stream.mAligner << statement->typeName();
+    stream.mAligner << statement->typeName()->value();
     return stream << statement->close();
+}
+
+FormatterStream& operator<<(FormatterStream& stream, const DotPostfixExpressionSPtr& expression)
+{
+    FormatterStream firstFormatter(stream.mConfiguration, stream.mAligner.mConfiguration);
+    firstFormatter << expression->first();
+    FormatterStream secondFormatter(stream.mConfiguration, stream.mAligner.mConfiguration);
+    secondFormatter << expression->second();
+    
+    stream.mAligner << firstFormatter.str()
+                    << "."
+                    << secondFormatter.str();
+                    
+    return stream;
 }
 
 FormatterStream& operator<<(FormatterStream& stream, const ExpressionSPtr& expression)
 {
     if (expression->runtimeExpressionId() == CustomExpression::staticExpressionId())
         return stream << CustomExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == CustomIdExpression::staticExpressionId())
+        return stream << CustomIdExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == DotPostfixExpression::staticExpressionId())
+        return stream << DotPostfixExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == IdentifierUnqualifiedId::staticExpressionId())
+        return stream << IdentifierUnqualifiedId::downcast(expression);
+    if (expression->runtimeExpressionId() == IdExpressionPrimaryExpression::staticExpressionId())
+        return stream << IdExpressionPrimaryExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == PrimaryExpressionPostfixExpression::staticExpressionId())
+        return stream << PrimaryExpressionPostfixExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == UnqualifiedIdExpression::staticExpressionId())
+        return stream << UnqualifiedIdExpression::downcast(expression);
+        
     return stream;
 }
 
@@ -118,6 +151,22 @@ FormatterStream& operator<<(FormatterStream& stream, const MacroStatementSPtr& m
     return stream << macro->close();
 }
 
+FormatterStream& operator<<(FormatterStream& stream, const IdentifierUnqualifiedIdSPtr& expression)
+{
+    stream.mAligner << expression->identifier()->value();
+    return stream;
+}
+
+FormatterStream& operator<<(FormatterStream& stream, const IdExpressionPrimaryExpressionSPtr& expression)
+{
+    return stream << expression->expression();
+}
+
+FormatterStream& operator<<(FormatterStream& stream, const PrimaryExpressionPostfixExpressionSPtr& expression)
+{
+    return stream << expression->expression();
+}
+
 FormatterStream& operator<<(FormatterStream& stream, const StatementSPtr& statement)
 {
     if (statement->runtimeStatementId() == CompoundStatement::staticStatementId())
@@ -136,3 +185,9 @@ FormatterStream& operator<<(FormatterStream& stream, const Statement::EClose& cl
         stream.mAligner << ";";
     return stream;
 }
+
+FormatterStream& operator<<(FormatterStream& stream, const UnqualifiedIdExpressionSPtr& expression)
+{
+    return stream << expression->unqualifiedId();
+}
+

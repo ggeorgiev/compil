@@ -33,6 +33,7 @@
 compil { }
 
 import "c++/statement/statement.scompil";
+import "c++/lexical/identifier.scompil";
 
 package lang.cpp;
 
@@ -43,5 +44,5 @@ structure DeclarationStatement
     runtime identification;
 
     ClassName typeId;
-    string typeName;
+    reference<Identifier> typeName;
 }
