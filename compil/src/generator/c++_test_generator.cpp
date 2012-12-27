@@ -38,6 +38,8 @@
 namespace compil
 {
 
+using namespace lang::cpp;
+
 const int CppTestGenerator::mainStream = 0;
 
 CppTestGenerator::CppTestGenerator()
@@ -55,12 +57,14 @@ CppTestGenerator::~CppTestGenerator()
 
 void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStructure)
 {
-    lang::cpp::TestSuite suite;
-    suite << lang::cpp::TestSuiteName(pStructure->name()->value());
+    TestSuite suite;
+    suite << TestSuiteName(pStructure->name()->value() + "Test");
     
-    lang::cpp::TestSPtr test = lang::cpp::testRef();
+    TestSPtr test = testRef();
+    test << TestName("test")
+         << (statementRef() << ClassName(pStructure->name()->value())
+                            << std::string("structure"));
     
-    test << lang::cpp::TestName("test");
     suite << test;
     
     ImplementerStream stream(impl->mpConfiguration, frm->mpFormatterConfiguration, mpAlignerConfiguration);

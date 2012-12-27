@@ -72,6 +72,8 @@ ImplementerStream& operator<<(ImplementerStream& stream, const TestSuite& suite)
         stream.mFormatter << macro;
         
         CompoundStatement statement;
+        statement << test->statements();
+        
         stream.mFormatter << statement;
     }
 

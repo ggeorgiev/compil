@@ -59,6 +59,16 @@ FormatterStream& operator<<(FormatterStream& stream, const CompoundStatement& co
     Scope scope;
     scope << Scope::ESquiggles::brackets();
     
+    const std::vector<StatementSPtr>& statements = compoundStatement.statements();
+    for (std::vector<StatementSPtr>::const_iterator it = statements.begin(); it != statements.end(); ++it)
+    {
+        const Statement& statement = *(*it);
+        
+        FormatterStream formatter(stream.mConfiguration, stream.mAligner.mConfiguration);
+        formatter << statement;
+        scope << formatter.str();
+    }
+    
     stream.mAligner << scope;
     return stream;
 }
@@ -80,6 +90,15 @@ FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::Macro& mac
     
     stream.mAligner << list;
     
+    return stream;
+}
+
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::Statement& statement)
+{
+    stream.mAligner << statement.typeId().value();
+    stream.mAligner << " ";
+    stream.mAligner << statement.typeName();
+    stream.mAligner << ";";
     return stream;
 }
 

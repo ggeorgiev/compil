@@ -92,11 +92,20 @@ AlignerStream& operator<<(AlignerStream& stream, const List& list)
     return stream;
 }
 
-AlignerStream& operator<<(AlignerStream& stream, const Scope&)
+AlignerStream& operator<<(AlignerStream& stream, const Scope& scope)
 {
     stream.string << std::endl;
     stream.string << "{";
     stream.string << std::endl;
+    
+    const std::vector<std::string>& lines = scope.lines();
+    for (std::vector<std::string>::const_iterator it = lines.begin(); it != lines.end(); ++it)
+    {
+        const std::string& line = *it;
+        stream.string << line;
+        stream.string << std::endl;
+    }
+    
     stream.string << "}";
     stream.string << std::endl;
     return stream;

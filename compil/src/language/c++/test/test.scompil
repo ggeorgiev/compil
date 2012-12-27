@@ -32,7 +32,8 @@
 
 compil { }
 
-import "test_name.scompil";
+import "c++/test/test_name.scompil";
+import "c++/statement/statement.scompil";
 
 package lang.cpp;
 
@@ -40,4 +41,6 @@ streamable
 structure Test 
 {
     TestName name;
+    
+    vector<reference<Statement>> statements;
 }

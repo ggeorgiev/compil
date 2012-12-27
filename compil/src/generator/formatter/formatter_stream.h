@@ -59,6 +59,7 @@ typedef boost::weak_ptr<FormatterStream> FormatterStreamWPtr;
 
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::CompoundStatement&);
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::Macro&);
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::Statement&);
 
 #endif
 

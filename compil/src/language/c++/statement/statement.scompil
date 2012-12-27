@@ -32,9 +32,13 @@
 
 compil { }
 
+import "c++/class/class_name.scompil";
+
 package lang.cpp;
 
 streamable
 structure Statement
 {
+    ClassName typeId;
+    string typeName;
 }
