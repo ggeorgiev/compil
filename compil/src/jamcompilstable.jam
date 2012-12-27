@@ -45,7 +45,7 @@ class compil-stable-generator : generator
             directory = macosxx86 ;
         }
             
-        local RESULT = [ path.native ../compil-stable/tool/$(directory)/bin ] ;
+        local RESULT = [ path.join ../compil-stable/tool $(directory) bin ] ;
         return $(RESULT) ;
     }
 
@@ -54,7 +54,7 @@ class compil-stable-generator : generator
         local compil-stable-binary = [ modules.peek jamcompilstable : .compil-stable-binary ] ;
 
         local directory = [ tool-directory ] ;
-        compil-stable-binary = [ path.join $(directory) generator ] ;
+        compil-stable-binary = [ path.native [ path.join $(directory) generator ] ] ;
         
         property-set = [ $(property-set).add-raw
             <dependency>$(compil-stable-binary-dependencies)
