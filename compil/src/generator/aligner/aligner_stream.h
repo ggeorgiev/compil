@@ -52,6 +52,8 @@ public:
     
     std::ostringstream string;
     AlignerConfigurationPtr mConfiguration;
+    
+    std::string indent() const;
 };
 
 typedef boost::shared_ptr<AlignerStream> AlignerStreamSPtr;

@@ -92,6 +92,21 @@ AlignerStream& operator<<(AlignerStream& stream, const List& list)
     return stream;
 }
 
+std::string AlignerStream::indent() const
+{
+    switch (mConfiguration->mAlignment)
+    {
+        case AlignerConfiguration::tabs_only:
+        case AlignerConfiguration::smart_tabs:
+            return "\t";
+        case AlignerConfiguration::spaces_only:
+            return std::string(mConfiguration->mTabSize, ' ');
+        default:
+            break;
+    }
+    assert(false && "unknown alignment type");
+}
+
 AlignerStream& operator<<(AlignerStream& stream, const Scope& scope)
 {
     stream.string << std::endl;
@@ -102,7 +117,7 @@ AlignerStream& operator<<(AlignerStream& stream, const Scope& scope)
     for (std::vector<std::string>::const_iterator it = lines.begin(); it != lines.end(); ++it)
     {
         const std::string& line = *it;
-        stream.string << line;
+        stream.string << stream.indent() << line;
         stream.string << std::endl;
     }
     
