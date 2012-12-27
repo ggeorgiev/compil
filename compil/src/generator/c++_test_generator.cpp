@@ -34,6 +34,7 @@
 #include "implementer_stream.h"
 
 #include "c++/test/test_suite.h"
+#include "c++/statement/declaration_statement.h"
 
 namespace compil
 {
@@ -55,6 +56,11 @@ CppTestGenerator::~CppTestGenerator()
 {
 }
 
+const TestSPtr& operator<<(const TestSPtr& test, const DeclarationStatementSPtr& statement)
+{
+    return test << boost::shared_polymorphic_cast<Statement>(statement);
+}
+
 void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStructure)
 {
     TestSuite suite;
@@ -62,8 +68,8 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
     
     TestSPtr test = testRef();
     test << TestName("test")
-         << (statementRef() << ClassName(pStructure->name()->value())
-                            << std::string("structure"));
+         << (declarationStatementRef() << ClassName(pStructure->name()->value())
+                                       << std::string("structure"));
     
     suite << test;
     

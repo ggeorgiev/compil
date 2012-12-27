@@ -39,6 +39,7 @@
 #include "aligner_stream.h"
 
 #include "c++/statement/compound_statement.h"
+#include "c++/statement/declaration_statement.h"
 #include "c++/preprocessor/macro.h"
 
 class FormatterStream
@@ -57,9 +58,10 @@ public:
 typedef boost::shared_ptr<FormatterStream> FormatterStreamSPtr;
 typedef boost::weak_ptr<FormatterStream> FormatterStreamWPtr;
 
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::CompoundStatement&);
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::Macro&);
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::Statement&);
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::CompoundStatementSPtr&);
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::DeclarationStatementSPtr&);
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::MacroSPtr&);
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::StatementSPtr&);
 
 #endif
 

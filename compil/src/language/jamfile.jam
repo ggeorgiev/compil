@@ -21,7 +21,9 @@ lib language
     c++/class/class_name.scompil
     
     c++/statement/compound_statement.scompil
+    c++/statement/declaration_statement.scompil
     c++/statement/statement.scompil
+    c++/statement/statement_factory.scompil
 
     c++/preprocessor/macro.scompil
     c++/preprocessor/macro_parameter.scompil

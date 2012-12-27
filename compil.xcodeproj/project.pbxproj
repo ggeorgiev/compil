@@ -394,6 +394,8 @@
 		5EB86F88168BE0920049B6A9 /* statement.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = statement.scompil; sourceTree = "<group>"; };
 		5EB86F8A168BE1910049B6A9 /* class_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = class_name.scompil; sourceTree = "<group>"; };
 		5EB86F8B168BE2150049B6A9 /* class.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = class.scompil; sourceTree = "<group>"; };
+		5EB86F8C168BECE40049B6A9 /* declaration_statement.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = declaration_statement.scompil; sourceTree = "<group>"; };
+		5EB86F8F168BFD270049B6A9 /* statement_factory.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = statement_factory.scompil; sourceTree = "<group>"; };
 		5EC0D2271618D2D200802C95 /* type.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type.h; sourceTree = "<group>"; };
 		5EC0D2291618D3C600802C95 /* type-partial.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "type-partial.cpp"; sourceTree = "<group>"; };
 		5EC0D22A1618D3C600802C95 /* type-partial.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "type-partial.h"; sourceTree = "<group>"; };
@@ -1069,6 +1071,8 @@
 			isa = PBXGroup;
 			children = (
 				5EB86F87168BDFA90049B6A9 /* compound_statement.scompil */,
+				5EB86F8C168BECE40049B6A9 /* declaration_statement.scompil */,
+				5EB86F8F168BFD270049B6A9 /* statement_factory.scompil */,
 				5EB86F88168BE0920049B6A9 /* statement.scompil */,
 			);
 			path = statement;

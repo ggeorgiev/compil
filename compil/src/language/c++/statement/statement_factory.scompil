@@ -32,12 +32,13 @@
 
 compil { }
 
-import "c++/class/class_name.scompil";
+import "c++/statement/compound_statement.scompil";
+import "c++/statement/declaration_statement.scompil";
+import "c++/statement/statement.scompil";
 
 package lang.cpp;
 
-sharable streamable
-structure Statement
+hierarchy
+factory<Statement> StatementFactory
 {
-    runtime identification;
 }

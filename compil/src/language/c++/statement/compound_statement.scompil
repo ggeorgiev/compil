@@ -38,6 +38,9 @@ package lang.cpp;
 
 streamable
 structure CompoundStatement
+    inherit Statement
 {
+    runtime identification;
+    
     vector<reference<Statement>> statements;
 }

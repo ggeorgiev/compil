@@ -32,6 +32,8 @@
 
 #include "formatter_stream.h"
 
+#include "c++/statement/statement_factory.h"
+
 #include "all/list.h"
 #include "all/scope.h"
 
@@ -54,15 +56,15 @@ std::string FormatterStream::str()
     return mAligner.str();
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const CompoundStatement& compoundStatement)
+FormatterStream& operator<<(FormatterStream& stream, const CompoundStatementSPtr& compoundStatement)
 {
     Scope scope;
     scope << Scope::ESquiggles::brackets();
     
-    const std::vector<StatementSPtr>& statements = compoundStatement.statements();
+    const std::vector<StatementSPtr>& statements = compoundStatement->statements();
     for (std::vector<StatementSPtr>::const_iterator it = statements.begin(); it != statements.end(); ++it)
     {
-        const Statement& statement = *(*it);
+        const StatementSPtr& statement = *it;
         
         FormatterStream formatter(stream.mConfiguration, stream.mAligner.mConfiguration);
         formatter << statement;
@@ -73,15 +75,24 @@ FormatterStream& operator<<(FormatterStream& stream, const CompoundStatement& co
     return stream;
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::Macro& macro)
+FormatterStream& operator<<(FormatterStream& stream, const DeclarationStatementSPtr& statement)
 {
-    stream.mAligner << macro.name().value();
+    stream.mAligner << statement->typeId().value();
+    stream.mAligner << " ";
+    stream.mAligner << statement->typeName();
+    stream.mAligner << ";";
+    return stream;
+}
+
+FormatterStream& operator<<(FormatterStream& stream, const MacroSPtr& macro)
+{
+    stream.mAligner << macro->name().value();
     
     List list;
     list << List::ESquiggles::parentheses();
     list << List::EDelimiter::comma();
     
-    const std::vector<MacroParameter>& parameters = macro.parameters();
+    const std::vector<MacroParameter>& parameters = macro->parameters();
     for (std::vector<MacroParameter>::const_iterator it = parameters.begin(); it != parameters.end(); ++it)
     {
         const MacroParameter& parameter = *it;
@@ -93,12 +104,13 @@ FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::Macro& mac
     return stream;
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::Statement& statement)
+FormatterStream& operator<<(FormatterStream& stream, const StatementSPtr& statement)
 {
-    stream.mAligner << statement.typeId().value();
-    stream.mAligner << " ";
-    stream.mAligner << statement.typeName();
-    stream.mAligner << ";";
+    if (statement->runtimeStatementId() == CompoundStatement::staticStatementId())
+        return stream << CompoundStatement::downcast(statement);
+    if (statement->runtimeStatementId() == DeclarationStatement::staticStatementId())
+        return stream << DeclarationStatement::downcast(statement);
+         
     return stream;
 }
 

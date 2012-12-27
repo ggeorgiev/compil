@@ -63,7 +63,7 @@ ImplementerStream& operator<<(ImplementerStream& stream, const TestSuite& suite)
     {
         const TestSPtr& test = *it;
 
-        Macro macro;
+        MacroSPtr macro = macroRef();
         macro << MacroName("TEST");
         
         macro << MacroParameter(suite.name().value());
@@ -71,7 +71,7 @@ ImplementerStream& operator<<(ImplementerStream& stream, const TestSuite& suite)
         
         stream.mFormatter << macro;
         
-        CompoundStatement statement;
+        CompoundStatementSPtr statement = compoundStatementRef();
         statement << test->statements();
         
         stream.mFormatter << statement;
