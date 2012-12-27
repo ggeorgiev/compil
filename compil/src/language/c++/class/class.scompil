@@ -32,19 +32,11 @@
 
 compil { }
 
-import "class_name.compil";
-import "constructor.compil";
-import "method.compil";
-import "destructor.compil";
+import "c++/class/class_name.scompil";
 
 package lang.cpp;
 
 structure Class 
 {
     ClassName name;
-    
-    vector<reference<Constructor>> constructors;
-    reference<Destructor> destructor;
-    
-    vector<reference<Method>> methods;
 }

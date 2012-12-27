@@ -17,6 +17,7 @@ lib language
     all/list.scompil
     all/scope.scompil
     
+    c++/class/class.scompil
     c++/class/class_name.scompil
     
     c++/statement/compound_statement.scompil
@@ -31,7 +32,6 @@ lib language
     c++/test/test_suite.scompil
     c++/test/test_suite_name.scompil
     
-    #c++/class_name.compil
     #c++/comment.compil
     #c++/const_declaration.compil
     #c++/constructor.compil
