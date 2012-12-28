@@ -35,9 +35,9 @@ compil { }
 import "c++/expression/custom_expression.scompil";
 import "c++/expression/custom_id_expression.scompil";
 import "c++/expression/custom_postfix_expression.scompil";
-import "c++/expression/dot_postfix_expression.scompil";
 import "c++/expression/id_expression_primary_expression.scompil";
 import "c++/expression/identifier_unqualified_id.scompil";
+import "c++/expression/member_access_postfix_expression.scompil";
 import "c++/expression/parentheses_postfix_expression.scompil";
 import "c++/expression/primary_expression_postfix_expression.scompil";
 import "c++/expression/unqualified_id_expression.scompil";

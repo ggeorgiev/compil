@@ -38,10 +38,17 @@ import "c++/expression/id_expression.scompil";
 package lang.cpp;
 
 streamable
-structure DotPostfixExpression
+structure MemberAccessPostfixExpression
     inherit PostfixExpression
 {
     runtime identification;
+    
+    strong enum Operator
+    {
+        dot;
+        arrow;
+    }
+    Operator operator;
     
     reference<PostfixExpression> first;
     reference<IdExpression> second;

@@ -96,26 +96,18 @@ FormatterStream& operator<<(FormatterStream& stream, const DeclarationStatementS
     return stream << statement->close();
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const DotPostfixExpressionSPtr& expression)
-{
-    stream << expression->first();
-    stream.mAligner << ".";
-    stream << expression->second();
-    return stream;
-}
-
 FormatterStream& operator<<(FormatterStream& stream, const ExpressionSPtr& expression)
 {
     if (expression->runtimeExpressionId() == CustomExpression::staticExpressionId())
         return stream << CustomExpression::downcast(expression);
     if (expression->runtimeExpressionId() == CustomIdExpression::staticExpressionId())
         return stream << CustomIdExpression::downcast(expression);
-    if (expression->runtimeExpressionId() == DotPostfixExpression::staticExpressionId())
-        return stream << DotPostfixExpression::downcast(expression);
     if (expression->runtimeExpressionId() == IdentifierUnqualifiedId::staticExpressionId())
         return stream << IdentifierUnqualifiedId::downcast(expression);
     if (expression->runtimeExpressionId() == IdExpressionPrimaryExpression::staticExpressionId())
         return stream << IdExpressionPrimaryExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == MemberAccessPostfixExpression::staticExpressionId())
+        return stream << MemberAccessPostfixExpression::downcast(expression);
     if (expression->runtimeExpressionId() == ParenthesesPostfixExpression::staticExpressionId())
         return stream << ParenthesesPostfixExpression::downcast(expression);
     if (expression->runtimeExpressionId() == PrimaryExpressionPostfixExpression::staticExpressionId())
@@ -124,6 +116,17 @@ FormatterStream& operator<<(FormatterStream& stream, const ExpressionSPtr& expre
         return stream << UnqualifiedIdExpression::downcast(expression);
         
     return stream;
+}
+
+FormatterStream& operator<<(FormatterStream& stream, const IdentifierUnqualifiedIdSPtr& expression)
+{
+    stream.mAligner << expression->identifier()->value();
+    return stream;
+}
+
+FormatterStream& operator<<(FormatterStream& stream, const IdExpressionPrimaryExpressionSPtr& expression)
+{
+    return stream << expression->expression();
 }
 
 FormatterStream& operator<<(FormatterStream& stream, const MacroStatementSPtr& macro)
@@ -147,15 +150,13 @@ FormatterStream& operator<<(FormatterStream& stream, const MacroStatementSPtr& m
     return stream << macro->close();
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const IdentifierUnqualifiedIdSPtr& expression)
-{
-    stream.mAligner << expression->identifier()->value();
-    return stream;
-}
 
-FormatterStream& operator<<(FormatterStream& stream, const IdExpressionPrimaryExpressionSPtr& expression)
+FormatterStream& operator<<(FormatterStream& stream, const MemberAccessPostfixExpressionSPtr& expression)
 {
-    return stream << expression->expression();
+    stream << expression->first();
+    stream.mAligner << ".";
+    stream << expression->second();
+    return stream;
 }
 
 FormatterStream& operator<<(FormatterStream& stream, const ParenthesesPostfixExpressionSPtr& expression)

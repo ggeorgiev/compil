@@ -402,7 +402,7 @@
 		5EB86F9D168CCD800049B6A9 /* expression_factory.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = expression_factory.scompil; sourceTree = "<group>"; };
 		5EB86F9F168CCD870049B6A9 /* custom_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = custom_expression.scompil; sourceTree = "<group>"; };
 		5EB86FA0168CDE1F0049B6A9 /* postfix_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = postfix_expression.scompil; sourceTree = "<group>"; };
-		5EB86FA1168CF8470049B6A9 /* dot_postfix_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = dot_postfix_expression.scompil; sourceTree = "<group>"; };
+		5EB86FA1168CF8470049B6A9 /* member_access_postfix_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = member_access_postfix_expression.scompil; sourceTree = "<group>"; };
 		5EB86FA2168CF93F0049B6A9 /* custom_postfix_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = custom_postfix_expression.scompil; sourceTree = "<group>"; };
 		5EB86FA3168CFA390049B6A9 /* id_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = id_expression.scompil; sourceTree = "<group>"; };
 		5EB86FA5168CFABD0049B6A9 /* unqualified_id.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = unqualified_id.scompil; sourceTree = "<group>"; };
@@ -1116,7 +1116,7 @@
 				5EB86F9F168CCD870049B6A9 /* custom_expression.scompil */,
 				5EB86FAD168D080E0049B6A9 /* custom_id_expression.scompil */,
 				5EB86FA2168CF93F0049B6A9 /* custom_postfix_expression.scompil */,
-				5EB86FA1168CF8470049B6A9 /* dot_postfix_expression.scompil */,
+				5EB86FA1168CF8470049B6A9 /* member_access_postfix_expression.scompil */,
 				5EB86F92168C01E50049B6A9 /* expression.scompil */,
 				5EB86FAE168D13E40049B6A9 /* expression_list.scompil */,
 				5EB86F9D168CCD800049B6A9 /* expression_factory.scompil */,

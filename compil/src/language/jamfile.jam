@@ -23,13 +23,13 @@ lib language
     c++/expression/custom_expression.scompil
     c++/expression/custom_id_expression.scompil
     c++/expression/custom_postfix_expression.scompil
-    c++/expression/dot_postfix_expression.scompil
     c++/expression/expression.scompil
     c++/expression/expression_list.scompil
+    c++/expression/expression_factory.scompil
     c++/expression/id_expression.scompil
     c++/expression/id_expression_primary_expression.scompil
     c++/expression/identifier_unqualified_id.scompil
-    c++/expression/expression_factory.scompil
+    c++/expression/member_access_postfix_expression.scompil
     c++/expression/parentheses_postfix_expression.scompil
     c++/expression/postfix_expression.scompil
     c++/expression/primary_expression.scompil

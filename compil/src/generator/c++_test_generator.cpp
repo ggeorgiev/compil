@@ -56,11 +56,6 @@ CppTestGenerator::~CppTestGenerator()
 {
 }
 
-const TestSPtr& operator<<(const TestSPtr& test, const DeclarationStatementSPtr& statement)
-{
-    return test << boost::shared_polymorphic_cast<Statement>(statement);
-}
-
 void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStructure)
 {
     TestSuite suite;
@@ -96,7 +91,7 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
                 << unqualifiedId;
         }
         
-        DotPostfixExpressionSPtr structureIsInitialized = dotPostfixExpressionRef()
+        MemberAccessPostfixExpressionSPtr structureIsInitialized = memberAccessPostfixExpressionRef()
             << boost::shared_polymorphic_cast<PostfixExpression>(structute)
             << boost::shared_polymorphic_cast<IdExpression>(isInitialized);
             
@@ -109,8 +104,9 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
         UnaryTestStatement::EType type = pStructure->isOptional()
                                          ? UnaryTestStatement::EType::isTrue()
                                          : UnaryTestStatement::EType::isFalse();
-        test << (unaryTestStatementRef() << type
-                                         << structureIsInitializedFunction);
+        test    << boost::shared_polymorphic_cast<Statement>(unaryTestStatementRef()
+                    << type
+                    << structureIsInitializedFunction);
         
         suite << test;
     }
