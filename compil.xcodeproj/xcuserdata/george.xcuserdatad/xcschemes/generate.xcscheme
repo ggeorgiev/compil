@@ -92,6 +92,10 @@
             argument = "/Users/george/github/compil/src/generator-test/weak_enumeration.compil"
             isEnabled = "NO">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/george/github/compil/src/language/c++/expression/parentheses_postfix_expression.scompil"
+            isEnabled = "NO">
+         </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>

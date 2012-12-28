@@ -98,15 +98,9 @@ FormatterStream& operator<<(FormatterStream& stream, const DeclarationStatementS
 
 FormatterStream& operator<<(FormatterStream& stream, const DotPostfixExpressionSPtr& expression)
 {
-    FormatterStream firstFormatter(stream.mConfiguration, stream.mAligner.mConfiguration);
-    firstFormatter << expression->first();
-    FormatterStream secondFormatter(stream.mConfiguration, stream.mAligner.mConfiguration);
-    secondFormatter << expression->second();
-    
-    stream.mAligner << firstFormatter.str()
-                    << "."
-                    << secondFormatter.str();
-                    
+    stream << expression->first();
+    stream.mAligner << ".";
+    stream << expression->second();
     return stream;
 }
 
@@ -122,6 +116,8 @@ FormatterStream& operator<<(FormatterStream& stream, const ExpressionSPtr& expre
         return stream << IdentifierUnqualifiedId::downcast(expression);
     if (expression->runtimeExpressionId() == IdExpressionPrimaryExpression::staticExpressionId())
         return stream << IdExpressionPrimaryExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == ParenthesesPostfixExpression::staticExpressionId())
+        return stream << ParenthesesPostfixExpression::downcast(expression);
     if (expression->runtimeExpressionId() == PrimaryExpressionPostfixExpression::staticExpressionId())
         return stream << PrimaryExpressionPostfixExpression::downcast(expression);
     if (expression->runtimeExpressionId() == UnqualifiedIdExpression::staticExpressionId())
@@ -160,6 +156,16 @@ FormatterStream& operator<<(FormatterStream& stream, const IdentifierUnqualified
 FormatterStream& operator<<(FormatterStream& stream, const IdExpressionPrimaryExpressionSPtr& expression)
 {
     return stream << expression->expression();
+}
+
+FormatterStream& operator<<(FormatterStream& stream, const ParenthesesPostfixExpressionSPtr& expression)
+{
+    stream << expression->expression();
+    stream.mAligner << "(";
+    if (expression->list())
+        stream << expression->list();
+    stream.mAligner << ")";
+    return stream;
 }
 
 FormatterStream& operator<<(FormatterStream& stream, const PrimaryExpressionPostfixExpressionSPtr& expression)

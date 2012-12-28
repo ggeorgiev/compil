@@ -73,20 +73,35 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
         
         lang::cpp::IdentifierSPtr structureIdentifier = identifierRef()
             << "structure";
-        IdentifierUnqualifiedIdSPtr structureUnqualifiedId = identifierUnqualifiedIdRef()
-            << structureIdentifier;
-        UnqualifiedIdExpressionSPtr unqualifiedIdExpression = unqualifiedIdExpressionRef()
-            << structureUnqualifiedId;
-        IdExpressionPrimaryExpressionSPtr primaryExpression = idExpressionPrimaryExpressionRef()
-            << boost::shared_polymorphic_cast<IdExpression>(unqualifiedIdExpression);
-        PrimaryExpressionPostfixExpressionSPtr postfixExpression = primaryExpressionPostfixExpressionRef()
-            << boost::shared_polymorphic_cast<PrimaryExpression>(primaryExpression);
+
+        PrimaryExpressionPostfixExpressionSPtr structute;
+        {
+            IdentifierUnqualifiedIdSPtr unqualifiedId = identifierUnqualifiedIdRef()
+                << structureIdentifier;
+            UnqualifiedIdExpressionSPtr unqualifiedIdExpression = unqualifiedIdExpressionRef()
+                << unqualifiedId;
+            IdExpressionPrimaryExpressionSPtr primaryExpression = idExpressionPrimaryExpressionRef()
+                << boost::shared_polymorphic_cast<IdExpression>(unqualifiedIdExpression);
+            structute = primaryExpressionPostfixExpressionRef()
+                << boost::shared_polymorphic_cast<PrimaryExpression>(primaryExpression);
+        }
         
-        CustomIdExpressionSPtr isInitialized = customIdExpressionRef()
-            << "isInitialized()";
+        UnqualifiedIdExpressionSPtr isInitialized;
+        {
+            lang::cpp::IdentifierSPtr identifier = identifierRef()
+                << "isInitialized";
+            IdentifierUnqualifiedIdSPtr unqualifiedId = identifierUnqualifiedIdRef()
+                << identifier;
+            isInitialized = unqualifiedIdExpressionRef()
+                << unqualifiedId;
+        }
+        
         DotPostfixExpressionSPtr structureIsInitialized = dotPostfixExpressionRef()
-            << boost::shared_polymorphic_cast<PostfixExpression>(postfixExpression)
+            << boost::shared_polymorphic_cast<PostfixExpression>(structute)
             << boost::shared_polymorphic_cast<IdExpression>(isInitialized);
+            
+        ParenthesesPostfixExpressionSPtr structureIsInitializedFunction = parenthesesPostfixExpressionRef()
+            <<  boost::shared_polymorphic_cast<PostfixExpression>(structureIsInitialized);
         
         test << (declarationStatementRef() << ClassName(pStructure->name()->value())
                                            << structureIdentifier);
@@ -95,7 +110,7 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
                                          ? UnaryTestStatement::EType::isTrue()
                                          : UnaryTestStatement::EType::isFalse();
         test << (unaryTestStatementRef() << type
-                                         << structureIsInitialized);
+                                         << structureIsInitializedFunction);
         
         suite << test;
     }

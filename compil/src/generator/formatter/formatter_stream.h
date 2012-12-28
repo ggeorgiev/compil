@@ -66,6 +66,7 @@ FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::Expression
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::MacroStatementSPtr&);
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::IdentifierUnqualifiedIdSPtr&);
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::IdExpressionPrimaryExpressionSPtr&);
+FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::ParenthesesPostfixExpressionSPtr&);
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::PrimaryExpressionPostfixExpressionSPtr&);
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::StatementSPtr&);
 FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::Statement::EClose&);

@@ -105,6 +105,7 @@ std::string AlignerStream::indent() const
             break;
     }
     assert(false && "unknown alignment type");
+    return "";
 }
 
 AlignerStream& operator<<(AlignerStream& stream, const Scope& scope)
