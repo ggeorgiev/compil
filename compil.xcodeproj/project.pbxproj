@@ -361,6 +361,8 @@
 		5E9DE6BF168D6D710020522D /* namer_configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = namer_configuration.h; sourceTree = "<group>"; };
 		5E9DE6C0168D6D710020522D /* namer_stream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = namer_stream.cpp; sourceTree = "<group>"; };
 		5E9DE6C1168D6D710020522D /* namer_stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = namer_stream.h; sourceTree = "<group>"; };
+		5E9DE6C7168E28CA0020522D /* generator */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = generator; sourceTree = "<group>"; };
+		5E9DE6CA168E28CA0020522D /* generator.exe */ = {isa = PBXFileReference; lastKnownFileType = file; path = generator.exe; sourceTree = "<group>"; };
 		5EA486AA1618A25300B42BC8 /* constructor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = constructor.cpp; sourceTree = "<group>"; };
 		5EA486AB1618A25300B42BC8 /* constructor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constructor.h; sourceTree = "<group>"; };
 		5EA486AD1618AA1F00B42BC8 /* method_group.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_group.compil; sourceTree = "<group>"; };
@@ -455,6 +457,7 @@
 		5E335F1B1425381A004CB818 = {
 			isa = PBXGroup;
 			children = (
+				5E9DE6C3168E28CA0020522D /* compil-stable */,
 				5E88A19415E188BB002D43A5 /* src */,
 			);
 			sourceTree = "<group>";
@@ -1067,6 +1070,56 @@
 				5E9DE6C1168D6D710020522D /* namer_stream.h */,
 			);
 			path = namer;
+			sourceTree = "<group>";
+		};
+		5E9DE6C3168E28CA0020522D /* compil-stable */ = {
+			isa = PBXGroup;
+			children = (
+				5E9DE6C4168E28CA0020522D /* tool */,
+			);
+			name = "compil-stable";
+			path = "compil/compil-stable";
+			sourceTree = "<group>";
+		};
+		5E9DE6C4168E28CA0020522D /* tool */ = {
+			isa = PBXGroup;
+			children = (
+				5E9DE6C5168E28CA0020522D /* macosxx86 */,
+				5E9DE6C8168E28CA0020522D /* windowsx86 */,
+			);
+			path = tool;
+			sourceTree = "<group>";
+		};
+		5E9DE6C5168E28CA0020522D /* macosxx86 */ = {
+			isa = PBXGroup;
+			children = (
+				5E9DE6C6168E28CA0020522D /* bin */,
+			);
+			path = macosxx86;
+			sourceTree = "<group>";
+		};
+		5E9DE6C6168E28CA0020522D /* bin */ = {
+			isa = PBXGroup;
+			children = (
+				5E9DE6C7168E28CA0020522D /* generator */,
+			);
+			path = bin;
+			sourceTree = "<group>";
+		};
+		5E9DE6C8168E28CA0020522D /* windowsx86 */ = {
+			isa = PBXGroup;
+			children = (
+				5E9DE6C9168E28CA0020522D /* bin */,
+			);
+			path = windowsx86;
+			sourceTree = "<group>";
+		};
+		5E9DE6C9168E28CA0020522D /* bin */ = {
+			isa = PBXGroup;
+			children = (
+				5E9DE6CA168E28CA0020522D /* generator.exe */,
+			);
+			path = bin;
 			sourceTree = "<group>";
 		};
 		5EB86F68168BA7320049B6A9 /* test */ = {

@@ -29,6 +29,11 @@ structure Structure1
     vector<Enum> es1;
 }
 
+streamable
+structure Structure2
+    inherit Structure1
+{
+}
 
 immutable streamable
 structure IStructure1
@@ -49,4 +54,10 @@ structure IStructure1
     Weak w1;
     Strong s1;
     vector<Enum> es1;
+}
+
+immutable streamable
+structure IStructure2
+    inherit IStructure1
+{
 }

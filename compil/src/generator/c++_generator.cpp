@@ -992,8 +992,16 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
 
     std::string accessObject;
     cf::TypeSPtr resultType = frm->typeRef(impl->cppType(pStructure));
+    
+    
+    std::string returnThis;
+    if (!pStructure->immutable() && pStructure->partial())
+        returnThis = "return *(" + frm->cppClassType(pStructure)->name()->value() + "*)this;";
+    else
+        returnThis = "return *this;";
+    eol(definitionStream);
 
-    if (pBelongStructure->immutable())
+    if (pStructure->immutable())
     {
         *namesp << nsBuilder;
         if (pBelongStructure->baseStructure().lock())
@@ -1008,7 +1016,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
     }
 
 
-    if ((!pBelongStructure->immutable() || pBelongStructure->isBuildable()) && !pBelongStructure->isOverriden(pField))
+    if ((!pStructure->immutable() || pStructure->isBuildable()) && !pStructure->isOverriden(pField))
     {
         fdef()  << (cf::methodRef() << resultType
                                     << namesp
@@ -1046,16 +1054,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
             }
             eot(definitionStream);
             
-            if (!pStructure->immutable() && pStructure->partial())
-            {
-                line()  << "return *("
-                        << frm->cppClassType(pStructure)->name()->value()
-                        << "*)this;";
-            }
-            else
-            {
-                line() << "return *this;";
-            }
+            line()  << returnThis;
             eol(definitionStream);
         }
         else
@@ -1081,8 +1080,8 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                         << ";";
                 eol(definitionStream);
                         
-                line() << "return *this;";
-                eol(definitionStream); 
+                line()  << returnThis;
+                eol(definitionStream);
             }
         }
         closeBlock(definitionStream);
@@ -1117,6 +1116,17 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
         
         if (pStructure->streamable())
         {
+            cf::TypeSPtr belongType = cf::typeRef();
+            if (pStructure->isBuildable())
+            {
+                belongType << frm->cppAutoClassNamespace(pBelongStructure)
+                           << builder->name();
+            }
+            else
+            {
+                belongType << frm->cppClassType(pBelongStructure)->name();
+            }
+        
             fdef()  << (cf::methodRef() << resultType
                                         << namesp
                                         << fnOperatorStore
@@ -1125,12 +1135,28 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                                                               << frm->cppVariableName(pField)));
             openBlock(definitionStream);
             
-            line()  << "return "
-                    << frm->setMethodName(pField)
-                    << "("
-                    << frm->cppVariableName(pField)
-                    << ");";
-            eol(definitionStream);
+            if (pStructure == pBelongStructure)
+            {
+                line()  << "return "
+                        << frm->setMethodName(pField)
+                        << "("
+                        << frm->cppVariableName(pField)
+                        << ");";
+                eol(definitionStream);
+            }
+            else
+            {
+                line()  << "*("
+                        << belongType
+                        << "*)this << "
+                        << frm->cppVariableName(pField)
+                        << ";";
+                        
+                eol(definitionStream);
+                
+                line()  << returnThis;
+                eol(definitionStream);
+            }
 
             closeBlock(definitionStream);
             eol(definitionStream);
@@ -1176,34 +1202,38 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                                             << (cf::argumentRef() << type
                                                                   << frm->cppItemVariableName(pField)));
                 openBlock(definitionStream);
-
-                if (pStructure->controlled())
-                {
-                    line()  << accessObject
-                            << frm->memberName("bits")
-                            << " |= "
-                            << (cf::functionCallRef() << frm->bitmaskMethodName(pField))
-                            << ";";
-                    eol(definitionStream);
-                }
-                line()  << accessObject
-                        << frm->cppMemberName(pField)
-                        << ".push_back("
-                        << frm->cppVariableName(pField)
-                        << "Item"
-                        << ");";
-                eol(definitionStream);
                 
-                if (!pStructure->immutable() && pStructure->partial())
+                if (pStructure == pBelongStructure)
                 {
-                    line()  << "return *("
-                            << frm->cppClassType(pStructure)->name()->value()
-                            << "*)this;";
+                    if (pStructure->controlled())
+                    {
+                        line()  << accessObject
+                                << frm->memberName("bits")
+                                << " |= "
+                                << (cf::functionCallRef() << frm->bitmaskMethodName(pField))
+                                << ";";
+                        eol(definitionStream);
+                    }
+                    line()  << accessObject
+                            << frm->cppMemberName(pField)
+                            << ".push_back("
+                            << frm->cppVariableName(pField)
+                            << "Item"
+                            << ");";
+                    eol(definitionStream);
                 }
                 else
                 {
-                    line() << "return *this;";
+                    line()  << "*("
+                            << belongType
+                            << "*)this << "
+                            << frm->cppVariableName(pField)
+                            << "Item"
+                            << ";";
+                    eol(definitionStream);                
                 }
+                    
+                line()  << returnThis;
                 eol(definitionStream);
 
                 closeBlock(definitionStream);
@@ -1281,16 +1311,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                             << "();";
                     eol(definitionStream);
 
-                    if (!pStructure->immutable() && pStructure->partial())
-                    {
-                        line()  << "return *("
-                                << frm->cppClassType(pStructure)->name()->value()
-                                << "*)this;";
-                    }
-                    else
-                    {
-                        line() << "return *this;";
-                    }
+                    line()  << returnThis;
                     eol(definitionStream);
                 }
                 else
