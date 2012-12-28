@@ -30,16 +30,39 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-compil { }
+#include "namer_stream.h"
 
-import "type.compil";
-import "variable_name.compil";
-
-package lang.cpp;
-
-streamable
-structure Variable
+NamerStream::NamerStream(const NamerConfigurationSPtr& namerConfiguration,
+                const FormatterConfigurationPtr& formatterConfiguration,
+                const AlignerConfigurationPtr& alignerConfiguration)
+    : mFormatter(formatterConfiguration, alignerConfiguration)
+    , mConfiguration(namerConfiguration)
 {
-    reference<Type> type;
-    reference<VariableName> name;
+}
+
+NamerStream::~NamerStream()
+{
+}
+
+std::string NamerStream::str()
+{
+    return mFormatter.str();
+}
+
+NamerStream& operator<<(NamerStream& stream, const lang::cpp::CompoundStatementSPtr& statement)
+{
+    stream.mFormatter << statement;
+    return stream;
+}
+
+NamerStream& operator<<(NamerStream& stream, const lang::cpp::MacroStatementSPtr& statement)
+{
+    stream.mFormatter << statement;
+    return stream;
+}
+
+NamerStream& operator<<(NamerStream& stream, const lang::cpp::StatementSPtr& statement)
+{
+    stream.mFormatter << statement;
+    return stream;
 }

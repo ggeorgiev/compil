@@ -32,34 +32,30 @@
 
 #include <boost/shared_ptr.hpp>
 
-#ifndef _IMPLEMENTER_STREAM_H__
-#define _IMPLEMENTER_STREAM_H__
+#ifndef _NAMER_CONFIGURATION_H__
+#define _NAMER_CONFIGURATION_H__
 
-#include "implementer_configuration.h"
+#include "configuration.h"
 
-#include "namer_stream.h"
-
-#include "c++/test/test_suite.h"
-
-class ImplementerStream
+class NamerConfiguration : public compil::Configuration
 {
 public:
-    ImplementerStream(const ImplementerConfigurationPtr& implementerConfiguration,
-                      const NamerConfigurationSPtr& namerConfiguration,
-                      const FormatterConfigurationPtr& formatterConfiguration,
-                      const AlignerConfigurationPtr& alignerConfiguration);
-    virtual ~ImplementerStream();
+    NamerConfiguration();
+    virtual ~NamerConfiguration();
     
-    std::string str();
+    static std::string staticName();
     
-    NamerStream mNamer;
-    ImplementerConfigurationPtr mConfiguration;
+    virtual std::string name();
 };
 
-typedef boost::shared_ptr<ImplementerStream> ImplementerStreamSPtr;
-typedef boost::weak_ptr<ImplementerStream> ImplementerStreamWPtr;
+typedef boost::shared_ptr<NamerConfiguration> NamerConfigurationSPtr;
+typedef boost::weak_ptr<NamerConfiguration> NamerConfigurationWPtr;
 
-ImplementerStream& operator<<(ImplementerStream& stream, const lang::cpp::TestSuite&);
+#else
+
+class NamerConfiguration;
+typedef boost::shared_ptr<NamerConfiguration> NamerConfigurationSPtr;
+typedef boost::weak_ptr<NamerConfiguration> NamerConfigurationWPtr;
 
 #endif
 

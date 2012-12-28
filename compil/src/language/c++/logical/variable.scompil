@@ -30,36 +30,14 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include <boost/shared_ptr.hpp>
+compil { }
 
-#ifndef _IMPLEMENTER_STREAM_H__
-#define _IMPLEMENTER_STREAM_H__
+import "c++/logical/variable_name.scompil";
 
-#include "implementer_configuration.h"
+package lang.cpp;
 
-#include "namer_stream.h"
-
-#include "c++/test/test_suite.h"
-
-class ImplementerStream
+streamable
+structure Variable
 {
-public:
-    ImplementerStream(const ImplementerConfigurationPtr& implementerConfiguration,
-                      const NamerConfigurationSPtr& namerConfiguration,
-                      const FormatterConfigurationPtr& formatterConfiguration,
-                      const AlignerConfigurationPtr& alignerConfiguration);
-    virtual ~ImplementerStream();
-    
-    std::string str();
-    
-    NamerStream mNamer;
-    ImplementerConfigurationPtr mConfiguration;
-};
-
-typedef boost::shared_ptr<ImplementerStream> ImplementerStreamSPtr;
-typedef boost::weak_ptr<ImplementerStream> ImplementerStreamWPtr;
-
-ImplementerStream& operator<<(ImplementerStream& stream, const lang::cpp::TestSuite&);
-
-#endif
-
+    reference<VariableName> name;
+}

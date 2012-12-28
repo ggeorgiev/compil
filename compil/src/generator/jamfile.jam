@@ -11,6 +11,7 @@ project generator
     <include>aligner/object
     <include>formatter
     <include>implementer
+    <include>namer
   ;
 
 lib generator-lib
@@ -55,6 +56,9 @@ lib generator-lib
     implementer/dependency.cpp
     implementer/implementer_configuration.cpp
     implementer/implementer_stream.cpp
+    namer/namer_configuration.cpp
+    namer/namer_stream.cpp
+    
     boost_path_resolve.cpp
     c++_flags_enumeration_generator.cpp
     c++_generator.cpp

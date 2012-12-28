@@ -32,34 +32,34 @@
 
 #include <boost/shared_ptr.hpp>
 
-#ifndef _IMPLEMENTER_STREAM_H__
-#define _IMPLEMENTER_STREAM_H__
+#ifndef _NAMER_STREAM_H__
+#define _NAMER_STREAM_H__
 
-#include "implementer_configuration.h"
+#include "namer_configuration.h"
 
-#include "namer_stream.h"
+#include "formatter_stream.h"
 
-#include "c++/test/test_suite.h"
-
-class ImplementerStream
+class NamerStream
 {
 public:
-    ImplementerStream(const ImplementerConfigurationPtr& implementerConfiguration,
-                      const NamerConfigurationSPtr& namerConfiguration,
-                      const FormatterConfigurationPtr& formatterConfiguration,
-                      const AlignerConfigurationPtr& alignerConfiguration);
-    virtual ~ImplementerStream();
+    NamerStream(const NamerConfigurationSPtr& namerConfiguration,
+                const FormatterConfigurationPtr& formatterConfiguration,
+                const AlignerConfigurationPtr& alignerConfiguration);
+    virtual ~NamerStream();
     
     std::string str();
-    
-    NamerStream mNamer;
-    ImplementerConfigurationPtr mConfiguration;
+
+    FormatterStream mFormatter;
+    NamerConfigurationSPtr mConfiguration;
 };
 
-typedef boost::shared_ptr<ImplementerStream> ImplementerStreamSPtr;
-typedef boost::weak_ptr<ImplementerStream> ImplementerStreamWPtr;
+typedef boost::shared_ptr<NamerStream> NamerStreamSPtr;
+typedef boost::weak_ptr<NamerStream> NamerStreamWPtr;
 
-ImplementerStream& operator<<(ImplementerStream& stream, const lang::cpp::TestSuite&);
+NamerStream& operator<<(NamerStream& stream, const lang::cpp::CompoundStatementSPtr&);
+NamerStream& operator<<(NamerStream& stream, const lang::cpp::MacroStatementSPtr&);
+NamerStream& operator<<(NamerStream& stream, const lang::cpp::StatementSPtr&);
+
 
 #endif
 

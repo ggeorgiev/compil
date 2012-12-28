@@ -37,8 +37,11 @@ lib language
     c++/expression/unqualified_id_expression.scompil
     c++/expression/unqualified_id.scompil
 
-    
     c++/lexical/identifier.scompil
+    
+    c++/logical/local_variable.scompil
+    c++/logical/variable.scompil
+    c++/logical/variable_name.scompil
     
     c++/statement/compound_statement.scompil
     c++/statement/declaration_statement.scompil
@@ -78,8 +81,6 @@ lib language
     #c++/type_decoration.compil
     #c++/type_name.compil
     #c++/type.compil
-    #c++/variable_name.compil
-    #c++/variable.compil
     
     boost_templates
   :

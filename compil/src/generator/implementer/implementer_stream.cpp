@@ -42,9 +42,10 @@ using namespace lang;
 using namespace lang::cpp;
 
 ImplementerStream::ImplementerStream(const ImplementerConfigurationPtr& implementerConfiguration,
+                                     const NamerConfigurationSPtr& namerConfiguration,
                                      const FormatterConfigurationPtr& formatterConfiguration,
                                      const AlignerConfigurationPtr& alignerConfiguration)
-    : mFormatter(formatterConfiguration, alignerConfiguration)
+    : mNamer(namerConfiguration, formatterConfiguration, alignerConfiguration)
     , mConfiguration(implementerConfiguration)
 {
 }
@@ -55,7 +56,7 @@ ImplementerStream::~ImplementerStream()
 
 std::string ImplementerStream::str()
 {
-    return mFormatter.str();
+    return mNamer.str();
 }
 
 ImplementerStream& operator<<(ImplementerStream& stream, const TestSuite& suite)
@@ -73,7 +74,7 @@ ImplementerStream& operator<<(ImplementerStream& stream, const TestSuite& suite)
         macro << (macroParameterRef() << (customExpressionRef() << test->name().value()));
         macro << Statement::EClose::no();
         
-        stream.mFormatter << macro;
+        stream.mNamer << macro;
         
         CompoundStatementSPtr compoundStatement = compoundStatementRef();
         
@@ -105,7 +106,7 @@ ImplementerStream& operator<<(ImplementerStream& stream, const TestSuite& suite)
             compoundStatement << statement;
         }
         
-        stream.mFormatter << compoundStatement;
+        stream.mNamer << compoundStatement;
     }
 
     return stream;

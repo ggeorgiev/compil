@@ -111,7 +111,9 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
         suite << test;
     }
     
-    ImplementerStream stream(impl->mpConfiguration, frm->mpFormatterConfiguration, mpAlignerConfiguration);
+    NamerConfigurationSPtr nc = boost::make_shared<NamerConfiguration>();
+    
+    ImplementerStream stream(impl->mpConfiguration, nc, frm->mpFormatterConfiguration, mpAlignerConfiguration);
     
     stream << suite;
     
