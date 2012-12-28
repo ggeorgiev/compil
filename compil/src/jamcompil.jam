@@ -46,7 +46,7 @@ class compil-generator : generator
 
         # Ignore usage-requirements returned as first element.
         compil-binary-dependencies = $(compil-binary-dependencies[2-]) ;
-
+        
         for local target in $(compil-binary-dependencies)
         {
             if [ $(target).type ] = EXE

@@ -363,6 +363,7 @@
 		5E9DE6C1168D6D710020522D /* namer_stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = namer_stream.h; sourceTree = "<group>"; };
 		5E9DE6C7168E28CA0020522D /* generator */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = generator; sourceTree = "<group>"; };
 		5E9DE6CA168E28CA0020522D /* generator.exe */ = {isa = PBXFileReference; lastKnownFileType = file; path = generator.exe; sourceTree = "<group>"; };
+		5E9DE6CB168E48C00020522D /* get-latest-generators.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "get-latest-generators.sh"; sourceTree = "<group>"; };
 		5EA486AA1618A25300B42BC8 /* constructor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = constructor.cpp; sourceTree = "<group>"; };
 		5EA486AB1618A25300B42BC8 /* constructor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constructor.h; sourceTree = "<group>"; };
 		5EA486AD1618AA1F00B42BC8 /* method_group.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_group.compil; sourceTree = "<group>"; };
@@ -1075,6 +1076,7 @@
 		5E9DE6C3168E28CA0020522D /* compil-stable */ = {
 			isa = PBXGroup;
 			children = (
+				5E9DE6CB168E48C00020522D /* get-latest-generators.sh */,
 				5E9DE6C4168E28CA0020522D /* tool */,
 			);
 			name = "compil-stable";

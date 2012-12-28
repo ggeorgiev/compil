@@ -72,8 +72,8 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
         ClassNameSPtr className = classNameRef()
             << pStructure->name()->value();
         
-        LocalVariableSPtr structure = localVariableRef();
-        structure->set_name(variableNameRef() << "structure");
+        LocalVariableSPtr structure = localVariableRef()
+            << (variableNameRef() << "structure");
         
         VariableDeclarationStatementSPtr declaration = variableDeclarationStatementRef()
             << className

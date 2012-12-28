@@ -51,14 +51,13 @@ class compil-stable-generator : generator
 
     rule run ( project name ? : property-set : sources * : multiple ? )
     {
-        local compil-stable-binary = [ modules.peek jamcompilstable : .compil-stable-binary ] ;
-
         local directory = [ tool-directory ] ;
-        compil-stable-binary = [ path.native [ path.join $(directory) generator ] ] ;
+        local compil-stable-binary-dependencies = [ path.join $(directory) generator ] ;
+        local compil-stable-binary = [ path.native $(compil-stable-binary-dependencies) ] ;
         
         property-set = [ $(property-set).add-raw
-            <dependency>$(compil-stable-binary-dependencies)
             <compil-stable-binary>$(compil-stable-binary)
+            #<compil-stable-binary-dependencies>$(compil-stable-binary-dependencies)
         ] ;
 
         return [ generator.run $(project) $(name) : $(property-set) : $(sources) : $(multiple) ] ;
@@ -95,7 +94,6 @@ rule generate ( targets * : source * : properties * )
 
 actions generate
 {
-    echo $(COMPIL-STABLE-COMMAND) -I$(IMPORTS:W) -t $(COMPIL-STABLE-TYPE) --core-directory=core/c++ $(>) -o $(<[1]:D)
     $(COMPIL-STABLE-COMMAND) -I$(IMPORTS:W) -t $(COMPIL-STABLE-TYPE) --core-directory=core/c++ $(>) -o $(<[1]:D) || exit 1
 }
 
