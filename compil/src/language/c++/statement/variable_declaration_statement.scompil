@@ -33,6 +33,7 @@
 compil { }
 
 import "c++/statement/statement.scompil";
+import "c++/class/class.scompil";
 import "c++/logical/variable.scompil";
 
 package lang.cpp;
@@ -44,4 +45,5 @@ structure VariableDeclarationStatement
     runtime identification;
     
     reference<Variable> variable;
+    reference<Class> class;
 }

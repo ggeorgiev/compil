@@ -59,7 +59,7 @@ typedef boost::weak_ptr<NamerStream> NamerStreamWPtr;
 NamerStream& operator<<(NamerStream& stream, const lang::cpp::CompoundStatementSPtr&);
 NamerStream& operator<<(NamerStream& stream, const lang::cpp::MacroStatementSPtr&);
 NamerStream& operator<<(NamerStream& stream, const lang::cpp::StatementSPtr&);
-
+NamerStream& operator<<(NamerStream& stream, const lang::cpp::VariableDeclarationStatementSPtr&);
 
 #endif
 

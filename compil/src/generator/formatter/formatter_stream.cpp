@@ -90,7 +90,7 @@ FormatterStream& operator<<(FormatterStream& stream, const CustomIdExpressionSPt
 
 FormatterStream& operator<<(FormatterStream& stream, const DeclarationStatementSPtr& statement)
 {
-    stream.mAligner << statement->typeId().value();
+    stream.mAligner << statement->type()->value();
     stream.mAligner << " ";
     stream.mAligner << statement->typeName()->value();
     return stream << statement->close();

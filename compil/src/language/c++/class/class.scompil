@@ -36,7 +36,8 @@ import "c++/class/class_name.scompil";
 
 package lang.cpp;
 
+streamable
 structure Class 
 {
-    ClassName name;
+    reference<ClassName> name;
 }

@@ -32,6 +32,8 @@
 
 #include "namer_stream.h"
 
+using namespace lang::cpp;
+
 NamerStream::NamerStream(const NamerConfigurationSPtr& namerConfiguration,
                 const FormatterConfigurationPtr& formatterConfiguration,
                 const AlignerConfigurationPtr& alignerConfiguration)
@@ -49,20 +51,45 @@ std::string NamerStream::str()
     return mFormatter.str();
 }
 
-NamerStream& operator<<(NamerStream& stream, const lang::cpp::CompoundStatementSPtr& statement)
+static StatementSPtr convertVariableDeclarationStatement(const VariableDeclarationStatementSPtr& statement)
+{
+    IdentifierSPtr identifier = (identifierRef() << statement->variable()->name()->value());
+
+    return declarationStatementRef() << statement->class_()->name()
+                                     << identifier;
+}
+
+NamerStream& operator<<(NamerStream& stream, const CompoundStatementSPtr& compoundStatement)
+{
+    CompoundStatementSPtr newstatement = compoundStatementRef();
+
+    const std::vector<StatementSPtr>& statements = compoundStatement->statements();
+    for (std::vector<StatementSPtr>::const_iterator it = statements.begin(); it != statements.end(); ++it)
+    {
+        StatementSPtr statement = *it;
+        if (statement->runtimeStatementId() == VariableDeclarationStatement::staticStatementId())
+            statement = convertVariableDeclarationStatement(VariableDeclarationStatement::downcast(statement));
+        
+        newstatement << statement;
+    }
+    
+    stream.mFormatter << newstatement;
+    return stream;
+}
+
+NamerStream& operator<<(NamerStream& stream, const MacroStatementSPtr& statement)
 {
     stream.mFormatter << statement;
     return stream;
 }
 
-NamerStream& operator<<(NamerStream& stream, const lang::cpp::MacroStatementSPtr& statement)
+NamerStream& operator<<(NamerStream& stream, const StatementSPtr& statement)
 {
     stream.mFormatter << statement;
     return stream;
 }
 
-NamerStream& operator<<(NamerStream& stream, const lang::cpp::StatementSPtr& statement)
+NamerStream& operator<<(NamerStream& stream, const VariableDeclarationStatementSPtr& statement)
 {
-    stream.mFormatter << statement;
-    return stream;
+    return stream << convertVariableDeclarationStatement(statement);
 }

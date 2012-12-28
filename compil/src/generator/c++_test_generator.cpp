@@ -36,6 +36,9 @@
 #include "c++/expression/expression_factory.h"
 #include "c++/statement/statement_factory.h"
 
+#include "c++/class/class.h"
+#include "c++/logical/local_variable.h"
+
 namespace compil
 {
 
@@ -65,6 +68,19 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
     {
         TestSPtr test = testRef();
         test << TestName("isInitialized");
+        
+        ClassSPtr cls = classRef()
+            << (classNameRef() << pStructure->name()->value());
+        
+        LocalVariableSPtr structure = localVariableRef();
+        structure->set_name(variableNameRef() << "structure");
+        
+        VariableDeclarationStatementSPtr declaration = variableDeclarationStatementRef()
+            << cls
+            << boost::shared_polymorphic_cast<Variable>(structure);
+            
+        test << declaration;
+
         
         lang::cpp::IdentifierSPtr structureIdentifier = identifierRef()
             << "structure";
@@ -98,9 +114,6 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
         ParenthesesPostfixExpressionSPtr structureIsInitializedFunction = parenthesesPostfixExpressionRef()
             <<  boost::shared_polymorphic_cast<PostfixExpression>(structureIsInitialized);
         
-        test << (declarationStatementRef() << ClassName(pStructure->name()->value())
-                                           << structureIdentifier);
-                                           
         UnaryTestStatement::EType type = pStructure->isOptional()
                                          ? UnaryTestStatement::EType::isTrue()
                                          : UnaryTestStatement::EType::isFalse();

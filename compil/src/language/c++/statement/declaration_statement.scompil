@@ -43,6 +43,6 @@ structure DeclarationStatement
 {
     runtime identification;
 
-    ClassName typeId;
+    reference<ClassName> type;
     reference<Identifier> typeName;
 }

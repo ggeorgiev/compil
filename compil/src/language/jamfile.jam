@@ -49,6 +49,7 @@ lib language
     c++/statement/statement.scompil
     c++/statement/statement_factory.scompil
     c++/statement/test_statement.scompil
+    c++/statement/variable_declaration_statement.scompil
     
     c++/preprocessor/macro.scompil
     c++/preprocessor/macro_parameter.scompil
@@ -78,9 +79,6 @@ lib language
     #c++/method.compil
     #c++/namespace_name.compil
     #c++/namespace.compil
-    #c++/type_decoration.compil
-    #c++/type_name.compil
-    #c++/type.compil
     
     boost_templates
   :

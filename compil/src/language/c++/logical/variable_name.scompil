@@ -34,6 +34,8 @@ compil { }
 
 package lang.cpp;
 
-specimen<string> VariableName
+streamable
+structure VariableName
 {
+    string value;
 }
