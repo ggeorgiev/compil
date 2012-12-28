@@ -2158,13 +2158,13 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
 
         cf::TypeSPtr resultType = impl->cppPtrDecoratedType(pStructure);
         
-        std::vector<ObjectSPtr>::const_iterator it;
-        for (it = objects.begin(); it != objects.end(); ++it)
-        {
-            FieldSPtr pField = ObjectFactory::downcastField(*it);
-            if (!pField)
-                continue;
+        std::vector<FieldSPtr> allFileds = pStructure->combinedFields();
         
+        std::vector<FieldSPtr>::const_iterator it;
+        for (it = allFileds.begin(); it != allFileds.end(); ++it)
+        {
+            const FieldSPtr& pField = *it;
+
             commentInTable("Reference store operator for the data field " + pField->name()->value());
             table() << (cf::methodRef() << resultType
                                         << fnOperatorStore

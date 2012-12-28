@@ -19,6 +19,6 @@ project all
 build-project compiler ;
 build-project generator ;
 build-project generator-test ;
-build-project generator-self ;
+#build-project generator-self ;
 
 build-project language ;

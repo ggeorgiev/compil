@@ -40,7 +40,6 @@ namespace streamable
 TEST(StructureStreamableTest, init)
 {
     Structure1 structure1;
-    
     structure1 << 1
                << Structure1::EWeak(1) 
                << Structure1::EStrong(1)
@@ -58,14 +57,13 @@ TEST(StructureStreamableTest, init)
 TEST(StructureStreamableTest, initInherit)
 {
     Structure2 structure2;
-    
     structure2 << 1
                << Structure1::EWeak(1) 
                << Structure1::EStrong(1)
                << EEnum(1)
                << EEnum(2);
                
-    Structure1SPtr refstructure2 = structure2Ref();
+    Structure2SPtr refstructure2 = structure2Ref();
     refstructure2 << 1
                   << Structure1::EWeak(1) 
                   << Structure1::EStrong(1)
@@ -76,7 +74,6 @@ TEST(StructureStreamableTest, initInherit)
 TEST(StructureStreamableTest, immutableInit)
 {
     IStructure1::Builder builder;
-    
     builder << 1 
             << IStructure1::EWeak(1) 
             << IStructure1::EStrong(1)
@@ -87,7 +84,6 @@ TEST(StructureStreamableTest, immutableInit)
 TEST(StructureStreamableTest, immutableInitInherit)
 {
     IStructure2::Builder builder;
-    
     builder << 1 
             << IStructure1::EWeak(1) 
             << IStructure1::EStrong(1)
