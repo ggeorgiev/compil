@@ -92,7 +92,7 @@ FormatterStream& operator<<(FormatterStream& stream, const DeclarationStatementS
 {
     stream.mAligner << statement->type()->value();
     stream.mAligner << " ";
-    stream.mAligner << statement->typeName()->value();
+    stream.mAligner << statement->identifier()->value();
     return stream << statement->close();
 }
 

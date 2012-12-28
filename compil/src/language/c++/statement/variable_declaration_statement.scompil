@@ -44,6 +44,6 @@ structure VariableDeclarationStatement
 {
     runtime identification;
     
+    reference<ClassName> type;
     reference<Variable> variable;
-    reference<Class> class;
 }

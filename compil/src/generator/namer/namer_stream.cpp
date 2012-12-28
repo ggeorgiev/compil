@@ -55,7 +55,7 @@ static StatementSPtr convertVariableDeclarationStatement(const VariableDeclarati
 {
     IdentifierSPtr identifier = (identifierRef() << statement->variable()->name()->value());
 
-    return declarationStatementRef() << statement->class_()->name()
+    return declarationStatementRef() << statement->type()
                                      << identifier;
 }
 

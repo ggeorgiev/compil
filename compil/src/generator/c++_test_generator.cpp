@@ -69,14 +69,14 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
         TestSPtr test = testRef();
         test << TestName("isInitialized");
         
-        ClassSPtr cls = classRef()
-            << (classNameRef() << pStructure->name()->value());
+        ClassNameSPtr className = classNameRef()
+            << pStructure->name()->value();
         
         LocalVariableSPtr structure = localVariableRef();
         structure->set_name(variableNameRef() << "structure");
         
         VariableDeclarationStatementSPtr declaration = variableDeclarationStatementRef()
-            << cls
+            << className
             << boost::shared_polymorphic_cast<Variable>(structure);
             
         test << declaration;

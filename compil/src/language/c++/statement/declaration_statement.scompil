@@ -44,5 +44,5 @@ structure DeclarationStatement
     runtime identification;
 
     reference<ClassName> type;
-    reference<Identifier> typeName;
+    reference<Identifier> identifier;
 }
