@@ -118,8 +118,8 @@ public:
                     
     virtual void generateStructureObjectDefinition(const StructureSPtr& pStructure, const ObjectSPtr& pObject);
     
-    virtual void generateImmutableBaseStructureBuilderDefinition(const StructureSPtr& pStructure,
-                                                                 const StructureSPtr& pBaseStructure);
+    virtual void generateBaseStructureDefinition(const StructureSPtr& pStructure,
+                                                 const StructureSPtr& pBaseStructure);
     virtual void generateStructureDefinition(const StructureSPtr& pStructure);
     
     virtual void generateObjectDefinition(const ObjectSPtr& pObject);

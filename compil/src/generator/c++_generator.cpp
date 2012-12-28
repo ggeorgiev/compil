@@ -993,7 +993,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
     std::string accessObject;
     cf::TypeSPtr resultType = frm->typeRef(impl->cppType(pStructure));
 
-    if (pStructure->immutable())
+    if (pBelongStructure->immutable())
     {
         *namesp << nsBuilder;
         if (pBelongStructure->baseStructure().lock())
@@ -1008,7 +1008,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
     }
 
 
-    if ((!pStructure->immutable() || pStructure->isBuildable()) && !pStructure->isOverriden(pField))
+    if ((!pBelongStructure->immutable() || pBelongStructure->isBuildable()) && !pBelongStructure->isOverriden(pField))
     {
         fdef()  << (cf::methodRef() << resultType
                                     << namesp
@@ -1060,16 +1060,30 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
         }
         else
         {
-            line()  << "return ("
-                    << (cf::typeRef() << classNamesp
-                                      << builder->name()
-                                      << cf::ETypeDecoration::reference())
-                    << ")"
-                    << (cf::functionCallRef() << belongClassBuilderNamesp
-                                              << frm->setMethodName(pField)
-                                              << frm->cppVariableNameAsParameter(pField))
-                    << ";";
-            eol(definitionStream);
+            if (pStructure->isBuildable())
+            {
+                line()  << "return ("
+                        << (cf::typeRef() << classNamesp
+                                          << builder->name()
+                                          << cf::ETypeDecoration::reference())
+                        << ")"
+                        << (cf::functionCallRef() << belongClassBuilderNamesp
+                                                  << frm->setMethodName(pField)
+                                                  << frm->cppVariableNameAsParameter(pField))
+                        << ";";
+                eol(definitionStream); 
+            }
+            else
+            {
+                line()  << (cf::functionCallRef() << frm->cppAutoClassNamespace(pBelongStructure)
+                                                  << frm->setMethodName(pField)
+                                                  << frm->cppVariableNameAsParameter(pField))
+                        << ";";
+                eol(definitionStream);
+                        
+                line() << "return *this;";
+                eol(definitionStream); 
+            }
         }
         closeBlock(definitionStream);
         eol(definitionStream);
@@ -2327,12 +2341,12 @@ void CppGenerator::generateStructureObjectDefinition(const StructureSPtr& pStruc
     }
 }
 
-void CppGenerator::generateImmutableBaseStructureBuilderDefinition(const StructureSPtr& pStructure,
-                                                                   const StructureSPtr& pBaseStructure)
+void CppGenerator::generateBaseStructureDefinition(const StructureSPtr& pStructure,
+                                                   const StructureSPtr& pBaseStructure)
 {
     if (!pBaseStructure) return;
 
-    generateImmutableBaseStructureBuilderDefinition(pStructure, pBaseStructure->baseStructure().lock());
+    generateBaseStructureDefinition(pStructure, pBaseStructure->baseStructure().lock());
 
     const std::vector<ObjectSPtr>& objects = pBaseStructure->objects();
     std::vector<ObjectSPtr>::const_iterator it;
@@ -2875,14 +2889,15 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
     }
 
     if (pStructure->immutable())
-    {
-        generateImmutableBaseStructureBuilderDefinition(pStructure, pBaseStructure);
-    }
+        generateBaseStructureDefinition(pStructure, pBaseStructure);
 
     for (it = objects.begin(); it != objects.end(); ++it)
     {
         generateStructureObjectDefinition(pStructure, *it);
     }
+
+    if (!pStructure->immutable())
+        generateBaseStructureDefinition(pStructure, pBaseStructure);
 }
 
 void CppGenerator::generateObjectDefinition(const ObjectSPtr& pObject)

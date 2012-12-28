@@ -1720,6 +1720,45 @@ void CppHeaderGenerator::generateImmutableBaseStructureBuilderDeclaration(const 
     }
 }
 
+void CppHeaderGenerator::generateBaseStructureDeclaration(const StructureSPtr& pCurrStructure,
+                                                          const StructureSPtr& pStructure,
+                                                          const EMethodGroup& overridden)
+{
+    if (!pStructure) return;
+
+    generateBaseStructureDeclaration(pCurrStructure, pStructure->baseStructure().lock(), overridden);
+
+    const std::vector<ObjectSPtr>& objects = pStructure->objects();
+    std::vector<ObjectSPtr>::const_iterator it;
+    for (it = objects.begin(); it != objects.end(); ++it)
+    {
+        const ObjectSPtr& pObject = *it;
+        switch (pObject->runtimeObjectId().value())
+        {
+            case EObjectId::kField:
+            {
+                FieldSPtr pField = boost::static_pointer_cast<Field>(pObject);
+                if (pCurrStructure->isOverriden(pField) != overridden.isSet(EMethodGroup::overridden()))
+                    continue;
+                
+                EMethodGroup mg;
+                mg.set(EMethodGroup::writing());
+                mg.set(EMethodGroup::special());
+                mg.set(overridden);
+                
+                generateStructureFieldMethodsDeclaration(pCurrStructure, pField, mg);
+                break;
+            }
+            case EObjectId::kIdentification:
+            case EObjectId::kOperator:
+            case EObjectId::kEnumeration:
+                break;
+            default:
+                assert(false);
+        }
+    }
+}
+
 void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStructure)
 {
     StructureSPtr pBaseStructure = pStructure->baseStructure().lock();
@@ -2053,6 +2092,8 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
             mg.set(EMethodGroup::writing());
         generateStructureObjectMethodsDeclaration(*it, mg);
     }
+
+    generateBaseStructureDeclaration(pStructure, pBaseStructure, EMethodGroup::nil());
     eot(declarationStream);
 
     if (pStructure->hasField())

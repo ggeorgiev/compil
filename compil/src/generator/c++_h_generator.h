@@ -97,6 +97,11 @@ public:
     virtual void generateImmutableBaseStructureBuilderDeclaration(const StructureSPtr& pCurrStructure,
                                                                   const StructureSPtr& pStructure,
                                                                   const EMethodGroup& overridden);
+                                                                  
+    virtual void generateBaseStructureDeclaration(const StructureSPtr& pCurrStructure,
+                                                  const StructureSPtr& pStructure,
+                                                  const EMethodGroup& overridden);
+                                                                  
     virtual void generateStructureDeclaration(const StructureSPtr& pStructure);
     
     virtual void generateObjectDeclaration(const ObjectSPtr& pObject);
