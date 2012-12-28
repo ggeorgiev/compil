@@ -39,10 +39,20 @@ namespace streamable
 
 TEST(StructureStreamableTest, init)
 {
+    Item1 item1;
+    Item1 item2;
+    
+    Item1SPtr refItem1;
+    Item2SPtr refItem2;
+
     Structure1 structure1;
     structure1 << 1
                << Structure1::EWeak(1) 
                << Structure1::EStrong(1)
+               << item1
+               << item2
+               << refItem1
+               << refItem2
                << EEnum(1)
                << EEnum(2);
                
@@ -50,16 +60,30 @@ TEST(StructureStreamableTest, init)
     refStructure1 << 1
                   << Structure1::EWeak(1) 
                   << Structure1::EStrong(1)
+                  << item1
+                  << item2
+                  << refItem1
+                  << refItem2
                   << EEnum(1)
                   << EEnum(2);
 }
 
 TEST(StructureStreamableTest, initInherit)
 {
+    Item1 item1;
+    Item1 item2;
+    
+    Item1SPtr refItem1;
+    Item2SPtr refItem2;
+
     Structure2 structure2;
     structure2 << 1
                << Structure1::EWeak(1) 
                << Structure1::EStrong(1)
+               << item1
+               << item2
+               << refItem1
+               << refItem2
                << EEnum(1)
                << EEnum(2);
                
@@ -67,26 +91,50 @@ TEST(StructureStreamableTest, initInherit)
     refstructure2 << 1
                   << Structure1::EWeak(1) 
                   << Structure1::EStrong(1)
+                  << item1
+                  << item2
+                  << refItem1
+                  << refItem2
                   << EEnum(1)
                   << EEnum(2);
 }
 
 TEST(StructureStreamableTest, immutableInit)
 {
+    Item1 item1;
+    Item1 item2;
+    
+    Item1SPtr refItem1;
+    Item2SPtr refItem2;
+    
     IStructure1::Builder builder;
     builder << 1 
             << IStructure1::EWeak(1) 
             << IStructure1::EStrong(1)
+            << item1
+            << item2
+            << refItem1
+            << refItem2
             << EEnum(1)
             << EEnum(2);
 }
 
 TEST(StructureStreamableTest, immutableInitInherit)
 {
+    Item1 item1;
+    Item1 item2;
+    
+    Item1SPtr refItem1;
+    Item2SPtr refItem2;
+    
     IStructure2::Builder builder;
     builder << 1 
             << IStructure1::EWeak(1) 
             << IStructure1::EStrong(1)
+            << item1
+            << item2
+            << refItem1
+            << refItem2
             << EEnum(1)
             << EEnum(2);
 }

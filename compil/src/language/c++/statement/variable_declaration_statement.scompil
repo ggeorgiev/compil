@@ -35,6 +35,7 @@ compil { }
 import "c++/statement/statement.scompil";
 import "c++/class/class.scompil";
 import "c++/logical/variable.scompil";
+import "c++/logical/local_variable.scompil";
 
 package lang.cpp;
 

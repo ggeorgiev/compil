@@ -77,7 +77,7 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
         
         VariableDeclarationStatementSPtr declaration = variableDeclarationStatementRef()
             << className
-            << boost::shared_polymorphic_cast<Variable>(structure);
+            << structure;
             
         test << declaration;
 
@@ -92,9 +92,9 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
             UnqualifiedIdExpressionSPtr unqualifiedIdExpression = unqualifiedIdExpressionRef()
                 << unqualifiedId;
             IdExpressionPrimaryExpressionSPtr primaryExpression = idExpressionPrimaryExpressionRef()
-                << boost::shared_polymorphic_cast<IdExpression>(unqualifiedIdExpression);
+                << unqualifiedIdExpression;
             structute = primaryExpressionPostfixExpressionRef()
-                << boost::shared_polymorphic_cast<PrimaryExpression>(primaryExpression);
+                << primaryExpression;
         }
         
         UnqualifiedIdExpressionSPtr isInitialized;
@@ -108,18 +108,17 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
         }
         
         MemberAccessPostfixExpressionSPtr structureIsInitialized = memberAccessPostfixExpressionRef()
-            << boost::shared_polymorphic_cast<PostfixExpression>(structute)
-            << boost::shared_polymorphic_cast<IdExpression>(isInitialized);
+            << structute
+            << isInitialized;
             
         ParenthesesPostfixExpressionSPtr structureIsInitializedFunction = parenthesesPostfixExpressionRef()
-            <<  boost::shared_polymorphic_cast<PostfixExpression>(structureIsInitialized);
+            << structureIsInitialized;
         
         UnaryTestStatement::EType type = pStructure->isOptional()
                                          ? UnaryTestStatement::EType::isTrue()
                                          : UnaryTestStatement::EType::isFalse();
-        test    << boost::shared_polymorphic_cast<Statement>(unaryTestStatementRef()
-                    << type
-                    << structureIsInitializedFunction);
+        test    << (unaryTestStatementRef() << type
+                                            << structureIsInitializedFunction);
         
         suite << test;
     }
