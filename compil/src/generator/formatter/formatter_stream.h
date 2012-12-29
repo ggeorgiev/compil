@@ -49,28 +49,29 @@ public:
     virtual ~FormatterStream();
     
     std::string str();
+    
+    FormatterStream& operator<<(const lang::cpp::CompoundStatementSPtr& statement);
+    FormatterStream& operator<<(const lang::cpp::CustomExpressionSPtr& expression);
+    FormatterStream& operator<<(const lang::cpp::CustomIdExpressionSPtr& expression);
+    FormatterStream& operator<<(const lang::cpp::DeclarationStatementSPtr& statement);
+    FormatterStream& operator<<(const lang::cpp::ExpressionSPtr& expression);
+    FormatterStream& operator<<(const lang::cpp::MacroStatementSPtr& statement);
+    FormatterStream& operator<<(const lang::cpp::MemberAccessPostfixExpressionSPtr& expression);
+    FormatterStream& operator<<(const lang::cpp::IdentifierUnqualifiedIdSPtr& expression);
+    FormatterStream& operator<<(const lang::cpp::IdExpressionPrimaryExpressionSPtr& expression);
+    FormatterStream& operator<<(const lang::cpp::ParenthesesPostfixExpressionSPtr& expression);
+    FormatterStream& operator<<(const lang::cpp::PrimaryExpressionPostfixExpressionSPtr& expression);
+    FormatterStream& operator<<(const lang::cpp::StatementSPtr& statement);
+    FormatterStream& operator<<(const lang::cpp::Statement::EClose& close);
+    FormatterStream& operator<<(const lang::cpp::UnqualifiedIdExpressionSPtr& expression);
 
+private:
     AlignerStream mAligner;
     FormatterConfigurationPtr mConfiguration;
 };
 
 typedef boost::shared_ptr<FormatterStream> FormatterStreamSPtr;
 typedef boost::weak_ptr<FormatterStream> FormatterStreamWPtr;
-
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::CompoundStatementSPtr&);
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::CustomExpressionSPtr&);
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::CustomIdExpressionSPtr&);
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::DeclarationStatementSPtr&);
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::ExpressionSPtr&);
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::MacroStatementSPtr&);
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::MemberAccessPostfixExpressionSPtr&);
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::IdentifierUnqualifiedIdSPtr&);
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::IdExpressionPrimaryExpressionSPtr&);
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::ParenthesesPostfixExpressionSPtr&);
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::PrimaryExpressionPostfixExpressionSPtr&);
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::StatementSPtr&);
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::Statement::EClose&);
-FormatterStream& operator<<(FormatterStream& stream, const lang::cpp::UnqualifiedIdExpressionSPtr&);
 
 #endif
 

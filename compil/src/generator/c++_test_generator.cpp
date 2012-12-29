@@ -79,46 +79,19 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
             << className
             << structure;
             
-        test << declaration;
-
+        test << (variableDeclarationStatementRef() << className
+                                                   << structure);
         
-        lang::cpp::IdentifierSPtr structureIdentifier = identifierRef()
-            << "structure";
-
-        PrimaryExpressionPostfixExpressionSPtr structute;
-        {
-            IdentifierUnqualifiedIdSPtr unqualifiedId = identifierUnqualifiedIdRef()
-                << structureIdentifier;
-            UnqualifiedIdExpressionSPtr unqualifiedIdExpression = unqualifiedIdExpressionRef()
-                << unqualifiedId;
-            IdExpressionPrimaryExpressionSPtr primaryExpression = idExpressionPrimaryExpressionRef()
-                << unqualifiedIdExpression;
-            structute = primaryExpressionPostfixExpressionRef()
-                << primaryExpression;
-        }
-        
-        UnqualifiedIdExpressionSPtr isInitialized;
-        {
-            lang::cpp::IdentifierSPtr identifier = identifierRef()
-                << "isInitialized";
-            IdentifierUnqualifiedIdSPtr unqualifiedId = identifierUnqualifiedIdRef()
-                << identifier;
-            isInitialized = unqualifiedIdExpressionRef()
-                << unqualifiedId;
-        }
-        
-        MemberAccessPostfixExpressionSPtr structureIsInitialized = memberAccessPostfixExpressionRef()
-            << structute
-            << isInitialized;
+        MethodCallExpressionSPtr isInitializedCall = methodCallExpressionRef()
+            << structure
+            << (methodNameRef() << "isInitialized");
             
-        ParenthesesPostfixExpressionSPtr structureIsInitializedFunction = parenthesesPostfixExpressionRef()
-            << structureIsInitialized;
-        
         UnaryTestStatement::EType type = pStructure->isOptional()
-                                         ? UnaryTestStatement::EType::isTrue()
-                                         : UnaryTestStatement::EType::isFalse();
+                                       ? UnaryTestStatement::EType::isTrue()
+                                       : UnaryTestStatement::EType::isFalse();
+
         test    << (unaryTestStatementRef() << type
-                                            << structureIsInitializedFunction);
+                                            << isInitializedCall);
         
         suite << test;
     }

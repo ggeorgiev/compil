@@ -57,7 +57,7 @@ std::string FormatterStream::str()
     return mAligner.str();
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const CompoundStatementSPtr& compoundStatement)
+FormatterStream& FormatterStream::operator<<(const CompoundStatementSPtr& compoundStatement)
 {
     Scope scope;
     scope << Scope::ESquiggles::brackets();
@@ -67,71 +67,71 @@ FormatterStream& operator<<(FormatterStream& stream, const CompoundStatementSPtr
     {
         const StatementSPtr& statement = *it;
         
-        FormatterStream formatter(stream.mConfiguration, stream.mAligner.mConfiguration);
+        FormatterStream formatter(mConfiguration, mAligner.mConfiguration);
         formatter << statement;
         scope << formatter.str();
     }
     
-    stream.mAligner << scope;
-    return stream << compoundStatement->close();
+    mAligner << scope;
+    return *this << compoundStatement->close();
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const CustomExpressionSPtr& expression)
+FormatterStream& FormatterStream::operator<<(const CustomExpressionSPtr& expression)
 {
-    stream.mAligner << expression->value();
-    return stream;
+    mAligner << expression->value();
+    return *this;
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const CustomIdExpressionSPtr& expression)
+FormatterStream& FormatterStream::operator<<(const CustomIdExpressionSPtr& expression)
 {
-    stream.mAligner << expression->value();
-    return stream;
+    mAligner << expression->value();
+    return *this;
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const DeclarationStatementSPtr& statement)
+FormatterStream& FormatterStream::operator<<(const DeclarationStatementSPtr& statement)
 {
-    stream.mAligner << statement->type()->value();
-    stream.mAligner << " ";
-    stream.mAligner << statement->identifier()->value();
-    return stream << statement->close();
+    mAligner << statement->type()->value();
+    mAligner << " ";
+    mAligner << statement->identifier()->value();
+    return *this << statement->close();
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const ExpressionSPtr& expression)
+FormatterStream& FormatterStream::operator<<(const ExpressionSPtr& expression)
 {
     if (expression->runtimeExpressionId() == CustomExpression::staticExpressionId())
-        return stream << CustomExpression::downcast(expression);
+        return *this << CustomExpression::downcast(expression);
     if (expression->runtimeExpressionId() == CustomIdExpression::staticExpressionId())
-        return stream << CustomIdExpression::downcast(expression);
+        return *this << CustomIdExpression::downcast(expression);
     if (expression->runtimeExpressionId() == IdentifierUnqualifiedId::staticExpressionId())
-        return stream << IdentifierUnqualifiedId::downcast(expression);
+        return *this << IdentifierUnqualifiedId::downcast(expression);
     if (expression->runtimeExpressionId() == IdExpressionPrimaryExpression::staticExpressionId())
-        return stream << IdExpressionPrimaryExpression::downcast(expression);
+        return *this << IdExpressionPrimaryExpression::downcast(expression);
     if (expression->runtimeExpressionId() == MemberAccessPostfixExpression::staticExpressionId())
-        return stream << MemberAccessPostfixExpression::downcast(expression);
+        return *this << MemberAccessPostfixExpression::downcast(expression);
     if (expression->runtimeExpressionId() == ParenthesesPostfixExpression::staticExpressionId())
-        return stream << ParenthesesPostfixExpression::downcast(expression);
+        return *this << ParenthesesPostfixExpression::downcast(expression);
     if (expression->runtimeExpressionId() == PrimaryExpressionPostfixExpression::staticExpressionId())
-        return stream << PrimaryExpressionPostfixExpression::downcast(expression);
+        return *this << PrimaryExpressionPostfixExpression::downcast(expression);
     if (expression->runtimeExpressionId() == UnqualifiedIdExpression::staticExpressionId())
-        return stream << UnqualifiedIdExpression::downcast(expression);
+        return *this << UnqualifiedIdExpression::downcast(expression);
         
-    return stream;
+    return *this;
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const IdentifierUnqualifiedIdSPtr& expression)
+FormatterStream& FormatterStream::operator<<(const IdentifierUnqualifiedIdSPtr& expression)
 {
-    stream.mAligner << expression->identifier()->value();
-    return stream;
+    mAligner << expression->identifier()->value();
+    return *this;
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const IdExpressionPrimaryExpressionSPtr& expression)
+FormatterStream& FormatterStream::operator<<(const IdExpressionPrimaryExpressionSPtr& expression)
 {
-    return stream << expression->expression();
+    return *this << expression->expression();
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const MacroStatementSPtr& macro)
+FormatterStream& FormatterStream::operator<<(const MacroStatementSPtr& macro)
 {
-    stream.mAligner << macro->name().value();
+    mAligner << macro->name().value();
     
     List list;
     list << List::ESquiggles::parentheses();
@@ -141,60 +141,59 @@ FormatterStream& operator<<(FormatterStream& stream, const MacroStatementSPtr& m
     for (std::vector<MacroParameterSPtr>::const_iterator it = parameters.begin(); it != parameters.end(); ++it)
     {
         const MacroParameterSPtr& parameter = *it;
-        FormatterStream formatter(stream.mConfiguration, stream.mAligner.mConfiguration);
+        FormatterStream formatter(mConfiguration, mAligner.mConfiguration);
         formatter << parameter->expression();
         list << formatter.str();
     }
     
-    stream.mAligner << list;
-    return stream << macro->close();
+    mAligner << list;
+    return *this << macro->close();
 }
 
-
-FormatterStream& operator<<(FormatterStream& stream, const MemberAccessPostfixExpressionSPtr& expression)
+FormatterStream& FormatterStream::operator<<(const MemberAccessPostfixExpressionSPtr& expression)
 {
-    stream << expression->first();
-    stream.mAligner << ".";
-    stream << expression->second();
-    return stream;
+    *this << expression->first();
+    mAligner << ".";
+    *this << expression->second();
+    return *this;
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const ParenthesesPostfixExpressionSPtr& expression)
+FormatterStream& FormatterStream::operator<<(const ParenthesesPostfixExpressionSPtr& expression)
 {
-    stream << expression->expression();
-    stream.mAligner << "(";
+    *this << expression->expression();
+    mAligner << "(";
     if (expression->list())
-        stream << expression->list();
-    stream.mAligner << ")";
-    return stream;
+        *this << expression->list();
+    mAligner << ")";
+    return *this;
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const PrimaryExpressionPostfixExpressionSPtr& expression)
+FormatterStream& FormatterStream::operator<<(const PrimaryExpressionPostfixExpressionSPtr& expression)
 {
-    return stream << expression->expression();
+    return *this << expression->expression();
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const StatementSPtr& statement)
+FormatterStream& FormatterStream::operator<<(const StatementSPtr& statement)
 {
     if (statement->runtimeStatementId() == CompoundStatement::staticStatementId())
-        return stream << CompoundStatement::downcast(statement);
+        return *this << CompoundStatement::downcast(statement);
     if (statement->runtimeStatementId() == DeclarationStatement::staticStatementId())
-        return stream << DeclarationStatement::downcast(statement);
+        return *this << DeclarationStatement::downcast(statement);
     if (statement->runtimeStatementId() == MacroStatement::staticStatementId())
-        return stream << MacroStatement::downcast(statement);
+        return *this << MacroStatement::downcast(statement);
          
-    return stream;
+    return *this;
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const Statement::EClose& close)
+FormatterStream& FormatterStream::operator<<(const Statement::EClose& close)
 {
     if (close == Statement::EClose::yes())
-        stream.mAligner << ";";
-    return stream;
+        mAligner << ";";
+    return *this;
 }
 
-FormatterStream& operator<<(FormatterStream& stream, const UnqualifiedIdExpressionSPtr& expression)
+FormatterStream& FormatterStream::operator<<(const UnqualifiedIdExpressionSPtr& expression)
 {
-    return stream << expression->unqualifiedId();
+    return *this << expression->unqualifiedId();
 }
 

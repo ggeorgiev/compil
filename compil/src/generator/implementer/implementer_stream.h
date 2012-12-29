@@ -52,14 +52,15 @@ public:
     
     std::string str();
     
+    ImplementerStream& operator<<(const lang::cpp::TestSuite& suite);
+    
+private:
     NamerStream mNamer;
     ImplementerConfigurationPtr mConfiguration;
 };
 
 typedef boost::shared_ptr<ImplementerStream> ImplementerStreamSPtr;
 typedef boost::weak_ptr<ImplementerStream> ImplementerStreamWPtr;
-
-ImplementerStream& operator<<(ImplementerStream& stream, const lang::cpp::TestSuite&);
 
 #endif
 

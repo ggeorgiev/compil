@@ -48,18 +48,16 @@ public:
     virtual ~NamerStream();
     
     std::string str();
+    
+    NamerStream& operator<<(const lang::cpp::StatementSPtr& statement);
 
+private:
     FormatterStream mFormatter;
     NamerConfigurationSPtr mConfiguration;
 };
 
 typedef boost::shared_ptr<NamerStream> NamerStreamSPtr;
 typedef boost::weak_ptr<NamerStream> NamerStreamWPtr;
-
-NamerStream& operator<<(NamerStream& stream, const lang::cpp::CompoundStatementSPtr&);
-NamerStream& operator<<(NamerStream& stream, const lang::cpp::MacroStatementSPtr&);
-NamerStream& operator<<(NamerStream& stream, const lang::cpp::StatementSPtr&);
-NamerStream& operator<<(NamerStream& stream, const lang::cpp::VariableDeclarationStatementSPtr&);
 
 #endif
 

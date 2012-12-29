@@ -19,6 +19,8 @@ lib language
     
     c++/class/class.scompil
     c++/class/class_name.scompil
+    c++/class/method.scompil
+    c++/class/method_name.scompil
     
     c++/expression/custom_expression.scompil
     c++/expression/custom_id_expression.scompil
@@ -30,6 +32,7 @@ lib language
     c++/expression/id_expression_primary_expression.scompil
     c++/expression/identifier_unqualified_id.scompil
     c++/expression/member_access_postfix_expression.scompil
+    c++/expression/method_call_expression.scompil
     c++/expression/parentheses_postfix_expression.scompil
     c++/expression/postfix_expression.scompil
     c++/expression/primary_expression.scompil

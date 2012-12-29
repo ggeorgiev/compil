@@ -199,5 +199,31 @@
          landmarkName = "FileSourceProvider::setImportDirectories(const std::vector&lt;std::string&gt;&amp; importDirectories)"
          landmarkType = "5">
       </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/c++_test_generator.cpp"
+         timestampString = "378457794.165908"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "92"
+         endingLineNumber = "92"
+         landmarkName = "CppTestGenerator::generateStructureDeclaration(const StructureSPtr&amp; pStructure)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/c++_test_generator.cpp"
+         timestampString = "378457845.136901"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "137"
+         endingLineNumber = "137"
+         landmarkName = "CppTestGenerator::generateStructureDeclaration(const StructureSPtr&amp; pStructure)"
+         landmarkType = "5">
+      </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

@@ -59,7 +59,7 @@ std::string ImplementerStream::str()
     return mNamer.str();
 }
 
-ImplementerStream& operator<<(ImplementerStream& stream, const TestSuite& suite)
+ImplementerStream& ImplementerStream::operator<<(const TestSuite& suite)
 {
     const std::vector<lang::cpp::TestSPtr>& tests = suite.tests();
     
@@ -74,7 +74,7 @@ ImplementerStream& operator<<(ImplementerStream& stream, const TestSuite& suite)
         macro << (macroParameterRef() << (customExpressionRef() << test->name().value()));
         macro << Statement::EClose::no();
         
-        stream.mNamer << macro;
+        mNamer << macro;
         
         CompoundStatementSPtr compoundStatement = compoundStatementRef();
         
@@ -106,8 +106,8 @@ ImplementerStream& operator<<(ImplementerStream& stream, const TestSuite& suite)
             compoundStatement << statement;
         }
         
-        stream.mNamer << compoundStatement;
+        mNamer << compoundStatement;
     }
 
-    return stream;
+    return *this;
 }

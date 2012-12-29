@@ -364,6 +364,9 @@
 		5E9DE6C7168E28CA0020522D /* generator */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = generator; sourceTree = "<group>"; };
 		5E9DE6CA168E28CA0020522D /* generator.exe */ = {isa = PBXFileReference; lastKnownFileType = file; path = generator.exe; sourceTree = "<group>"; };
 		5E9DE6CB168E48C00020522D /* get-latest-generators.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "get-latest-generators.sh"; sourceTree = "<group>"; };
+		5E9DE6CC168EC4BB0020522D /* method_call_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_call_expression.scompil; sourceTree = "<group>"; };
+		5E9DE6CD168EC6870020522D /* method_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_name.scompil; sourceTree = "<group>"; };
+		5E9DE6CE168EC6870020522D /* method.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method.scompil; sourceTree = "<group>"; };
 		5EA486AA1618A25300B42BC8 /* constructor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = constructor.cpp; sourceTree = "<group>"; };
 		5EA486AB1618A25300B42BC8 /* constructor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constructor.h; sourceTree = "<group>"; };
 		5EA486AD1618AA1F00B42BC8 /* method_group.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_group.compil; sourceTree = "<group>"; };
@@ -1173,6 +1176,8 @@
 			children = (
 				5EB86F8A168BE1910049B6A9 /* class_name.scompil */,
 				5EB86F8B168BE2150049B6A9 /* class.scompil */,
+				5E9DE6CD168EC6870020522D /* method_name.scompil */,
+				5E9DE6CE168EC6870020522D /* method.scompil */,
 			);
 			path = class;
 			sourceTree = "<group>";
@@ -1183,13 +1188,14 @@
 				5EB86F9F168CCD870049B6A9 /* custom_expression.scompil */,
 				5EB86FAD168D080E0049B6A9 /* custom_id_expression.scompil */,
 				5EB86FA2168CF93F0049B6A9 /* custom_postfix_expression.scompil */,
-				5EB86FA1168CF8470049B6A9 /* member_access_postfix_expression.scompil */,
 				5EB86F92168C01E50049B6A9 /* expression.scompil */,
 				5EB86FAE168D13E40049B6A9 /* expression_list.scompil */,
 				5EB86F9D168CCD800049B6A9 /* expression_factory.scompil */,
 				5EB86FA3168CFA390049B6A9 /* id_expression.scompil */,
 				5EB86FAB168D05970049B6A9 /* id_expression_primary_expression.scompil */,
 				5EB86FA7168CFAE50049B6A9 /* identifier_unqualified_id.scompil */,
+				5EB86FA1168CF8470049B6A9 /* member_access_postfix_expression.scompil */,
+				5E9DE6CC168EC4BB0020522D /* method_call_expression.scompil */,
 				5EB86FAF168D31B10049B6A9 /* parentheses_postfix_expression.scompil */,
 				5EB86FA0168CDE1F0049B6A9 /* postfix_expression.scompil */,
 				5EB86FAA168D05410049B6A9 /* primary_expression.scompil */,

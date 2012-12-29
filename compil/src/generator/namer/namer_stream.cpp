@@ -51,45 +51,87 @@ std::string NamerStream::str()
     return mFormatter.str();
 }
 
-static StatementSPtr convertVariableDeclarationStatement(const VariableDeclarationStatementSPtr& statement)
+static ExpressionSPtr convertExpression(const ExpressionSPtr& expression)
 {
-    IdentifierSPtr identifier = (identifierRef() << statement->variable()->name()->value());
+    if (expression->runtimeExpressionId() == MethodCallExpression::staticExpressionId())
+    {
+        MethodCallExpressionSPtr mcexpression = MethodCallExpression::downcast(expression);
 
-    return declarationStatementRef() << statement->type()
-                                     << identifier;
+        IdentifierSPtr variableIdentifier = identifierRef()
+            << mcexpression->variable()->name()->value();
+
+        IdentifierUnqualifiedIdSPtr variableUnqualifiedId = identifierUnqualifiedIdRef()
+            << variableIdentifier;
+        UnqualifiedIdExpressionSPtr variableUnqualifiedIdExpression = unqualifiedIdExpressionRef()
+            << variableUnqualifiedId;
+        IdExpressionPrimaryExpressionSPtr variablePrimaryExpression = idExpressionPrimaryExpressionRef()
+            << variableUnqualifiedIdExpression;
+        PrimaryExpressionPostfixExpressionSPtr variablePostfixExpression = primaryExpressionPostfixExpressionRef()
+            << variablePrimaryExpression;
+
+        IdentifierSPtr methodIdentifier = identifierRef()
+            << mcexpression->method()->value();
+        IdentifierUnqualifiedIdSPtr methodUnqualifiedId = identifierUnqualifiedIdRef()
+            << methodIdentifier;
+        UnqualifiedIdExpressionSPtr methodExpression = unqualifiedIdExpressionRef()
+            << methodUnqualifiedId;
+        
+        MemberAccessPostfixExpressionSPtr memberAccessExpression = memberAccessPostfixExpressionRef()
+            << variablePostfixExpression
+            << methodExpression;
+            
+        ParenthesesPostfixExpressionSPtr parenthesesExpression = parenthesesPostfixExpressionRef()
+            << memberAccessExpression;           
+        
+        return parenthesesExpression;
+    }
+
+    return expression;
 }
 
-NamerStream& operator<<(NamerStream& stream, const CompoundStatementSPtr& compoundStatement)
+static StatementSPtr convertStatement(const StatementSPtr& statement)
 {
-    CompoundStatementSPtr newstatement = compoundStatementRef();
-
-    const std::vector<StatementSPtr>& statements = compoundStatement->statements();
-    for (std::vector<StatementSPtr>::const_iterator it = statements.begin(); it != statements.end(); ++it)
+    if (statement->runtimeStatementId() == CompoundStatement::staticStatementId())
     {
-        StatementSPtr statement = *it;
-        if (statement->runtimeStatementId() == VariableDeclarationStatement::staticStatementId())
-            statement = convertVariableDeclarationStatement(VariableDeclarationStatement::downcast(statement));
-        
-        newstatement << statement;
+        CompoundStatementSPtr cstatment = CompoundStatement::downcast(statement);
+
+        CompoundStatementSPtr newstatement = compoundStatementRef();
+        const std::vector<StatementSPtr>& statements = cstatment->statements();
+        for (std::vector<StatementSPtr>::const_iterator it = statements.begin(); it != statements.end(); ++it)
+            newstatement << convertStatement(*it);
+            
+        return newstatement;
     }
     
-    stream.mFormatter << newstatement;
-    return stream;
+    if (statement->runtimeStatementId() == MacroStatement::staticStatementId())
+    {
+        MacroStatementSPtr mstatement = MacroStatement::downcast(statement);
+        MacroStatementSPtr newstatement = macroStatementRef()
+            << mstatement->name()
+            << mstatement->close();
+            
+        const std::vector<MacroParameterSPtr>& parameters = mstatement->parameters();
+        for (std::vector<MacroParameterSPtr>::const_iterator it = parameters.begin(); it != parameters.end(); ++it)
+            newstatement << (macroParameterRef() << convertExpression((*it)->expression()));
+        
+        return newstatement;
+    }
+    
+    if (statement->runtimeStatementId() == VariableDeclarationStatement::staticStatementId())
+    {
+        VariableDeclarationStatementSPtr vdstatment = VariableDeclarationStatement::downcast(statement);
+        IdentifierSPtr identifier = identifierRef()
+            << vdstatment->variable()->name()->value();
+        return declarationStatementRef() << vdstatment->type()
+                                         << identifier;
+    }
+    
+    return statement;
 }
 
-NamerStream& operator<<(NamerStream& stream, const MacroStatementSPtr& statement)
+NamerStream& NamerStream::operator<<(const StatementSPtr& statement)
 {
-    stream.mFormatter << statement;
-    return stream;
+    mFormatter << convertStatement(statement);
+    return *this;
 }
 
-NamerStream& operator<<(NamerStream& stream, const StatementSPtr& statement)
-{
-    stream.mFormatter << statement;
-    return stream;
-}
-
-NamerStream& operator<<(NamerStream& stream, const VariableDeclarationStatementSPtr& statement)
-{
-    return stream << convertVariableDeclarationStatement(statement);
-}
