@@ -22,6 +22,7 @@ lib language
     c++/class/method.scompil
     c++/class/method_name.scompil
     
+    c++/expression/constructor_call_expression.scompil
     c++/expression/custom_expression.scompil
     c++/expression/custom_id_expression.scompil
     c++/expression/custom_postfix_expression.scompil
@@ -48,6 +49,7 @@ lib language
     
     c++/statement/compound_statement.scompil
     c++/statement/declaration_statement.scompil
+    c++/statement/expression_statement.scompil
     c++/statement/macro_statement.scompil
     c++/statement/statement.scompil
     c++/statement/statement_factory.scompil
@@ -77,9 +79,7 @@ lib language
     #c++/include.compil
     #c++/layer_comment.compil
     #c++/method_comment.compil
-    #c++/method_name.compil
     #c++/method_specifier.compil
-    #c++/method.compil
     #c++/namespace_name.compil
     #c++/namespace.compil
     

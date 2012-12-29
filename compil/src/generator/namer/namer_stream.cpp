@@ -80,9 +80,36 @@ static ExpressionSPtr convertExpression(const ExpressionSPtr& expression)
             << variablePostfixExpression
             << methodExpression;
             
+        ExpressionListSPtr list = expressionListRef();
+        const std::vector<ExpressionSPtr>& expressions = mcexpression->expressions();
+        for (std::vector<ExpressionSPtr>::const_iterator it = expressions.begin(); it != expressions.end(); ++it)
+            list << convertExpression(*it);
+            
         ParenthesesPostfixExpressionSPtr parenthesesExpression = parenthesesPostfixExpressionRef()
-            << memberAccessExpression;           
+            << memberAccessExpression
+            << list;
         
+        return parenthesesExpression;
+    }
+    
+    if (expression->runtimeExpressionId() == ConstructorCallExpression::staticExpressionId())
+    {
+        ConstructorCallExpressionSPtr ccexpression = ConstructorCallExpression::downcast(expression);
+        
+        IdentifierSPtr constructorIdentifier = identifierRef()
+            << ccexpression->type()->value();
+        IdentifierUnqualifiedIdSPtr constructorUnqualifiedId = identifierUnqualifiedIdRef()
+            << constructorIdentifier;
+        UnqualifiedIdExpressionSPtr constructorUnqualifiedIdExpression = unqualifiedIdExpressionRef()
+            << constructorUnqualifiedId;
+        IdExpressionPrimaryExpressionSPtr constructorPrimaryExpression = idExpressionPrimaryExpressionRef()
+            << constructorUnqualifiedIdExpression;
+        PrimaryExpressionPostfixExpressionSPtr constructorPostfixExpression = primaryExpressionPostfixExpressionRef()
+            << constructorPrimaryExpression;
+            
+        ParenthesesPostfixExpressionSPtr parenthesesExpression = parenthesesPostfixExpressionRef()
+            << constructorPostfixExpression;
+            
         return parenthesesExpression;
     }
 
@@ -100,6 +127,14 @@ static StatementSPtr convertStatement(const StatementSPtr& statement)
         for (std::vector<StatementSPtr>::const_iterator it = statements.begin(); it != statements.end(); ++it)
             newstatement << convertStatement(*it);
             
+        return newstatement;
+    }
+    
+    if (statement->runtimeStatementId() == ExpressionStatement::staticStatementId())
+    {
+        ExpressionStatementSPtr estatement = ExpressionStatement::downcast(statement);
+        ExpressionStatementSPtr newstatement = expressionStatementRef()
+            << convertExpression(estatement->expression());
         return newstatement;
     }
     

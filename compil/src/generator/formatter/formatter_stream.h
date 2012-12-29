@@ -55,6 +55,8 @@ public:
     FormatterStream& operator<<(const lang::cpp::CustomIdExpressionSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::DeclarationStatementSPtr& statement);
     FormatterStream& operator<<(const lang::cpp::ExpressionSPtr& expression);
+    FormatterStream& operator<<(const lang::cpp::ExpressionListSPtr& expressionList);
+    FormatterStream& operator<<(const lang::cpp::ExpressionStatementSPtr& statement);
     FormatterStream& operator<<(const lang::cpp::MacroStatementSPtr& statement);
     FormatterStream& operator<<(const lang::cpp::MemberAccessPostfixExpressionSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::IdentifierUnqualifiedIdSPtr& expression);

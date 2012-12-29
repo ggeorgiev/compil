@@ -346,9 +346,7 @@
 		5E88A2F815E188BC002D43A5 /* header_type.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = header_type.compil; sourceTree = "<group>"; };
 		5E88A2F915E188BC002D43A5 /* include.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = include.compil; sourceTree = "<group>"; };
 		5E88A2FA15E188BC002D43A5 /* layer_comment.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = layer_comment.compil; sourceTree = "<group>"; };
-		5E88A2FB15E188BC002D43A5 /* method.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method.compil; sourceTree = "<group>"; };
 		5E88A2FC15E188BC002D43A5 /* method_comment.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_comment.compil; sourceTree = "<group>"; };
-		5E88A2FD15E188BC002D43A5 /* method_name.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_name.compil; sourceTree = "<group>"; };
 		5E88A2FE15E188BC002D43A5 /* method_specifier.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_specifier.compil; sourceTree = "<group>"; };
 		5E88A2FF15E188BC002D43A5 /* namespace.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = namespace.compil; sourceTree = "<group>"; };
 		5E88A30015E188BC002D43A5 /* namespace_name.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = namespace_name.compil; sourceTree = "<group>"; };
@@ -367,6 +365,8 @@
 		5E9DE6CC168EC4BB0020522D /* method_call_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_call_expression.scompil; sourceTree = "<group>"; };
 		5E9DE6CD168EC6870020522D /* method_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_name.scompil; sourceTree = "<group>"; };
 		5E9DE6CE168EC6870020522D /* method.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method.scompil; sourceTree = "<group>"; };
+		5E9DE6CF168ED5520020522D /* expression_statement.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = expression_statement.scompil; sourceTree = "<group>"; };
+		5E9DE6D0168EDCE20020522D /* constructor_call_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = constructor_call_expression.scompil; sourceTree = "<group>"; };
 		5EA486AA1618A25300B42BC8 /* constructor.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = constructor.cpp; sourceTree = "<group>"; };
 		5EA486AB1618A25300B42BC8 /* constructor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = constructor.h; sourceTree = "<group>"; };
 		5EA486AD1618AA1F00B42BC8 /* method_group.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_group.compil; sourceTree = "<group>"; };
@@ -1055,9 +1055,7 @@
 				5E88A2F815E188BC002D43A5 /* header_type.compil */,
 				5E88A2F915E188BC002D43A5 /* include.compil */,
 				5E88A2FA15E188BC002D43A5 /* layer_comment.compil */,
-				5E88A2FB15E188BC002D43A5 /* method.compil */,
 				5E88A2FC15E188BC002D43A5 /* method_comment.compil */,
-				5E88A2FD15E188BC002D43A5 /* method_name.compil */,
 				5E88A2FE15E188BC002D43A5 /* method_specifier.compil */,
 				5E88A2FF15E188BC002D43A5 /* namespace.compil */,
 				5E88A30015E188BC002D43A5 /* namespace_name.compil */,
@@ -1162,6 +1160,7 @@
 			children = (
 				5EB86F87168BDFA90049B6A9 /* compound_statement.scompil */,
 				5EB86F8C168BECE40049B6A9 /* declaration_statement.scompil */,
+				5E9DE6CF168ED5520020522D /* expression_statement.scompil */,
 				5EB86F93168C0A7E0049B6A9 /* macro_statement.scompil */,
 				5EB86F8F168BFD270049B6A9 /* statement_factory.scompil */,
 				5EB86F88168BE0920049B6A9 /* statement.scompil */,
@@ -1185,6 +1184,7 @@
 		5EB86F91168C01E40049B6A9 /* expression */ = {
 			isa = PBXGroup;
 			children = (
+				5E9DE6D0168EDCE20020522D /* constructor_call_expression.scompil */,
 				5EB86F9F168CCD870049B6A9 /* custom_expression.scompil */,
 				5EB86FAD168D080E0049B6A9 /* custom_id_expression.scompil */,
 				5EB86FA2168CF93F0049B6A9 /* custom_postfix_expression.scompil */,

@@ -32,20 +32,16 @@
 
 compil { }
 
-import "const_declaration.compil";
-import "method_comment.compil";
-import "method_name.compil";
-import "method_specifier.compil";
+import "c++/statement/statement.scompil";
+import "c++/expression/expression.scompil";
 
 package lang.cpp;
 
-structure Method 
+streamable
+structure ExpressionStatement
+    inherit Statement
 {
-    reference<MethodComment> comment;
-
-    reference<MethodSpecifier> specifier;
-    reference<MethodName> name;
+    runtime identification;
     
-    
-    reference<ConstDeclaration> constDeclaration;
+    reference<Expression> expression;
 }

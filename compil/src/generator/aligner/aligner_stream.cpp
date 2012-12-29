@@ -48,19 +48,18 @@ std::string AlignerStream::str()
     return string.str();
 }
 
-AlignerStream& operator<<(AlignerStream& stream, const std::string& string)
+AlignerStream& AlignerStream::operator<<(const std::string& str)
 {
-    stream.string << string;
-    
-    return stream;
+    string << str;
+    return *this;
 }
 
-AlignerStream& operator<<(AlignerStream& stream, const List& list)
+AlignerStream& AlignerStream::operator<<(const List& list)
 {
     switch (list.squiggles().value())
     {
         case List::ESquiggles::kParentheses:
-            stream.string << "(";
+            string << "(";
             break;
     }
     
@@ -74,22 +73,41 @@ AlignerStream& operator<<(AlignerStream& stream, const List& list)
             switch (list.delimiter().value())
             {
                 case List::EDelimiter::kComma:
-                    stream.string << ", ";
+                    string << ", ";
                     break;
             }
         }
         
-        stream.string << item;
+        string << item;
     }
     
     switch (list.squiggles().value())
     {
         case List::ESquiggles::kParentheses:
-            stream.string << ")";
+            string << ")";
             break;
     }
     
-    return stream;
+    return *this;
+}
+
+AlignerStream& AlignerStream::operator<<(const Scope& scope)
+{
+    string << std::endl;
+    string << "{";
+    string << std::endl;
+    
+    const std::vector<std::string>& lines = scope.lines();
+    for (std::vector<std::string>::const_iterator it = lines.begin(); it != lines.end(); ++it)
+    {
+        const std::string& line = *it;
+        string << indent() << line;
+        string << std::endl;
+    }
+    
+    string << "}";
+    string << std::endl;
+    return *this;
 }
 
 std::string AlignerStream::indent() const
@@ -106,23 +124,4 @@ std::string AlignerStream::indent() const
     }
     assert(false && "unknown alignment type");
     return "";
-}
-
-AlignerStream& operator<<(AlignerStream& stream, const Scope& scope)
-{
-    stream.string << std::endl;
-    stream.string << "{";
-    stream.string << std::endl;
-    
-    const std::vector<std::string>& lines = scope.lines();
-    for (std::vector<std::string>::const_iterator it = lines.begin(); it != lines.end(); ++it)
-    {
-        const std::string& line = *it;
-        stream.string << stream.indent() << line;
-        stream.string << std::endl;
-    }
-    
-    stream.string << "}";
-    stream.string << std::endl;
-    return stream;
 }

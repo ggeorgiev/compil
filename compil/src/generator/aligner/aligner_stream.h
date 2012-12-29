@@ -50,18 +50,21 @@ public:
     
     std::string str();
     
-    std::ostringstream string;
+    AlignerStream& operator<<(const std::string& str);
+    AlignerStream& operator<<(const lang::List& list);
+    AlignerStream& operator<<(const lang::Scope& scope);
+
     AlignerConfigurationPtr mConfiguration;
-    
+private:
     std::string indent() const;
+
+    std::ostringstream string;
 };
 
 typedef boost::shared_ptr<AlignerStream> AlignerStreamSPtr;
 typedef boost::weak_ptr<AlignerStream> AlignerStreamWPtr;
 
-AlignerStream& operator<<(AlignerStream& stream, const std::string&);
-AlignerStream& operator<<(AlignerStream& stream, const lang::List&);
-AlignerStream& operator<<(AlignerStream& stream, const lang::Scope&);
+
 
 #endif
 

@@ -102,6 +102,8 @@ FormatterStream& FormatterStream::operator<<(const ExpressionSPtr& expression)
         return *this << CustomExpression::downcast(expression);
     if (expression->runtimeExpressionId() == CustomIdExpression::staticExpressionId())
         return *this << CustomIdExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == ExpressionList::staticExpressionId())
+        return *this << ExpressionList::downcast(expression);
     if (expression->runtimeExpressionId() == IdentifierUnqualifiedId::staticExpressionId())
         return *this << IdentifierUnqualifiedId::downcast(expression);
     if (expression->runtimeExpressionId() == IdExpressionPrimaryExpression::staticExpressionId())
@@ -115,6 +117,32 @@ FormatterStream& FormatterStream::operator<<(const ExpressionSPtr& expression)
     if (expression->runtimeExpressionId() == UnqualifiedIdExpression::staticExpressionId())
         return *this << UnqualifiedIdExpression::downcast(expression);
         
+    return *this;
+}
+
+FormatterStream& FormatterStream::operator<<(const lang::cpp::ExpressionListSPtr& expressionList)
+{
+    List list;
+    list << List::ESquiggles::none();
+    list << List::EDelimiter::comma();
+    
+    const std::vector<ExpressionSPtr>& expressions = expressionList->expressions();
+    for (std::vector<ExpressionSPtr>::const_iterator it = expressions.begin(); it != expressions.end(); ++it)
+    {
+        const ExpressionSPtr& expression = *it;
+        FormatterStream formatter(mConfiguration, mAligner.mConfiguration);
+        formatter << expression;
+        list << formatter.str();
+    }
+    
+    mAligner << list;
+    return *this;
+}
+
+FormatterStream& FormatterStream::operator<<(const ExpressionStatementSPtr& statement)
+{
+    *this << statement->expression();
+    mAligner << ";";
     return *this;
 }
 
@@ -177,6 +205,8 @@ FormatterStream& FormatterStream::operator<<(const StatementSPtr& statement)
 {
     if (statement->runtimeStatementId() == CompoundStatement::staticStatementId())
         return *this << CompoundStatement::downcast(statement);
+    if (statement->runtimeStatementId() == ExpressionStatement::staticStatementId())
+        return *this << ExpressionStatement::downcast(statement);
     if (statement->runtimeStatementId() == DeclarationStatement::staticStatementId())
         return *this << DeclarationStatement::downcast(statement);
     if (statement->runtimeStatementId() == MacroStatement::staticStatementId())

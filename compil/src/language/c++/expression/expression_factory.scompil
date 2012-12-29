@@ -32,6 +32,7 @@
 
 compil { }
 
+import "c++/expression/constructor_call_expression.scompil";
 import "c++/expression/custom_expression.scompil";
 import "c++/expression/custom_id_expression.scompil";
 import "c++/expression/custom_postfix_expression.scompil";

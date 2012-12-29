@@ -86,11 +86,31 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
             << structure
             << (methodNameRef() << "isInitialized");
             
-        UnaryTestStatement::EType type = pStructure->isOptional()
-                                       ? UnaryTestStatement::EType::isTrue()
-                                       : UnaryTestStatement::EType::isFalse();
-
-        test    << (unaryTestStatementRef() << type
+        if (!pStructure->isOptional())
+        {
+            test    << (unaryTestStatementRef() << UnaryTestStatement::EType::isFalse()
+                                                        << isInitializedCall);
+        }
+            
+        std::vector<FieldSPtr> fields = pStructure->combinedFields();
+        for (std::vector<FieldSPtr>::iterator it = fields.begin(); it != fields.end(); ++it)
+        {
+            const FieldSPtr& field = *it;
+            if (field->defaultValue())
+                continue;
+                
+            ConstructorCallExpressionSPtr constructor = constructorCallExpressionRef()
+                << (classNameRef() << impl->cppType(field->type())->name()->value());
+            
+            MethodCallExpressionSPtr setFieldCall = methodCallExpressionRef()
+                << structure
+                << (methodNameRef() << frm->setMethodName(field)->value())
+                << constructor;
+                
+            test << (expressionStatementRef() << setFieldCall);
+        }
+        
+        test    << (unaryTestStatementRef() << UnaryTestStatement::EType::isTrue()
                                             << isInitializedCall);
         
         suite << test;
