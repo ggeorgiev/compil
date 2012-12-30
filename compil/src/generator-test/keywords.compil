@@ -45,6 +45,12 @@ structure switch {}
 structure Witch {}
 structure witch {}
 
+structure Template {}
+structure template {}
+structure Emplate {}
+structure emplate {}
+
+
 structure Fields
 {
     integer Case;
@@ -73,6 +79,9 @@ structure Fields
     
     integer Switch;
     integer Witch;
+    
+    integer Template;
+    integer Emplate;
 }
 
 structure fields
@@ -101,8 +110,12 @@ structure fields
     integer public;
     integer ublic;
     
-    integer wwitch;
+    integer switch;
     integer witch;
+    
+    integer template;
+    integer emplate;
+
 }
 
 enum Enumeration
@@ -133,6 +146,9 @@ enum Enumeration
     
     Switch;
     Witch;
+    
+    Template;
+    Emplate;
 }
 
 enum enumeration
@@ -163,5 +179,8 @@ enum enumeration
     
     switch;
     witch;
+    
+    template;
+    emplate;
 }
 

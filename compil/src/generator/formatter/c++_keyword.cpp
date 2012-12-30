@@ -64,6 +64,7 @@ bool CppKeyword::isKeyword(const std::string& word)
     if (word == "short")        return true;
     if (word == "static")       return true;
     if (word == "switch")       return true;
+    if (word == "template")     return true;
     if (word == "virtual")      return true;
     
 // MSVC
