@@ -200,7 +200,7 @@ static StatementSPtr convertStatement(const StatementSPtr& statement)
             << (identifierRef() << vdstatment->variable()->name()->value());
         ClassTypeNameSPtr classTypeName2 = classTypeNameRef()
             << identifierClassName2;
-        DeclaratorIdTempSPtr declaratorId = declaratorIdTempRef()
+        DeclaratorIdSPtr declaratorId = declaratorIdRef()
             << classTypeName2;
         DeclaratorIdDirectDeclaratorSPtr directDeclarator = declaratorIdDirectDeclaratorRef()
             << declaratorId;

@@ -134,8 +134,8 @@ FormatterStream& FormatterStream::operator<<(const DeclaratorSPtr& declarator)
 {
     if (declarator->runtimeDeclaratorId() == InitDeclarator::staticDeclaratorId())
         return *this << InitDeclarator::downcast(declarator);
-    if (declarator->runtimeDeclaratorId() == DeclaratorIdTemp::staticDeclaratorId())
-        return *this << DeclaratorIdTemp::downcast(declarator);
+    if (declarator->runtimeDeclaratorId() == DeclaratorId::staticDeclaratorId())
+        return *this << DeclaratorId::downcast(declarator);
     if (declarator->runtimeDeclaratorId() == DeclaratorIdDirectDeclarator::staticDeclaratorId())
         return *this << DeclaratorIdDirectDeclarator::downcast(declarator);
 
@@ -148,7 +148,7 @@ FormatterStream& FormatterStream::operator<<(const DeclarationStatementSPtr& sta
                  << statement->close();
 }
 
-FormatterStream& FormatterStream::operator<<(const DeclaratorIdTempSPtr& declarator)
+FormatterStream& FormatterStream::operator<<(const DeclaratorIdSPtr& declarator)
 {
     return *this << declarator->typeName();
 }

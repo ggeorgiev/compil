@@ -43,5 +43,5 @@ structure DeclaratorIdDirectDeclarator
 {
     runtime identification;
     
-    reference<DeclaratorIdTemp> declarator;
+    reference<DeclaratorId> declarator;
 }

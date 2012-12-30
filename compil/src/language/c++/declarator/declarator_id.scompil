@@ -38,7 +38,7 @@ import "c++/declaration/type_name.scompil";
 package lang.cpp;
 
 streamable
-structure DeclaratorIdTemp
+structure DeclaratorId
     inherit Declarator
 {
     runtime identification;

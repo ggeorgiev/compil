@@ -61,7 +61,7 @@ public:
     FormatterStream& operator<<(const lang::cpp::DeclarationSpecifierSequenceSPtr& declaration);
     FormatterStream& operator<<(const lang::cpp::DeclarationStatementSPtr& statement);
     FormatterStream& operator<<(const lang::cpp::DeclaratorSPtr& declarator);
-    FormatterStream& operator<<(const lang::cpp::DeclaratorIdTempSPtr& declarator);
+    FormatterStream& operator<<(const lang::cpp::DeclaratorIdSPtr& declarator);
     FormatterStream& operator<<(const lang::cpp::DeclaratorIdDirectDeclaratorSPtr& declarator);
     FormatterStream& operator<<(const lang::cpp::ExpressionSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::ExpressionListSPtr& expressionList);
