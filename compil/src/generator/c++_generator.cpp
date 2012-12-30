@@ -993,13 +993,11 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
     std::string accessObject;
     cf::TypeSPtr resultType = frm->typeRef(impl->cppType(pStructure));
     
-    
     std::string returnThis;
     if (!pStructure->immutable() && pStructure->partial())
         returnThis = "return *(" + frm->cppClassType(pStructure)->name()->value() + "*)this;";
     else
         returnThis = "return *this;";
-    eol(definitionStream);
 
     if (pStructure->immutable())
     {
@@ -1112,7 +1110,6 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
             closeBlock(definitionStream);
             eol(definitionStream);
         }
-
         
         if (pStructure->streamable())
         {

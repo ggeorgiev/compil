@@ -427,25 +427,25 @@ std::string CppFormatter::enumValueName(const EnumerationValueSPtr& pEnumeration
 cpp::frm::TypeSPtr CppFormatter::cppRawPtrName(const TypeSPtr& pType)
 {
     return cpp::frm::typeRef() << cppPackageNamespace(pType->package())
-                               << cpp::frm::typeNameRef(cppRawPtrName(pType->name()->value()));
+                               << cpp::frm::typeNameRef(cppRawPtrName(cppClassType(pType)->name()->value()));
 }
 
 cpp::frm::TypeSPtr CppFormatter::cppSharedPtrName(const TypeSPtr& pType)
 {
     return cpp::frm::typeRef() << cppPackageNamespace(pType->package())
-                               << cpp::frm::typeNameRef(cppSharedPtrName(pType->name()->value()));
+                               << cpp::frm::typeNameRef(cppSharedPtrName(cppClassType(pType)->name()->value()));
 }
 
 cpp::frm::TypeSPtr CppFormatter::cppSharedConstPtrName(const TypeSPtr& pType)
 {
     return cpp::frm::typeRef() << cppPackageNamespace(pType->package())
-                               << cpp::frm::typeNameRef(cppSharedConstPtrName(pType->name()->value()));
+                               << cpp::frm::typeNameRef(cppSharedConstPtrName(cppClassType(pType)->name()->value()));
 }
 
 cpp::frm::TypeSPtr CppFormatter::cppWeakPtrName(const TypeSPtr& pType)
 {
     return cpp::frm::typeRef() << cppPackageNamespace(pType->package())
-                               << cpp::frm::typeNameRef(cppWeakPtrName(pType->name()->value()));
+                               << cpp::frm::typeNameRef(cppWeakPtrName(cppClassType(pType)->name()->value()));
 }
 
 cpp::frm::TypeSPtr CppFormatter::cppRawPtrDecoratedType(const TypeSPtr& pType)
