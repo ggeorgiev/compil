@@ -30,16 +30,16 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include <boost/shared_ptr.hpp>
-
 #ifndef _IMPLEMENTER_STREAM_H__
 #define _IMPLEMENTER_STREAM_H__
 
-#include "implementer_configuration.h"
+#include "implementer/implementer_configuration.h"
 
 #include "namer_stream.h"
 
 #include "c++/test/test_suite.h"
+
+#include <boost/shared_ptr.hpp>
 
 class ImplementerStream
 {

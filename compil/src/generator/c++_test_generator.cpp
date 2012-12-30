@@ -31,13 +31,16 @@
 //
 
 #include "c++_test_generator.h"
-#include "implementer_stream.h"
+
+#include "implementer/implementer_stream.h"
+#include "library/c++/boost/exception.h"
 
 #include "c++/logical/local_variable.h"
 
 namespace compil
 {
 
+using namespace lib::cpp;
 using namespace lang::cpp;
 
 const int CppTestGenerator::mainStream = 0;
@@ -127,19 +130,8 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
                 << builder
                 << (methodNameRef() << "build");
                 
-                
-        NamespaceSPtr boostNS = namespaceRef()
-            << (identifierNamespaceNameRef() << (identifierRef() << "boost"));
-            
-        IdentifierClassNameSPtr assertException = identifierClassNameRef()
-            << (identifierRef() << "assert_exception");
-            
-        ClassSPtr boostAssertException = classRef()
-            << boostNS
-            << assertException;
-                
         test << (throwTestStatementRef() << build
-                                         << boostAssertException);
+                                         << BoostException::assertClass());
 
         suite << test;
     }    

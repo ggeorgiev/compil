@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "implementer_stream.h"
+#include "implementer/implementer_stream.h"
 
 using namespace lang;
 using namespace lang::cpp;

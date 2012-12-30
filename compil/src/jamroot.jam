@@ -22,3 +22,4 @@ build-project generator-test ;
 #build-project generator-self ;
 
 build-project language ;
+build-project library ;

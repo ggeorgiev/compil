@@ -30,54 +30,31 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "implementer/dependency.h"
+#ifndef _IMPLEMENTER_COMPIL_BUILDER_H__
+#define _IMPLEMENTER_COMPIL_BUILDER_H__
 
-namespace compil
+#include "c++/class/class.h"
+
+namespace lib
 {
 
-Dependency::Dependency(const std::string& header,
-                       DependencyType type, 
-                       DependencyLevel level,
-                       DependencySection section,
-                       const std::string& library)
-    : mHeader(header), mType(type), mLevel(level), mSection(section), mLibrary(library)
+namespace cpp
 {
-}
 
-Dependency::operator bool() const
-{
-    return mType != invalid_type;
-}
+using namespace lang::cpp;
 
-bool Dependency::compare(const Dependency& d1, const Dependency& d2)
+class CompilBuilder
 {
-    if (d1.mSection < d2.mSection)
-        return true;
-    if (d1.mSection > d2.mSection)
-        return false;
-        
-    if (d1.mLevel < d2.mLevel)
-        return true;
-    if (d1.mLevel > d2.mLevel)
-        return false;
-        
-    if (d1.mLibrary < d2.mLibrary)
-        return true;
-    if (d1.mLibrary > d2.mLibrary)
-        return false;
-        
-    if (d1.mHeader < d2.mHeader)
-        return true;
-    if (d1.mHeader > d2.mHeader)
-        return false;
-        
-    if (d1.mType < d2.mType)
-        return true;
-    if (d1.mType > d2.mType)
-        return false;
-        
-    return false;
+public:
+    static ClassNameSPtr className();
+    static ClassSPtr class_(const ClassSPtr& structureClass);
+
+
+};
+
 }
 
 }
+
+#endif
 

@@ -1,0 +1,23 @@
+path-constant TOP : .. ;
+path-constant ROOT : $(TOP)/.. ;
+
+boost-defines ;
+gtest-defines ;
+
+project library
+  : requirements
+    <include>$(TOP)
+  ;
+
+lib library
+  :
+    c++/boost/exception.cpp
+    c++/boost/namespace.cpp
+
+    c++/compil/builder.cpp
+
+    $(TOP)/language//language
+  :
+    <include>$(TOP)
+    <implicit-dependency>$(TOP)/language//language
+  ;

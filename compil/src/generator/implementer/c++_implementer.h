@@ -34,12 +34,13 @@
 #ifndef _CPP_IMPLEMENTER_H__
 #define _CPP_IMPLEMENTER_H__
 
+#include "implementer/implementer_configuration.h"
+#include "implementer/dependency.h"
+
 #include "cpp/format/destructor_specifier.h"
 #include "cpp/format/method_specifier.h"
 
-#include "implementer_configuration.h"
 #include "c++_formatter.h"
-#include "dependency.h"
 #include "factory.h"
 #include "model.h"
 

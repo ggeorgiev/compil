@@ -30,54 +30,45 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "implementer/dependency.h"
+#include "library/c++/compil/builder.h"
 
-namespace compil
+#include "c++/class/identifier_class_name.h"
+
+#include "boost/unordered_map.hpp"
+
+namespace lib
 {
 
-Dependency::Dependency(const std::string& header,
-                       DependencyType type, 
-                       DependencyLevel level,
-                       DependencySection section,
-                       const std::string& library)
-    : mHeader(header), mType(type), mLevel(level), mSection(section), mLibrary(library)
+namespace cpp
 {
+
+ClassNameSPtr CompilBuilder::className()
+{
+    static ClassNameSPtr className;
+    if (!className)
+    {
+        className = identifierClassNameRef() << (identifierRef() << "Builder");
+    }
+    
+    return className;
 }
 
-Dependency::operator bool() const
+ClassSPtr CompilBuilder::class_(const ClassSPtr& structureClass)
 {
-    return mType != invalid_type;
-}
+    static boost::unordered_map<ClassSPtr, ClassSPtr> map;
+    boost::unordered_map<ClassSPtr, ClassSPtr>::iterator it = map.find(structureClass);
+    if (it != map.end())
+        return it->second;
 
-bool Dependency::compare(const Dependency& d1, const Dependency& d2)
-{
-    if (d1.mSection < d2.mSection)
-        return true;
-    if (d1.mSection > d2.mSection)
-        return false;
+    ClassSPtr builderClass = classRef()
+        << structureClass
+        << className();
         
-    if (d1.mLevel < d2.mLevel)
-        return true;
-    if (d1.mLevel > d2.mLevel)
-        return false;
-        
-    if (d1.mLibrary < d2.mLibrary)
-        return true;
-    if (d1.mLibrary > d2.mLibrary)
-        return false;
-        
-    if (d1.mHeader < d2.mHeader)
-        return true;
-    if (d1.mHeader > d2.mHeader)
-        return false;
-        
-    if (d1.mType < d2.mType)
-        return true;
-    if (d1.mType > d2.mType)
-        return false;
-        
-    return false;
+    map[structureClass] = builderClass;
+    
+    return builderClass;
 }
 
 }
 
+}

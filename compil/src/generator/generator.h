@@ -34,7 +34,8 @@
 #ifndef _GENERATOR_H__
 #define _GENERATOR_H__
 
-#include "dependency.h"
+#include "implementer/dependency.h"
+#include "implementer/c++_implementer.h"
 
 #include "line_aligner.h"
 #include "table_aligner.h"
@@ -42,7 +43,6 @@
 
 #include "c++_formatter.h"
 
-#include "c++_implementer.h"
 
 #include "configuration_manager.h"
 

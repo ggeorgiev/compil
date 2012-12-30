@@ -10,7 +10,6 @@ project generator
     <include>aligner
     <include>aligner/object
     <include>formatter
-    <include>implementer
     <include>namer
   ;
 
@@ -52,10 +51,12 @@ lib generator-lib
     formatter/c++_keyword.cpp
     formatter/formatter_configuration.cpp
     formatter/formatter_stream.cpp
+    
     implementer/c++_implementer.cpp
     implementer/dependency.cpp
     implementer/implementer_configuration.cpp
     implementer/implementer_stream.cpp
+    
     namer/namer_configuration.cpp
     namer/namer_stream.cpp
     
@@ -77,8 +78,10 @@ lib generator-lib
     boost_filesystem
     
     $(TOP)/compiler//compiler
+    $(TOP)/library//library
     $(TOP)/language//language
   :
+    <include>$(TOP)
     <implicit-dependency>$(TOP)/language//language
   ;
     
