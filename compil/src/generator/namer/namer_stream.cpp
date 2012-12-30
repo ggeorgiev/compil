@@ -32,6 +32,8 @@
 
 #include "namer_stream.h"
 
+#include "boost/unordered_map.hpp"
+
 using namespace lang::cpp;
 
 NamerStream::NamerStream(const NamerConfigurationSPtr& namerConfiguration,
@@ -51,7 +53,9 @@ std::string NamerStream::str()
     return mFormatter.str();
 }
 
-static ExpressionSPtr convertExpression(const ExpressionSPtr& expression)
+static ExpressionSPtr convertExpression(const ExpressionSPtr& expression);
+
+static ExpressionSPtr doConvertExpression(const ExpressionSPtr& expression)
 {
     if (expression->runtimeExpressionId() == MethodCallExpression::staticExpressionId())
     {
@@ -116,6 +120,18 @@ static ExpressionSPtr convertExpression(const ExpressionSPtr& expression)
     return expression;
 }
 
+static ExpressionSPtr convertExpression(const ExpressionSPtr& expression)
+{
+    static boost::unordered_map<ExpressionSPtr, ExpressionSPtr> map;
+    boost::unordered_map<ExpressionSPtr, ExpressionSPtr>::iterator it = map.find(expression);
+    if (it != map.end())
+        return it->second;
+
+    ExpressionSPtr newexpression = doConvertExpression(expression);
+    map[expression] = newexpression;
+    return newexpression;
+}
+
 static StatementSPtr convertStatement(const StatementSPtr& statement)
 {
     if (statement->runtimeStatementId() == CompoundStatement::staticStatementId())
@@ -155,10 +171,49 @@ static StatementSPtr convertStatement(const StatementSPtr& statement)
     if (statement->runtimeStatementId() == VariableDeclarationStatement::staticStatementId())
     {
         VariableDeclarationStatementSPtr vdstatment = VariableDeclarationStatement::downcast(statement);
-        IdentifierSPtr identifier = identifierRef()
-            << vdstatment->variable()->name()->value();
-        return declarationStatementRef() << vdstatment->type()
-                                         << identifier;
+            
+        IdentifierClassNameSPtr identifierClassName1 = identifierClassNameRef()
+            << (identifierRef() << vdstatment->type()->name()->value());
+        ClassTypeNameSPtr classTypeName1 = classTypeNameRef()
+            << identifierClassName1;
+            
+        NestedNameSpecifierSPtr nestedNameSpecifier;
+        if (vdstatment->type()->containerClass())
+        {
+            IdentifierClassNameSPtr identifierClassName = identifierClassNameRef()
+                << (identifierRef() << vdstatment->type()->containerClass()->name()->value());
+            ClassNestedNameSPtr classNestedName = classNestedNameRef()
+                << identifierClassName;
+            nestedNameSpecifier = nestedNameSpecifierRef()
+                << classNestedName;
+        }
+            
+        TypeNameSimpleTypeSpecifierSPtr typeNameSimpleTypeSpecifier = typeNameSimpleTypeSpecifierRef()
+            << nestedNameSpecifier
+            << classTypeName1;
+        TypeDeclarationSpecifierSPtr typeDeclarationSpecifier = typeDeclarationSpecifierRef()
+            << typeNameSimpleTypeSpecifier;
+        DeclarationSpecifierSequenceSPtr declarationSpecifierSequence = declarationSpecifierSequenceRef()
+            << typeDeclarationSpecifier;
+            
+        IdentifierClassNameSPtr identifierClassName2 = identifierClassNameRef()
+            << (identifierRef() << vdstatment->variable()->name()->value());
+        ClassTypeNameSPtr classTypeName2 = classTypeNameRef()
+            << identifierClassName2;
+        DeclaratorIdTempSPtr declaratorId = declaratorIdTempRef()
+            << classTypeName2;
+        DeclaratorIdDirectDeclaratorSPtr directDeclarator = declaratorIdDirectDeclaratorRef()
+            << declaratorId;
+        InitDeclaratorSPtr initDeclarator = initDeclaratorRef()
+            << directDeclarator;
+            
+        SimpleDeclarationSPtr simpleDeclaration = simpleDeclarationRef()
+            << initDeclarator
+            << declarationSpecifierSequence;
+        SimpleBlockDeclarationSPtr blockDeclaration = simpleBlockDeclarationRef()
+            << simpleDeclaration;
+            
+        return declarationStatementRef() << blockDeclaration;
     }
     
     return statement;

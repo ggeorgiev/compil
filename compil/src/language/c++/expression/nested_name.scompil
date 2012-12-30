@@ -32,14 +32,13 @@
 
 compil { }
 
-import "c++/class/class_name.scompil";
+import "c++/expression/expression.scompil";
 
 package lang.cpp;
 
 streamable
-structure Class 
+structure NestedName
+    inherit Expression
 {
-    reference<Class> containerClass = optional;
-
-    reference<ClassName> name;
+    runtime identification;
 }

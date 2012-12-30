@@ -32,14 +32,12 @@
 
 compil { }
 
-import "c++/class/class_name.scompil";
+import "c++/lexical/identifier.scompil";
 
 package lang.cpp;
 
 streamable
-structure Class 
+structure IdentifierClassName
 {
-    reference<Class> containerClass = optional;
-
-    reference<ClassName> name;
+    reference<Identifier> identifier;
 }

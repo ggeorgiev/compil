@@ -32,14 +32,12 @@
 
 compil { }
 
-import "c++/class/class_name.scompil";
+import "c++/declarator/declarator.scompil";
+import "c++/declarator/declarator_id_direct_declarator.scompil";
 
 package lang.cpp;
 
-streamable
-structure Class 
+hierarchy
+factory<Declarator> DeclaratorFactory
 {
-    reference<Class> containerClass = optional;
-
-    reference<ClassName> name;
 }

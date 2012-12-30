@@ -32,14 +32,17 @@
 
 compil { }
 
-import "c++/class/class_name.scompil";
+import "c++/declaration/class_type_name.scompil";
+import "c++/declaration/declaration.scompil";
+import "c++/declaration/declaration_specifier_sequence.scompil";
+import "c++/declaration/simple_declaration.scompil";
+import "c++/declaration/simple_block_declaration.scompil";
+import "c++/declaration/type_declaration_specifier.scompil";
+import "c++/declaration/type_name_simple_type_specifier.scompil";
 
 package lang.cpp;
 
-streamable
-structure Class 
+hierarchy
+factory<Declaration> DeclarationFactory
 {
-    reference<Class> containerClass = optional;
-
-    reference<ClassName> name;
 }

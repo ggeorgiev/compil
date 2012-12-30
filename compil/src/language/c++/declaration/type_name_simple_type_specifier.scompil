@@ -32,14 +32,18 @@
 
 compil { }
 
-import "c++/class/class_name.scompil";
+import "c++/declaration/simple_type_specifier.scompil";
+import "c++/declaration/type_name.scompil";
+import "c++/expression/nested_name_specifier.scompil";
 
 package lang.cpp;
 
 streamable
-structure Class 
+structure TypeNameSimpleTypeSpecifier
+    inherit SimpleTypeSpecifier
 {
-    reference<Class> containerClass = optional;
-
-    reference<ClassName> name;
+    runtime identification;
+    
+    reference<NestedNameSpecifier> specifier = optional;
+    reference<TypeName> typeName;
 }

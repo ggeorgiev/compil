@@ -1,9 +1,0 @@
-rule generate ( target : source * : properties * )
-{
-    echo $(target) $(source) ;
-}
-
-actions generate
-{
-    generator $(<) $(>)
-}

@@ -20,7 +20,7 @@ lib generator-test
 #    factories_another_factory_package.compil
 #    factories_another_package.compil
 #    factories.compil
-#    immutable_structure.compil
+     immutable_structure.compil
 #    inner_enumeration.compil
 #    integers.compil
 #    keywords.compil
@@ -36,7 +36,7 @@ lib generator-test
 #    structure_operator.compil
 #    structure_streamable.compil
 #    structure_upcopy.compil
-    structures.compil
+     structures.compil
 #    times.compil
 #    weak_enumeration.compil
 #    weak_identifier.compil
@@ -66,6 +66,7 @@ gtest generator-test
     
     [ convert _ cpp
       :
+        immutable_structure.compil
         structures.compil
       :
         <compil-type>test

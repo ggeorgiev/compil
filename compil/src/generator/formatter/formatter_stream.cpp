@@ -76,6 +76,16 @@ FormatterStream& FormatterStream::operator<<(const CompoundStatementSPtr& compou
     return *this << compoundStatement->close();
 }
 
+FormatterStream& FormatterStream::operator<<(const ClassTypeNameSPtr& declaration)
+{
+    return *this << declaration->className();
+}
+
+FormatterStream& FormatterStream::operator<<(const ClassNestedNameSPtr& expression)
+{
+    return *this << expression->name();
+}
+
 FormatterStream& FormatterStream::operator<<(const CustomExpressionSPtr& expression)
 {
     mAligner << expression->value();
@@ -88,16 +98,70 @@ FormatterStream& FormatterStream::operator<<(const CustomIdExpressionSPtr& expre
     return *this;
 }
 
+FormatterStream& FormatterStream::operator<<(const DeclarationSPtr& declaration)
+{
+    if (declaration->runtimeDeclarationId() == ClassTypeName::staticDeclarationId())
+        return *this << ClassTypeName::downcast(declaration);
+    if (declaration->runtimeDeclarationId() == DeclarationSpecifierSequence::staticDeclarationId())
+        return *this << DeclarationSpecifierSequence::downcast(declaration);
+    if (declaration->runtimeDeclarationId() == SimpleBlockDeclaration::staticDeclarationId())
+        return *this << SimpleBlockDeclaration::downcast(declaration);
+    if (declaration->runtimeDeclarationId() == SimpleDeclaration::staticDeclarationId())
+        return *this << SimpleDeclaration::downcast(declaration);
+    if (declaration->runtimeDeclarationId() == TypeNameSimpleTypeSpecifier::staticDeclarationId())
+        return *this << TypeNameSimpleTypeSpecifier::downcast(declaration);        
+    if (declaration->runtimeDeclarationId() == TypeDeclarationSpecifier::staticDeclarationId())
+        return *this << TypeDeclarationSpecifier::downcast(declaration);
+
+    return *this;
+}
+
+FormatterStream& FormatterStream::operator<<(const DeclarationSpecifierSequenceSPtr& declaration)
+{
+    const std::vector<DeclarationSpecifierSPtr>& declarations = declaration->declarations();
+    BOOST_ASSERT(declarations.size() >= 1);
+
+    for (std::vector<DeclarationSpecifierSPtr>::const_iterator it = declarations.begin(); it != declarations.end(); ++it)
+    {
+        if (it != declarations.begin())
+            mAligner << " ";
+        *this << *it;
+    }
+    return *this;
+}
+
+FormatterStream& FormatterStream::operator<<(const DeclaratorSPtr& declarator)
+{
+    if (declarator->runtimeDeclaratorId() == InitDeclarator::staticDeclaratorId())
+        return *this << InitDeclarator::downcast(declarator);
+    if (declarator->runtimeDeclaratorId() == DeclaratorIdTemp::staticDeclaratorId())
+        return *this << DeclaratorIdTemp::downcast(declarator);
+    if (declarator->runtimeDeclaratorId() == DeclaratorIdDirectDeclarator::staticDeclaratorId())
+        return *this << DeclaratorIdDirectDeclarator::downcast(declarator);
+
+    return *this;
+}
+
 FormatterStream& FormatterStream::operator<<(const DeclarationStatementSPtr& statement)
 {
-    mAligner << statement->type()->value();
-    mAligner << " ";
-    mAligner << statement->identifier()->value();
-    return *this << statement->close();
+    return *this << statement->declaration()
+                 << statement->close();
+}
+
+FormatterStream& FormatterStream::operator<<(const DeclaratorIdTempSPtr& declarator)
+{
+    return *this << declarator->typeName();
+}
+
+FormatterStream& FormatterStream::operator<<(const DeclaratorIdDirectDeclaratorSPtr& declarator)
+{
+    return *this << declarator->declarator();
 }
 
 FormatterStream& FormatterStream::operator<<(const ExpressionSPtr& expression)
 {
+    if (expression->runtimeExpressionId() == ClassNestedName::staticExpressionId())
+        return *this << ClassNestedName::downcast(expression);
     if (expression->runtimeExpressionId() == CustomExpression::staticExpressionId())
         return *this << CustomExpression::downcast(expression);
     if (expression->runtimeExpressionId() == CustomIdExpression::staticExpressionId())
@@ -110,6 +174,8 @@ FormatterStream& FormatterStream::operator<<(const ExpressionSPtr& expression)
         return *this << IdExpressionPrimaryExpression::downcast(expression);
     if (expression->runtimeExpressionId() == MemberAccessPostfixExpression::staticExpressionId())
         return *this << MemberAccessPostfixExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == NestedNameSpecifier::staticExpressionId())
+        return *this << NestedNameSpecifier::downcast(expression);
     if (expression->runtimeExpressionId() == ParenthesesPostfixExpression::staticExpressionId())
         return *this << ParenthesesPostfixExpression::downcast(expression);
     if (expression->runtimeExpressionId() == PrimaryExpressionPostfixExpression::staticExpressionId())
@@ -120,7 +186,7 @@ FormatterStream& FormatterStream::operator<<(const ExpressionSPtr& expression)
     return *this;
 }
 
-FormatterStream& FormatterStream::operator<<(const lang::cpp::ExpressionListSPtr& expressionList)
+FormatterStream& FormatterStream::operator<<(const ExpressionListSPtr& expressionList)
 {
     List list;
     list << List::ESquiggles::none();
@@ -152,9 +218,25 @@ FormatterStream& FormatterStream::operator<<(const IdentifierUnqualifiedIdSPtr& 
     return *this;
 }
 
+FormatterStream& FormatterStream::operator<<(const IdentifierSPtr& identifier)
+{
+     mAligner << identifier->value();
+     return *this;
+}
+
+FormatterStream& FormatterStream::operator<<(const IdentifierClassNameSPtr& name)
+{
+    return *this << name->identifier();
+}
+
 FormatterStream& FormatterStream::operator<<(const IdExpressionPrimaryExpressionSPtr& expression)
 {
     return *this << expression->expression();
+}
+
+FormatterStream& FormatterStream::operator<<(const InitDeclaratorSPtr& declarator)
+{
+    return *this << declarator->declarator();
 }
 
 FormatterStream& FormatterStream::operator<<(const MacroStatementSPtr& macro)
@@ -186,6 +268,13 @@ FormatterStream& FormatterStream::operator<<(const MemberAccessPostfixExpression
     return *this;
 }
 
+FormatterStream& FormatterStream::operator<<(const NestedNameSpecifierSPtr& expression)
+{
+    *this << expression->name();
+    mAligner << "::";
+    return *this;
+}
+
 FormatterStream& FormatterStream::operator<<(const ParenthesesPostfixExpressionSPtr& expression)
 {
     *this << expression->expression();
@@ -199,6 +288,24 @@ FormatterStream& FormatterStream::operator<<(const ParenthesesPostfixExpressionS
 FormatterStream& FormatterStream::operator<<(const PrimaryExpressionPostfixExpressionSPtr& expression)
 {
     return *this << expression->expression();
+}
+
+FormatterStream& FormatterStream::operator<<(const SimpleBlockDeclarationSPtr& declaration)
+{
+    return *this << declaration->declaration();
+}
+
+FormatterStream& FormatterStream::operator<<(const SimpleDeclarationSPtr& declaration)
+{
+    BOOST_ASSERT(declaration->declaration() || declaration->declarator());
+    if (declaration->declaration())
+    {
+        *this << declaration->declaration();
+        mAligner << " ";
+    }
+    if (declaration->declarator())
+        *this << declaration->declarator();
+    return *this;
 }
 
 FormatterStream& FormatterStream::operator<<(const StatementSPtr& statement)
@@ -220,6 +327,18 @@ FormatterStream& FormatterStream::operator<<(const Statement::EClose& close)
     if (close == Statement::EClose::yes())
         mAligner << ";";
     return *this;
+}
+
+FormatterStream& FormatterStream::operator<<(const TypeDeclarationSpecifierSPtr& declaration)
+{
+    return *this << declaration->declaration();
+}
+
+FormatterStream& FormatterStream::operator<<(const TypeNameSimpleTypeSpecifierSPtr& declaration)
+{
+    if (declaration->specifier())
+        *this << declaration->specifier();
+    return *this << declaration->typeName();
 }
 
 FormatterStream& FormatterStream::operator<<(const UnqualifiedIdExpressionSPtr& expression)

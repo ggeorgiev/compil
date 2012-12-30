@@ -32,14 +32,15 @@
 
 compil { }
 
-import "c++/class/class_name.scompil";
+import "c++/declaration/declaration_specifier.scompil";
 
 package lang.cpp;
 
 streamable
-structure Class 
+structure DeclarationSpecifierSequence
+    inherit Declaration
 {
-    reference<Class> containerClass = optional;
-
-    reference<ClassName> name;
+    runtime identification;
+    
+    vector<reference<DeclarationSpecifier>> declarations;
 }

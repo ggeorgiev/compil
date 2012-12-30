@@ -64,22 +64,22 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
     TestSuite suite;
     suite << TestSuiteName(pStructure->name()->value() + "Test");
     
-    if (pStructure->isInitializable())
+    ClassSPtr class_ = classRef()
+        << (classNameRef() << pStructure->name()->value());
+        
+    ClassSPtr builderClass = classRef()
+        << class_
+        << (classNameRef() << "Builder");
+        
+    if (pStructure->isInitializable() && !pStructure->immutable())
     {
         TestSPtr test = testRef();
         test << TestName("isInitialized");
         
-        ClassNameSPtr className = classNameRef()
-            << pStructure->name()->value();
-        
         LocalVariableSPtr structure = localVariableRef()
             << (variableNameRef() << "structure");
         
-        VariableDeclarationStatementSPtr declaration = variableDeclarationStatementRef()
-            << className
-            << structure;
-            
-        test << (variableDeclarationStatementRef() << className
+        test << (variableDeclarationStatementRef() << class_
                                                    << structure);
         
         MethodCallExpressionSPtr isInitializedCall = methodCallExpressionRef()
@@ -115,6 +115,20 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
         
         suite << test;
     }
+    
+    if (pStructure->isInitializable() && pStructure->immutable())
+    {
+        TestSPtr test = testRef();
+        test << TestName("negativeBuild");
+        
+        LocalVariableSPtr builder = localVariableRef()
+            << (variableNameRef() << "builder");
+
+        test << (variableDeclarationStatementRef() << builderClass
+                                                   << builder);
+
+        suite << test;
+    }    
     
     NamerConfigurationSPtr nc = boost::make_shared<NamerConfiguration>();
     

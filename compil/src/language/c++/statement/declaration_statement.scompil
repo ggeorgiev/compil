@@ -33,7 +33,7 @@
 compil { }
 
 import "c++/statement/statement.scompil";
-import "c++/lexical/identifier.scompil";
+import "c++/declaration/block_declaration.scompil";
 
 package lang.cpp;
 
@@ -43,6 +43,5 @@ structure DeclarationStatement
 {
     runtime identification;
 
-    reference<ClassName> type;
-    reference<Identifier> identifier;
+    reference<BlockDeclaration> declaration;
 }
