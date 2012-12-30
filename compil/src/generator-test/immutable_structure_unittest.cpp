@@ -40,7 +40,7 @@ TEST(ImmutableStructureTest, construct)
 {
     ImmutableStructure1::Builder builder;
     ImmutableStructure1 immutableStructure;
-    ASSERT_THROW((immutableStructure = builder.build()), boost::assert_exception);
+    ASSERT_THROW(builder.build(), boost::assert_exception);
     ASSERT_THROW(builder.finalize(), boost::assert_exception);
 }
 

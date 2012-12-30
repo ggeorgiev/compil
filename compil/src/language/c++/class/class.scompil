@@ -33,12 +33,14 @@
 compil { }
 
 import "c++/class/class_name.scompil";
+import "c++/namespace/namespace.scompil";
 
 package lang.cpp;
 
 streamable
 structure Class 
 {
+    reference<Namespace> namespace = optional;
     reference<Class> containerClass = optional;
 
     reference<ClassName> name;

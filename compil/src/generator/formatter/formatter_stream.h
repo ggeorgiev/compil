@@ -42,6 +42,8 @@
 #include "c++/statement/statement_factory.h"
 #include "c++/declaration/declaration_factory.h"
 #include "c++/declarator/declarator_factory.h"
+#include "c++/preprocessor/macro_parameter_factory.h"
+#include "c++/namespace/identifier_namespace_name.h"
 
 class FormatterStream
 {
@@ -68,9 +70,11 @@ public:
     FormatterStream& operator<<(const lang::cpp::ExpressionStatementSPtr& statement);
     FormatterStream& operator<<(const lang::cpp::MacroStatementSPtr& statement);
     FormatterStream& operator<<(const lang::cpp::MemberAccessPostfixExpressionSPtr& expression);
+    FormatterStream& operator<<(const lang::cpp::NamespaceNestedNameSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::NestedNameSpecifierSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::IdentifierSPtr& identifier);
     FormatterStream& operator<<(const lang::cpp::IdentifierClassNameSPtr& name);
+    FormatterStream& operator<<(const lang::cpp::IdentifierNamespaceNameSPtr& name);
     FormatterStream& operator<<(const lang::cpp::IdentifierUnqualifiedIdSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::IdExpressionPrimaryExpressionSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::InitDeclaratorSPtr& declarator);

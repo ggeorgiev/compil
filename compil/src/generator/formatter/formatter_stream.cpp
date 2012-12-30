@@ -174,6 +174,8 @@ FormatterStream& FormatterStream::operator<<(const ExpressionSPtr& expression)
         return *this << IdExpressionPrimaryExpression::downcast(expression);
     if (expression->runtimeExpressionId() == MemberAccessPostfixExpression::staticExpressionId())
         return *this << MemberAccessPostfixExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == NamespaceNestedName::staticExpressionId())
+        return *this << NamespaceNestedName::downcast(expression);
     if (expression->runtimeExpressionId() == NestedNameSpecifier::staticExpressionId())
         return *this << NestedNameSpecifier::downcast(expression);
     if (expression->runtimeExpressionId() == ParenthesesPostfixExpression::staticExpressionId())
@@ -229,6 +231,11 @@ FormatterStream& FormatterStream::operator<<(const IdentifierClassNameSPtr& name
     return *this << name->identifier();
 }
 
+FormatterStream& FormatterStream::operator<<(const IdentifierNamespaceNameSPtr& name)
+{
+    return *this << name->identifier();
+}
+
 FormatterStream& FormatterStream::operator<<(const IdExpressionPrimaryExpressionSPtr& expression)
 {
     return *this << expression->expression();
@@ -241,7 +248,7 @@ FormatterStream& FormatterStream::operator<<(const InitDeclaratorSPtr& declarato
 
 FormatterStream& FormatterStream::operator<<(const MacroStatementSPtr& macro)
 {
-    mAligner << macro->name().value();
+    mAligner << macro->name()->value();
     
     List list;
     list << List::ESquiggles::parentheses();
@@ -252,7 +259,11 @@ FormatterStream& FormatterStream::operator<<(const MacroStatementSPtr& macro)
     {
         const MacroParameterSPtr& parameter = *it;
         FormatterStream formatter(mConfiguration, mAligner.mConfiguration);
-        formatter << parameter->expression();
+        if (parameter->runtimeMacroParameterId() == ExpressionMacroParameter::staticMacroParameterId())
+            formatter << ExpressionMacroParameter::downcast(parameter)->expression();
+        if (parameter->runtimeMacroParameterId() == DeclarationMacroParameter::staticMacroParameterId())
+            formatter << DeclarationMacroParameter::downcast(parameter)->declaration();
+
         list << formatter.str();
     }
     
@@ -266,6 +277,11 @@ FormatterStream& FormatterStream::operator<<(const MemberAccessPostfixExpression
     mAligner << ".";
     *this << expression->second();
     return *this;
+}
+
+FormatterStream& FormatterStream::operator<<(const NamespaceNestedNameSPtr& expression)
+{
+    return *this << expression->name();
 }
 
 FormatterStream& FormatterStream::operator<<(const NestedNameSpecifierSPtr& expression)

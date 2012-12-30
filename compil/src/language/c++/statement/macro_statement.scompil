@@ -44,6 +44,6 @@ structure MacroStatement
 {
     runtime identification;
     
-    MacroName name;
+    reference<MacroName> name;
     vector<reference<MacroParameter>> parameters;
 }

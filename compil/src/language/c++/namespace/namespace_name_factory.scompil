@@ -32,16 +32,12 @@
 
 compil { }
 
-import "c++/lexical/identifier.scompil";
-import "c++/class/class_name.scompil";
+import "c++/namespace/namespace_name.scompil";
+import "c++/namespace/identifier_namespace_name.scompil";
 
 package lang.cpp;
 
-streamable
-structure IdentifierClassName
-    inherit ClassName
+hierarchy
+factory<NamespaceName> NamespaceNameFactory
 {
-    runtime identification;
-    
-    reference<Identifier> identifier;
 }

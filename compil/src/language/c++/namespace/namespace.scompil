@@ -32,12 +32,12 @@
 
 compil { }
 
-import "namespace_name.compil";
+import "c++/namespace/namespace_name.scompil";
 
 package lang.cpp;
 
-controlled streamable
+streamable
 structure Namespace
 {
-    vector<reference<NamespaceName>> names = optional;
+    vector<reference<NamespaceName>> names;
 }

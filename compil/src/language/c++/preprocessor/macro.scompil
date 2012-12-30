@@ -39,5 +39,5 @@ package lang.cpp;
 streamable
 structure Macro 
 {
-    MacroName name;
+    reference<MacroName> name;
 }

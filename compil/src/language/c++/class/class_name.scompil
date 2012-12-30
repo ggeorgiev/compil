@@ -32,6 +32,7 @@
 
 compil { }
 
+import "c++/class/class_name.scompil";
 import "c++/lexical/identifier.scompil";
 
 package lang.cpp;
@@ -39,5 +40,5 @@ package lang.cpp;
 streamable
 structure ClassName
 {
-    string value;
+    runtime identification;
 }

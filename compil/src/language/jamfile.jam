@@ -19,6 +19,7 @@ lib language
     
     c++/class/class.scompil
     c++/class/class_name.scompil
+    c++/class/class_name_factory.scompil
     c++/class/identifier_class_name.scompil
     c++/class/method.scompil
     c++/class/method_name.scompil
@@ -30,12 +31,13 @@ lib language
     c++/declarator/direct_declarator.scompil
     c++/declarator/init_declarator.scompil
 
+    c++/declaration/block_declaration.scompil
+    c++/declaration/class_declaration.scompil
     c++/declaration/class_type_name.scompil
     c++/declaration/declaration.scompil    
     c++/declaration/declaration_factory.scompil
     c++/declaration/declaration_specifier.scompil
     c++/declaration/declaration_specifier_sequence.scompil
-    c++/declaration/block_declaration.scompil
     c++/declaration/simple_declaration.scompil
     c++/declaration/simple_block_declaration.scompil
     c++/declaration/simple_type_specifier.scompil
@@ -57,6 +59,7 @@ lib language
     c++/expression/identifier_unqualified_id.scompil
     c++/expression/member_access_postfix_expression.scompil
     c++/expression/method_call_expression.scompil
+    c++/expression/namespace_nested_name.scompil
     c++/expression/nested_name.scompil
     c++/expression/nested_name_specifier.scompil
     c++/expression/parentheses_postfix_expression.scompil
@@ -72,17 +75,26 @@ lib language
     c++/logical/variable.scompil
     c++/logical/variable_name.scompil
     
+    c++/namespace/identifier_namespace_name.scompil
+    c++/namespace/namespace_name_factory.scompil
+    c++/namespace/namespace_name.scompil
+    c++/namespace/namespace.scompil
+    
     c++/statement/compound_statement.scompil
     c++/statement/declaration_statement.scompil
     c++/statement/expression_statement.scompil
     c++/statement/macro_statement.scompil
     c++/statement/statement.scompil
     c++/statement/statement_factory.scompil
-    c++/statement/test_statement.scompil
     c++/statement/variable_declaration_statement.scompil
+    c++/statement/throw_test_statement.scompil
+    c++/statement/unary_test_statement.scompil
     
+    c++/preprocessor/declaration_macro_parameter.scompil
+    c++/preprocessor/expression_macro_parameter.scompil
     c++/preprocessor/macro.scompil
     c++/preprocessor/macro_parameter.scompil
+    c++/preprocessor/macro_parameter_factory.scompil
     c++/preprocessor/macro_name.scompil
     
     c++/test/test.scompil
@@ -105,8 +117,6 @@ lib language
     #c++/layer_comment.compil
     #c++/method_comment.compil
     #c++/method_specifier.compil
-    #c++/namespace_name.compil
-    #c++/namespace.compil
     
     boost_templates
   :

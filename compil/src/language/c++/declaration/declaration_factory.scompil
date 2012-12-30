@@ -32,6 +32,7 @@
 
 compil { }
 
+import "c++/declaration/class_declaration.scompil";
 import "c++/declaration/class_type_name.scompil";
 import "c++/declaration/declaration.scompil";
 import "c++/declaration/declaration_specifier_sequence.scompil";

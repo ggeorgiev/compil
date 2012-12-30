@@ -32,12 +32,6 @@
 
 #include "implementer_stream.h"
 
-#include "c++/expression/custom_expression.h"
-#include "c++/statement/compound_statement.h"
-#include "c++/statement/macro_statement.h"
-#include "c++/statement/statement_factory.h"
-#include "c++/statement/test_statement.h"
-
 using namespace lang;
 using namespace lang::cpp;
 
@@ -59,6 +53,42 @@ std::string ImplementerStream::str()
     return mNamer.str();
 }
 
+static StatementSPtr convertStatement(const StatementSPtr& statement)
+{
+    if (statement->runtimeStatementId() == ThrowTestStatement::staticStatementId())
+    {
+        ThrowTestStatementSPtr teststatement = ThrowTestStatement::downcast(statement);
+        MacroStatementSPtr macro = macroStatementRef()
+            << (macroNameRef() << "ASSERT_THROW");
+
+        macro << (expressionMacroParameterRef() << teststatement->expression());
+        macro << (declarationMacroParameterRef() << (classDeclarationRef() << teststatement->class_()));
+        return macro;
+    }
+
+    if (statement->runtimeStatementId() == UnaryTestStatement::staticStatementId())
+    {
+        UnaryTestStatementSPtr teststatement = UnaryTestStatement::downcast(statement);
+        MacroStatementSPtr macro = macroStatementRef();
+        switch (teststatement->type().value())
+        {
+            case UnaryTestStatement::EType::kIsTrue:
+                macro << (macroNameRef() << "ASSERT_TRUE");
+                break;
+            case UnaryTestStatement::EType::kIsFalse:
+                macro << (macroNameRef() << "ASSERT_FALSE");
+                break;
+            default:
+                assert(false);
+        }
+        
+        macro << (expressionMacroParameterRef() << teststatement->expression());
+        return macro;
+    }
+    
+    return statement;
+}
+
 ImplementerStream& ImplementerStream::operator<<(const TestSuite& suite)
 {
     const std::vector<lang::cpp::TestSPtr>& tests = suite.tests();
@@ -68,10 +98,10 @@ ImplementerStream& ImplementerStream::operator<<(const TestSuite& suite)
         const TestSPtr& test = *it;
 
         MacroStatementSPtr macro = macroStatementRef();
-        macro << MacroName("TEST");
+        macro << (macroNameRef() << "TEST");
         
-        macro << (macroParameterRef() << (customExpressionRef() << suite.name().value()));
-        macro << (macroParameterRef() << (customExpressionRef() << test->name().value()));
+        macro << (expressionMacroParameterRef() << (customExpressionRef() << suite.name().value()));
+        macro << (expressionMacroParameterRef() << (customExpressionRef() << test->name().value()));
         macro << Statement::EClose::no();
         
         mNamer << macro;
@@ -80,31 +110,7 @@ ImplementerStream& ImplementerStream::operator<<(const TestSuite& suite)
         
         const std::vector<StatementSPtr>& statements = test->statements();
         for (std::vector<StatementSPtr>::const_iterator it = statements.begin(); it != statements.end(); ++it)
-        {
-            StatementSPtr statement = *it;
-        
-            if (statement->runtimeStatementId() == UnaryTestStatement::staticStatementId())
-            {
-                UnaryTestStatementSPtr teststatement = UnaryTestStatement::downcast(statement);
-                MacroStatementSPtr macro = macroStatementRef();
-                switch (teststatement->type().value())
-                {
-                    case UnaryTestStatement::EType::kIsTrue:
-                        macro << MacroName("EXPECT_TRUE");
-                        break;
-                    case UnaryTestStatement::EType::kIsFalse:
-                        macro << MacroName("EXPECT_FALSE");
-                        break;
-                    default:
-                        assert(false);
-                }
-                
-                macro << (macroParameterRef() << teststatement->expression());
-                statement = macro;
-            }
-                
-            compoundStatement << statement;
-        }
+            compoundStatement << convertStatement(*it);
         
         mNamer << compoundStatement;
     }

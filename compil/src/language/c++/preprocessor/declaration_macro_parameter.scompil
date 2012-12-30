@@ -32,16 +32,17 @@
 
 compil { }
 
-import "c++/lexical/identifier.scompil";
-import "c++/class/class_name.scompil";
+import "c++/preprocessor/macro_parameter.scompil";
+import "c++/declaration/declaration.scompil";
 
 package lang.cpp;
 
 streamable
-structure IdentifierClassName
-    inherit ClassName
+structure DeclarationMacroParameter
+    inherit MacroParameter
 {
     runtime identification;
     
-    reference<Identifier> identifier;
+    reference<Declaration> declaration;
 }
+

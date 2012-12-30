@@ -32,14 +32,14 @@
 
 compil { }
 
+import "c++/namespace/namespace_name.scompil";
 import "c++/lexical/identifier.scompil";
-import "c++/class/class_name.scompil";
 
 package lang.cpp;
 
 streamable
-structure IdentifierClassName
-    inherit ClassName
+structure IdentifierNamespaceName
+    inherit NamespaceName
 {
     runtime identification;
     

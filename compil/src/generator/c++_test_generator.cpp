@@ -33,10 +33,6 @@
 #include "c++_test_generator.h"
 #include "implementer_stream.h"
 
-#include "c++/expression/expression_factory.h"
-#include "c++/statement/statement_factory.h"
-
-#include "c++/class/class.h"
 #include "c++/logical/local_variable.h"
 
 namespace compil
@@ -65,11 +61,11 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
     suite << TestSuiteName(pStructure->name()->value() + "Test");
     
     ClassSPtr class_ = classRef()
-        << (classNameRef() << pStructure->name()->value());
+        << (identifierClassNameRef() << (identifierRef() << pStructure->name()->value()));
         
     ClassSPtr builderClass = classRef()
         << class_
-        << (classNameRef() << "Builder");
+        << (identifierClassNameRef() << (identifierRef() << "Builder"));
         
     if (pStructure->isInitializable() && !pStructure->immutable())
     {
@@ -89,7 +85,7 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
         if (!pStructure->isOptional())
         {
             test    << (unaryTestStatementRef() << UnaryTestStatement::EType::isFalse()
-                                                        << isInitializedCall);
+                                                << isInitializedCall);
         }
             
         std::vector<FieldSPtr> fields = pStructure->combinedFields();
@@ -100,7 +96,7 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
                 continue;
                 
             ConstructorCallExpressionSPtr constructor = constructorCallExpressionRef()
-                << (classNameRef() << impl->cppType(field->type())->name()->value());
+                << (identifierClassNameRef() << (identifierRef() << impl->cppType(field->type())->name()->value()));
             
             MethodCallExpressionSPtr setFieldCall = methodCallExpressionRef()
                 << structure
@@ -126,6 +122,24 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
 
         test << (variableDeclarationStatementRef() << builderClass
                                                    << builder);
+                                                   
+        MethodCallExpressionSPtr build = methodCallExpressionRef()
+                << builder
+                << (methodNameRef() << "build");
+                
+                
+        NamespaceSPtr boostNS = namespaceRef()
+            << (identifierNamespaceNameRef() << (identifierRef() << "boost"));
+            
+        IdentifierClassNameSPtr assertException = identifierClassNameRef()
+            << (identifierRef() << "assert_exception");
+            
+        ClassSPtr boostAssertException = classRef()
+            << boostNS
+            << assertException;
+                
+        test << (throwTestStatementRef() << build
+                                         << boostAssertException);
 
         suite << test;
     }    
@@ -165,6 +179,12 @@ bool CppTestGenerator::generate()
                              Dependency::thirdparty_level,
                              Dependency::private_section,
                              "Google Test framework"));
+                             
+    addDependency(Dependency("boost_assert_handler.h",
+                             Dependency::system_type,
+                             Dependency::thirdparty_level,
+                             Dependency::private_section,
+                             "Boost C++ Utility"));
                              
     includeHeaders(mainStream, Dependency::private_section);
     

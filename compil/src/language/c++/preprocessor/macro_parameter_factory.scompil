@@ -32,8 +32,13 @@
 
 compil { }
 
+import "c++/preprocessor/declaration_macro_parameter.scompil";
+import "c++/preprocessor/macro_parameter.scompil";
+import "c++/preprocessor/expression_macro_parameter.scompil";
+
 package lang.cpp;
 
-specimen<string> NamespaceName
+hierarchy
+factory<MacroParameter> MacroParameterFactory
 {
 }

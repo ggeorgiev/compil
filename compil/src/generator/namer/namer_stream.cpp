@@ -32,6 +32,9 @@
 
 #include "namer_stream.h"
 
+#include "c++/class/class_name_factory.h"
+#include "c++/namespace/namespace_name_factory.h"
+
 #include "boost/unordered_map.hpp"
 
 using namespace lang::cpp;
@@ -51,6 +54,91 @@ NamerStream::~NamerStream()
 std::string NamerStream::str()
 {
     return mFormatter.str();
+}
+
+static IdentifierSPtr convertClassName(const ClassNameSPtr& name)
+{
+    if (name->runtimeClassNameId() == IdentifierClassName::staticClassNameId())
+        return IdentifierClassName::downcast(name)->identifier();
+        
+    BOOST_ASSERT(false);
+    return IdentifierSPtr();
+}
+
+static IdentifierClassNameSPtr convertIdentifierClassName(const ClassNameSPtr& name)
+{
+    if (name->runtimeClassNameId() == IdentifierClassName::staticClassNameId())
+        return IdentifierClassName::downcast(name);
+        
+    BOOST_ASSERT(false);
+    return IdentifierClassNameSPtr();
+}
+
+static IdentifierNamespaceNameSPtr convertIdentifierNamespaceName(const NamespaceNameSPtr& name)
+{
+    if (name->runtimeNamespaceNameId() == IdentifierNamespaceName::staticNamespaceNameId())
+        return IdentifierNamespaceName::downcast(name);
+        
+    BOOST_ASSERT(false);
+    return IdentifierNamespaceNameSPtr();
+}
+
+
+static TypeNameSimpleTypeSpecifierSPtr convertTypeNameSimpleTypeSpecifier(const ClassSPtr& class_)
+{
+    ClassTypeNameSPtr classTypeName1 = classTypeNameRef()
+        << convertIdentifierClassName(class_->name());
+        
+    NestedNameSpecifierSPtr nestedNameSpecifier;
+    
+    for (ClassSPtr nested = class_; nested->containerClass(); nested = nested->containerClass())
+    {
+        ClassNestedNameSPtr classNestedName = classNestedNameRef()
+            << convertIdentifierClassName(nested->containerClass()->name());
+        
+        NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
+            << classNestedName;
+            
+        if (nestedNameSpecifier)
+            thisNestedNameSpecifier << nestedNameSpecifier;
+            
+        nestedNameSpecifier = thisNestedNameSpecifier;
+    }
+    
+    if (class_->namespace_())
+    {
+        const std::vector<NamespaceNameSPtr>& names = class_->namespace_()->names();
+        for (std::vector<NamespaceNameSPtr>::const_reverse_iterator it = names.rbegin(); it != names.rend(); ++it)
+        {
+            NamespaceNestedNameSPtr namespaceNestedName = namespaceNestedNameRef()
+                << convertIdentifierNamespaceName(*it);
+        
+            NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
+                << namespaceNestedName;
+
+            if (nestedNameSpecifier)
+                thisNestedNameSpecifier << nestedNameSpecifier;
+
+            nestedNameSpecifier = thisNestedNameSpecifier;
+        }
+    }
+        
+    TypeNameSimpleTypeSpecifierSPtr typeNameSimpleTypeSpecifier = typeNameSimpleTypeSpecifierRef()
+        << nestedNameSpecifier
+        << classTypeName1;
+        
+    return typeNameSimpleTypeSpecifier;
+}
+
+static DeclarationSPtr convertDeclaration(const DeclarationSPtr& declaration)
+{
+    if (declaration->runtimeDeclarationId() == ClassDeclaration::staticDeclarationId())
+    {
+        ClassDeclarationSPtr cdeclaration = ClassDeclaration::downcast(declaration);
+        return convertTypeNameSimpleTypeSpecifier(cdeclaration->class_());
+    }
+    
+    return declaration;
 }
 
 static ExpressionSPtr convertExpression(const ExpressionSPtr& expression);
@@ -100,8 +188,7 @@ static ExpressionSPtr doConvertExpression(const ExpressionSPtr& expression)
     {
         ConstructorCallExpressionSPtr ccexpression = ConstructorCallExpression::downcast(expression);
         
-        IdentifierSPtr constructorIdentifier = identifierRef()
-            << ccexpression->type()->value();
+        IdentifierSPtr constructorIdentifier = convertClassName(ccexpression->type());
         IdentifierUnqualifiedIdSPtr constructorUnqualifiedId = identifierUnqualifiedIdRef()
             << constructorIdentifier;
         UnqualifiedIdExpressionSPtr constructorUnqualifiedIdExpression = unqualifiedIdExpressionRef()
@@ -130,6 +217,16 @@ static ExpressionSPtr convertExpression(const ExpressionSPtr& expression)
     ExpressionSPtr newexpression = doConvertExpression(expression);
     map[expression] = newexpression;
     return newexpression;
+}
+
+static MacroParameterSPtr convertMacroParameter(const MacroParameterSPtr& parameter)
+{
+    if (parameter->runtimeMacroParameterId() == ExpressionMacroParameter::staticMacroParameterId())
+        return expressionMacroParameterRef() << convertExpression(ExpressionMacroParameter::downcast(parameter)->expression());
+    if (parameter->runtimeMacroParameterId() == DeclarationMacroParameter::staticMacroParameterId())
+        return declarationMacroParameterRef() << convertDeclaration(DeclarationMacroParameter::downcast(parameter)->declaration());
+
+    return parameter;
 }
 
 static StatementSPtr convertStatement(const StatementSPtr& statement)
@@ -163,7 +260,7 @@ static StatementSPtr convertStatement(const StatementSPtr& statement)
             
         const std::vector<MacroParameterSPtr>& parameters = mstatement->parameters();
         for (std::vector<MacroParameterSPtr>::const_iterator it = parameters.begin(); it != parameters.end(); ++it)
-            newstatement << (macroParameterRef() << convertExpression((*it)->expression()));
+            newstatement << convertMacroParameter(*it);
         
         return newstatement;
     }
@@ -172,27 +269,8 @@ static StatementSPtr convertStatement(const StatementSPtr& statement)
     {
         VariableDeclarationStatementSPtr vdstatment = VariableDeclarationStatement::downcast(statement);
             
-        IdentifierClassNameSPtr identifierClassName1 = identifierClassNameRef()
-            << (identifierRef() << vdstatment->type()->name()->value());
-        ClassTypeNameSPtr classTypeName1 = classTypeNameRef()
-            << identifierClassName1;
-            
-        NestedNameSpecifierSPtr nestedNameSpecifier;
-        if (vdstatment->type()->containerClass())
-        {
-            IdentifierClassNameSPtr identifierClassName = identifierClassNameRef()
-                << (identifierRef() << vdstatment->type()->containerClass()->name()->value());
-            ClassNestedNameSPtr classNestedName = classNestedNameRef()
-                << identifierClassName;
-            nestedNameSpecifier = nestedNameSpecifierRef()
-                << classNestedName;
-        }
-            
-        TypeNameSimpleTypeSpecifierSPtr typeNameSimpleTypeSpecifier = typeNameSimpleTypeSpecifierRef()
-            << nestedNameSpecifier
-            << classTypeName1;
         TypeDeclarationSpecifierSPtr typeDeclarationSpecifier = typeDeclarationSpecifierRef()
-            << typeNameSimpleTypeSpecifier;
+            << convertTypeNameSimpleTypeSpecifier(vdstatment->type());
         DeclarationSpecifierSequenceSPtr declarationSpecifierSequence = declarationSpecifierSequenceRef()
             << typeDeclarationSpecifier;
             
