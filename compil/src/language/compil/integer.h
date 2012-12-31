@@ -30,8 +30,8 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 // 
 
-#ifndef __GENERATOR_SELF_COMPILER_MODEL_INTEGER_COMPIL_H_
-#define __GENERATOR_SELF_COMPILER_MODEL_INTEGER_COMPIL_H_
+#ifndef __LANGUAGE_COMPIL_INTEGER_COMPIL_H_
+#define __LANGUAGE_COMPIL_INTEGER_COMPIL_H_
 
 #include "compil/integer-partial.h"
 
@@ -55,5 +55,5 @@ public:
 
 }
 
-#endif // __GENERATOR_SELF_COMPILER_MODEL_INTEGER_COMPIL_H_
+#endif // __LANGUAGE_COMPIL_INTEGER_COMPIL_H_
 

@@ -31,7 +31,8 @@
 //
 
 #include "c++_h_generator.h"
-#include "object_factory.h"
+
+#include "compil/object_factory.h"
 
 #include <boost/foreach.hpp>
 

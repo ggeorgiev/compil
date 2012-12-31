@@ -34,7 +34,7 @@
 
 #include "aligner.h"
 
-#include "object_factory.h"
+#include "compil/object_factory.h"
 
 #include <sstream>
 

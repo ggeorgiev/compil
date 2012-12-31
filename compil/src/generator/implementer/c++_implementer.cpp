@@ -32,7 +32,8 @@
 
 #include "implementer/c++_implementer.h"
 #include "aligner.h"
-#include "object_factory.h"
+
+#include "compil/object_factory.h"
 
 #include "boost/filesystem.hpp"
 #include "boost/algorithm/string.hpp"

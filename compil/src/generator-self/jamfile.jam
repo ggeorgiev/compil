@@ -13,35 +13,7 @@ boost-defines ;
 
 lib generator-self-compil :
     $(TOP)/core/boost/boost_assert_handler.cpp
-    
-    compiler/model/alter.compil
-    compiler/model/castable_type.compil
-    compiler/model/comment.compil
-    compiler/model/default_value.compil
-    compiler/model/document.compil
-    compiler/model/enumeration_value.compil
-    compiler/model/field.compil
-    compiler/model/field_override.compil
-    compiler/model/filter.compil
-    compiler/model/identification.compil
-    compiler/model/identifier.compil
-    compiler/model/import.compil
-    compiler/model/interface.compil
-    compiler/model/method.compil
-    compiler/model/name.compil
-    compiler/model/object_factory.compil
-    compiler/model/object.compil
-    compiler/model/operator.compil
-    compiler/model/package_element.compil
-    compiler/model/package.compil
-    compiler/model/parameter.compil
-    compiler/model/reference.compil
-    compiler/model/source_id.compil
-    compiler/model/unary_container.compil
-    compiler/model/unary_template.compil
-    compiler/model/upcopy.compil
-    compiler/model/version.compil
-    
+   
     generator/method_group.compil
     
     generator/cpp/format/argument.compil
@@ -70,18 +42,6 @@ lib generator-self-compil :
     generator/cpp/format/type.compil
     generator/cpp/format/variable_name.compil
 
-    [ convert _ cpp 
-      :
-        compiler/model/enumeration.compil
-        compiler/model/factory.compil
-        compiler/model/integer.compil
-        compiler/model/specimen.compil
-        compiler/model/structure.compil
-        compiler/model/type.compil
-      :
-        <compil-type>partial
-    ]
-    
     boost_templates
   :
     <compil-type>main

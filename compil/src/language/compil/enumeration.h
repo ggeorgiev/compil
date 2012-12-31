@@ -36,8 +36,8 @@
 // Standard Template Library
 #include <vector>
 
-#ifndef __GENERATOR_SELF_COMPILER_MODEL_ENUMERATION_COMPIL_H_
-#define __GENERATOR_SELF_COMPILER_MODEL_ENUMERATION_COMPIL_H_
+#ifndef __LANGUAGE_COMPIL_ENUMERATION_COMPIL_H_
+#define __LANGUAGE_COMPIL_ENUMERATION_COMPIL_H_
 
 #include "compil/enumeration-partial.h"
 
@@ -61,5 +61,23 @@ public:
 
 }
 
-#endif // __GENERATOR_SELF_COMPILER_MODEL_ENUMERATION_COMPIL_H_
+#else // __LANGUAGE_COMPIL_ENUMERATION_COMPIL_H_
+
+namespace lang
+{
+
+namespace compil
+{
+
+class Enumeration;
+typedef Enumeration*                         EnumerationRPtr;
+typedef boost::shared_ptr<Enumeration>       EnumerationSPtr;
+typedef boost::shared_ptr<const Enumeration> EnumerationSCPtr;
+typedef boost::weak_ptr<Enumeration>         EnumerationWPtr;
+
+}
+
+}
+
+#endif // __LANGUAGE_COMPIL_ENUMERATION_COMPIL_H_
 

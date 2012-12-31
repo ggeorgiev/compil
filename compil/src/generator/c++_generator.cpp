@@ -31,7 +31,8 @@
 //
 
 #include "c++_generator.h"
-#include "object_factory.h"
+
+#include "compil/object_factory.h"
 
 #include "boost/lexical_cast.hpp"
 #include "boost/algorithm/string.hpp"

@@ -35,7 +35,7 @@
 #ifndef _ALIGNER_CONFIGURATION_H__
 #define _ALIGNER_CONFIGURATION_H__
 
-#include "configuration.h"
+#include "configuration/configuration.h"
 
 class AlignerConfiguration : public compil::Configuration
 {

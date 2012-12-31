@@ -1,5 +1,4 @@
 #include "compil/enumeration.h"
-
 #include "compil/object_factory.h"
 
 #include <boost/foreach.hpp>

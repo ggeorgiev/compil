@@ -33,8 +33,9 @@
 #ifndef _COMPIL_VALIDATOR_H__
 #define _COMPIL_VALIDATOR_H__
 
-#include "object.h"
 #include "message_collector.h"
+
+#include "compil/object.h"
 
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>

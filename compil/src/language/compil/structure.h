@@ -30,8 +30,8 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 // 
 
-#ifndef __GENERATOR_SELF_COMPILER_MODEL_STRUCTURE_COMPIL__H_
-#define __GENERATOR_SELF_COMPILER_MODEL_STRUCTURE_COMPIL__H_
+#ifndef __LANGUAGE_COMPIL_STRUCTURE_COMPIL__H_
+#define __LANGUAGE_COMPIL_STRUCTURE_COMPIL__H_
 
 #include "compil/structure-partial.h"
 #include "compil/field.h"
@@ -83,5 +83,5 @@ public:
 
 }
 
-#endif // __GENERATOR_SELF_COMPILER_MODEL_STRUCTURE_COMPIL__H_
+#endif // __LANGUAGE_COMPIL_STRUCTURE_COMPIL__H_
 

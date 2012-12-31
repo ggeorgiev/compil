@@ -168,8 +168,10 @@ lib language
     boost_templates
   :
     <compil-stable-type>main
-    <include>.
     <include>$(TOP)/core/c++
+  :
+  :
+    <include>.
   ;
 
 gtest language 
