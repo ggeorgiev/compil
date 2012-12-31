@@ -51,8 +51,8 @@ public:
     std::string str();
     
     AlignerStream& operator<<(const std::string& str);
-    AlignerStream& operator<<(const lang::List& list);
-    AlignerStream& operator<<(const lang::Scope& scope);
+    AlignerStream& operator<<(const lang::all::List& list);
+    AlignerStream& operator<<(const lang::all::Scope& scope);
 
     AlignerConfigurationPtr mConfiguration;
 private:

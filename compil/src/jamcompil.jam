@@ -8,6 +8,7 @@ import "class" : new ;
 type.register COMPIL : compil ;
 
 feature.feature <compil-binary> : : free ;
+feature.feature <compil-project-root> : : free ;
 feature.feature <compil-binary-dependencies> : : free dependency ;
 feature.feature <compil-type> : main partial test : free optional ;
 
@@ -33,6 +34,7 @@ class compil-generator : generator
 
     rule run ( project name ? : property-set : sources * : multiple ? )
     {
+        local compil-project-root = [ $(project).get source-location ] ;
         local compil-binary = [ modules.peek jamcompil : .compil-binary ] ;
         local compil-binary-dependencies ;
 
@@ -60,10 +62,11 @@ class compil-generator : generator
                     ] ;
             }
         }
-
+        
         property-set = [ $(property-set).add-raw
             <dependency>$(compil-binary-dependencies)
             <compil-binary>$(compil-binary)
+            <compil-project-root>$(compil-project-root)
             <compil-binary-dependencies>$(compil-binary-dependencies)
         ] ;
 
@@ -90,6 +93,7 @@ generators.register [
                          : <compil-type>test ] ;
 
 toolset.flags jamcompil.generate COMPIL-COMMAND <compil-binary> ;
+toolset.flags jamcompil.generate COMPIL-PROJECT-ROOT <compil-project-root> ;
 toolset.flags jamcompil.generate COMPIL-DEPENDENCIES <compil-binary-dependencies> ;
 toolset.flags jamcompil.generate COMPIL-TYPE <compil-type> ;
 toolset.flags jamcompil.generate IMPORTS <include> ;
@@ -101,7 +105,6 @@ rule generate ( targets * : source * : properties * )
 
 actions generate
 {
-    echo $(COMPIL-COMMAND) -I$(IMPORTS:W) -t $(COMPIL-TYPE) --core-directory=core/c++ $(>) -o $(<[1]:D)
-    $(COMPIL-COMMAND) -I$(IMPORTS:W) -t $(COMPIL-TYPE) --core-directory=core/c++ $(>) -o $(<[1]:D) || exit 1
+    $(COMPIL-COMMAND) -I$(IMPORTS:W) -t $(COMPIL-TYPE) --project-directory=$(COMPIL-PROJECT-ROOT) --core-directory=core/c++ $(>) -o $(<[1]:D) || exit 1
 }
 

@@ -30,58 +30,18 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "generator_configuration.h"
+#ifndef __FACTORY_H_
+#define __FACTORY_H_
 
+#include "compiler/model/factory-partial.h"
 
-GeneratorConfiguration::GeneratorConfiguration()
+namespace compil
 {
+
+class Factory : public FactoryPartial
+{
+};
+
 }
 
-GeneratorConfiguration::~GeneratorConfiguration()
-{
-}
-
-std::string GeneratorConfiguration::staticName()
-{
-    return "Generator";
-}
-    
-std::string GeneratorConfiguration::name()
-{
-    return staticName();
-}
-
-void GeneratorConfiguration::addCommonOptions(bpo::options_description& options)
-{
-    options.add_options()
-        ("output-directory,o", bpo::value<std::string>(&output_directory), "output directory")
-        ("core-directory,C", bpo::value<std::string>(&core_directory), "core directory")
-        ("project-directory", bpo::value<std::string>(&project_directory), "project directory")
-        ("import-path,I", bpo::value<string_vector>(&import_directories)->composing(), "import compil path")
-        ;
-}
-
-bpo::options_description GeneratorConfiguration::commandLineOptions()
-{
-    bpo::options_description options("Generation Configuration");
-    options.add_options()
-        ("type,t", bpo::value<std::string>(&type), "output type")
-        ("source-file", bpo::value<std::string>(&source_file), "source compil file")
-        ;
-    addCommonOptions(options);
-    return options;
-}
-
-string_vector GeneratorConfiguration::commandLinePositinalOptions()
-{
-    string_vector positional_options;
-    positional_options.push_back("source-file");
-    return positional_options;
-}
-
-bpo::options_description GeneratorConfiguration::configurationOptions()
-{
-    bpo::options_description options("Generation Configuration");
-    addCommonOptions(options);
-    return options;
-}
+#endif //__FACTORY_H_

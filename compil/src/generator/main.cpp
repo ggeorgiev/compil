@@ -19,6 +19,7 @@
 
 #include "boost_path_resolve.h"
 #include "boost/make_shared.hpp"
+#include "boost/algorithm/string.hpp"
 
 #include <iostream>
 #include <fstream>
@@ -76,13 +77,33 @@ int main(int argc, const char **argv)
     }
 
     compil::FileSourceProviderPtr pFileSourceProvider(new compil::FileSourceProvider());
-
+    
+    boost::filesystem::path project_directory;
+    if (pGeneratorConfiguration->project_directory.empty())
+        project_directory = boost::filesystem::current_path();
+    else
+        project_directory = boost::filesystem::resolve(pGeneratorConfiguration->project_directory);
+        
     boost::filesystem::path input_file_path =
         boost::filesystem::resolve(pGeneratorConfiguration->source_file);
     if (!boost::filesystem::exists(input_file_path))
     {
         std::cout << "compil input file doesn't exist!!!\n";
         return 1;
+    }
+    
+    std::string source_file;
+    {
+        std::string pd = boost::filesystem::absolute(project_directory).generic_string();
+        std::string fp = boost::filesystem::absolute(input_file_path).generic_string();
+        
+        if (!boost::starts_with(fp, pd))
+        {
+            std::cout << "the compil file is not in the project_directory!!!\n";
+            return 1;
+        }
+        
+        source_file = fp.substr(pd.length() + 1);
     }
 
     pFileSourceProvider->setImportDirectories(pGeneratorConfiguration->import_directories);
@@ -97,6 +118,7 @@ int main(int argc, const char **argv)
     {
         compil::SourceId::Builder builder;
         compil::FileSourceProvider::fillSourceFields(input_file_path.generic_string(), builder);
+        builder.set_original(source_file);
         compil::SourceIdSPtr pSourceId(builder.finalize());
 
         compil::NameSPtr pName(new compil::Name());

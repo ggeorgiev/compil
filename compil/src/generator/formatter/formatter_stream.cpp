@@ -38,7 +38,7 @@
 #include "all/list.h"
 #include "all/scope.h"
 
-using namespace lang;
+using namespace lang::all;
 using namespace lang::cpp;
 
 FormatterStream::FormatterStream(const FormatterConfigurationPtr& formatterConfiguration,

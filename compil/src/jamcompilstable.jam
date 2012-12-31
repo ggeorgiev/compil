@@ -8,6 +8,7 @@ import "class" : new ;
 type.register COMPILSTABLE : scompil ;
 
 feature.feature <compil-stable-binary> : : free ;
+feature.feature <compil-stable-project-root> : : free ;
 feature.feature <compil-stable-binary-dependencies> : : free dependency ;
 feature.feature <compil-stable-type> : main partial test : free optional ;
 
@@ -24,8 +25,8 @@ type.set-scanner COMPILSTABLE : compil-stable-scanner ;
 
 class compil-stable-generator : generator
 {
-    import os modules path targets jamcompilstable ;
-
+    import os modules path targets print project set property-set jamcompilstable ;
+    
     rule __init__ ( * : * )
     {
         generator.__init__ $(1) : $(2) : $(3) : $(4) : $(5) : $(6) : $(7) : $(8) : $(9) ;
@@ -45,18 +46,21 @@ class compil-stable-generator : generator
             directory = macosxx86 ;
         }
             
-        local RESULT = [ path.join ../compil-stable/tool $(directory) bin ] ;
+        local RESULT = [ path.join compil-stable/tool $(directory) bin ] ;
         return $(RESULT) ;
     }
 
     rule run ( project name ? : property-set : sources * : multiple ? )
     {
+        local compil-stable-project-root = [ $(project).get source-location ] ;
+    
         local directory = [ tool-directory ] ;
-        local compil-stable-binary-dependencies = [ path.join $(directory) generator ] ;
+        local compil-stable-binary-dependencies = [ path.join $(compil-stable-project-root) .. .. $(directory) generator ] ;
         local compil-stable-binary = [ path.native $(compil-stable-binary-dependencies) ] ;
         
         property-set = [ $(property-set).add-raw
             <compil-stable-binary>$(compil-stable-binary)
+            <compil-stable-project-root>$(compil-stable-project-root)
             #<compil-stable-binary-dependencies>$(compil-stable-binary-dependencies)
         ] ;
 
@@ -83,6 +87,7 @@ generators.register [
                          : <compil-stable-type>test ] ;
 
 toolset.flags jamcompilstable.generate COMPIL-STABLE-COMMAND <compil-stable-binary> ;
+toolset.flags jamcompilstable.generate COMPIL-STABLE-PROJECT-ROOT <compil-stable-project-root> ;
 toolset.flags jamcompilstable.generate COMPIL-STABLE-DEPENDENCIES <compil-stable-binary-dependencies> ;
 toolset.flags jamcompilstable.generate COMPIL-STABLE-TYPE <compil-stable-type> ;
 toolset.flags jamcompilstable.generate IMPORTS <include> ;
@@ -94,6 +99,7 @@ rule generate ( targets * : source * : properties * )
 
 actions generate
 {
+    echo --project-directory=$(COMPIL-STABLE-PROJECT-ROOT) 
     $(COMPIL-STABLE-COMMAND) -I$(IMPORTS:W) -t $(COMPIL-STABLE-TYPE) --core-directory=core/c++ $(>) -o $(<[1]:D) || exit 1
 }
 
