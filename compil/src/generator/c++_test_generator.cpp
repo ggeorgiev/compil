@@ -37,6 +37,8 @@
 
 #include "c++/logical/local_variable.h"
 
+#include "library/c++/compil/builder.h"
+
 namespace compil
 {
 
@@ -66,10 +68,8 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
     ClassSPtr class_ = classRef()
         << (identifierClassNameRef() << (identifierRef() << pStructure->name()->value()));
         
-    ClassSPtr builderClass = classRef()
-        << class_
-        << (identifierClassNameRef() << (identifierRef() << "Builder"));
-        
+    ClassSPtr builderClass = CompilBuilder::class_(class_);
+    
     if (pStructure->isInitializable() && !pStructure->immutable())
     {
         TestSPtr test = testRef();
@@ -128,9 +128,16 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
                                                    
         MethodCallExpressionSPtr build = methodCallExpressionRef()
                 << builder
-                << (methodNameRef() << "build");
+                << CompilBuilder::methodNameBuild();
                 
         test << (throwTestStatementRef() << build
+                                         << BoostException::assertClass());
+                                         
+        MethodCallExpressionSPtr finalize = methodCallExpressionRef()
+                << builder
+                << CompilBuilder::methodNameFinalize();
+                
+        test << (throwTestStatementRef() << finalize
                                          << BoostException::assertClass());
 
         suite << test;

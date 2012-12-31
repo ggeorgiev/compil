@@ -34,6 +34,7 @@
 #define _IMPLEMENTER_COMPIL_BUILDER_H__
 
 #include "c++/class/class.h"
+#include "c++/class/method-cpp.h"
 
 namespace lib
 {
@@ -48,8 +49,9 @@ class CompilBuilder
 public:
     static ClassNameSPtr className();
     static ClassSPtr class_(const ClassSPtr& structureClass);
-
-
+    
+    static MethodNameSPtr methodNameBuild();
+    static MethodNameSPtr methodNameFinalize();
 };
 
 }

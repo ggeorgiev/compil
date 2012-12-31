@@ -46,9 +46,7 @@ ClassNameSPtr CompilBuilder::className()
 {
     static ClassNameSPtr className;
     if (!className)
-    {
         className = identifierClassNameRef() << (identifierRef() << "Builder");
-    }
     
     return className;
 }
@@ -67,6 +65,24 @@ ClassSPtr CompilBuilder::class_(const ClassSPtr& structureClass)
     map[structureClass] = builderClass;
     
     return builderClass;
+}
+
+MethodNameSPtr CompilBuilder::methodNameBuild()
+{
+    static MethodNameSPtr methodName;
+    if (!methodName)
+        methodName =  methodNameRef() << "build";
+    
+    return methodName;
+}
+
+MethodNameSPtr CompilBuilder::methodNameFinalize()
+{
+    static MethodNameSPtr methodName;
+    if (!methodName)
+        methodName =  methodNameRef() << "finalize";
+    
+    return methodName;
 }
 
 }
