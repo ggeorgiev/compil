@@ -2012,7 +2012,7 @@ bool Parser::parseImport()
     ImportSPtr pImport(new Import());
     initilizeObject(pImport);
 
-    assert(check(Token::TYPE_IDENTIFIER, "import"));
+    assert(check(Token::TYPE_IDENTIFIER, "import") || check(Token::TYPE_IDENTIFIER, "_import_"));
 
     TokenPtr pImportToken = mpTokenizer->current();
 
@@ -2140,7 +2140,7 @@ bool Parser::parse(const StreamPtr& pInput, const ModelPtr& pModel)
         mpModel->setMainDocument(pDocument);
 
     CommentSPtr pStatementComment = lastComment();
-    while (check(Token::TYPE_IDENTIFIER, "import"))
+    while (check(Token::TYPE_IDENTIFIER, "import") || check(Token::TYPE_IDENTIFIER, "_import_"))
     {
         if (!parseImport())
             return false;
