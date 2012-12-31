@@ -32,8 +32,8 @@
 
 compil { }
 
-import "c++/lexical/identifier.scompil";
 import "c++/class/method_name.scompil";
+import "c++/lexical/identifier-cpp.scompil";
 
 package lang.cpp;
 

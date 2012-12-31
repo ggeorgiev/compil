@@ -32,8 +32,6 @@
 
 compil { }
 
-import "c++/lexical/identifier.scompil";
-
 package lang.cpp;
 
 streamable

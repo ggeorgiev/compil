@@ -33,7 +33,6 @@
 compil { }
 
 import "c++/class/class_name.scompil";
-import "c++/lexical/identifier.scompil";
 
 package lang.cpp;
 
