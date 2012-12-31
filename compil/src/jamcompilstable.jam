@@ -16,7 +16,8 @@ class compil-stable-scanner : common-scanner
 {
     rule pattern ( )
     {
-        return "[ \t]*import[ \t]*\"([^\"]*)\"[ \t]*;" ;
+        #return "[ \t]*import[ \t]*\"([^\"]*)\"[ \t]*;" ;
+        return "bbbbbbb" ;
     }
 }
 
