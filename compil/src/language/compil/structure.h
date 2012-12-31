@@ -4,17 +4,17 @@
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
-//
-//     * Redistributions of source code must retain the above copyright
+// 
+// * Redistributions of source code must retain the above copyright
 // notice, this list of conditions and the following disclaimer.
-//     * Redistributions in binary form must reproduce the above
+// * Redistributions in binary form must reproduce the above
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+// * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
-//
+// 
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
 // "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
 // LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
@@ -28,12 +28,19 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Author: george.georgiev@hotmail.com (George Georgiev)
-//
+// 
 
-#ifndef __STRUCTURE_H_
-#define __STRUCTURE_H_
+#ifndef __GENERATOR_SELF_COMPILER_MODEL_STRUCTURE_COMPIL__H_
+#define __GENERATOR_SELF_COMPILER_MODEL_STRUCTURE_COMPIL__H_
 
 #include "compil/structure-partial.h"
+#include "compil/field.h"
+#include "compil/operator.h"
+
+#include <boost/shared_ptr.hpp>
+#include <boost/weak_ptr.hpp>
+
+#include <vector>
 
 namespace lang
 {
@@ -43,10 +50,38 @@ namespace compil
 
 class Structure : public StructurePartial
 {
+public:
+	                       Structure      ();
+	virtual                ~Structure     ();
+    
+    bool isBuildable() const;
+    bool isInitializable() const;
+    bool isOptional() const;
+    
+    bool hasRuntimeIdentification() const;
+    static bool hasRuntimeIdentification(const StructureSPtr& pStructure);
+    
+    bool hasField() const;
+    bool hasAlter() const;
+    
+    StructureSPtr recursivelyBaseStructure();
+    bool isRecursivelyInherit(const StructureSPtr& pStructure);
+    bool isRecursivelyRelatedTo(const StructureSPtr& pStructure);
+    
+    FieldSPtr findField(const std::string& name) const;
+    
+    std::vector<FieldSPtr> combinedFields();
+    bool fieldIterate(std::vector<FieldSPtr>& iteration);
+    
+    bool hasOperator(const EOperatorAction& action,
+                     const EOperatorFlags& flags) const;
+                     
+    bool isOverriden(const FieldSPtr& pField) const;
 };
 
 }
 
 }
 
-#endif //__STRUCTURE_H_
+#endif // __GENERATOR_SELF_COMPILER_MODEL_STRUCTURE_COMPIL__H_
+

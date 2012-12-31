@@ -99,7 +99,6 @@ rule generate ( targets * : source * : properties * )
 
 actions generate
 {
-    echo --project-directory=$(COMPIL-STABLE-PROJECT-ROOT) 
-    $(COMPIL-STABLE-COMMAND) -I$(IMPORTS:W) -t $(COMPIL-STABLE-TYPE) --core-directory=core/c++ $(>) -o $(<[1]:D) || exit 1
+    $(COMPIL-STABLE-COMMAND) -I$(IMPORTS:W) -t $(COMPIL-STABLE-TYPE) --project-directory=$(COMPIL-STABLE-PROJECT-ROOT) --core-directory=core/c++ $(>) -o $(<[1]:D) || exit 1
 }
 
