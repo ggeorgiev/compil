@@ -1,5 +1,8 @@
-#include "structure.h"
-#include "object_factory.h"
+#include "compil/structure.h"
+#include "compil/object_factory.h"
+
+namespace lang
+{
 
 namespace compil
 {
@@ -251,3 +254,4 @@ bool Structure::isOverriden(const FieldSPtr& pField) const
 
 }
 
+}

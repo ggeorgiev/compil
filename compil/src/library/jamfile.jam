@@ -18,6 +18,8 @@ lib library
 
     $(TOP)/language//language
   :
-    <include>$(TOP)
     <implicit-dependency>$(TOP)/language//language
+  :
+  :
+    <include>$(TOP)
   ;

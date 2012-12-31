@@ -1,10 +1,12 @@
-#include "enumeration.h"
-
-#include "object_factory.h"
+#include "compil/enumeration.h"
+#include "compil/object_factory.h"
 
 #include <boost/foreach.hpp>
 
 #include <limits.h>
+
+namespace lang
+{
 
 namespace compil
 {
@@ -57,3 +59,4 @@ bool Enumeration::hasOperator(const EOperatorAction& action,
 
 }
 
+}

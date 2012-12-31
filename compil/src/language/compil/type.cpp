@@ -1,5 +1,8 @@
-#include "type.h"
-#include "operator.h"
+#include "compil/type.h"
+#include "compil/operator.h"
+
+namespace lang
+{
 
 namespace compil
 {
@@ -20,3 +23,4 @@ bool Type::hasOperator(const EOperatorAction& action,
 
 }
 
+}

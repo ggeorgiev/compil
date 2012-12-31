@@ -36,11 +36,12 @@
 #include "message_collector.h"
 
 #include "model.h"
-#include "document.h"
 #include "tokenizer.h"
 #include "validator.h"
 
 #include "i_source_provider.h"
+
+#include "compil/document.h"
 
 #include "boost/function.hpp"
 #include "boost/bind.hpp"

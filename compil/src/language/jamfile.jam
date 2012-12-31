@@ -103,45 +103,51 @@ lib language
     c++/test/test_suite.scompil
     c++/test/test_suite_name.scompil
     
-    #compil/alter.scompil
-    #compil/castable_type.scompil
-    #compil/comment.scompil
-    #compil/default_value.scompil
-    #compil/document.scompil
-    #compil/enumeration_value.scompil
-    #compil/field.scompil
-    #compil/field_override.scompil
-    #compil/filter.scompil
-    #compil/identification.scompil
-    #compil/identifier.scompil
-    #compil/import.scompil
-    #compil/interface.scompil
-    #compil/method.scompil
-    #compil/name.scompil
-    #compil/object_factory.scompil
-    #compil/object.scompil
-    #compil/operator.scompil
-    #compil/package_element.scompil
-    #compil/package.scompil
-    #compil/parameter.scompil
-    #compil/reference.scompil
-    #compil/source_id.scompil
-    #compil/unary_container.scompil
-    #compil/unary_template.scompil
-    #compil/upcopy.scompil
-    #compil/version.scompil
+    compil/alter.scompil
+    compil/castable_type.scompil
+    compil/comment.scompil
+    compil/default_value.scompil
+    compil/document.scompil
+    compil/enumeration.cpp
+    compil/enumeration_value.scompil
+    compil/factory.cpp
+    compil/field.scompil
+    compil/field_override.scompil
+    compil/filter.scompil
+    compil/identification.scompil
+    compil/identifier.scompil
+    compil/import.scompil
+    compil/integer.cpp
+    compil/interface.scompil
+    compil/method.scompil
+    compil/name.scompil
+    compil/object_factory.scompil
+    compil/object.scompil
+    compil/operator.scompil
+    compil/package_element.scompil
+    compil/package.scompil
+    compil/parameter.scompil
+    compil/reference.scompil
+    compil/source_id.scompil
+    compil/specimen.cpp
+    compil/structure.cpp
+    compil/type.cpp
+    compil/unary_container.scompil
+    compil/unary_template.scompil
+    compil/upcopy.scompil
+    compil/version.scompil
 
-    #[ convert _ cpp
-    #  :
-    #    compil/enumeration.scompil
-    #    compil/factory.scompil
-    #    compil/integer.scompil
-    #    compil/specimen.scompil
-    #    compil/structure.scompil
-    #    compil/type.scompil
-    #  :
-    #    <compil-stable-type>partial
-    #]
+    [ convert _ cpp
+      :
+        compil/enumeration.scompil
+        compil/factory.scompil
+        compil/integer.scompil
+        compil/specimen.scompil
+        compil/structure.scompil
+        compil/type.scompil
+      :
+        <compil-stable-type>partial
+    ]
     
     #c++/comment.compil
     #c++/const_declaration.compil
@@ -162,6 +168,9 @@ lib language
     boost_templates
   :
     <compil-stable-type>main
+    <include>$(TOP)/core/c++
+  :
+  :
     <include>.
   ;
 

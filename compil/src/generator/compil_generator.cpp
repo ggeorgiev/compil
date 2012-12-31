@@ -31,7 +31,8 @@
 //
 
 #include "compil_generator.h"
-#include "object_factory.h"
+
+#include "compil/object_factory.h"
 
 namespace compil
 {

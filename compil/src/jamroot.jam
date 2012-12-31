@@ -16,10 +16,12 @@ project all
       <variant>debug <address-model>32 <link>static <threading>multi
     ;
 
+build-project language ;
+build-project library ;
+
 build-project compiler ;
 build-project generator ;
 #build-project generator-test ;
 #build-project generator-self ;
 
-build-project language ;
-build-project library ;
+

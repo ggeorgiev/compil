@@ -32,7 +32,7 @@
 
 #include "partial_validator.h"
 
-#include "structure.h"
+#include "compil/structure.h"
 
 #include "gtest/gtest.h"
 

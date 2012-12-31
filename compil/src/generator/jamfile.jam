@@ -81,20 +81,23 @@ lib generator-lib
     $(TOP)/library//library
     $(TOP)/language//language
   :
-    <include>$(TOP)
     <implicit-dependency>$(TOP)/language//language
   ;
     
 exe generator
   :
-    main.cpp 
-    
+    main.cpp
+
     generator-lib
+  :
+    <implicit-dependency>$(TOP)/language//language
   ;
     
-gtest generator 
+gtest generator
   :
     [ glob-tree *_unittest.cpp ]
     generator-lib
+  :
+    <implicit-dependency>$(TOP)/language//language
   ;
 

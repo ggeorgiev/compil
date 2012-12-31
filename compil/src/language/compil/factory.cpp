@@ -1,5 +1,7 @@
+#include "compil/factory.h"
 
-#include "factory.h"
+namespace lang
+{
 
 namespace compil
 {
@@ -18,6 +20,6 @@ FilterSPtr Factory::findFilter(const std::string& fieldName)
     return FilterSPtr();
 }
     
-
 }
 
+}

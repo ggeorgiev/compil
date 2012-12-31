@@ -1,5 +1,8 @@
-#include "integer.h"
-#include "operator.h"
+#include "compil/integer.h"
+#include "compil/operator.h"
+
+namespace lang
+{
 
 namespace compil
 {
@@ -25,3 +28,4 @@ bool Integer::hasOperator(const EOperatorAction& action,
 
 }
 
+}

@@ -33,13 +33,15 @@
 #ifndef _COMPIL_MODEL_H__
 #define _COMPIL_MODEL_H__
 
-#include "object_factory.h"
+#include "compil/object_factory.h"
 
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>
 
 namespace compil
 {
+
+using namespace lang::compil;
 
 class Model
 {

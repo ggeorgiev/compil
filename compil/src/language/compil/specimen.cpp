@@ -1,4 +1,7 @@
-#include "specimen.h"
+#include "compil/specimen.h"
+
+namespace lang
+{
 
 namespace compil
 {
@@ -27,3 +30,4 @@ bool Specimen::hasOperator(const EOperatorAction& action,
 
 }
 
+}

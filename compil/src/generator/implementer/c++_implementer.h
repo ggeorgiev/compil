@@ -41,8 +41,9 @@
 #include "cpp/format/method_specifier.h"
 
 #include "c++_formatter.h"
-#include "factory.h"
 #include "model.h"
+
+#include "compil/factory.h"
 
 namespace compil
 {

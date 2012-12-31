@@ -34,8 +34,7 @@
 #ifndef _COMPIL_MESSAGE_H__
 #define _COMPIL_MESSAGE_H__
 
-#include "source_id.h"
-#include "object_factory.h"
+#include "model.h"
 
 #include <string>
 

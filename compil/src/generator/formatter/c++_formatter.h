@@ -45,17 +45,15 @@
 #include "cpp/format/type.h"
 #include "cpp/format/variable_name.h"
 
-#include "alter.h"
-#include "field.h"
-#include "enumeration.h"
-#include "specimen.h"
-#include "identifier.h"
-#include "structure.h"
-#include "factory.h"
-#include "interface.h"
-#include "document.h"
-
-
+#include "compil/alter.h"
+#include "compil/field.h"
+#include "compil/enumeration.h"
+#include "compil/specimen.h"
+#include "compil/identifier.h"
+#include "compil/structure.h"
+#include "compil/factory.h"
+#include "compil/interface.h"
+#include "compil/document.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -63,6 +61,8 @@
 
 namespace compil
 {
+
+using namespace lang::compil;
 
 class CppFormatter
 {
