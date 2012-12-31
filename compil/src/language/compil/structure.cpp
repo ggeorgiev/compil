@@ -154,6 +154,24 @@ FieldSPtr Structure::findField(const std::string& name) const
     return FieldSPtr();
 }
 
+AlterSPtr Structure::findTopAlter(const FieldSPtr& field) const
+{
+    StructureSCPtr pStruct = shared_from_this();
+    while (pStruct)
+    {
+        const std::vector<ObjectSPtr>& objs = objects();
+        std::vector<ObjectSPtr>::const_iterator it;
+        for (it = objs.begin(); it != objs.end(); ++it)
+        {
+            AlterSPtr pAlter = ObjectFactory::downcastAlter(*it);
+            if (pAlter && pAlter->field() == field)
+                return pAlter;
+        }
+        pStruct = pStruct->baseStructure().lock();
+    }
+    return AlterSPtr();
+}
+
 std::vector<FieldSPtr> Structure::combinedFields()
 {
     std::vector<FieldSPtr> result;

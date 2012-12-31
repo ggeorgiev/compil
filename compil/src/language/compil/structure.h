@@ -34,6 +34,7 @@
 #define __LANGUAGE_COMPIL_STRUCTURE_COMPIL__H_
 
 #include "compil/structure-partial.h"
+#include "compil/alter.h"
 #include "compil/field.h"
 #include "compil/operator.h"
 
@@ -69,8 +70,10 @@ public:
     bool isRecursivelyRelatedTo(const StructureSPtr& pStructure);
     
     FieldSPtr findField(const std::string& name) const;
+    AlterSPtr findTopAlter(const FieldSPtr& field) const;
     
     std::vector<FieldSPtr> combinedFields();
+    
     bool fieldIterate(std::vector<FieldSPtr>& iteration);
     
     bool hasOperator(const EOperatorAction& action,

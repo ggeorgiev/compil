@@ -70,13 +70,47 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
         
     ClassSPtr builderClass = CompilBuilder::class_(class_);
     
+    LocalVariableSPtr structure = localVariableRef()
+        << (variableNameRef() << "structure");
+    
+    if (pStructure->controlled())
+    {
+        TestSPtr test = testRef();
+        test << TestName("available_DefaultValues");
+        
+        test << (variableDeclarationStatementRef() << class_
+                                                   << structure);
+                                                   
+        std::vector<FieldSPtr> fields = pStructure->combinedFields();
+        for (std::vector<FieldSPtr>::iterator it = fields.begin(); it != fields.end(); ++it)
+        {
+            const FieldSPtr& field = *it;
+            StructureSPtr fieldStructure = field->structure().lock();
+            if (!fieldStructure->controlled())
+                continue;
+                
+            AlterSPtr alter = pStructure->findTopAlter(field);
+            UnaryTestStatement::EType type = alter
+                                           ? UnaryTestStatement::EType::isTrue()
+                                           : UnaryTestStatement::EType::isFalse();
+            
+            MethodCallExpressionSPtr availableFieldCall = methodCallExpressionRef()
+                << structure
+                << (methodNameRef() << frm->availableMethodName(field)->value());
+                
+            test    << (unaryTestStatementRef() << type
+                                                << availableFieldCall);
+        }
+
+        suite << test;
+    } 
+    
     if (pStructure->isInitializable() && !pStructure->immutable())
     {
         TestSPtr test = testRef();
         test << TestName("isInitialized");
         
-        LocalVariableSPtr structure = localVariableRef()
-            << (variableNameRef() << "structure");
+
         
         test << (variableDeclarationStatementRef() << class_
                                                    << structure);
@@ -141,7 +175,7 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& pStruct
                                          << BoostException::assertClass());
 
         suite << test;
-    }    
+    }
     
     NamerConfigurationSPtr nc = boost::make_shared<NamerConfiguration>();
     
