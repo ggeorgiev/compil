@@ -30,41 +30,23 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include <boost/shared_ptr.hpp>
+#ifndef __TYPE_H_
+#define __TYPE_H_
 
-#ifndef _ALIGNER_STREAM_H__
-#define _ALIGNER_STREAM_H__
+#include "compil/type-partial.h"
 
-#include "aligner_configuration.h"
-
-#include "all/list.h"
-#include "all/scope.h"
-
-#include <iostream>
-
-class AlignerStream
+namespace lang
 {
-public:
-    AlignerStream(const AlignerConfigurationPtr& configuration);
-    virtual ~AlignerStream();
-    
-    std::string str();
-    
-    AlignerStream& operator<<(const std::string& str);
-    AlignerStream& operator<<(const lang::all::List& list);
-    AlignerStream& operator<<(const lang::all::Scope& scope);
 
-    AlignerConfigurationPtr mConfiguration;
-private:
-    std::string indent() const;
+namespace compil
+{
 
-    std::ostringstream string;
+class Type : public TypePartial
+{
 };
 
-typedef boost::shared_ptr<AlignerStream> AlignerStreamSPtr;
-typedef boost::weak_ptr<AlignerStream> AlignerStreamWPtr;
+}
 
+}
 
-
-#endif
-
+#endif //__TYPE_H_

@@ -32,7 +32,7 @@
 
 #include "aligner_stream.h"
 
-using namespace lang;
+using namespace lang::all;
 
 AlignerStream::AlignerStream(const AlignerConfigurationPtr& configuration)
     : mConfiguration(configuration)

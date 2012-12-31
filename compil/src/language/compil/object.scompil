@@ -30,41 +30,18 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include <boost/shared_ptr.hpp>
+compil { }
 
-#ifndef _ALIGNER_STREAM_H__
-#define _ALIGNER_STREAM_H__
+import "compil/source_id.scompil";
 
-#include "aligner_configuration.h"
+package lang.compil;
 
-#include "all/list.h"
-#include "all/scope.h"
-
-#include <iostream>
-
-class AlignerStream
+sharable
+structure Object
 {
-public:
-    AlignerStream(const AlignerConfigurationPtr& configuration);
-    virtual ~AlignerStream();
-    
-    std::string str();
-    
-    AlignerStream& operator<<(const std::string& str);
-    AlignerStream& operator<<(const lang::all::List& list);
-    AlignerStream& operator<<(const lang::all::Scope& scope);
+    runtime identification;
 
-    AlignerConfigurationPtr mConfiguration;
-private:
-    std::string indent() const;
-
-    std::ostringstream string;
-};
-
-typedef boost::shared_ptr<AlignerStream> AlignerStreamSPtr;
-typedef boost::weak_ptr<AlignerStream> AlignerStreamWPtr;
-
-
-
-#endif
-
+    reference<SourceId> sourceId;
+    integer line = -1;
+    integer column = -1;
+}

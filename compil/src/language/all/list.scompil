@@ -32,7 +32,7 @@
 
 compil { }
 
-package lang;
+package lang.all;
 
 streamable
 structure List 

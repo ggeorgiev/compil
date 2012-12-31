@@ -30,41 +30,37 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include <boost/shared_ptr.hpp>
+compil { }
 
-#ifndef _ALIGNER_STREAM_H__
-#define _ALIGNER_STREAM_H__
+import "compil/object.scompil";
+import "compil/comment.scompil";
+import "compil/name.scompil";
+import "compil/enumeration.scompil";
 
-#include "aligner_configuration.h"
+package lang.compil;
 
-#include "all/list.h"
-#include "all/scope.h"
-
-#include <iostream>
-
-class AlignerStream
+structure EnumerationValue 
+    inherit Object
 {
-public:
-    AlignerStream(const AlignerConfigurationPtr& configuration);
-    virtual ~AlignerStream();
+    runtime identification;
     
-    std::string str();
-    
-    AlignerStream& operator<<(const std::string& str);
-    AlignerStream& operator<<(const lang::all::List& list);
-    AlignerStream& operator<<(const lang::all::Scope& scope);
+    weak reference<Enumeration> enumeration;
+    reference<Comment> comment;
+    reference<Name> name;
+}
 
-    AlignerConfigurationPtr mConfiguration;
-private:
-    std::string indent() const;
+structure AbsoluteEnumerationValue 
+    inherit EnumerationValue
+{
+    runtime identification;
+   
+    integer value;
+}
 
-    std::ostringstream string;
-};
-
-typedef boost::shared_ptr<AlignerStream> AlignerStreamSPtr;
-typedef boost::weak_ptr<AlignerStream> AlignerStreamWPtr;
-
-
-
-#endif
-
+structure ComposedEnumerationValue 
+    inherit EnumerationValue
+{
+    runtime identification;
+   
+    vector< reference<EnumerationValue> > values;
+}

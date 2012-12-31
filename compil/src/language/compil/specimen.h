@@ -30,41 +30,18 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include <boost/shared_ptr.hpp>
+#ifndef __SPECIMEN_H_
+#define __SPECIMEN_H_
 
-#ifndef _ALIGNER_STREAM_H__
-#define _ALIGNER_STREAM_H__
+#include "compiler/model/specimen-partial.h"
 
-#include "aligner_configuration.h"
-
-#include "all/list.h"
-#include "all/scope.h"
-
-#include <iostream>
-
-class AlignerStream
+namespace compil
 {
-public:
-    AlignerStream(const AlignerConfigurationPtr& configuration);
-    virtual ~AlignerStream();
-    
-    std::string str();
-    
-    AlignerStream& operator<<(const std::string& str);
-    AlignerStream& operator<<(const lang::all::List& list);
-    AlignerStream& operator<<(const lang::all::Scope& scope);
 
-    AlignerConfigurationPtr mConfiguration;
-private:
-    std::string indent() const;
-
-    std::ostringstream string;
+class Specimen : public SpecimenPartial
+{
 };
 
-typedef boost::shared_ptr<AlignerStream> AlignerStreamSPtr;
-typedef boost::weak_ptr<AlignerStream> AlignerStreamWPtr;
+}
 
-
-
-#endif
-
+#endif //__SPECIMEN_H_

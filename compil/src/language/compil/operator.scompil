@@ -30,41 +30,55 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include <boost/shared_ptr.hpp>
+compil { }
 
-#ifndef _ALIGNER_STREAM_H__
-#define _ALIGNER_STREAM_H__
+import "compil/object.scompil";
+import "compil/structure.scompil";
 
-#include "aligner_configuration.h"
+package lang.compil;
 
-#include "all/list.h"
-#include "all/scope.h"
-
-#include <iostream>
-
-class AlignerStream
+strong 
+enum OperatorAction
 {
-public:
-    AlignerStream(const AlignerConfigurationPtr& configuration);
-    virtual ~AlignerStream();
+    equalTo;
+    notEqualTo;
+    greaterThan;
+    lessThan;
+}
+
+strong flags 
+enum OperatorFlags
+{
+    native;
+    function;
+    functor;
+    declaration = native | function | functor;
     
-    std::string str();
+    object;
+    reference;
+    parameter = object | reference;
     
-    AlignerStream& operator<<(const std::string& str);
-    AlignerStream& operator<<(const lang::all::List& list);
-    AlignerStream& operator<<(const lang::all::Scope& scope);
+    member;
+    internal;
+    external;
+    location = member | internal | external;
+}
 
-    AlignerConfigurationPtr mConfiguration;
-private:
-    std::string indent() const;
+strong flags 
+enum OperatorParameter
+{
+    object;
+    reference;
+}
 
-    std::ostringstream string;
-};
-
-typedef boost::shared_ptr<AlignerStream> AlignerStreamSPtr;
-typedef boost::weak_ptr<AlignerStream> AlignerStreamWPtr;
-
-
-
-#endif
-
+structure Operator
+    inherit Object
+{
+    runtime identification;
+    
+    OperatorAction action;
+    OperatorFlags flags;
+    
+    weak reference<Structure> structure = null;
+    reference<Comment> comment;
+}

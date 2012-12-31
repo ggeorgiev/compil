@@ -30,41 +30,41 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include <boost/shared_ptr.hpp>
+compil { }
 
-#ifndef _ALIGNER_STREAM_H__
-#define _ALIGNER_STREAM_H__
+import "compil/alter.scompil";
+import "compil/castable_type.scompil";
+import "compil/comment.scompil";
+import "compil/default_value.scompil";
+import "compil/document.scompil";
+import "compil/enumeration_value.scompil";
+import "compil/enumeration.scompil";
+import "compil/factory.scompil";
+import "compil/field_override.scompil";
+import "compil/field.scompil";
+import "compil/identification.scompil";
+import "compil/identifier.scompil";
+import "compil/import.scompil";
+import "compil/integer.scompil";
+import "compil/interface.scompil";
+import "compil/method.scompil";
+import "compil/object.scompil";
+import "compil/operator.scompil";
+import "compil/name.scompil";
+import "compil/package.scompil";
+import "compil/parameter.scompil";
+import "compil/reference.scompil";
+import "compil/specimen.scompil";
+import "compil/structure.scompil";
+import "compil/type.scompil";
+import "compil/unary_container.scompil";
+import "compil/unary_template.scompil";
+import "compil/upcopy.scompil";
+import "compil/version.scompil";
 
-#include "aligner_configuration.h"
+package lang.compil;
 
-#include "all/list.h"
-#include "all/scope.h"
-
-#include <iostream>
-
-class AlignerStream
+hierarchy factory<Object> ObjectFactory
 {
-public:
-    AlignerStream(const AlignerConfigurationPtr& configuration);
-    virtual ~AlignerStream();
-    
-    std::string str();
-    
-    AlignerStream& operator<<(const std::string& str);
-    AlignerStream& operator<<(const lang::all::List& list);
-    AlignerStream& operator<<(const lang::all::Scope& scope);
-
-    AlignerConfigurationPtr mConfiguration;
-private:
-    std::string indent() const;
-
-    std::ostringstream string;
-};
-
-typedef boost::shared_ptr<AlignerStream> AlignerStreamSPtr;
-typedef boost::weak_ptr<AlignerStream> AlignerStreamWPtr;
-
-
-
-#endif
+}
 

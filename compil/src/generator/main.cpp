@@ -97,6 +97,7 @@ int main(int argc, const char **argv)
     {
         compil::SourceId::Builder builder;
         compil::FileSourceProvider::fillSourceFields(input_file_path.generic_string(), builder);
+        builder.set_original(pGeneratorConfiguration->source_file);
         compil::SourceIdSPtr pSourceId(builder.finalize());
 
         compil::NameSPtr pName(new compil::Name());

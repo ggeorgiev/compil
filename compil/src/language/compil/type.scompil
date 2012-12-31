@@ -30,41 +30,44 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include <boost/shared_ptr.hpp>
+compil { }
 
-#ifndef _ALIGNER_STREAM_H__
-#define _ALIGNER_STREAM_H__
+import "compil/package.scompil";
+import "compil/comment.scompil";
+import "compil/name.scompil";
 
-#include "aligner_configuration.h"
+package lang.compil;
 
-#include "all/list.h"
-#include "all/scope.h"
-
-#include <iostream>
-
-class AlignerStream
+partial sharable
+structure Type 
+    inherit Object
 {
-public:
-    AlignerStream(const AlignerConfigurationPtr& configuration);
-    virtual ~AlignerStream();
+    runtime identification;
+
+    reference<Package> package = null;
+    reference<Comment> comment;
+    reference<Name> name;
     
-    std::string str();
+    strong enum Literal
+    {
+        boolean;
+        integer;
+        real;
+        string;
+        binary;
+        reference;
+        identifier;
+        structure;
+    }
     
-    AlignerStream& operator<<(const std::string& str);
-    AlignerStream& operator<<(const lang::all::List& list);
-    AlignerStream& operator<<(const lang::all::Scope& scope);
-
-    AlignerConfigurationPtr mConfiguration;
-private:
-    std::string indent() const;
-
-    std::ostringstream string;
-};
-
-typedef boost::shared_ptr<AlignerStream> AlignerStreamSPtr;
-typedef boost::weak_ptr<AlignerStream> AlignerStreamWPtr;
-
-
-
-#endif
-
+    Literal literal;
+    
+    strong enum Kind
+    {
+        builtin;
+        object;
+        string;
+    }
+    
+    Kind kind;
+}
