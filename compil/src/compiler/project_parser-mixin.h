@@ -30,86 +30,30 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_TOKENIZER_H__
-#define _COMPIL_TOKENIZER_H__
+#ifndef _COMPIL_PROJECT_PARSER_MIXIN_H__
+#define _COMPIL_PROJECT_PARSER_MIXIN_H__
 
-#include "token.h"
-#include "message_collector.h"
-
-#include <boost/shared_ptr.hpp>
-
-#include <iostream>
-#include <memory>
+#include "parser-mixin.h"
 
 namespace compil
 {
 
-class Tokenizer
+struct ProjectParseContext : public ParseContext
 {
-public:
-    Tokenizer(const MessageCollectorPtr& pMessageCollector);
-    Tokenizer(const MessageCollectorPtr& pMessageCollector,
-              const SourceIdSPtr& pSourceId, 
-              const boost::shared_ptr<std::istream>& pInput);
-    ~Tokenizer();
-
-    void tokenize(const SourceIdSPtr& pSourceId, const boost::shared_ptr<std::istream>& pInput);
-
-    // shifts the tokenizer to the next token
-    void shift();
-    bool eof() const;
-
-    static const int nTabSize = 4;
-    int line() const;
-    int column() const;
-
-    void absorbed(int ch);
-
-    TokenPtr current();
-
-    // skips white spaces
-    void skipWhiteSpaces();
-
-    // skips EOL
-    void skipEOL();
-
-    void consumeCStyleLineComment();
-    void consumeCStyleBlockComment();
-    bool consumeComment(int ch);
-    bool consumeDot(int ch);
-    bool consumeArrow(int ch);
-    bool consumeNumber(int ch);
-    bool consumeString(int ch);
-    bool consumeEqualOperator(int ch);
-    void consumeIdentifier(int ch);
-    
-    bool check(const Token::Type type);
-    bool check(const Token::Type type, const char* text);
-    
-private:
-    MessageCollectorPtr mpMessageCollector;
-
-    TokenPtr mpCurrent;
-    SourceIdSPtr mpSourceId;
-    boost::shared_ptr<std::istream> mpInput;
-
-    int mCurrentLine;
-    int mCurrentColumn;
-
-    bool mBlockComment;
+    ProjectSPtr mProject;
 };
 
-typedef boost::shared_ptr<Tokenizer> TokenizerPtr;
+typedef boost::shared_ptr<ProjectParseContext> ProjectParseContextSPtr;
 
-}
-
-#else
-
-namespace compil
+class ProjectParserMixin : public ParserMixin
 {
-
-class Tokenizer;
+public:
+    SectionSPtr parseSection(const ProjectParseContextSPtr& context, const CommentSPtr& comment);
+    
+    void parseProjectStatement(const ProjectParseContextSPtr& context, const CommentSPtr& comment);
+    static ProjectSPtr parseProject(const ProjectParseContextSPtr& context);
+};
 
 }
 
-#endif
+#endif // _COMPIL_PROJECT_PARSER_MIXIN_H__

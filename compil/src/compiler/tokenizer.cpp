@@ -938,4 +938,21 @@ TokenPtr Tokenizer::current()
     return mpCurrent;
 }
 
+bool Tokenizer::check(Token::Type type)
+{
+    return check(type, NULL);
+}
+
+bool Tokenizer::check(Token::Type type, const char* text)
+{
+    const TokenPtr& pToken = current();
+    if (!pToken)
+        return false;
+    if (pToken->type() != type)
+        return false;
+    if ((text != NULL) && (pToken->text() != text))
+        return false;
+    return true;
+}
+
 }

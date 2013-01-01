@@ -29,6 +29,10 @@ lib compiler
     validator/structure_sharable_validator.cpp
     validator/validator.cpp
 
+    document_parser-mixin.cpp
+    project_parser-mixin.cpp
+    parser-mixin.cpp
+
     parser.cpp 
     token.cpp
     tokenizer.cpp

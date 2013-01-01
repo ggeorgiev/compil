@@ -33,6 +33,9 @@
 #ifndef _COMPIL_PARSER_H__
 #define _COMPIL_PARSER_H__
 
+#include "document_parser-mixin.h"
+#include "project_parser-mixin.h"
+
 #include "message_collector.h"
 
 #include "tokenizer.h"
@@ -50,7 +53,8 @@
 namespace compil
 {
 
-class Parser
+class Parser : public DocumentParserMixin
+             , public ProjectParserMixin
 {
 public:
     Parser();
@@ -120,20 +124,28 @@ public:
     
     // Parse the input and construct a Descriptor from it.
     // Returns true if no errors occurred, false otherwise.
-    bool parse(const StreamPtr& pInput, const DocumentSPtr& document);
+    bool parse(const StreamPtr& pInput,
+               const DocumentSPtr& document);
     bool parse(const SourceIdSPtr& pSourceId, 
                const StreamPtr& pInput, 
                const DocumentSPtr& document);
-    void setInput(const StreamPtr& pInput);
-    
     bool parse(const ISourceProviderPtr& pSourceProvider,
                const SourceIdSPtr& pSourceId,
                const DocumentSPtr& document);
+               
+    void setInput(const StreamPtr& pInput);
+    
+    
+    bool parse(const StreamPtr& pInput,
+               const ProjectSPtr& project);
+    
     
 public:
     MessageCollectorPtr mpMessageCollector;
 
 private:
+    ParseContextSPtr mContext;
+
     struct LateTypeResolveInfo
     {
         TokenPtr pToken;
@@ -144,14 +156,12 @@ private:
     std::vector<LateTypeResolveInfo> mLateTypeResolve;
     void lateTypeResolve(const TypeSPtr& pNewType);
     
-
     SourceIdSPtr mpSourceId;
     PackageSPtr mpPackage;
     ISourceProviderPtr mpSourceProvider;
     boost::shared_ptr<std::map<std::string, SourceIdSPtr> > mpSources;
 
     FileSPtr mFile;
-    TokenizerPtr mpTokenizer;
     DocumentSPtr mDocument;
     std::vector<ValidatorPtr> mvValidator;
     
@@ -161,8 +171,6 @@ private:
     Parser& operator<<(const Message& message);
 
     bool eof();
-    bool check(Token::Type type);
-    bool check(Token::Type type, const char* text);
     bool expect(Token::Type type);
     bool expect(Token::Type type, const char* text);
     bool unexpectedStatement(const TokenPtr& pToken);

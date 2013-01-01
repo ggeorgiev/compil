@@ -138,6 +138,10 @@ lib language
     compil/document/unary_container.scompil
     compil/document/unary_template.scompil
     compil/document/upcopy.scompil
+    
+    compil/project/file_path.scompil
+    compil/project/project.scompil
+    compil/project/section.scompil
 
     [ convert _ cpp
       :
@@ -151,22 +155,6 @@ lib language
       :
         <compil-stable-type>partial
     ]
-    
-    #c++/comment.compil
-    #c++/const_declaration.compil
-    #c++/constructor.compil
-    #c++/copy_right_comment.compil
-    #c++/destructor.compil
-    #c++/document.compil
-    #c++/header_guard.compil
-    #c++/header_path.compil
-    #c++/header_section.compil
-    #c++/header_type.compil
-    #c++/header.compil
-    #c++/include.compil
-    #c++/layer_comment.compil
-    #c++/method_comment.compil
-    #c++/method_specifier.compil
     
     boost_templates
   :

@@ -419,7 +419,7 @@
 		5EFFA6DE1692766F00035CAA /* namespace_alias.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = namespace_alias.h; sourceTree = "<group>"; };
 		5EFFA6DF1693662900035CAA /* language.scompilprj */ = {isa = PBXFileReference; lastKnownFileType = text; path = language.scompilprj; sourceTree = "<group>"; };
 		5EFFA6E11693664400035CAA /* project.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = project.scompil; sourceTree = "<group>"; };
-		5EFFA6E216936A6E00035CAA /* file.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = file.scompil; sourceTree = "<group>"; };
+		5EFFA6E216936A6E00035CAA /* file_path.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = file_path.scompil; sourceTree = "<group>"; };
 		5EFFA6E316936A7400035CAA /* section.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = section.scompil; sourceTree = "<group>"; };
 		5EFFA6E516936B8B00035CAA /* file.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = file.scompil; sourceTree = "<group>"; };
 		5EFFA6E616936B8B00035CAA /* object.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = object.scompil; sourceTree = "<group>"; };
@@ -428,6 +428,12 @@
 		5EFFA6E916936D8300035CAA /* comment.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = comment.scompil; sourceTree = "<group>"; };
 		5EFFA6EA16936D8900035CAA /* version.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = version.scompil; sourceTree = "<group>"; };
 		5EFFA6EB16936E4900035CAA /* package_element.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = package_element.scompil; sourceTree = "<group>"; };
+		5EFFA6EC16937F9100035CAA /* document_parser-mixin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "document_parser-mixin.cpp"; path = "compil/src/compiler/document_parser-mixin.cpp"; sourceTree = SOURCE_ROOT; };
+		5EFFA6ED16937F9100035CAA /* document_parser-mixin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "document_parser-mixin.h"; path = "compil/src/compiler/document_parser-mixin.h"; sourceTree = SOURCE_ROOT; };
+		5EFFA6EE1693802300035CAA /* project_parser-mixin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "project_parser-mixin.cpp"; sourceTree = "<group>"; };
+		5EFFA6EF1693802400035CAA /* project_parser-mixin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "project_parser-mixin.h"; sourceTree = "<group>"; };
+		5EFFA6F01693835000035CAA /* parser-mixin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "parser-mixin.cpp"; sourceTree = "<group>"; };
+		5EFFA6F11693835200035CAA /* parser-mixin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "parser-mixin.h"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -571,6 +577,8 @@
 			children = (
 				5E88A19715E188BB002D43A5 /* configuration */,
 				5E88A1A115E188BB002D43A5 /* message */,
+				5EFFA6EC16937F9100035CAA /* document_parser-mixin.cpp */,
+				5EFFA6ED16937F9100035CAA /* document_parser-mixin.h */,
 				5E88A19E15E188BB002D43A5 /* i_source_provider.h */,
 				5E88A19F15E188BB002D43A5 /* jamfile.jam */,
 				5E88A1A015E188BB002D43A5 /* main_unittest.cpp */,
@@ -594,6 +602,10 @@
 				5E88A20315E188BB002D43A5 /* parser_structure_upcopy_unittest.cpp */,
 				5E88A20415E188BB002D43A5 /* parser_unittest.cpp */,
 				5E88A20515E188BB002D43A5 /* parser_unittest.h */,
+				5EFFA6F01693835000035CAA /* parser-mixin.cpp */,
+				5EFFA6F11693835200035CAA /* parser-mixin.h */,
+				5EFFA6EE1693802300035CAA /* project_parser-mixin.cpp */,
+				5EFFA6EF1693802400035CAA /* project_parser-mixin.h */,
 				5E88A20615E188BB002D43A5 /* token.cpp */,
 				5E88A20715E188BB002D43A5 /* token.h */,
 				5E88A20815E188BB002D43A5 /* tokenizer.cpp */,
@@ -1213,7 +1225,7 @@
 		5EFFA6E01693664000035CAA /* project */ = {
 			isa = PBXGroup;
 			children = (
-				5EFFA6E216936A6E00035CAA /* file.scompil */,
+				5EFFA6E216936A6E00035CAA /* file_path.scompil */,
 				5EFFA6E11693664400035CAA /* project.scompil */,
 				5EFFA6E316936A7400035CAA /* section.scompil */,
 			);

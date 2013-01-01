@@ -32,142 +32,139 @@
 
 compil { }
 
-project Language
+section main
 {
-    main
-    {
-        all/list.scompil
-        all/scope.scompil
-        
-        c++/class/class.scompil
-        c++/class/class_name.scompil
-        c++/class/class_name_factory.scompil
-        c++/class/identifier_class_name.scompil
-        c++/class/method-cpp.scompil
-        c++/class/method_name.scompil
-
-        c++/declarator/declarator.scompil
-        c++/declarator/declarator_factory.scompil
-        c++/declarator/declarator_id.scompil
-        c++/declarator/declarator_id_direct_declarator.scompil
-        c++/declarator/direct_declarator.scompil
-        c++/declarator/init_declarator.scompil
-
-        c++/declaration/block_declaration.scompil
-        c++/declaration/class_declaration.scompil
-        c++/declaration/class_type_name.scompil
-        c++/declaration/declaration.scompil    
-        c++/declaration/declaration_factory.scompil
-        c++/declaration/declaration_specifier.scompil
-        c++/declaration/declaration_specifier_sequence.scompil
-        c++/declaration/simple_declaration.scompil
-        c++/declaration/simple_block_declaration.scompil
-        c++/declaration/simple_type_specifier.scompil
-        c++/declaration/type_declaration_specifier.scompil
-        c++/declaration/type_name.scompil
-        c++/declaration/type_name_simple_type_specifier.scompil
-        c++/declaration/type_specifier.scompil
-        
-        c++/expression/class_nested_name.scompil
-        c++/expression/constructor_call_expression.scompil
-        c++/expression/custom_expression.scompil
-        c++/expression/custom_id_expression.scompil
-        c++/expression/custom_postfix_expression.scompil
-        c++/expression/expression.scompil
-        c++/expression/expression_list.scompil
-        c++/expression/expression_factory.scompil
-        c++/expression/id_expression.scompil
-        c++/expression/id_expression_primary_expression.scompil
-        c++/expression/identifier_unqualified_id.scompil
-        c++/expression/member_access_postfix_expression.scompil
-        c++/expression/method_call_expression.scompil
-        c++/expression/namespace_nested_name.scompil
-        c++/expression/nested_name.scompil
-        c++/expression/nested_name_specifier.scompil
-        c++/expression/parentheses_postfix_expression.scompil
-        c++/expression/postfix_expression.scompil
-        c++/expression/primary_expression.scompil
-        c++/expression/primary_expression_postfix_expression.scompil
-        c++/expression/unqualified_id_expression.scompil
-        c++/expression/unqualified_id.scompil
-
-        c++/lexical/identifier-cpp.scompil
-        
-        c++/logical/local_variable.scompil
-        c++/logical/variable.scompil
-        c++/logical/variable_name.scompil
-        
-        c++/namespace/identifier_namespace_name.scompil
-        c++/namespace/namespace_name_factory.scompil
-        c++/namespace/namespace_name.scompil
-        c++/namespace/namespace.scompil
-        
-        c++/statement/compound_statement.scompil
-        c++/statement/declaration_statement.scompil
-        c++/statement/expression_statement.scompil
-        c++/statement/macro_statement.scompil
-        c++/statement/statement.scompil
-        c++/statement/statement_factory.scompil
-        c++/statement/variable_declaration_statement.scompil
-        c++/statement/throw_test_statement.scompil
-        c++/statement/unary_test_statement.scompil
-        
-        c++/preprocessor/declaration_macro_parameter.scompil
-        c++/preprocessor/expression_macro_parameter.scompil
-        c++/preprocessor/macro.scompil
-        c++/preprocessor/macro_parameter.scompil
-        c++/preprocessor/macro_parameter_factory.scompil
-        c++/preprocessor/macro_name.scompil
-        
-        c++/test/test.scompil
-        c++/test/test_name.scompil
-        c++/test/test_suite.scompil
-        c++/test/test_suite_name.scompil
-        
-        compil/document/alter.scompil
-        compil/document/castable_type.scompil
-        compil/document/comment.scompil
-        compil/document/default_value.scompil
-        compil/document/document.cpp
-        compil/document/enumeration.cpp
-        compil/document/enumeration_value.scompil
-        compil/document/factory.cpp
-        compil/document/field.scompil
-        compil/document/field_override.scompil
-        compil/document/file.scompil
-        compil/document/filter.scompil
-        compil/document/identification.scompil
-        compil/document/identifier.scompil
-        compil/document/import.scompil
-        compil/document/integer.cpp
-        compil/document/interface.scompil
-        compil/document/method.scompil
-        compil/document/name.scompil
-        compil/document/object_factory.scompil
-        compil/document/object.scompil
-        compil/document/operator.scompil
-        compil/document/package_element.scompil
-        compil/document/package.scompil
-        compil/document/parameter.scompil
-        compil/document/reference.scompil
-        compil/document/source_id.scompil
-        compil/document/specimen.cpp
-        compil/document/structure.cpp
-        compil/document/type.cpp
-        compil/document/unary_container.scompil
-        compil/document/unary_template.scompil
-        compil/document/upcopy.scompil
-        compil/document/version.scompil
-    }
+    all/list.scompil
+    all/scope.scompil
     
-    partial
-    {
-        compil/document/document.scompil
-        compil/document/enumeration.scompil
-        compil/document/factory.scompil
-        compil/document/integer.scompil
-        compil/document/specimen.scompil
-        compil/document/structure.scompil
-        compil/document/type.scompil
-    }
+    c++/class/class.scompil
+    c++/class/class_name.scompil
+    c++/class/class_name_factory.scompil
+    c++/class/identifier_class_name.scompil
+    c++/class/method-cpp.scompil
+    c++/class/method_name.scompil
+
+    c++/declarator/declarator.scompil
+    c++/declarator/declarator_factory.scompil
+    c++/declarator/declarator_id.scompil
+    c++/declarator/declarator_id_direct_declarator.scompil
+    c++/declarator/direct_declarator.scompil
+    c++/declarator/init_declarator.scompil
+
+    c++/declaration/block_declaration.scompil
+    c++/declaration/class_declaration.scompil
+    c++/declaration/class_type_name.scompil
+    c++/declaration/declaration.scompil    
+    c++/declaration/declaration_factory.scompil
+    c++/declaration/declaration_specifier.scompil
+    c++/declaration/declaration_specifier_sequence.scompil
+    c++/declaration/simple_declaration.scompil
+    c++/declaration/simple_block_declaration.scompil
+    c++/declaration/simple_type_specifier.scompil
+    c++/declaration/type_declaration_specifier.scompil
+    c++/declaration/type_name.scompil
+    c++/declaration/type_name_simple_type_specifier.scompil
+    c++/declaration/type_specifier.scompil
+    
+    c++/expression/class_nested_name.scompil
+    c++/expression/constructor_call_expression.scompil
+    c++/expression/custom_expression.scompil
+    c++/expression/custom_id_expression.scompil
+    c++/expression/custom_postfix_expression.scompil
+    c++/expression/expression.scompil
+    c++/expression/expression_list.scompil
+    c++/expression/expression_factory.scompil
+    c++/expression/id_expression.scompil
+    c++/expression/id_expression_primary_expression.scompil
+    c++/expression/identifier_unqualified_id.scompil
+    c++/expression/member_access_postfix_expression.scompil
+    c++/expression/method_call_expression.scompil
+    c++/expression/namespace_nested_name.scompil
+    c++/expression/nested_name.scompil
+    c++/expression/nested_name_specifier.scompil
+    c++/expression/parentheses_postfix_expression.scompil
+    c++/expression/postfix_expression.scompil
+    c++/expression/primary_expression.scompil
+    c++/expression/primary_expression_postfix_expression.scompil
+    c++/expression/unqualified_id_expression.scompil
+    c++/expression/unqualified_id.scompil
+
+    c++/lexical/identifier-cpp.scompil
+    
+    c++/logical/local_variable.scompil
+    c++/logical/variable.scompil
+    c++/logical/variable_name.scompil
+    
+    c++/namespace/identifier_namespace_name.scompil
+    c++/namespace/namespace_name_factory.scompil
+    c++/namespace/namespace_name.scompil
+    c++/namespace/namespace.scompil
+    
+    c++/statement/compound_statement.scompil
+    c++/statement/declaration_statement.scompil
+    c++/statement/expression_statement.scompil
+    c++/statement/macro_statement.scompil
+    c++/statement/statement.scompil
+    c++/statement/statement_factory.scompil
+    c++/statement/variable_declaration_statement.scompil
+    c++/statement/throw_test_statement.scompil
+    c++/statement/unary_test_statement.scompil
+    
+    c++/preprocessor/declaration_macro_parameter.scompil
+    c++/preprocessor/expression_macro_parameter.scompil
+    c++/preprocessor/macro.scompil
+    c++/preprocessor/macro_parameter.scompil
+    c++/preprocessor/macro_parameter_factory.scompil
+    c++/preprocessor/macro_name.scompil
+    
+    c++/test/test.scompil
+    c++/test/test_name.scompil
+    c++/test/test_suite.scompil
+    c++/test/test_suite_name.scompil
+    
+    compil/document/alter.scompil
+    compil/document/castable_type.scompil
+    compil/document/comment.scompil
+    compil/document/default_value.scompil
+    compil/document/document.cpp
+    compil/document/enumeration.cpp
+    compil/document/enumeration_value.scompil
+    compil/document/factory.cpp
+    compil/document/field.scompil
+    compil/document/field_override.scompil
+    compil/document/file.scompil
+    compil/document/filter.scompil
+    compil/document/identification.scompil
+    compil/document/identifier.scompil
+    compil/document/import.scompil
+    compil/document/integer.cpp
+    compil/document/interface.scompil
+    compil/document/method.scompil
+    compil/document/name.scompil
+    compil/document/object_factory.scompil
+    compil/document/object.scompil
+    compil/document/operator.scompil
+    compil/document/package_element.scompil
+    compil/document/package.scompil
+    compil/document/parameter.scompil
+    compil/document/reference.scompil
+    compil/document/source_id.scompil
+    compil/document/specimen.cpp
+    compil/document/structure.cpp
+    compil/document/type.cpp
+    compil/document/unary_container.scompil
+    compil/document/unary_template.scompil
+    compil/document/upcopy.scompil
+    compil/document/version.scompil
+}
+
+section partial
+{
+    compil/document/document.scompil
+    compil/document/enumeration.scompil
+    compil/document/factory.scompil
+    compil/document/integer.scompil
+    compil/document/specimen.scompil
+    compil/document/structure.scompil
+    compil/document/type.scompil
 }

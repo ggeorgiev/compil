@@ -32,8 +32,10 @@
 
 compil { }
 
-import "compil/all/version.scompil";
+import "compil/all/comment.scompil";
 import "compil/all/file.scompil";
+import "compil/all/object.scompil";
+import "compil/all/version.scompil";
 
 import "compil/document/alter.scompil";
 import "compil/document/castable_type.scompil";
@@ -61,6 +63,12 @@ import "compil/document/type.scompil";
 import "compil/document/unary_container.scompil";
 import "compil/document/unary_template.scompil";
 import "compil/document/upcopy.scompil";
+
+import "compil/project/file_path.scompil";
+import "compil/project/project.scompil";
+import "compil/project/section.scompil";
+
+
 
 package lang.compil;
 

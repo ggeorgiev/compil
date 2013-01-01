@@ -33,10 +33,16 @@
 compil { }
 
 import "compil/project/section.scompil";
+import "compil/all/file.scompil";
 
 package lang.compil;
 
-streamable
 structure Project
+    inherit Object
 {
+    runtime identification;
+    
+    reference<File> mainFile;
+    
+    vector<reference<Section>> sections;
 }

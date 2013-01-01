@@ -30,20 +30,23 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-compil { }
+#ifndef _COMPIL_DOCUMENT_PARSER_MIXIN_H__
+#define _COMPIL_DOCUMENT_PARSER_MIXIN_H__
 
-import "compil/document/object.scompil";
-import "compil/document/comment.scompil";
-import "compil/document/version.scompil";
+#include "parser-mixin.h"
 
-package lang.compil;
-
-partial
-structure Document 
-    inherit Object
+namespace compil
 {
-    runtime identification;
-    
-    vector< reference<Comment> > comments = optional;
-    Version version;
+
+struct DocumentParseContext : public ParseContext
+{
+};
+
+class DocumentParserMixin : public ParserMixin
+{
+public:
+};
+
 }
+
+#endif // _COMPIL_DOCUMENT_PARSER_MIXIN_H__

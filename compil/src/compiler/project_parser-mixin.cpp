@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -30,16 +30,32 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-compil { }
+#include "project_parser-mixin.h"
 
-import "compil/project/file_path.scompil";
-
-package lang.compil;
-
-structure Section 
-    inherit Object
+namespace compil
 {
-    runtime identification;
-    
-    vector<reference<FilePath>> paths;
+
+SectionSPtr ProjectParserMixin::parseSection(const ProjectParseContextSPtr& context, const CommentSPtr& comment)
+{
+    return SectionSPtr();
+}
+
+void ProjectParserMixin::parseProjectStatement(const ProjectParseContextSPtr& context, const CommentSPtr& comment)
+{
+    if (context->mTokenizer->check(Token::TYPE_IDENTIFIER, "section"))
+    {
+        SectionSPtr section = parseSection(context, comment);
+        if (section)
+        {
+            //context->mProject << section;
+        }
+    }
+}
+
+
+ProjectSPtr ProjectParserMixin::parseProject(const ProjectParseContextSPtr& context)
+{
+    return ProjectSPtr();
+}
+
 }

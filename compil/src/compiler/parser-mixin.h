@@ -30,86 +30,28 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_TOKENIZER_H__
-#define _COMPIL_TOKENIZER_H__
+#ifndef _COMPIL_PARSER_MIXIN_H__
+#define _COMPIL_PARSER_MIXIN_H__
 
-#include "token.h"
-#include "message_collector.h"
+#include "tokenizer.h"
 
-#include <boost/shared_ptr.hpp>
-
-#include <iostream>
-#include <memory>
+#include "compil/all/object_factory.h"
 
 namespace compil
 {
 
-class Tokenizer
+struct ParseContext
 {
-public:
-    Tokenizer(const MessageCollectorPtr& pMessageCollector);
-    Tokenizer(const MessageCollectorPtr& pMessageCollector,
-              const SourceIdSPtr& pSourceId, 
-              const boost::shared_ptr<std::istream>& pInput);
-    ~Tokenizer();
-
-    void tokenize(const SourceIdSPtr& pSourceId, const boost::shared_ptr<std::istream>& pInput);
-
-    // shifts the tokenizer to the next token
-    void shift();
-    bool eof() const;
-
-    static const int nTabSize = 4;
-    int line() const;
-    int column() const;
-
-    void absorbed(int ch);
-
-    TokenPtr current();
-
-    // skips white spaces
-    void skipWhiteSpaces();
-
-    // skips EOL
-    void skipEOL();
-
-    void consumeCStyleLineComment();
-    void consumeCStyleBlockComment();
-    bool consumeComment(int ch);
-    bool consumeDot(int ch);
-    bool consumeArrow(int ch);
-    bool consumeNumber(int ch);
-    bool consumeString(int ch);
-    bool consumeEqualOperator(int ch);
-    void consumeIdentifier(int ch);
-    
-    bool check(const Token::Type type);
-    bool check(const Token::Type type, const char* text);
-    
-private:
-    MessageCollectorPtr mpMessageCollector;
-
-    TokenPtr mpCurrent;
-    SourceIdSPtr mpSourceId;
-    boost::shared_ptr<std::istream> mpInput;
-
-    int mCurrentLine;
-    int mCurrentColumn;
-
-    bool mBlockComment;
+    TokenizerPtr mTokenizer;
 };
 
-typedef boost::shared_ptr<Tokenizer> TokenizerPtr;
+typedef boost::shared_ptr<ParseContext> ParseContextSPtr;
 
-}
-
-#else
-
-namespace compil
+class ParserMixin
 {
-
-class Tokenizer;
+public:
+};
 
 }
 
-#endif
+#endif // _COMPIL_PARSER_MIXIN_H__
