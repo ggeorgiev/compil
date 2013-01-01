@@ -32,17 +32,14 @@
 
 compil { }
 
-import "compil/document/package_element.scompil";
+import "compil/all/object.scompil";
 
 package lang.compil;
 
-immutable
-structure SourceId
+structure Version 
+    inherit Object
 {
-
-    string value;
-    vector<PackageElement> externalElements;
-    string uniquePresentation;
-    reference<SourceId> parent = null;
-    string original = optional;
+    runtime identification;
+    
+    integer number;
 }

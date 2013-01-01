@@ -35,7 +35,7 @@
 
 #include "namespace_alias.h"
 
-#include "compil/document/source_id.h"
+#include "compil/all/source_id.h"
 
 #include <boost/shared_ptr.hpp>
 

@@ -103,9 +103,16 @@ lib language
     c++/test/test_suite.scompil
     c++/test/test_suite_name.scompil
     
+    compil/all/comment.scompil
+    compil/all/file.scompil
+    compil/all/object_factory.scompil
+    compil/all/object.scompil
+    compil/all/package_element.scompil
+    compil/all/source_id.scompil
+    compil/all/version.scompil
+
     compil/document/alter.scompil
     compil/document/castable_type.scompil
-    compil/document/comment.scompil
     compil/document/default_value.scompil
     compil/document/document.cpp
     compil/document/enumeration.cpp
@@ -113,7 +120,6 @@ lib language
     compil/document/factory.cpp
     compil/document/field.scompil
     compil/document/field_override.scompil
-    compil/document/file.scompil
     compil/document/filter.scompil
     compil/document/identification.scompil
     compil/document/identifier.scompil
@@ -122,21 +128,16 @@ lib language
     compil/document/interface.scompil
     compil/document/method.scompil
     compil/document/name.scompil
-    compil/document/object_factory.scompil
-    compil/document/object.scompil
     compil/document/operator.scompil
-    compil/document/package_element.scompil
     compil/document/package.scompil
     compil/document/parameter.scompil
     compil/document/reference.scompil
-    compil/document/source_id.scompil
     compil/document/specimen.cpp
     compil/document/structure.cpp
     compil/document/type.cpp
     compil/document/unary_container.scompil
     compil/document/unary_template.scompil
     compil/document/upcopy.scompil
-    compil/document/version.scompil
 
     [ convert _ cpp
       :

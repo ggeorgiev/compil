@@ -32,16 +32,11 @@
 
 compil { }
 
-import "compil/all/object.scompil";
+import "compil/project/section.scompil";
 
 package lang.compil;
 
-structure DefaultValue 
-    inherit Object
+streamable
+structure Project
 {
-    runtime identification;
-    
-    boolean optional = false;
-    
-    string value;
 }

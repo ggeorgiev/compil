@@ -32,16 +32,16 @@
 
 compil { }
 
-import "compil/all/object.scompil";
+import "compil/all/source_id.scompil";
 
 package lang.compil;
 
-structure DefaultValue 
-    inherit Object
+sharable
+structure Object
 {
     runtime identification;
-    
-    boolean optional = false;
-    
-    string value;
+
+    reference<SourceId> sourceId;
+    integer line = -1;
+    integer column = -1;
 }

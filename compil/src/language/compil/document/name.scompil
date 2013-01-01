@@ -32,7 +32,7 @@
 
 compil { }
 
-import "compil/document/object.scompil";
+import "compil/all/object.scompil";
 
 package lang.compil;
 

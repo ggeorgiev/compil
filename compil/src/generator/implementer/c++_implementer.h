@@ -42,7 +42,7 @@
 
 #include "c++_formatter.h"
 
-#include "compil/document/object_factory.h"
+#include "compil/all/object_factory.h"
 
 namespace compil
 {

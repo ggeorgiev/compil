@@ -2137,7 +2137,7 @@ bool Parser::parse(const StreamPtr& pInput, const DocumentSPtr& document)
         return false;
 
     if (!mDocument->mainFile())
-        mDocument->setMainFile(file);
+        mDocument->set_mainFile(file);
 
     CommentSPtr pStatementComment = lastComment();
     while (check(Token::TYPE_IDENTIFIER, "import"))

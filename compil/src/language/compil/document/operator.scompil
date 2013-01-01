@@ -32,7 +32,6 @@
 
 compil { }
 
-import "compil/document/object.scompil";
 import "compil/document/structure.scompil";
 
 package lang.compil;

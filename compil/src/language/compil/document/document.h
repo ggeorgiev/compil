@@ -36,7 +36,6 @@
 #include "compil/document/document-partial.h"
 
 #include "compil/document/alter.h"
-#include "compil/document/comment.h"
 #include "compil/document/default_value.h"
 #include "compil/document/document.h"
 #include "compil/document/enumeration.h"
@@ -44,7 +43,6 @@
 #include "compil/document/factory.h"
 #include "compil/document/field.h"
 #include "compil/document/field_override.h"
-#include "compil/document/file.h"
 #include "compil/document/filter.h"
 #include "compil/document/identification.h"
 #include "compil/document/identifier.h"
@@ -53,7 +51,6 @@
 #include "compil/document/interface.h"
 #include "compil/document/method.h"
 #include "compil/document/name.h"
-#include "compil/document/object.h"
 #include "compil/document/operator.h"
 #include "compil/document/package.h"
 #include "compil/document/parameter.h"
@@ -64,7 +61,6 @@
 #include "compil/document/unary_container.h"
 #include "compil/document/unary_template.h"
 #include "compil/document/upcopy.h"
-#include "compil/document/version.h"
 
 namespace lang
 {
@@ -81,9 +77,6 @@ public:
     
     Document();
     virtual ~Document();
-    
-    FileSPtr mainFile() const;
-    void setMainFile(const FileSPtr& mainFile);
     
     NameSPtr name() const;
     void setName(const NameSPtr& pName);

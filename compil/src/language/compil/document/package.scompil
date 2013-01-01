@@ -32,8 +32,8 @@
 
 compil { }
 
-import "compil/document/object.scompil";
-import "compil/document/package_element.scompil";
+import "compil/all/package_element.scompil";
+import "compil/all/object.scompil";
 
 package lang.compil;
 

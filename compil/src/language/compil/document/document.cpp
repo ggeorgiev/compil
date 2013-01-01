@@ -31,7 +31,7 @@
 //
 
 #include "compil/document/document.h"
-#include "compil/document/object_factory.h"
+#include "compil/all/object_factory.h"
 
 #include <set>
 
@@ -290,16 +290,6 @@ Document::Document()
 
 Document::~Document()
 {
-}
-
-FileSPtr Document::mainFile() const
-{
-    return mMainFile;
-}
-
-void Document::setMainFile(const FileSPtr& mainFile)
-{
-    mMainFile = mainFile;
 }
 
 NameSPtr Document::name() const

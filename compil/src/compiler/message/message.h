@@ -37,7 +37,7 @@
 #include "namespace_alias.h"
 
 #include "compil/document/document.h"
-#include "compil/document/object_factory.h"
+#include "compil/all/object_factory.h"
 
 #include <string>
 

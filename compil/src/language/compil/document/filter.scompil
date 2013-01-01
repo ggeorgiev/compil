@@ -32,8 +32,8 @@
 
 compil { }
 
-import "compil/document/comment.scompil";
 import "compil/document/field.scompil";
+import "compil/all/comment.scompil";
 
 package lang.compil;
 

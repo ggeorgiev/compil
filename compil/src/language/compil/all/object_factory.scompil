@@ -32,17 +32,39 @@
 
 compil { }
 
-import "compil/document/object.scompil";
-import "compil/document/comment.scompil";
-import "compil/document/version.scompil";
+import "compil/all/version.scompil";
+import "compil/all/file.scompil";
+
+import "compil/document/alter.scompil";
+import "compil/document/castable_type.scompil";
+import "compil/document/default_value.scompil";
+import "compil/document/document.scompil";
+import "compil/document/enumeration_value.scompil";
+import "compil/document/enumeration.scompil";
+import "compil/document/factory.scompil";
+import "compil/document/field_override.scompil";
+import "compil/document/field.scompil";
+import "compil/document/identification.scompil";
+import "compil/document/identifier.scompil";
+import "compil/document/import.scompil";
+import "compil/document/integer.scompil";
+import "compil/document/interface.scompil";
+import "compil/document/method.scompil";
+import "compil/document/operator.scompil";
+import "compil/document/name.scompil";
+import "compil/document/package.scompil";
+import "compil/document/parameter.scompil";
+import "compil/document/reference.scompil";
+import "compil/document/specimen.scompil";
+import "compil/document/structure.scompil";
+import "compil/document/type.scompil";
+import "compil/document/unary_container.scompil";
+import "compil/document/unary_template.scompil";
+import "compil/document/upcopy.scompil";
 
 package lang.compil;
 
-structure File 
-    inherit Object
+hierarchy factory<Object> ObjectFactory
 {
-    runtime identification;
-    
-    vector< reference<Comment> > comments = optional;
-    Version version;
 }
+

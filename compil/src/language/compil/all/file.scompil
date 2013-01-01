@@ -32,14 +32,16 @@
 
 compil { }
 
-import "compil/document/object.scompil";
+import "compil/all/comment.scompil";
+import "compil/all/version.scompil";
 
 package lang.compil;
 
-structure Version 
+structure File 
     inherit Object
 {
     runtime identification;
     
-    integer number;
+    vector< reference<Comment> > comments = optional;
+    Version version;
 }

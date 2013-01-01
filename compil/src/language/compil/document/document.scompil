@@ -32,9 +32,7 @@
 
 compil { }
 
-import "compil/document/object.scompil";
-import "compil/document/comment.scompil";
-import "compil/document/version.scompil";
+import "compil/all/file.scompil";
 
 package lang.compil;
 
@@ -44,6 +42,5 @@ structure Document
 {
     runtime identification;
     
-    vector< reference<Comment> > comments = optional;
-    Version version;
+    reference<File> mainFile;
 }

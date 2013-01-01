@@ -32,12 +32,11 @@
 
 compil { }
 
-import "compil/document/object.scompil";
 import "compil/document/structure.scompil";
-import "compil/document/comment.scompil";
 import "compil/document/name.scompil";
 import "compil/document/type.scompil";
 import "compil/document/default_value.scompil";
+import "compil/all/comment.scompil";
 
 package lang.compil;
 

@@ -32,16 +32,18 @@
 
 compil { }
 
-import "compil/document/source_id.scompil";
+import "compil/document/object.scompil";
+import "compil/document/comment.scompil";
+import "compil/document/version.scompil";
 
 package lang.compil;
 
-sharable
-structure Object
+partial
+structure Document 
+    inherit Object
 {
     runtime identification;
-
-    reference<SourceId> sourceId;
-    integer line = -1;
-    integer column = -1;
+    
+    vector< reference<Comment> > comments = optional;
+    Version version;
 }
