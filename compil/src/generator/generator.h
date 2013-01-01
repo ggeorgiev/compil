@@ -46,7 +46,7 @@
 
 #include "configuration_manager.h"
 
-#include "model.h"
+#include "compil/document/document.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -70,7 +70,7 @@ public:
               const CppFormatterPtr& pFormatter,
               const CppImplementerPtr& pImplementer,
 		      const boost::shared_ptr<std::ostream>& pOutput,
-		      const ModelPtr& pModel);
+		      const DocumentSPtr& document);
               
     std::vector<Dependency> getCoreDependencies() const;
 
@@ -111,7 +111,7 @@ protected:
     CppImplementerPtr impl;
     AlignerConfigurationPtr mpAlignerConfiguration;
 
-    ModelPtr mpModel;
+    DocumentSPtr mDocument;
     std::vector<boost::shared_ptr<std::stringstream> > mStreams;
     
     std::vector<Dependency> dependencies;

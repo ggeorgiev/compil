@@ -52,7 +52,7 @@ public:
     
     virtual bool generate();
     
-    virtual void generateDocument(const DocumentSPtr& pDocument);
+    virtual void generateFile(const FileSPtr& file);
     
     virtual void generateImport(const ImportSPtr& pImport);
     

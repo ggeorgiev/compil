@@ -32,7 +32,7 @@
 
 #include "c++_h_generator.h"
 
-#include "compil/object_factory.h"
+#include "compil/document/object_factory.h"
 
 #include <boost/foreach.hpp>
 
@@ -444,9 +444,9 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
     commentInTable("static methods for enum class objects");
 
     if (pEnumeration->flags())
-        generateEnumerationValueDeclaration(Model::nilEnumerationValue(pEnumeration));
+        generateEnumerationValueDeclaration(Document::nilEnumerationValue(pEnumeration));
     else
-        generateEnumerationValueDeclaration(Model::invalidEnumerationValue(pEnumeration));
+        generateEnumerationValueDeclaration(Document::invalidEnumerationValue(pEnumeration));
 
     const std::vector<EnumerationValueSPtr>& enumerationValues = pEnumeration->enumerationValues();
     std::vector<EnumerationValueSPtr>::const_iterator it;
@@ -455,7 +455,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
         generateEnumerationValueDeclaration(*it);
     }
     if (pEnumeration->flags())
-        generateEnumerationValueDeclaration(Model::allEnumerationValue(pEnumeration));
+        generateEnumerationValueDeclaration(Document::allEnumerationValue(pEnumeration));
 
     eot(declarationStream);
     eol(declarationStream);
@@ -466,13 +466,13 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
     openBlock(declarationStream);
 
     if (pEnumeration->flags())
-        generateEnumerationValueConstDeclaration(Model::nilEnumerationValue(pEnumeration));
+        generateEnumerationValueConstDeclaration(Document::nilEnumerationValue(pEnumeration));
     else
-        generateEnumerationValueConstDeclaration(Model::invalidEnumerationValue(pEnumeration));
+        generateEnumerationValueConstDeclaration(Document::invalidEnumerationValue(pEnumeration));
     for (it = enumerationValues.begin(); it != enumerationValues.end(); ++it)
         generateEnumerationValueConstDeclaration(*it);
     if (pEnumeration->flags())
-        generateEnumerationValueConstDeclaration(Model::allEnumerationValue(pEnumeration));
+        generateEnumerationValueConstDeclaration(Document::allEnumerationValue(pEnumeration));
 
     eot(declarationStream);
     closeBlock(declarationStream, "};");
@@ -692,7 +692,7 @@ void CppHeaderGenerator::generateHierarchyFactoryDeclaration(const FactorySPtr& 
 
     StructureSPtr pParameterStructure = ObjectFactory::downcastStructure(pParameterType);
 
-    EnumerationSPtr pEnumeration = impl->objectEnumeration(mpModel, pFactory);
+    EnumerationSPtr pEnumeration = impl->objectEnumeration(mDocument, pFactory);
     generateEnumerationDeclaration(pEnumeration);
 
     line()  << "class "
@@ -717,7 +717,7 @@ void CppHeaderGenerator::generateHierarchyFactoryDeclaration(const FactorySPtr& 
                 << ";";
     }
 
-    std::vector<StructureSPtr> structs = impl->hierarchie(mpModel,
+    std::vector<StructureSPtr> structs = impl->hierarchie(mDocument,
                                                           pParameterStructure,
                                                           &Structure::hasRuntimeIdentification);
 
@@ -1167,7 +1167,7 @@ void CppHeaderGenerator::generateStructureInprocIdentificationMethodsDeclaration
 
     if (!pStructure->abstract())
     {
-        std::vector<FactorySPtr> factories = mpModel->findPluginFactories(pStructure);
+        std::vector<FactorySPtr> factories = mDocument->findPluginFactories(pStructure);
         for (std::vector<FactorySPtr>::iterator it = factories.begin(); it != factories.end(); ++it)
         {
             const FactorySPtr& factory = *it;
@@ -2237,7 +2237,7 @@ void CppHeaderGenerator::generateObjectDeclaration(const ObjectSPtr& pObject)
 
 bool CppHeaderGenerator::generate()
 {
-    std::vector<CommentSPtr> vComments = mpModel->mainDocument()->comments();
+    std::vector<CommentSPtr> vComments = mDocument->mainFile()->comments();
     std::vector<CommentSPtr>::iterator cit;
     for (cit = vComments.begin(); cit != vComments.end(); ++cit)
     {
@@ -2245,7 +2245,7 @@ bool CppHeaderGenerator::generate()
         eol(copyrightStream);
     }
 
-    std::string guard = frm->headerGuard(mpModel->mainDocument(), mType);
+    std::string guard = frm->headerGuard(mDocument->mainFile(), mType);
     line()  << "#else // "
             << guard;
     eol(forwardDeclarationStream);
@@ -2257,17 +2257,17 @@ bool CppHeaderGenerator::generate()
     commentInLine(forwardDeclarationStream, "Forward declarations");
 
     if (mType == "partial")
-        addDependency(impl->cppHeaderFileDependency(mpModel->name()->value() + "-partial",
-                                                    mpModel->package()));
+        addDependency(impl->cppHeaderFileDependency(mDocument->name()->value() + "-partial",
+                                                    mDocument->package()));
     else
-        addDependency(impl->cppHeaderFileDependency(mpModel->name()->value(),
-                                                    mpModel->package()));
+        addDependency(impl->cppHeaderFileDependency(mDocument->name()->value(),
+                                                    mDocument->package()));
 
-    const std::vector<ObjectSPtr>& objects = mpModel->objects();
+    const std::vector<ObjectSPtr>& objects = mDocument->objects();
     std::vector<ObjectSPtr>::const_iterator it;
     for (it = objects.begin(); it != objects.end(); ++it)
     {
-		if ((*it)->sourceId() != mpModel->mainDocument()->sourceId())
+		if ((*it)->sourceId() != mDocument->mainFile()->sourceId())
 			continue;
 
         generateObjectDeclaration(*it);

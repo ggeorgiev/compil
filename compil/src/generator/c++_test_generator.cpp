@@ -204,8 +204,8 @@ void CppTestGenerator::generateObjectDeclaration(const ObjectSPtr& pObject)
 
 bool CppTestGenerator::generate()
 {
-    addDependency(impl->cppHeaderFileDependency(mpModel->name()->value(),
-                                                mpModel->package()));
+    addDependency(impl->cppHeaderFileDependency(mDocument->name()->value(),
+                                                mDocument->package()));
                                                 
     addDependency(Dependency("gtest/gtest.h",
                              Dependency::system_type,
@@ -221,11 +221,11 @@ bool CppTestGenerator::generate()
                              
     includeHeaders(mainStream, Dependency::private_section);
     
-    const std::vector<ObjectSPtr>& objects = mpModel->objects();
+    const std::vector<ObjectSPtr>& objects = mDocument->objects();
     std::vector<ObjectSPtr>::const_iterator it;
     for (it = objects.begin(); it != objects.end(); ++it)
     {
-		if ((*it)->sourceId() != mpModel->mainDocument()->sourceId())
+		if ((*it)->sourceId() != mDocument->mainFile()->sourceId())
 			continue;
 
         generateObjectDeclaration(*it);

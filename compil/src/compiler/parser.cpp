@@ -35,6 +35,7 @@
 #include "structure_fields_validator.h"
 #include "structure_sharable_validator.h"
 
+#include <boost/make_shared.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/foreach.hpp>
 
@@ -63,31 +64,31 @@ Parser::Parser()
     {
         bInit = true;
 
-        Model model;
+        Document document;
         std::vector<PackageElement> package_elements;
         pParameterTypeEnumerationValidator->addAcceptableType(
-            model.findType(PackageSPtr(), package_elements, "small"));
+            document.findType(PackageSPtr(), package_elements, "small"));
         pParameterTypeEnumerationValidator->addAcceptableType(
-            model.findType(PackageSPtr(), package_elements, "short"));
+            document.findType(PackageSPtr(), package_elements, "short"));
         pParameterTypeEnumerationValidator->addAcceptableType(
-            model.findType(PackageSPtr(), package_elements, "integer"));
+            document.findType(PackageSPtr(), package_elements, "integer"));
 
         pParameterTypeIdentifierValidator->addAcceptableType(
-            model.findType(PackageSPtr(), package_elements, "small"));
+            document.findType(PackageSPtr(), package_elements, "small"));
         pParameterTypeIdentifierValidator->addAcceptableType(
-            model.findType(PackageSPtr(), package_elements, "short"));
+            document.findType(PackageSPtr(), package_elements, "short"));
         pParameterTypeIdentifierValidator->addAcceptableType(
-            model.findType(PackageSPtr(), package_elements, "integer"));
+            document.findType(PackageSPtr(), package_elements, "integer"));
         pParameterTypeIdentifierValidator->addAcceptableType(
-            model.findType(PackageSPtr(), package_elements, "long"));
+            document.findType(PackageSPtr(), package_elements, "long"));
         pParameterTypeIdentifierValidator->addAcceptableType(
-            model.findType(PackageSPtr(), package_elements, "byte"));
+            document.findType(PackageSPtr(), package_elements, "byte"));
         pParameterTypeIdentifierValidator->addAcceptableType(
-            model.findType(PackageSPtr(), package_elements, "word"));
+            document.findType(PackageSPtr(), package_elements, "word"));
         pParameterTypeIdentifierValidator->addAcceptableType(
-            model.findType(PackageSPtr(), package_elements, "dword"));
+            document.findType(PackageSPtr(), package_elements, "dword"));
         pParameterTypeIdentifierValidator->addAcceptableType(
-            model.findType(PackageSPtr(), package_elements, "qword"));
+            document.findType(PackageSPtr(), package_elements, "qword"));
     }
 
     addValidator(pParameterTypeEnumerationValidator);
@@ -333,9 +334,9 @@ bool Parser::parseParameterType(InitTypeMethod initTypeMethod,
         if (pType) pStructure = ObjectFactory::downcastStructure(pType);
 
         if (pStructure)
-            pType = mpModel->findType(mpPackage, package_elements, pStructure->objects(), defaultTypeName);
+            pType = mDocument->findType(mpPackage, package_elements, pStructure->objects(), defaultTypeName);
         else
-            pType = mpModel->findType(mpPackage, package_elements, defaultTypeName);
+            pType = mDocument->findType(mpPackage, package_elements, defaultTypeName);
 
         if (!pType)
         {
@@ -366,7 +367,7 @@ bool Parser::parseParameterType(InitTypeMethod initTypeMethod,
 
     skipComments();
 
-    UnaryTemplateSPtr pUnaryTemplate = mpModel->findUnfinishedUnaryTemplate(pNameToken->text());
+    UnaryTemplateSPtr pUnaryTemplate = mDocument->findUnfinishedUnaryTemplate(pNameToken->text());
     if (pUnaryTemplate)
     {
         UnaryTemplateSPtr pUnaryTemplateClone =
@@ -374,7 +375,7 @@ bool Parser::parseParameterType(InitTypeMethod initTypeMethod,
 
         parseParameterType(boost::bind(&UnaryTemplate::set_parameterType, pUnaryTemplateClone, _1));
 
-        mpModel->cache(pUnaryTemplateClone);
+        mDocument->cache(pUnaryTemplateClone);
         pType = pUnaryTemplateClone;
 
         ReferenceSPtr pReference = ObjectFactory::downcastReference(pType);
@@ -383,7 +384,7 @@ bool Parser::parseParameterType(InitTypeMethod initTypeMethod,
     }
     else
     {
-        pType = mpModel->findType(mpPackage, package_elements, pNameToken->text());
+        pType = mDocument->findType(mpPackage, package_elements, pNameToken->text());
     }
 
     if (!expect(Token::TYPE_ANGLE_BRACKET, ">"))
@@ -701,7 +702,7 @@ SpecimenSPtr Parser::parseSpecimen(const CommentSPtr& pComment)
 
         skipComments();
 
-        TypeSPtr pType = mpModel->findType(mpPackage, package_elements, pTypeNameToken->text());
+        TypeSPtr pType = mDocument->findType(mpPackage, package_elements, pTypeNameToken->text());
         if (!pType)
         {
             *this << (errorMessage(Message::p_unknownClassifierType,
@@ -963,7 +964,7 @@ FieldSPtr Parser::parseField(const CommentSPtr& pComment,
     skipComments();
 
     TypeSPtr pType;
-    UnaryTemplateSPtr pUnaryTemplate = mpModel->findUnfinishedUnaryTemplate(pTypeNameToken->text());
+    UnaryTemplateSPtr pUnaryTemplate = mDocument->findUnfinishedUnaryTemplate(pTypeNameToken->text());
     if (pUnaryTemplate)
     {
         UnaryTemplateSPtr pUnaryTemplateClone =
@@ -983,7 +984,7 @@ FieldSPtr Parser::parseField(const CommentSPtr& pComment,
     }
     else
     {
-        pType = mpModel->findType(mpPackage, package_elements, structureObjects, pTypeNameToken->text());
+        pType = mDocument->findType(mpPackage, package_elements, structureObjects, pTypeNameToken->text());
     }
 
     if (pType)
@@ -1163,7 +1164,7 @@ UpcopySPtr Parser::parseUpcopy(const CommentSPtr& pComment,
     if (!parseType(package_elements, pTypeNameToken))
         return UpcopySPtr();
 
-    TypeSPtr pType = mpModel->findType(mpPackage, package_elements, pTypeNameToken->text());
+    TypeSPtr pType = mDocument->findType(mpPackage, package_elements, pTypeNameToken->text());
     if (!pType)
     {
         *this << (errorMessage(Message::p_unknownClassifierType,
@@ -1336,7 +1337,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
 
         skipComments();
 
-        TypeSPtr pType = mpModel->findType(mpPackage, package_elements, pTypeNameToken->text());
+        TypeSPtr pType = mDocument->findType(mpPackage, package_elements, pTypeNameToken->text());
         if (!pType)
         {
             *this << (errorMessage(Message::p_unknownClassifierType,
@@ -1653,7 +1654,7 @@ ParameterSPtr Parser::parseParameter(const CommentSPtr pComment)
     }
 
     std::vector<PackageElement> package_elements;
-    TypeSPtr pType = mpModel->findType(mpPackage, package_elements, mpTokenizer->current()->text());
+    TypeSPtr pType = mDocument->findType(mpPackage, package_elements, mpTokenizer->current()->text());
     if (!pType)
     {
         *this << (errorMessage(Message::p_unknownClassifierType)
@@ -1941,7 +1942,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
         pStreamable.reset();
         if (pStructure)
         {
-            mpModel->addStructure(pStructure);
+            mDocument->addStructure(pStructure);
             lateTypeResolve(pStructure);
         }
     }
@@ -1950,7 +1951,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
     {
         InterfaceSPtr pInterface = parseInterface(pComment);
         if (pInterface)
-            mpModel->addInterface(pInterface);
+            mDocument->addInterface(pInterface);
     }
     else
     if (check(Token::TYPE_IDENTIFIER, "enum"))
@@ -1959,7 +1960,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
         pCast.reset();
         pFlags.reset();
         if (pEnumeration)
-            mpModel->addEnumeration(pEnumeration);
+            mDocument->addEnumeration(pEnumeration);
     }
     else
     if (check(Token::TYPE_IDENTIFIER, "specimen"))
@@ -1967,7 +1968,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
         SpecimenSPtr pSpecimen = parseSpecimen(pComment);
         if (pSpecimen)
         {
-            mpModel->addSpecimen(pSpecimen);
+            mDocument->addSpecimen(pSpecimen);
         }
     }
     else
@@ -1976,7 +1977,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
         IdentifierSPtr pIdentifier = parseIdentifier(pComment, pCast);
         pCast.reset();
         if (pIdentifier)
-            mpModel->addIdentifier(pIdentifier);
+            mDocument->addIdentifier(pIdentifier);
     }
     else
     if (check(Token::TYPE_IDENTIFIER, "factory"))
@@ -1985,7 +1986,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
         pFunctionType.reset();
         pFactoryType.reset();
         if (pFactory)
-            mpModel->addFactory(pFactory);
+            mDocument->addFactory(pFactory);
     }
     else
     {
@@ -2012,7 +2013,7 @@ bool Parser::parseImport()
     ImportSPtr pImport(new Import());
     initilizeObject(pImport);
 
-    assert(check(Token::TYPE_IDENTIFIER, "import") || check(Token::TYPE_IDENTIFIER, "_import_"));
+    assert(check(Token::TYPE_IDENTIFIER, "import"));
 
     TokenPtr pImportToken = mpTokenizer->current();
 
@@ -2032,7 +2033,7 @@ bool Parser::parseImport()
         return false;
     }
 
-    mpModel->addImport(pImport);
+    mDocument->addImport(pImport);
 
     if (!mpSourceProvider)
     {
@@ -2074,7 +2075,7 @@ bool Parser::parseImport()
     }
 
     Parser parser(*this);
-    if (!parser.parse(pSourceId, pStream, mpModel))
+    if (!parser.parse(pSourceId, pStream, mDocument))
         return false;
 
     mLateTypeResolve.insert(mLateTypeResolve.end(), parser.mLateTypeResolve.begin(), parser.mLateTypeResolve.end());
@@ -2082,29 +2083,28 @@ bool Parser::parseImport()
     return true;
 }
 
-DocumentSPtr Parser::parseDocument()
+FileSPtr Parser::parseFile()
 {
-    DocumentSPtr pDocument;
-    pDocument.reset(new Document());
+    FileSPtr file = boost::make_shared<File>();
 
     CommentSPtr pComment = parseComment();
     while (pComment)
     {
-        pDocument->mutable_comments().push_back(pComment);
+        file->mutable_comments().push_back(pComment);
         pComment = parseComment();
     }
 
     if (!check(Token::TYPE_IDENTIFIER, "compil"))
-        return DocumentSPtr();
+        return FileSPtr();
 
-    initilizeObject(pDocument);
+    initilizeObject(file);
 
     mpTokenizer->shift();
     if (!expect(Token::TYPE_BRACKET, "{"))
     {
         *this << (errorMessage(Message::p_expectStatementBody)
                     << Message::Statement("compil"));
-        return DocumentSPtr();
+        return FileSPtr();
     }
 
     mpTokenizer->shift();
@@ -2114,12 +2114,12 @@ DocumentSPtr Parser::parseDocument()
     {
         *this << (errorMessage(Message::p_unexpectEOFInStatementBody)
                     << Message::Statement("compil"));
-        return DocumentSPtr();
+        return FileSPtr();
     }
 
     mpTokenizer->shift();
 
-    return pDocument;
+    return file;
 }
 
 void Parser::addValidator(const ValidatorPtr& pValidator)
@@ -2127,20 +2127,20 @@ void Parser::addValidator(const ValidatorPtr& pValidator)
     mvValidator.push_back(pValidator);
 }
 
-bool Parser::parse(const StreamPtr& pInput, const ModelPtr& pModel)
+bool Parser::parse(const StreamPtr& pInput, const DocumentSPtr& document)
 {
-    mpModel = pModel;
+    mDocument = document;
     mpTokenizer.reset(new Tokenizer(mpMessageCollector, mpSourceId, pInput));
 
-    DocumentSPtr pDocument = parseDocument();
-    if (!pDocument)
+    FileSPtr file = parseFile();
+    if (!file)
         return false;
 
-    if (!mpModel->mainDocument())
-        mpModel->setMainDocument(pDocument);
+    if (!mDocument->mainFile())
+        mDocument->setMainFile(file);
 
     CommentSPtr pStatementComment = lastComment();
-    while (check(Token::TYPE_IDENTIFIER, "import") || check(Token::TYPE_IDENTIFIER, "_import_"))
+    while (check(Token::TYPE_IDENTIFIER, "import"))
     {
         if (!parseImport())
             return false;
@@ -2153,8 +2153,8 @@ bool Parser::parse(const StreamPtr& pInput, const ModelPtr& pModel)
         mpPackage = parsePackage();
         if (!mpPackage)
             return false;
-        if (mpModel->mainDocument() == pDocument)
-            mpModel->setPackage(mpPackage);
+        if (mDocument->mainFile() == file)
+            mDocument->setPackage(mpPackage);
 
         mpTokenizer->shift();
         pStatementComment = lastComment();
@@ -2173,7 +2173,7 @@ bool Parser::parse(const StreamPtr& pInput, const ModelPtr& pModel)
         pStatementComment = lastComment();
     }
 
-    if (mpModel->mainDocument() == pDocument)
+    if (mDocument->mainFile() == file)
     {
 
         std::vector<LateTypeResolveInfo>::iterator it;
@@ -2188,7 +2188,7 @@ bool Parser::parse(const StreamPtr& pInput, const ModelPtr& pModel)
         if (mpMessageCollector->severity() > Message::SEVERITY_WARNING)
             return false;
 
-        if (!validate(mpModel))
+        if (!validate(mDocument))
             return false;
     }
     return true;
@@ -2196,19 +2196,19 @@ bool Parser::parse(const StreamPtr& pInput, const ModelPtr& pModel)
 
 bool Parser::parse(const SourceIdSPtr& pSourceId,
                    const StreamPtr& pInput,
-                   const ModelPtr& pModel)
+                   const DocumentSPtr& document)
 {
     assert(pSourceId);
     mpSourceId = pSourceId;
     mpSources->insert(
         std::map<std::string, SourceIdSPtr>::value_type(pSourceId->value(), mpSourceId));
 
-    return parse(pInput, pModel);
+    return parse(pInput, document);
 }
 
 bool Parser::parse(const ISourceProviderPtr& pSourceProvider,
                    const SourceIdSPtr& pSourceId,
-                   const ModelPtr& pModel)
+                   const DocumentSPtr& document)
 
 {
     mpSourceProvider = pSourceProvider;
@@ -2219,7 +2219,7 @@ bool Parser::parse(const ISourceProviderPtr& pSourceProvider,
         *this << Message(Message::SEVERITY_ERROR, Message::p_openSourceFailed, mpSourceId, 1, 0);
         return false;
     }
-    return parse(pSourceId, pStream, pModel);
+    return parse(pSourceId, pStream, document);
 }
 
 
@@ -2343,7 +2343,7 @@ void Parser::initilizeObject(ObjectSPtr pObject, const TokenPtr& pToken)
     pObject->set_column(token->beginColumn());
 }
 
-bool Parser::validate(const ModelPtr& )
+bool Parser::validate(const DocumentSPtr&)
 {
     return true;
 }

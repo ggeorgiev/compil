@@ -5,8 +5,8 @@ gtest-defines ;
 
 project compiler
     : requirements 
+        <include>.
         <include>configuration
-        <include>model
         <include>message
         <include>validator
         <include>$(TOP)/core/c++
@@ -19,8 +19,6 @@ lib compiler
   
     configuration/configuration.cpp
     configuration/configuration_manager.cpp
-
-    model/model.cpp
 
     message/message.cpp
     message/message_collector.cpp
@@ -47,16 +45,15 @@ lib compiler
   :
     <include>.
     <include>configuration
-    <include>model
     <include>message
     <include>validator
     <include>$(TOP)/core/c++
   ;
     
-gtest compiler
-  :
-    [ glob-tree *_unittest.cpp ]
-    compiler
-  :
-    <implicit-dependency>$(TOP)/language//language
-  ;
+#gtest compiler
+#  :
+#    [ glob-tree *_unittest.cpp ]
+#    compiler
+#  :
+#    <implicit-dependency>$(TOP)/language//language
+#  ;

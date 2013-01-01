@@ -103,48 +103,50 @@ lib language
     c++/test/test_suite.scompil
     c++/test/test_suite_name.scompil
     
-    compil/alter.scompil
-    compil/castable_type.scompil
-    compil/comment.scompil
-    compil/default_value.scompil
-    compil/document.scompil
-    compil/enumeration.cpp
-    compil/enumeration_value.scompil
-    compil/factory.cpp
-    compil/field.scompil
-    compil/field_override.scompil
-    compil/filter.scompil
-    compil/identification.scompil
-    compil/identifier.scompil
-    compil/import.scompil
-    compil/integer.cpp
-    compil/interface.scompil
-    compil/method.scompil
-    compil/name.scompil
-    compil/object_factory.scompil
-    compil/object.scompil
-    compil/operator.scompil
-    compil/package_element.scompil
-    compil/package.scompil
-    compil/parameter.scompil
-    compil/reference.scompil
-    compil/source_id.scompil
-    compil/specimen.cpp
-    compil/structure.cpp
-    compil/type.cpp
-    compil/unary_container.scompil
-    compil/unary_template.scompil
-    compil/upcopy.scompil
-    compil/version.scompil
+    compil/document/alter.scompil
+    compil/document/castable_type.scompil
+    compil/document/comment.scompil
+    compil/document/default_value.scompil
+    compil/document/document.cpp
+    compil/document/enumeration.cpp
+    compil/document/enumeration_value.scompil
+    compil/document/factory.cpp
+    compil/document/field.scompil
+    compil/document/field_override.scompil
+    compil/document/file.scompil
+    compil/document/filter.scompil
+    compil/document/identification.scompil
+    compil/document/identifier.scompil
+    compil/document/import.scompil
+    compil/document/integer.cpp
+    compil/document/interface.scompil
+    compil/document/method.scompil
+    compil/document/name.scompil
+    compil/document/object_factory.scompil
+    compil/document/object.scompil
+    compil/document/operator.scompil
+    compil/document/package_element.scompil
+    compil/document/package.scompil
+    compil/document/parameter.scompil
+    compil/document/reference.scompil
+    compil/document/source_id.scompil
+    compil/document/specimen.cpp
+    compil/document/structure.cpp
+    compil/document/type.cpp
+    compil/document/unary_container.scompil
+    compil/document/unary_template.scompil
+    compil/document/upcopy.scompil
+    compil/document/version.scompil
 
     [ convert _ cpp
       :
-        compil/enumeration.scompil
-        compil/factory.scompil
-        compil/integer.scompil
-        compil/specimen.scompil
-        compil/structure.scompil
-        compil/type.scompil
+        compil/document/document.scompil
+        compil/document/enumeration.scompil
+        compil/document/factory.scompil
+        compil/document/integer.scompil
+        compil/document/specimen.scompil
+        compil/document/structure.scompil
+        compil/document/type.scompil
       :
         <compil-stable-type>partial
     ]

@@ -8,7 +8,6 @@
 #include "aligner_configuration.h"
 #include "formatter_configuration.h"
 #include "parser.h"
-#include "model.h"
 
 #include "partial_validator.h"
 
@@ -114,7 +113,7 @@ int main(int argc, const char **argv)
     compil::ParserPtr pParser(new compil::Parser());
     pParser->addValidator(pPartialValidator);
 
-    compil::ModelPtr pModel(new compil::Model());
+    compil::DocumentSPtr document(new compil::Document());
     {
         compil::SourceId::Builder builder;
         compil::FileSourceProvider::fillSourceFields(input_file_path.generic_string(), builder);
@@ -124,15 +123,15 @@ int main(int argc, const char **argv)
         compil::NameSPtr pName(new compil::Name());
         pName->set_value(input_file_path.stem().string());
         pName->set_sourceId(pSourceId);
-		pModel->setName(pName);
+		document->setName(pName);
 
-		bool bResult = pParser->parse(pFileSourceProvider, pSourceId, pModel);
+		bool bResult = pParser->parse(pFileSourceProvider, pSourceId, document);
         if (!bResult)
             return 1;
     }
 
     compil::CppFormatterPtr pFormatter = boost::make_shared<compil::CppFormatter>
-        (pConfigurationManager->getConfiguration<FormatterConfiguration>(), pModel->package());
+        (pConfigurationManager->getConfiguration<FormatterConfiguration>(), document->package());
     compil::CppImplementerPtr pImplementer = boost::make_shared<compil::CppImplementer>
         (pConfigurationManager->getConfiguration<ImplementerConfiguration>(), pFormatter);
 
@@ -148,7 +147,7 @@ int main(int argc, const char **argv)
     {
         {
             boost::filesystem::path cpp_output = output;
-            cpp_output /= pModel->name()->value() + pImplementer->applicationExtension();
+            cpp_output /= document->name()->value() + pImplementer->applicationExtension();
 
             boost::shared_ptr<std::ostream> pOutput = openStream(cpp_output);
 
@@ -158,7 +157,7 @@ int main(int argc, const char **argv)
                                           pFormatter,
                                           pImplementer,
                                           pOutput,
-                                          pModel);
+                                          document);
             if (bResult) generator.generate();
 
             closeStream(pOutput);
@@ -171,7 +170,7 @@ int main(int argc, const char **argv)
         }
         {
             boost::filesystem::path cpp_h_output = output;
-            cpp_h_output /= pModel->name()->value() + pImplementer->applicationHeaderExtension();
+            cpp_h_output /= document->name()->value() + pImplementer->applicationHeaderExtension();
 
             boost::shared_ptr<std::ostream> pOutput = openStream(cpp_h_output);
 
@@ -181,7 +180,7 @@ int main(int argc, const char **argv)
                                           pFormatter,
                                           pImplementer,
                                           pOutput,
-                                          pModel);
+                                          document);
             if (bResult) generator.generate();
 
             closeStream(pOutput);
@@ -199,7 +198,7 @@ int main(int argc, const char **argv)
     {
         {
             boost::filesystem::path cpp_output = output;
-            cpp_output /= pModel->name()->value() + "-partial" + pImplementer->applicationExtension();
+            cpp_output /= document->name()->value() + "-partial" + pImplementer->applicationExtension();
 
             boost::shared_ptr<std::ostream> pOutput = openStream(cpp_output);
 
@@ -209,7 +208,7 @@ int main(int argc, const char **argv)
                                           pFormatter,
                                           pImplementer,
                                           pOutput,
-                                          pModel);
+                                          document);
             if (bResult) generator.generate();
 
             closeStream(pOutput);
@@ -222,7 +221,7 @@ int main(int argc, const char **argv)
         }
         {
             boost::filesystem::path cpp_h_output = output;
-            cpp_h_output /= pModel->name()->value() + "-partial" + pImplementer->applicationHeaderExtension();
+            cpp_h_output /= document->name()->value() + "-partial" + pImplementer->applicationHeaderExtension();
 
             boost::shared_ptr<std::ostream> pOutput = openStream(cpp_h_output);
 
@@ -232,7 +231,7 @@ int main(int argc, const char **argv)
                                           pFormatter,
                                           pImplementer,
                                           pOutput,
-                                          pModel);
+                                          document);
             if (bResult) generator.generate();
 
             closeStream(pOutput);
@@ -249,7 +248,7 @@ int main(int argc, const char **argv)
     {
         {
             boost::filesystem::path cpp_output = output;
-            cpp_output /= pModel->name()->value() + "-test" + pImplementer->applicationExtension();
+            cpp_output /= document->name()->value() + "-test" + pImplementer->applicationExtension();
 
             boost::shared_ptr<std::ostream> pOutput = openStream(cpp_output);
 
@@ -259,7 +258,7 @@ int main(int argc, const char **argv)
                                           pFormatter,
                                           pImplementer,
                                           pOutput,
-                                          pModel);
+                                          document);
             if (bResult) generator.generate();
 
             closeStream(pOutput);
@@ -293,7 +292,7 @@ int main(int argc, const char **argv)
                                       pFormatter,
                                       pImplementer,
                                       pOutput,
-                                      pModel);
+                                      document);
         if (bResult) generator.generate();
 
         closeStream(pOutput);

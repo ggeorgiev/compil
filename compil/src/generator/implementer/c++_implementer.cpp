@@ -33,7 +33,7 @@
 #include "implementer/c++_implementer.h"
 #include "aligner.h"
 
-#include "compil/object_factory.h"
+#include "compil/document/object_factory.h"
 
 #include "boost/filesystem.hpp"
 #include "boost/algorithm/string.hpp"
@@ -621,13 +621,13 @@ bool CppImplementer::alphabeticByName(const StructureSPtr& pStructure1, const St
     return pStructure1->name()->value() < pStructure2->name()->value();
 }
 
-std::vector<StructureSPtr> CppImplementer::hierarchie(const ModelPtr& pModel,
+std::vector<StructureSPtr> CppImplementer::hierarchie(const DocumentSPtr& document,
                                                       const StructureSPtr& pBaseStructure,
                                                       if_predicate if_pred,
                                                       less_predicate less_pred)
 {
     std::vector<StructureSPtr> hierarchie;
-    const std::vector<ObjectSPtr>& objects = pModel->objects();
+    const std::vector<ObjectSPtr>& objects = document->objects();
     std::vector<ObjectSPtr>::const_iterator it;
     for (it = objects.begin(); it != objects.end(); ++it)
     {
@@ -686,16 +686,16 @@ cpp::frm::MethodNameSPtr CppImplementer::runtimeIdentificationMethodName(const S
     return runtimeMethodName(identificationName(pStructure));
 }
 
-EnumerationSPtr CppImplementer::objectEnumeration(const ModelPtr& pModel, const FactorySPtr& pFactory)
+EnumerationSPtr CppImplementer::objectEnumeration(const DocumentSPtr& document, const FactorySPtr& pFactory)
 {
     std::vector<StructureSPtr> structs =
-        hierarchie(pModel,
+        hierarchie(document,
                    ObjectFactory::downcastStructure(pFactory->parameterType().lock()),
                    &Structure::hasRuntimeIdentification);
-    return objectEnumeration(pModel, structs, pFactory);
+    return objectEnumeration(document, structs, pFactory);
 }
 
-EnumerationSPtr CppImplementer::objectEnumeration(const ModelPtr& pModel,
+EnumerationSPtr CppImplementer::objectEnumeration(const DocumentSPtr& document,
                                                   const std::vector<StructureSPtr>& structs,
                                                   const FactorySPtr& pFactory)
 {
@@ -711,7 +711,7 @@ EnumerationSPtr CppImplementer::objectEnumeration(const ModelPtr& pModel,
     pEnumeration->set_flags(false);
 
     std::vector<PackageElement> package_elements;
-    pEnumeration->set_parameterType(pModel->findType(PackageSPtr(), package_elements, "integer"));
+    pEnumeration->set_parameterType(document->findType(PackageSPtr(), package_elements, "integer"));
 
     NameSPtr pName(new Name());
     pName->set_sourceId(pSourceId);

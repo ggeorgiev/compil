@@ -41,9 +41,8 @@
 #include "cpp/format/method_specifier.h"
 
 #include "c++_formatter.h"
-#include "model.h"
 
-#include "compil/factory.h"
+#include "compil/document/object_factory.h"
 
 namespace compil
 {
@@ -99,7 +98,7 @@ public:
     
     typedef bool (*if_predicate)(const StructureSPtr& pStructure);
     typedef bool (*less_predicate)(const StructureSPtr& pStructure1, const StructureSPtr& pStructure2);
-    virtual std::vector<StructureSPtr> hierarchie(const ModelPtr& pModel, 
+    virtual std::vector<StructureSPtr> hierarchie(const DocumentSPtr& document,
                                                   const StructureSPtr& pBaseStructure,
                                                   if_predicate if_pred = NULL,
                                                   less_predicate less_pred = alphabeticByName);
@@ -112,8 +111,8 @@ public:
     virtual cpp::frm::MethodNameSPtr staticIdentificationMethodName(const StructureSPtr& pStructure);
     virtual cpp::frm::MethodNameSPtr runtimeIdentificationMethodName(const StructureSPtr& pStructure);
     
-    virtual EnumerationSPtr objectEnumeration(const ModelPtr& pModel, const FactorySPtr& pFactory);
-    virtual EnumerationSPtr objectEnumeration(const ModelPtr& pModel,
+    virtual EnumerationSPtr objectEnumeration(const DocumentSPtr& document, const FactorySPtr& pFactory);
+    virtual EnumerationSPtr objectEnumeration(const DocumentSPtr& document,
                                               const std::vector<StructureSPtr>& structs,
                                               const FactorySPtr& pFactory);
   

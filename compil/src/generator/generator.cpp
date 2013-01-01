@@ -48,12 +48,12 @@ bool Generator::init(const std::string& type,
                      const CppFormatterPtr& pFormatter,
                      const CppImplementerPtr& pImplementer,
                      const boost::shared_ptr<std::ostream>& pOutput, 
-                     const ModelPtr& pModel)
+                     const DocumentSPtr& document)
 {
     mType = type;
     
     mpOutput = pOutput;
-    mpModel = pModel;
+    mDocument = document;
     
     mpAlignerConfiguration = pAlignerConfiguration;
 
@@ -172,9 +172,9 @@ void Generator::closeBlock(int streamIndex, const char* close)
     
 void Generator::openNamespace(int streamIndex)
 {
-    if (mpModel->package())
+    if (mDocument->package())
     {
-        const std::vector<PackageElement>& elements = mpModel->package()->short_();
+        const std::vector<PackageElement>& elements = mDocument->package()->short_();
         for(std::vector<PackageElement>::const_iterator it = elements.begin(); it != elements.end(); ++it)
         {
             line() << "namespace " << it->value();
@@ -187,9 +187,9 @@ void Generator::openNamespace(int streamIndex)
 
 void Generator::closeNamespace(int streamIndex)
 {
-    if (mpModel->package())
+    if (mDocument->package())
     {
-        const std::vector<PackageElement>& elements = mpModel->package()->short_();
+        const std::vector<PackageElement>& elements = mDocument->package()->short_();
         for(std::vector<PackageElement>::const_iterator it = elements.begin(); it != elements.end(); ++it)
         {
             ++mIndent[streamIndex];

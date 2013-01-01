@@ -34,6 +34,8 @@
 #ifndef _CPP_FORMATTER_H__
 #define _CPP_FORMATTER_H__
 
+#include"namespace_alias.h"
+
 #include "formatter_configuration.h"
 #include "c++_keyword.h"
 
@@ -45,15 +47,7 @@
 #include "cpp/format/type.h"
 #include "cpp/format/variable_name.h"
 
-#include "compil/alter.h"
-#include "compil/field.h"
-#include "compil/enumeration.h"
-#include "compil/specimen.h"
-#include "compil/identifier.h"
-#include "compil/structure.h"
-#include "compil/factory.h"
-#include "compil/interface.h"
-#include "compil/document.h"
+#include "compil/document/object_factory.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -61,8 +55,6 @@
 
 namespace compil
 {
-
-using namespace lang::compil;
 
 class CppFormatter
 {
@@ -97,7 +89,7 @@ public:
     virtual std::string all_bitmask(int bits);
     
     virtual std::string headerGuard(const std::string& location, const std::string& type = "");
-    virtual std::string headerGuard(const DocumentSPtr& pDocument, const std::string& type);
+    virtual std::string headerGuard(const FileSPtr& file, const std::string& type);
     
     virtual std::string globalVariable(const std::string& variable);
     

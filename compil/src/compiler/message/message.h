@@ -34,7 +34,10 @@
 #ifndef _COMPIL_MESSAGE_H__
 #define _COMPIL_MESSAGE_H__
 
-#include "model.h"
+#include "namespace_alias.h"
+
+#include "compil/document/document.h"
+#include "compil/document/object_factory.h"
 
 #include <string>
 

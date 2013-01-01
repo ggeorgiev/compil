@@ -35,13 +35,12 @@
 
 #include "message_collector.h"
 
-#include "model.h"
 #include "tokenizer.h"
 #include "validator.h"
 
 #include "i_source_provider.h"
 
-#include "compil/document.h"
+#include "compil/document/document.h"
 
 #include "boost/function.hpp"
 #include "boost/bind.hpp"
@@ -115,21 +114,21 @@ public:
     
     void parseAnyStatement(const CommentSPtr& pComment);
     
-    DocumentSPtr parseDocument();
+    FileSPtr parseFile();
     
     void addValidator(const ValidatorPtr& pValidator);
     
     // Parse the input and construct a Descriptor from it.
     // Returns true if no errors occurred, false otherwise.
-    bool parse(const StreamPtr& pInput, const ModelPtr& pModel);
+    bool parse(const StreamPtr& pInput, const DocumentSPtr& document);
     bool parse(const SourceIdSPtr& pSourceId, 
                const StreamPtr& pInput, 
-               const ModelPtr& pModel);
+               const DocumentSPtr& document);
     void setInput(const StreamPtr& pInput);
     
     bool parse(const ISourceProviderPtr& pSourceProvider,
                const SourceIdSPtr& pSourceId,
-               const ModelPtr& pModel);
+               const DocumentSPtr& document);
     
 public:
     MessageCollectorPtr mpMessageCollector;
@@ -151,9 +150,9 @@ private:
     ISourceProviderPtr mpSourceProvider;
     boost::shared_ptr<std::map<std::string, SourceIdSPtr> > mpSources;
 
-    DocumentSPtr mpDocument;
+    FileSPtr mFile;
     TokenizerPtr mpTokenizer;
-    ModelPtr mpModel;
+    DocumentSPtr mDocument;
     std::vector<ValidatorPtr> mvValidator;
     
     Message errorMessage(const char* message, int line = -1, int column = -1);
@@ -171,7 +170,7 @@ private:
 
     void initilizeObject(ObjectSPtr pObject, const TokenPtr& pToken = TokenPtr());
 
-    bool validate(const ModelPtr& pModel);
+    bool validate(const DocumentSPtr& document);
     bool validate(const ObjectSPtr& pObject);
     
     

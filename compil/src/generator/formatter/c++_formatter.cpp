@@ -34,7 +34,7 @@
 
 #include "aligner.h"
 
-#include "compil/object_factory.h"
+#include "compil/document/object_factory.h"
 
 #include <sstream>
 
@@ -189,9 +189,9 @@ std::string CppFormatter::headerGuard(const std::string& location, const std::st
     return guard;
 }
 
-std::string CppFormatter::headerGuard(const DocumentSPtr& pDocument, const std::string& type)
+std::string CppFormatter::headerGuard(const FileSPtr& file, const std::string& type)
 {
-    return headerGuard(pDocument->sourceId()->uniquePresentation(), type);
+    return headerGuard(file->sourceId()->uniquePresentation(), type);
 }
 
 std::string CppFormatter::globalVariable(const std::string& variable)

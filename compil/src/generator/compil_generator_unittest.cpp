@@ -46,7 +46,7 @@ public:
     virtual void SetUp() 
     {
         mpParser.reset(new compil::Parser());
-        mpModel.reset(new compil::Model());
+        mDocument.reset(new compil::Document());
         mpConfigurationManager.reset(new compil::ConfigurationManager());
         mpCompilGenerator.reset(new compil::CompilGenerator());
 
@@ -54,7 +54,7 @@ public:
         mpConfigurationManager->registerConfiguration(pAlignerConfiguration);
         
         mpFormatter = boost::make_shared<compil::CppFormatter>
-            (mpConfigurationManager->getConfiguration<FormatterConfiguration>(), mpModel->package());
+            (mpConfigurationManager->getConfiguration<FormatterConfiguration>(), mDocument->package());
         mpImplementer = boost::make_shared<compil::CppImplementer>
             (mpConfigurationManager->getConfiguration<ImplementerConfiguration>(), mpFormatter);
     }
@@ -63,7 +63,7 @@ public:
     {
         std::string prefix = "compil {}\n";
         boost::shared_ptr<std::istringstream> pInput(new std::istringstream(prefix + input));
-        bool result = mpParser->parse(pInput, mpModel); 
+        bool result = mpParser->parse(pInput, mDocument);
         EXPECT_TRUE(result);
         if (!result) return false;
 
@@ -73,7 +73,7 @@ public:
                                              mpFormatter,
                                              mpImplementer, 
                                              pOutput, 
-                                             mpModel) );
+                                             mDocument) );
         EXPECT_TRUE( mpCompilGenerator->generate() );
 
         std::string compil = pOutput->str();
@@ -82,7 +82,7 @@ public:
     }
 
 protected:
-    compil::ModelPtr mpModel;
+    compil::DocumentSPtr mDocument;
     compil::ParserPtr mpParser;
     compil::ConfigurationManagerPtr mpConfigurationManager;
     

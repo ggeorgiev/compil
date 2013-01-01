@@ -1,0 +1,71 @@
+// CompIL - Component Interface Language
+// Copyright 2011 George Georgiev.  All rights reserved.
+// 
+// Redistribution and use in source and binary forms, with or without
+// modification, are permitted provided that the following conditions are
+// met:
+//
+//     * Redistributions of source code must retain the above copyright
+// notice, this list of conditions and the following disclaimer.
+//     * Redistributions in binary form must reproduce the above
+// copyright notice, this list of conditions and the following disclaimer
+// in the documentation and/or other materials provided with the
+// distribution.
+//     * The name of George Georgiev can not be used to endorse or 
+// promote products derived from this software without specific prior 
+// written permission.
+//
+// THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+// "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+// LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+// A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+// OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+// SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+// LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+// DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+// THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+// (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+// OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+
+// Author: george.georgiev@hotmail.com (George Georgiev)
+//
+
+compil { }
+
+import "compil/document/alter.scompil";
+import "compil/document/castable_type.scompil";
+import "compil/document/comment.scompil";
+import "compil/document/default_value.scompil";
+import "compil/document/document.scompil";
+import "compil/document/enumeration_value.scompil";
+import "compil/document/enumeration.scompil";
+import "compil/document/factory.scompil";
+import "compil/document/field_override.scompil";
+import "compil/document/field.scompil";
+import "compil/document/file.scompil";
+import "compil/document/identification.scompil";
+import "compil/document/identifier.scompil";
+import "compil/document/import.scompil";
+import "compil/document/integer.scompil";
+import "compil/document/interface.scompil";
+import "compil/document/method.scompil";
+import "compil/document/object.scompil";
+import "compil/document/operator.scompil";
+import "compil/document/name.scompil";
+import "compil/document/package.scompil";
+import "compil/document/parameter.scompil";
+import "compil/document/reference.scompil";
+import "compil/document/specimen.scompil";
+import "compil/document/structure.scompil";
+import "compil/document/type.scompil";
+import "compil/document/unary_container.scompil";
+import "compil/document/unary_template.scompil";
+import "compil/document/upcopy.scompil";
+import "compil/document/version.scompil";
+
+package lang.compil;
+
+hierarchy factory<Object> ObjectFactory
+{
+}
+

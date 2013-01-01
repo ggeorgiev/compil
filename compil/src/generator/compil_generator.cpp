@@ -32,7 +32,7 @@
 
 #include "compil_generator.h"
 
-#include "compil/object_factory.h"
+#include "compil/document/object_factory.h"
 
 namespace compil
 {
@@ -50,7 +50,7 @@ CompilGenerator::~CompilGenerator()
 {
 }
 
-void CompilGenerator::generateDocument(const DocumentSPtr&)
+void CompilGenerator::generateFile(const FileSPtr&)
 {
     line()  << "compil {}";
     eol(declarationStream);
@@ -364,12 +364,6 @@ void CompilGenerator::generateObject(const ObjectSPtr& pObject)
 {
     switch (pObject->runtimeObjectId().value())
     {
-        case EObjectId::kDocument:
-        {
-            DocumentSPtr pDocument = boost::static_pointer_cast<Document>(pObject); 
-            generateDocument(pDocument);
-            break;
-        }
         case EObjectId::kImport:
         {
             ImportSPtr pImport = boost::static_pointer_cast<Import>(pObject); 
@@ -404,7 +398,13 @@ void CompilGenerator::generateObject(const ObjectSPtr& pObject)
             generateFactoryPrefix(pFactory);
             generateFactorySuffix(pFactory);
             break;
-        } 
+        }
+        case EObjectId::kFile:
+        {
+            FileSPtr file = boost::static_pointer_cast<File>(pObject);
+            generateFile(file);
+            break;
+        }
         case EObjectId::kStructure:
         {
             StructureSPtr pStructure = boost::static_pointer_cast<Structure>(pObject); 
@@ -468,7 +468,7 @@ void CompilGenerator::generateObjects(const std::vector<ObjectSPtr>& objects)
     std::vector<ObjectSPtr>::const_iterator it;
     for (it = objects.begin(); it != objects.end(); ++it)
     {
-        if ((*it)->sourceId() != mpModel->mainDocument()->sourceId())
+        if ((*it)->sourceId() != mDocument->mainFile()->sourceId())
 			continue;
 
         generateObject(*it);
@@ -477,8 +477,8 @@ void CompilGenerator::generateObjects(const std::vector<ObjectSPtr>& objects)
     
 bool CompilGenerator::generate()
 {
-    generateObject(mpModel->mainDocument());
-    generateObjects(mpModel->objects());
+    generateObject(mDocument->mainFile());
+    generateObjects(mDocument->objects());
     return serializeStreams();
 }
 

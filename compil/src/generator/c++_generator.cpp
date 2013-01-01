@@ -32,7 +32,7 @@
 
 #include "c++_generator.h"
 
-#include "compil/object_factory.h"
+#include "compil/document/object_factory.h"
 
 #include "boost/lexical_cast.hpp"
 #include "boost/algorithm/string.hpp"
@@ -118,7 +118,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     }
     else
     {
-        std::string invalid = frm->enumValueName(Model::invalidEnumerationValue(pEnumeration));
+        std::string invalid = frm->enumValueName(Document::invalidEnumerationValue(pEnumeration));
         line()  << (cf::initializationRef() << constructorName
                                             << variableName
                                             << cf::parameterValueRef(invalid));
@@ -142,9 +142,9 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
     eol(definitionStream);
 
     if (pEnumeration->flags())
-        generateEnumerationValueDefinition(Model::nilEnumerationValue(pEnumeration));
+        generateEnumerationValueDefinition(Document::nilEnumerationValue(pEnumeration));
     else
-        generateEnumerationValueDefinition(Model::invalidEnumerationValue(pEnumeration));
+        generateEnumerationValueDefinition(Document::invalidEnumerationValue(pEnumeration));
 
     const std::vector<EnumerationValueSPtr>& enumerationValues = pEnumeration->enumerationValues();
     std::vector<EnumerationValueSPtr>::const_iterator it;
@@ -152,7 +152,7 @@ void CppGenerator::generateEnumerationDefinition(const EnumerationSPtr& pEnumera
         generateEnumerationValueDefinition(*it);
 
     if (pEnumeration->flags())
-        generateEnumerationValueDefinition(Model::allEnumerationValue(pEnumeration));
+        generateEnumerationValueDefinition(Document::allEnumerationValue(pEnumeration));
 
     fdef()  << (cf::methodRef() << impl->cppDecoratedType(pParameterType)
                                 << frm->cppEnumNamespace(pEnumeration)
@@ -492,10 +492,10 @@ void CppGenerator::generateHierarchyFactoryDefinition(const FactorySPtr& pFactor
 {
     TypeSPtr pParameterType = pFactory->parameterType().lock();
     StructureSPtr pParameterStructure = ObjectFactory::downcastStructure(pParameterType);
-    std::vector<StructureSPtr> structs = impl->hierarchie(mpModel,
+    std::vector<StructureSPtr> structs = impl->hierarchie(mDocument,
                                                           pParameterStructure,
                                                           &Structure::hasRuntimeIdentification);
-    EnumerationSPtr pEnumeration = impl->objectEnumeration(mpModel, structs, pFactory);
+    EnumerationSPtr pEnumeration = impl->objectEnumeration(mDocument, structs, pFactory);
     generateEnumerationDefinition(pEnumeration);
 
     std::vector<StructureSPtr>::const_iterator it;
@@ -1700,7 +1700,7 @@ void CppGenerator::generateStructureInprocIdentificationMethodsDefinition(
 {
     StructureSPtr pStructure = pIdentification->structure().lock();
 
-    std::vector<FactorySPtr> factories = mpModel->findPluginFactories(pStructure);
+    std::vector<FactorySPtr> factories = mDocument->findPluginFactories(pStructure);
     if (!pStructure->abstract())
     {
         for (std::vector<FactorySPtr>::iterator it = factories.begin(); it != factories.end(); ++it)
@@ -2454,7 +2454,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                                                                    << object));
             eofd(definitionStream);
 
-            std::vector<FactorySPtr> factories = mpModel->findPluginFactories(pStructure);
+            std::vector<FactorySPtr> factories = mDocument->findPluginFactories(pStructure);
             if (!factories.empty())
             {
                 addDependencies(impl->dependencies(factories[0]));
@@ -2751,7 +2751,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
                                                               << object));
             openBlock(definitionStream);
             
-            std::vector<FactorySPtr> factories = mpModel->findPluginFactories(pStructure);
+            std::vector<FactorySPtr> factories = mDocument->findPluginFactories(pStructure);
             
             for (std::vector<FactorySPtr>::iterator it = factories.begin(); it != factories.end(); ++it)
             {
@@ -2963,16 +2963,16 @@ void CppGenerator::generateObjectDefinition(const ObjectSPtr& pObject)
 
 bool CppGenerator::generate()
 {
-    addDependency(impl->cppHeaderFileDependency(mpModel->name()->sourceId()->original(),
-                                                mpModel->package()));
+    addDependency(impl->cppHeaderFileDependency(mDocument->name()->sourceId()->original(),
+                                                mDocument->package()));
 
     openNamespace(definitionStream);
 
-    const std::vector<ObjectSPtr>& objects = mpModel->objects();
+    const std::vector<ObjectSPtr>& objects = mDocument->objects();
     std::vector<ObjectSPtr>::const_iterator it;
     for (it = objects.begin(); it != objects.end(); ++it)
     {
-		if ((*it)->sourceId() != mpModel->mainDocument()->sourceId())
+		if ((*it)->sourceId() != mDocument->mainFile()->sourceId())
 			continue;
 
 		generateObjectDefinition(*it);

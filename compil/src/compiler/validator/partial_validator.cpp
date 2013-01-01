@@ -32,7 +32,7 @@
 
 #include "partial_validator.h"
 
-#include "compil/structure.h"
+#include "compil/document/structure.h"
 
 #include <set>
 

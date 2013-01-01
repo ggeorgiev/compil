@@ -33,7 +33,9 @@
 #ifndef _COMPIL_ISOURCEPROVIDER_H__
 #define _COMPIL_ISOURCEPROVIDER_H__
 
-#include "compil/source_id.h"
+#include "namespace_alias.h"
+
+#include "compil/document/source_id.h"
 
 #include <boost/shared_ptr.hpp>
 
@@ -43,8 +45,6 @@ typedef boost::shared_ptr<std::istream> StreamPtr;
 
 namespace compil
 {
-
-using namespace lang::compil;
 
 class ISourceProvider
 {
