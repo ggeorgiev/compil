@@ -32,7 +32,7 @@
 
 #include "structure_sharable_validator.h"
 
-#include "compil/structure.h"
+#include "compil/document/structure.h"
 
 #include "gtest/gtest.h"
 

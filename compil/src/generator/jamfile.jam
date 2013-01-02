@@ -79,9 +79,10 @@ lib generator-lib
     
     $(TOP)/compiler//compiler
     $(TOP)/library//cpp-library
-    $(TOP)/language//language
+    $(TOP)/library//compil-library
   :
-    <implicit-dependency>$(TOP)/language//language
+    <implicit-dependency>$(TOP)/language//cpp-language
+    <implicit-dependency>$(TOP)/language//compil-language
   ;
     
 exe generator
@@ -90,7 +91,8 @@ exe generator
 
     generator-lib
   :
-    <implicit-dependency>$(TOP)/language//language
+    <implicit-dependency>$(TOP)/language//cpp-language
+    <implicit-dependency>$(TOP)/language//compil-language
   ;
     
 gtest generator
@@ -98,6 +100,7 @@ gtest generator
     [ glob-tree *_unittest.cpp ]
     generator-lib
   :
-    <implicit-dependency>$(TOP)/language//language
+    <implicit-dependency>$(TOP)/language//cpp-language
+    <implicit-dependency>$(TOP)/language//compil-language
   ;
 

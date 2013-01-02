@@ -17,10 +17,10 @@ public:
     {
         bool result = true;
     
-        EXPECT_LT(fIndex, (int)mpModel->objects().size());
-        if (fIndex >= (int)mpModel->objects().size()) return false;
+        EXPECT_LT(fIndex, (int)mDocument->objects().size());
+        if (fIndex >= (int)mDocument->objects().size()) return false;
         
-        compil::ObjectSPtr pObject = mpModel->objects()[fIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[fIndex];
         EXPECT_EQ(compil::EObjectId::factory(), pObject->runtimeObjectId());
         if (compil::EObjectId::factory() != pObject->runtimeObjectId()) return false;
         
@@ -49,10 +49,10 @@ public:
     bool checkFactoryParameterType(int fIndex, const char* parameterType)
     {
         bool result = true;
-        EXPECT_LT(fIndex, (int)mpModel->objects().size());
-        if (fIndex >= (int)mpModel->objects().size()) return false;
+        EXPECT_LT(fIndex, (int)mDocument->objects().size());
+        if (fIndex >= (int)mDocument->objects().size()) return false;
         
-        compil::ObjectSPtr pObject = mpModel->objects()[fIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[fIndex];
         EXPECT_EQ(compil::EObjectId::factory(), pObject->runtimeObjectId());
         compil::FactorySPtr pFactory = 
             boost::static_pointer_cast<compil::Factory>(pObject);
@@ -68,9 +68,9 @@ public:
     {
         bool result = true;
         
-        HF_ASSERT_LT(fIndex, (int)mpModel->objects().size());
+        HF_ASSERT_LT(fIndex, (int)mDocument->objects().size());
         
-        compil::ObjectSPtr pObject = mpModel->objects()[fIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[fIndex];
         compil::FactorySPtr pFactory = compil::ObjectFactory::downcastFactory(pObject);
         HF_ASSERT_TRUE(pFactory);
         
@@ -300,7 +300,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterFieldWithMethodSemico
         "structure sname { integer i; }\n"
         "object factory<sname> name { filter i with blah; }") );
     
-    EXPECT_EQ(2U, mpModel->objects().size());
+    EXPECT_EQ(2U, mDocument->objects().size());
     EXPECT_TRUE(checkFactory(1, 2, 1, "name", compil::Factory::EType::object()));
     EXPECT_TRUE(checkFactoryParameterType(1, "sname"));
     EXPECT_TRUE(checkFilter(1, 0, 2, 30, "i", "blah"));
@@ -312,7 +312,7 @@ TEST_F(ParserFactoryTests, factory2Filters)
         "structure sname { integer i1;  integer i2; }\n"
         "object factory<sname> name { filter i1 with blah1; filter i2 with blah2; }") );
     
-    EXPECT_EQ(2U, mpModel->objects().size());
+    EXPECT_EQ(2U, mDocument->objects().size());
     EXPECT_TRUE(checkFactory(1, 2, 1, "name", compil::Factory::EType::object()));
     EXPECT_TRUE(checkFactoryParameterType(1, "sname"));
     EXPECT_TRUE(checkFilter(1, 0, 2, 30, "i1", "blah1"));
@@ -324,7 +324,7 @@ TEST_F(ParserFactoryTests, hierarchyFactoryTypeNameOpenClose)
     ASSERT_TRUE( parse(
         "hierarchy factory<integer> name {}") );
     
-    EXPECT_EQ(1U, mpModel->objects().size());
+    EXPECT_EQ(1U, mDocument->objects().size());
     EXPECT_TRUE(checkFactory(0, 1, 1, "name", compil::Factory::EType::hierarchy()));
     EXPECT_TRUE(checkFactoryParameterType(0, "integer"));
 }
@@ -334,7 +334,7 @@ TEST_F(ParserFactoryTests, objectFactoryTypeNameOpenClose)
     ASSERT_TRUE( parse(
         "object factory<integer> name {}") );
     
-    EXPECT_EQ(1U, mpModel->objects().size());
+    EXPECT_EQ(1U, mDocument->objects().size());
     EXPECT_TRUE(checkFactory(0, 1, 1, "name", compil::Factory::EType::object()));
     EXPECT_TRUE(checkFactoryParameterType(0, "integer"));
 }
@@ -357,7 +357,7 @@ TEST_F(ParserFactoryTests, 2factoiesWithComments)
         "//comment2\n"
         "object factory<integer> name2 {}") );
 
-    EXPECT_EQ(2U, mpModel->objects().size());
+    EXPECT_EQ(2U, mDocument->objects().size());
     
     EXPECT_TRUE(checkFactory(0, 2, 1, "name1", compil::Factory::EType::hierarchy(), "comment1"));
     EXPECT_TRUE(checkFactory(1, 4, 1, "name2", compil::Factory::EType::object(), "comment2"));

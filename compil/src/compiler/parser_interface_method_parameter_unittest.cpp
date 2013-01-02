@@ -14,9 +14,9 @@ public:
     
     void checkInterface(int iIndex, int line, int column, const char* name)
     {
-        ASSERT_LT(iIndex, (int)mpModel->objects().size());
+        ASSERT_LT(iIndex, (int)mDocument->objects().size());
 
-        compil::ObjectSPtr pObject = mpModel->objects()[iIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[iIndex];
         ASSERT_EQ(compil::EObjectId::interface_(), pObject->runtimeObjectId());
         compil::InterfaceSPtr pInterface = 
             boost::static_pointer_cast<compil::Interface>(pObject);
@@ -28,8 +28,8 @@ public:
     void checkMethod(int iIndex, int mIndex, 
                      int line, int column, const char* name)
     {
-        ASSERT_LT(iIndex, (int)mpModel->objects().size());
-        compil::ObjectSPtr pIObject = mpModel->objects()[iIndex];
+        ASSERT_LT(iIndex, (int)mDocument->objects().size());
+        compil::ObjectSPtr pIObject = mDocument->objects()[iIndex];
         ASSERT_EQ(compil::EObjectId::interface_(), pIObject->runtimeObjectId());
         compil::InterfaceSPtr pInterface = 
             boost::static_pointer_cast<compil::Interface>(pIObject);
@@ -49,8 +49,8 @@ public:
 			int line, int column, 
 			const char* name, const char* type)
     {
-        ASSERT_LT(iIndex, (int)mpModel->objects().size());
-        compil::ObjectSPtr pObject = mpModel->objects()[iIndex];
+        ASSERT_LT(iIndex, (int)mDocument->objects().size());
+        compil::ObjectSPtr pObject = mDocument->objects()[iIndex];
 
         ASSERT_EQ(compil::EObjectId::interface_(), pObject->runtimeObjectId());
         compil::InterfaceSPtr pInterface = 

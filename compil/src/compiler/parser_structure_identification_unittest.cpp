@@ -14,8 +14,8 @@ public:
     {
         bool result = true;
         
-        HF_ASSERT_LT(sIndex, (int)mpModel->objects().size());
-        compil::ObjectSPtr pSObject = mpModel->objects()[sIndex];
+        HF_ASSERT_LT(sIndex, (int)mDocument->objects().size());
+        compil::ObjectSPtr pSObject = mDocument->objects()[sIndex];
         
         HF_ASSERT_EQ(compil::EObjectId::structure(), pSObject->runtimeObjectId());
         compil::StructureSPtr pStructure = 

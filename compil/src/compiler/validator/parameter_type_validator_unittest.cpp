@@ -32,8 +32,8 @@
 
 #include "parameter_type_validator.h"
 
-#include "compil/identifier.h"
-#include "compil/enumeration.h"
+#include "compil/document/identifier.h"
+#include "compil/document/enumeration.h"
 
 #include "gtest/gtest.h"
 

@@ -13,9 +13,9 @@ public:
     
     void checkInterface(int iIndex, int line, int column, const char* name)
     {
-        ASSERT_LT(iIndex, (int)mpModel->objects().size());
+        ASSERT_LT(iIndex, (int)mDocument->objects().size());
 
-        compil::ObjectSPtr pObject = mpModel->objects()[iIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[iIndex];
         ASSERT_EQ(compil::EObjectId::interface_(), pObject->runtimeObjectId());
         compil::InterfaceSPtr pInterface = 
             boost::static_pointer_cast<compil::Interface>(pObject);
@@ -108,7 +108,7 @@ TEST_F(ParserInterfaceTests, interfaceNameOpenClose)
     ASSERT_TRUE( parse(
         "interface name {}") );
 
-    ASSERT_EQ(1U, mpModel->objects().size());
+    ASSERT_EQ(1U, mDocument->objects().size());
     checkInterface(0, 1, 1, "name");
 }
 
@@ -128,7 +128,7 @@ TEST_F(ParserInterfaceTests, 2interfaceNameOpenClose)
         "interface name1 {}\n"
         "interface name2 {}") );
 
-    ASSERT_EQ(2U, mpModel->objects().size());
+    ASSERT_EQ(2U, mDocument->objects().size());
     checkInterface(0, 1, 1, "name1");
     checkInterface(1, 2, 1, "name2");
 }

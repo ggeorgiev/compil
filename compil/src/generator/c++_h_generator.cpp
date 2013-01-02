@@ -34,6 +34,8 @@
 
 #include "implementer/implementer_stream.h"
 
+#include "library/c++/compil/specimen.h"
+
 #include "compil/all/object_factory.h"
 
 #include <boost/foreach.hpp>
@@ -670,12 +672,14 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     
     {  // new way section
         using namespace lang::cpp;
+        using namespace lib::cpp;
         
-        ClassSPtr class_ = classRef()
-            << (identifierClassNameRef() << (identifierRef() << pSpecimen->name()->value()));
+        ClassSPtr class_ = CppSpecimen::class_(pSpecimen);
 
-        if (pParameterType->hasOperator(EOperatorAction::prefixMM(), EOperatorFlags::native()))
+        if (pParameterType->hasOperator(EOperatorAction::addition(), EOperatorFlags::native()))
         {
+            lang::cpp::MethodSPtr method = methodRef()
+                << class_;
         }
     }
 

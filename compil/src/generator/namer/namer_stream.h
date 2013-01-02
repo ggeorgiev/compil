@@ -40,6 +40,7 @@
 #include "formatter_stream.h"
 
 #include "c++/class/class_name_factory.h"
+#include "c++/class/method_name_factory.h"
 #include "c++/namespace/namespace_name_factory.h"
 
 namespace nmr
@@ -62,6 +63,7 @@ public:
 private:
     static IdentifierSPtr convertClassName(const ClassNameSPtr& name);
     static IdentifierClassNameSPtr convertIdentifierClassName(const ClassNameSPtr& name);
+    static IdentifierMethodNameSPtr convertIdentifierMethodName(const MethodNameSPtr& name);
     static IdentifierNamespaceNameSPtr convertIdentifierNamespaceName(const NamespaceNameSPtr& name);
     static TypeNameSimpleTypeSpecifierSPtr convertTypeNameSimpleTypeSpecifier(const ClassSPtr& class_);
     static DeclarationSPtr convertDeclaration(const DeclarationSPtr& declaration);

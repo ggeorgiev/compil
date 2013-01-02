@@ -24,7 +24,7 @@
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <PathRunnable
-         FilePath = "/Users/george/github/intermediate/compiler/ef27f9a8a84252954bd5504269c0b5c1/compiler-unit">
+         FilePath = "/Users/george/github/compil/intermediate/compiler/ef27f9a8a84252954bd5504269c0b5c1/compiler-unit">
       </PathRunnable>
       <AdditionalOptions>
       </AdditionalOptions>

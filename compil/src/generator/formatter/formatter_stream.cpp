@@ -277,7 +277,17 @@ FormatterStream& FormatterStream::operator<<(const InitDeclaratorSPtr& declarato
 FormatterStream& FormatterStream::operator<<(const GrammarEqualityExpressionSPtr& expression)
 {
     *this << expression->first();
-    mAligner << " == ";
+    switch (expression->type().value())
+    {
+        case EqualityExpression::EType::kEqualTo:
+            mAligner << " == ";
+            break;
+        case EqualityExpression::EType::kNotEqualTo:
+            mAligner << " != ";
+            break;
+        default:
+            BOOST_ASSERT(false);
+    }
     return *this << expression->second();
 }
 

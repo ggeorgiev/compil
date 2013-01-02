@@ -37,5 +37,5 @@ package lang.cpp;
 streamable
 structure MethodName
 {
-    string value;
+    runtime identification;
 }

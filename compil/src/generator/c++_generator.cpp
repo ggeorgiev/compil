@@ -466,6 +466,17 @@ void CppGenerator::generateSpecimenDefinition(const SpecimenSPtr& pSpecimen)
 
     fdef()  << (cf::constructorRef() << frm->cppClassNamespace(pSpecimen)
                                      << frm->cppConstructorName(pSpecimen));
+    line()  << ": ";
+    eofd(definitionStream);
+    
+    if (pBaseSpecimen)
+    {
+        line()  << (cf::initializationRef() << frm->cppConstructorName(pBaseSpecimen));
+    }
+    else
+    {
+        line()  << (cf::initializationRef() << frm->memberVariableName(value));
+    }
     openBlock(definitionStream);
     closeBlock(definitionStream);
     eol(definitionStream);

@@ -12,10 +12,8 @@ project language
         <include>$(TOP)/core/c++
     ;
     
-lib language
+lib cpp-language
   :
-    $(TOP)/core/boost/boost_assert_handler.cpp
-    
     all/list.scompil
     all/scope.scompil
     
@@ -23,7 +21,9 @@ lib language
     c++/class/class_name.scompil
     c++/class/class_name_factory.scompil
     c++/class/identifier_class_name.scompil
+    c++/class/identifier_method_name.scompil
     c++/class/method-cpp.scompil
+    c++/class/method_name_factory.scompil
     c++/class/method_name.scompil
 
     c++/declarator/declarator.scompil
@@ -122,7 +122,18 @@ lib language
     c++/test/test_name.scompil
     c++/test/test_suite.scompil
     c++/test/test_suite_name.scompil
+
+    boost_templates
+  :
+    <compil-stable-type>main
+  :
+  :
+    <include>.
+    <include>$(TOP)/core/c++
+  ;   
     
+lib compil-language
+  :
     compil/all/comment.scompil
     compil/all/file.scompil
     compil/all/object_factory.scompil
@@ -187,10 +198,14 @@ lib language
 
 gtest language 
   :
+    $(TOP)/core/boost/boost_assert_handler.cpp
+
     [ glob *_unittest.cpp ]
     
-    language
+    cpp-language
+    compil-language
   :
-    <implicit-dependency>language
+    <implicit-dependency>cpp-language
+    <implicit-dependency>compil-language
   ;
 

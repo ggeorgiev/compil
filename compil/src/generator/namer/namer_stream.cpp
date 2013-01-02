@@ -72,6 +72,15 @@ IdentifierClassNameSPtr NamerStream::convertIdentifierClassName(const ClassNameS
     return IdentifierClassNameSPtr();
 }
 
+IdentifierMethodNameSPtr NamerStream::convertIdentifierMethodName(const MethodNameSPtr& name)
+{
+    if (name->runtimeMethodNameId() == IdentifierMethodName::staticMethodNameId())
+        return IdentifierMethodName::downcast(name);
+        
+    BOOST_ASSERT(false);
+    return IdentifierMethodNameSPtr();
+}
+
 IdentifierNamespaceNameSPtr NamerStream::convertIdentifierNamespaceName(const NamespaceNameSPtr& name)
 {
     if (name->runtimeNamespaceNameId() == IdentifierNamespaceName::staticNamespaceNameId())
@@ -80,7 +89,6 @@ IdentifierNamespaceNameSPtr NamerStream::convertIdentifierNamespaceName(const Na
     BOOST_ASSERT(false);
     return IdentifierNamespaceNameSPtr();
 }
-
 
 TypeNameSimpleTypeSpecifierSPtr NamerStream::convertTypeNameSimpleTypeSpecifier(const ClassSPtr& class_)
 {
@@ -178,6 +186,7 @@ ExpressionSPtr NamerStream::convertExpression(const ExpressionSPtr& expression)
         GenericEqualityExpressionSPtr geexpression = GenericEqualityExpression::downcast(expression);
     
         GrammarEqualityExpressionSPtr grammarEqualityExpression = grammarEqualityExpressionRef()
+            << geexpression->type()
             << convertEqualityExpression(geexpression->first())
             << convertRelationalExpression(geexpression->second());
 
@@ -189,8 +198,7 @@ ExpressionSPtr NamerStream::convertExpression(const ExpressionSPtr& expression)
     {
         MethodCallExpressionSPtr mcexpression = MethodCallExpression::downcast(expression);
 
-        IdentifierSPtr methodIdentifier = identifierRef()
-            << mcexpression->method()->value();
+        IdentifierSPtr methodIdentifier = convertIdentifierMethodName(mcexpression->method())->identifier();
         IdentifierUnqualifiedIdSPtr methodUnqualifiedId = identifierUnqualifiedIdRef()
             << methodIdentifier;
         UnqualifiedIdExpressionSPtr methodExpression = unqualifiedIdExpressionRef()

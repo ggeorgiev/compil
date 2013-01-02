@@ -109,7 +109,7 @@ TEST_F(ParserImportTests, importNonexistent)
 {
     boost::shared_ptr<SourceProvider> pSourceProvider(new SourceProvider());
     mpSourceId = compil::SourceId::Builder().set_value("import_nonexistent").finalize();
-    ASSERT_FALSE( mpParser->parse(pSourceProvider, mpSourceId, mpModel) );
+    ASSERT_FALSE( mpParser->parse(pSourceProvider, mpSourceId, mDocument) );
     ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 1, compil::Message::p_sourceNotFound));
     EXPECT_STREQ("import_nonexistent", pSourceProvider->mSource.c_str());
@@ -119,7 +119,7 @@ TEST_F(ParserImportTests, importUnopenable)
 {
     boost::shared_ptr<SourceProvider> pSourceProvider(new SourceProvider());
     mpSourceId = compil::SourceId::Builder().set_value("import_unopenable").finalize();
-    ASSERT_FALSE( mpParser->parse(pSourceProvider, mpSourceId, mpModel) );
+    ASSERT_FALSE( mpParser->parse(pSourceProvider, mpSourceId, mDocument) );
     ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
     compil::Message message = mpMessageCollector->messages()[0];
     ASSERT_NE(message.sourceId(), mpSourceId);
@@ -132,7 +132,7 @@ TEST_F(ParserImportTests, importEmptySource)
 {
     boost::shared_ptr<SourceProvider> pSourceProvider(new SourceProvider());
     mpSourceId = compil::SourceId::Builder().set_value("import_empty").finalize();
-    ASSERT_TRUE( mpParser->parse(pSourceProvider, mpSourceId, mpModel) );
+    ASSERT_TRUE( mpParser->parse(pSourceProvider, mpSourceId, mDocument) );
     EXPECT_STREQ("empty", pSourceProvider->mSource.c_str());
 }
 
@@ -140,21 +140,21 @@ TEST_F(ParserImportTests, importCircular)
 {
     boost::shared_ptr<SourceProvider> pSourceProvider(new SourceProvider());
     mpSourceId = compil::SourceId::Builder().set_value("import_circular").finalize();
-    ASSERT_TRUE( mpParser->parse(pSourceProvider, mpSourceId, mpModel) );
+    ASSERT_TRUE( mpParser->parse(pSourceProvider, mpSourceId, mDocument) );
 }
 
 TEST_F(ParserImportTests, importIndirectCircular)
 {
     boost::shared_ptr<SourceProvider> pSourceProvider(new SourceProvider());
     mpSourceId = compil::SourceId::Builder().set_value("import_indirect_circular").finalize();
-    ASSERT_TRUE( mpParser->parse(pSourceProvider, mpSourceId, mpModel) );
+    ASSERT_TRUE( mpParser->parse(pSourceProvider, mpSourceId, mDocument) );
 }
 
 TEST_F(ParserImportTests, importError)
 {
     boost::shared_ptr<SourceProvider> pSourceProvider(new SourceProvider());
     mpSourceId = compil::SourceId::Builder().set_value("import_error").finalize();
-    ASSERT_FALSE( mpParser->parse(pSourceProvider, mpSourceId, mpModel) );
+    ASSERT_FALSE( mpParser->parse(pSourceProvider, mpSourceId, mDocument) );
     ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
 
     compil::Message message = mpMessageCollector->messages()[0];
@@ -167,7 +167,7 @@ TEST_F(ParserImportTests, importType)
 {
     boost::shared_ptr<SourceProvider> pSourceProvider(new SourceProvider());
     mpSourceId = compil::SourceId::Builder().set_value("import_type").finalize();
-    ASSERT_TRUE( mpParser->parse(pSourceProvider, mpSourceId, mpModel) );
-    EXPECT_TRUE(mpModel->mainDocument());
-    EXPECT_EQ(mpSourceId, mpModel->mainDocument()->sourceId());
+    ASSERT_TRUE( mpParser->parse(pSourceProvider, mpSourceId, mDocument) );
+    EXPECT_TRUE(mDocument->mainFile());
+    EXPECT_EQ(mpSourceId, mDocument->mainFile()->sourceId());
 }

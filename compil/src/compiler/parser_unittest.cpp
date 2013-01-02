@@ -23,7 +23,7 @@ TEST_F(ParserTests, emptyStream)
     ASSERT_FALSE( parseRaw(
         "") );
     
-    EXPECT_FALSE( mpModel->mainDocument() );
+    EXPECT_FALSE( mDocument->mainFile() );
 }
 
 TEST_F(ParserTests, whateverWrongStream)
@@ -40,12 +40,12 @@ TEST_F(ParserTests, documentCommentInTheBeggining)
     ASSERT_TRUE( parseRaw(
         "/* comment */ compil {}") );
 
-    ASSERT_TRUE( mpModel->mainDocument() );
-    ASSERT_EQ(1U, mpModel->mainDocument()->comments().size() );
-    ASSERT_EQ(1U, mpModel->mainDocument()->comments()[0]->lines().size());
-    ASSERT_EQ(1, mpModel->mainDocument()->comments()[0]->line());
-    ASSERT_EQ(1, mpModel->mainDocument()->comments()[0]->column());
-    EXPECT_STREQ("comment", mpModel->mainDocument()->comments()[0]->lines()[0].c_str());
+    ASSERT_TRUE( mDocument->mainFile() );
+    ASSERT_EQ(1U, mDocument->mainFile()->comments().size() );
+    ASSERT_EQ(1U, mDocument->mainFile()->comments()[0]->lines().size());
+    ASSERT_EQ(1, mDocument->mainFile()->comments()[0]->line());
+    ASSERT_EQ(1, mDocument->mainFile()->comments()[0]->column());
+    EXPECT_STREQ("comment", mDocument->mainFile()->comments()[0]->lines()[0].c_str());
 }
 
 TEST_F(ParserTests, documentCommentAfterWhiteSpaces)
@@ -56,12 +56,12 @@ TEST_F(ParserTests, documentCommentAfterWhiteSpaces)
         "  /* comment */\n"
         "compil {}") );
 
-    ASSERT_TRUE( mpModel->mainDocument() );
-    ASSERT_EQ(1U, mpModel->mainDocument()->comments().size() );
-    ASSERT_EQ(1U, mpModel->mainDocument()->comments()[0]->lines().size());
-    ASSERT_EQ(3, mpModel->mainDocument()->comments()[0]->line());
-    ASSERT_EQ(3, mpModel->mainDocument()->comments()[0]->column());
-    EXPECT_STREQ("comment", mpModel->mainDocument()->comments()[0]->lines()[0].c_str());
+    ASSERT_TRUE( mDocument->mainFile() );
+    ASSERT_EQ(1U, mDocument->mainFile()->comments().size() );
+    ASSERT_EQ(1U, mDocument->mainFile()->comments()[0]->lines().size());
+    ASSERT_EQ(3, mDocument->mainFile()->comments()[0]->line());
+    ASSERT_EQ(3, mDocument->mainFile()->comments()[0]->column());
+    EXPECT_STREQ("comment", mDocument->mainFile()->comments()[0]->lines()[0].c_str());
 }
 
 TEST_F(ParserTests, documentCommentCStyleBlock)
@@ -73,13 +73,13 @@ TEST_F(ParserTests, documentCommentCStyleBlock)
         "line4 */\n"
         "compil {}") );
 
-    ASSERT_TRUE( mpModel->mainDocument() );
-    ASSERT_EQ(1U, mpModel->mainDocument()->comments().size() );
-    ASSERT_EQ(4U, mpModel->mainDocument()->comments()[0]->lines().size());
-    EXPECT_STREQ("line1", mpModel->mainDocument()->comments()[0]->lines()[0].c_str());
-    EXPECT_STREQ("line2", mpModel->mainDocument()->comments()[0]->lines()[1].c_str());
-    EXPECT_STREQ("", mpModel->mainDocument()->comments()[0]->lines()[2].c_str());
-    EXPECT_STREQ("line4", mpModel->mainDocument()->comments()[0]->lines()[3].c_str());
+    ASSERT_TRUE( mDocument->mainFile() );
+    ASSERT_EQ(1U, mDocument->mainFile()->comments().size() );
+    ASSERT_EQ(4U, mDocument->mainFile()->comments()[0]->lines().size());
+    EXPECT_STREQ("line1", mDocument->mainFile()->comments()[0]->lines()[0].c_str());
+    EXPECT_STREQ("line2", mDocument->mainFile()->comments()[0]->lines()[1].c_str());
+    EXPECT_STREQ("", mDocument->mainFile()->comments()[0]->lines()[2].c_str());
+    EXPECT_STREQ("line4", mDocument->mainFile()->comments()[0]->lines()[3].c_str());
 }
 
 TEST_F(ParserTests, documentCommentCStyleLineMultiple)
@@ -91,13 +91,13 @@ TEST_F(ParserTests, documentCommentCStyleLineMultiple)
         "//line4 \n"
         "compil {}") );
 
-    ASSERT_TRUE( mpModel->mainDocument() );
-    ASSERT_EQ(1U, mpModel->mainDocument()->comments().size() );
-    ASSERT_EQ(4U, mpModel->mainDocument()->comments()[0]->lines().size());
-    EXPECT_STREQ("line1", mpModel->mainDocument()->comments()[0]->lines()[0].c_str());
-    EXPECT_STREQ("line2", mpModel->mainDocument()->comments()[0]->lines()[1].c_str());
-    EXPECT_STREQ("", mpModel->mainDocument()->comments()[0]->lines()[2].c_str());
-    EXPECT_STREQ("line4", mpModel->mainDocument()->comments()[0]->lines()[3].c_str());
+    ASSERT_TRUE( mDocument->mainFile() );
+    ASSERT_EQ(1U, mDocument->mainFile()->comments().size() );
+    ASSERT_EQ(4U, mDocument->mainFile()->comments()[0]->lines().size());
+    EXPECT_STREQ("line1", mDocument->mainFile()->comments()[0]->lines()[0].c_str());
+    EXPECT_STREQ("line2", mDocument->mainFile()->comments()[0]->lines()[1].c_str());
+    EXPECT_STREQ("", mDocument->mainFile()->comments()[0]->lines()[2].c_str());
+    EXPECT_STREQ("line4", mDocument->mainFile()->comments()[0]->lines()[3].c_str());
 }
 
 TEST_F(ParserTests, documentCommentSecondCStyleBlock)
@@ -108,12 +108,12 @@ TEST_F(ParserTests, documentCommentSecondCStyleBlock)
         "/*comment2*/\n"
         "compil {}") );
 
-    ASSERT_TRUE( mpModel->mainDocument() );
-    ASSERT_EQ(2U, mpModel->mainDocument()->comments().size() );
-    ASSERT_EQ(1U, mpModel->mainDocument()->comments()[0]->lines().size());
-    EXPECT_STREQ("comment1", mpModel->mainDocument()->comments()[0]->lines()[0].c_str());
-    ASSERT_EQ(1U, mpModel->mainDocument()->comments()[1]->lines().size());
-    EXPECT_STREQ("comment2", mpModel->mainDocument()->comments()[1]->lines()[0].c_str());
+    ASSERT_TRUE( mDocument->mainFile() );
+    ASSERT_EQ(2U, mDocument->mainFile()->comments().size() );
+    ASSERT_EQ(1U, mDocument->mainFile()->comments()[0]->lines().size());
+    EXPECT_STREQ("comment1", mDocument->mainFile()->comments()[0]->lines()[0].c_str());
+    ASSERT_EQ(1U, mDocument->mainFile()->comments()[1]->lines().size());
+    EXPECT_STREQ("comment2", mDocument->mainFile()->comments()[1]->lines()[0].c_str());
 }
 
 TEST_F(ParserTests, documentCommentSecondCStyleLine)
@@ -124,12 +124,12 @@ TEST_F(ParserTests, documentCommentSecondCStyleLine)
         "//comment2\n"
         "compil {}") );
 
-    ASSERT_TRUE( mpModel->mainDocument() );
-    ASSERT_EQ(2U, mpModel->mainDocument()->comments().size() );
-    ASSERT_EQ(1U, mpModel->mainDocument()->comments()[0]->lines().size());
-    EXPECT_STREQ("comment1", mpModel->mainDocument()->comments()[0]->lines()[0].c_str());
-    ASSERT_EQ(1U, mpModel->mainDocument()->comments()[1]->lines().size());
-    EXPECT_STREQ("comment2", mpModel->mainDocument()->comments()[1]->lines()[0].c_str());
+    ASSERT_TRUE( mDocument->mainFile() );
+    ASSERT_EQ(2U, mDocument->mainFile()->comments().size() );
+    ASSERT_EQ(1U, mDocument->mainFile()->comments()[0]->lines().size());
+    EXPECT_STREQ("comment1", mDocument->mainFile()->comments()[0]->lines()[0].c_str());
+    ASSERT_EQ(1U, mDocument->mainFile()->comments()[1]->lines().size());
+    EXPECT_STREQ("comment2", mDocument->mainFile()->comments()[1]->lines()[0].c_str());
 }
 
 TEST_F(ParserTests, mispalcedCStyleBlockCommentInTheBegginingOfTheDocument)
@@ -142,14 +142,14 @@ TEST_F(ParserTests, mispalcedCStyleBlockCommentInTheBegginingOfTheDocument)
         "//comment3\n"
         "compil {}") );
 
-    ASSERT_TRUE( mpModel->mainDocument() );
-    ASSERT_EQ(3U, mpModel->mainDocument()->comments().size() );
-    ASSERT_EQ(1U, mpModel->mainDocument()->comments()[0]->lines().size());
-    EXPECT_STREQ("comment1", mpModel->mainDocument()->comments()[0]->lines()[0].c_str());
-    ASSERT_EQ(1U, mpModel->mainDocument()->comments()[1]->lines().size());
-    EXPECT_STREQ("comment2", mpModel->mainDocument()->comments()[1]->lines()[0].c_str());
-    ASSERT_EQ(1U, mpModel->mainDocument()->comments()[2]->lines().size());
-    EXPECT_STREQ("comment3", mpModel->mainDocument()->comments()[2]->lines()[0].c_str());
+    ASSERT_TRUE( mDocument->mainFile() );
+    ASSERT_EQ(3U, mDocument->mainFile()->comments().size() );
+    ASSERT_EQ(1U, mDocument->mainFile()->comments()[0]->lines().size());
+    EXPECT_STREQ("comment1", mDocument->mainFile()->comments()[0]->lines()[0].c_str());
+    ASSERT_EQ(1U, mDocument->mainFile()->comments()[1]->lines().size());
+    EXPECT_STREQ("comment2", mDocument->mainFile()->comments()[1]->lines()[0].c_str());
+    ASSERT_EQ(1U, mDocument->mainFile()->comments()[2]->lines().size());
+    EXPECT_STREQ("comment3", mDocument->mainFile()->comments()[2]->lines()[0].c_str());
 }
 
 TEST_F(ParserTests, lastComment0)

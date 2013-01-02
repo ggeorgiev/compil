@@ -91,8 +91,6 @@ protected:
     compil::CppFormatterPtr mpFormatter;
     compil::CppImplementerPtr mpImplementer;
     compil::CompilGeneratorPtr mpCompilGenerator;
-    
-    
 };
 
 TEST_F(CompilGeneratorTests, empty)

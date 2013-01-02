@@ -1,6 +1,10 @@
 #include "parser.h"
 
+#include "library/compil/document.h"
+
 #include "gtest/gtest.h"
+
+#include "boost/make_shared.hpp"
 
 #include <iostream>
 
@@ -39,7 +43,7 @@ public:
     {
         mpParser.reset(new compil::Parser());
         mpMessageCollector = mpParser->mpMessageCollector;
-        mpModel.reset(new compil::Model());
+        mDocument = lib::compil::CompilDocument::create();
     }
     
     static StreamPtr getRawInput(const char* text)
@@ -55,12 +59,12 @@ public:
     
     virtual bool parse(const char* text)
     {
-        compil::PackageElement el1;
-        el1.set_value("external1");
-        compil::PackageElement el2;
-        el2.set_value("external2");
+        lang::compil::PackageElementSPtr el1 = boost::make_shared<lang::compil::PackageElement>();
+        el1->set_value("external1");
+        lang::compil::PackageElementSPtr el2 = boost::make_shared<lang::compil::PackageElement>();
+        el2->set_value("external2");
 
-        std::vector<compil::PackageElement> externalElements;
+        std::vector<compil::PackageElementSPtr> externalElements;
         externalElements.push_back(el1);
         externalElements.push_back(el2);
         
@@ -71,7 +75,7 @@ public:
                 .finalize();    
     
         StreamPtr pInput = getInput(text);
-        return mpParser->parse(mpSourceId, pInput, mpModel);
+        return mpParser->parse(mpSourceId, pInput, mDocument);
     }
     
     virtual bool parseRaw(const char* text)
@@ -82,7 +86,7 @@ public:
                 .finalize();  
                 
         StreamPtr pInput = getRawInput(text);
-        return mpParser->parse(mpSourceId, pInput, mpModel);
+        return mpParser->parse(mpSourceId, pInput, mDocument);
     }
 
     virtual bool checkMessage(compil::Message& expected, int mIndex)
@@ -133,7 +137,7 @@ public:
 
 protected:
     compil::SourceIdSPtr mpSourceId;
-    compil::ModelPtr mpModel;
+    compil::DocumentSPtr mDocument;
     compil::ParserPtr mpParser;
     compil::MessageCollectorPtr mpMessageCollector;
 };

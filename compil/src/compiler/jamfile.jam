@@ -42,10 +42,10 @@ lib compiler
     boost_system
     boost_filesystem
     
-    $(TOP)/language//language
     $(TOP)/library//compil-library
   :
-    <implicit-dependency>$(TOP)/language//language
+    <implicit-dependency>$(TOP)/language//cpp-language
+    <implicit-dependency>$(TOP)/language//compil-language
   :
   :
     <include>.
@@ -55,10 +55,11 @@ lib compiler
     <include>$(TOP)/core/c++
   ;
     
-#gtest compiler
-#  :
-#    [ glob-tree *_unittest.cpp ]
-#    compiler
-#  :
-#    <implicit-dependency>$(TOP)/language//language
-#  ;
+gtest compiler
+  :
+    [ glob-tree *_unittest.cpp ]
+    compiler
+  :
+    <implicit-dependency>$(TOP)/language//cpp-language
+    <implicit-dependency>$(TOP)/language//compil-language
+  ;

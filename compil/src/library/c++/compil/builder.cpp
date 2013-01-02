@@ -33,6 +33,7 @@
 #include "library/c++/compil/builder.h"
 
 #include "c++/class/identifier_class_name.h"
+#include "c++/class/identifier_method_name.h"
 
 #include "boost/unordered_map.hpp"
 
@@ -71,7 +72,7 @@ MethodNameSPtr CppBuilder::methodNameBuild()
 {
     static MethodNameSPtr methodName;
     if (!methodName)
-        methodName =  methodNameRef() << "build";
+        methodName = identifierMethodNameRef() << (identifierRef() << "build");
     
     return methodName;
 }
@@ -80,7 +81,7 @@ MethodNameSPtr CppBuilder::methodNameFinalize()
 {
     static MethodNameSPtr methodName;
     if (!methodName)
-        methodName =  methodNameRef() << "finalize";
+        methodName = identifierMethodNameRef() << (identifierRef() << "finalize");
     
     return methodName;
 }

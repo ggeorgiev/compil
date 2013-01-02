@@ -15,9 +15,9 @@ public:
     void checkEnumeration(int eIndex, int line, int column, 
                      const char* name, const char* comment = NULL)
     {
-        ASSERT_LT(eIndex, (int)mpModel->objects().size());
+        ASSERT_LT(eIndex, (int)mDocument->objects().size());
         
-        compil::ObjectSPtr pObject = mpModel->objects()[eIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[eIndex];
         ASSERT_EQ(compil::EObjectId::enumeration(), pObject->runtimeObjectId());
         compil::EnumerationSPtr pEnumeration = 
             boost::static_pointer_cast<compil::Enumeration>(pObject);
@@ -38,9 +38,9 @@ public:
     
     void checkEnumerationCast(int eIndex, const compil::CastableType::ECast& cast)
     {
-        ASSERT_LT(eIndex, (int)mpModel->objects().size());
+        ASSERT_LT(eIndex, (int)mDocument->objects().size());
         
-        compil::ObjectSPtr pObject = mpModel->objects()[eIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[eIndex];
         ASSERT_EQ(compil::EObjectId::enumeration(), pObject->runtimeObjectId());
         compil::EnumerationSPtr pEnumerationt = 
             boost::static_pointer_cast<compil::Enumeration>(pObject);
@@ -50,9 +50,9 @@ public:
     
     void checkEnumerationFlags(int eIndex, bool flags)
     {
-        ASSERT_LT(eIndex, (int)mpModel->objects().size());
+        ASSERT_LT(eIndex, (int)mDocument->objects().size());
         
-        compil::ObjectSPtr pObject = mpModel->objects()[eIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[eIndex];
         ASSERT_EQ(compil::EObjectId::enumeration(), pObject->runtimeObjectId());
         compil::EnumerationSPtr pEnumerationt = 
             boost::static_pointer_cast<compil::Enumeration>(pObject);
@@ -63,10 +63,10 @@ public:
     bool checkEnumerationParameterType(int eIndex, const char* baseType)
     {
         bool result = true;
-        EXPECT_LT(eIndex, (int)mpModel->objects().size());
-        if (eIndex >= (int)mpModel->objects().size()) return false;
+        EXPECT_LT(eIndex, (int)mDocument->objects().size());
+        if (eIndex >= (int)mDocument->objects().size()) return false;
         
-        compil::ObjectSPtr pObject = mpModel->objects()[eIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[eIndex];
         EXPECT_EQ(compil::EObjectId::enumeration(), pObject->runtimeObjectId());
         compil::EnumerationSPtr pEnumerationt = 
         boost::static_pointer_cast<compil::Enumeration>(pObject);
@@ -83,9 +83,9 @@ public:
                     const char* comment = NULL)
     {
         bool result = true;
-        HF_ASSERT_LT(eIndex, (int)mpModel->objects().size());
+        HF_ASSERT_LT(eIndex, (int)mDocument->objects().size());
         
-        compil::ObjectSPtr pObject = mpModel->objects()[eIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[eIndex];
         HF_ASSERT_EQ(compil::EObjectId::enumeration(), pObject->runtimeObjectId());
         compil::EnumerationSPtr pEnumeration = 
             boost::static_pointer_cast<compil::Enumeration>(pObject);
@@ -220,7 +220,7 @@ TEST_F(ParserEnumerationTests, enumNameOpenClose)
     ASSERT_TRUE( parse(
         "enum name {}") );
     
-    EXPECT_EQ(1U, mpModel->objects().size());
+    EXPECT_EQ(1U, mDocument->objects().size());
     checkEnumeration(0, 1, 1, "name");
     checkEnumerationCast(0, compil::CastableType::ECast::weak());
     checkEnumerationFlags(0, false);
@@ -232,7 +232,7 @@ TEST_F(ParserEnumerationTests, enumNameParameterTypeOpenClose)
     ASSERT_TRUE( parse(
         "enum<small> name {}") );
     
-    EXPECT_EQ(1U, mpModel->objects().size());
+    EXPECT_EQ(1U, mDocument->objects().size());
     checkEnumeration(0, 1, 1, "name");
     checkEnumerationCast(0, compil::CastableType::ECast::weak());
     checkEnumerationFlags(0, false);
@@ -264,7 +264,7 @@ TEST_F(ParserEnumerationTests, weakEnumNameCommentOpenClose)
     ASSERT_TRUE( parse(
         "weak enum name {}") );
     
-    EXPECT_EQ(1U, mpModel->objects().size());
+    EXPECT_EQ(1U, mDocument->objects().size());
     checkEnumeration(0, 1, 1, "name");
     checkEnumerationFlags(0, false);
     checkEnumerationCast(0, compil::CastableType::ECast::weak());
@@ -275,7 +275,7 @@ TEST_F(ParserEnumerationTests, strongEnumNameCommentOpenClose)
     ASSERT_TRUE( parse(
         "strong enum name {}") );
     
-    EXPECT_EQ(1U, mpModel->objects().size());
+    EXPECT_EQ(1U, mDocument->objects().size());
     checkEnumeration(0, 1, 1, "name");
     checkEnumerationFlags(0, false);
     checkEnumerationCast(0, compil::CastableType::ECast::strong());
@@ -286,7 +286,7 @@ TEST_F(ParserEnumerationTests, flagsEnumNameCommentOpenClose)
     ASSERT_TRUE( parse(
         "flags enum name {}") );
     
-    EXPECT_EQ(1U, mpModel->objects().size());
+    EXPECT_EQ(1U, mDocument->objects().size());
     checkEnumeration(0, 1, 1, "name");
     checkEnumerationFlags(0, true);
     checkEnumerationCast(0, compil::CastableType::ECast::weak());
@@ -300,7 +300,7 @@ TEST_F(ParserEnumerationTests, 2enumsWithComments)
         "//comment2\n"
         "enum name2 {}") );
 
-    EXPECT_EQ(2U, mpModel->objects().size());
+    EXPECT_EQ(2U, mDocument->objects().size());
     
     checkEnumeration(0, 2, 1, "name1", "comment1");
     checkEnumeration(1, 4, 1, "name2", "comment2");

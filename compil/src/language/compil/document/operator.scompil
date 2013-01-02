@@ -41,8 +41,12 @@ enum OperatorAction
 {
     equalTo;
     notEqualTo;
+    
     greaterThan;
     lessThan;
+    
+    addition;
+    subtraction;
     
     // prefix ++
     prefixPP;

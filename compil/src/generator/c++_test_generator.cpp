@@ -88,8 +88,29 @@ void CppTestGenerator::generateSpecimenDeclaration(const SpecimenSPtr& specimen)
         genericEqualityExpression->set_first(speciment1);
         genericEqualityExpression->set_second(speciment2);
         
-        //test    << (unaryTestStatementRef() << UnaryTestStatement::EType::isTrue()
-        //                                    << genericEqualityExpression);
+        test    << (unaryTestStatementRef() << UnaryTestStatement::EType::isTrue()
+                                            << genericEqualityExpression);
+                                                   
+        suite << test;
+    }
+    
+    if (specimen->hasOperator(EOperatorAction::equalTo(), EOperatorFlags::native()))
+    {
+        TestSPtr test = testRef();
+        test << TestName("operatorNotEqualTo");
+
+        test << (variableDeclarationStatementRef() << class_
+                                                   << speciment1->variable());
+        test << (variableDeclarationStatementRef() << class_
+                                                   << speciment2->variable());
+                                                   
+        GenericEqualityExpressionSPtr genericEqualityExpression = boost::make_shared<GenericEqualityExpression>();
+        genericEqualityExpression->set_type(EqualityExpression::EType::notEqualTo());
+        genericEqualityExpression->set_first(speciment1);
+        genericEqualityExpression->set_second(speciment2);
+        
+        test    << (unaryTestStatementRef() << UnaryTestStatement::EType::isFalse()
+                                            << genericEqualityExpression);
                                                    
         suite << test;
     }
@@ -140,7 +161,7 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& structu
             
             MethodCallExpressionSPtr availableFieldCall = methodCallExpressionRef()
                 << structure1
-                << (methodNameRef() << frm->availableMethodName(field)->value());
+                << (identifierMethodNameRef() << (identifierRef() << frm->availableMethodName(field)->value()));
                 
             test    << (unaryTestStatementRef() << type
                                                 << availableFieldCall);
@@ -159,7 +180,7 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& structu
         
         MethodCallExpressionSPtr isInitializedCall = methodCallExpressionRef()
             << structure1
-            << (methodNameRef() << "isInitialized");
+            << (identifierMethodNameRef() << (identifierRef() << "isInitialized"));
             
         if (!structure->isOptional())
         {
@@ -179,7 +200,7 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& structu
             
             MethodCallExpressionSPtr setFieldCall = methodCallExpressionRef()
                 << structure1
-                << (methodNameRef() << frm->setMethodName(field)->value())
+                << (identifierMethodNameRef() << (identifierRef() << frm->setMethodName(field)->value()))
                 << (expressionListRef() << constructor);
                 
             test << (expressionStatementRef() << setFieldCall);

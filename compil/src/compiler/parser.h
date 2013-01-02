@@ -33,6 +33,8 @@
 #ifndef _COMPIL_PARSER_H__
 #define _COMPIL_PARSER_H__
 
+#include "namespace_alias.h"
+
 #include "document_parser-mixin.h"
 #include "project_parser-mixin.h"
 

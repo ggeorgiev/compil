@@ -13,9 +13,9 @@ public:
     void checkStructure(int sIndex, int line, int column, 
                         const char* name, const char* comment = NULL)
     {
-        ASSERT_LT(sIndex, (int)mpModel->objects().size());
+        ASSERT_LT(sIndex, (int)mDocument->objects().size());
 
-        compil::ObjectSPtr pObject = mpModel->objects()[sIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         ASSERT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
         compil::StructureSPtr pStructure = 
             boost::static_pointer_cast<compil::Structure>(pObject);
@@ -39,9 +39,9 @@ public:
                     const char* name, const char* type,
                     const char* comment = NULL)
     {
-        HF_ASSERT_LT(sIndex, (int)mpModel->objects().size());
+        HF_ASSERT_LT(sIndex, (int)mDocument->objects().size());
 
-        compil::ObjectSPtr pSObject = mpModel->objects()[sIndex];
+        compil::ObjectSPtr pSObject = mDocument->objects()[sIndex];
         HF_ASSERT_EQ(compil::EObjectId::structure(), pSObject->runtimeObjectId());
         
         compil::StructureSPtr pStructure = 
@@ -78,8 +78,8 @@ public:
                            int line, int column, 
                            bool bOptional, const char* text = "")
     {
-        EXPECT_LT(sIndex, (int)mpModel->objects().size());
-        compil::ObjectSPtr pObject = mpModel->objects()[sIndex];
+        EXPECT_LT(sIndex, (int)mDocument->objects().size());
+        compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         EXPECT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
         compil::StructureSPtr pStructure = 
             boost::static_pointer_cast<compil::Structure>(pObject);
@@ -588,9 +588,9 @@ TEST_F(ParserStructureFieldTests, structureFields)
 
         "}") );
 
-    EXPECT_EQ(1U, mpModel->objects().size());
+    EXPECT_EQ(1U, mDocument->objects().size());
 
-    compil::ObjectSPtr pObject = mpModel->objects()[0];
+    compil::ObjectSPtr pObject = mDocument->objects()[0];
     ASSERT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
     compil::StructureSPtr pStructure = boost::static_pointer_cast<compil::Structure>(pObject);
     ASSERT_TRUE(pStructure);
@@ -608,9 +608,9 @@ TEST_F(ParserStructureFieldTests, structureUnaryContainers)
         "  reference< vector<integer> > rv;\n"
         "}") );
 
-    EXPECT_EQ(1U, mpModel->objects().size());
+    EXPECT_EQ(1U, mDocument->objects().size());
 
-    compil::ObjectSPtr pObject = mpModel->objects()[0];
+    compil::ObjectSPtr pObject = mDocument->objects()[0];
     ASSERT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
     compil::StructureSPtr pStructure = boost::static_pointer_cast<compil::Structure>(pObject);
     ASSERT_TRUE(pStructure);

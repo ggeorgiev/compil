@@ -16,9 +16,9 @@ public:
                      const char* name, const char* comment = NULL)
     {
         bool result = true;
-        EXPECT_LT(sIndex, (int)mpModel->objects().size());
+        EXPECT_LT(sIndex, (int)mDocument->objects().size());
 
-        compil::ObjectSPtr pObject = mpModel->objects()[sIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         EXPECT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
         compil::StructureSPtr pStructure = 
             boost::static_pointer_cast<compil::Structure>(pObject);
@@ -44,9 +44,9 @@ public:
     {
         bool result = true;
         
-        EXPECT_LT(sIndex, (int)mpModel->objects().size());
+        EXPECT_LT(sIndex, (int)mDocument->objects().size());
         
-        compil::ObjectSPtr pObject = mpModel->objects()[sIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         EXPECT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
         compil::StructureSPtr pStructure = 
             boost::static_pointer_cast<compil::Structure>(pObject);
@@ -59,9 +59,9 @@ public:
     {
         bool result = true;
         
-        EXPECT_LT(sIndex, (int)mpModel->objects().size());
+        EXPECT_LT(sIndex, (int)mDocument->objects().size());
         
-        compil::ObjectSPtr pObject = mpModel->objects()[sIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         EXPECT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
         compil::StructureSPtr pStructure = 
             boost::static_pointer_cast<compil::Structure>(pObject);
@@ -74,9 +74,9 @@ public:
     {
         bool result = true;
         
-        EXPECT_LT(sIndex, (int)mpModel->objects().size());
+        EXPECT_LT(sIndex, (int)mDocument->objects().size());
         
-        compil::ObjectSPtr pObject = mpModel->objects()[sIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         EXPECT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
         compil::StructureSPtr pStructure = 
             boost::static_pointer_cast<compil::Structure>(pObject);
@@ -89,9 +89,9 @@ public:
     {
         bool result = true;
         
-        EXPECT_LT(sIndex, (int)mpModel->objects().size());
+        EXPECT_LT(sIndex, (int)mDocument->objects().size());
         
-        compil::ObjectSPtr pObject = mpModel->objects()[sIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         EXPECT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
         compil::StructureSPtr pStructure = 
             boost::static_pointer_cast<compil::Structure>(pObject);
@@ -104,9 +104,9 @@ public:
     {
         bool result = true;
         
-        EXPECT_LT(sIndex, (int)mpModel->objects().size());
+        EXPECT_LT(sIndex, (int)mDocument->objects().size());
         
-        compil::ObjectSPtr pObject = mpModel->objects()[sIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         EXPECT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
         compil::StructureSPtr pStructure = 
             boost::static_pointer_cast<compil::Structure>(pObject);
@@ -119,9 +119,9 @@ public:
     {
         bool result = true;
         
-        EXPECT_LT(sIndex, (int)mpModel->objects().size());
+        EXPECT_LT(sIndex, (int)mDocument->objects().size());
         
-        compil::ObjectSPtr pObject = mpModel->objects()[sIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         EXPECT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
         compil::StructureSPtr pStructure = 
             boost::static_pointer_cast<compil::Structure>(pObject);
@@ -322,7 +322,7 @@ TEST_F(ParserStructureTests, structureNameCommentOpenClose)
     ASSERT_TRUE( parse(
         "structure name {}") );
         
-    EXPECT_EQ(1U, mpModel->objects().size());
+    EXPECT_EQ(1U, mDocument->objects().size());
     EXPECT_TRUE(checkStructure(0, 1, 1, "name"));
     EXPECT_TRUE(checkStructureControlled(0, false));
     EXPECT_TRUE(checkStructureImmutable(0, false));
@@ -370,12 +370,12 @@ TEST_F(ParserStructureTests, structureAttributes)
 
                             mpParser.reset(new compil::Parser());
                             mpMessageCollector = mpParser->mpMessageCollector;
-                            mpModel.reset(new compil::Model());
+                            mDocument = lib::compil::CompilDocument::create();
 
                             ASSERT_TRUE( parse(
                                 (stattributes + "structure name {}").c_str()) ) << stattributes;
                                 
-                            EXPECT_EQ(1U, mpModel->objects().size());
+                            EXPECT_EQ(1U, mDocument->objects().size());
                             EXPECT_TRUE(checkStructure(0, 1, 1, "name"));
                             EXPECT_TRUE(checkStructureAbstract(0, a != 0));
                             EXPECT_TRUE(checkStructureControlled(0, c != 0));
@@ -399,7 +399,7 @@ TEST_F(ParserStructureTests, 2structuresWithComments)
         "//comment2\n"
         "structure name2 {}") );
 
-    EXPECT_EQ(2U, mpModel->objects().size());
+    EXPECT_EQ(2U, mDocument->objects().size());
 
     EXPECT_TRUE(checkStructure(0, 2, 1, "name1", "comment1"));
     EXPECT_TRUE(checkStructure(1, 4, 1, "name2", "comment2"));

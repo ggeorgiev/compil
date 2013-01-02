@@ -15,9 +15,9 @@ public:
     void checkSpecimen(int sIndex, int line, int column, 
                      const char* name, const char* comment = NULL)
     {
-        ASSERT_LT(sIndex, (int)mpModel->objects().size());
+        ASSERT_LT(sIndex, (int)mDocument->objects().size());
         
-        compil::ObjectSPtr pObject = mpModel->objects()[sIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         ASSERT_EQ(compil::EObjectId::specimen(), pObject->runtimeObjectId());
         compil::SpecimenSPtr pSpecimen = 
             boost::static_pointer_cast<compil::Specimen>(pObject);
@@ -39,10 +39,10 @@ public:
     bool checkSpecimenParameterType(int sIndex, const char* parameterType)
     {
         bool result = true;
-        EXPECT_LT(sIndex, (int)mpModel->objects().size());
-        if (sIndex >= (int)mpModel->objects().size()) return false;
+        EXPECT_LT(sIndex, (int)mDocument->objects().size());
+        if (sIndex >= (int)mDocument->objects().size()) return false;
         
-        compil::ObjectSPtr pObject = mpModel->objects()[sIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         EXPECT_EQ(compil::EObjectId::specimen(), pObject->runtimeObjectId());
         compil::SpecimenSPtr pSpecimen = 
             boost::static_pointer_cast<compil::Specimen>(pObject);
@@ -166,7 +166,7 @@ TEST_F(ParserSpecimenTests, specimenNameOpenClose)
     ASSERT_TRUE( parse(
         "specimen name {}") );
     
-    EXPECT_EQ(1U, mpModel->objects().size());
+    EXPECT_EQ(1U, mDocument->objects().size());
     checkSpecimen(0, 1, 1, "name");
     EXPECT_TRUE(checkSpecimenParameterType(0, "integer"));
 }
@@ -176,7 +176,7 @@ TEST_F(ParserSpecimenTests, specimenNameParameterTypeOpenClose)
     ASSERT_TRUE( parse(
         "specimen<small> name {}") );
     
-    EXPECT_EQ(1U, mpModel->objects().size());
+    EXPECT_EQ(1U, mDocument->objects().size());
     checkSpecimen(0, 1, 1, "name");
     EXPECT_TRUE(checkSpecimenParameterType(0, "small"));
 }
@@ -199,7 +199,7 @@ TEST_F(ParserSpecimenTests, 2specimensWithComments)
         "//comment2\n"
         "specimen name2 {}") );
 
-    EXPECT_EQ(2U, mpModel->objects().size());
+    EXPECT_EQ(2U, mDocument->objects().size());
     
     checkSpecimen(0, 2, 1, "name1", "comment1");
     checkSpecimen(1, 4, 1, "name2", "comment2");

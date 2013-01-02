@@ -123,6 +123,7 @@ Parser::~Parser()
 
 void Parser::setInput(const boost::shared_ptr<std::istream>& pInput)
 {
+    mContext = boost::make_shared<DocumentParseContext>();
     mContext->mTokenizer.reset(new Tokenizer(mpMessageCollector, mpSourceId, pInput));
 }
 

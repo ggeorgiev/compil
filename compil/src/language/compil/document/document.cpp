@@ -107,7 +107,7 @@ void Document::setPackage(const PackageSPtr& pPackage)
     mpPackage = pPackage;
 }
 
-static bool compareElementValues(const std::vector<PackageElementSPtr>& v1, const std::vector<PackageElementSPtr>& v2)
+bool Document::compareElementValues(const std::vector<PackageElementSPtr>& v1, const std::vector<PackageElementSPtr>& v2)
 {
     if (v1.size() != v2.size())
         return false;

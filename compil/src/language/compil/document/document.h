@@ -114,6 +114,9 @@ public:
     
     void cache(const ObjectSPtr& pObject);
     
+    static bool compareElementValues(const std::vector<PackageElementSPtr>& v1,
+                                     const std::vector<PackageElementSPtr>& v2);
+    
 private:
     PackageSPtr mpPackage;
     FileSPtr mMainFile;

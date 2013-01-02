@@ -15,9 +15,9 @@ public:
     void checkIdentifier(int iIndex, int line, int column, 
                      const char* name, const char* comment = NULL)
     {
-        ASSERT_LT(iIndex, (int)mpModel->objects().size());
+        ASSERT_LT(iIndex, (int)mDocument->objects().size());
         
-        compil::ObjectSPtr pObject = mpModel->objects()[iIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[iIndex];
         ASSERT_EQ(compil::EObjectId::identifier(), pObject->runtimeObjectId());
         compil::IdentifierSPtr pIdentifier = 
             boost::static_pointer_cast<compil::Identifier>(pObject);
@@ -38,9 +38,9 @@ public:
     
     void checkIdentifierCast(int iIndex, const compil::CastableType::ECast& cast)
     {
-        ASSERT_LT(iIndex, (int)mpModel->objects().size());
+        ASSERT_LT(iIndex, (int)mDocument->objects().size());
         
-        compil::ObjectSPtr pObject = mpModel->objects()[iIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[iIndex];
         ASSERT_EQ(compil::EObjectId::identifier(), pObject->runtimeObjectId());
         compil::IdentifierSPtr pIdentifier = 
             boost::static_pointer_cast<compil::Identifier>(pObject);
@@ -51,10 +51,10 @@ public:
     bool checkIdentifierBase(int iIndex, const char* baseType)
     {
         bool result = true;
-        EXPECT_LT(iIndex, (int)mpModel->objects().size());
-        if (iIndex >= (int)mpModel->objects().size()) return false;
+        EXPECT_LT(iIndex, (int)mDocument->objects().size());
+        if (iIndex >= (int)mDocument->objects().size()) return false;
         
-        compil::ObjectSPtr pObject = mpModel->objects()[iIndex];
+        compil::ObjectSPtr pObject = mDocument->objects()[iIndex];
         EXPECT_EQ(compil::EObjectId::identifier(), pObject->runtimeObjectId());
         compil::IdentifierSPtr pIdentifier = 
             boost::static_pointer_cast<compil::Identifier>(pObject);
@@ -159,7 +159,7 @@ TEST_F(ParserIdentifierTests, identifierNameOpenClose)
     ASSERT_TRUE( parse(
         "identifier name {}") );
     
-    EXPECT_EQ(1U, mpModel->objects().size());
+    EXPECT_EQ(1U, mDocument->objects().size());
     checkIdentifier(0, 1, 1, "name");
     checkIdentifierCast(0, compil::CastableType::ECast::weak());
     EXPECT_TRUE(checkIdentifierBase(0, "integer"));
@@ -170,7 +170,7 @@ TEST_F(ParserIdentifierTests, identifierNameBaseOpenClose)
     ASSERT_TRUE( parse(
         "identifier<small> name {}") );
     
-    EXPECT_EQ(1U, mpModel->objects().size());
+    EXPECT_EQ(1U, mDocument->objects().size());
     checkIdentifier(0, 1, 1, "name");
     checkIdentifierCast(0, compil::CastableType::ECast::weak());
     EXPECT_TRUE(checkIdentifierBase(0, "small"));
@@ -201,7 +201,7 @@ TEST_F(ParserIdentifierTests, weakIdentifierNameCommentOpenClose)
     ASSERT_TRUE( parse(
         "weak identifier name {}") );
     
-    EXPECT_EQ(1U, mpModel->objects().size());
+    EXPECT_EQ(1U, mDocument->objects().size());
     checkIdentifier(0, 1, 1, "name");
     checkIdentifierCast(0, compil::CastableType::ECast::weak());
 }
@@ -211,7 +211,7 @@ TEST_F(ParserIdentifierTests, strongIdentifierNameCommentOpenClose)
     ASSERT_TRUE( parse(
         "strong identifier name {}") );
     
-    EXPECT_EQ(1U, mpModel->objects().size());
+    EXPECT_EQ(1U, mDocument->objects().size());
     checkIdentifier(0, 1, 1, "name");
     checkIdentifierCast(0, compil::CastableType::ECast::strong());
 }
@@ -223,7 +223,7 @@ TEST_F(ParserIdentifierTests, 2identifiersWithComments)
         "identifier name1 {}\n"
         "//comment2\n"
         "identifier name2 {}") );
-    EXPECT_EQ(2U, mpModel->objects().size());
+    EXPECT_EQ(2U, mDocument->objects().size());
     
     checkIdentifier(0, 2, 1, "name1", "comment1");
     checkIdentifier(1, 4, 1, "name2", "comment2");

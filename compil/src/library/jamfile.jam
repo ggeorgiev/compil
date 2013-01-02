@@ -18,9 +18,11 @@ lib cpp-library
     c++/compil/namespace.cpp
     c++/compil/specimen.cpp
     
-    $(TOP)/language//language
+    $(TOP)/language//cpp-language
+    $(TOP)/language//compil-language
   :
-    <implicit-dependency>$(TOP)/language//language
+    <implicit-dependency>$(TOP)/language//cpp-language
+    <implicit-dependency>$(TOP)/language//compil-language
   :
   :
     <include>$(TOP)
@@ -31,9 +33,9 @@ lib compil-library
     compil/document.cpp
     compil/package.cpp
     
-    $(TOP)/language//language
+    $(TOP)/language//compil-language
   :
-    <implicit-dependency>$(TOP)/language//language
+    <implicit-dependency>$(TOP)/language//compil-language
   :
   :
     <include>$(TOP)
