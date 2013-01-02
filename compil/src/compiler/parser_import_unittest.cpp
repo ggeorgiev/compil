@@ -15,7 +15,7 @@ public:
 
 TEST_F(ParserImportTests, import)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "import") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -24,7 +24,7 @@ TEST_F(ParserImportTests, import)
 
 TEST_F(ParserImportTests, importSource)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "import \"blah\"") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -33,7 +33,7 @@ TEST_F(ParserImportTests, importSource)
 
 TEST_F(ParserImportTests, importSourceClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "import \"blah\";") );
 
     ASSERT_EQ(1U, mpParser->messages().size());

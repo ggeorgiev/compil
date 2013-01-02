@@ -69,7 +69,7 @@ public:
 
 TEST_F(ParserIdentifierTests, identifier)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "identifier") );
         
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -78,7 +78,7 @@ TEST_F(ParserIdentifierTests, identifier)
 
 TEST_F(ParserIdentifierTests, identifierComment)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "identifier //") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -88,7 +88,7 @@ TEST_F(ParserIdentifierTests, identifierComment)
 
 TEST_F(ParserIdentifierTests, identifierCommentBaseTypeOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "identifier /* */ <") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -98,7 +98,7 @@ TEST_F(ParserIdentifierTests, identifierCommentBaseTypeOpen)
 
 TEST_F(ParserIdentifierTests, identifierCommentBaseTypeOpenType)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "identifier < /* */ integer") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -108,7 +108,7 @@ TEST_F(ParserIdentifierTests, identifierCommentBaseTypeOpenType)
 
 TEST_F(ParserIdentifierTests, identifierCommentBaseType)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "identifier < integer /* */ >") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -118,7 +118,7 @@ TEST_F(ParserIdentifierTests, identifierCommentBaseType)
 
 TEST_F(ParserIdentifierTests, identifierCommentName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "identifier /* */ name") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -128,7 +128,7 @@ TEST_F(ParserIdentifierTests, identifierCommentName)
 
 TEST_F(ParserIdentifierTests, identifierName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "identifier name") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -137,7 +137,7 @@ TEST_F(ParserIdentifierTests, identifierName)
 
 TEST_F(ParserIdentifierTests, identifierNameOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "identifier name {") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -146,7 +146,7 @@ TEST_F(ParserIdentifierTests, identifierNameOpen)
 
 TEST_F(ParserIdentifierTests, identifierNameCommentOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "identifier name /* */ {") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -156,7 +156,7 @@ TEST_F(ParserIdentifierTests, identifierNameCommentOpen)
 
 TEST_F(ParserIdentifierTests, identifierNameOpenClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "identifier name {}") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -167,7 +167,7 @@ TEST_F(ParserIdentifierTests, identifierNameOpenClose)
 
 TEST_F(ParserIdentifierTests, identifierNameBaseOpenClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "identifier<small> name {}") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -178,7 +178,7 @@ TEST_F(ParserIdentifierTests, identifierNameBaseOpenClose)
 
 TEST_F(ParserIdentifierTests, identifierNameWrongBaseOpenClose)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "identifier<real32> name {}") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -188,7 +188,7 @@ TEST_F(ParserIdentifierTests, identifierNameWrongBaseOpenClose)
 
 TEST_F(ParserIdentifierTests, identifierNameMissingBaseOpenClose)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "identifier<blah> name {}") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -198,7 +198,7 @@ TEST_F(ParserIdentifierTests, identifierNameMissingBaseOpenClose)
 
 TEST_F(ParserIdentifierTests, weakIdentifierNameCommentOpenClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "weak identifier name {}") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -208,7 +208,7 @@ TEST_F(ParserIdentifierTests, weakIdentifierNameCommentOpenClose)
 
 TEST_F(ParserIdentifierTests, strongIdentifierNameCommentOpenClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "strong identifier name {}") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -218,7 +218,7 @@ TEST_F(ParserIdentifierTests, strongIdentifierNameCommentOpenClose)
 
 TEST_F(ParserIdentifierTests, 2identifiersWithComments)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "//comment1\n"
         "identifier name1 {}\n"
         "//comment2\n"

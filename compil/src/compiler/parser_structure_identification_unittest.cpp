@@ -77,7 +77,7 @@ struct Person#1
 
 TEST_F(ParserStructureIdentificationTests, identification)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name\n"
         "{\n"
         "  identification\n"
@@ -91,7 +91,7 @@ TEST_F(ParserStructureIdentificationTests, identification)
 
 TEST_F(ParserStructureIdentificationTests, runtimeIdentification_unclosed)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name\n"
         "{\n"
         "  runtime identification\n"
@@ -103,7 +103,7 @@ TEST_F(ParserStructureIdentificationTests, runtimeIdentification_unclosed)
 
 TEST_F(ParserStructureIdentificationTests, runtimeIdentification)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure name\n"
         "{\n"
         "  runtime identification;\n"
@@ -113,7 +113,7 @@ TEST_F(ParserStructureIdentificationTests, runtimeIdentification)
 
 TEST_F(ParserStructureIdentificationTests, inprocIdentification)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure name\n"
         "{\n"
         "  inproc identification;\n"

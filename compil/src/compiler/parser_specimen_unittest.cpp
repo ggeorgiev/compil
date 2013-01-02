@@ -66,7 +66,7 @@ specimen<string> SourceId
 
 TEST_F(ParserSpecimenTests, specimen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "specimen") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -75,7 +75,7 @@ TEST_F(ParserSpecimenTests, specimen)
 
 TEST_F(ParserSpecimenTests, specimenComment)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "specimen //") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -85,7 +85,7 @@ TEST_F(ParserSpecimenTests, specimenComment)
 
 TEST_F(ParserSpecimenTests, specimenCommentBaseTypeOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "specimen /* */ <") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -95,7 +95,7 @@ TEST_F(ParserSpecimenTests, specimenCommentBaseTypeOpen)
 
 TEST_F(ParserSpecimenTests, specimenCommentBaseTypeOpenType)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "specimen < /* */ integer") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -105,7 +105,7 @@ TEST_F(ParserSpecimenTests, specimenCommentBaseTypeOpenType)
 
 TEST_F(ParserSpecimenTests, specimenCommentBaseType)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "specimen < integer /* */ >") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -115,7 +115,7 @@ TEST_F(ParserSpecimenTests, specimenCommentBaseType)
 
 TEST_F(ParserSpecimenTests, specimenCommentName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "specimen /* */ name") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -125,7 +125,7 @@ TEST_F(ParserSpecimenTests, specimenCommentName)
 
 TEST_F(ParserSpecimenTests, specimenName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "specimen name") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -134,7 +134,7 @@ TEST_F(ParserSpecimenTests, specimenName)
 
 TEST_F(ParserSpecimenTests, specimenNameInherit)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "specimen name inherit") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -144,7 +144,7 @@ TEST_F(ParserSpecimenTests, specimenNameInherit)
 
 TEST_F(ParserSpecimenTests, specimenNameOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "specimen name {") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -153,7 +153,7 @@ TEST_F(ParserSpecimenTests, specimenNameOpen)
 
 TEST_F(ParserSpecimenTests, specimenNameCommentOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "specimen name /* */ {") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -163,7 +163,7 @@ TEST_F(ParserSpecimenTests, specimenNameCommentOpen)
 
 TEST_F(ParserSpecimenTests, specimenNameOpenClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "specimen name {}") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -173,7 +173,7 @@ TEST_F(ParserSpecimenTests, specimenNameOpenClose)
 
 TEST_F(ParserSpecimenTests, specimenNameParameterTypeOpenClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "specimen<small> name {}") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -183,7 +183,7 @@ TEST_F(ParserSpecimenTests, specimenNameParameterTypeOpenClose)
 
 TEST_F(ParserSpecimenTests, specimenNameMissingParameterTypeOpenClose)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "specimen<blah> name {}") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -193,7 +193,7 @@ TEST_F(ParserSpecimenTests, specimenNameMissingParameterTypeOpenClose)
 
 TEST_F(ParserSpecimenTests, 2specimensWithComments)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "//comment1\n"
         "specimen name1 {}\n"
         "//comment2\n"

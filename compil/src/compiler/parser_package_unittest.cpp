@@ -19,7 +19,7 @@ package a.b.c;
 
 TEST_F(ParserPackageTests, package)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "package") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -28,7 +28,7 @@ TEST_F(ParserPackageTests, package)
 
 TEST_F(ParserPackageTests, packageName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "package pname") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -37,7 +37,7 @@ TEST_F(ParserPackageTests, packageName)
 
 TEST_F(ParserPackageTests, packageNameSemicolon)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "package pname;") );
         
     ASSERT_TRUE(mDocument->package());
@@ -50,7 +50,7 @@ TEST_F(ParserPackageTests, packageNameSemicolon)
 
 TEST_F(ParserPackageTests, packageNameDot)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "package pname.") );
         
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -59,7 +59,7 @@ TEST_F(ParserPackageTests, packageNameDot)
 
 TEST_F(ParserPackageTests, packageNameDotName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "package pname.pname") );
         
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -68,7 +68,7 @@ TEST_F(ParserPackageTests, packageNameDotName)
 
 TEST_F(ParserPackageTests, packageNameDotNameSemicolon)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "package pname1.pname2;") );
         
     ASSERT_TRUE(mDocument->package());
@@ -82,7 +82,7 @@ TEST_F(ParserPackageTests, packageNameDotNameSemicolon)
 
 TEST_F(ParserPackageTests, packageAsterisk)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "package *;") );
         
     ASSERT_TRUE(mDocument->package());
@@ -96,7 +96,7 @@ TEST_F(ParserPackageTests, packageAsterisk)
 
 TEST_F(ParserPackageTests, packageAsteriskDotAsterisk)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "package *.*;") );
         
     ASSERT_TRUE(mDocument->package());
@@ -112,7 +112,7 @@ TEST_F(ParserPackageTests, packageAsteriskDotAsterisk)
 
 TEST_F(ParserPackageTests, packageAsteriskDotAsteriskDotName)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "package *.*.pname;") );
         
     ASSERT_TRUE(mDocument->package());
@@ -130,7 +130,7 @@ TEST_F(ParserPackageTests, packageAsteriskDotAsteriskDotName)
 
 TEST_F(ParserPackageTests, packageDifferntShortAndLevels)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "package * | *.pname;") );
         
     ASSERT_TRUE(mDocument->package());

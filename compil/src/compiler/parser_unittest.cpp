@@ -20,7 +20,7 @@ public:
 
 TEST_F(ParserTests, emptyStream)
 {
-    ASSERT_FALSE( parseRaw(
+    ASSERT_FALSE( parseRawDocument(
         "") );
     
     EXPECT_FALSE( mDocument->mainFile() );
@@ -28,7 +28,7 @@ TEST_F(ParserTests, emptyStream)
 
 TEST_F(ParserTests, whateverWrongStream)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "something") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -37,7 +37,7 @@ TEST_F(ParserTests, whateverWrongStream)
 
 TEST_F(ParserTests, documentCommentInTheBeggining)
 {
-    ASSERT_TRUE( parseRaw(
+    ASSERT_TRUE( parseRawDocument(
         "/* comment */ compil {}") );
 
     ASSERT_TRUE( mDocument->mainFile() );
@@ -50,7 +50,7 @@ TEST_F(ParserTests, documentCommentInTheBeggining)
 
 TEST_F(ParserTests, documentCommentAfterWhiteSpaces)
 {
-    ASSERT_TRUE( parseRaw(
+    ASSERT_TRUE( parseRawDocument(
         "  \n"
         "\n"
         "  /* comment */\n"
@@ -66,7 +66,7 @@ TEST_F(ParserTests, documentCommentAfterWhiteSpaces)
 
 TEST_F(ParserTests, documentCommentCStyleBlock)
 {
-    ASSERT_TRUE( parseRaw(
+    ASSERT_TRUE( parseRawDocument(
         "/* line1\n"
         "line2 \n"
         "\n"
@@ -84,7 +84,7 @@ TEST_F(ParserTests, documentCommentCStyleBlock)
 
 TEST_F(ParserTests, documentCommentCStyleLineMultiple)
 {
-    ASSERT_TRUE( parseRaw(
+    ASSERT_TRUE( parseRawDocument(
         "// line1\n"
         "// line2 \n"
         "//\n"
@@ -102,7 +102,7 @@ TEST_F(ParserTests, documentCommentCStyleLineMultiple)
 
 TEST_F(ParserTests, documentCommentSecondCStyleBlock)
 {
-    ASSERT_TRUE( parseRaw(
+    ASSERT_TRUE( parseRawDocument(
         "/*comment1*/\n"
         "\n"
         "/*comment2*/\n"
@@ -118,7 +118,7 @@ TEST_F(ParserTests, documentCommentSecondCStyleBlock)
 
 TEST_F(ParserTests, documentCommentSecondCStyleLine)
 {
-    ASSERT_TRUE( parseRaw(
+    ASSERT_TRUE( parseRawDocument(
         "//comment1\n"
         "\n"
         "//comment2\n"
@@ -134,7 +134,7 @@ TEST_F(ParserTests, documentCommentSecondCStyleLine)
 
 TEST_F(ParserTests, mispalcedCStyleBlockCommentInTheBegginingOfTheDocument)
 {
-    ASSERT_TRUE( parseRaw(
+    ASSERT_TRUE( parseRawDocument(
         "/*comment1*/\n"
         "\n"
         "//comment2\n"

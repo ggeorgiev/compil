@@ -77,7 +77,7 @@ struct Person#1
 
 TEST_F(ParserStructureUpcopyTests, upcopy)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name\n"
         "{\n"
         "  upcopy\n"
@@ -90,7 +90,7 @@ TEST_F(ParserStructureUpcopyTests, upcopy)
 
 TEST_F(ParserStructureUpcopyTests, upcopyFrom)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name\n"
         "{\n"
         "  upcopy from\n"
@@ -104,7 +104,7 @@ TEST_F(ParserStructureUpcopyTests, upcopyFrom)
 
 TEST_F(ParserStructureUpcopyTests, upcopyFromBlah)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name\n"
         "{\n"
         "  upcopy from blah\n"
@@ -118,7 +118,7 @@ TEST_F(ParserStructureUpcopyTests, upcopyFromBlah)
 
 TEST_F(ParserStructureUpcopyTests, upcopyFromInteger)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name\n"
         "{\n"
         "  upcopy from integer\n"
@@ -132,7 +132,7 @@ TEST_F(ParserStructureUpcopyTests, upcopyFromInteger)
 
 TEST_F(ParserStructureUpcopyTests, upcopyFromStruct)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure struct {}\n"
         "structure name\n"
         "{\n"
@@ -148,7 +148,7 @@ TEST_F(ParserStructureUpcopyTests, upcopyFromStruct)
 
 TEST_F(ParserStructureUpcopyTests, inheritUpcopyFromStruct)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure struct {}\n"
         "structure name inherit struct\n"
         "{\n"
@@ -161,7 +161,7 @@ TEST_F(ParserStructureUpcopyTests, inheritUpcopyFromStruct)
 
 TEST_F(ParserStructureUpcopyTests, inheritUpcopyFromStructSemicolon)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure struct {}\n"
         "structure name inherit struct\n"
         "{\n"

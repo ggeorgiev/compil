@@ -159,7 +159,7 @@ struct Person#1
 
 TEST_F(ParserStructureTests, structure)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -168,7 +168,7 @@ TEST_F(ParserStructureTests, structure)
 
 TEST_F(ParserStructureTests, structureComment)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure //") );
 
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -178,7 +178,7 @@ TEST_F(ParserStructureTests, structureComment)
 
 TEST_F(ParserStructureTests, structureCommentName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure /* */ name") );
 
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -188,7 +188,7 @@ TEST_F(ParserStructureTests, structureCommentName)
 
 TEST_F(ParserStructureTests, structureName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -197,7 +197,7 @@ TEST_F(ParserStructureTests, structureName)
 
 TEST_F(ParserStructureTests, structureNameComment)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name /* */") );
 
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -207,7 +207,7 @@ TEST_F(ParserStructureTests, structureNameComment)
 
 TEST_F(ParserStructureTests, structureNameInherit)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name inherit") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -216,7 +216,7 @@ TEST_F(ParserStructureTests, structureNameInherit)
 
 TEST_F(ParserStructureTests, structureNameInheritComment)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name inherit /* */") );
 
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -226,7 +226,7 @@ TEST_F(ParserStructureTests, structureNameInheritComment)
 
 TEST_F(ParserStructureTests, structureNameInheritName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name inherit name") );
 
     ASSERT_LE(1U, mpParser->messages().size());
@@ -235,7 +235,7 @@ TEST_F(ParserStructureTests, structureNameInheritName)
 
 TEST_F(ParserStructureTests, structureNameInheritInt32)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name inherit integer") );
 
     ASSERT_LE(1U, mpParser->messages().size());
@@ -244,7 +244,7 @@ TEST_F(ParserStructureTests, structureNameInheritInt32)
 
 TEST_F(ParserStructureTests, structureNameNameAlter)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure base{} structure name inherit base alter") );
 
     ASSERT_LE(1U, mpParser->messages().size());
@@ -254,7 +254,7 @@ TEST_F(ParserStructureTests, structureNameNameAlter)
 
 TEST_F(ParserStructureTests, structureNameNameAlterField)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure base {integer a;} structure name inherit base alter a") );
 
     ASSERT_LE(1U, mpParser->messages().size());
@@ -263,7 +263,7 @@ TEST_F(ParserStructureTests, structureNameNameAlterField)
 
 TEST_F(ParserStructureTests, structureNameNameAlterWrongField)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure base {integer a;} structure name inherit base alter b") );
 
     ASSERT_LE(1U, mpParser->messages().size());
@@ -273,7 +273,7 @@ TEST_F(ParserStructureTests, structureNameNameAlterWrongField)
 
 TEST_F(ParserStructureTests, structureNameNameAlterFieldAssigment)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure base {integer a;} structure name inherit base alter a=") );
 
     ASSERT_LE(1U, mpParser->messages().size());
@@ -282,7 +282,7 @@ TEST_F(ParserStructureTests, structureNameNameAlterFieldAssigment)
 
 TEST_F(ParserStructureTests, structureNameNameAlterFieldAssigmentValue)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure base {integer a;} structure name inherit base alter a=5") );
 
     ASSERT_LE(1U, mpParser->messages().size());
@@ -291,7 +291,7 @@ TEST_F(ParserStructureTests, structureNameNameAlterFieldAssigmentValue)
 
 TEST_F(ParserStructureTests, structureNameNameAlterFieldAssigmentValueDelimiter)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure base {integer a;} structure name inherit base alter a=5,") );
 
     ASSERT_LE(1U, mpParser->messages().size());
@@ -300,7 +300,7 @@ TEST_F(ParserStructureTests, structureNameNameAlterFieldAssigmentValueDelimiter)
 
 TEST_F(ParserStructureTests, structureNameOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name {") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -309,7 +309,7 @@ TEST_F(ParserStructureTests, structureNameOpen)
 
 TEST_F(ParserStructureTests, structureNameCommentOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name /* */ {") );
 
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -319,7 +319,7 @@ TEST_F(ParserStructureTests, structureNameCommentOpen)
 
 TEST_F(ParserStructureTests, structureNameCommentOpenClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure name {}") );
         
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -371,7 +371,7 @@ TEST_F(ParserStructureTests, structureAttributes)
                             mpParser.reset(new compil::Parser());
                             mDocument = lib::compil::CompilDocument::create();
 
-                            ASSERT_TRUE( parse(
+                            ASSERT_TRUE( parseDocument(
                                 (stattributes + "structure name {}").c_str()) ) << stattributes;
                                 
                             EXPECT_EQ(1U, mDocument->objects().size());
@@ -392,7 +392,7 @@ TEST_F(ParserStructureTests, structureAttributes)
 
 TEST_F(ParserStructureTests, 2structuresWithComments)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "//comment1\n"
         "structure name1 {}\n"
         "//comment2\n"

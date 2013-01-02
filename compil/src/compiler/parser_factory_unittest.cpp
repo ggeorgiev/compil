@@ -102,7 +102,7 @@ object factory<Object> ObjectFactory
 
 TEST_F(ParserFactoryTests, noTypeFactory)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "factory") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -113,7 +113,7 @@ TEST_F(ParserFactoryTests, noTypeFactory)
 
 TEST_F(ParserFactoryTests, factory)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "hierarchy factory") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -122,7 +122,7 @@ TEST_F(ParserFactoryTests, factory)
 
 TEST_F(ParserFactoryTests, factoryComment)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "hierarchy factory //") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -132,7 +132,7 @@ TEST_F(ParserFactoryTests, factoryComment)
 
 TEST_F(ParserFactoryTests, factoryCommentBaseTypeOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "hierarchy factory /* */ <") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -142,7 +142,7 @@ TEST_F(ParserFactoryTests, factoryCommentBaseTypeOpen)
 
 TEST_F(ParserFactoryTests, factoryCommentBaseTypeOpenType)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "hierarchy factory < /* */ integer") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -152,7 +152,7 @@ TEST_F(ParserFactoryTests, factoryCommentBaseTypeOpenType)
 
 TEST_F(ParserFactoryTests, factoryCommentBaseType)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "hierarchy factory < integer /* */ >") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -162,7 +162,7 @@ TEST_F(ParserFactoryTests, factoryCommentBaseType)
 
 TEST_F(ParserFactoryTests, factoryName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "hierarchy factory name") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -171,7 +171,7 @@ TEST_F(ParserFactoryTests, factoryName)
 
 TEST_F(ParserFactoryTests, factoryTypeCommentName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "hierarchy factory<integer> /* */ name") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -181,7 +181,7 @@ TEST_F(ParserFactoryTests, factoryTypeCommentName)
 
 TEST_F(ParserFactoryTests, factoryTypeName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "hierarchy factory<integer> name") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -190,7 +190,7 @@ TEST_F(ParserFactoryTests, factoryTypeName)
 
 TEST_F(ParserFactoryTests, factoryTypeNameOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "hierarchy factory<integer> name {") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -199,7 +199,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameOpen)
 
 TEST_F(ParserFactoryTests, factoryTypeNameCommentOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "hierarchy factory<integer> name /* */ {") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -209,7 +209,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpen)
 
 TEST_F(ParserFactoryTests, hierarchyFactoryTypeNameCommentOpenFilter)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "hierarchy factory<integer> name { filter") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -218,7 +218,7 @@ TEST_F(ParserFactoryTests, hierarchyFactoryTypeNameCommentOpenFilter)
 
 TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterWithNoStructureType)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "object factory<integer> name { filter") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -227,7 +227,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterWithNoStructureType)
 
 TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterWithUnknownField)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure sname { integer i; }\n"
         "object factory<sname> name { filter unknown") );
     
@@ -239,7 +239,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterWithUnknownField)
 
 TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterField)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure sname { integer i; }\n"
         "object factory<sname> name { filter i") );
     
@@ -251,7 +251,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterField)
 
 TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterFieldBlah)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure sname { integer i; }\n"
         "object factory<sname> name { filter i blah") );
     
@@ -263,7 +263,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterFieldBlah)
 
 TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterFieldWith)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure sname { integer i; }\n"
         "object factory<sname> name { filter i with") );
     
@@ -275,7 +275,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterFieldWith)
 
 TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterFieldWithMethod)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure sname { integer i; }\n"
         "object factory<sname> name { filter i with blah") );
     
@@ -286,7 +286,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterFieldWithMethod)
 
 TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterFieldWithMethodSemicolon)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure sname { integer i; }\n"
         "object factory<sname> name { filter i with blah;") );
     
@@ -296,7 +296,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterFieldWithMethodSemico
 
 TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterFieldWithMethodSemicolonClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname { integer i; }\n"
         "object factory<sname> name { filter i with blah; }") );
     
@@ -308,7 +308,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterFieldWithMethodSemico
 
 TEST_F(ParserFactoryTests, factory2Filters)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname { integer i1;  integer i2; }\n"
         "object factory<sname> name { filter i1 with blah1; filter i2 with blah2; }") );
     
@@ -321,7 +321,7 @@ TEST_F(ParserFactoryTests, factory2Filters)
 
 TEST_F(ParserFactoryTests, hierarchyFactoryTypeNameOpenClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "hierarchy factory<integer> name {}") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -331,7 +331,7 @@ TEST_F(ParserFactoryTests, hierarchyFactoryTypeNameOpenClose)
 
 TEST_F(ParserFactoryTests, objectFactoryTypeNameOpenClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "object factory<integer> name {}") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -341,7 +341,7 @@ TEST_F(ParserFactoryTests, objectFactoryTypeNameOpenClose)
 
 TEST_F(ParserFactoryTests, factoryMissingParameterTypeNameOpenClose)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "hierarchy factory<blah> name {}") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -351,7 +351,7 @@ TEST_F(ParserFactoryTests, factoryMissingParameterTypeNameOpenClose)
 
 TEST_F(ParserFactoryTests, 2factoiesWithComments)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "//comment1\n"
         "hierarchy factory<integer> name1 {}\n"
         "//comment2\n"

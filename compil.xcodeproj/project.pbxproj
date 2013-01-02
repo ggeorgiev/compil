@@ -72,6 +72,8 @@
 		5E5F99421617790300B91C54 /* variable_name.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = variable_name.compil; sourceTree = "<group>"; };
 		5E5F99431617810600B91C54 /* argument.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = argument.cpp; sourceTree = "<group>"; };
 		5E5F99441617810600B91C54 /* argument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = argument.h; sourceTree = "<group>"; };
+		5E84125C1694CF29001BF4C6 /* parser_project_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = parser_project_unittest.cpp; sourceTree = "<group>"; };
+		5E84125E1694D618001BF4C6 /* name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = name.scompil; sourceTree = "<group>"; };
 		5E88A19515E188BB002D43A5 /* compile.bat */ = {isa = PBXFileReference; lastKnownFileType = text; path = compile.bat; sourceTree = "<group>"; };
 		5E88A19815E188BB002D43A5 /* configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = configuration.cpp; sourceTree = "<group>"; };
 		5E88A19915E188BB002D43A5 /* configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = configuration.h; sourceTree = "<group>"; };
@@ -410,7 +412,6 @@
 		5EFFA6C21692702400035CAA /* integer.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = integer.scompil; sourceTree = "<group>"; };
 		5EFFA6C31692702400035CAA /* interface.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = interface.scompil; sourceTree = "<group>"; };
 		5EFFA6C41692702400035CAA /* method.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method.scompil; sourceTree = "<group>"; };
-		5EFFA6C51692702400035CAA /* name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = name.scompil; sourceTree = "<group>"; };
 		5EFFA6C81692702400035CAA /* operator.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = operator.scompil; sourceTree = "<group>"; };
 		5EFFA6C91692702400035CAA /* package.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = package.scompil; sourceTree = "<group>"; };
 		5EFFA6CB1692702400035CAA /* parameter.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = parameter.scompil; sourceTree = "<group>"; };
@@ -639,6 +640,7 @@
 				5E88A1FB15E188BB002D43A5 /* parser_interface_method_unittest.cpp */,
 				5E88A1FC15E188BB002D43A5 /* parser_interface_unittest.cpp */,
 				5E88A1FD15E188BB002D43A5 /* parser_package_unittest.cpp */,
+				5E84125C1694CF29001BF4C6 /* parser_project_unittest.cpp */,
 				5E88A1FE15E188BB002D43A5 /* parser_specimen_unittest.cpp */,
 				5E88A1FF15E188BB002D43A5 /* parser_structure_field_unittest.cpp */,
 				5E88A20015E188BB002D43A5 /* parser_structure_identification_unittest.cpp */,
@@ -1276,7 +1278,6 @@
 				5EFFA6C21692702400035CAA /* integer.scompil */,
 				5EFFA6C31692702400035CAA /* interface.scompil */,
 				5EFFA6C41692702400035CAA /* method.scompil */,
-				5EFFA6C51692702400035CAA /* name.scompil */,
 				5E35351216948F6200716B12 /* operator_action.scompil */,
 				5E35351316948F6A00716B12 /* operator_flags.scompil */,
 				5EFFA6C81692702400035CAA /* operator.scompil */,
@@ -1314,6 +1315,7 @@
 			children = (
 				5EFFA6E916936D8300035CAA /* comment.scompil */,
 				5EFFA6E516936B8B00035CAA /* file.scompil */,
+				5E84125E1694D618001BF4C6 /* name.scompil */,
 				5EFFA6E616936B8B00035CAA /* object.scompil */,
 				5EFFA6E716936B8B00035CAA /* object_factory.scompil */,
 				5EFFA6EB16936E4900035CAA /* package_element.scompil */,

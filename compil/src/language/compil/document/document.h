@@ -50,7 +50,6 @@
 #include "compil/document/integer.h"
 #include "compil/document/interface.h"
 #include "compil/document/method.h"
-#include "compil/document/name.h"
 #include "compil/document/operator.h"
 #include "compil/document/package.h"
 #include "compil/document/parameter.h"

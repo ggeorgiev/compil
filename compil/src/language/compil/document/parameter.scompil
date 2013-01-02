@@ -34,8 +34,8 @@ compil { }
 
 import "compil/document/method.scompil";
 import "compil/document/type.scompil";
-import "compil/document/name.scompil";
 import "compil/all/comment.scompil";
+import "compil/all/name.scompil";
 
 package lang.compil;
 

@@ -71,7 +71,7 @@ interface name
 
 TEST_F(ParserInterfaceMethodTests, interfaceMethod)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "interface name\n"
         "{\n"
         "  method\n"
@@ -83,7 +83,7 @@ TEST_F(ParserInterfaceMethodTests, interfaceMethod)
 
 TEST_F(ParserInterfaceMethodTests, interfaceCommentMethod)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "interface name\n"
         "{\n"
         "  // comment\n"
@@ -96,7 +96,7 @@ TEST_F(ParserInterfaceMethodTests, interfaceCommentMethod)
 
 TEST_F(ParserInterfaceMethodTests, interfaceMethodName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "interface name\n"
         "{\n"
         "  method name\n"
@@ -108,7 +108,7 @@ TEST_F(ParserInterfaceMethodTests, interfaceMethodName)
 
 TEST_F(ParserInterfaceMethodTests, interfaceMethodCommentName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "interface name\n"
         "{\n"
         "  method /*comment*/ name") );
@@ -122,7 +122,7 @@ TEST_F(ParserInterfaceMethodTests, interfaceMethodCommentName)
 
 TEST_F(ParserInterfaceMethodTests, interfaceMethodNameOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "interface name\n"
         "{\n"
         "  method name\n"
@@ -137,7 +137,7 @@ TEST_F(ParserInterfaceMethodTests, interfaceMethodNameOpen)
 
 TEST_F(ParserInterfaceMethodTests, interfaceMethodNameOpenClose)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "interface name\n"
         "{\n"
         "  method name\n"
@@ -151,7 +151,7 @@ TEST_F(ParserInterfaceMethodTests, interfaceMethodNameOpenClose)
 
 TEST_F(ParserInterfaceMethodTests, interfaceMethodClosed)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "interface name\n"
         "{\n"
         "  method name {}\n"
@@ -163,7 +163,7 @@ TEST_F(ParserInterfaceMethodTests, interfaceMethodClosed)
 
 TEST_F(ParserInterfaceMethodTests, interface2MethodClosed)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "interface name\n"
         "{\n"
         "  method name1 {}\n"
@@ -177,7 +177,7 @@ TEST_F(ParserInterfaceMethodTests, interface2MethodClosed)
 
 TEST_F(ParserInterfaceMethodTests, interfaceMethodSomething)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "interface name\n"
         "{\n"
         "  method name\n"
@@ -194,7 +194,7 @@ TEST_F(ParserInterfaceMethodTests, interfaceMethodSomething)
 
 TEST_F(ParserInterfaceMethodTests, interfaceMethodSomethingClosed)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "interface name\n"
         "{\n"
         "  method name\n"
@@ -209,7 +209,7 @@ TEST_F(ParserInterfaceMethodTests, interfaceMethodSomethingClosed)
 
 TEST_F(ParserInterfaceMethodTests, interfaceMethodArrow)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "interface name\n"
         "{\n"
         "  method name\n"

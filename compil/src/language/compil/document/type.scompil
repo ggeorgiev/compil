@@ -33,8 +33,8 @@
 compil { }
 
 import "compil/document/package.scompil";
-import "compil/document/name.scompil";
 import "compil/all/comment.scompil";
+import "compil/all/name.scompil";
 
 package lang.compil;
 

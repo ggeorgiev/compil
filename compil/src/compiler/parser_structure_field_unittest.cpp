@@ -138,7 +138,7 @@ struct Person#1
 
 TEST_F(ParserStructureFieldTests, structureType)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name\n"
         "{\n"
         "  integer\n"
@@ -150,7 +150,7 @@ TEST_F(ParserStructureFieldTests, structureType)
 
 TEST_F(ParserStructureFieldTests, structureWrongType)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name\n"
         "{\n"
         "  blah\n"
@@ -165,7 +165,7 @@ TEST_F(ParserStructureFieldTests, structureWrongType)
 
 TEST_F(ParserStructureFieldTests, structureTypeName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure sname\n"
         "{\n"
         "  integer fname\n"
@@ -177,7 +177,7 @@ TEST_F(ParserStructureFieldTests, structureTypeName)
 
 TEST_F(ParserStructureFieldTests, structure1Field)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  integer fname;\n"
@@ -189,7 +189,7 @@ TEST_F(ParserStructureFieldTests, structure1Field)
 
 TEST_F(ParserStructureFieldTests, structure2Fields)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  integer fname1;\n"
@@ -203,7 +203,7 @@ TEST_F(ParserStructureFieldTests, structure2Fields)
 
 TEST_F(ParserStructureFieldTests, structureFieldWithComment)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  // comment\n"
@@ -216,7 +216,7 @@ TEST_F(ParserStructureFieldTests, structureFieldWithComment)
 
 TEST_F(ParserStructureFieldTests, structureFieldWith2Comments)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  // skip comment\n"
@@ -234,7 +234,7 @@ TEST_F(ParserStructureFieldTests, structureFieldWith2Comments)
 
 TEST_F(ParserStructureFieldTests, structureFieldCommentedName)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  integer /* comment */ fname;\n"
@@ -249,7 +249,7 @@ TEST_F(ParserStructureFieldTests, structureFieldCommentedName)
 
 TEST_F(ParserStructureFieldTests, structureFieldCommentAtTheEnd)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  integer fname /* comment */ ;\n"
@@ -264,7 +264,7 @@ TEST_F(ParserStructureFieldTests, structureFieldCommentAtTheEnd)
 
 TEST_F(ParserStructureFieldTests, structureFieldCommentAfterIt)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  integer fname ;\n"
@@ -280,7 +280,7 @@ TEST_F(ParserStructureFieldTests, structureFieldCommentAfterIt)
 
 TEST_F(ParserStructureFieldTests, structureFieldGarbageAfterTheName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name\n"
         "{\n"
         "  integer a blah;\n"
@@ -292,7 +292,7 @@ TEST_F(ParserStructureFieldTests, structureFieldGarbageAfterTheName)
 
 TEST_F(ParserStructureFieldTests, structureFieldDefaultNoValue)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name\n"
         "{\n"
         "  integer a =;\n"
@@ -304,7 +304,7 @@ TEST_F(ParserStructureFieldTests, structureFieldDefaultNoValue)
 
 TEST_F(ParserStructureFieldTests, structureFieldDefaultCommentNoValue)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name\n"
         "{\n"
         "  integer a = /*comment*/;\n"
@@ -317,7 +317,7 @@ TEST_F(ParserStructureFieldTests, structureFieldDefaultCommentNoValue)
 
 TEST_F(ParserStructureFieldTests, structureFieldOptional)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  integer fname = optional;\n"
@@ -330,7 +330,7 @@ TEST_F(ParserStructureFieldTests, structureFieldOptional)
 
 TEST_F(ParserStructureFieldTests, structureFieldDefaultLiteralValue)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  integer fname = 123;\n"
@@ -343,7 +343,7 @@ TEST_F(ParserStructureFieldTests, structureFieldDefaultLiteralValue)
 
 TEST_F(ParserStructureFieldTests, structureFieldDefaultIdentifierValue)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  boolean fname = true;\n"
@@ -356,7 +356,7 @@ TEST_F(ParserStructureFieldTests, structureFieldDefaultIdentifierValue)
 
 TEST_F(ParserStructureFieldTests, structureFieldDefaultComment)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  integer fname = optional /*comment*/;\n"
@@ -372,7 +372,7 @@ TEST_F(ParserStructureFieldTests, structureFieldDefaultComment)
 
 TEST_F(ParserStructureFieldTests, structureFieldReference)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure sname\n"
         "{\n"
         "  reference\n"
@@ -384,7 +384,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReference)
 
 TEST_F(ParserStructureFieldTests, structureFieldReferenceCommentParameterTypeOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure sname\n"
         "{\n"
         "  reference /* */ <\n"
@@ -397,7 +397,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceCommentParameterTypeOpe
 
 TEST_F(ParserStructureFieldTests, structureFieldReferenceCommentParameterType)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure sname\n"
         "{\n"
         "  reference < integer /* */ >\n"
@@ -410,7 +410,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceCommentParameterType)
 
 TEST_F(ParserStructureFieldTests, structureFieldReferenceComment)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  reference<integer> fname /* */;\n"
@@ -425,7 +425,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceComment)
 
 TEST_F(ParserStructureFieldTests, structureFieldReferenceParameterTypeNameEq)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure sname\n"
         "{\n"
         "  reference<integer> fname =\n"
@@ -437,7 +437,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceParameterTypeNameEq)
 
 TEST_F(ParserStructureFieldTests, structureFieldReferenceParameterTypeNameEqOptional)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure sname\n"
         "{\n"
         "  reference<integer> fname = optional\n"
@@ -449,7 +449,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceParameterTypeNameEqOpti
 
 TEST_F(ParserStructureFieldTests, structureFieldReferenceParameterTypeNameEqOptionalDone)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  reference<integer> fname = optional;\n"
@@ -462,7 +462,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceParameterTypeNameEqOpti
 
 TEST_F(ParserStructureFieldTests, structureFieldWeakReferenceParameterTypeNameEqOptionalDone)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  weak reference<integer> fname = optional;\n"
@@ -475,7 +475,7 @@ TEST_F(ParserStructureFieldTests, structureFieldWeakReferenceParameterTypeNameEq
 
 TEST_F(ParserStructureFieldTests, structureFieldReferenceNull)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  reference<integer> fname = null;\n"
@@ -488,7 +488,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceNull)
 
 TEST_F(ParserStructureFieldTests, structureFieldWeakReferenceNull)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  weak reference<integer> fname = null;\n"
@@ -501,7 +501,7 @@ TEST_F(ParserStructureFieldTests, structureFieldWeakReferenceNull)
 
 TEST_F(ParserStructureFieldTests, structureFieldReferenceToItself)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  reference<sname> fname;\n"
@@ -514,7 +514,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceToItself)
 
 TEST_F(ParserStructureFieldTests, structureFieldWeakReferenceToItself)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname\n"
         "{\n"
         "  weak reference<sname> fname;\n"
@@ -527,7 +527,7 @@ TEST_F(ParserStructureFieldTests, structureFieldWeakReferenceToItself)
 
 TEST_F(ParserStructureFieldTests, structureFieldsWithSameNames)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name\n"
         "{\n"
         "  small name;\n"
@@ -547,7 +547,7 @@ TEST_F(ParserStructureFieldTests, structureFieldsWithSameNames)
 
 TEST_F(ParserStructureFieldTests, structureFields)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure name\n"
         "{\n"
         "  boolean b;\n"
@@ -600,7 +600,7 @@ TEST_F(ParserStructureFieldTests, structureFields)
 
 TEST_F(ParserStructureFieldTests, structureUnaryContainers)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure name\n"
         "{\n"
         "  vector<integer> v;\n"

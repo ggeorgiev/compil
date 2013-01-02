@@ -62,8 +62,10 @@ public:
         return StreamPtr(new std::stringstream(prefix + text));
     }
     
-    virtual bool parse(const char* text)
+    virtual bool parseDocument(const char* text)
     {
+        mProject.reset();
+        
         lang::compil::PackageElementSPtr el1 = boost::make_shared<lang::compil::PackageElement>();
         el1->set_value("external1");
         lang::compil::PackageElementSPtr el2 = boost::make_shared<lang::compil::PackageElement>();
@@ -83,8 +85,10 @@ public:
         return mpParser->parseDocument(mpSourceId, pInput, mDocument);
     }
     
-    virtual bool parseRaw(const char* text)
+    virtual bool parseRawDocument(const char* text)
     {
+        mProject.reset();
+
         mpSourceId =
             compil::SourceId::Builder()
                 .set_value("source_id")
@@ -92,6 +96,29 @@ public:
                 
         StreamPtr pInput = getRawInput(text);
         return mpParser->parseDocument(mpSourceId, pInput, mDocument);
+    }
+    
+    virtual bool parseProject(const char* text)
+    {
+        mDocument.reset();
+    
+        lang::compil::PackageElementSPtr el1 = boost::make_shared<lang::compil::PackageElement>();
+        el1->set_value("external1");
+        lang::compil::PackageElementSPtr el2 = boost::make_shared<lang::compil::PackageElement>();
+        el2->set_value("external2");
+
+        std::vector<compil::PackageElementSPtr> externalElements;
+        externalElements.push_back(el1);
+        externalElements.push_back(el2);
+        
+        mpSourceId =
+            compil::SourceId::Builder()
+                .set_value("source_id")
+                .set_externalElements(externalElements)
+                .finalize();    
+    
+        StreamPtr pInput = getInput(text);
+        return mpParser->parseProject(mpSourceId, pInput, mProject);
     }
     
     virtual const std::vector<compil::Message> messages()
@@ -109,7 +136,7 @@ public:
         EXPECT_EQ(expected.severity(), message.severity());
         EXPECT_EQ(expected.sourceId(), message.sourceId());
         EXPECT_EQ(expected.line(), message.line());
-        EXPECT_EQ(expected.column(), message.column());
+        EXPECT_EQ(expected.column().value(), message.column().value());
         EXPECT_STREQ(expected.text().c_str(), message.text().c_str());
         return expected == message;
     }
@@ -148,5 +175,6 @@ public:
 protected:
     compil::SourceIdSPtr mpSourceId;
     compil::DocumentSPtr mDocument;
+    compil::ProjectSPtr mProject;
     compil::ParserPtr mpParser;
 };

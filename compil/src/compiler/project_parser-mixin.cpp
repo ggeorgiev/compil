@@ -35,8 +35,16 @@
 namespace compil
 {
 
+FilePathSPtr ProjectParserMixin::parseFilePath(const ProjectParseContextSPtr& context)
+{
+    return FilePathSPtr();
+}
+
 SectionSPtr ProjectParserMixin::parseSection(const ProjectParseContextSPtr& context, const CommentSPtr& comment)
 {
+    SectionSPtr section = boost::make_shared<Section>();
+    initilizeObject(context, section);
+
     context->mTokenizer->shift();
     skipComments(context);
     if (!context->mTokenizer->expect(Token::TYPE_IDENTIFIER))
@@ -45,8 +53,47 @@ SectionSPtr ProjectParserMixin::parseSection(const ProjectParseContextSPtr& cont
                                                << Message::Statement("section"));
         return SectionSPtr();
     }
+    
+    NameSPtr name = boost::make_shared<Name>();
+    initilizeObject(context, name);
+    name << context->mTokenizer->current()->text();
+    section << name;
+    
+    context->mTokenizer->shift();
+    skipComments(context);
+    
+    if (!context->mTokenizer->expect(Token::TYPE_BRACKET, "{"))
+    {
+        context->mMessageCollector->addMessage(errorMessage(context, Message::p_expectStatementBody)
+                                               << Message::Statement("section"));
+        return SectionSPtr();
+    }
+    
+    context->mTokenizer->shift();
+    skipComments(context);
+    for (;;)
+    {
+        if (context->mTokenizer->eot())
+        {
+            context->mMessageCollector->addMessage(errorMessage(context, Message::p_unexpectEOFInStatementBody)
+                                                   << Message::Statement("section"));
+            return SectionSPtr();
+        }
+        
+        if (context->mTokenizer->check(Token::TYPE_BRACKET, "}"))
+            break;
 
-    return SectionSPtr();
+        FilePathSPtr filePath = parseFilePath(context);
+        if (!filePath)
+        {
+            context->mMessageCollector->addMessage(errorMessage(context, Message::p_expectStatementName)
+                                                   << Message::Statement("specimen"));
+            return SectionSPtr();
+        }
+    }
+
+
+    return section;
 }
 
 void ProjectParserMixin::parseProjectStatement(const ProjectParseContextSPtr& context, const CommentSPtr& comment)

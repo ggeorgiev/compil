@@ -21,7 +21,7 @@ struct Person
 
 TEST_F(ParserStructureOperationTests, operator)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name\n"
         "{\n"
         "  operator\n"
@@ -33,7 +33,7 @@ TEST_F(ParserStructureOperationTests, operator)
 
 TEST_F(ParserStructureOperationTests, operatorEqualTo)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name\n"
         "{\n"
         "  operator ==\n"
@@ -45,7 +45,7 @@ TEST_F(ParserStructureOperationTests, operatorEqualTo)
 
 TEST_F(ParserStructureOperationTests, operatorEqualToSemicolon)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "structure name\n"
         "{\n"
         "  operator == ;\n"
@@ -57,7 +57,7 @@ TEST_F(ParserStructureOperationTests, operatorEqualToSemicolon)
 
 TEST_F(ParserStructureOperationTests, nativeOperatorEqualToSemicolon)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure name\n"
         "{\n"
         "  native operator == ;\n"
@@ -67,7 +67,7 @@ TEST_F(ParserStructureOperationTests, nativeOperatorEqualToSemicolon)
 
 TEST_F(ParserStructureOperationTests, operatorLessThanSemicolon)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure name\n"
         "{\n"
         "  native operator < ;\n"
@@ -77,7 +77,7 @@ TEST_F(ParserStructureOperationTests, operatorLessThanSemicolon)
 
 TEST_F(ParserStructureOperationTests, functionOperatorEqualToSemicolon)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure name\n"
         "{\n"
         "  function operator == ;\n"
@@ -88,7 +88,7 @@ TEST_F(ParserStructureOperationTests, functionOperatorEqualToSemicolon)
 
 TEST_F(ParserStructureOperationTests, functorOperatorEqualToSemicolon)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure name\n"
         "{\n"
         "  functor operator == ;\n"

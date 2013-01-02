@@ -130,7 +130,7 @@ enum Weekday
 
 TEST_F(ParserEnumerationTests, enum)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -139,7 +139,7 @@ TEST_F(ParserEnumerationTests, enum)
 
 TEST_F(ParserEnumerationTests, enumComment)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum //") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -149,7 +149,7 @@ TEST_F(ParserEnumerationTests, enumComment)
 
 TEST_F(ParserEnumerationTests, enumCommentParameterTypeOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum /* */ <") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -159,7 +159,7 @@ TEST_F(ParserEnumerationTests, enumCommentParameterTypeOpen)
 
 TEST_F(ParserEnumerationTests, enumCommentParameterTypeOpenType)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum < /* */ integer") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -169,7 +169,7 @@ TEST_F(ParserEnumerationTests, enumCommentParameterTypeOpenType)
 
 TEST_F(ParserEnumerationTests, enumCommentParameterType)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum < integer /* */ >") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -179,7 +179,7 @@ TEST_F(ParserEnumerationTests, enumCommentParameterType)
 
 TEST_F(ParserEnumerationTests, enumCommentName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum /* */ name") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -189,7 +189,7 @@ TEST_F(ParserEnumerationTests, enumCommentName)
 
 TEST_F(ParserEnumerationTests, enumName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum name") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -198,7 +198,7 @@ TEST_F(ParserEnumerationTests, enumName)
 
 TEST_F(ParserEnumerationTests, enumNameOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum name {") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -207,7 +207,7 @@ TEST_F(ParserEnumerationTests, enumNameOpen)
 
 TEST_F(ParserEnumerationTests, enumNameCommentOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum name /* */ {") );
     
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -217,7 +217,7 @@ TEST_F(ParserEnumerationTests, enumNameCommentOpen)
 
 TEST_F(ParserEnumerationTests, enumNameOpenClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "enum name {}") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -229,7 +229,7 @@ TEST_F(ParserEnumerationTests, enumNameOpenClose)
 
 TEST_F(ParserEnumerationTests, enumNameParameterTypeOpenClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "enum<small> name {}") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -241,7 +241,7 @@ TEST_F(ParserEnumerationTests, enumNameParameterTypeOpenClose)
 
 TEST_F(ParserEnumerationTests, enumNameWrongParameterTypeOpenClose)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum<real32> name {}") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -251,7 +251,7 @@ TEST_F(ParserEnumerationTests, enumNameWrongParameterTypeOpenClose)
 
 TEST_F(ParserEnumerationTests, enumNameMissingParameterTypeOpenClose)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum<blah> name {}") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -261,7 +261,7 @@ TEST_F(ParserEnumerationTests, enumNameMissingParameterTypeOpenClose)
 
 TEST_F(ParserEnumerationTests, weakEnumNameCommentOpenClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "weak enum name {}") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -272,7 +272,7 @@ TEST_F(ParserEnumerationTests, weakEnumNameCommentOpenClose)
 
 TEST_F(ParserEnumerationTests, strongEnumNameCommentOpenClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "strong enum name {}") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -283,7 +283,7 @@ TEST_F(ParserEnumerationTests, strongEnumNameCommentOpenClose)
 
 TEST_F(ParserEnumerationTests, flagsEnumNameCommentOpenClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "flags enum name {}") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -294,7 +294,7 @@ TEST_F(ParserEnumerationTests, flagsEnumNameCommentOpenClose)
 
 TEST_F(ParserEnumerationTests, 2enumsWithComments)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "//comment1\n"
         "enum name1 {}\n"
         "//comment2\n"
@@ -310,7 +310,7 @@ TEST_F(ParserEnumerationTests, 2enumsWithComments)
 
 TEST_F(ParserEnumerationTests, enumValue)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum name\n"
         "{\n"
         "  value\n"
@@ -322,7 +322,7 @@ TEST_F(ParserEnumerationTests, enumValue)
 
 TEST_F(ParserEnumerationTests, enumValueSomething)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum name\n"
         "{\n"
         "  value blah\n"
@@ -334,7 +334,7 @@ TEST_F(ParserEnumerationTests, enumValueSomething)
 
 TEST_F(ParserEnumerationTests, enumValueEqual)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum ename\n"
         "{\n"
         "  value =\n"
@@ -346,7 +346,7 @@ TEST_F(ParserEnumerationTests, enumValueEqual)
 
 TEST_F(ParserEnumerationTests, enumValueEqualValue)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum ename\n"
         "{\n"
         "  value = blah\n"
@@ -359,7 +359,7 @@ TEST_F(ParserEnumerationTests, enumValueEqualValue)
 
 TEST_F(ParserEnumerationTests, enumValue1EqualValue2EqualValue1)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum ename\n"
         "{\n"
         "  value1;\n"
@@ -372,7 +372,7 @@ TEST_F(ParserEnumerationTests, enumValue1EqualValue2EqualValue1)
 
 TEST_F(ParserEnumerationTests, enumValue1EqualValue2EqualValue1Or)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum ename\n"
         "{\n"
         "  value1;\n"
@@ -386,7 +386,7 @@ TEST_F(ParserEnumerationTests, enumValue1EqualValue2EqualValue1Or)
 
 TEST_F(ParserEnumerationTests, enumValue1EqualValue2EqualValue1OrSemicolon)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "enum ename\n"
         "{\n"
         "  value1;\n"
@@ -399,7 +399,7 @@ TEST_F(ParserEnumerationTests, enumValue1EqualValue2EqualValue1OrSemicolon)
 
 TEST_F(ParserEnumerationTests, enum1Value)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "enum name\n"
         "{\n"
         "  value;\n"
@@ -411,7 +411,7 @@ TEST_F(ParserEnumerationTests, enum1Value)
 
 TEST_F(ParserEnumerationTests, enum2Value)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "enum name\n"
         "{\n"
         "  value1;\n"
@@ -425,7 +425,7 @@ TEST_F(ParserEnumerationTests, enum2Value)
 
 TEST_F(ParserEnumerationTests, enumComposedValue)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "enum name\n"
         "{\n"
         "  value1;\n"
@@ -442,7 +442,7 @@ TEST_F(ParserEnumerationTests, enumComposedValue)
 
 TEST_F(ParserEnumerationTests, enum2ValueWithComment)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "enum name\n"
         "{\n"
         "  // comment\n"

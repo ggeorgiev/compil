@@ -2219,6 +2219,7 @@ bool Parser::parseProject(const SourceIdSPtr& sourceId,
     mContext->mSourceId = sourceId;
     
     ProjectParseContextSPtr context = boost::static_pointer_cast<ProjectParseContext>(mContext);
+    context->mProject = boost::make_shared<Project>();
     
     FileSPtr file = parseFile();
     if (!file)
@@ -2240,8 +2241,10 @@ bool Parser::parseProject(const SourceIdSPtr& sourceId,
         }
         pStatementComment = lastComment();
     }
-
     
+    if (mContext->mMessageCollector->severity() > Message::SEVERITY_WARNING)
+        return false;
+        
     return true;
 }
 

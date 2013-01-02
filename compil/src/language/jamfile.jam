@@ -144,6 +144,7 @@ lib compil-language
   :
     compil/all/comment.scompil
     compil/all/file.scompil
+    compil/all/name.scompil
     compil/all/object_factory.scompil
     compil/all/object.scompil
     compil/all/package_element.scompil
@@ -166,7 +167,6 @@ lib compil-language
     compil/document/integer.cpp
     compil/document/interface.scompil
     compil/document/method.scompil
-    compil/document/name.scompil
     compil/document/operator_action.scompil
     compil/document/operator_flags.scompil
     compil/document/operator.scompil

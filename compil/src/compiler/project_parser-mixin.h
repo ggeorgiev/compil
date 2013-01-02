@@ -48,6 +48,7 @@ typedef boost::shared_ptr<ProjectParseContext> ProjectParseContextSPtr;
 class ProjectParserMixin : public ParserMixin
 {
 public:
+    FilePathSPtr parseFilePath(const ProjectParseContextSPtr& context);
     SectionSPtr parseSection(const ProjectParseContextSPtr& context, const CommentSPtr& comment);
     
     void parseProjectStatement(const ProjectParseContextSPtr& context, const CommentSPtr& comment);

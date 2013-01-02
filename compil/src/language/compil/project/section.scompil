@@ -33,6 +33,7 @@
 compil { }
 
 import "compil/project/file_path.scompil";
+import "compil/all/name.scompil";
 
 package lang.compil;
 
@@ -42,5 +43,6 @@ structure Section
 {
     runtime identification;
     
+    reference<Name> name;
     vector<reference<FilePath>> paths;
 }

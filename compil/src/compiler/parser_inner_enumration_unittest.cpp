@@ -45,7 +45,7 @@ protected:
 
 TEST_F(ParserInnerEnumerationTests, enum)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname { enum ename {} }") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -54,7 +54,7 @@ TEST_F(ParserInnerEnumerationTests, enum)
 
 TEST_F(ParserInnerEnumerationTests, strongEnum)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname { strong enum ename {} }") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -63,7 +63,7 @@ TEST_F(ParserInnerEnumerationTests, strongEnum)
 
 TEST_F(ParserInnerEnumerationTests, weakEnum)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname { weak enum ename {} }") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -72,7 +72,7 @@ TEST_F(ParserInnerEnumerationTests, weakEnum)
 
 TEST_F(ParserInnerEnumerationTests, 2Enums)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname { enum ename1 {} enum ename2 {} }") );
     
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -83,7 +83,7 @@ TEST_F(ParserInnerEnumerationTests, 2Enums)
 
 TEST_F(ParserInnerEnumerationTests, 2EnumsWithComments)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "structure sname { /*comment 1*/ enum ename1 {} /*comment 2*/ enum ename2 {} }") );
     
     EXPECT_EQ(1U, mDocument->objects().size());

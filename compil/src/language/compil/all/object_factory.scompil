@@ -34,6 +34,7 @@ compil { }
 
 import "compil/all/comment.scompil";
 import "compil/all/file.scompil";
+import "compil/all/name.scompil";
 import "compil/all/object.scompil";
 import "compil/all/version.scompil";
 
@@ -53,7 +54,6 @@ import "compil/document/integer.scompil";
 import "compil/document/interface.scompil";
 import "compil/document/method.scompil";
 import "compil/document/operator.scompil";
-import "compil/document/name.scompil";
 import "compil/document/package.scompil";
 import "compil/document/parameter.scompil";
 import "compil/document/reference.scompil";

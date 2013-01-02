@@ -48,7 +48,7 @@ interface name
 
 TEST_F(ParserInterfaceTests, interface)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "interface") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -57,7 +57,7 @@ TEST_F(ParserInterfaceTests, interface)
 
 TEST_F(ParserInterfaceTests, interfaceComment)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "interface //") );
 
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -67,7 +67,7 @@ TEST_F(ParserInterfaceTests, interfaceComment)
 
 TEST_F(ParserInterfaceTests, interfaceCommentName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "interface /* */ name") );
 
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -77,7 +77,7 @@ TEST_F(ParserInterfaceTests, interfaceCommentName)
 
 TEST_F(ParserInterfaceTests, interfaceName)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "interface name") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -86,7 +86,7 @@ TEST_F(ParserInterfaceTests, interfaceName)
 
 TEST_F(ParserInterfaceTests, interfaceNameOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "interface name {") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -95,7 +95,7 @@ TEST_F(ParserInterfaceTests, interfaceNameOpen)
 
 TEST_F(ParserInterfaceTests, interfaceNameCommentOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "interface name /* */ {") );
 
     ASSERT_EQ(2U, mpParser->messages().size());
@@ -105,7 +105,7 @@ TEST_F(ParserInterfaceTests, interfaceNameCommentOpen)
 
 TEST_F(ParserInterfaceTests, interfaceNameOpenClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "interface name {}") );
 
     ASSERT_EQ(1U, mDocument->objects().size());
@@ -114,7 +114,7 @@ TEST_F(ParserInterfaceTests, interfaceNameOpenClose)
 
 TEST_F(ParserInterfaceTests, strongInterfaceNameCommentOpen)
 {
-    ASSERT_FALSE( parse(
+    ASSERT_FALSE( parseDocument(
         "strong interface name {}") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
@@ -124,7 +124,7 @@ TEST_F(ParserInterfaceTests, strongInterfaceNameCommentOpen)
 
 TEST_F(ParserInterfaceTests, 2interfaceNameOpenClose)
 {
-    ASSERT_TRUE( parse(
+    ASSERT_TRUE( parseDocument(
         "interface name1 {}\n"
         "interface name2 {}") );
 
