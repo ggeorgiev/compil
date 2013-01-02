@@ -15,6 +15,7 @@ lib cpp-library
     c++/boost/namespace.cpp
 
     c++/compil/builder.cpp
+    c++/compil/namespace.cpp
     c++/compil/specimen.cpp
     
     $(TOP)/language//language

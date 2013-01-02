@@ -55,7 +55,7 @@ public:
     ImplementerStream& operator<<(const lang::cpp::TestSuite& suite);
     
 private:
-    NamerStream mNamer;
+    nmr::NamerStream mNamer;
     ImplementerConfigurationPtr mConfiguration;
 };
 

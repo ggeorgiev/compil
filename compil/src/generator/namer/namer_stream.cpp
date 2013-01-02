@@ -32,12 +32,10 @@
 
 #include "namer_stream.h"
 
-#include "c++/class/class_name_factory.h"
-#include "c++/namespace/namespace_name_factory.h"
-
 #include "boost/unordered_map.hpp"
 
-using namespace lang::cpp;
+namespace nmr
+{
 
 NamerStream::NamerStream(const NamerConfigurationSPtr& namerConfiguration,
                 const FormatterConfigurationPtr& formatterConfiguration,
@@ -56,7 +54,7 @@ std::string NamerStream::str()
     return mFormatter.str();
 }
 
-static IdentifierSPtr convertClassName(const ClassNameSPtr& name)
+IdentifierSPtr NamerStream::convertClassName(const ClassNameSPtr& name)
 {
     if (name->runtimeClassNameId() == IdentifierClassName::staticClassNameId())
         return IdentifierClassName::downcast(name)->identifier();
@@ -65,7 +63,7 @@ static IdentifierSPtr convertClassName(const ClassNameSPtr& name)
     return IdentifierSPtr();
 }
 
-static IdentifierClassNameSPtr convertIdentifierClassName(const ClassNameSPtr& name)
+IdentifierClassNameSPtr NamerStream::convertIdentifierClassName(const ClassNameSPtr& name)
 {
     if (name->runtimeClassNameId() == IdentifierClassName::staticClassNameId())
         return IdentifierClassName::downcast(name);
@@ -74,7 +72,7 @@ static IdentifierClassNameSPtr convertIdentifierClassName(const ClassNameSPtr& n
     return IdentifierClassNameSPtr();
 }
 
-static IdentifierNamespaceNameSPtr convertIdentifierNamespaceName(const NamespaceNameSPtr& name)
+IdentifierNamespaceNameSPtr NamerStream::convertIdentifierNamespaceName(const NamespaceNameSPtr& name)
 {
     if (name->runtimeNamespaceNameId() == IdentifierNamespaceName::staticNamespaceNameId())
         return IdentifierNamespaceName::downcast(name);
@@ -84,7 +82,7 @@ static IdentifierNamespaceNameSPtr convertIdentifierNamespaceName(const Namespac
 }
 
 
-static TypeNameSimpleTypeSpecifierSPtr convertTypeNameSimpleTypeSpecifier(const ClassSPtr& class_)
+TypeNameSimpleTypeSpecifierSPtr NamerStream::convertTypeNameSimpleTypeSpecifier(const ClassSPtr& class_)
 {
     ClassTypeNameSPtr classTypeName1 = classTypeNameRef()
         << convertIdentifierClassName(class_->name());
@@ -130,7 +128,7 @@ static TypeNameSimpleTypeSpecifierSPtr convertTypeNameSimpleTypeSpecifier(const 
     return typeNameSimpleTypeSpecifier;
 }
 
-static DeclarationSPtr convertDeclaration(const DeclarationSPtr& declaration)
+DeclarationSPtr NamerStream::convertDeclaration(const DeclarationSPtr& declaration)
 {
     if (declaration->runtimeDeclarationId() == ClassDeclaration::staticDeclarationId())
     {
@@ -141,49 +139,13 @@ static DeclarationSPtr convertDeclaration(const DeclarationSPtr& declaration)
     return declaration;
 }
 
-static ExpressionSPtr convertExpression(const ExpressionSPtr& expression);
-
-static ExpressionSPtr doConvertExpression(const ExpressionSPtr& expression)
+ExpressionSPtr NamerStream::convertExpression(const ExpressionSPtr& expression)
 {
-    if (expression->runtimeExpressionId() == MethodCallExpression::staticExpressionId())
-    {
-        MethodCallExpressionSPtr mcexpression = MethodCallExpression::downcast(expression);
+    static boost::unordered_map<ExpressionSPtr, ExpressionSPtr> map;
+    boost::unordered_map<ExpressionSPtr, ExpressionSPtr>::iterator it = map.find(expression);
+    if (it != map.end())
+        return it->second;
 
-        IdentifierSPtr variableIdentifier = identifierRef()
-            << mcexpression->variable()->name()->value();
-
-        IdentifierUnqualifiedIdSPtr variableUnqualifiedId = identifierUnqualifiedIdRef()
-            << variableIdentifier;
-        UnqualifiedIdExpressionSPtr variableUnqualifiedIdExpression = unqualifiedIdExpressionRef()
-            << variableUnqualifiedId;
-        IdExpressionPrimaryExpressionSPtr variablePrimaryExpression = idExpressionPrimaryExpressionRef()
-            << variableUnqualifiedIdExpression;
-        PrimaryExpressionPostfixExpressionSPtr variablePostfixExpression = primaryExpressionPostfixExpressionRef()
-            << variablePrimaryExpression;
-
-        IdentifierSPtr methodIdentifier = identifierRef()
-            << mcexpression->method()->value();
-        IdentifierUnqualifiedIdSPtr methodUnqualifiedId = identifierUnqualifiedIdRef()
-            << methodIdentifier;
-        UnqualifiedIdExpressionSPtr methodExpression = unqualifiedIdExpressionRef()
-            << methodUnqualifiedId;
-        
-        MemberAccessPostfixExpressionSPtr memberAccessExpression = memberAccessPostfixExpressionRef()
-            << variablePostfixExpression
-            << methodExpression;
-            
-        ExpressionListSPtr list = expressionListRef();
-        const std::vector<ExpressionSPtr>& expressions = mcexpression->expressions();
-        for (std::vector<ExpressionSPtr>::const_iterator it = expressions.begin(); it != expressions.end(); ++it)
-            list << convertExpression(*it);
-            
-        ParenthesesPostfixExpressionSPtr parenthesesExpression = parenthesesPostfixExpressionRef()
-            << memberAccessExpression
-            << list;
-        
-        return parenthesesExpression;
-    }
-    
     if (expression->runtimeExpressionId() == ConstructorCallExpression::staticExpressionId())
     {
         ConstructorCallExpressionSPtr ccexpression = ConstructorCallExpression::downcast(expression);
@@ -201,25 +163,141 @@ static ExpressionSPtr doConvertExpression(const ExpressionSPtr& expression)
         ParenthesesPostfixExpressionSPtr parenthesesExpression = parenthesesPostfixExpressionRef()
             << constructorPostfixExpression;
             
+        map[expression] = parenthesesExpression;
         return parenthesesExpression;
     }
+    
+    if (expression->runtimeExpressionId() == CustomExpression::staticExpressionId())
+    {
+        map[expression] = expression;
+        return expression;
+    }
+    
+    if (expression->runtimeExpressionId() == GenericEqualityExpression::staticExpressionId())
+    {
+        GenericEqualityExpressionSPtr geexpression = GenericEqualityExpression::downcast(expression);
+    
+        GrammarEqualityExpressionSPtr grammarEqualityExpression = grammarEqualityExpressionRef()
+            << convertEqualityExpression(geexpression->first())
+            << convertRelationalExpression(geexpression->second());
 
-    return expression;
+        map[expression] = grammarEqualityExpression;
+        return grammarEqualityExpression;
+    }
+    
+    if (expression->runtimeExpressionId() == MethodCallExpression::staticExpressionId())
+    {
+        MethodCallExpressionSPtr mcexpression = MethodCallExpression::downcast(expression);
+
+        IdentifierSPtr methodIdentifier = identifierRef()
+            << mcexpression->method()->value();
+        IdentifierUnqualifiedIdSPtr methodUnqualifiedId = identifierUnqualifiedIdRef()
+            << methodIdentifier;
+        UnqualifiedIdExpressionSPtr methodExpression = unqualifiedIdExpressionRef()
+            << methodUnqualifiedId;
+        
+        MemberAccessPostfixExpressionSPtr memberAccessExpression = memberAccessPostfixExpressionRef()
+            << convertPostfixExpression(mcexpression->variable())
+            << methodExpression;
+            
+        ParenthesesPostfixExpressionSPtr parenthesesExpression = parenthesesPostfixExpressionRef()
+            << memberAccessExpression
+            << convertExpressionList(mcexpression->list());
+        
+        map[expression] = parenthesesExpression;
+        return parenthesesExpression;
+    }
+    
+    if (expression->runtimeExpressionId() == VariableExpression::staticExpressionId())
+    {
+        PostfixExpressionSPtr variablePostfixExpression = convertPostfixExpression(expression);
+        map[expression] = variablePostfixExpression;
+        return variablePostfixExpression;
+    }
+    
+    BOOST_ASSERT(false);
+    return ExpressionSPtr();
 }
 
-static ExpressionSPtr convertExpression(const ExpressionSPtr& expression)
+PostfixExpressionSPtr NamerStream::convertPostfixExpression(const ExpressionSPtr& expression)
 {
-    static boost::unordered_map<ExpressionSPtr, ExpressionSPtr> map;
-    boost::unordered_map<ExpressionSPtr, ExpressionSPtr>::iterator it = map.find(expression);
-    if (it != map.end())
-        return it->second;
+    if (expression->runtimeExpressionId() == VariableExpression::staticExpressionId())
+    {
+        VariableExpressionSPtr vexpression = VariableExpression::downcast(expression);
 
-    ExpressionSPtr newexpression = doConvertExpression(expression);
-    map[expression] = newexpression;
-    return newexpression;
+        IdentifierSPtr variableIdentifier = identifierRef()
+            << vexpression->variable()->name()->value();
+
+        IdentifierUnqualifiedIdSPtr variableUnqualifiedId = identifierUnqualifiedIdRef()
+            << variableIdentifier;
+        UnqualifiedIdExpressionSPtr variableUnqualifiedIdExpression = unqualifiedIdExpressionRef()
+            << variableUnqualifiedId;
+        IdExpressionPrimaryExpressionSPtr variablePrimaryExpression = idExpressionPrimaryExpressionRef()
+            << variableUnqualifiedIdExpression;
+        PrimaryExpressionPostfixExpressionSPtr variablePostfixExpression = primaryExpressionPostfixExpressionRef()
+            << variablePrimaryExpression;
+
+        return variablePostfixExpression;
+    }
+
+    BOOST_ASSERT(false);
+    return PostfixExpressionSPtr();
 }
 
-static MacroParameterSPtr convertMacroParameter(const MacroParameterSPtr& parameter)
+RelationalExpressionSPtr NamerStream::convertRelationalExpression(const ExpressionSPtr& expression)
+{
+    if (expression->runtimeExpressionId() == VariableExpression::staticExpressionId())
+    {
+        PostfixUnaryExpressionSPtr postfixUnaryExpression = postfixUnaryExpressionRef()
+            << convertPostfixExpression(expression);
+        UnaryCastExpressionSPtr unaryCastExpression = unaryCastExpressionRef()
+            << postfixUnaryExpression;
+        CastPmExpressionSPtr castPmExpression = castPmExpressionRef()
+            << unaryCastExpression;
+        PmMultiplicativeExpressionSPtr pmMultiplicativeExpression = pmMultiplicativeExpressionRef()
+            << castPmExpression;
+        MultiplicativeAdditiveExpressionSPtr multiplicativeAdditiveExpression = multiplicativeAdditiveExpressionRef()
+            << pmMultiplicativeExpression;
+        AdditiveShiftExpressionSPtr additiveShiftExpression = additiveShiftExpressionRef()
+            << multiplicativeAdditiveExpression;
+        ShiftRelationalExpressionSPtr shiftRelationalExpression = shiftRelationalExpressionRef()
+            << additiveShiftExpression;
+        
+        return shiftRelationalExpression;
+    }
+
+    BOOST_ASSERT(false);
+    return RelationalExpressionSPtr();
+}
+
+EqualityExpressionSPtr NamerStream::convertEqualityExpression(const ExpressionSPtr& expression)
+{
+    if (expression->runtimeExpressionId() == VariableExpression::staticExpressionId())
+    {
+        RelationalEqualityExpressionSPtr relationalEqualityExpression = relationalEqualityExpressionRef()
+            << convertRelationalExpression(expression);
+        return relationalEqualityExpression;
+    }
+
+    BOOST_ASSERT(false);
+    return EqualityExpressionSPtr();
+}
+
+ExpressionListSPtr NamerStream::convertExpressionList(const ExpressionListSPtr& list)
+{
+    if (!list)
+        return list;
+        
+    ExpressionListSPtr newlist = expressionListRef();
+    const std::vector<ExpressionSPtr>& expressions = list->expressions();
+    for (std::vector<ExpressionSPtr>::const_iterator it = expressions.begin(); it != expressions.end(); ++it)
+        newlist << convertExpression(*it);
+        
+    return newlist;
+}
+
+
+MacroParameterSPtr NamerStream::convertMacroParameter(const MacroParameterSPtr& parameter)
 {
     if (parameter->runtimeMacroParameterId() == ExpressionMacroParameter::staticMacroParameterId())
         return expressionMacroParameterRef() << convertExpression(ExpressionMacroParameter::downcast(parameter)->expression());
@@ -229,7 +307,7 @@ static MacroParameterSPtr convertMacroParameter(const MacroParameterSPtr& parame
     return parameter;
 }
 
-static StatementSPtr convertStatement(const StatementSPtr& statement)
+StatementSPtr NamerStream::convertStatement(const StatementSPtr& statement)
 {
     if (statement->runtimeStatementId() == CompoundStatement::staticStatementId())
     {
@@ -301,5 +379,7 @@ NamerStream& NamerStream::operator<<(const StatementSPtr& statement)
 {
     mFormatter << convertStatement(statement);
     return *this;
+}
+
 }
 

@@ -48,28 +48,47 @@ lib language
     c++/declaration/type_name_simple_type_specifier.scompil
     c++/declaration/type_specifier.scompil
     
+    c++/expression/additive_expression.scompil
+    c++/expression/additive_shift_expression.scompil
     c++/expression/class_nested_name.scompil
+    c++/expression/cast_expression.scompil
+    c++/expression/cast_pm_expression.scompil
     c++/expression/constructor_call_expression.scompil
     c++/expression/custom_expression.scompil
     c++/expression/custom_id_expression.scompil
     c++/expression/custom_postfix_expression.scompil
+    c++/expression/equality_expression.scompil
     c++/expression/expression.scompil
     c++/expression/expression_list.scompil
     c++/expression/expression_factory.scompil
+    c++/expression/generic_equality_expression.scompil
+    c++/expression/grammar_equality_expression.scompil
     c++/expression/id_expression.scompil
     c++/expression/id_expression_primary_expression.scompil
     c++/expression/identifier_unqualified_id.scompil
     c++/expression/member_access_postfix_expression.scompil
+    c++/expression/multiplicative_additive_expression.scompil
+    c++/expression/multiplicative_expression.scompil
     c++/expression/method_call_expression.scompil
     c++/expression/namespace_nested_name.scompil
     c++/expression/nested_name.scompil
     c++/expression/nested_name_specifier.scompil
     c++/expression/parentheses_postfix_expression.scompil
+    c++/expression/pm_expression.scompil
+    c++/expression/pm_multiplicative_expression.scompil
     c++/expression/postfix_expression.scompil
+    c++/expression/postfix_unary_expression.scompil
     c++/expression/primary_expression.scompil
     c++/expression/primary_expression_postfix_expression.scompil
+    c++/expression/relational_equality_expression.scompil
+    c++/expression/relational_expression.scompil
+    c++/expression/shift_expression.scompil
+    c++/expression/shift_relational_expression.scompil
+    c++/expression/unary_cast_expression.scompil
+    c++/expression/unary_expression.scompil
     c++/expression/unqualified_id_expression.scompil
     c++/expression/unqualified_id.scompil
+    c++/expression/variable_expression.scompil
 
     c++/lexical/identifier-cpp.scompil
     

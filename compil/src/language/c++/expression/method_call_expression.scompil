@@ -32,7 +32,7 @@
 
 compil { }
 
-import "c++/expression/expression.scompil";
+import "c++/expression/expression_list.scompil";
 import "c++/logical/variable.scompil";
 import "c++/class/method_name.scompil";
 
@@ -44,7 +44,7 @@ structure MethodCallExpression
 {
     runtime identification;
     
-    reference<Variable> variable;
+    reference<Expression> variable;
     reference<MethodName> method;
-    vector<reference<Expression>> expressions;
+    reference<ExpressionList> list;
 }

@@ -39,6 +39,14 @@
 
 #include "formatter_stream.h"
 
+#include "c++/class/class_name_factory.h"
+#include "c++/namespace/namespace_name_factory.h"
+
+namespace nmr
+{
+
+using namespace lang::cpp;
+
 class NamerStream
 {
 public:
@@ -52,12 +60,28 @@ public:
     NamerStream& operator<<(const lang::cpp::StatementSPtr& statement);
 
 private:
+    static IdentifierSPtr convertClassName(const ClassNameSPtr& name);
+    static IdentifierClassNameSPtr convertIdentifierClassName(const ClassNameSPtr& name);
+    static IdentifierNamespaceNameSPtr convertIdentifierNamespaceName(const NamespaceNameSPtr& name);
+    static TypeNameSimpleTypeSpecifierSPtr convertTypeNameSimpleTypeSpecifier(const ClassSPtr& class_);
+    static DeclarationSPtr convertDeclaration(const DeclarationSPtr& declaration);
+    static ExpressionSPtr convertExpression(const ExpressionSPtr& expression);
+    static PostfixExpressionSPtr convertPostfixExpression(const ExpressionSPtr& expression);
+    static RelationalExpressionSPtr convertRelationalExpression(const ExpressionSPtr& expression);
+    static EqualityExpressionSPtr convertEqualityExpression(const ExpressionSPtr& expression);
+
+    static ExpressionListSPtr convertExpressionList(const ExpressionListSPtr& list);
+    static MacroParameterSPtr convertMacroParameter(const MacroParameterSPtr& parameter);
+    static StatementSPtr convertStatement(const StatementSPtr& statement);
+
     FormatterStream mFormatter;
     NamerConfigurationSPtr mConfiguration;
 };
 
 typedef boost::shared_ptr<NamerStream> NamerStreamSPtr;
 typedef boost::weak_ptr<NamerStream> NamerStreamWPtr;
+
+}
 
 #endif
 

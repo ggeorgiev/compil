@@ -306,6 +306,10 @@
 		5EA486B01618BE4E00B42BC8 /* comment.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = comment.compil; sourceTree = "<group>"; };
 		5EA486B11618BFB400B42BC8 /* comment.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = comment.cpp; sourceTree = "<group>"; };
 		5EA486B21618BFB400B42BC8 /* comment.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = comment.h; sourceTree = "<group>"; };
+		5EA69D301693E0F8009255A0 /* relational_equality_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = relational_equality_expression.scompil; sourceTree = "<group>"; };
+		5EA69D321693F265009255A0 /* variable_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = variable_expression.scompil; sourceTree = "<group>"; };
+		5EA69D371693FF37009255A0 /* grammar_equality_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = grammar_equality_expression.scompil; sourceTree = "<group>"; };
+		5EA69D3B1694013C009255A0 /* generic_equality_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = generic_equality_expression.scompil; sourceTree = "<group>"; };
 		5EB1B413168A41C300811582 /* c++_test_generator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "c++_test_generator.cpp"; sourceTree = "<group>"; };
 		5EB1B414168A41C300811582 /* c++_test_generator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "c++_test_generator.h"; sourceTree = "<group>"; };
 		5EB86F61168B99AC0049B6A9 /* implementer_stream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = implementer_stream.cpp; sourceTree = "<group>"; };
@@ -442,6 +446,21 @@
 		5EFFA6F81693BD3C00035CAA /* package.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = package.h; sourceTree = "<group>"; };
 		5EFFA6F91693C1A400035CAA /* document.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = document.cpp; sourceTree = "<group>"; };
 		5EFFA6FA1693C1A500035CAA /* document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
+		5EFFA6FE1693D54B00035CAA /* unary_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = unary_expression.scompil; sourceTree = "<group>"; };
+		5EFFA7001693D5C500035CAA /* postfix_unary_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = postfix_unary_expression.scompil; sourceTree = "<group>"; };
+		5EFFA7011693D80700035CAA /* cast_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = cast_expression.scompil; sourceTree = "<group>"; };
+		5EFFA7021693D86A00035CAA /* unary_cast_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = unary_cast_expression.scompil; sourceTree = "<group>"; };
+		5EFFA7031693D97300035CAA /* pm_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = pm_expression.scompil; sourceTree = "<group>"; };
+		5EFFA7041693D9DE00035CAA /* cast_pm_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = cast_pm_expression.scompil; sourceTree = "<group>"; };
+		5EFFA7051693DA4900035CAA /* multiplicative_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = multiplicative_expression.scompil; sourceTree = "<group>"; };
+		5EFFA7061693DA9000035CAA /* pm_multiplicative_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = pm_multiplicative_expression.scompil; sourceTree = "<group>"; };
+		5EFFA7071693DAD800035CAA /* additive_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = additive_expression.scompil; sourceTree = "<group>"; };
+		5EFFA7081693DB2C00035CAA /* multiplicative_additive_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = multiplicative_additive_expression.scompil; sourceTree = "<group>"; };
+		5EFFA7091693DBD600035CAA /* shift_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = shift_expression.scompil; sourceTree = "<group>"; };
+		5EFFA70A1693DC2400035CAA /* additive_shift_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = additive_shift_expression.scompil; sourceTree = "<group>"; };
+		5EFFA70B1693DC8400035CAA /* relational_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = relational_expression.scompil; sourceTree = "<group>"; };
+		5EFFA70C1693DCD900035CAA /* shift_relational_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = shift_relational_expression.scompil; sourceTree = "<group>"; };
+		5EFFA70D1693DD3200035CAA /* equality_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = equality_expression.scompil; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -1133,28 +1152,47 @@
 		5EB86F91168C01E40049B6A9 /* expression */ = {
 			isa = PBXGroup;
 			children = (
+				5EFFA7071693DAD800035CAA /* additive_expression.scompil */,
+				5EFFA70A1693DC2400035CAA /* additive_shift_expression.scompil */,
 				5E9DE6E9168FDA130020522D /* class_nested_name.scompil */,
+				5EFFA7011693D80700035CAA /* cast_expression.scompil */,
+				5EFFA7041693D9DE00035CAA /* cast_pm_expression.scompil */,
 				5E9DE6D0168EDCE20020522D /* constructor_call_expression.scompil */,
 				5EB86F9F168CCD870049B6A9 /* custom_expression.scompil */,
 				5EB86FAD168D080E0049B6A9 /* custom_id_expression.scompil */,
 				5EB86FA2168CF93F0049B6A9 /* custom_postfix_expression.scompil */,
+				5EFFA70D1693DD3200035CAA /* equality_expression.scompil */,
 				5EB86F92168C01E50049B6A9 /* expression.scompil */,
 				5EB86FAE168D13E40049B6A9 /* expression_list.scompil */,
 				5EB86F9D168CCD800049B6A9 /* expression_factory.scompil */,
+				5EA69D3B1694013C009255A0 /* generic_equality_expression.scompil */,
+				5EA69D371693FF37009255A0 /* grammar_equality_expression.scompil */,
 				5EB86FA3168CFA390049B6A9 /* id_expression.scompil */,
 				5EB86FAB168D05970049B6A9 /* id_expression_primary_expression.scompil */,
 				5EB86FA7168CFAE50049B6A9 /* identifier_unqualified_id.scompil */,
 				5EB86FA1168CF8470049B6A9 /* member_access_postfix_expression.scompil */,
 				5E9DE6CC168EC4BB0020522D /* method_call_expression.scompil */,
+				5EFFA7081693DB2C00035CAA /* multiplicative_additive_expression.scompil */,
+				5EFFA7051693DA4900035CAA /* multiplicative_expression.scompil */,
 				5E9DE6EE169001070020522D /* namespace_nested_name.scompil */,
 				5E9DE6E7168FD66B0020522D /* nested_name_specifier.scompil */,
 				5E9DE6E8168FD8EF0020522D /* nested_name.scompil */,
 				5EB86FAF168D31B10049B6A9 /* parentheses_postfix_expression.scompil */,
+				5EFFA7031693D97300035CAA /* pm_expression.scompil */,
+				5EFFA7061693DA9000035CAA /* pm_multiplicative_expression.scompil */,
 				5EB86FA0168CDE1F0049B6A9 /* postfix_expression.scompil */,
+				5EFFA7001693D5C500035CAA /* postfix_unary_expression.scompil */,
 				5EB86FAA168D05410049B6A9 /* primary_expression.scompil */,
 				5EB86FAC168D062E0049B6A9 /* primary_expression_postfix_expression.scompil */,
+				5EA69D301693E0F8009255A0 /* relational_equality_expression.scompil */,
+				5EFFA70B1693DC8400035CAA /* relational_expression.scompil */,
+				5EFFA7091693DBD600035CAA /* shift_expression.scompil */,
+				5EFFA70C1693DCD900035CAA /* shift_relational_expression.scompil */,
+				5EFFA7021693D86A00035CAA /* unary_cast_expression.scompil */,
+				5EFFA6FE1693D54B00035CAA /* unary_expression.scompil */,
 				5EB86FA6168CFAC70049B6A9 /* unqualified_id_expression.scompil */,
 				5EB86FA5168CFABD0049B6A9 /* unqualified_id.scompil */,
+				5EA69D321693F265009255A0 /* variable_expression.scompil */,
 			);
 			path = expression;
 			sourceTree = "<group>";

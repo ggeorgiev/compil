@@ -30,9 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "library/c++/compil/package.h"
+#include "library/c++/compil/namespace.h"
 
-#include "c++/class/identifier_class_name.h"
+#include "c++/namespace/identifier_namespace_name.h"
 
 #include "boost/unordered_map.hpp"
 
@@ -45,16 +45,19 @@ namespace cpp
 NamespaceSPtr CppNamespace::namespace_(const PackageSPtr& package)
 {
     static boost::unordered_map<PackageSPtr, NamespaceSPtr> map;
+    
     boost::unordered_map<PackageSPtr, NamespaceSPtr>::iterator it = map.find(package);
     if (it != map.end())
         return it->second;
 
     NamespaceSPtr namespace_ = namespaceRef();
-    std::vector<PackageElement>
+
+    const std::vector<PackageElementSPtr>& elements = package->short_();
+    for (std::vector<PackageElementSPtr>::const_iterator it = elements.begin(); it != elements.end(); ++it)
+        namespace_ << (identifierNamespaceNameRef() << (identifierRef() << (*it)->value()));
     
-    
-    map[specimen] = className;
-    return className;
+    map[package] = namespace_;
+    return namespace_;
 }
 
 }

@@ -68,19 +68,29 @@ void CppTestGenerator::generateSpecimenDeclaration(const SpecimenSPtr& specimen)
     
     ClassSPtr class_ = CppSpecimen::class_(specimen);
         
-    LocalVariableSPtr speciment1 = localVariableRef()
-        << (variableNameRef() << "speciment1");
-    LocalVariableSPtr speciment2 = localVariableRef()
-        << (variableNameRef() << "speciment2");
+    VariableExpressionSPtr speciment1 = variableExpressionRef()
+        << (localVariableRef() << (variableNameRef() << "speciment1"));
+    VariableExpressionSPtr speciment2 = variableExpressionRef()
+        << (localVariableRef() << (variableNameRef() << "speciment2"));
         
     if (specimen->hasOperator(EOperatorAction::equalTo(), EOperatorFlags::native()))
     {
         TestSPtr test = testRef();
         test << TestName("operatorEqualTo");
-/*
+
         test << (variableDeclarationStatementRef() << class_
-                                                   << speciment1);
-*/                                                   
+                                                   << speciment1->variable());
+        test << (variableDeclarationStatementRef() << class_
+                                                   << speciment2->variable());
+                                                   
+        GenericEqualityExpressionSPtr genericEqualityExpression = boost::make_shared<GenericEqualityExpression>();
+        genericEqualityExpression->set_type(EqualityExpression::EType::equalTo());
+        genericEqualityExpression->set_first(speciment1);
+        genericEqualityExpression->set_second(speciment2);
+        
+        //test    << (unaryTestStatementRef() << UnaryTestStatement::EType::isTrue()
+        //                                    << genericEqualityExpression);
+                                                   
         suite << test;
     }
     
@@ -104,8 +114,8 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& structu
         
     ClassSPtr builderClass = CppBuilder::class_(class_);
     
-    LocalVariableSPtr variable = localVariableRef()
-        << (variableNameRef() << "structure");
+    VariableExpressionSPtr structure1 = variableExpressionRef()
+        << (localVariableRef() << (variableNameRef() << "structure1"));
     
     if (structure->controlled())
     {
@@ -113,7 +123,7 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& structu
         test << TestName("available_DefaultValues");
         
         test << (variableDeclarationStatementRef() << class_
-                                                   << variable);
+                                                   << structure1->variable());
                                                    
         std::vector<FieldSPtr> fields = structure->combinedFields();
         for (std::vector<FieldSPtr>::iterator it = fields.begin(); it != fields.end(); ++it)
@@ -129,7 +139,7 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& structu
                                            : UnaryTestStatement::EType::isFalse();
             
             MethodCallExpressionSPtr availableFieldCall = methodCallExpressionRef()
-                << variable
+                << structure1
                 << (methodNameRef() << frm->availableMethodName(field)->value());
                 
             test    << (unaryTestStatementRef() << type
@@ -144,13 +154,11 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& structu
         TestSPtr test = testRef();
         test << TestName("isInitialized");
         
-
-        
         test << (variableDeclarationStatementRef() << class_
-                                                   << variable);
+                                                   << structure1->variable());
         
         MethodCallExpressionSPtr isInitializedCall = methodCallExpressionRef()
-            << variable
+            << structure1
             << (methodNameRef() << "isInitialized");
             
         if (!structure->isOptional())
@@ -170,9 +178,9 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& structu
                 << (identifierClassNameRef() << (identifierRef() << impl->cppType(field->type())->name()->value()));
             
             MethodCallExpressionSPtr setFieldCall = methodCallExpressionRef()
-                << variable
+                << structure1
                 << (methodNameRef() << frm->setMethodName(field)->value())
-                << constructor;
+                << (expressionListRef() << constructor);
                 
             test << (expressionStatementRef() << setFieldCall);
         }
@@ -188,21 +196,21 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& structu
         TestSPtr test = testRef();
         test << TestName("negativeBuild");
         
-        LocalVariableSPtr builder = localVariableRef()
-            << (variableNameRef() << "builder");
+        VariableExpressionSPtr builder1 = variableExpressionRef()
+            << (localVariableRef() << (variableNameRef() << "builder"));
 
         test << (variableDeclarationStatementRef() << builderClass
-                                                   << builder);
+                                                   << builder1->variable());
                                                    
         MethodCallExpressionSPtr build = methodCallExpressionRef()
-                << builder
+                << builder1
                 << CppBuilder::methodNameBuild();
                 
         test << (throwTestStatementRef() << build
                                          << BoostException::assertClass());
                                          
         MethodCallExpressionSPtr finalize = methodCallExpressionRef()
-                << builder
+                << builder1
                 << CppBuilder::methodNameFinalize();
                 
         test << (throwTestStatementRef() << finalize

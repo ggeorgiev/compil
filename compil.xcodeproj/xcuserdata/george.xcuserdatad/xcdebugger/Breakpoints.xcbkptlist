@@ -204,13 +204,117 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "compil/src/generator/namer/namer_stream.cpp"
-         timestampString = "378544395.595271"
+         timestampString = "378796239.619985"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "83"
-         endingLineNumber = "83"
-         landmarkName = "convertIdentifierNamespaceName(const NamespaceNameSPtr&amp; name)"
-         landmarkType = "7">
+         startingLineNumber = "81"
+         endingLineNumber = "81"
+         landmarkName = "NamerStream::convertIdentifierNamespaceName(const NamespaceNameSPtr&amp; name)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/formatter/formatter_stream.cpp"
+         timestampString = "378801382.771347"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "277"
+         endingLineNumber = "277"
+         landmarkName = "FormatterStream::operator&lt;&lt;(const GrammarEqualityExpressionSPtr&amp; expression)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/c++_test_generator.cpp"
+         timestampString = "378801413.786323"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "91"
+         endingLineNumber = "91"
+         landmarkName = "CppTestGenerator::generateSpecimenDeclaration(const SpecimenSPtr&amp; specimen)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/formatter/formatter_stream.cpp"
+         timestampString = "378801880.735801"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "344"
+         endingLineNumber = "344"
+         landmarkName = "FormatterStream::operator&lt;&lt;(const PmMultiplicativeExpressionSPtr&amp; expression)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/formatter/formatter_stream.cpp"
+         timestampString = "378801883.283951"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "349"
+         endingLineNumber = "349"
+         landmarkName = "FormatterStream::operator&lt;&lt;(const PostfixUnaryExpressionSPtr&amp; expression)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/formatter/formatter_stream.cpp"
+         timestampString = "378801887.280376"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "359"
+         endingLineNumber = "359"
+         landmarkName = "FormatterStream::operator&lt;&lt;(const RelationalEqualityExpressionSPtr&amp; expression)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/formatter/formatter_stream.cpp"
+         timestampString = "378801889.472097"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "364"
+         endingLineNumber = "364"
+         landmarkName = "FormatterStream::operator&lt;&lt;(const ShiftRelationalExpressionSPtr&amp; expression)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/formatter/formatter_stream.cpp"
+         timestampString = "378801947.746525"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "62"
+         endingLineNumber = "62"
+         landmarkName = "FormatterStream::operator&lt;&lt;(const AdditiveShiftExpressionSPtr&amp; expression)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/formatter/formatter_stream.cpp"
+         timestampString = "378801971.572531"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "317"
+         endingLineNumber = "317"
+         landmarkName = "FormatterStream::operator&lt;&lt;(const MultiplicativeAdditiveExpressionSPtr&amp; expression)"
+         landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
 </Bucket>

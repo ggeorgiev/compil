@@ -57,6 +57,16 @@ std::string FormatterStream::str()
     return mAligner.str();
 }
 
+FormatterStream& FormatterStream::operator<<(const AdditiveShiftExpressionSPtr& expression)
+{
+    return *this << expression->expression();
+}
+
+FormatterStream& FormatterStream::operator<<(const CastPmExpressionSPtr& expression)
+{
+    return *this << expression->expression();
+}
+
 FormatterStream& FormatterStream::operator<<(const CompoundStatementSPtr& compoundStatement)
 {
     Scope scope;
@@ -160,6 +170,10 @@ FormatterStream& FormatterStream::operator<<(const DeclaratorIdDirectDeclaratorS
 
 FormatterStream& FormatterStream::operator<<(const ExpressionSPtr& expression)
 {
+    if (expression->runtimeExpressionId() == AdditiveShiftExpression::staticExpressionId())
+        return *this << AdditiveShiftExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == CastPmExpression::staticExpressionId())
+        return *this << CastPmExpression::downcast(expression);
     if (expression->runtimeExpressionId() == ClassNestedName::staticExpressionId())
         return *this << ClassNestedName::downcast(expression);
     if (expression->runtimeExpressionId() == CustomExpression::staticExpressionId())
@@ -172,16 +186,30 @@ FormatterStream& FormatterStream::operator<<(const ExpressionSPtr& expression)
         return *this << IdentifierUnqualifiedId::downcast(expression);
     if (expression->runtimeExpressionId() == IdExpressionPrimaryExpression::staticExpressionId())
         return *this << IdExpressionPrimaryExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == GrammarEqualityExpression::staticExpressionId())
+        return *this << GrammarEqualityExpression::downcast(expression);        
     if (expression->runtimeExpressionId() == MemberAccessPostfixExpression::staticExpressionId())
         return *this << MemberAccessPostfixExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == MultiplicativeAdditiveExpression::staticExpressionId())
+        return *this << MultiplicativeAdditiveExpression::downcast(expression);
     if (expression->runtimeExpressionId() == NamespaceNestedName::staticExpressionId())
         return *this << NamespaceNestedName::downcast(expression);
     if (expression->runtimeExpressionId() == NestedNameSpecifier::staticExpressionId())
         return *this << NestedNameSpecifier::downcast(expression);
     if (expression->runtimeExpressionId() == ParenthesesPostfixExpression::staticExpressionId())
         return *this << ParenthesesPostfixExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == PmMultiplicativeExpression::staticExpressionId())
+        return *this << PmMultiplicativeExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == PostfixUnaryExpression::staticExpressionId())
+        return *this << PostfixUnaryExpression::downcast(expression);
     if (expression->runtimeExpressionId() == PrimaryExpressionPostfixExpression::staticExpressionId())
         return *this << PrimaryExpressionPostfixExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == RelationalEqualityExpression::staticExpressionId())
+        return *this << RelationalEqualityExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == ShiftRelationalExpression::staticExpressionId())
+        return *this << ShiftRelationalExpression::downcast(expression);
+    if (expression->runtimeExpressionId() == UnaryCastExpression::staticExpressionId())
+        return *this << UnaryCastExpression::downcast(expression);
     if (expression->runtimeExpressionId() == UnqualifiedIdExpression::staticExpressionId())
         return *this << UnqualifiedIdExpression::downcast(expression);
         
@@ -246,6 +274,13 @@ FormatterStream& FormatterStream::operator<<(const InitDeclaratorSPtr& declarato
     return *this << declarator->declarator();
 }
 
+FormatterStream& FormatterStream::operator<<(const GrammarEqualityExpressionSPtr& expression)
+{
+    *this << expression->first();
+    mAligner << " == ";
+    return *this << expression->second();
+}
+
 FormatterStream& FormatterStream::operator<<(const MacroStatementSPtr& macro)
 {
     mAligner << macro->name()->value();
@@ -279,6 +314,11 @@ FormatterStream& FormatterStream::operator<<(const MemberAccessPostfixExpression
     return *this;
 }
 
+FormatterStream& FormatterStream::operator<<(const MultiplicativeAdditiveExpressionSPtr& expression)
+{
+    return *this << expression->expression();
+}
+
 FormatterStream& FormatterStream::operator<<(const NamespaceNestedNameSPtr& expression)
 {
     return *this << expression->name();
@@ -301,7 +341,27 @@ FormatterStream& FormatterStream::operator<<(const ParenthesesPostfixExpressionS
     return *this;
 }
 
+FormatterStream& FormatterStream::operator<<(const PmMultiplicativeExpressionSPtr& expression)
+{
+    return *this << expression->expression();
+}
+
+FormatterStream& FormatterStream::operator<<(const PostfixUnaryExpressionSPtr& expression)
+{
+    return *this << expression->expression();
+}
+
 FormatterStream& FormatterStream::operator<<(const PrimaryExpressionPostfixExpressionSPtr& expression)
+{
+    return *this << expression->expression();
+}
+
+FormatterStream& FormatterStream::operator<<(const RelationalEqualityExpressionSPtr& expression)
+{
+    return *this << expression->expression();
+}
+
+FormatterStream& FormatterStream::operator<<(const ShiftRelationalExpressionSPtr& expression)
 {
     return *this << expression->expression();
 }
@@ -355,6 +415,11 @@ FormatterStream& FormatterStream::operator<<(const TypeNameSimpleTypeSpecifierSP
     if (declaration->specifier())
         *this << declaration->specifier();
     return *this << declaration->typeName();
+}
+
+FormatterStream& FormatterStream::operator<<(const UnaryCastExpressionSPtr& expression)
+{
+    return *this << expression->expression();
 }
 
 FormatterStream& FormatterStream::operator<<(const UnqualifiedIdExpressionSPtr& expression)

@@ -31,6 +31,7 @@
 //
 
 #include "library/c++/compil/specimen.h"
+#include "library/c++/compil/namespace.h"
 
 #include "c++/class/identifier_class_name.h"
 
@@ -63,6 +64,7 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
         return it->second;
 
     ClassSPtr class_ = classRef()
+        << CppNamespace::namespace_(specimen->package())
         << className(specimen);
         
     map[specimen] = class_;
