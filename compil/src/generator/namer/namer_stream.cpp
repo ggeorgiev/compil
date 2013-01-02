@@ -360,12 +360,12 @@ StatementSPtr NamerStream::convertStatement(const StatementSPtr& statement)
         DeclarationSpecifierSequenceSPtr declarationSpecifierSequence = declarationSpecifierSequenceRef()
             << typeDeclarationSpecifier;
             
-        IdentifierClassNameSPtr identifierClassName2 = identifierClassNameRef()
+        IdentifierClassNameSPtr identifierClassName = identifierClassNameRef()
             << (identifierRef() << vdstatment->variable()->name()->value());
-        ClassTypeNameSPtr classTypeName2 = classTypeNameRef()
-            << identifierClassName2;
+        ClassTypeNameSPtr classTypeName = classTypeNameRef()
+            << identifierClassName;
         DeclaratorIdSPtr declaratorId = declaratorIdRef()
-            << classTypeName2;
+            << classTypeName;
         DeclaratorIdDirectDeclaratorSPtr directDeclarator = declaratorIdDirectDeclaratorRef()
             << declaratorId;
         InitDeclaratorSPtr initDeclarator = initDeclaratorRef()

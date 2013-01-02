@@ -30,33 +30,19 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _IMPLEMENTER_COMPIL_SPECIMEN_H__
-#define _IMPLEMENTER_COMPIL_SPECIMEN_H__
+compil { }
 
-#include "c++/class/class.h"
-#include "c++/class/method.h"
+import "c++/class/method_name.scompil";
+import "c++/overloading/operator_function_id.scompil";
 
-#include "compil/all/object_factory.h"
+package lang.cpp;
 
-namespace lib
+streamable
+structure OperatorMethodName
+    inherit MethodName
 {
-
-namespace cpp
-{
-
-using namespace lang::cpp;
-using namespace lang::compil;
-
-class CppSpecimen
-{
-public:
-    static ClassNameSPtr className(const SpecimenSPtr& specimen);
-    static ClassSPtr class_(const SpecimenSPtr& specimen);
-};
-
+    runtime identification;
+    
+    reference<OperatorFunctionId> operator;
 }
-
-}
-
-#endif
 

@@ -32,59 +32,11 @@
 
 compil { }
 
+import "compil/document/operator_action.scompil";
+import "compil/document/operator_flags.scompil";
 import "compil/document/structure.scompil";
 
 package lang.compil;
-
-strong 
-enum OperatorAction
-{
-    equalTo;
-    notEqualTo;
-    
-    greaterThan;
-    lessThan;
-    
-    addition;
-    subtraction;
-    
-    // prefix ++
-    prefixPP;
-    
-    // postfix ++
-    postfixPP;
-    
-    // prefix --
-    prefixMM;
-    
-    // postfix --
-    postfixMM;
-}
-
-strong flags 
-enum OperatorFlags
-{
-    native;
-    function;
-    functor;
-    declaration = native | function | functor;
-    
-    object;
-    reference;
-    parameter = object | reference;
-    
-    member;
-    internal;
-    external;
-    location = member | internal | external;
-}
-
-strong flags 
-enum OperatorParameter
-{
-    object;
-    reference;
-}
 
 structure Operator
     inherit Object

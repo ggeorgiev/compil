@@ -101,6 +101,8 @@ extern cpp::frm::MethodNameSPtr fnOperatorFn;
 extern cpp::frm::MethodNameSPtr fnOperatorStore;
 extern cpp::frm::MethodNameSPtr fnOperatorStoreEq;
 extern cpp::frm::MethodNameSPtr fnOperatorPlusEq;
+extern cpp::frm::MethodNameSPtr fnOperatorPlus;
+extern cpp::frm::MethodNameSPtr fnOperatorMinus;
 
 extern cpp::frm::MethodNameSPtr fnFunctionalOperatorEq;
 extern cpp::frm::MethodNameSPtr fnFunctionalOperatorLt;

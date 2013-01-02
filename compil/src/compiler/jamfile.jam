@@ -42,7 +42,7 @@ lib compiler
     boost_system
     boost_filesystem
     
-    $(TOP)/library//compil-library
+    $(TOP)/library//library
   :
     <implicit-dependency>$(TOP)/language//cpp-language
     <implicit-dependency>$(TOP)/language//compil-language

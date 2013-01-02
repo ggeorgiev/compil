@@ -22,16 +22,10 @@ lib cpp-language
     c++/class/class_name_factory.scompil
     c++/class/identifier_class_name.scompil
     c++/class/identifier_method_name.scompil
-    c++/class/method-cpp.scompil
+    c++/class/method.scompil
     c++/class/method_name_factory.scompil
     c++/class/method_name.scompil
-
-    c++/declarator/declarator.scompil
-    c++/declarator/declarator_factory.scompil
-    c++/declarator/declarator_id.scompil
-    c++/declarator/declarator_id_direct_declarator.scompil
-    c++/declarator/direct_declarator.scompil
-    c++/declarator/init_declarator.scompil
+    c++/class/operator_method_name.scompil
 
     c++/declaration/block_declaration.scompil
     c++/declaration/class_declaration.scompil
@@ -40,6 +34,7 @@ lib cpp-language
     c++/declaration/declaration_factory.scompil
     c++/declaration/declaration_specifier.scompil
     c++/declaration/declaration_specifier_sequence.scompil
+    c++/declaration/function_specifier.scompil
     c++/declaration/simple_declaration.scompil
     c++/declaration/simple_block_declaration.scompil
     c++/declaration/simple_type_specifier.scompil
@@ -47,6 +42,16 @@ lib cpp-language
     c++/declaration/type_name.scompil
     c++/declaration/type_name_simple_type_specifier.scompil
     c++/declaration/type_specifier.scompil
+
+    c++/declarator/declarator.scompil
+    c++/declarator/declarator_factory.scompil
+    c++/declarator/declarator_id.scompil
+    c++/declarator/declarator_id_direct_declarator.scompil
+    c++/declarator/direct_declarator.scompil
+    c++/declarator/init_declarator.scompil
+    c++/declarator/parameter_declaratoin.scompil
+    c++/declarator/parameter_declaratoin_clause.scompil
+    c++/declarator/parameter_declaratoin_list.scompil
     
     c++/expression/additive_expression.scompil
     c++/expression/additive_shift_expression.scompil
@@ -101,6 +106,16 @@ lib cpp-language
     c++/namespace/namespace_name.scompil
     c++/namespace/namespace.scompil
     
+    c++/overloading/operator_function_id.scompil
+    c++/overloading/operator.scompil
+    
+    c++/preprocessor/declaration_macro_parameter.scompil
+    c++/preprocessor/expression_macro_parameter.scompil
+    c++/preprocessor/macro.scompil
+    c++/preprocessor/macro_parameter.scompil
+    c++/preprocessor/macro_parameter_factory.scompil
+    c++/preprocessor/macro_name.scompil
+    
     c++/statement/compound_statement.scompil
     c++/statement/declaration_statement.scompil
     c++/statement/expression_statement.scompil
@@ -110,13 +125,6 @@ lib cpp-language
     c++/statement/variable_declaration_statement.scompil
     c++/statement/throw_test_statement.scompil
     c++/statement/unary_test_statement.scompil
-    
-    c++/preprocessor/declaration_macro_parameter.scompil
-    c++/preprocessor/expression_macro_parameter.scompil
-    c++/preprocessor/macro.scompil
-    c++/preprocessor/macro_parameter.scompil
-    c++/preprocessor/macro_parameter_factory.scompil
-    c++/preprocessor/macro_name.scompil
     
     c++/test/test.scompil
     c++/test/test_name.scompil
@@ -159,6 +167,8 @@ lib compil-language
     compil/document/interface.scompil
     compil/document/method.scompil
     compil/document/name.scompil
+    compil/document/operator_action.scompil
+    compil/document/operator_flags.scompil
     compil/document/operator.scompil
     compil/document/package.scompil
     compil/document/parameter.scompil

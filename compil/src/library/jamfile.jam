@@ -9,11 +9,23 @@ project library
     <include>$(TOP)
   ;
 
-lib cpp-library
+lib cpp-boost-library
   :
     c++/boost/exception.cpp
     c++/boost/namespace.cpp
 
+    $(TOP)/language//cpp-language
+    $(TOP)/language//compil-language
+  :
+    <implicit-dependency>$(TOP)/language//cpp-language
+    <implicit-dependency>$(TOP)/language//compil-language
+  :
+  :
+    <include>$(TOP)
+  ;
+  
+lib cpp-compil-library
+  :
     c++/compil/builder.cpp
     c++/compil/namespace.cpp
     c++/compil/specimen.cpp
@@ -27,6 +39,13 @@ lib cpp-library
   :
     <include>$(TOP)
   ;
+  
+alias cpp-library
+  :
+    cpp-boost-library
+    cpp-compil-library
+  ;
+    
 
 lib compil-library
   :
@@ -39,4 +58,10 @@ lib compil-library
   :
   :
     <include>$(TOP)
+  ;
+  
+alias library
+  :
+    cpp-library
+    compil-library
   ;

@@ -574,6 +574,28 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
                 << ";";
     }
     
+    if (pParameterType->hasOperator(EOperatorAction::addition(), EOperatorFlags::native()))
+    {
+        table() << (cf::methodRef() << cf::EMethodSpecifier::inline_()
+                                    << impl->cppType(pSpecimen)
+                                    << fnOperatorPlus
+                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                                          << rValue)
+                                    << cf::EMethodDeclaration::const_())
+                << ";";
+    }
+    
+    if (pParameterType->hasOperator(EOperatorAction::subtraction(), EOperatorFlags::native()))
+    {
+        table() << (cf::methodRef() << cf::EMethodSpecifier::inline_()
+                                    << impl->cppType(pSpecimen)
+                                    << fnOperatorMinus
+                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                                          << rValue)
+                                    << cf::EMethodDeclaration::const_())
+                << ";";
+    }
+    
     eot(declarationStream);
     
     fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
@@ -670,21 +692,47 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
         eol(inlineDefinitionStream);
     }
     
-    {  // new way section
-        using namespace lang::cpp;
-        using namespace lib::cpp;
-        
-        ClassSPtr class_ = CppSpecimen::class_(pSpecimen);
-
-        if (pParameterType->hasOperator(EOperatorAction::addition(), EOperatorFlags::native()))
-        {
-            lang::cpp::MethodSPtr method = methodRef()
-                << class_;
-        }
+    if (pParameterType->hasOperator(EOperatorAction::addition(), EOperatorFlags::native()))
+    {
+        fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
+                                    << impl->cppType(pSpecimen)
+                                    << frm->cppClassNamespace(pSpecimen)
+                                    << fnOperatorPlus
+                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                                          << rValue)
+                                    << cf::EMethodDeclaration::const_());
+        openBlock(inlineDefinitionStream);
+        line()  << "return "
+                << impl->cppType(pSpecimen)
+                << "("
+                << fnValue
+                << "() + rValue."
+                << fnValue
+                << "());";
+        closeBlock(inlineDefinitionStream);
+        eol(inlineDefinitionStream);
     }
-
-// }
-
+    
+    if (pParameterType->hasOperator(EOperatorAction::subtraction(), EOperatorFlags::native()))
+    {
+        fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
+                                    << impl->cppType(pSpecimen)
+                                    << frm->cppClassNamespace(pSpecimen)
+                                    << fnOperatorMinus
+                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                                          << rValue)
+                                    << cf::EMethodDeclaration::const_());
+        openBlock(inlineDefinitionStream);
+        line()  << "return "
+                << impl->cppType(pSpecimen)
+                << "("
+                << fnValue
+                << "() - rValue."
+                << fnValue
+                << "());";
+        closeBlock(inlineDefinitionStream);
+        eol(inlineDefinitionStream);
+    }
     
     if (!pBaseSpecimen)
     {

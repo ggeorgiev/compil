@@ -95,6 +95,8 @@ cpp::frm::MethodNameSPtr fnOperatorStore          = cpp::frm::methodNameRef("ope
 cpp::frm::MethodNameSPtr fnOperatorStoreEq        = cpp::frm::methodNameRef("operator<<=");
 cpp::frm::MethodNameSPtr fnOperatorPlusEq         = cpp::frm::methodNameRef("operator+=");
 cpp::frm::MethodNameSPtr fnOperatorFn             = cpp::frm::methodNameRef("operator()");
+cpp::frm::MethodNameSPtr fnOperatorPlus           = cpp::frm::methodNameRef("operator+");
+cpp::frm::MethodNameSPtr fnOperatorMinus          = cpp::frm::methodNameRef("operator-");
 
 cpp::frm::MethodNameSPtr fnFunctionalOperatorEq   = cpp::frm::methodNameRef("isEqual");
 cpp::frm::MethodNameSPtr fnFunctionalOperatorLt   = cpp::frm::methodNameRef("lessThan");

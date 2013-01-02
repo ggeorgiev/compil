@@ -23,6 +23,15 @@
 		5E261F5F1646002A00EA7414 /* type_name.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = type_name.compil; sourceTree = "<group>"; };
 		5E261F61164602B400EA7414 /* type_name.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = type_name.cpp; sourceTree = "<group>"; };
 		5E261F62164602B400EA7414 /* type_name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type_name.h; sourceTree = "<group>"; };
+		5E35350A16943EB800716B12 /* operator.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = operator.scompil; sourceTree = "<group>"; };
+		5E35350C16943F5800716B12 /* operator_function_id.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = operator_function_id.scompil; sourceTree = "<group>"; };
+		5E35350D16943FC100716B12 /* operator_method_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = operator_method_name.scompil; sourceTree = "<group>"; };
+		5E35350E1694811200716B12 /* parameter_declaratoin_clause.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = parameter_declaratoin_clause.scompil; sourceTree = "<group>"; };
+		5E35350F1694814D00716B12 /* parameter_declaratoin_list.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = parameter_declaratoin_list.scompil; sourceTree = "<group>"; };
+		5E3535101694814D00716B12 /* parameter_declaratoin.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = parameter_declaratoin.scompil; sourceTree = "<group>"; };
+		5E3535111694854E00716B12 /* function_specifier.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = function_specifier.scompil; sourceTree = "<group>"; };
+		5E35351216948F6200716B12 /* operator_action.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = operator_action.scompil; sourceTree = "<group>"; };
+		5E35351316948F6A00716B12 /* operator_flags.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = operator_flags.scompil; sourceTree = "<group>"; };
 		5E3BEE80161A871F00413F77 /* namespace.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = namespace.cpp; sourceTree = "<group>"; };
 		5E3BEE81161A871F00413F77 /* namespace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = namespace.h; sourceTree = "<group>"; };
 		5E3BEE82161A8A4300413F77 /* function_name.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = function_name.cpp; sourceTree = "<group>"; };
@@ -253,7 +262,7 @@
 		5E9DE6CB168E48C00020522D /* get-latest-generators.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "get-latest-generators.sh"; sourceTree = "<group>"; };
 		5E9DE6CC168EC4BB0020522D /* method_call_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_call_expression.scompil; sourceTree = "<group>"; };
 		5E9DE6CD168EC6870020522D /* method_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_name.scompil; sourceTree = "<group>"; };
-		5E9DE6CE168EC6870020522D /* method-cpp.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = "method-cpp.scompil"; sourceTree = "<group>"; };
+		5E9DE6CE168EC6870020522D /* method.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method.scompil; sourceTree = "<group>"; };
 		5E9DE6CF168ED5520020522D /* expression_statement.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = expression_statement.scompil; sourceTree = "<group>"; };
 		5E9DE6D0168EDCE20020522D /* constructor_call_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = constructor_call_expression.scompil; sourceTree = "<group>"; };
 		5E9DE6D2168F9E570020522D /* block_declaration.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = block_declaration.scompil; sourceTree = "<group>"; };
@@ -470,6 +479,15 @@
 				5E9DE6C3168E28CA0020522D /* compil-stable */,
 				5E88A19415E188BB002D43A5 /* src */,
 			);
+			sourceTree = "<group>";
+		};
+		5E35350916943EB800716B12 /* overloading */ = {
+			isa = PBXGroup;
+			children = (
+				5E35350C16943F5800716B12 /* operator_function_id.scompil */,
+				5E35350A16943EB800716B12 /* operator.scompil */,
+			);
+			path = overloading;
 			sourceTree = "<group>";
 		};
 		5E5F99261617767400B91C54 /* cpp */ = {
@@ -913,6 +931,7 @@
 				5EB86FA8168CFD2E0049B6A9 /* lexical */,
 				5EB86FB4168D6C2C0049B6A9 /* logical */,
 				5E9DE6EC169000D50020522D /* namespace */,
+				5E35350916943EB800716B12 /* overloading */,
 				5EB86F6D168BA81D0049B6A9 /* preprocessor */,
 				5EB86F86168BDFA90049B6A9 /* statement */,
 				5EB86F68168BA7320049B6A9 /* test */,
@@ -1007,6 +1026,7 @@
 				5E9DE6DD168FA5A80020522D /* declaration_factory.scompil */,
 				5E9DE6E2168FC6400020522D /* declaration_specifier.scompil */,
 				5E9DE6E1168FC6400020522D /* declaration_specifier_sequence.scompil */,
+				5E3535111694854E00716B12 /* function_specifier.scompil */,
 				5E9DE6D3168F9F8C0020522D /* simple_block_declaration.scompil */,
 				5E9DE6D4168F9F8C0020522D /* simple_declaration.scompil */,
 				5E9DE6E5168FC79A0020522D /* simple_type_specifier.scompil */,
@@ -1027,6 +1047,9 @@
 				5E9DE6D7168FA1B70020522D /* declarator.scompil */,
 				5E9DE6D8168FA25C0020522D /* direct_declarator.scompil */,
 				5E9DE6D6168FA1180020522D /* init_declarator.scompil */,
+				5E3535101694814D00716B12 /* parameter_declaratoin.scompil */,
+				5E35350E1694811200716B12 /* parameter_declaratoin_clause.scompil */,
+				5E35350F1694814D00716B12 /* parameter_declaratoin_list.scompil */,
 			);
 			path = declarator;
 			sourceTree = "<group>";
@@ -1144,7 +1167,8 @@
 				5EEF3E8416910658003003E5 /* identifier_method_name.scompil */,
 				5E9DE6CD168EC6870020522D /* method_name.scompil */,
 				5EEF3E8616910660003003E5 /* method_name_factory.scompil */,
-				5E9DE6CE168EC6870020522D /* method-cpp.scompil */,
+				5E9DE6CE168EC6870020522D /* method.scompil */,
+				5E35350D16943FC100716B12 /* operator_method_name.scompil */,
 			);
 			path = class;
 			sourceTree = "<group>";
@@ -1253,6 +1277,8 @@
 				5EFFA6C31692702400035CAA /* interface.scompil */,
 				5EFFA6C41692702400035CAA /* method.scompil */,
 				5EFFA6C51692702400035CAA /* name.scompil */,
+				5E35351216948F6200716B12 /* operator_action.scompil */,
+				5E35351316948F6A00716B12 /* operator_flags.scompil */,
 				5EFFA6C81692702400035CAA /* operator.scompil */,
 				5EFFA6C91692702400035CAA /* package.scompil */,
 				5EFFA6CB1692702400035CAA /* parameter.scompil */,
@@ -1313,7 +1339,7 @@
 /* Begin PBXLegacyTarget section */
 		5E335F221425381A004CB818 /* compil */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "toolset=darwin variant=debug link=static architecture=x86 address-model=64 -j4 --hash";
+			buildArgumentsString = "toolset=darwin variant=debug link=static architecture=x86 address-model=64 -j1 --hash";
 			buildConfigurationList = 5E335F251425381A004CB818 /* Build configuration list for PBXLegacyTarget "compil" */;
 			buildPhases = (
 			);

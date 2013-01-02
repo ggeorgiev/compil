@@ -41,7 +41,7 @@ section main
     c++/class/class_name.scompil
     c++/class/class_name_factory.scompil
     c++/class/identifier_class_name.scompil
-    c++/class/method-cpp.scompil
+    c++/class/method.scompil
     c++/class/method_name.scompil
 
     c++/declarator/declarator.scompil

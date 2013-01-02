@@ -30,33 +30,24 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _IMPLEMENTER_COMPIL_SPECIMEN_H__
-#define _IMPLEMENTER_COMPIL_SPECIMEN_H__
+compil { }
 
-#include "c++/class/class.h"
-#include "c++/class/method.h"
+package lang.compil;
 
-#include "compil/all/object_factory.h"
-
-namespace lib
+strong flags
+enum OperatorFlags
 {
-
-namespace cpp
-{
-
-using namespace lang::cpp;
-using namespace lang::compil;
-
-class CppSpecimen
-{
-public:
-    static ClassNameSPtr className(const SpecimenSPtr& specimen);
-    static ClassSPtr class_(const SpecimenSPtr& specimen);
-};
-
+    native;
+    function;
+    functor;
+    declaration = native | function | functor;
+    
+    object;
+    reference;
+    parameter = object | reference;
+    
+    member;
+    internal;
+    external;
+    location = member | internal | external;
 }
-
-}
-
-#endif
-

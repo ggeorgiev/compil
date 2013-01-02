@@ -30,33 +30,14 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _IMPLEMENTER_COMPIL_SPECIMEN_H__
-#define _IMPLEMENTER_COMPIL_SPECIMEN_H__
+compil { }
 
-#include "c++/class/class.h"
-#include "c++/class/method.h"
+import "c++/declarator/declarator.scompil";
 
-#include "compil/all/object_factory.h"
+package lang.cpp;
 
-namespace lib
+streamable
+structure ParameterDeclaration
+    inherit Declarator
 {
-
-namespace cpp
-{
-
-using namespace lang::cpp;
-using namespace lang::compil;
-
-class CppSpecimen
-{
-public:
-    static ClassNameSPtr className(const SpecimenSPtr& specimen);
-    static ClassSPtr class_(const SpecimenSPtr& specimen);
-};
-
 }
-
-}
-
-#endif
-

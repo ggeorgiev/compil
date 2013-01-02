@@ -18,7 +18,7 @@ Type::~Type()
 bool Type::hasOperator(const EOperatorAction& action,
                        const EOperatorFlags& flags) const
 {
-    return true;
+    return false;
 }
 
 }
