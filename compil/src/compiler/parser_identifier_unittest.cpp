@@ -72,7 +72,7 @@ TEST_F(ParserIdentifierTests, identifier)
     ASSERT_FALSE( parse(
         "identifier") );
         
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 11, compil::Message::p_expectStatementName));
 }
 
@@ -81,7 +81,7 @@ TEST_F(ParserIdentifierTests, identifierComment)
     ASSERT_FALSE( parse(
         "identifier //") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 12, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 14, compil::Message::p_expectStatementName));
 }
@@ -91,7 +91,7 @@ TEST_F(ParserIdentifierTests, identifierCommentBaseTypeOpen)
     ASSERT_FALSE( parse(
         "identifier /* */ <") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 12, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 19, compil::Message::p_expectType));
 }
@@ -101,7 +101,7 @@ TEST_F(ParserIdentifierTests, identifierCommentBaseTypeOpenType)
     ASSERT_FALSE( parse(
         "identifier < /* */ integer") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 14, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 27, compil::Message::p_expectClosingAngleBracket));
 }
@@ -111,7 +111,7 @@ TEST_F(ParserIdentifierTests, identifierCommentBaseType)
     ASSERT_FALSE( parse(
         "identifier < integer /* */ >") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 22, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 29, compil::Message::p_expectStatementName));
 }
@@ -121,7 +121,7 @@ TEST_F(ParserIdentifierTests, identifierCommentName)
     ASSERT_FALSE( parse(
         "identifier /* */ name") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 12, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 22, compil::Message::p_expectStatementBody));
 }
@@ -131,7 +131,7 @@ TEST_F(ParserIdentifierTests, identifierName)
     ASSERT_FALSE( parse(
         "identifier name") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 16, compil::Message::p_expectStatementBody));
 }
 
@@ -140,7 +140,7 @@ TEST_F(ParserIdentifierTests, identifierNameOpen)
     ASSERT_FALSE( parse(
         "identifier name {") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 18, compil::Message::p_unexpectEOFInStatementBody));
 }
 
@@ -149,7 +149,7 @@ TEST_F(ParserIdentifierTests, identifierNameCommentOpen)
     ASSERT_FALSE( parse(
         "identifier name /* */ {") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 17, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 24, compil::Message::p_unexpectEOFInStatementBody));
 }
@@ -181,7 +181,7 @@ TEST_F(ParserIdentifierTests, identifierNameWrongBaseOpenClose)
     ASSERT_FALSE( parse(
         "identifier<real32> name {}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 1, compil::Message::v_unacceptableParameterType,
                 compil::Message::Options("small, short, integer, long, byte, word, dword or qword")));
 }
@@ -191,7 +191,7 @@ TEST_F(ParserIdentifierTests, identifierNameMissingBaseOpenClose)
     ASSERT_FALSE( parse(
         "identifier<blah> name {}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 12, compil::Message::p_unknownClassifierType,
                   compil::Message::Type("blah")));
 }
@@ -228,6 +228,6 @@ TEST_F(ParserIdentifierTests, 2identifiersWithComments)
     checkIdentifier(0, 2, 1, "name1", "comment1");
     checkIdentifier(1, 4, 1, "name2", "comment2");
     
-    EXPECT_EQ(0U, mpParser->mpMessageCollector->messages().size());
+    EXPECT_EQ(0U, mpParser->messages().size());
 }
 

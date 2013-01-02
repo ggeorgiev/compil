@@ -43,7 +43,7 @@ MessageCollector::~MessageCollector()
 {
 }
 
-std::vector<Message> MessageCollector::messages()
+const std::vector<Message>& MessageCollector::messages()
 {
     return mMessages;
 }

@@ -127,7 +127,7 @@ int main(int argc, const char **argv)
         pName->set_sourceId(pSourceId);
 		document->setName(pName);
 
-		bool bResult = pParser->parse(pFileSourceProvider, pSourceId, document);
+		bool bResult = pParser->parseDocument(pFileSourceProvider, pSourceId, document);
         if (!bResult)
             return 1;
     }

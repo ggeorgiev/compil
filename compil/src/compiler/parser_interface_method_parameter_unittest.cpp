@@ -108,7 +108,7 @@ TEST_F(ParserInterfaceMethodParameterTests, interfaceMethodArrowClosed)
         "  }\n"
         "}") );
         
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 6, 3, compil::Message::p_expectType));
 }
 
@@ -123,7 +123,7 @@ TEST_F(ParserInterfaceMethodParameterTests, interfaceMethodArrowSomethingClosed)
         "  }\n"
         "}") );
         
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 5, 8, compil::Message::p_unknownClassifierType,
                 compil::Message::Type("blah")));
 }
@@ -139,7 +139,7 @@ TEST_F(ParserInterfaceMethodParameterTests, interfaceMethodArrowTypeClosed)
         "  }\n"
         "}") );
         
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 6, 3, compil::Message::p_expectStatementName));
 }
 
@@ -154,7 +154,7 @@ TEST_F(ParserInterfaceMethodParameterTests, interfaceMethodArrowTypeNameClosed)
         "  }\n"
         "}") );
         
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 6, 3, compil::Message::p_expectSemicolon));
 }
 
@@ -173,7 +173,7 @@ TEST_F(ParserInterfaceMethodParameterTests, interfaceMethodParameterClosed)
     checkMethod(0, 0, 3, 3, "mname");
     checkParameter(0, 0, 0, 5, 5, "pname", "integer");
 
-    ASSERT_EQ(0U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(0U, mpParser->messages().size());
 }
 
 TEST_F(ParserInterfaceMethodParameterTests, interfaceMethod2ParametersClosed)
@@ -193,5 +193,5 @@ TEST_F(ParserInterfaceMethodParameterTests, interfaceMethod2ParametersClosed)
     checkParameter(0, 0, 0, 5, 5, "pname1", "integer");
     checkParameter(0, 0, 1, 6, 5, "pname2", "integer");
 
-    ASSERT_EQ(0U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(0U, mpParser->messages().size());
 }

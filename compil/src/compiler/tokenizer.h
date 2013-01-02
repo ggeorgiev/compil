@@ -58,6 +58,7 @@ public:
     // shifts the tokenizer to the next token
     void shift();
     bool eof() const;
+    bool eot() const;
 
     static const int nTabSize = 4;
     Line line() const;
@@ -65,7 +66,7 @@ public:
 
     void absorbed(int ch);
 
-    TokenPtr current();
+    const TokenPtr& current() const;
 
     // skips white spaces
     void skipWhiteSpaces();
@@ -85,6 +86,9 @@ public:
     
     bool check(const Token::Type type);
     bool check(const Token::Type type, const char* text);
+    
+    bool expect(Token::Type type);
+    bool expect(Token::Type type, const char* text);
     
 private:
     MessageCollectorPtr mpMessageCollector;

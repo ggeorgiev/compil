@@ -24,7 +24,7 @@
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <PathRunnable
-         FilePath = "/Users/george/github/intermediate/generator-test/ef27f9a8a84252954bd5504269c0b5c1/generator-test-unit">
+         FilePath = "/Users/george/github/compil/intermediate/generator/ef27f9a8a84252954bd5504269c0b5c1/generator-unit">
       </PathRunnable>
       <AdditionalOptions>
       </AdditionalOptions>

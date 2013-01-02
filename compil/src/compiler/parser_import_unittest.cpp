@@ -18,7 +18,7 @@ TEST_F(ParserImportTests, import)
     ASSERT_FALSE( parse(
         "import") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 7, compil::Message::p_expectImportSource));
 }
 
@@ -27,7 +27,7 @@ TEST_F(ParserImportTests, importSource)
     ASSERT_FALSE( parse(
         "import \"blah\"") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 14, compil::Message::p_expectSemicolon));
 }
 
@@ -36,7 +36,7 @@ TEST_F(ParserImportTests, importSourceClose)
     ASSERT_TRUE( parse(
         "import \"blah\";") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 1, compil::Message::p_importWithoutSourceProvider));
 }
 
@@ -109,8 +109,8 @@ TEST_F(ParserImportTests, importNonexistent)
 {
     boost::shared_ptr<SourceProvider> pSourceProvider(new SourceProvider());
     mpSourceId = compil::SourceId::Builder().set_value("import_nonexistent").finalize();
-    ASSERT_FALSE( mpParser->parse(pSourceProvider, mpSourceId, mDocument) );
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_FALSE( mpParser->parseDocument(pSourceProvider, mpSourceId, mDocument) );
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 1, compil::Message::p_sourceNotFound));
     EXPECT_STREQ("import_nonexistent", pSourceProvider->mSource.c_str());
 }
@@ -119,9 +119,9 @@ TEST_F(ParserImportTests, importUnopenable)
 {
     boost::shared_ptr<SourceProvider> pSourceProvider(new SourceProvider());
     mpSourceId = compil::SourceId::Builder().set_value("import_unopenable").finalize();
-    ASSERT_FALSE( mpParser->parse(pSourceProvider, mpSourceId, mDocument) );
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
-    compil::Message message = mpMessageCollector->messages()[0];
+    ASSERT_FALSE( mpParser->parseDocument(pSourceProvider, mpSourceId, mDocument) );
+    ASSERT_EQ(1U, mpParser->messages().size());
+    compil::Message message = mpParser->messages()[0];
     ASSERT_NE(message.sourceId(), mpSourceId);
     mpSourceId = message.sourceId();
     EXPECT_TRUE(checkErrorMessage(0, 0, 0, compil::Message::p_openSourceFailed));
@@ -132,7 +132,7 @@ TEST_F(ParserImportTests, importEmptySource)
 {
     boost::shared_ptr<SourceProvider> pSourceProvider(new SourceProvider());
     mpSourceId = compil::SourceId::Builder().set_value("import_empty").finalize();
-    ASSERT_TRUE( mpParser->parse(pSourceProvider, mpSourceId, mDocument) );
+    ASSERT_TRUE( mpParser->parseDocument(pSourceProvider, mpSourceId, mDocument) );
     EXPECT_STREQ("empty", pSourceProvider->mSource.c_str());
 }
 
@@ -140,24 +140,24 @@ TEST_F(ParserImportTests, importCircular)
 {
     boost::shared_ptr<SourceProvider> pSourceProvider(new SourceProvider());
     mpSourceId = compil::SourceId::Builder().set_value("import_circular").finalize();
-    ASSERT_TRUE( mpParser->parse(pSourceProvider, mpSourceId, mDocument) );
+    ASSERT_TRUE( mpParser->parseDocument(pSourceProvider, mpSourceId, mDocument) );
 }
 
 TEST_F(ParserImportTests, importIndirectCircular)
 {
     boost::shared_ptr<SourceProvider> pSourceProvider(new SourceProvider());
     mpSourceId = compil::SourceId::Builder().set_value("import_indirect_circular").finalize();
-    ASSERT_TRUE( mpParser->parse(pSourceProvider, mpSourceId, mDocument) );
+    ASSERT_TRUE( mpParser->parseDocument(pSourceProvider, mpSourceId, mDocument) );
 }
 
 TEST_F(ParserImportTests, importError)
 {
     boost::shared_ptr<SourceProvider> pSourceProvider(new SourceProvider());
     mpSourceId = compil::SourceId::Builder().set_value("import_error").finalize();
-    ASSERT_FALSE( mpParser->parse(pSourceProvider, mpSourceId, mDocument) );
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_FALSE( mpParser->parseDocument(pSourceProvider, mpSourceId, mDocument) );
+    ASSERT_EQ(1U, mpParser->messages().size());
 
-    compil::Message message = mpMessageCollector->messages()[0];
+    compil::Message message = mpParser->messages()[0];
     ASSERT_NE(message.sourceId(), mpSourceId);
     mpSourceId = message.sourceId();
     EXPECT_TRUE(checkErrorMessage(0, 1, 10, compil::Message::p_expectSemicolon));
@@ -167,7 +167,7 @@ TEST_F(ParserImportTests, importType)
 {
     boost::shared_ptr<SourceProvider> pSourceProvider(new SourceProvider());
     mpSourceId = compil::SourceId::Builder().set_value("import_type").finalize();
-    ASSERT_TRUE( mpParser->parse(pSourceProvider, mpSourceId, mDocument) );
+    ASSERT_TRUE( mpParser->parseDocument(pSourceProvider, mpSourceId, mDocument) );
     EXPECT_TRUE(mDocument->mainFile());
     EXPECT_EQ(mpSourceId, mDocument->mainFile()->sourceId());
 }

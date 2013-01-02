@@ -36,6 +36,7 @@ import "compil/project/file_path.scompil";
 
 package lang.compil;
 
+streamable
 structure Section 
     inherit Object
 {

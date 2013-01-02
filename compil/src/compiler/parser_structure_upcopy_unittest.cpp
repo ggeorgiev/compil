@@ -83,7 +83,7 @@ TEST_F(ParserStructureUpcopyTests, upcopy)
         "  upcopy\n"
         "}") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectKeyword,
                     compil::Message::Keyword("from")));
 }
@@ -96,7 +96,7 @@ TEST_F(ParserStructureUpcopyTests, upcopyFrom)
         "  upcopy from\n"
         "}") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectClassifierStatementName,
                                   compil::Message::Classifier("upcopy"),
                                   compil::Message::Statement("structure")));
@@ -110,7 +110,7 @@ TEST_F(ParserStructureUpcopyTests, upcopyFromBlah)
         "  upcopy from blah\n"
         "}") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 3, 15, compil::Message::p_unknownClassifierType,
                                   compil::Message::Classifier("upcopy"),
                                   compil::Message::Type("blah")));
@@ -124,7 +124,7 @@ TEST_F(ParserStructureUpcopyTests, upcopyFromInteger)
         "  upcopy from integer\n"
         "}") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 3, 15, compil::Message::p_expectAppropriateType,
                                   compil::Message::Classifier("upcopy"),
                                   compil::Message::Options("structure")));
@@ -139,7 +139,7 @@ TEST_F(ParserStructureUpcopyTests, upcopyFromStruct)
         "  upcopy from struct\n"
         "}") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 15, compil::Message::p_expectAppropriateType,
                                   compil::Message::Classifier("upcopy"),
                                   compil::Message::Options("base structure")));
@@ -155,7 +155,7 @@ TEST_F(ParserStructureUpcopyTests, inheritUpcopyFromStruct)
         "  upcopy from struct\n"
         "}") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 5, 1, compil::Message::p_expectSemicolon));
 }
 

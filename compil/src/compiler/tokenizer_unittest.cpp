@@ -42,27 +42,33 @@ class TokenizerTests : public BaseParserTests
 public:
 	virtual void SetUp() 
 	{
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 	}
 
 	// virtual void TearDown() {}
+    
+    virtual const std::vector<compil::Message> messages()
+    {
+        return mMessageCollector->messages();
+    }
 
 protected:
 	void testWhitespace(const char* str, int line, int column)
 	{
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(str));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		EXPECT_EQ(lang::compil::Line(line), mpTokenizer->line()) << str;
 		EXPECT_EQ(lang::compil::Column(column), mpTokenizer->column()) << str;
 		EXPECT_TRUE( mpTokenizer->eof() ) << str;
-		EXPECT_EQ(0U, mpMessageCollector->messages().size()) << str;
+		EXPECT_EQ(0U, mMessageCollector->messages().size()) << str;
 	}
 
 	compil::TokenizerPtr mpTokenizer;
+    compil::MessageCollectorPtr mMessageCollector;
 };
 
 TEST_F(TokenizerTests, empty)
@@ -108,14 +114,14 @@ TEST_F(TokenizerTests, IncorrectBlockCStyleComment)
 	for (size_t i = 0; i < sizeof(invalid_comments) / sizeof(invalid_comments[0]); ++i)
 	{
 		const char* str = invalid_comments[i];
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(str));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		EXPECT_FALSE(mpTokenizer->current()) << str;
 		EXPECT_TRUE(mpTokenizer->eof()) << str;
-		ASSERT_EQ(1U, mpMessageCollector->messages().size()) << str;
+		ASSERT_EQ(1U, mMessageCollector->messages().size()) << str;
 		EXPECT_TRUE(checkErrorMessage(0, 0, 1, compil::Message::t_unterminatedComment));
 	}
 }
@@ -132,7 +138,7 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenSpaceClose)
 	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
 	EXPECT_EQ(lang::compil::Column(6), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
-	EXPECT_EQ(0U, mpMessageCollector->messages().size());
+	EXPECT_EQ(0U, mMessageCollector->messages().size());
 }
 
 
@@ -148,7 +154,7 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenStarClose)
 	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
 	EXPECT_EQ(lang::compil::Column(6), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
-	EXPECT_EQ(0U, mpMessageCollector->messages().size());
+	EXPECT_EQ(0U, mMessageCollector->messages().size());
 }
 
 TEST_F(TokenizerTests, commentBlockCStyleOpenSlashClose)
@@ -163,7 +169,7 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenSlashClose)
 	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
 	EXPECT_EQ(lang::compil::Column(6), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
-	EXPECT_EQ(0U, mpMessageCollector->messages().size());
+	EXPECT_EQ(0U, mMessageCollector->messages().size());
 }
 
 TEST_F(TokenizerTests, commentBlockCStyleOpen2SlashesClose)
@@ -178,7 +184,7 @@ TEST_F(TokenizerTests, commentBlockCStyleOpen2SlashesClose)
 	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
 	EXPECT_EQ(lang::compil::Column(7), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
-	EXPECT_EQ(0U, mpMessageCollector->messages().size());
+	EXPECT_EQ(0U, mMessageCollector->messages().size());
 }
 
 TEST_F(TokenizerTests, commentBlockCStyleOpenNClose)
@@ -201,7 +207,7 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenNClose)
 	EXPECT_EQ(lang::compil::Column(3), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
 
-	EXPECT_EQ(0U, mpMessageCollector->messages().size());
+	EXPECT_EQ(0U, mMessageCollector->messages().size());
 }
 
 TEST_F(TokenizerTests, commentBlockCStyleOpenN2SlashesClose)
@@ -224,7 +230,7 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenN2SlashesClose)
 	EXPECT_EQ(lang::compil::Column(5), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
 
-	EXPECT_EQ(0U, mpMessageCollector->messages().size());
+	EXPECT_EQ(0U, mMessageCollector->messages().size());
 }
 
 TEST_F(TokenizerTests, commentBlockCStyleOpenSpaceNSpaceClose)
@@ -247,7 +253,7 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenSpaceNSpaceClose)
 	EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
 
-	EXPECT_EQ(0U, mpMessageCollector->messages().size());
+	EXPECT_EQ(0U, mMessageCollector->messages().size());
 }
 
 TEST_F(TokenizerTests, commentLineCStyle)
@@ -261,7 +267,7 @@ TEST_F(TokenizerTests, commentLineCStyle)
 	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
 	EXPECT_EQ(lang::compil::Column(3), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
-	EXPECT_EQ(0U, mpMessageCollector->messages().size());
+	EXPECT_EQ(0U, mMessageCollector->messages().size());
 }
 
 TEST_F(TokenizerTests, commentLineCStyleSpace)
@@ -275,7 +281,7 @@ TEST_F(TokenizerTests, commentLineCStyleSpace)
 	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
 	EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
-	EXPECT_EQ(0U, mpMessageCollector->messages().size());
+	EXPECT_EQ(0U, mMessageCollector->messages().size());
 }
 
 TEST_F(TokenizerTests, commentLineCStyleSpaceNSpace)
@@ -289,7 +295,7 @@ TEST_F(TokenizerTests, commentLineCStyleSpaceNSpace)
 	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
 	EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn());
 	EXPECT_FALSE( mpTokenizer->eof() );
-	EXPECT_EQ(0U, mpMessageCollector->messages().size());
+	EXPECT_EQ(0U, mMessageCollector->messages().size());
 }
 
 TEST_F(TokenizerTests, commentLineCStyleSpaceRSpace)
@@ -303,7 +309,7 @@ TEST_F(TokenizerTests, commentLineCStyleSpaceRSpace)
 	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
 	EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn());
 	EXPECT_FALSE( mpTokenizer->eof() );
-	EXPECT_EQ(0U, mpMessageCollector->messages().size());
+	EXPECT_EQ(0U, mMessageCollector->messages().size());
 }
 
 TEST_F(TokenizerTests, commentLineCStyleSlash)
@@ -317,7 +323,7 @@ TEST_F(TokenizerTests, commentLineCStyleSlash)
 	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
 	EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
-	EXPECT_EQ(0U, mpMessageCollector->messages().size());
+	EXPECT_EQ(0U, mMessageCollector->messages().size());
 }
 
 TEST_F(TokenizerTests, commentLineCStyle2StarsSlash)
@@ -331,7 +337,7 @@ TEST_F(TokenizerTests, commentLineCStyle2StarsSlash)
 	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
 	EXPECT_EQ(lang::compil::Column(6), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
-	EXPECT_EQ(0U, mpMessageCollector->messages().size());
+	EXPECT_EQ(0U, mMessageCollector->messages().size());
 }
 
 TEST_F(TokenizerTests, 1DecimalDigit)
@@ -342,8 +348,8 @@ TEST_F(TokenizerTests, 1DecimalDigit)
 		str[0] = n;
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			str));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type());
@@ -352,7 +358,7 @@ TEST_F(TokenizerTests, 1DecimalDigit)
 		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) << str;
 		EXPECT_EQ(lang::compil::Column(2), mpTokenizer->current()->endColumn()) << str;
 		EXPECT_TRUE( mpTokenizer->eof() );
-		EXPECT_EQ(0U, mpMessageCollector->messages().size());
+		EXPECT_EQ(0U, mMessageCollector->messages().size());
 	}
 }
 
@@ -370,8 +376,8 @@ TEST_F(TokenizerTests, integerDecimalNumber)
 		std::cout << "    " << integers[i] << "\n";
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			integers[i]));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type()) << integers[i];
@@ -380,7 +386,7 @@ TEST_F(TokenizerTests, integerDecimalNumber)
 		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) << integers[i];
 		EXPECT_EQ(lang::compil::Column((int)strlen(integers[i]) + 1), mpTokenizer->current()->endColumn());
 		EXPECT_TRUE( mpTokenizer->eof() ) << integers[i];
-		EXPECT_EQ(0U, mpMessageCollector->messages().size());
+		EXPECT_EQ(0U, mMessageCollector->messages().size());
 	}
 }
 
@@ -398,8 +404,8 @@ TEST_F(TokenizerTests, nonIntegerDecimalNumber)
 		std::cout << "    " << non_integers[i] << "\n";
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			non_integers[i]));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		if (mpTokenizer->current())
 			EXPECT_NE(compil::Token::TYPE_INTEGER_LITERAL, 
@@ -424,13 +430,13 @@ TEST_F(TokenizerTests, wrongDecimal)
 		str[1] = wrong_decimal[w];
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			str));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		ASSERT_FALSE(mpTokenizer->current()) << str;
 
 		EXPECT_TRUE( mpTokenizer->eof() );
-		EXPECT_EQ(1U, mpMessageCollector->messages().size());
+		EXPECT_EQ(1U, mMessageCollector->messages().size());
 		EXPECT_TRUE(checkErrorMessage(0, 0, 1, compil::Message::t_invalidIntegerLiteral));
 	}
 }
@@ -449,8 +455,8 @@ TEST_F(TokenizerTests, delimitedDecimal)
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			str));
 		str[1] = '\0';
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type());
@@ -459,7 +465,7 @@ TEST_F(TokenizerTests, delimitedDecimal)
 		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) << str;
 		EXPECT_EQ(lang::compil::Column(2), mpTokenizer->current()->endColumn()) << str;
 		EXPECT_FALSE( mpTokenizer->eof() );
-		EXPECT_EQ(0U, mpMessageCollector->messages().size());
+		EXPECT_EQ(0U, mMessageCollector->messages().size());
 	}
 }
 
@@ -478,8 +484,8 @@ TEST_F(TokenizerTests, 1HexicalDigit)
 		str[2] = (char)hex_digit[h];
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			str));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		ASSERT_TRUE(mpTokenizer->current());
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
@@ -489,7 +495,7 @@ TEST_F(TokenizerTests, 1HexicalDigit)
 		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) << str;
 		EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn()) << str;
 		EXPECT_TRUE( mpTokenizer->eof() );
-		EXPECT_EQ(0U, mpMessageCollector->messages().size());
+		EXPECT_EQ(0U, mMessageCollector->messages().size());
 	}
 }
 
@@ -505,7 +511,7 @@ TEST_F(TokenizerTests, integerHexicalNumber)
 	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
 	EXPECT_EQ(lang::compil::Column(25), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
-	EXPECT_EQ(0U, mpMessageCollector->messages().size());
+	EXPECT_EQ(0U, mMessageCollector->messages().size());
 }
 
 TEST_F(TokenizerTests, nonIntegerHexicalNumber)
@@ -522,8 +528,8 @@ TEST_F(TokenizerTests, nonIntegerHexicalNumber)
 		std::cout << "    " << non_integers[i] << "\n";
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			non_integers[i]));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		if (mpTokenizer->current())
 			EXPECT_NE(compil::Token::TYPE_INTEGER_LITERAL, 
@@ -548,13 +554,13 @@ TEST_F(TokenizerTests, wrongHexical)
 		str[2] = wrong_hexical[w];
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			str));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		ASSERT_FALSE(mpTokenizer->current());
 
 		EXPECT_TRUE(mpTokenizer->eof());
-		EXPECT_EQ(1U, mpMessageCollector->messages().size());
+		EXPECT_EQ(1U, mMessageCollector->messages().size());
 		EXPECT_TRUE(checkErrorMessage(0, 0, 1, compil::Message::t_invalidIntegerLiteral));
 	}
 }
@@ -574,8 +580,8 @@ TEST_F(TokenizerTests, delimitedHexical)
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			str));
 		str[3] = '\0';
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type());
@@ -584,7 +590,7 @@ TEST_F(TokenizerTests, delimitedHexical)
 		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) << str;
 		EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn()) << str;
 		EXPECT_FALSE( mpTokenizer->eof() );
-		EXPECT_EQ(0U, mpMessageCollector->messages().size());
+		EXPECT_EQ(0U, mMessageCollector->messages().size());
 	}
 }
 
@@ -596,8 +602,8 @@ TEST_F(TokenizerTests, 1OctalDigit)
 		str[1] = n;
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			str));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		ASSERT_TRUE(mpTokenizer->current());
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
@@ -607,7 +613,7 @@ TEST_F(TokenizerTests, 1OctalDigit)
 		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) << str;
 		EXPECT_EQ(lang::compil::Column(3), mpTokenizer->current()->endColumn()) << str;
 		EXPECT_TRUE( mpTokenizer->eof() );
-		EXPECT_EQ(0U, mpMessageCollector->messages().size());
+		EXPECT_EQ(0U, mMessageCollector->messages().size());
 	}
 }
 
@@ -625,8 +631,8 @@ TEST_F(TokenizerTests, integerOctalNumber)
 		std::cout << "    " << integers[i] << "\n";
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			integers[i]));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type()) << integers[i];
@@ -635,7 +641,7 @@ TEST_F(TokenizerTests, integerOctalNumber)
 		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) << integers[i];
 		EXPECT_EQ(lang::compil::Column((int)strlen(integers[i]) + 1), mpTokenizer->current()->endColumn());
 		EXPECT_TRUE( mpTokenizer->eof() ) << integers[i];
-		EXPECT_EQ(0U, mpMessageCollector->messages().size());
+		EXPECT_EQ(0U, mMessageCollector->messages().size());
 	}
 }
 
@@ -657,13 +663,13 @@ TEST_F(TokenizerTests, wrongOctalDigit)
 		str[1] = wrong_octal[w];
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			str));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		ASSERT_FALSE(mpTokenizer->current()) << str;
 
 		EXPECT_TRUE( mpTokenizer->eof() );
-		EXPECT_EQ(1U, mpMessageCollector->messages().size());
+		EXPECT_EQ(1U, mMessageCollector->messages().size());
 		EXPECT_TRUE(checkErrorMessage(0, 0, 1, compil::Message::t_invalidIntegerLiteral));
 	}
 }
@@ -682,8 +688,8 @@ TEST_F(TokenizerTests, delimitedOctal)
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			str));
 		str[2] = '\0';
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type());
@@ -692,7 +698,7 @@ TEST_F(TokenizerTests, delimitedOctal)
 		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) << str;
 		EXPECT_EQ(lang::compil::Column(3), mpTokenizer->current()->endColumn()) << str;
 		EXPECT_FALSE( mpTokenizer->eof() );
-		EXPECT_EQ(0U, mpMessageCollector->messages().size());
+		EXPECT_EQ(0U, mMessageCollector->messages().size());
 	}
 }
 
@@ -714,8 +720,8 @@ TEST_F(TokenizerTests, floats)
 		std::cout << "    " << floats[f] << "\n";
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			floats[f]));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		EXPECT_EQ(compil::Token::TYPE_REAL_LITERAL, 
 			mpTokenizer->current()->type()) << floats[f];
@@ -727,7 +733,7 @@ TEST_F(TokenizerTests, floats)
 			<< floats[f];
 		EXPECT_TRUE( mpTokenizer->eof() )
 			<< floats[f];
-		EXPECT_EQ(0U, mpMessageCollector->messages().size());
+		EXPECT_EQ(0U, mMessageCollector->messages().size());
 	}
 }
 
@@ -746,8 +752,8 @@ TEST_F(TokenizerTests, nonFloats)
 		std::cout << "    " << non_floats[f] << "\n";
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			non_floats[f]));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		if (mpTokenizer->current())
 			EXPECT_NE(compil::Token::TYPE_REAL_LITERAL, 
@@ -772,8 +778,8 @@ TEST_F(TokenizerTests, strings)
 		std::cout << "    " << strings[s] << "\n";
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			strings[s]));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		EXPECT_EQ(compil::Token::TYPE_STRING_LITERAL, 
 			mpTokenizer->current()->type()) << strings[s];
@@ -790,7 +796,7 @@ TEST_F(TokenizerTests, strings)
 			<< strings[s];
 		EXPECT_TRUE( mpTokenizer->eof() )
 			<< strings[s];
-		EXPECT_EQ(0U, mpMessageCollector->messages().size());
+		EXPECT_EQ(0U, mMessageCollector->messages().size());
 	}
 }
 
@@ -812,8 +818,8 @@ TEST_F(TokenizerTests, notTerminatedStrings)
 	{
 		std::cout << "    " << strings[s] << "\n";
 
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			strings[s]));
@@ -823,7 +829,7 @@ TEST_F(TokenizerTests, notTerminatedStrings)
 		if (pToken)
 			EXPECT_NE(compil::Token::TYPE_STRING_LITERAL, pToken->type());
 
-		EXPECT_LE(1U, mpMessageCollector->messages().size());
+		EXPECT_LE(1U, mMessageCollector->messages().size());
 		EXPECT_TRUE(checkErrorMessage(0, 0, column[s], compil::Message::t_missingTerminatingQuotationMark));
 	}
 }
@@ -842,8 +848,8 @@ TEST_F(TokenizerTests, wrongEscapee)
 	{
 		std::cout << "    " << strings[s] << "\n";
 
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			strings[s]));
@@ -853,7 +859,7 @@ TEST_F(TokenizerTests, wrongEscapee)
 		if (pToken)
 			EXPECT_NE(compil::Token::TYPE_STRING_LITERAL, pToken->type());
 
-		EXPECT_LE(1, (int)mpMessageCollector->messages().size());
+		EXPECT_LE(1, (int)mMessageCollector->messages().size());
 		EXPECT_TRUE(checkErrorMessage(0, 0, column[s], compil::Message::t_unknownEscapeSequence));
 	}
 }
@@ -898,15 +904,15 @@ TEST_F(TokenizerTests, identifier)
 				str[2] = delimiter[d];
 				boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 					str));
-				mpMessageCollector.reset(new compil::MessageCollector());
-				mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+				mMessageCollector.reset(new compil::MessageCollector());
+				mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 				mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 				str[2] = '\0';
 				EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
 				EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
 				EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
 				EXPECT_EQ(lang::compil::Column(3), mpTokenizer->current()->endColumn());
-				EXPECT_EQ(0U, mpMessageCollector->messages().size());
+				EXPECT_EQ(0U, mMessageCollector->messages().size());
 			}
 		}
 	}
@@ -925,8 +931,8 @@ TEST_F(TokenizerTests, arrow)
 		std::cout << "    " << arrows[a] << "\n";
 		boost::shared_ptr<std::stringstream> 
 			pInput(new std::stringstream(arrows[a]));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		compil::TokenPtr pToken = mpTokenizer->current();
 		ASSERT_TRUE(pToken);
@@ -936,7 +942,7 @@ TEST_F(TokenizerTests, arrow)
 		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
 		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
 		EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn());
-		EXPECT_EQ(0U, mpMessageCollector->messages().size());
+		EXPECT_EQ(0U, mMessageCollector->messages().size());
 	}
 }
 
@@ -952,8 +958,8 @@ TEST_F(TokenizerTests, bitwise_operator)
 		std::cout << "    " << bitwise_operators[b] << "\n";
 		boost::shared_ptr<std::stringstream> 
 			pInput(new std::stringstream(bitwise_operators[b]));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		compil::TokenPtr pToken = mpTokenizer->current();
 		EXPECT_EQ(compil::Token::TYPE_BITWISE_OPERATOR, pToken->type());
@@ -972,8 +978,8 @@ TEST_F(TokenizerTests, relational_operator1)
 		std::cout << "    " << relational_operators[a] << "\n";
 		boost::shared_ptr<std::stringstream> 
 			pInput(new std::stringstream(relational_operators[a]));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		compil::TokenPtr pToken = mpTokenizer->current();
         EXPECT_EQ(compil::Token::TYPE_RELATIONAL_OPERATOR1, pToken->type());
@@ -992,8 +998,8 @@ TEST_F(TokenizerTests, relational_operator2)
 		std::cout << "    " << relational_operators[a] << "\n";
 		boost::shared_ptr<std::stringstream> 
 			pInput(new std::stringstream(relational_operators[a]));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		compil::TokenPtr pToken = mpTokenizer->current();
         EXPECT_EQ(compil::Token::TYPE_RELATIONAL_OPERATOR2, pToken->type());
@@ -1016,8 +1022,8 @@ TEST_F(TokenizerTests, non_arrow)
 		std::cout << "    " << non_arrows[a] << "\n";
 		boost::shared_ptr<std::stringstream> 
 			pInput(new std::stringstream(non_arrows[a]));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		compil::TokenPtr pToken = mpTokenizer->current();
 		if (pToken)
@@ -1039,8 +1045,8 @@ TEST_F(TokenizerTests, angle_brackets)
 		std::cout << "    " << brackets[b] << "\n";
 		boost::shared_ptr<std::stringstream> 
 			pInput(new std::stringstream(brackets[b]));
-		mpMessageCollector.reset(new compil::MessageCollector());
-		mpTokenizer.reset(new compil::Tokenizer(mpMessageCollector));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		compil::TokenPtr pToken = mpTokenizer->current();
 		while (pToken)

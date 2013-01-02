@@ -43,8 +43,6 @@
 #include "tokenizer.h"
 #include "validator.h"
 
-#include "i_source_provider.h"
-
 #include "compil/document/document.h"
 
 #include "boost/function.hpp"
@@ -64,10 +62,8 @@ public:
     Parser(const Parser& parentParser);
     ~Parser();
     
-    CommentSPtr parseComment();
     CommentSPtr lastComment();
-    void skipComments(CommentSPtr pComment = CommentSPtr());
-    
+
     PackageSPtr parsePackage();
  
     typedef boost::function1<void, const TypeSPtr&> InitTypeMethod;
@@ -124,26 +120,28 @@ public:
     
     void addValidator(const ValidatorPtr& pValidator);
     
+    void initDocumentContext();
+    
     // Parse the input and construct a Descriptor from it.
     // Returns true if no errors occurred, false otherwise.
-    bool parse(const StreamPtr& pInput,
-               const DocumentSPtr& document);
-    bool parse(const SourceIdSPtr& pSourceId, 
-               const StreamPtr& pInput, 
-               const DocumentSPtr& document);
-    bool parse(const ISourceProviderPtr& pSourceProvider,
-               const SourceIdSPtr& pSourceId,
-               const DocumentSPtr& document);
+    bool parseDocument(const StreamPtr& pInput,
+                       const DocumentSPtr& document);
+    bool parseDocument(const SourceIdSPtr& sourceId, 
+                       const StreamPtr& pInput, 
+                       const DocumentSPtr& document);
+    bool parseDocument(const ISourceProviderPtr& pSourceProvider,
+                       const SourceIdSPtr& pSourceId,
+                       const DocumentSPtr& document);
                
-    void setInput(const StreamPtr& pInput);
+    void setDocumentInput(const StreamPtr& pInput);
     
+    void initProjectContext();
     
-    bool parse(const StreamPtr& pInput,
+    bool parseProject(const SourceIdSPtr& sourceId,
+               const StreamPtr& pInput,
                const ProjectSPtr& project);
-    
-    
-public:
-    MessageCollectorPtr mpMessageCollector;
+               
+   const std::vector<Message>& messages();
 
 private:
     ParseContextSPtr mContext;
@@ -158,27 +156,16 @@ private:
     std::vector<LateTypeResolveInfo> mLateTypeResolve;
     void lateTypeResolve(const TypeSPtr& pNewType);
     
-    SourceIdSPtr mpSourceId;
     PackageSPtr mpPackage;
-    ISourceProviderPtr mpSourceProvider;
-    boost::shared_ptr<std::map<std::string, SourceIdSPtr> > mpSources;
 
     FileSPtr mFile;
     DocumentSPtr mDocument;
     std::vector<ValidatorPtr> mvValidator;
     
-    Message errorMessage(const char* message, const Line& line = Line(-1), const Column& column = Column(-1));
-    Message warningMessage(const char* message, const Line& line = Line(-1), const Column& column = Column(-1));
-    
     Parser& operator<<(const Message& message);
 
-    bool eof();
-    bool expect(Token::Type type);
-    bool expect(Token::Type type, const char* text);
     bool unexpectedStatement(const TokenPtr& pToken);
     void recover();
-
-    void initilizeObject(ObjectSPtr pObject, const TokenPtr& pToken = TokenPtr());
 
     bool validate(const DocumentSPtr& document);
     bool validate(const ObjectSPtr& pObject);

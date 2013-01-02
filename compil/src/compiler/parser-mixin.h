@@ -35,14 +35,26 @@
 
 #include "tokenizer.h"
 
+#include "i_source_provider.h"
+
 #include "compil/all/object_factory.h"
+
+#include <map>
 
 namespace compil
 {
 
 struct ParseContext
 {
-    TokenizerPtr mTokenizer;
+    typedef std::map<std::string, SourceIdSPtr> SourceMap;
+    typedef boost::shared_ptr<SourceMap> SourceMapSPtr;
+
+    ISourceProviderPtr  mSourceProvider;
+    SourceMapSPtr       mSources;
+
+    MessageCollectorPtr mMessageCollector;
+    TokenizerPtr        mTokenizer;
+    SourceIdSPtr        mSourceId;
 };
 
 typedef boost::shared_ptr<ParseContext> ParseContextSPtr;
@@ -50,6 +62,28 @@ typedef boost::shared_ptr<ParseContext> ParseContextSPtr;
 class ParserMixin
 {
 public:
+    static void initilizeObject(const ParseContextSPtr& context, ObjectSPtr object);
+    static void initilizeObject(const ParseContextSPtr& context, const TokenPtr& token, ObjectSPtr object);
+
+    static Message errorMessage(const ParseContextSPtr& context,
+                                const char* message,
+                                const Line& line = Line(-1),
+                                const Column& column = Column(-1));
+                                
+    static Message warningMessage(const ParseContextSPtr& context,
+                                 const char* message,
+                                 const Line& line = Line(-1),
+                                 const Column& column = Column(-1));
+                                
+    static CommentSPtr parseComment(const ParseContextSPtr& context);
+    static void skipComments(const ParseContextSPtr& context, CommentSPtr pComment = CommentSPtr());
+                      
+private:
+    static Message severityMessage(const ParseContextSPtr& context,
+                                   const Message::Severity& severity,
+                                   const char* message,
+                                   const Line& line,
+                                   const Column& column);
 };
 
 }

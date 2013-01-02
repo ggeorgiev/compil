@@ -31,7 +31,7 @@ TEST_F(ParserTests, whateverWrongStream)
     ASSERT_FALSE( parse(
         "something") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 1, compil::Message::p_unknownStatment));
 }
 
@@ -157,7 +157,7 @@ TEST_F(ParserTests, lastComment0)
     StreamPtr pInput = getInput(
         "");
 
-    mpParser->setInput(pInput);
+    mpParser->setDocumentInput(pInput);
     compil::CommentSPtr pComment = mpParser->lastComment();
 
     ASSERT_FALSE( pComment );
@@ -168,7 +168,7 @@ TEST_F(ParserTests, lastComment1EOF)
     StreamPtr pInput = getRawInput(
         "//comment1");
 
-    mpParser->setInput(pInput);
+    mpParser->setDocumentInput(pInput);
     compil::CommentSPtr pComment = mpParser->lastComment();
 
     ASSERT_TRUE( pComment );
@@ -181,7 +181,7 @@ TEST_F(ParserTests, lastComment1Something)
         "//comment1\n"
         "something");
 
-    mpParser->setInput(pInput);
+    mpParser->setDocumentInput(pInput);
     compil::CommentSPtr pComment = mpParser->lastComment();
 
     ASSERT_TRUE( pComment );
@@ -195,7 +195,7 @@ TEST_F(ParserTests, lastComment2EOF)
         "\n"
         "//comment2");
 
-    mpParser->setInput(pInput);
+    mpParser->setDocumentInput(pInput);
     compil::CommentSPtr pComment = mpParser->lastComment();
 
     ASSERT_TRUE( pComment );
@@ -210,7 +210,7 @@ TEST_F(ParserTests, lastComment2Something)
         "//comment2\n"
         "something");
 
-    mpParser->setInput(pInput);
+    mpParser->setDocumentInput(pInput);
     compil::CommentSPtr pComment = mpParser->lastComment();
 
     ASSERT_TRUE( pComment );

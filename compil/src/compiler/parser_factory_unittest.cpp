@@ -105,7 +105,7 @@ TEST_F(ParserFactoryTests, noTypeFactory)
     ASSERT_FALSE( parse(
         "factory") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 8, compil::Message::p_expectAppropriateType, 
                                   compil::Message::Classifier("factory"),
                                   compil::Message::Options("hierarchy, object or plugin")));
@@ -116,7 +116,7 @@ TEST_F(ParserFactoryTests, factory)
     ASSERT_FALSE( parse(
         "hierarchy factory") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 18, compil::Message::p_expectType));
 }
 
@@ -125,7 +125,7 @@ TEST_F(ParserFactoryTests, factoryComment)
     ASSERT_FALSE( parse(
         "hierarchy factory //") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 19, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 21, compil::Message::p_expectType));
 }
@@ -135,7 +135,7 @@ TEST_F(ParserFactoryTests, factoryCommentBaseTypeOpen)
     ASSERT_FALSE( parse(
         "hierarchy factory /* */ <") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 19, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 26, compil::Message::p_expectType));
 }
@@ -145,7 +145,7 @@ TEST_F(ParserFactoryTests, factoryCommentBaseTypeOpenType)
     ASSERT_FALSE( parse(
         "hierarchy factory < /* */ integer") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 21, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 34, compil::Message::p_expectClosingAngleBracket));
 }
@@ -155,7 +155,7 @@ TEST_F(ParserFactoryTests, factoryCommentBaseType)
     ASSERT_FALSE( parse(
         "hierarchy factory < integer /* */ >") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 29, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 36, compil::Message::p_expectStatementName));
 }
@@ -165,7 +165,7 @@ TEST_F(ParserFactoryTests, factoryName)
     ASSERT_FALSE( parse(
         "hierarchy factory name") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 19, compil::Message::p_expectType));
 }
 
@@ -174,7 +174,7 @@ TEST_F(ParserFactoryTests, factoryTypeCommentName)
     ASSERT_FALSE( parse(
         "hierarchy factory<integer> /* */ name") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 28, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 38, compil::Message::p_expectStatementBody));
 }
@@ -184,7 +184,7 @@ TEST_F(ParserFactoryTests, factoryTypeName)
     ASSERT_FALSE( parse(
         "hierarchy factory<integer> name") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 32, compil::Message::p_expectStatementBody));
 }
 
@@ -193,7 +193,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameOpen)
     ASSERT_FALSE( parse(
         "hierarchy factory<integer> name {") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 34, compil::Message::p_unexpectEOFInStatementBody));
 }
 
@@ -202,7 +202,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpen)
     ASSERT_FALSE( parse(
         "hierarchy factory<integer> name /* */ {") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 33, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 40, compil::Message::p_unexpectEOFInStatementBody));
 }
@@ -212,7 +212,7 @@ TEST_F(ParserFactoryTests, hierarchyFactoryTypeNameCommentOpenFilter)
     ASSERT_FALSE( parse(
         "hierarchy factory<integer> name { filter") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 35, compil::Message::p_filterInNonObjectFactory));
 }
 
@@ -221,7 +221,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterWithNoStructureType)
     ASSERT_FALSE( parse(
         "object factory<integer> name { filter") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 32, compil::Message::p_filterInFactoryForNonStructure));
 }
 
@@ -231,7 +231,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterWithUnknownField)
         "structure sname { integer i; }\n"
         "object factory<sname> name { filter unknown") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 2, 37, compil::Message::p_expectStatementName, 
                     compil::Message::Statement("field")));
     EXPECT_TRUE(checkErrorMessage(1, 2, 44, compil::Message::p_unexpectEOFInStatementBody));
@@ -243,7 +243,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterField)
         "structure sname { integer i; }\n"
         "object factory<sname> name { filter i") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 2, 38, compil::Message::p_expectKeyword,
                     compil::Message::Keyword("with")));
     EXPECT_TRUE(checkErrorMessage(1, 2, 38, compil::Message::p_unexpectEOFInStatementBody));
@@ -255,7 +255,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterFieldBlah)
         "structure sname { integer i; }\n"
         "object factory<sname> name { filter i blah") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 2, 39, compil::Message::p_expectKeyword,
                     compil::Message::Keyword("with")));
     EXPECT_TRUE(checkErrorMessage(1, 2, 43, compil::Message::p_unexpectEOFInStatementBody));
@@ -267,7 +267,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterFieldWith)
         "structure sname { integer i; }\n"
         "object factory<sname> name { filter i with") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 2, 43, compil::Message::p_expectStatementName, 
                     compil::Message::Statement("external method")));
     EXPECT_TRUE(checkErrorMessage(1, 2, 43, compil::Message::p_unexpectEOFInStatementBody));
@@ -279,7 +279,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterFieldWithMethod)
         "structure sname { integer i; }\n"
         "object factory<sname> name { filter i with blah") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 2, 48, compil::Message::p_expectSemicolon));
     EXPECT_TRUE(checkErrorMessage(1, 2, 48, compil::Message::p_unexpectEOFInStatementBody));
 }
@@ -290,7 +290,7 @@ TEST_F(ParserFactoryTests, factoryTypeNameCommentOpenFilterFieldWithMethodSemico
         "structure sname { integer i; }\n"
         "object factory<sname> name { filter i with blah;") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 2, 49, compil::Message::p_unexpectEOFInStatementBody));
 }
 
@@ -344,7 +344,7 @@ TEST_F(ParserFactoryTests, factoryMissingParameterTypeNameOpenClose)
     ASSERT_FALSE( parse(
         "hierarchy factory<blah> name {}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 19, compil::Message::p_unknownClassifierType,
                   compil::Message::Type("blah")));
 }
@@ -362,5 +362,5 @@ TEST_F(ParserFactoryTests, 2factoiesWithComments)
     EXPECT_TRUE(checkFactory(0, 2, 1, "name1", compil::Factory::EType::hierarchy(), "comment1"));
     EXPECT_TRUE(checkFactory(1, 4, 1, "name2", compil::Factory::EType::object(), "comment2"));
     
-    EXPECT_EQ(0U, mpParser->mpMessageCollector->messages().size());
+    EXPECT_EQ(0U, mpParser->messages().size());
 }

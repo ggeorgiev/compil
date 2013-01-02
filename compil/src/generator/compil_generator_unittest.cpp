@@ -65,7 +65,7 @@ public:
     {
         std::string prefix = "compil {}\n";
         boost::shared_ptr<std::istringstream> pInput(new std::istringstream(prefix + input));
-        bool result = mpParser->parse(pInput, mDocument);
+        bool result = mpParser->parseDocument(pInput, mDocument);
         EXPECT_TRUE(result);
         if (!result) return false;
 

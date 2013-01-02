@@ -51,7 +51,7 @@ TEST_F(ParserInterfaceTests, interface)
     ASSERT_FALSE( parse(
         "interface") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 10, compil::Message::p_expectStatementName));
 }
 
@@ -60,7 +60,7 @@ TEST_F(ParserInterfaceTests, interfaceComment)
     ASSERT_FALSE( parse(
         "interface //") );
 
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 11, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 13, compil::Message::p_expectStatementName));
 }
@@ -70,7 +70,7 @@ TEST_F(ParserInterfaceTests, interfaceCommentName)
     ASSERT_FALSE( parse(
         "interface /* */ name") );
 
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 11, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 21, compil::Message::p_expectStatementBody));
 }
@@ -80,7 +80,7 @@ TEST_F(ParserInterfaceTests, interfaceName)
     ASSERT_FALSE( parse(
         "interface name") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 15, compil::Message::p_expectStatementBody));
 }
 
@@ -89,7 +89,7 @@ TEST_F(ParserInterfaceTests, interfaceNameOpen)
     ASSERT_FALSE( parse(
         "interface name {") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 17, compil::Message::p_unexpectEOFInStatementBody));
 }
 
@@ -98,7 +98,7 @@ TEST_F(ParserInterfaceTests, interfaceNameCommentOpen)
     ASSERT_FALSE( parse(
         "interface name /* */ {") );
 
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 16, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 23, compil::Message::p_unexpectEOFInStatementBody));
 }
@@ -117,7 +117,7 @@ TEST_F(ParserInterfaceTests, strongInterfaceNameCommentOpen)
     ASSERT_FALSE( parse(
         "strong interface name {}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 1, compil::Message::p_unexpectedStatmentModificator, 
                                   compil::Message::Modificator("strong")));
 }

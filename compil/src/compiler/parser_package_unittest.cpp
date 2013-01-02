@@ -22,7 +22,7 @@ TEST_F(ParserPackageTests, package)
     ASSERT_FALSE( parse(
         "package") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 8, compil::Message::p_expectStatementName));
 }
 
@@ -31,7 +31,7 @@ TEST_F(ParserPackageTests, packageName)
     ASSERT_FALSE( parse(
         "package pname") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 14, compil::Message::p_expectSemicolon));
 }
 
@@ -53,7 +53,7 @@ TEST_F(ParserPackageTests, packageNameDot)
     ASSERT_FALSE( parse(
         "package pname.") );
         
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 15, compil::Message::p_expectStatementName));
 }
 
@@ -62,7 +62,7 @@ TEST_F(ParserPackageTests, packageNameDotName)
     ASSERT_FALSE( parse(
         "package pname.pname") );
         
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 20, compil::Message::p_expectSemicolon));
 }
 

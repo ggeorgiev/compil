@@ -44,7 +44,7 @@ specimen<integer> Column
 {
 }
 
-sharable
+sharable streamable
 structure Object
 {
     runtime identification;

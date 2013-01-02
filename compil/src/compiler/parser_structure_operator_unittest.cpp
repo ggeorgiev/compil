@@ -27,7 +27,7 @@ TEST_F(ParserStructureOperationTests, operator)
         "  operator\n"
         "}") );
         
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     //TODO: 
 }
 
@@ -39,7 +39,7 @@ TEST_F(ParserStructureOperationTests, operatorEqualTo)
         "  operator ==\n"
         "}") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     // TODO: 
 }
 
@@ -51,7 +51,7 @@ TEST_F(ParserStructureOperationTests, operatorEqualToSemicolon)
         "  operator == ;\n"
         "}") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     // TODO: 
 }
 

@@ -133,7 +133,7 @@ TEST_F(ParserEnumerationTests, enum)
     ASSERT_FALSE( parse(
         "enum") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 5, compil::Message::p_expectStatementName));
 }
 
@@ -142,7 +142,7 @@ TEST_F(ParserEnumerationTests, enumComment)
     ASSERT_FALSE( parse(
         "enum //") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 6, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 8, compil::Message::p_expectStatementName));
 }
@@ -152,7 +152,7 @@ TEST_F(ParserEnumerationTests, enumCommentParameterTypeOpen)
     ASSERT_FALSE( parse(
         "enum /* */ <") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 6, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 13, compil::Message::p_expectType));
 }
@@ -162,7 +162,7 @@ TEST_F(ParserEnumerationTests, enumCommentParameterTypeOpenType)
     ASSERT_FALSE( parse(
         "enum < /* */ integer") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 8, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 21, compil::Message::p_expectClosingAngleBracket));
 }
@@ -172,7 +172,7 @@ TEST_F(ParserEnumerationTests, enumCommentParameterType)
     ASSERT_FALSE( parse(
         "enum < integer /* */ >") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 16, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 23, compil::Message::p_expectStatementName));
 }
@@ -182,7 +182,7 @@ TEST_F(ParserEnumerationTests, enumCommentName)
     ASSERT_FALSE( parse(
         "enum /* */ name") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 6, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 16, compil::Message::p_expectStatementBody));
 }
@@ -192,7 +192,7 @@ TEST_F(ParserEnumerationTests, enumName)
     ASSERT_FALSE( parse(
         "enum name") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 10, compil::Message::p_expectStatementBody));
 }
 
@@ -201,7 +201,7 @@ TEST_F(ParserEnumerationTests, enumNameOpen)
     ASSERT_FALSE( parse(
         "enum name {") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 12, compil::Message::p_unexpectEOFInStatementBody));
 }
 
@@ -210,7 +210,7 @@ TEST_F(ParserEnumerationTests, enumNameCommentOpen)
     ASSERT_FALSE( parse(
         "enum name /* */ {") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 11, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 18, compil::Message::p_unexpectEOFInStatementBody));
 }
@@ -244,7 +244,7 @@ TEST_F(ParserEnumerationTests, enumNameWrongParameterTypeOpenClose)
     ASSERT_FALSE( parse(
         "enum<real32> name {}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 1, compil::Message::v_unacceptableParameterType,
                 compil::Message::Options("small, short or integer")));
 }
@@ -254,7 +254,7 @@ TEST_F(ParserEnumerationTests, enumNameMissingParameterTypeOpenClose)
     ASSERT_FALSE( parse(
         "enum<blah> name {}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 6, compil::Message::p_unknownClassifierType,
                   compil::Message::Type("blah")));
 }
@@ -305,7 +305,7 @@ TEST_F(ParserEnumerationTests, 2enumsWithComments)
     checkEnumeration(0, 2, 1, "name1", "comment1");
     checkEnumeration(1, 4, 1, "name2", "comment2");
     
-    EXPECT_EQ(0U, mpParser->mpMessageCollector->messages().size());
+    EXPECT_EQ(0U, mpParser->messages().size());
 }
 
 TEST_F(ParserEnumerationTests, enumValue)
@@ -316,7 +316,7 @@ TEST_F(ParserEnumerationTests, enumValue)
         "  value\n"
         "}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectSemicolon));
 }
 
@@ -328,7 +328,7 @@ TEST_F(ParserEnumerationTests, enumValueSomething)
         "  value blah\n"
         "}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 3, 9, compil::Message::p_expectSemicolon));
 }
 
@@ -340,7 +340,7 @@ TEST_F(ParserEnumerationTests, enumValueEqual)
         "  value =\n"
         "}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_unexpectEOFInStatementBody));
 }
 
@@ -352,7 +352,7 @@ TEST_F(ParserEnumerationTests, enumValueEqualValue)
         "  value = blah\n"
         "}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 3, 11, compil::Message::p_expectStatementName,
                                   compil::Message::Statement("enumeration value")));
 }
@@ -366,7 +366,7 @@ TEST_F(ParserEnumerationTests, enumValue1EqualValue2EqualValue1)
         "  value2 = value1\n"
         "}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 5, 1, compil::Message::p_expectSemicolon));
 }
 
@@ -379,7 +379,7 @@ TEST_F(ParserEnumerationTests, enumValue1EqualValue2EqualValue1Or)
         "  value2 = value1 |\n"
         "}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 5, 1, compil::Message::p_unexpectEOFInStatementBody));
 }
 
@@ -393,7 +393,7 @@ TEST_F(ParserEnumerationTests, enumValue1EqualValue2EqualValue1OrSemicolon)
         "  value2 = value1 |;\n"
         "}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 20, compil::Message::p_unexpectEOFInStatementBody));
 }
 

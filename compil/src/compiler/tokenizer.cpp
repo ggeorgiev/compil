@@ -900,6 +900,14 @@ bool Tokenizer::eof() const
     return false;
 }
 
+bool Tokenizer::eot() const
+{
+    if (current())
+        return false;
+
+    return true;
+}
+
 void Tokenizer::absorbed(int ch)
 {
     if (isTab(ch))
@@ -933,7 +941,7 @@ Column Tokenizer::column() const
     return Column(mCurrentColumn + 1);
 }
 
-TokenPtr Tokenizer::current()
+const TokenPtr& Tokenizer::current() const
 {
     return mpCurrent;
 }
@@ -953,6 +961,22 @@ bool Tokenizer::check(Token::Type type, const char* text)
     if ((text != NULL) && (pToken->text() != text))
         return false;
     return true;
+}
+
+bool Tokenizer::expect(Token::Type type)
+{
+    return expect(type, NULL);
+}
+
+bool Tokenizer::expect(Token::Type type, const char* text)
+{
+    if (eot())
+        return false;
+
+    if (check(type, text))
+        return true;
+
+    return false;
 }
 
 }

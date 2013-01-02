@@ -59,9 +59,6 @@ static StructureSharableValidatorPtr pStructureSharableValidator(
 
 Parser::Parser()
 {
-    mpMessageCollector.reset(new MessageCollector());
-    mpSources.reset(new std::map<std::string, SourceIdSPtr>());
-
     if (!bInit)
     {
         bInit = true;
@@ -101,95 +98,47 @@ Parser::Parser()
 
 Parser::Parser(const Parser& parentParser)
 {
-    mpMessageCollector = parentParser.mpMessageCollector;
-
-    mpSourceProvider = parentParser.mpSourceProvider;
-    mpSources = parentParser.mpSources;
+    mContext = parentParser.mContext;
 }
 
 Parser::~Parser()
 {
-    std::vector<Message> messages = mpMessageCollector->messages();
-    std::vector<Message>::iterator it;
-    for (it = messages.begin(); it != messages.end(); ++it)
+    if (mContext && mContext->mMessageCollector)
     {
-        std::string source = it->sourceId() ? it->sourceId()->value() : "compil";
-        std::cout << source << ":"
-                  << it->line().value() << ":"
-                  << it->column().value() << " "
-                  << it->text() << "\n";
-    }
-}
-
-void Parser::setInput(const boost::shared_ptr<std::istream>& pInput)
-{
-    mContext = boost::make_shared<DocumentParseContext>();
-    mContext->mTokenizer.reset(new Tokenizer(mpMessageCollector, mpSourceId, pInput));
-}
-
-CommentSPtr Parser::parseComment()
-{
-    CommentSPtr pComment;
-    Line lastCommentLine(-1);
-    for (;;)
-    {
-        if (!mContext->mTokenizer->current())
-            break;
-        if (mContext->mTokenizer->current()->type() != Token::TYPE_COMMENT)
-            break;
-        if (    (lastCommentLine != Line(-1))
-             && (Line(1) < mContext->mTokenizer->current()->line() - lastCommentLine))
-            {
-            break;
-        }
-        if (!pComment)
+        std::vector<Message> messages = mContext->mMessageCollector->messages();
+        std::vector<Message>::iterator it;
+        for (it = messages.begin(); it != messages.end(); ++it)
         {
-            pComment.reset(new Comment());
-            initilizeObject(pComment);
+            std::string source = it->sourceId() ? it->sourceId()->value() : "compil";
+            std::cout << source << ":"
+                      << it->line().value() << ":"
+                      << it->column().value() << " "
+                      << it->text() << "\n";
         }
-        lastCommentLine = mContext->mTokenizer->current()->line();
-        std::string comment_line = mContext->mTokenizer->current()->text();
-        boost::trim(comment_line);
-        pComment->mutable_lines().push_back(comment_line);
-        mContext->mTokenizer->shift();
     }
-    return pComment;
 }
 
 CommentSPtr Parser::lastComment()
 {
-    CommentSPtr pComment = parseComment();
+    CommentSPtr pComment = parseComment(mContext);
     while (pComment)
     {
         if (!mContext->mTokenizer->current())
             break;
         if (mContext->mTokenizer->current()->type() != Token::TYPE_COMMENT)
             break;
-        mpMessageCollector->addMessage(
+        mContext->mMessageCollector->addMessage(
             Message::SEVERITY_WARNING, Message::p_misplacedComment,
-            mpSourceId, pComment->line(), pComment->column());
-        pComment = parseComment();
+            mContext->mSourceId, pComment->line(), pComment->column());
+        pComment = parseComment(mContext);
     }
     return pComment;
-}
-
-void Parser::skipComments(CommentSPtr pComment)
-{
-    if (!pComment)
-        pComment = parseComment();
-    while (pComment)
-    {
-        mpMessageCollector->addMessage(
-            Message::SEVERITY_WARNING, Message::p_misplacedComment,
-            mpSourceId, pComment->line(), pComment->column());
-        pComment = parseComment();
-    }
 }
 
 bool Parser::convertStringElementsToPackageElements(const std::vector<std::string>& string_elements,
                                                     std::vector<PackageElementSPtr>& package_elements)
 {
-    std::vector<PackageElementSPtr>::const_reverse_iterator eit = mpSourceId->externalElements().rbegin();
+    std::vector<PackageElementSPtr>::const_reverse_iterator eit = mContext->mSourceId->externalElements().rbegin();
 
     std::vector<std::string>::const_reverse_iterator it;
     for (it = string_elements.rbegin(); it != string_elements.rend(); ++it)
@@ -197,9 +146,9 @@ bool Parser::convertStringElementsToPackageElements(const std::vector<std::strin
         PackageElementSPtr pe;
         if (*it == "*")
         {
-            if (eit == mpSourceId->externalElements().rend())
+            if (eit == mContext->mSourceId->externalElements().rend())
             {
-                *this << errorMessage(Message::p_asteriskPackageElement);
+                *this << errorMessage(mContext, Message::p_asteriskPackageElement);
                 return false;
             }
             pe = *eit;
@@ -221,29 +170,30 @@ bool Parser::convertStringElementsToPackageElements(const std::vector<std::strin
 PackageSPtr Parser::parsePackage()
 {
     PackageSPtr pPackage(new Package());
-    initilizeObject(pPackage);
+    initilizeObject(mContext, pPackage);
 
     std::vector<std::string> short_elements;
     do
     {
         mContext->mTokenizer->shift();
-        skipComments();
+        skipComments(mContext);
 
-        if (expect(Token::TYPE_IDENTIFIER) || expect(Token::TYPE_ASTERISK))
+        if (   mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER)
+            || mContext->mTokenizer->expect(Token::TYPE_ASTERISK))
         {
             short_elements.push_back(mContext->mTokenizer->current()->text());
         }
         else
         {
-            *this << (errorMessage(Message::p_expectStatementName)
+            *this << (errorMessage(mContext, Message::p_expectStatementName)
                         << Message::Statement("package"));
             return PackageSPtr();
         }
 
         mContext->mTokenizer->shift();
-        skipComments();
+        skipComments(mContext);
 
-    } while (expect(Token::TYPE_DOT));
+    } while (mContext->mTokenizer->expect(Token::TYPE_DOT));
     
     std::vector<std::string> levels_elements;
     if (mContext->mTokenizer->check(Token::TYPE_BITWISE_OPERATOR, "|"))
@@ -251,32 +201,33 @@ PackageSPtr Parser::parsePackage()
         do
         {
             mContext->mTokenizer->shift();
-            skipComments();
+            skipComments(mContext);
 
-            if (expect(Token::TYPE_IDENTIFIER) || expect(Token::TYPE_ASTERISK))
+            if (  mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER)
+               || mContext->mTokenizer->expect(Token::TYPE_ASTERISK))
             {
                 levels_elements.push_back(mContext->mTokenizer->current()->text());
             }
             else
             {
-                *this << (errorMessage(Message::p_expectStatementName)
+                *this << (errorMessage(mContext, Message::p_expectStatementName)
                             << Message::Statement("package"));
                 return PackageSPtr();
             }
 
             mContext->mTokenizer->shift();
-            skipComments();
+            skipComments(mContext);
 
-        } while (expect(Token::TYPE_DOT));
+        } while (mContext->mTokenizer->expect(Token::TYPE_DOT));
     }
     else
     {
         levels_elements = short_elements;
     }
 
-    if (!expect(Token::TYPE_DELIMITER, ";"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_DELIMITER, ";"))
     {
-        *this << errorMessage(Message::p_expectSemicolon);
+        *this << errorMessage(mContext, Message::p_expectSemicolon);
         return PackageSPtr();
     }
 
@@ -303,7 +254,7 @@ bool Parser::parseType(std::vector<PackageElementSPtr>& package_elements, TokenP
     while (mContext->mTokenizer->check(Token::TYPE_DOT))
     {
         mContext->mTokenizer->shift();
-        if (!expect(Token::TYPE_IDENTIFIER))
+        if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
             return false;
 
         PackageElementSPtr pe = boost::make_shared<PackageElement>();
@@ -329,7 +280,7 @@ bool Parser::parseParameterType(InitTypeMethod initTypeMethod,
     {
         if (defaultTypeName.empty())
         {
-            *this << (errorMessage(Message::p_expectType)
+            *this << (errorMessage(mContext, Message::p_expectType)
                         << Message::Classifier("class parameter"));
             return false;
         }
@@ -344,7 +295,7 @@ bool Parser::parseParameterType(InitTypeMethod initTypeMethod,
 
         if (!pType)
         {
-            *this << (errorMessage(Message::p_unknownClassifierType)
+            *this << (errorMessage(mContext, Message::p_unknownClassifierType)
                         << Message::Classifier("default class parameter")
                         << Message::Type(defaultTypeName));
         }
@@ -356,11 +307,11 @@ bool Parser::parseParameterType(InitTypeMethod initTypeMethod,
     }
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (!expect(Token::TYPE_IDENTIFIER))
+    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
     {
-        *this << (errorMessage(Message::p_expectType)
+        *this << (errorMessage(mContext, Message::p_expectType)
                     << Message::Classifier("class parameter"));
         return false;
     }
@@ -369,7 +320,7 @@ bool Parser::parseParameterType(InitTypeMethod initTypeMethod,
     if (!parseType(package_elements, pNameToken))
         return FieldSPtr();
 
-    skipComments();
+    skipComments(mContext);
 
     UnaryTemplateSPtr pUnaryTemplate = mDocument->findUnfinishedUnaryTemplate(pNameToken->text());
     if (pUnaryTemplate)
@@ -391,14 +342,14 @@ bool Parser::parseParameterType(InitTypeMethod initTypeMethod,
         pType = mDocument->findType(mpPackage, package_elements, pNameToken->text());
     }
 
-    if (!expect(Token::TYPE_ANGLE_BRACKET, ">"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_ANGLE_BRACKET, ">"))
     {
-        *this << errorMessage(Message::p_expectClosingAngleBracket);
+        *this << errorMessage(mContext, Message::p_expectClosingAngleBracket);
         return false;
     }
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
     if (pType)
     {
@@ -424,19 +375,19 @@ EnumerationValueSPtr Parser::parseEnumerationValue(const CommentSPtr& pComment,
 
     EnumerationValueSPtr pEnumerationValue;
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
     if (mContext->mTokenizer->check(Token::TYPE_OPERATOR, "="))
     {
         mContext->mTokenizer->shift();
-        skipComments();
+        skipComments(mContext);
 
         std::vector<EnumerationValueSPtr> composeValues;
         for (;;)
         {
-            if (!expect(Token::TYPE_IDENTIFIER))
+            if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
             {
-                *this << (errorMessage(Message::p_unexpectEOFInStatementBody)
+                *this << (errorMessage(mContext, Message::p_unexpectEOFInStatementBody)
                           << Message::Statement("enumeration"));
                 return EnumerationValueSPtr();
             }
@@ -453,7 +404,7 @@ EnumerationValueSPtr Parser::parseEnumerationValue(const CommentSPtr& pComment,
 
             if (!pFoundValue)
             {
-                *this << (errorMessage(Message::p_expectStatementName)
+                *this << (errorMessage(mContext, Message::p_expectStatementName)
                           << Message::Statement("enumeration value"));
                 return EnumerationValueSPtr();
             }
@@ -461,13 +412,13 @@ EnumerationValueSPtr Parser::parseEnumerationValue(const CommentSPtr& pComment,
             composeValues.push_back(pFoundValue);
 
             mContext->mTokenizer->shift();
-            skipComments();
+            skipComments(mContext);
 
             if (!mContext->mTokenizer->check(Token::TYPE_BITWISE_OPERATOR, "|"))
                 break;
 
             mContext->mTokenizer->shift();
-            skipComments();
+            skipComments(mContext);
         }
 
         ComposedEnumerationValue* pComposedEnumerationValue = new ComposedEnumerationValue();
@@ -480,18 +431,18 @@ EnumerationValueSPtr Parser::parseEnumerationValue(const CommentSPtr& pComment,
         pEnumerationValue.reset(new AbsoluteEnumerationValue());
     }
 
-    initilizeObject(pEnumerationValue, pNameToken);
+    initilizeObject(mContext, pNameToken, pEnumerationValue);
     pEnumerationValue->set_comment(pComment);
 
     NameSPtr pName(new Name());
-    initilizeObject(pName, pNameToken);
+    initilizeObject(mContext, pNameToken, pName);
     pName->set_value(pNameToken->text());
 
     pEnumerationValue->set_name(pName);
 
-    if (!expect(Token::TYPE_DELIMITER, ";"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_DELIMITER, ";"))
     {
-        *this << errorMessage(Message::p_expectSemicolon);
+        *this << errorMessage(mContext, Message::p_expectSemicolon);
         return EnumerationValueSPtr();
     }
 
@@ -504,8 +455,9 @@ EnumerationSPtr Parser::parseEnumeration(const CommentSPtr& pComment,
 {
     EnumerationSPtr pEnumeration(new Enumeration());
     pEnumeration->set_comment(pComment);
-    initilizeObject(pEnumeration, pCast ? pCast :
-                                          pFlags);
+    initilizeObject(mContext, pCast
+                            ? pCast
+                            : pFlags, pEnumeration);
     pEnumeration->set_package(mpPackage);
 
     CastableType::ECast cast = CastableType::ECast::weak();
@@ -515,29 +467,29 @@ EnumerationSPtr Parser::parseEnumeration(const CommentSPtr& pComment,
     pEnumeration->set_flags(pFlags);
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
     if (!parseParameterType(boost::bind(&Enumeration::set_parameterType, pEnumeration, _1), "integer"))
         return EnumerationSPtr();
 
-    if (!expect(Token::TYPE_IDENTIFIER))
+    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
     {
-        *this << (errorMessage(Message::p_expectStatementName)
+        *this << (errorMessage(mContext, Message::p_expectStatementName)
                     << Message::Statement("enumeration"));
         return EnumerationSPtr();
     }
 
     NameSPtr pName(new Name());
-    initilizeObject(pName);
+    initilizeObject(mContext, pName);
     pName->set_value(mContext->mTokenizer->current()->text());
 
     pEnumeration->set_name(pName);
 
     mContext->mTokenizer->shift();
-    skipComments();
-    if (!expect(Token::TYPE_BRACKET, "{"))
+    skipComments(mContext);
+    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "{"))
     {
-        *this << (errorMessage(Message::p_expectStatementBody)
+        *this << (errorMessage(mContext, Message::p_expectStatementBody)
                     << Message::Statement("enumeration"));
         return EnumerationSPtr();
     }
@@ -548,9 +500,9 @@ EnumerationSPtr Parser::parseEnumeration(const CommentSPtr& pComment,
 
     for (;;)
     {
-        if (eof())
+        if (mContext->mTokenizer->eot())
         {
-            *this << (errorMessage(Message::p_unexpectEOFInStatementBody)
+            *this << (errorMessage(mContext, Message::p_unexpectEOFInStatementBody)
                       << Message::Statement("enumeration"));
             return EnumerationSPtr();
         }
@@ -572,16 +524,16 @@ EnumerationSPtr Parser::parseEnumeration(const CommentSPtr& pComment,
         }
         else
         {
-            skipComments(pEnumerationComment);
+            skipComments(mContext, pEnumerationComment);
             break;
         }
 
         mContext->mTokenizer->shift();
     }
 
-    if (!expect(Token::TYPE_BRACKET, "}"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "}"))
     {
-        *this << (errorMessage(Message::p_unexpectEOFInStatementBody)
+        *this << (errorMessage(mContext, Message::p_unexpectEOFInStatementBody)
                       << Message::Statement("enumeration"));
         return EnumerationSPtr();
     }
@@ -608,7 +560,7 @@ IdentifierSPtr Parser::parseIdentifier(const CommentSPtr& pComment,
 {
     IdentifierSPtr pIdentifier(new Identifier());
     pIdentifier->set_comment(pComment);
-    initilizeObject(pIdentifier, pCast);
+    initilizeObject(mContext, pCast, pIdentifier);
     pIdentifier->set_package(mpPackage);
 
     CastableType::ECast cast = CastableType::ECast::weak();
@@ -617,38 +569,38 @@ IdentifierSPtr Parser::parseIdentifier(const CommentSPtr& pComment,
     pIdentifier->set_cast(cast);
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
     if (!parseParameterType(boost::bind(&Identifier::set_parameterType, pIdentifier, _1), "integer"))
         return IdentifierSPtr();
 
-    if (!expect(Token::TYPE_IDENTIFIER))
+    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
     {
-        *this << (errorMessage(Message::p_expectStatementName)
+        *this << (errorMessage(mContext, Message::p_expectStatementName)
                     << Message::Statement("identifier"));
         return IdentifierSPtr();
     }
 
     NameSPtr pName(new Name());
-    initilizeObject(pName);
+    initilizeObject(mContext, pName);
     pName->set_value(mContext->mTokenizer->current()->text());
 
     pIdentifier->set_name(pName);
 
     mContext->mTokenizer->shift();
-    skipComments();
-    if (!expect(Token::TYPE_BRACKET, "{"))
+    skipComments(mContext);
+    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "{"))
     {
-        *this << (errorMessage(Message::p_expectStatementBody)
+        *this << (errorMessage(mContext, Message::p_expectStatementBody)
                     << Message::Statement("identifier"));
         return IdentifierSPtr();
     }
 
     mContext->mTokenizer->shift();
-    skipComments();
-    if (!expect(Token::TYPE_BRACKET, "}"))
+    skipComments(mContext);
+    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "}"))
     {
-        *this << (errorMessage(Message::p_unexpectEOFInStatementBody)
+        *this << (errorMessage(mContext, Message::p_unexpectEOFInStatementBody)
                     << Message::Statement("identifier"));
         return IdentifierSPtr();
     }
@@ -663,37 +615,37 @@ SpecimenSPtr Parser::parseSpecimen(const CommentSPtr& pComment)
 {
     SpecimenSPtr pSpecimen(new Specimen());
     pSpecimen->set_comment(pComment);
-    initilizeObject(pSpecimen);
+    initilizeObject(mContext, pSpecimen);
     pSpecimen->set_package(mpPackage);
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
     if (!parseParameterType(boost::bind(&Specimen::set_parameterType, pSpecimen, _1), "integer"))
         return SpecimenSPtr();
 
-    if (!expect(Token::TYPE_IDENTIFIER))
+    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
     {
-        *this << (errorMessage(Message::p_expectStatementName)
+        *this << (errorMessage(mContext, Message::p_expectStatementName)
                     << Message::Statement("specimen"));
         return SpecimenSPtr();
     }
 
     NameSPtr pName(new Name());
-    initilizeObject(pName);
+    initilizeObject(mContext, pName);
     pName->set_value(mContext->mTokenizer->current()->text());
 
     pSpecimen->set_name(pName);
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
     if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "inherit"))
     {
         mContext->mTokenizer->shift();
-        skipComments();
-        if (!expect(Token::TYPE_IDENTIFIER))
+        skipComments(mContext);
+        if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
         {
-            *this << (errorMessage(Message::p_expectClassifierStatementName)
+            *this << (errorMessage(mContext, Message::p_expectClassifierStatementName)
                         << Message::Classifier("base")
                         << Message::Statement("specimen"));
             return SpecimenSPtr();
@@ -704,12 +656,12 @@ SpecimenSPtr Parser::parseSpecimen(const CommentSPtr& pComment)
         if (!parseType(package_elements, pTypeNameToken))
             return SpecimenSPtr();
 
-        skipComments();
+        skipComments(mContext);
 
         TypeSPtr pType = mDocument->findType(mpPackage, package_elements, pTypeNameToken->text());
         if (!pType)
         {
-            *this << (errorMessage(Message::p_unknownClassifierType,
+            *this << (errorMessage(mContext, Message::p_unknownClassifierType,
                                    pTypeNameToken->line(), pTypeNameToken->beginColumn())
                         << Message::Classifier("base")
                         << Message::Type(pTypeNameToken->text()));
@@ -717,7 +669,7 @@ SpecimenSPtr Parser::parseSpecimen(const CommentSPtr& pComment)
         }
         if (pType->runtimeObjectId() != EObjectId::specimen())
         {
-            *this << (errorMessage(Message::p_expectAppropriateType,
+            *this << (errorMessage(mContext, Message::p_expectAppropriateType,
                                    pTypeNameToken->line(), pTypeNameToken->beginColumn())
                         << Message::Classifier("base")
                         << Message::Options("speciment"));
@@ -728,18 +680,18 @@ SpecimenSPtr Parser::parseSpecimen(const CommentSPtr& pComment)
         pSpecimen->set_baseSpecimen(pBaseSpecimen);
     }
 
-    if (!expect(Token::TYPE_BRACKET, "{"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "{"))
     {
-        *this << (errorMessage(Message::p_expectStatementBody)
+        *this << (errorMessage(mContext, Message::p_expectStatementBody)
                     << Message::Statement("specimen"));
         return SpecimenSPtr();
     }
 
     mContext->mTokenizer->shift();
-    skipComments();
-    if (!expect(Token::TYPE_BRACKET, "}"))
+    skipComments(mContext);
+    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "}"))
     {
-        *this << (errorMessage(Message::p_unexpectEOFInStatementBody)
+        *this << (errorMessage(mContext, Message::p_unexpectEOFInStatementBody)
                     << Message::Statement("specimen"));
         return SpecimenSPtr();
     }
@@ -755,14 +707,14 @@ FilterSPtr Parser::parseFilter(const CommentSPtr& pComment,
 {
     FilterSPtr pFilter(new Filter());
     pFilter->set_comment(pComment);
-    initilizeObject(pFilter);
+    initilizeObject(mContext, pFilter);
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (!expect(Token::TYPE_IDENTIFIER))
+    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
     {
-        *this << (errorMessage(Message::p_expectStatementName)
+        *this << (errorMessage(mContext, Message::p_expectStatementName)
                     << Message::Statement("field"));
         return FilterSPtr();
     }
@@ -770,7 +722,7 @@ FilterSPtr Parser::parseFilter(const CommentSPtr& pComment,
     FieldSPtr pField = pStructure->findField(mContext->mTokenizer->current()->text());
     if (!pField)
     {
-        *this << (errorMessage(Message::p_expectStatementName)
+        *this << (errorMessage(mContext, Message::p_expectStatementName)
                     << Message::Statement("field"));
         return FilterSPtr();
     }
@@ -778,21 +730,21 @@ FilterSPtr Parser::parseFilter(const CommentSPtr& pComment,
     pFilter->set_field(pField);
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (!expect(Token::TYPE_IDENTIFIER, "with"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER, "with"))
     {
-        *this << (errorMessage(Message::p_expectKeyword)
+        *this << (errorMessage(mContext, Message::p_expectKeyword)
                     << Message::Keyword("with"));
         return FilterSPtr();
     }
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (!expect(Token::TYPE_IDENTIFIER))
+    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
     {
-        *this << (errorMessage(Message::p_expectStatementName)
+        *this << (errorMessage(mContext, Message::p_expectStatementName)
                     << Message::Statement("external method"));
         return FilterSPtr();
     }
@@ -800,11 +752,11 @@ FilterSPtr Parser::parseFilter(const CommentSPtr& pComment,
     pFilter->set_method(mContext->mTokenizer->current()->text());
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (!expect(Token::TYPE_DELIMITER, ";"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_DELIMITER, ";"))
     {
-        *this << errorMessage(Message::p_expectSemicolon);
+        *this << errorMessage(mContext, Message::p_expectSemicolon);
         return FilterSPtr();
     }
 
@@ -817,16 +769,17 @@ FactorySPtr Parser::parseFactory(const CommentSPtr& pComment,
 {
     FactorySPtr pFactory(new Factory());
     pFactory->set_comment(pComment);
-    initilizeObject(pFactory, pFunctionType ? pFunctionType :
-                                              pFactoryType);
+    initilizeObject(mContext, pFunctionType
+                            ? pFunctionType
+                            : pFactoryType, pFactory);
     pFactory->set_package(mpPackage);
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
     if (!pFactoryType)
     {
-        *this << (errorMessage(Message::p_expectAppropriateType)
+        *this << (errorMessage(mContext, Message::p_expectAppropriateType)
                       << Message::Classifier("factory")
                       << Message::Options("hierarchy, object or plugin"));
         return FactorySPtr();
@@ -844,7 +797,7 @@ FactorySPtr Parser::parseFactory(const CommentSPtr& pComment,
 
     if (pFunctionType && type != Factory::EType::object())
     {
-        *this << (errorMessage(Message::p_expectAppropriateType)
+        *this << (errorMessage(mContext, Message::p_expectAppropriateType)
                       << Message::Classifier("factory")
                       << Message::Options("object"));
         return FactorySPtr();
@@ -855,24 +808,24 @@ FactorySPtr Parser::parseFactory(const CommentSPtr& pComment,
     if (!parseParameterType(boost::bind(&Factory::set_parameterType, pFactory, _1)))
         return FactorySPtr();
 
-    if (!expect(Token::TYPE_IDENTIFIER))
+    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
     {
-        *this << (errorMessage(Message::p_expectStatementName)
+        *this << (errorMessage(mContext, Message::p_expectStatementName)
                     << Message::Statement("factory"));
         return FactorySPtr();
     }
 
     NameSPtr pName(new Name());
-    initilizeObject(pName);
+    initilizeObject(mContext, pName);
     pName->set_value(mContext->mTokenizer->current()->text());
 
     pFactory->set_name(pName);
 
     mContext->mTokenizer->shift();
-    skipComments();
-    if (!expect(Token::TYPE_BRACKET, "{"))
+    skipComments(mContext);
+    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "{"))
     {
-        *this << (errorMessage(Message::p_expectStatementBody)
+        *this << (errorMessage(mContext, Message::p_expectStatementBody)
                     << Message::Statement("factory"));
         return FactorySPtr();
     }
@@ -883,7 +836,7 @@ FactorySPtr Parser::parseFactory(const CommentSPtr& pComment,
     {
         if (pFactory->type() != Factory::EType::object())
         {
-            *this << (errorMessage(Message::p_filterInNonObjectFactory));
+            *this << (errorMessage(mContext, Message::p_filterInNonObjectFactory));
             recover();
             return FactorySPtr();
         }
@@ -891,7 +844,7 @@ FactorySPtr Parser::parseFactory(const CommentSPtr& pComment,
         if    (!pFactory->parameterType().lock()
            || (!ObjectFactory::downcastStructure(pFactory->parameterType().lock())))
         {
-            *this << (errorMessage(Message::p_filterInFactoryForNonStructure));
+            *this << (errorMessage(mContext, Message::p_filterInFactoryForNonStructure));
             recover();
             return FactorySPtr();
         }
@@ -900,9 +853,9 @@ FactorySPtr Parser::parseFactory(const CommentSPtr& pComment,
     std::vector<FilterSPtr> filters;
     for (;;)
     {
-        if (eof())
+        if (mContext->mTokenizer->eot())
         {
-            *this << (errorMessage(Message::p_unexpectEOFInStatementBody)
+            *this << (errorMessage(mContext, Message::p_unexpectEOFInStatementBody)
                         << Message::Statement("factory"));
             return FactorySPtr();
         }
@@ -911,7 +864,7 @@ FactorySPtr Parser::parseFactory(const CommentSPtr& pComment,
 
         if (!mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "filter"))
         {
-            skipComments(pBodyComment);
+            skipComments(mContext, pBodyComment);
             break;
         }
 
@@ -929,10 +882,10 @@ FactorySPtr Parser::parseFactory(const CommentSPtr& pComment,
 
     pFactory->set_filters(filters);
 
-    skipComments();
-    if (!expect(Token::TYPE_BRACKET, "}"))
+    skipComments(mContext);
+    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "}"))
     {
-        *this << (errorMessage(Message::p_unexpectEOFInStatementBody)
+        *this << (errorMessage(mContext, Message::p_unexpectEOFInStatementBody)
                     << Message::Statement("factory"));
         return FactorySPtr();
     }
@@ -955,7 +908,7 @@ FieldSPtr Parser::parseField(const CommentSPtr& pComment,
                              TokenPtr& pWeak)
 {
     FieldSPtr pField(new Field());
-    initilizeObject(pField, pWeak);
+    initilizeObject(mContext, pWeak, pField);
     pField->set_comment(pComment);
 
     assert(mContext->mTokenizer->check(Token::TYPE_IDENTIFIER));
@@ -965,7 +918,7 @@ FieldSPtr Parser::parseField(const CommentSPtr& pComment,
     if (!parseType(package_elements, pTypeNameToken))
         return FieldSPtr();
 
-    skipComments();
+    skipComments(mContext);
 
     TypeSPtr pType;
     UnaryTemplateSPtr pUnaryTemplate = mDocument->findUnfinishedUnaryTemplate(pTypeNameToken->text());
@@ -1004,36 +957,36 @@ FieldSPtr Parser::parseField(const CommentSPtr& pComment,
         mLateTypeResolve.push_back(info);
     }
 
-    if (!expect(Token::TYPE_IDENTIFIER))
+    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
     {
-        *this << (errorMessage(Message::p_expectStatementName)
+        *this << (errorMessage(mContext, Message::p_expectStatementName)
                     << Message::Statement("field"));
         return FieldSPtr();
     }
 
     NameSPtr pName(new Name());
-    initilizeObject(pName);
+    initilizeObject(mContext, pName);
     pName->set_value(mContext->mTokenizer->current()->text());
 
     pField->set_name(pName);
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
     if (mContext->mTokenizer->check(Token::TYPE_DELIMITER, ";"))
         return pField;
 
-    if (!expect(Token::TYPE_OPERATOR, "="))
+    if (!mContext->mTokenizer->expect(Token::TYPE_OPERATOR, "="))
     {
-        *this << errorMessage(Message::p_expectSemicolonOrAssignmentOperator);
+        *this << errorMessage(mContext, Message::p_expectSemicolonOrAssignmentOperator);
         return FieldSPtr();
     }
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
     DefaultValueSPtr pDefaultValue(new DefaultValue());
-    initilizeObject(pDefaultValue);
+    initilizeObject(mContext, pDefaultValue);
 
     if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "optional"))
     {
@@ -1044,9 +997,9 @@ FieldSPtr Parser::parseField(const CommentSPtr& pComment,
         // TODO: LateTypeResolve need to have a late value evaluation
 
         Token::Type type = getTokenType(pType->literal());
-        if (!expect(type))
+        if (!mContext->mTokenizer->expect(type))
         {
-            *this << errorMessage(Message::p_expectFieldDefaultValue);
+            *this << errorMessage(mContext, Message::p_expectFieldDefaultValue);
             return FieldSPtr();
         }
 
@@ -1055,11 +1008,11 @@ FieldSPtr Parser::parseField(const CommentSPtr& pComment,
     pField->set_defaultValue(pDefaultValue);
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (!expect(Token::TYPE_DELIMITER, ";"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_DELIMITER, ";"))
     {
-        *this << errorMessage(Message::p_expectSemicolon);
+        *this << errorMessage(mContext, Message::p_expectSemicolon);
         return FieldSPtr();
     }
 
@@ -1071,13 +1024,13 @@ FieldOverrideSPtr Parser::parseFieldOverride(const FieldSPtr& pField,
                                              const TokenPtr& pOverride)
 {
     FieldOverrideSPtr pFieldOverride(new FieldOverride());
-    initilizeObject(pFieldOverride, pOverride);
+    initilizeObject(mContext, pOverride, pFieldOverride);
 
     StructureSPtr pBaseStructure = pStructure->baseStructure().lock();
     if (!pBaseStructure)
     {
         // TODO:
-        *this << errorMessage(Message::p_expectSemicolon);
+        *this << errorMessage(mContext, Message::p_expectSemicolon);
         return FieldOverrideSPtr();
     }
 
@@ -1086,7 +1039,7 @@ FieldOverrideSPtr Parser::parseFieldOverride(const FieldSPtr& pField,
     if (!pBaseField)
     {
         // TODO:
-        *this << errorMessage(Message::p_expectSemicolon);
+        *this << errorMessage(mContext, Message::p_expectSemicolon);
         return FieldOverrideSPtr();
     }
 
@@ -1101,11 +1054,11 @@ IdentificationSPtr Parser::parseIdentification(const CommentSPtr& pComment,
 {
     IdentificationSPtr pIdentification(new Identification());
     pIdentification->set_comment(pComment);
-    initilizeObject(pIdentification, pType);
+    initilizeObject(mContext, pType, pIdentification);
 
     if (!pType)
     {
-        *this << (errorMessage(Message::p_expectAppropriateType)
+        *this << (errorMessage(mContext, Message::p_expectAppropriateType)
                     << Message::Classifier("identification")
                     << Message::Options("runtime or inproc"));
         return IdentificationSPtr();
@@ -1122,11 +1075,11 @@ IdentificationSPtr Parser::parseIdentification(const CommentSPtr& pComment,
     assert(mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "identification"));
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (!expect(Token::TYPE_DELIMITER, ";"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_DELIMITER, ";"))
     {
-        *this << errorMessage(Message::p_expectSemicolon);
+        *this << errorMessage(mContext, Message::p_expectSemicolon);
         return IdentificationSPtr();
     }
 
@@ -1138,26 +1091,26 @@ UpcopySPtr Parser::parseUpcopy(const CommentSPtr& pComment,
 {
     UpcopySPtr pUpcopy(new Upcopy());
     pUpcopy->set_comment(pComment);
-    initilizeObject(pUpcopy);
+    initilizeObject(mContext, pUpcopy);
 
     assert(mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "upcopy"));
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (!expect(Token::TYPE_IDENTIFIER, "from"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER, "from"))
     {
-        *this << (errorMessage(Message::p_expectKeyword)
+        *this << (errorMessage(mContext, Message::p_expectKeyword)
                     << Message::Keyword("from"));
         return UpcopySPtr();
     }
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (!expect(Token::TYPE_IDENTIFIER))
+    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
     {
-        *this << (errorMessage(Message::p_expectClassifierStatementName)
+        *this << (errorMessage(mContext, Message::p_expectClassifierStatementName)
                     << Message::Classifier("upcopy")
                     << Message::Statement("structure"));
         return UpcopySPtr();
@@ -1171,7 +1124,7 @@ UpcopySPtr Parser::parseUpcopy(const CommentSPtr& pComment,
     TypeSPtr pType = mDocument->findType(mpPackage, package_elements, pTypeNameToken->text());
     if (!pType)
     {
-        *this << (errorMessage(Message::p_unknownClassifierType,
+        *this << (errorMessage(mContext, Message::p_unknownClassifierType,
                                pTypeNameToken->line(), pTypeNameToken->beginColumn())
                     << Message::Classifier("upcopy")
                     << Message::Type(pTypeNameToken->text()));
@@ -1181,7 +1134,7 @@ UpcopySPtr Parser::parseUpcopy(const CommentSPtr& pComment,
     StructureSPtr pBaseStructure = ObjectFactory::downcastStructure(pType);
     if (!pBaseStructure)
     {
-        *this << (errorMessage(Message::p_expectAppropriateType,
+        *this << (errorMessage(mContext, Message::p_expectAppropriateType,
                                pTypeNameToken->line(), pTypeNameToken->beginColumn())
                     << Message::Classifier("upcopy")
                     << Message::Options("structure"));
@@ -1190,7 +1143,7 @@ UpcopySPtr Parser::parseUpcopy(const CommentSPtr& pComment,
 
     if (!pStructure->isRecursivelyInherit(pBaseStructure))
     {
-        *this << (errorMessage(Message::p_expectAppropriateType,
+        *this << (errorMessage(mContext, Message::p_expectAppropriateType,
                                pTypeNameToken->line(), pTypeNameToken->beginColumn())
                     << Message::Classifier("upcopy")
                     << Message::Options("base structure"));
@@ -1199,9 +1152,9 @@ UpcopySPtr Parser::parseUpcopy(const CommentSPtr& pComment,
 
     pUpcopy->set_baseStructure(pBaseStructure);
 
-    if (!expect(Token::TYPE_DELIMITER, ";"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_DELIMITER, ";"))
     {
-        *this << errorMessage(Message::p_expectSemicolon);
+        *this << errorMessage(mContext, Message::p_expectSemicolon);
         return UpcopySPtr();
     }
 
@@ -1213,11 +1166,11 @@ OperatorSPtr Parser::parseOperator(const CommentSPtr& pComment,
 {
     OperatorSPtr pOperator(new Operator());
     pOperator->set_comment(pComment);
-    initilizeObject(pOperator, pOperatorDeclaration);
+    initilizeObject(mContext, pOperatorDeclaration, pOperator);
 
     if (!pOperatorDeclaration)
     {
-        *this << errorMessage(Message::p_expectSemicolon);
+        *this << errorMessage(mContext, Message::p_expectSemicolon);
         return OperatorSPtr();
     }
 
@@ -1247,29 +1200,29 @@ OperatorSPtr Parser::parseOperator(const CommentSPtr& pComment,
 
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (expect(Token::TYPE_RELATIONAL_OPERATOR1, "=="))
+    if (mContext->mTokenizer->expect(Token::TYPE_RELATIONAL_OPERATOR1, "=="))
     {
         pOperator->set_action(EOperatorAction::equalTo());
     }
     else
-    if (expect(Token::TYPE_RELATIONAL_OPERATOR2, "<"))
+    if (mContext->mTokenizer->expect(Token::TYPE_RELATIONAL_OPERATOR2, "<"))
     {
         pOperator->set_action(EOperatorAction::lessThan());
     }
     else
     {
-        *this << errorMessage(Message::p_expectSemicolon);
+        *this << errorMessage(mContext, Message::p_expectSemicolon);
         return OperatorSPtr();
     }
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (!expect(Token::TYPE_DELIMITER, ";"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_DELIMITER, ";"))
     {
-        *this << errorMessage(Message::p_expectSemicolon);
+        *this << errorMessage(mContext, Message::p_expectSemicolon);
         return OperatorSPtr();
     }
 
@@ -1286,12 +1239,12 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
 {
     StructureSPtr pStructure(new Structure());
     pStructure->set_comment(pComment);
-    initilizeObject(pStructure, (pAbstract   ? pAbstract   :
-                                (pContolled  ? pContolled  :
-                                (pImmutable  ? pImmutable  :
-                                (pPartial    ? pPartial    :
-                                (pSharable   ? pSharable   :
-                                               pStreamable))))));
+    initilizeObject(mContext, (pAbstract   ? pAbstract   :
+                              (pContolled  ? pContolled  :
+                              (pImmutable  ? pImmutable  :
+                              (pPartial    ? pPartial    :
+                              (pSharable   ? pSharable   :
+                                             pStreamable))))), pStructure);
     pStructure->set_package(mpPackage);
 
     pStructure->set_abstract(pAbstract);
@@ -1303,32 +1256,32 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
 
 
     mContext->mTokenizer->shift();
-    skipComments();
-    if (!expect(Token::TYPE_IDENTIFIER))
+    skipComments(mContext);
+    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
     {
-        *this << (errorMessage(Message::p_expectStatementName)
+        *this << (errorMessage(mContext, Message::p_expectStatementName)
                     << Message::Statement("structure"));
         return StructureSPtr();
     }
 
     NameSPtr pName(new Name());
-    initilizeObject(pName);
+    initilizeObject(mContext, pName);
     pName->set_value(mContext->mTokenizer->current()->text());
 
     pStructure->set_name(pName);
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
     std::vector<ObjectSPtr> objects;
 
     if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "inherit"))
     {
         mContext->mTokenizer->shift();
-        skipComments();
-        if (!expect(Token::TYPE_IDENTIFIER))
+        skipComments(mContext);
+        if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
         {
-            *this << (errorMessage(Message::p_expectClassifierStatementName)
+            *this << (errorMessage(mContext, Message::p_expectClassifierStatementName)
                         << Message::Classifier("base")
                         << Message::Statement("structure"));
             return StructureSPtr();
@@ -1339,12 +1292,12 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
         if (!parseType(package_elements, pTypeNameToken))
             return StructureSPtr();
 
-        skipComments();
+        skipComments(mContext);
 
         TypeSPtr pType = mDocument->findType(mpPackage, package_elements, pTypeNameToken->text());
         if (!pType)
         {
-            *this << (errorMessage(Message::p_unknownClassifierType,
+            *this << (errorMessage(mContext, Message::p_unknownClassifierType,
                                    pTypeNameToken->line(), pTypeNameToken->beginColumn())
                         << Message::Classifier("base")
                         << Message::Type(pTypeNameToken->text()));
@@ -1352,7 +1305,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
         }
         if (pType->runtimeObjectId() != EObjectId::structure())
         {
-            *this << (errorMessage(Message::p_expectAppropriateType,
+            *this << (errorMessage(mContext, Message::p_expectAppropriateType,
                                    pTypeNameToken->line(), pTypeNameToken->beginColumn())
                         << Message::Classifier("base")
                         << Message::Options("structure"));
@@ -1365,63 +1318,63 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
         if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "alter"))
         {
             mContext->mTokenizer->shift();
-            skipComments();
+            skipComments(mContext);
 
             for (;;)
             {
-                if (eof())
+                if (mContext->mTokenizer->eot())
                 {
-                    *this << (errorMessage(Message::p_expectStatementName)
+                    *this << (errorMessage(mContext, Message::p_expectStatementName)
                                 << Message::Statement("field"));
                     return StructureSPtr();
                 }
 
-                if (!expect(Token::TYPE_IDENTIFIER))
+                if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
                 {
-                    *this << (errorMessage(Message::p_expectStatementName)
+                    *this << (errorMessage(mContext, Message::p_expectStatementName)
                                 << Message::Statement("field"));
                     return StructureSPtr();
                 }
 
                 AlterSPtr pAlter(new Alter());
-                initilizeObject(pAlter);
+                initilizeObject(mContext, pAlter);
 
                 FieldSPtr pField = pBaseStructure->findField(mContext->mTokenizer->current()->text());
                 if (!pField)
                 {
-                    *this << (errorMessage(Message::p_expectBaseStructureFieldName));
+                    *this << (errorMessage(mContext, Message::p_expectBaseStructureFieldName));
                     return StructureSPtr();
                 }
 
                 pAlter->set_field(pField);
 
                 mContext->mTokenizer->shift();
-                skipComments();
+                skipComments(mContext);
 
-                if (!expect(Token::TYPE_OPERATOR, "="))
+                if (!mContext->mTokenizer->expect(Token::TYPE_OPERATOR, "="))
                 {
-                    *this << errorMessage(Message::p_expectAssignmentOperator);
+                    *this << errorMessage(mContext, Message::p_expectAssignmentOperator);
                     return StructureSPtr();
                 }
 
                 mContext->mTokenizer->shift();
-                skipComments();
+                skipComments(mContext);
 
                 Token::Type type = getTokenType(pField->type()->literal());
-                if (!expect(type))
+                if (!mContext->mTokenizer->expect(type))
                 {
-                    *this << errorMessage(Message::p_expectFieldDefaultValue);
+                    *this << errorMessage(mContext, Message::p_expectFieldDefaultValue);
                     return StructureSPtr();
                 }
 
                 DefaultValueSPtr pDefaultValue(new DefaultValue());
-                initilizeObject(pDefaultValue);
+                initilizeObject(mContext, pDefaultValue);
                 pDefaultValue->set_value(mContext->mTokenizer->current()->text());
 
                 pAlter->set_defaultValue(pDefaultValue);
 
                 mContext->mTokenizer->shift();
-                skipComments();
+                skipComments(mContext);
 
                 objects.push_back(pAlter);
 
@@ -1429,14 +1382,14 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
                     break;
 
                 mContext->mTokenizer->shift();
-                skipComments();
+                skipComments(mContext);
             }
         }
     }
 
-    if (!expect(Token::TYPE_BRACKET, "{"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "{"))
     {
-        *this << (errorMessage(Message::p_expectStatementBody)
+        *this << (errorMessage(mContext, Message::p_expectStatementBody)
                     << Message::Statement("structure"));
         return StructureSPtr();
     }
@@ -1446,9 +1399,9 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
     mContext->mTokenizer->shift();
     for (;;)
     {
-        if (eof())
+        if (mContext->mTokenizer->eot())
         {
-            *this << (errorMessage(Message::p_unexpectEOFInStatementBody)
+            *this << (errorMessage(mContext, Message::p_unexpectEOFInStatementBody)
                         << Message::Statement("structure"));
             return StructureSPtr();
         }
@@ -1462,14 +1415,14 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
         {
             pWeak = mContext->mTokenizer->current();
             mContext->mTokenizer->shift();
-            skipComments();
+            skipComments(mContext);
         }
         else
         if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "strong"))
         {
             pStrong = mContext->mTokenizer->current();
             mContext->mTokenizer->shift();
-            skipComments();
+            skipComments(mContext);
         }
         else
         if (   mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "runtime")
@@ -1477,7 +1430,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
         {
             pIdentificationType = mContext->mTokenizer->current();
             mContext->mTokenizer->shift();
-            skipComments();
+            skipComments(mContext);
         }
 
         TokenPtr pFlags;
@@ -1485,7 +1438,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
         {
             pFlags = mContext->mTokenizer->current();
             mContext->mTokenizer->shift();
-            skipComments();
+            skipComments(mContext);
         }
 
         TokenPtr pOverride;
@@ -1493,7 +1446,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
         {
             pOverride = mContext->mTokenizer->current();
             mContext->mTokenizer->shift();
-            skipComments();
+            skipComments(mContext);
         }
 
         TokenPtr pOperatorDeclaration;
@@ -1503,7 +1456,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
         {
             pOperatorDeclaration = mContext->mTokenizer->current();
             mContext->mTokenizer->shift();
-            skipComments();
+            skipComments(mContext);
         }
 
         if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "identification"))
@@ -1594,7 +1547,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
         }
         else
         {
-            skipComments(pBodyComment);
+            skipComments(mContext, pBodyComment);
             break;
         }
 
@@ -1608,9 +1561,9 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
         unexpectedStatement(pIdentificationType);
     }
 
-    if (!expect(Token::TYPE_BRACKET, "}"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "}"))
     {
-        *this << (errorMessage(Message::p_unexpectEOFInStatementBody)
+        *this << (errorMessage(mContext, Message::p_unexpectEOFInStatementBody)
                     << Message::Statement("structure"));
         return StructureSPtr();
     }
@@ -1626,12 +1579,12 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
 ParameterSPtr Parser::parseParameter(const CommentSPtr pComment)
 {
     ParameterSPtr pParameter(new Parameter());
-    initilizeObject(pParameter);
+    initilizeObject(mContext, pParameter);
     pParameter->set_comment(pComment);
 
-    if (!expect(Token::TYPE_OPERATOR_ARROW))
+    if (!mContext->mTokenizer->expect(Token::TYPE_OPERATOR_ARROW))
     {
-        *this << (errorMessage(Message::p_unknownStatment)
+        *this << (errorMessage(mContext, Message::p_unknownStatment)
                     << Message::Context("method")
                     << Message::Options("direction arrow (-->, <--, <->)"));
         return ParameterSPtr();
@@ -1649,11 +1602,11 @@ ParameterSPtr Parser::parseParameter(const CommentSPtr pComment)
     pParameter->set_direction(direction);
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (!expect(Token::TYPE_IDENTIFIER))
+    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
     {
-        *this << (errorMessage(Message::p_expectType)
+        *this << (errorMessage(mContext, Message::p_expectType)
                     << Message::Classifier("parameter"));
         return ParameterSPtr();
     }
@@ -1662,7 +1615,7 @@ ParameterSPtr Parser::parseParameter(const CommentSPtr pComment)
     TypeSPtr pType = mDocument->findType(mpPackage, package_elements, mContext->mTokenizer->current()->text());
     if (!pType)
     {
-        *this << (errorMessage(Message::p_unknownClassifierType)
+        *this << (errorMessage(mContext, Message::p_unknownClassifierType)
                     << Message::Classifier("parameter")
                     << Message::Type(mContext->mTokenizer->current()->text()));
         return ParameterSPtr();
@@ -1670,27 +1623,27 @@ ParameterSPtr Parser::parseParameter(const CommentSPtr pComment)
     pParameter->set_type(pType);
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (!expect(Token::TYPE_IDENTIFIER))
+    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
     {
-        *this << (errorMessage(Message::p_expectStatementName)
+        *this << (errorMessage(mContext, Message::p_expectStatementName)
                     << Message::Statement("parameter"));
         return ParameterSPtr();
     }
 
     NameSPtr pName(new Name());
-    initilizeObject(pName);
+    initilizeObject(mContext, pName);
     pName->set_value(mContext->mTokenizer->current()->text());
 
     pParameter->set_name(pName);
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (!expect(Token::TYPE_DELIMITER, ";"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_DELIMITER, ";"))
     {
-        *this << errorMessage(Message::p_expectSemicolon);
+        *this << errorMessage(mContext, Message::p_expectSemicolon);
         return ParameterSPtr();
     }
 
@@ -1700,31 +1653,31 @@ ParameterSPtr Parser::parseParameter(const CommentSPtr pComment)
 MethodSPtr Parser::parseMethod(const CommentSPtr& pComment)
 {
     MethodSPtr pMethod(new Method());
-    initilizeObject(pMethod);
+    initilizeObject(mContext, pMethod);
     pMethod->set_comment(pComment);
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (!expect(Token::TYPE_IDENTIFIER))
+    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
     {
-        *this << (errorMessage(Message::p_expectStatementName)
+        *this << (errorMessage(mContext, Message::p_expectStatementName)
                     << Message::Statement("method"));
         return MethodSPtr();
     }
 
     NameSPtr pName(new Name());
-    initilizeObject(pName);
+    initilizeObject(mContext, pName);
     pName->set_value(mContext->mTokenizer->current()->text());
 
     pMethod->set_name(pName);
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (!expect(Token::TYPE_BRACKET, "{"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "{"))
     {
-        *this << (errorMessage(Message::p_expectStatementBody)
+        *this << (errorMessage(mContext, Message::p_expectStatementBody)
                     << Message::Statement("method"));
         return MethodSPtr();
     }
@@ -1735,9 +1688,9 @@ MethodSPtr Parser::parseMethod(const CommentSPtr& pComment)
     std::vector<ObjectSPtr> parameters;
     while (!mContext->mTokenizer->check(Token::TYPE_BRACKET, "}"))
     {
-        if (eof())
+        if (mContext->mTokenizer->eot())
         {
-            *this << (errorMessage(Message::p_unexpectEOFInStatementBody)
+            *this << (errorMessage(mContext, Message::p_unexpectEOFInStatementBody)
                         << Message::Statement("method"));
             return MethodSPtr();
         }
@@ -1757,9 +1710,9 @@ MethodSPtr Parser::parseMethod(const CommentSPtr& pComment)
 
     pMethod->set_objects(parameters);
 
-    if (!expect(Token::TYPE_BRACKET, "}"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "}"))
     {
-        *this << (errorMessage(Message::p_unexpectEOFInStatementBody)
+        *this << (errorMessage(mContext, Message::p_unexpectEOFInStatementBody)
                     << Message::Statement("method"));
         return MethodSPtr();
     }
@@ -1772,29 +1725,29 @@ MethodSPtr Parser::parseMethod(const CommentSPtr& pComment)
 InterfaceSPtr Parser::parseInterface(const CommentSPtr& pComment)
 {
     InterfaceSPtr pInterface(new Interface());
-    initilizeObject(pInterface);
+    initilizeObject(mContext, pInterface);
     pInterface->set_comment(pComment);
 
     mContext->mTokenizer->shift();
-    skipComments();
-    if (!expect(Token::TYPE_IDENTIFIER))
+    skipComments(mContext);
+    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
     {
-        *this << (errorMessage(Message::p_expectStatementName)
+        *this << (errorMessage(mContext, Message::p_expectStatementName)
                     << Message::Statement("interface"));
         return InterfaceSPtr();
     }
 
     NameSPtr pName(new Name());
-    initilizeObject(pName);
+    initilizeObject(mContext, pName);
     pName->set_value(mContext->mTokenizer->current()->text());
 
     pInterface->set_name(pName);
 
     mContext->mTokenizer->shift();
-    skipComments();
-    if (!expect(Token::TYPE_BRACKET, "{"))
+    skipComments(mContext);
+    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "{"))
     {
-        *this << (errorMessage(Message::p_expectStatementBody)
+        *this << (errorMessage(mContext, Message::p_expectStatementBody)
                     << Message::Statement("interface"));
         return InterfaceSPtr();
     }
@@ -1803,9 +1756,9 @@ InterfaceSPtr Parser::parseInterface(const CommentSPtr& pComment)
     std::vector<ObjectSPtr> methods;
     while (!mContext->mTokenizer->check(Token::TYPE_BRACKET, "}"))
     {
-        if (eof())
+        if (mContext->mTokenizer->eot())
         {
-            *this << (errorMessage(Message::p_unexpectEOFInStatementBody)
+            *this << (errorMessage(mContext, Message::p_unexpectEOFInStatementBody)
                     << Message::Statement("interface"));
             return InterfaceSPtr();
         }
@@ -1826,9 +1779,9 @@ InterfaceSPtr Parser::parseInterface(const CommentSPtr& pComment)
 
     pInterface->set_objects(methods);
 
-    if (!expect(Token::TYPE_BRACKET, "}"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "}"))
     {
-        *this << (errorMessage(Message::p_unexpectEOFInStatementBody)
+        *this << (errorMessage(mContext, Message::p_unexpectEOFInStatementBody)
                     << Message::Statement("interface"));
         return InterfaceSPtr();
     }
@@ -1842,7 +1795,7 @@ bool Parser::unexpectedStatement(const TokenPtr& pToken)
     if (!pToken)
         return false;
 
-    *this << (errorMessage(Message::p_unexpectedStatmentModificator, pToken->line(), pToken->beginColumn())
+    *this << (errorMessage(mContext, Message::p_unexpectedStatmentModificator, pToken->line(), pToken->beginColumn())
           << Message::Modificator(pToken->text()));
 
     recover();
@@ -1857,7 +1810,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
     {
         pAbstract = mContext->mTokenizer->current();
         mContext->mTokenizer->shift();
-        skipComments();
+        skipComments(mContext);
     }
 
     TokenPtr pControlled;
@@ -1865,7 +1818,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
     {
         pControlled = mContext->mTokenizer->current();
         mContext->mTokenizer->shift();
-        skipComments();
+        skipComments(mContext);
     }
 
     TokenPtr pImmutable;
@@ -1873,7 +1826,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
     {
         pImmutable = mContext->mTokenizer->current();
         mContext->mTokenizer->shift();
-        skipComments();
+        skipComments(mContext);
     }
 
     TokenPtr pPartial;
@@ -1881,7 +1834,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
     {
         pPartial = mContext->mTokenizer->current();
         mContext->mTokenizer->shift();
-        skipComments();
+        skipComments(mContext);
     }
 
     TokenPtr pSharable;
@@ -1889,7 +1842,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
     {
         pSharable = mContext->mTokenizer->current();
         mContext->mTokenizer->shift();
-        skipComments();
+        skipComments(mContext);
     }
 
     TokenPtr pStreamable;
@@ -1897,7 +1850,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
     {
         pStreamable = mContext->mTokenizer->current();
         mContext->mTokenizer->shift();
-        skipComments();
+        skipComments(mContext);
     }
 
     TokenPtr pCast;
@@ -1906,7 +1859,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
     {
         pCast = mContext->mTokenizer->current();
         mContext->mTokenizer->shift();
-        skipComments();
+        skipComments(mContext);
     }
 
     TokenPtr pFlags;
@@ -1914,7 +1867,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
     {
         pFlags = mContext->mTokenizer->current();
         mContext->mTokenizer->shift();
-        skipComments();
+        skipComments(mContext);
     }
 
     TokenPtr pFunctionType;
@@ -1922,7 +1875,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
     {
         pFunctionType = mContext->mTokenizer->current();
         mContext->mTokenizer->shift();
-        skipComments();
+        skipComments(mContext);
     }
 
     TokenPtr pFactoryType;
@@ -1932,7 +1885,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
     {
         pFactoryType = mContext->mTokenizer->current();
         mContext->mTokenizer->shift();
-        skipComments();
+        skipComments(mContext);
     }
 
     if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "structure"))
@@ -1995,7 +1948,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
     }
     else
     {
-        *this << (errorMessage(Message::p_unknownStatment)
+        *this << (errorMessage(mContext, Message::p_unknownStatment)
                 << Message::Context("top")
                 << Message::Options("structure, interface, enum, specimen, identifier or factory"));
         mContext->mTokenizer->shift();
@@ -2016,49 +1969,49 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
 bool Parser::parseImport()
 {
     ImportSPtr pImport(new Import());
-    initilizeObject(pImport);
+    initilizeObject(mContext, pImport);
 
     assert(mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "import"));
 
     TokenPtr pImportToken = mContext->mTokenizer->current();
 
     mContext->mTokenizer->shift();
-    if (!expect(Token::TYPE_STRING_LITERAL))
+    if (!mContext->mTokenizer->expect(Token::TYPE_STRING_LITERAL))
     {
-        *this << errorMessage(Message::p_expectImportSource);
+        *this << errorMessage(mContext, Message::p_expectImportSource);
         return false;
     }
 
     pImport->set_source(mContext->mTokenizer->current()->text());
 
     mContext->mTokenizer->shift();
-    if (!expect(Token::TYPE_DELIMITER, ";"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_DELIMITER, ";"))
     {
-        *this << errorMessage(Message::p_expectSemicolon);
+        *this << errorMessage(mContext, Message::p_expectSemicolon);
         return false;
     }
 
     mDocument->addImport(pImport);
 
-    if (!mpSourceProvider)
+    if (!mContext->mSourceProvider)
     {
-        *this << warningMessage(Message::p_importWithoutSourceProvider,
-                              pImportToken->line(), pImportToken->beginColumn());
+        *this << warningMessage(mContext, Message::p_importWithoutSourceProvider,
+                                pImportToken->line(), pImportToken->beginColumn());
         return true;
     }
 
-    SourceIdSPtr pSourceId = mpSourceProvider->sourceId(mpSourceId, pImport->source());
+    SourceIdSPtr pSourceId = mContext->mSourceProvider->sourceId(mContext->mSourceId, pImport->source());
     if (!pSourceId)
     {
-        *this << errorMessage(Message::p_sourceNotFound,
+        *this << errorMessage(mContext, Message::p_sourceNotFound,
                               pImportToken->line(), pImportToken->beginColumn());
         return false;
     }
 
-    std::map<std::string, SourceIdSPtr>::iterator it = mpSources->find(pSourceId->value());
-    if (it != mpSources->end())
+    ParseContext::SourceMap::iterator it = mContext->mSources->find(pSourceId->value());
+    if (it != mContext->mSources->end())
     {
-        SourceIdSPtr parent = mpSourceId;
+        SourceIdSPtr parent = mContext->mSourceId;
         while (parent)
         {
             if (parent->value() == pSourceId->value())
@@ -2071,16 +2024,16 @@ bool Parser::parseImport()
         return true;
     }
 
-    StreamPtr pStream = mpSourceProvider->openInputStream(pSourceId);
+    StreamPtr pStream = mContext->mSourceProvider->openInputStream(pSourceId);
     if (!pStream)
     {
-        *this << errorMessage(Message::p_openSourceFailed,
+        *this << errorMessage(mContext, Message::p_openSourceFailed,
                               pImportToken->line(), pImportToken->beginColumn());
         return false;
     }
 
     Parser parser(*this);
-    if (!parser.parse(pSourceId, pStream, mDocument))
+    if (!parser.parseDocument(pSourceId, pStream, mDocument))
         return false;
 
     mLateTypeResolve.insert(mLateTypeResolve.end(), parser.mLateTypeResolve.begin(), parser.mLateTypeResolve.end());
@@ -2092,32 +2045,32 @@ FileSPtr Parser::parseFile()
 {
     FileSPtr file = boost::make_shared<File>();
 
-    CommentSPtr pComment = parseComment();
+    CommentSPtr pComment = parseComment(mContext);
     while (pComment)
     {
         file->mutable_comments().push_back(pComment);
-        pComment = parseComment();
+        pComment = parseComment(mContext);
     }
 
     if (!mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "compil"))
         return FileSPtr();
 
-    initilizeObject(file);
+    initilizeObject(mContext, file);
 
     mContext->mTokenizer->shift();
-    if (!expect(Token::TYPE_BRACKET, "{"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "{"))
     {
-        *this << (errorMessage(Message::p_expectStatementBody)
+        *this << (errorMessage(mContext, Message::p_expectStatementBody)
                     << Message::Statement("compil"));
         return FileSPtr();
     }
 
     mContext->mTokenizer->shift();
-    skipComments();
+    skipComments(mContext);
 
-    if (!expect(Token::TYPE_BRACKET, "}"))
+    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "}"))
     {
-        *this << (errorMessage(Message::p_unexpectEOFInStatementBody)
+        *this << (errorMessage(mContext, Message::p_unexpectEOFInStatementBody)
                     << Message::Statement("compil"));
         return FileSPtr();
     }
@@ -2132,13 +2085,22 @@ void Parser::addValidator(const ValidatorPtr& pValidator)
     mvValidator.push_back(pValidator);
 }
 
-bool Parser::parse(const StreamPtr& pInput, const DocumentSPtr& document)
+void Parser::initDocumentContext()
 {
-    mContext = boost::make_shared<DocumentParseContext>();
-    
-    
+    if (!mContext)
+    {
+        mContext = boost::make_shared<DocumentParseContext>();
+        mContext->mMessageCollector = boost::make_shared<MessageCollector>();
+        mContext->mSources = boost::make_shared<ParseContext::SourceMap>();
+    }
+}
+
+bool Parser::parseDocument(const StreamPtr& pInput,
+                           const DocumentSPtr& document)
+{
+    initDocumentContext();
+    mContext->mTokenizer = boost::make_shared<Tokenizer>(mContext->mMessageCollector, mContext->mSourceId, pInput);
     mDocument = document;
-    mContext->mTokenizer.reset(new Tokenizer(mpMessageCollector, mpSourceId, pInput));
 
     FileSPtr file = parseFile();
     if (!file)
@@ -2187,13 +2149,13 @@ bool Parser::parse(const StreamPtr& pInput, const DocumentSPtr& document)
         std::vector<LateTypeResolveInfo>::iterator it;
         for (it = mLateTypeResolve.begin(); it != mLateTypeResolve.end() ; ++it)
         {
-            *this << (errorMessage(Message::p_unknownClassifierType,
+            *this << (errorMessage(mContext, Message::p_unknownClassifierType,
                                    it->pToken->line(), it->pToken->beginColumn())
                   << Message::Classifier(it->classifier)
                   << Message::Type(it->pToken->text()));
         }
 
-        if (mpMessageCollector->severity() > Message::SEVERITY_WARNING)
+        if (mContext->mMessageCollector->severity() > Message::SEVERITY_WARNING)
             return false;
 
         if (!validate(mDocument))
@@ -2202,41 +2164,61 @@ bool Parser::parse(const StreamPtr& pInput, const DocumentSPtr& document)
     return true;
 }
 
-bool Parser::parse(const SourceIdSPtr& pSourceId,
-                   const StreamPtr& pInput,
-                   const DocumentSPtr& document)
+bool Parser::parseDocument(const SourceIdSPtr& sourceId,
+                           const StreamPtr& pInput,
+                           const DocumentSPtr& document)
 {
-    assert(pSourceId);
-    mpSourceId = pSourceId;
-    mpSources->insert(
-        std::map<std::string, SourceIdSPtr>::value_type(pSourceId->value(), mpSourceId));
+    initDocumentContext();
+    mContext->mSourceId = sourceId;
 
-    return parse(pInput, document);
+    assert(sourceId);
+    mContext->mSources->insert(ParseContext::SourceMap::value_type(sourceId->value(), sourceId));
+
+    return parseDocument(pInput, document);
 }
 
-bool Parser::parse(const ISourceProviderPtr& pSourceProvider,
-                   const SourceIdSPtr& pSourceId,
-                   const DocumentSPtr& document)
+bool Parser::parseDocument(const ISourceProviderPtr& sourceProvider,
+                           const SourceIdSPtr& sourceId,
+                           const DocumentSPtr& document)
 
 {
-    mpSourceProvider = pSourceProvider;
+    initDocumentContext();
+    mContext->mSourceProvider = sourceProvider;
 
-    StreamPtr pStream = mpSourceProvider->openInputStream(pSourceId);
+    StreamPtr pStream = mContext->mSourceProvider->openInputStream(sourceId);
     if (!pStream)
     {
-        *this << Message(Message::SEVERITY_ERROR, Message::p_openSourceFailed, mpSourceId, Line(1), Column(0));
+        *this << Message(Message::SEVERITY_ERROR, Message::p_openSourceFailed, mContext->mSourceId, Line(1), Column(0));
         return false;
     }
-    return parse(pSourceId, pStream, document);
+    return parseDocument(sourceId, pStream, document);
 }
 
-
-bool Parser::parse(const StreamPtr& pInput,
-                   const ProjectSPtr& project)
+void Parser::setDocumentInput(const boost::shared_ptr<std::istream>& pInput)
 {
-    ProjectParseContextSPtr context = boost::make_shared<ProjectParseContext>();
-    context->mProject = boost::make_shared<Project>();
-    context->mTokenizer = boost::make_shared<Tokenizer>(mpMessageCollector, mpSourceId, pInput);
+    initDocumentContext();
+    mContext->mTokenizer = boost::make_shared<Tokenizer>(mContext->mMessageCollector, mContext->mSourceId, pInput);
+}
+
+void Parser::initProjectContext()
+{
+    if (!mContext)
+    {
+        mContext = boost::make_shared<ProjectParseContext>();
+        mContext->mMessageCollector = boost::make_shared<MessageCollector>();
+        mContext->mSources = boost::make_shared<ParseContext::SourceMap>();
+    }
+}
+
+bool Parser::parseProject(const SourceIdSPtr& sourceId,
+                          const StreamPtr& pInput,
+                          const ProjectSPtr& project)
+{
+    initProjectContext();
+    mContext->mTokenizer = boost::make_shared<Tokenizer>(mContext->mMessageCollector, sourceId, pInput);
+    mContext->mSourceId = sourceId;
+    
+    ProjectParseContextSPtr context = boost::static_pointer_cast<ProjectParseContext>(mContext);
     
     FileSPtr file = parseFile();
     if (!file)
@@ -2263,28 +2245,9 @@ bool Parser::parse(const StreamPtr& pInput,
     return true;
 }
 
-bool Parser::eof()
+const std::vector<Message>& Parser::messages()
 {
-    if (mContext->mTokenizer->current())
-        return false;
-
-    return true;
-}
-
-bool Parser::expect(Token::Type type)
-{
-    return expect(type, NULL);
-}
-
-bool Parser::expect(Token::Type type, const char* text)
-{
-    if (eof())
-        return false;
-
-    if (mContext->mTokenizer->check(type, text))
-        return true;
-
-    return false;
+    return mContext->mMessageCollector->messages();
 }
 
 void Parser::recover()
@@ -2321,61 +2284,11 @@ void Parser::lateTypeResolve(const TypeSPtr& pNewType)
     }
 }
 
-Message Parser::errorMessage(const char* message, const Line& line, const Column& column)
-{
-    Line theLine = line;
-    if (theLine == Line(-1))
-    {
-        theLine = mContext->mTokenizer->current()
-                ? mContext->mTokenizer->current()->line()
-                : mContext->mTokenizer->line();
-    }
-
-    Column theColumn = column;
-    if (theColumn == Column(-1))
-    {
-        theColumn = mContext->mTokenizer->current()
-                  ? mContext->mTokenizer->current()->beginColumn()
-                  : mContext->mTokenizer->column();
-    }
-
-    return Message(Message::SEVERITY_ERROR, message, mpSourceId, theLine, theColumn);
-}
-
-Message Parser::warningMessage(const char* message, const Line& line, const Column& column)
-{
-    Line theLine = line;
-    if (theLine == Line(-1))
-    {
-        theLine = mContext->mTokenizer->current()
-                ? mContext->mTokenizer->current()->line()
-                : mContext->mTokenizer->line();
-    }
-
-    Column theColumn = column;
-    if (theColumn == Column(-1))
-    {
-        theColumn = mContext->mTokenizer->current()
-                  ? mContext->mTokenizer->current()->beginColumn()
-                  : mContext->mTokenizer->column();
-    }
-
-    return Message(Message::SEVERITY_WARNING, message, mpSourceId, theLine, theColumn);
-}
-
 Parser& Parser::operator<<(const Message& message)
 {
     assert(message.text().find("%") == std::string::npos);
-    mpMessageCollector->addMessage(message);
+    mContext->mMessageCollector->addMessage(message);
 	return *this;
-}
-
-void Parser::initilizeObject(ObjectSPtr pObject, const TokenPtr& pToken)
-{
-    TokenPtr token = pToken ? pToken : mContext->mTokenizer->current();
-    pObject->set_sourceId(mpSourceId);
-    pObject->set_line(token->line());
-    pObject->set_column(token->beginColumn());
 }
 
 bool Parser::validate(const DocumentSPtr&)
@@ -2391,7 +2304,7 @@ bool Parser::validate(const ObjectSPtr& pObject)
     {
         ValidatorPtr& pValidator = *it;
 
-        if (!pValidator->validate(pObject, mpMessageCollector))
+        if (!pValidator->validate(pObject, mContext->mMessageCollector))
             bResult = false;
     }
 

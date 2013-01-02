@@ -48,7 +48,6 @@ public:
     virtual void SetUp() 
     {
         mpParser.reset(new compil::Parser());
-        mpMessageCollector = mpParser->mpMessageCollector;
         mDocument = lib::compil::CompilDocument::create();
     }
     
@@ -81,7 +80,7 @@ public:
                 .finalize();    
     
         StreamPtr pInput = getInput(text);
-        return mpParser->parse(mpSourceId, pInput, mDocument);
+        return mpParser->parseDocument(mpSourceId, pInput, mDocument);
     }
     
     virtual bool parseRaw(const char* text)
@@ -92,16 +91,21 @@ public:
                 .finalize();  
                 
         StreamPtr pInput = getRawInput(text);
-        return mpParser->parse(mpSourceId, pInput, mDocument);
+        return mpParser->parseDocument(mpSourceId, pInput, mDocument);
+    }
+    
+    virtual const std::vector<compil::Message> messages()
+    {
+        return mpParser->messages();
     }
 
     virtual bool checkMessage(compil::Message& expected, int mIndex)
     {
-        EXPECT_LT(mIndex, (int)mpMessageCollector->messages().size());
-        if (mIndex >= (int)mpMessageCollector->messages().size())
+        EXPECT_LT(mIndex, (int)messages().size());
+        if (mIndex >= (int)messages().size())
             return false;
         
-        compil::Message message = mpMessageCollector->messages()[mIndex];
+        compil::Message message = messages()[mIndex];
         EXPECT_EQ(expected.severity(), message.severity());
         EXPECT_EQ(expected.sourceId(), message.sourceId());
         EXPECT_EQ(expected.line(), message.line());
@@ -145,5 +149,4 @@ protected:
     compil::SourceIdSPtr mpSourceId;
     compil::DocumentSPtr mDocument;
     compil::ParserPtr mpParser;
-    compil::MessageCollectorPtr mpMessageCollector;
 };

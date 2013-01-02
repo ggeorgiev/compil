@@ -53,7 +53,7 @@ public:
     void addMessage(Message::Severity severity, const std::string& message, 
                     const SourceIdSPtr& pSourceId, const Line& line, const Column& column);
 
-    std::vector<Message> messages();
+    const std::vector<Message>& messages();
    
     Message::Severity severity();
 

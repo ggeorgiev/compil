@@ -144,7 +144,7 @@ TEST_F(ParserStructureFieldTests, structureType)
         "  integer\n"
         "}") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectStatementName));
 }
 
@@ -156,7 +156,7 @@ TEST_F(ParserStructureFieldTests, structureWrongType)
         "  blah\n"
         "}") );
 
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectStatementName));
     EXPECT_TRUE(checkErrorMessage(1, 3, 3, compil::Message::p_unknownClassifierType, 
                                   compil::Message::Classifier("field"),
@@ -171,7 +171,7 @@ TEST_F(ParserStructureFieldTests, structureTypeName)
         "  integer fname\n"
         "}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectSemicolonOrAssignmentOperator));
 }
 
@@ -228,7 +228,7 @@ TEST_F(ParserStructureFieldTests, structureFieldWith2Comments)
     checkStructure(0, 1, 1, "sname");
     EXPECT_TRUE(checkField(0, 0, 6, 3, "fname", "integer", "comment"));
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 3, 3, compil::Message::p_misplacedComment));
 }
 
@@ -243,7 +243,7 @@ TEST_F(ParserStructureFieldTests, structureFieldCommentedName)
     checkStructure(0, 1, 1, "sname");
     EXPECT_TRUE(checkField(0, 0, 3, 3, "fname", "integer"));
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 3, 11, compil::Message::p_misplacedComment));
 }
 
@@ -258,7 +258,7 @@ TEST_F(ParserStructureFieldTests, structureFieldCommentAtTheEnd)
     checkStructure(0, 1, 1, "sname");
     EXPECT_TRUE(checkField(0, 0, 3, 3, "fname", "integer"));
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 3, 17, compil::Message::p_misplacedComment));
 }
 
@@ -274,7 +274,7 @@ TEST_F(ParserStructureFieldTests, structureFieldCommentAfterIt)
     checkStructure(0, 1, 1, "sname");
     EXPECT_TRUE(checkField(0, 0, 3, 3, "fname", "integer"));
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 4, 1, compil::Message::p_misplacedComment));
 }
 
@@ -286,7 +286,7 @@ TEST_F(ParserStructureFieldTests, structureFieldGarbageAfterTheName)
         "  integer a blah;\n"
         "}") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 3, 13, compil::Message::p_expectSemicolonOrAssignmentOperator));
 }
 
@@ -298,7 +298,7 @@ TEST_F(ParserStructureFieldTests, structureFieldDefaultNoValue)
         "  integer a =;\n"
         "}") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 3, 14, compil::Message::p_expectFieldDefaultValue));
 }
 
@@ -310,7 +310,7 @@ TEST_F(ParserStructureFieldTests, structureFieldDefaultCommentNoValue)
         "  integer a = /*comment*/;\n"
         "}") );
 
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 3, 15, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 3, 26, compil::Message::p_expectFieldDefaultValue));
 }
@@ -366,7 +366,7 @@ TEST_F(ParserStructureFieldTests, structureFieldDefaultComment)
     EXPECT_TRUE(checkField(0, 0, 3, 3, "fname", "integer"));
     EXPECT_TRUE(checkFieldDefault(0, 0, 3, 19, true));
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 3, 28, compil::Message::p_misplacedComment));
 }
 
@@ -378,7 +378,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReference)
         "  reference\n"
         "}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectType));
 }
 
@@ -390,7 +390,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceCommentParameterTypeOpe
         "  reference /* */ <\n"
         "}") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 3, 13, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 4, 1, compil::Message::p_expectType));
 }
@@ -403,7 +403,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceCommentParameterType)
         "  reference < integer /* */ >\n"
         "}") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 3, 23, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 4, 1, compil::Message::p_expectStatementName));
 }
@@ -419,7 +419,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceComment)
     checkStructure(0, 1, 1, "sname");
     EXPECT_TRUE(checkField(0, 0, 3, 3, "fname", "reference"));
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 3, 28, compil::Message::p_misplacedComment));
 }
 
@@ -431,7 +431,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceParameterTypeNameEq)
         "  reference<integer> fname =\n"
         "}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectFieldDefaultValue));
 }
 
@@ -443,7 +443,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceParameterTypeNameEqOpti
         "  reference<integer> fname = optional\n"
         "}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectSemicolon));
 }
 
@@ -509,7 +509,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceToItself)
 
     checkStructure(0, 1, 1, "sname");
     EXPECT_TRUE(checkField(0, 0, 3, 3, "fname", "reference"));
-    EXPECT_EQ(0U, mpParser->mpMessageCollector->messages().size());
+    EXPECT_EQ(0U, mpParser->messages().size());
 }
 
 TEST_F(ParserStructureFieldTests, structureFieldWeakReferenceToItself)
@@ -522,7 +522,7 @@ TEST_F(ParserStructureFieldTests, structureFieldWeakReferenceToItself)
 
     checkStructure(0, 1, 1, "sname");
     EXPECT_TRUE(checkField(0, 0, 3, 3, "fname", "reference"));
-    EXPECT_EQ(0U, mpParser->mpMessageCollector->messages().size());
+    EXPECT_EQ(0U, mpParser->messages().size());
 }
 
 TEST_F(ParserStructureFieldTests, structureFieldsWithSameNames)
@@ -540,7 +540,7 @@ TEST_F(ParserStructureFieldTests, structureFieldsWithSameNames)
 
         "}") );
     
-    ASSERT_EQ(5U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(5U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 9, compil::Message::v_notUnique, 
                 compil::Message::Statement("name"), compil::Message::Classifier("field name")));
 }

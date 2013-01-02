@@ -32,7 +32,109 @@
 
 #include "parser-mixin.h"
 
+#include <boost/algorithm/string.hpp>
+
 namespace compil
 {
+
+void ParserMixin::initilizeObject(const ParseContextSPtr& context, ObjectSPtr object)
+{
+    initilizeObject(context, context->mTokenizer->current(), object);
+}
+
+void ParserMixin::initilizeObject(const ParseContextSPtr& context, const TokenPtr& token, ObjectSPtr object)
+{
+    if (!token)
+    {
+        initilizeObject(context, object);
+        return;
+    }
+    object->set_sourceId(context->mSourceId);
+    object->set_line(token->line());
+    object->set_column(token->beginColumn());
+}
+
+Message ParserMixin::errorMessage(const ParseContextSPtr& context,
+                                  const char* message,
+                                  const Line& line,
+                                  const Column& column)
+{
+    return severityMessage(context, Message::SEVERITY_ERROR, message, line, column);
+}
+
+Message ParserMixin::warningMessage(const ParseContextSPtr& context,
+                                  const char* message,
+                                  const Line& line,
+                                  const Column& column)
+{
+    return severityMessage(context, Message::SEVERITY_WARNING, message, line, column);
+}
+
+Message ParserMixin::severityMessage(const ParseContextSPtr& context,
+                                     const Message::Severity& severity,
+                                     const char* message,
+                                     const Line& line,
+                                     const Column& column)
+{
+    Line theLine = line;
+    if (theLine == Line(-1))
+    {
+        theLine = context->mTokenizer->current()
+                ? context->mTokenizer->current()->line()
+                : context->mTokenizer->line();
+    }
+
+    Column theColumn = column;
+    if (theColumn == Column(-1))
+    {
+        theColumn = context->mTokenizer->current()
+                  ? context->mTokenizer->current()->beginColumn()
+                  : context->mTokenizer->column();
+    }
+
+    return Message(severity, message, context->mSourceId, theLine, theColumn);
+}
+
+CommentSPtr ParserMixin::parseComment(const ParseContextSPtr& context)
+{
+    CommentSPtr pComment;
+    Line lastCommentLine(-1);
+    for (;;)
+    {
+        if (!context->mTokenizer->current())
+            break;
+        if (context->mTokenizer->current()->type() != Token::TYPE_COMMENT)
+            break;
+        if (    (lastCommentLine != Line(-1))
+             && (Line(1) < context->mTokenizer->current()->line() - lastCommentLine))
+            {
+            break;
+        }
+        if (!pComment)
+        {
+            pComment.reset(new Comment());
+            initilizeObject(context, pComment);
+        }
+        lastCommentLine = context->mTokenizer->current()->line();
+        std::string comment_line = context->mTokenizer->current()->text();
+        boost::trim(comment_line);
+        pComment->mutable_lines().push_back(comment_line);
+        context->mTokenizer->shift();
+    }
+    return pComment;
+}
+
+void ParserMixin::skipComments(const ParseContextSPtr& context, CommentSPtr pComment)
+{
+    if (!pComment)
+        pComment = parseComment(context);
+    while (pComment)
+    {
+        context->mMessageCollector->addMessage(
+            warningMessage(context, Message::p_misplacedComment,
+                           pComment->line(), pComment->column()));
+        pComment = parseComment(context);
+    }
+}
 
 }

@@ -83,7 +83,7 @@ TEST_F(ParserStructureIdentificationTests, identification)
         "  identification\n"
         "}") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 3, 3, compil::Message::p_expectAppropriateType,
                                   compil::Message::Classifier("identification"),
                                   compil::Message::Options("runtime or inproc")));
@@ -97,7 +97,7 @@ TEST_F(ParserStructureIdentificationTests, runtimeIdentification_unclosed)
         "  runtime identification\n"
         "}") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectSemicolon));
 }
 

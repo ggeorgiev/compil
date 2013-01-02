@@ -37,6 +37,15 @@ namespace compil
 
 SectionSPtr ProjectParserMixin::parseSection(const ProjectParseContextSPtr& context, const CommentSPtr& comment)
 {
+    context->mTokenizer->shift();
+    skipComments(context);
+    if (!context->mTokenizer->expect(Token::TYPE_IDENTIFIER))
+    {
+        context->mMessageCollector->addMessage(errorMessage(context, Message::p_expectStatementName)
+                                               << Message::Statement("section"));
+        return SectionSPtr();
+    }
+
     return SectionSPtr();
 }
 
@@ -47,7 +56,7 @@ void ProjectParserMixin::parseProjectStatement(const ProjectParseContextSPtr& co
         SectionSPtr section = parseSection(context, comment);
         if (section)
         {
-            //context->mProject << section;
+            context->mProject << section;
         }
     }
 }

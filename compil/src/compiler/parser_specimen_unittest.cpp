@@ -69,7 +69,7 @@ TEST_F(ParserSpecimenTests, specimen)
     ASSERT_FALSE( parse(
         "specimen") );
 
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 9, compil::Message::p_expectStatementName));
 }
 
@@ -78,7 +78,7 @@ TEST_F(ParserSpecimenTests, specimenComment)
     ASSERT_FALSE( parse(
         "specimen //") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 10, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 12, compil::Message::p_expectStatementName));
 }
@@ -88,7 +88,7 @@ TEST_F(ParserSpecimenTests, specimenCommentBaseTypeOpen)
     ASSERT_FALSE( parse(
         "specimen /* */ <") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 10, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 17, compil::Message::p_expectType));
 }
@@ -98,7 +98,7 @@ TEST_F(ParserSpecimenTests, specimenCommentBaseTypeOpenType)
     ASSERT_FALSE( parse(
         "specimen < /* */ integer") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 12, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 25, compil::Message::p_expectClosingAngleBracket));
 }
@@ -108,7 +108,7 @@ TEST_F(ParserSpecimenTests, specimenCommentBaseType)
     ASSERT_FALSE( parse(
         "specimen < integer /* */ >") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 20, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 27, compil::Message::p_expectStatementName));
 }
@@ -118,7 +118,7 @@ TEST_F(ParserSpecimenTests, specimenCommentName)
     ASSERT_FALSE( parse(
         "specimen /* */ name") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 10, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 20, compil::Message::p_expectStatementBody));
 }
@@ -128,7 +128,7 @@ TEST_F(ParserSpecimenTests, specimenName)
     ASSERT_FALSE( parse(
         "specimen name") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 14, compil::Message::p_expectStatementBody));
 }
 
@@ -137,7 +137,7 @@ TEST_F(ParserSpecimenTests, specimenNameInherit)
     ASSERT_FALSE( parse(
         "specimen name inherit") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 22, compil::Message::p_expectClassifierStatementName,
                                             compil::Message::Classifier("base")));
 }
@@ -147,7 +147,7 @@ TEST_F(ParserSpecimenTests, specimenNameOpen)
     ASSERT_FALSE( parse(
         "specimen name {") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 16, compil::Message::p_unexpectEOFInStatementBody));
 }
 
@@ -156,7 +156,7 @@ TEST_F(ParserSpecimenTests, specimenNameCommentOpen)
     ASSERT_FALSE( parse(
         "specimen name /* */ {") );
     
-    ASSERT_EQ(2U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 1, 15, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 1, 22, compil::Message::p_unexpectEOFInStatementBody));
 }
@@ -186,7 +186,7 @@ TEST_F(ParserSpecimenTests, specimenNameMissingParameterTypeOpenClose)
     ASSERT_FALSE( parse(
         "specimen<blah> name {}") );
     
-    ASSERT_EQ(1U, mpParser->mpMessageCollector->messages().size());
+    ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 10, compil::Message::p_unknownClassifierType,
                   compil::Message::Type("blah")));
 }
@@ -204,5 +204,5 @@ TEST_F(ParserSpecimenTests, 2specimensWithComments)
     checkSpecimen(0, 2, 1, "name1", "comment1");
     checkSpecimen(1, 4, 1, "name2", "comment2");
     
-    EXPECT_EQ(0U, mpParser->mpMessageCollector->messages().size());
+    EXPECT_EQ(0U, mpParser->messages().size());
 }
