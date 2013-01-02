@@ -19,13 +19,13 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/george/github/compil/src"
+      customWorkingDirectory = "/Users/george/github/compil/compil/src"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <PathRunnable
-         FilePath = "/Users/george/github/intermediate/generator/ef27f9a8a84252954bd5504269c0b5c1/generator">
+         FilePath = "/Users/george/github/compil/intermediate/generator/ef27f9a8a84252954bd5504269c0b5c1/generator">
       </PathRunnable>
       <CommandLineArguments>
          <CommandLineArgument
@@ -38,7 +38,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--type=test"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-self/compiler/model/default_value.compil"
@@ -69,12 +69,12 @@
             isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "/Users/george/github/compil/src/generator-test/immutable_structure.compil"
-            isEnabled = "YES">
+            argument = "/Users/george/github/compil/compil/src/generator-test/immutable_structure.compil"
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
-            argument = "/Users/george/github/compil/src/generator-test/specimens.compil"
-            isEnabled = "NO">
+            argument = "/Users/george/github/compil/compil/src/generator-test/specimens.compil"
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/strong_enumeration.compil"

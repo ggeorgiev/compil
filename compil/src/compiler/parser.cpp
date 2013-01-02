@@ -188,12 +188,12 @@ void Parser::skipComments(CommentSPtr pComment)
 bool Parser::convertStringElementsToPackageElements(const std::vector<std::string>& string_elements,
                                                     std::vector<PackageElementSPtr>& package_elements)
 {
-    std::vector<PackageElement>::const_reverse_iterator eit = mpSourceId->externalElements().rbegin();
+    std::vector<PackageElementSPtr>::const_reverse_iterator eit = mpSourceId->externalElements().rbegin();
 
     std::vector<std::string>::const_reverse_iterator it;
     for (it = string_elements.rbegin(); it != string_elements.rend(); ++it)
     {
-        PackageElementSPtr pe = boost::make_shared<PackageElement>();
+        PackageElementSPtr pe;
         if (*it == "*")
         {
             if (eit == mpSourceId->externalElements().rend())
@@ -201,14 +201,15 @@ bool Parser::convertStringElementsToPackageElements(const std::vector<std::strin
                 *this << errorMessage(Message::p_asteriskPackageElement);
                 return false;
             }
-            pe->set_value(eit->value());
+            pe = *eit;
             ++eit;
         }
         else
         {
-            if (eit->value() == *it)
+            if ((*eit)->value() == *it)
                 ++eit;
 
+            pe = boost::make_shared<PackageElement>();
             pe->set_value(*it);
         }
         package_elements.insert(package_elements.begin(), pe);

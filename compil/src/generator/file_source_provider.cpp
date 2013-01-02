@@ -35,6 +35,8 @@
 
 #include "boost_path_resolve.h"
 
+#include "boost/make_shared.hpp"
+
 using namespace boost;
 using namespace filesystem;
 
@@ -134,17 +136,17 @@ std::string FileSourceProvider::getUniquePresentationString(const std::string& s
     return result;
 }
 
-std::vector<PackageElement> FileSourceProvider::getExternalElements(const std::string& source)
+std::vector<PackageElementSPtr> FileSourceProvider::getExternalElements(const std::string& source)
 {
     path src_path = resolve(absolute(source));
     if (!is_directory(src_path))
         src_path = src_path.parent_path();
 
-    std::vector<PackageElement> result;
+    std::vector<PackageElementSPtr> result;
     while (src_path.has_parent_path())
     {
-        PackageElement pe;
-        pe.set_value(src_path.filename().string());
+        PackageElementSPtr pe = boost::make_shared<PackageElement>();
+        pe->set_value(src_path.filename().string());
 
         result.insert(result.begin(), pe);
         src_path = src_path.parent_path();

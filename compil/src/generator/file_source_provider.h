@@ -58,7 +58,7 @@ public:
 
 private:
     static std::string getUniquePresentationString(const std::string& source);
-    static std::vector<PackageElement> getExternalElements(const std::string& source);
+    static std::vector<PackageElementSPtr> getExternalElements(const std::string& source);
 
     std::vector<boost::filesystem::path> mImportDirectories;
 };

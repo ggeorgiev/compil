@@ -41,7 +41,7 @@ structure SourceId
 {
 
     string value;
-    vector<PackageElement> externalElements;
+    vector<reference<PackageElement>> externalElements;
     string uniquePresentation;
     reference<SourceId> parent = null;
     string original = optional;
