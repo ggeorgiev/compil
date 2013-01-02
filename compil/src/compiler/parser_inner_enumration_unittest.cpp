@@ -24,8 +24,8 @@ public:
             boost::static_pointer_cast<compil::Enumeration>(pEObject);
             
         EXPECT_STREQ(name, pEnumeration->name()->value().c_str());
-        HF_EXPECT_EQ(line + 1, pEnumeration->line());
-        HF_EXPECT_EQ(column, pEnumeration->column());
+        HF_EXPECT_EQ(lang::compil::Line(line + 1), pEnumeration->line());
+        HF_EXPECT_EQ(lang::compil::Column(column), pEnumeration->column());
         if (comment)
         {
             EXPECT_TRUE(pEnumeration->comment());

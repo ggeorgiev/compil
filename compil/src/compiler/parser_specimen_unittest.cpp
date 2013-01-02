@@ -22,8 +22,8 @@ public:
         compil::SpecimenSPtr pSpecimen = 
             boost::static_pointer_cast<compil::Specimen>(pObject);
         EXPECT_STREQ(name, pSpecimen->name()->value().c_str());
-        EXPECT_EQ(line + 1, pSpecimen->line());
-        EXPECT_EQ(column, pSpecimen->column());
+        EXPECT_EQ(lang::compil::Line(line + 1), pSpecimen->line());
+        EXPECT_EQ(lang::compil::Column(column), pSpecimen->column());
         if (comment)
         {
             ASSERT_TRUE(pSpecimen->comment());

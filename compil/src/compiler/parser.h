@@ -167,8 +167,8 @@ private:
     DocumentSPtr mDocument;
     std::vector<ValidatorPtr> mvValidator;
     
-    Message errorMessage(const char* message, int line = -1, int column = -1);
-    Message warningMessage(const char* message, int line = -1, int column = -1);
+    Message errorMessage(const char* message, const Line& line = Line(-1), const Column& column = Column(-1));
+    Message warningMessage(const char* message, const Line& line = Line(-1), const Column& column = Column(-1));
     
     Parser& operator<<(const Message& message);
 

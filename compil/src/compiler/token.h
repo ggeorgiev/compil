@@ -34,6 +34,9 @@
 #ifndef _COMPIL_TOKEN_H__
 #define _COMPIL_TOKEN_H__
 
+#include "namespace_alias.h"
+#include "compil/all/object.h"
+
 #include <boost/shared_ptr.hpp>
 
 #include <memory>
@@ -114,23 +117,23 @@ public:
     std::string text() const;
     void addChar(int ch);
     
-    int line() const;
-    void setLine(int line);
+    const Line& line() const;
+    void setLine(const Line& line);
     
-    int beginColumn() const;
-    void setBeginColumn(int column);
+    const Column& beginColumn() const;
+    void setBeginColumn(const Column& column);
 
-    int endColumn() const;
-    void setEndColumn(int column);    
+    const Column& endColumn() const;
+    void setEndColumn(const Column& column);    
 
 private:
     Type mType;
 
     std::string mText;
 
-    int mLine;
-    int mBeginColumn;
-    int mEndColumn;
+    Line mLine;
+    Column mBeginColumn;
+    Column mEndColumn;
 };
 
 typedef boost::shared_ptr<Token> TokenPtr;

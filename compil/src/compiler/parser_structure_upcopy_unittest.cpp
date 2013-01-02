@@ -22,8 +22,8 @@ public:
         compil::UpcopySPtr pUpcopy = 
             boost::static_pointer_cast<compil::Upcopy>(pIObject);
 
-        HF_EXPECT_EQ(line + 1, pUpcopy->line());
-        HF_EXPECT_EQ(column, pUpcopy->column());
+        HF_EXPECT_EQ(lang::compil::Line(line + 1), pUpcopy->line());
+        HF_EXPECT_EQ(lang::compil::Column(column), pUpcopy->column());
         if (comment)
         {
             HF_ASSERT_TRUE(pUpcopy->comment());

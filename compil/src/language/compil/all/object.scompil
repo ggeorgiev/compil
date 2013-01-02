@@ -36,12 +36,20 @@ import "compil/all/source_id.scompil";
 
 package lang.compil;
 
+specimen<integer> Line
+{
+}
+
+specimen<integer> Column
+{
+}
+
 sharable
 structure Object
 {
     runtime identification;
 
     reference<SourceId> sourceId;
-    integer line = -1;
-    integer column = -1;
+    Line line;
+    Column column;
 }

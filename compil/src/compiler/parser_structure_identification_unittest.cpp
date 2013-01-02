@@ -28,8 +28,8 @@ public:
         compil::IdentificationSPtr pIdentification = 
             boost::static_pointer_cast<compil::Identification>(pIObject);
 
-        HF_EXPECT_EQ(line + 1, pIdentification->line());
-        HF_EXPECT_EQ(column, pIdentification->column());
+        HF_EXPECT_EQ(lang::compil::Line(line + 1), pIdentification->line());
+        HF_EXPECT_EQ(lang::compil::Column(column), pIdentification->column());
         if (comment)
         {
             HF_ASSERT_TRUE(pIdentification->comment());

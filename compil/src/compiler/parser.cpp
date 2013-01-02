@@ -115,8 +115,8 @@ Parser::~Parser()
     {
         std::string source = it->sourceId() ? it->sourceId()->value() : "compil";
         std::cout << source << ":"
-                  << it->line() << ":"
-                  << it->column() << " "
+                  << it->line().value() << ":"
+                  << it->column().value() << " "
                   << it->text() << "\n";
     }
 }
@@ -130,15 +130,15 @@ void Parser::setInput(const boost::shared_ptr<std::istream>& pInput)
 CommentSPtr Parser::parseComment()
 {
     CommentSPtr pComment;
-    int lastCommentLine = -1;
+    Line lastCommentLine(-1);
     for (;;)
     {
         if (!mContext->mTokenizer->current())
             break;
         if (mContext->mTokenizer->current()->type() != Token::TYPE_COMMENT)
             break;
-        if (    (lastCommentLine != -1)
-             && (mContext->mTokenizer->current()->line() - lastCommentLine > 1))
+        if (    (lastCommentLine != Line(-1))
+             && (Line(1) < mContext->mTokenizer->current()->line() - lastCommentLine))
             {
             break;
         }
@@ -2224,7 +2224,7 @@ bool Parser::parse(const ISourceProviderPtr& pSourceProvider,
     StreamPtr pStream = mpSourceProvider->openInputStream(pSourceId);
     if (!pStream)
     {
-        *this << Message(Message::SEVERITY_ERROR, Message::p_openSourceFailed, mpSourceId, 1, 0);
+        *this << Message(Message::SEVERITY_ERROR, Message::p_openSourceFailed, mpSourceId, Line(1), Column(0));
         return false;
     }
     return parse(pSourceId, pStream, document);
@@ -2321,34 +2321,46 @@ void Parser::lateTypeResolve(const TypeSPtr& pNewType)
     }
 }
 
-Message Parser::errorMessage(const char* message, int line, int column)
+Message Parser::errorMessage(const char* message, const Line& line, const Column& column)
 {
-    if (line == -1)
-        line = mContext->mTokenizer->current() ?
-                    mContext->mTokenizer->current()->line() :
-                    mContext->mTokenizer->line();
+    Line theLine = line;
+    if (theLine == Line(-1))
+    {
+        theLine = mContext->mTokenizer->current()
+                ? mContext->mTokenizer->current()->line()
+                : mContext->mTokenizer->line();
+    }
 
-    if (column == -1)
-        column = mContext->mTokenizer->current() ?
-                    mContext->mTokenizer->current()->beginColumn() :
-                    mContext->mTokenizer->column();
+    Column theColumn = column;
+    if (theColumn == Column(-1))
+    {
+        theColumn = mContext->mTokenizer->current()
+                  ? mContext->mTokenizer->current()->beginColumn()
+                  : mContext->mTokenizer->column();
+    }
 
-    return Message(Message::SEVERITY_ERROR, message, mpSourceId, line, column);
+    return Message(Message::SEVERITY_ERROR, message, mpSourceId, theLine, theColumn);
 }
 
-Message Parser::warningMessage(const char* message, int line, int column)
+Message Parser::warningMessage(const char* message, const Line& line, const Column& column)
 {
-    if (line == -1)
-        line = mContext->mTokenizer->current() ?
-                    mContext->mTokenizer->current()->line() :
-                    mContext->mTokenizer->line();
+    Line theLine = line;
+    if (theLine == Line(-1))
+    {
+        theLine = mContext->mTokenizer->current()
+                ? mContext->mTokenizer->current()->line()
+                : mContext->mTokenizer->line();
+    }
 
-    if (column == -1)
-        column = mContext->mTokenizer->current() ?
-                    mContext->mTokenizer->current()->beginColumn() :
-                    mContext->mTokenizer->column();
+    Column theColumn = column;
+    if (theColumn == Column(-1))
+    {
+        theColumn = mContext->mTokenizer->current()
+                  ? mContext->mTokenizer->current()->beginColumn()
+                  : mContext->mTokenizer->column();
+    }
 
-    return Message(Message::SEVERITY_WARNING, message, mpSourceId, line, column);
+    return Message(Message::SEVERITY_WARNING, message, mpSourceId, theLine, theColumn);
 }
 
 Parser& Parser::operator<<(const Message& message)

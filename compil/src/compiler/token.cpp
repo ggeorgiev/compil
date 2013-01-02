@@ -64,32 +64,32 @@ void Token::addChar(int ch)
     mText += (char)ch;
 }
 
-int Token::line() const
+const Line& Token::line() const
 {
     return mLine;
 }
    
-void Token::setLine(int line)
+void Token::setLine(const Line& line)
 {
     mLine = line;
 }
 
-int Token::beginColumn() const
+const Column& Token::beginColumn() const
 {
     return mBeginColumn;
 }
 
-void Token::setBeginColumn(int column)
+void Token::setBeginColumn(const Column& column)
 {
     mBeginColumn = column;
 }
 
-int Token::endColumn() const
+const Column& Token::endColumn() const
 {
     return mEndColumn;
 }
 
-void Token::setEndColumn(int column)
+void Token::setEndColumn(const Column& column)
 {
     mEndColumn = column;
 }

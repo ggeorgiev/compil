@@ -923,14 +923,14 @@ void Tokenizer::absorbed(int ch)
     }
 }
 
-int Tokenizer::line() const
+Line Tokenizer::line() const
 {
-    return mCurrentLine + 1;
+    return Line(mCurrentLine + 1);
 }
 
-int Tokenizer::column() const
+Column Tokenizer::column() const
 {
-    return mCurrentColumn + 1;
+    return Column(mCurrentColumn + 1);
 }
 
 TokenPtr Tokenizer::current()

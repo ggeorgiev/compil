@@ -20,8 +20,8 @@ public:
         compil::InterfaceSPtr pInterface = 
             boost::static_pointer_cast<compil::Interface>(pObject);
         EXPECT_STREQ(name, pInterface->name()->value().c_str());
-        EXPECT_EQ(line + 1, pInterface->line());
-        EXPECT_EQ(column, pInterface->column());
+        EXPECT_EQ(lang::compil::Line(line + 1), pInterface->line());
+        EXPECT_EQ(lang::compil::Column(column), pInterface->column());
     }
 
 protected:

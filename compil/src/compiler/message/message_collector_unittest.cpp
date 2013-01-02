@@ -38,22 +38,25 @@ TEST(MessageCollectorTests, severity)
 {
     compil::MessageCollector collector;
     EXPECT_EQ(compil::Message::SEVERITY_INVALID, collector.severity());
+    
+    lang::compil::Line line(1);
+    lang::compil::Column column(1);
 
-    collector.addMessage(compil::Message::SEVERITY_INFO, "", compil::SourceIdSPtr(), 1, 1);
+    collector.addMessage(compil::Message::SEVERITY_INFO, "", compil::SourceIdSPtr(), line, column);
     EXPECT_EQ(compil::Message::SEVERITY_INFO, collector.severity());
 
-    collector.addMessage(compil::Message::SEVERITY_WARNING, "", compil::SourceIdSPtr(), 1, 1);
+    collector.addMessage(compil::Message::SEVERITY_WARNING, "", compil::SourceIdSPtr(), line, column);
     EXPECT_EQ(compil::Message::SEVERITY_WARNING, collector.severity());
 
-    collector.addMessage(compil::Message::SEVERITY_INFO, "", compil::SourceIdSPtr(), 1, 1);
+    collector.addMessage(compil::Message::SEVERITY_INFO, "", compil::SourceIdSPtr(), line, column);
     EXPECT_EQ(compil::Message::SEVERITY_WARNING, collector.severity());
 
-    collector.addMessage(compil::Message::SEVERITY_ERROR, "", compil::SourceIdSPtr(), 1, 1);
+    collector.addMessage(compil::Message::SEVERITY_ERROR, "", compil::SourceIdSPtr(), line, column);
     EXPECT_EQ(compil::Message::SEVERITY_ERROR, collector.severity());
 
-    collector.addMessage(compil::Message::SEVERITY_INFO, "", compil::SourceIdSPtr(), 1, 1);
+    collector.addMessage(compil::Message::SEVERITY_INFO, "", compil::SourceIdSPtr(), line, column);
     EXPECT_EQ(compil::Message::SEVERITY_ERROR, collector.severity());
 
-    collector.addMessage(compil::Message::SEVERITY_WARNING, "", compil::SourceIdSPtr(), 1, 1);
+    collector.addMessage(compil::Message::SEVERITY_WARNING, "", compil::SourceIdSPtr(), line, column);
     EXPECT_EQ(compil::Message::SEVERITY_ERROR, collector.severity());
 }

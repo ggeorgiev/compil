@@ -22,8 +22,8 @@ public:
         compil::EnumerationSPtr pEnumeration = 
             boost::static_pointer_cast<compil::Enumeration>(pObject);
         EXPECT_STREQ(name, pEnumeration->name()->value().c_str());
-        EXPECT_EQ(line + 1, pEnumeration->line());
-        EXPECT_EQ(column, pEnumeration->column());
+        EXPECT_EQ(lang::compil::Line(line + 1), pEnumeration->line());
+        EXPECT_EQ(lang::compil::Column(column), pEnumeration->column());
         if (comment)
         {
             ASSERT_TRUE(pEnumeration->comment());
@@ -94,8 +94,8 @@ public:
         compil::ObjectSPtr pVObject = pEnumeration->enumerationValues()[vIndex];
         compil::EnumerationValueSPtr pEnumerationValue = 
             boost::static_pointer_cast<compil::EnumerationValue>(pVObject);
-        HF_EXPECT_EQ(line + 1, pEnumerationValue->line());
-        HF_EXPECT_EQ(column, pEnumerationValue->column());
+        HF_EXPECT_EQ(lang::compil::Line(line + 1), pEnumerationValue->line());
+        HF_EXPECT_EQ(lang::compil::Column(column), pEnumerationValue->column());
         HF_EXPECT_STREQ(name, pEnumerationValue->name()->value().c_str());
         if (comment)
         {

@@ -55,7 +55,7 @@ void MessageCollector::addMessage(const Message& message)
 
 void MessageCollector::addMessage(
 		    Message::Severity severity, const std::string& message, 
-            const SourceIdSPtr& pSourceId, int line, int column)
+            const SourceIdSPtr& pSourceId, const Line& line, const Column& column)
 {
     addMessage(Message(severity, message, pSourceId, line, column));
 }

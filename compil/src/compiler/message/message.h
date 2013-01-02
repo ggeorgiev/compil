@@ -184,15 +184,15 @@ public:
     static const char* v_baseStructureMustBeSharableForSharableStructure;
     
     Message(Severity severity, const std::string& text,
-            const SourceIdSPtr& pSourceId, int line, int column);
+            const SourceIdSPtr& pSourceId, const Line& line, const Column& column);
     ~Message();
 
     Severity severity() const;
     std::string text() const;
     
     SourceIdSPtr sourceId() const;
-    int line() const;
-    int column() const;
+    const Line& line() const;
+    const Column& column() const;
     
     Message& operator<<(const Argument& argument);
 
@@ -203,8 +203,8 @@ private:
     std::string mText;
 
     SourceIdSPtr mpSourceId;
-    int mLine;
-    int mColumn;
+    Line mLine;
+    Column mColumn;
 };
 
 }

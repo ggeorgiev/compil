@@ -20,8 +20,8 @@ public:
         compil::StructureSPtr pStructure = 
             boost::static_pointer_cast<compil::Structure>(pObject);
         EXPECT_STREQ(name, pStructure->name()->value().c_str());
-        EXPECT_EQ(line + 1, pStructure->line());
-        EXPECT_EQ(column, pStructure->column());
+        EXPECT_EQ(lang::compil::Line(line + 1), pStructure->line());
+        EXPECT_EQ(lang::compil::Column(column), pStructure->column());
         if (comment)
         {
             ASSERT_TRUE(pStructure->comment());
@@ -53,8 +53,8 @@ public:
        
         compil::FieldSPtr pField = 
             boost::static_pointer_cast<compil::Field>(pFObject);
-        HF_ASSERT_EQ(line + 1, pField->line());
-        HF_ASSERT_EQ(column, pField->column());
+        HF_ASSERT_EQ(lang::compil::Line(line + 1), pField->line());
+        HF_ASSERT_EQ(lang::compil::Column(column), pField->column());
         HF_ASSERT_STREQ(name, pField->name()->value().c_str());
         
         HF_ASSERT_TRUE(pField->type());
@@ -78,35 +78,35 @@ public:
                            int line, int column, 
                            bool bOptional, const char* text = "")
     {
-        EXPECT_LT(sIndex, (int)mDocument->objects().size());
+        bool result = true;
+        
+        HF_ASSERT_LT(sIndex, (int)mDocument->objects().size());
         compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
-        EXPECT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
+        HF_ASSERT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
         compil::StructureSPtr pStructure = 
             boost::static_pointer_cast<compil::Structure>(pObject);
 
-        EXPECT_LT(fIndex, (int)pStructure->objects().size());
+        HF_ASSERT_LT(fIndex, (int)pStructure->objects().size());
             compil::ObjectSPtr pFObject = pStructure->objects()[fIndex];
-        EXPECT_EQ(compil::EObjectId::field(), pFObject->runtimeObjectId());
+        HF_ASSERT_EQ(compil::EObjectId::field(), pFObject->runtimeObjectId());
         compil::FieldSPtr pField = 
             boost::static_pointer_cast<compil::Field>(pFObject);
 
-        EXPECT_TRUE( pField->defaultValue() );
-        EXPECT_EQ(line + 1, pField->defaultValue()->line());
-        EXPECT_EQ(column, pField->defaultValue()->column());
-        if (column != pField->defaultValue()->column()) return false;
-        EXPECT_EQ(bOptional, pField->defaultValue()->optional());
+        HF_ASSERT_TRUE( pField->defaultValue() );
+        HF_EXPECT_EQ(lang::compil::Line(line + 1), pField->defaultValue()->line());
+        HF_EXPECT_EQ(lang::compil::Column(column), pField->defaultValue()->column());
+        HF_EXPECT_EQ(bOptional, pField->defaultValue()->optional());
 
         if (!bOptional)
         {
-            EXPECT_STREQ(text, pField->defaultValue()->value().c_str());
-            if (pField->defaultValue()->value() != text) return false;
+            HF_EXPECT_STREQ(text, pField->defaultValue()->value().c_str());
         }
         else
         {
-            EXPECT_TRUE(pField->defaultValue());
+            HF_EXPECT_TRUE(pField->defaultValue());
         }
             
-        return true;
+        return result;
     }
 
 protected:

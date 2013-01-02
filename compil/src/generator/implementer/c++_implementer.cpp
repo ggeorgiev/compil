@@ -695,8 +695,8 @@ EnumerationSPtr CppImplementer::objectEnumeration(const DocumentSPtr& document,
     //pEnumeration->setComment(pComment);
 
     pEnumeration->set_sourceId(pSourceId);
-    pEnumeration->set_line(-1);
-    pEnumeration->set_column(-1);
+    pEnumeration->set_line(Line(-1));
+    pEnumeration->set_column(Column(-1));
     pEnumeration->set_cast(CastableType::ECast::strong());
     pEnumeration->set_flags(false);
 
@@ -705,8 +705,8 @@ EnumerationSPtr CppImplementer::objectEnumeration(const DocumentSPtr& document,
 
     NameSPtr pName(new Name());
     pName->set_sourceId(pSourceId);
-    pName->set_line(-1);
-    pName->set_column(-1);
+    pName->set_line(Line(-1));
+    pName->set_column(Column(-1));
     pName->set_value(identificationName(ObjectFactory::downcastStructure(pFactory->parameterType().lock())));
     pEnumeration->set_name(pName);
 
@@ -723,13 +723,13 @@ EnumerationSPtr CppImplementer::objectEnumeration(const DocumentSPtr& document,
         //pEnumerationValue->setComment(pComment);
 
         pEnumerationValue->set_sourceId(pSourceId);
-        pEnumerationValue->set_line(-1);
-        pEnumerationValue->set_column(-1);
+        pEnumerationValue->set_line(Line(-1));
+        pEnumerationValue->set_column(Column(-1));
 
         NameSPtr pName(new Name());
         pName->set_sourceId(pSourceId);
-        pName->set_line(-1);
-        pName->set_column(-1);
+        pName->set_line(Line(-1));
+        pName->set_column(Column(-1));
         pName->set_value(pStructure->name()->value());
 
         pEnumerationValue->set_name(pName);

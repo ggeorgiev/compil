@@ -28,8 +28,8 @@ public:
             boost::static_pointer_cast<compil::Factory>(pObject);
         HF_EXPECT_STREQ(name, pFactory->name()->value().c_str());
         HF_EXPECT_EQ(type, pFactory->type());
-        HF_EXPECT_EQ(line + 1, pFactory->line());
-        HF_EXPECT_EQ(column, pFactory->column());
+        HF_EXPECT_EQ(lang::compil::Line(line + 1), pFactory->line());
+        HF_EXPECT_EQ(lang::compil::Column(column), pFactory->column());
         if (comment)
         {
             EXPECT_TRUE(pFactory->comment());
@@ -78,8 +78,8 @@ public:
         HF_ASSERT_LT(fiIndex, (int)filters.size());
         
         compil::FilterSPtr pFilter = filters[fiIndex];
-        HF_EXPECT_EQ(line + 1, pFilter->line());
-        HF_EXPECT_EQ(column, pFilter->column());
+        HF_EXPECT_EQ(lang::compil::Line(line + 1), pFilter->line());
+        HF_EXPECT_EQ(lang::compil::Column(column), pFilter->column());
         HF_EXPECT_STREQ(fieldName, pFilter->field()->name()->value().c_str());
         HF_EXPECT_STREQ(method, pFilter->method().c_str());
         return result;

@@ -43,8 +43,8 @@ TEST_F(ParserTests, documentCommentInTheBeggining)
     ASSERT_TRUE( mDocument->mainFile() );
     ASSERT_EQ(1U, mDocument->mainFile()->comments().size() );
     ASSERT_EQ(1U, mDocument->mainFile()->comments()[0]->lines().size());
-    ASSERT_EQ(1, mDocument->mainFile()->comments()[0]->line());
-    ASSERT_EQ(1, mDocument->mainFile()->comments()[0]->column());
+    ASSERT_EQ(lang::compil::Line(1), mDocument->mainFile()->comments()[0]->line());
+    ASSERT_EQ(lang::compil::Column(1), mDocument->mainFile()->comments()[0]->column());
     EXPECT_STREQ("comment", mDocument->mainFile()->comments()[0]->lines()[0].c_str());
 }
 
@@ -59,8 +59,8 @@ TEST_F(ParserTests, documentCommentAfterWhiteSpaces)
     ASSERT_TRUE( mDocument->mainFile() );
     ASSERT_EQ(1U, mDocument->mainFile()->comments().size() );
     ASSERT_EQ(1U, mDocument->mainFile()->comments()[0]->lines().size());
-    ASSERT_EQ(3, mDocument->mainFile()->comments()[0]->line());
-    ASSERT_EQ(3, mDocument->mainFile()->comments()[0]->column());
+    ASSERT_EQ(lang::compil::Line(3), mDocument->mainFile()->comments()[0]->line());
+    ASSERT_EQ(lang::compil::Column(3), mDocument->mainFile()->comments()[0]->column());
     EXPECT_STREQ("comment", mDocument->mainFile()->comments()[0]->lines()[0].c_str());
 }
 

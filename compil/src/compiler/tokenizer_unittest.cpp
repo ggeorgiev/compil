@@ -56,8 +56,8 @@ protected:
 
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(str));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
-		EXPECT_EQ(line, mpTokenizer->line()) << str;
-		EXPECT_EQ(column, mpTokenizer->column()) << str;
+		EXPECT_EQ(lang::compil::Line(line), mpTokenizer->line()) << str;
+		EXPECT_EQ(lang::compil::Column(column), mpTokenizer->column()) << str;
 		EXPECT_TRUE( mpTokenizer->eof() ) << str;
 		EXPECT_EQ(0U, mpMessageCollector->messages().size()) << str;
 	}
@@ -128,9 +128,9 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenSpaceClose)
 	ASSERT_TRUE(mpTokenizer);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ(" ", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(1, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(6, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(6), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
 	EXPECT_EQ(0U, mpMessageCollector->messages().size());
 }
@@ -144,9 +144,9 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenStarClose)
 	ASSERT_TRUE(mpTokenizer);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("*", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(1, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(6, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(6), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
 	EXPECT_EQ(0U, mpMessageCollector->messages().size());
 }
@@ -159,9 +159,9 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenSlashClose)
 	ASSERT_TRUE(mpTokenizer);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("/", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(1, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(6, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(6), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
 	EXPECT_EQ(0U, mpMessageCollector->messages().size());
 }
@@ -174,9 +174,9 @@ TEST_F(TokenizerTests, commentBlockCStyleOpen2SlashesClose)
 	ASSERT_TRUE(mpTokenizer);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("//", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(1, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(7, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(7), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
 	EXPECT_EQ(0U, mpMessageCollector->messages().size());
 }
@@ -188,17 +188,17 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenNClose)
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(1, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(3, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(3), mpTokenizer->current()->endColumn());
 	EXPECT_FALSE( mpTokenizer->eof() );
 
 	mpTokenizer->shift();
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(2, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(3, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(2), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(3), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
 
 	EXPECT_EQ(0U, mpMessageCollector->messages().size());
@@ -211,17 +211,17 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenN2SlashesClose)
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(1, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(3, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(3), mpTokenizer->current()->endColumn());
 	EXPECT_FALSE( mpTokenizer->eof() );
 
 	mpTokenizer->shift();
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("//", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(2, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(5, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(2), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(5), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
 
 	EXPECT_EQ(0U, mpMessageCollector->messages().size());
@@ -234,17 +234,17 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenSpaceNSpaceClose)
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ(" ", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(1, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(4, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn());
 	EXPECT_FALSE( mpTokenizer->eof() );
 
 	mpTokenizer->shift();
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ(" ", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(2, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(4, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(2), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
 
 	EXPECT_EQ(0U, mpMessageCollector->messages().size());
@@ -257,9 +257,9 @@ TEST_F(TokenizerTests, commentLineCStyle)
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(1, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(3, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(3), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
 	EXPECT_EQ(0U, mpMessageCollector->messages().size());
 }
@@ -271,9 +271,9 @@ TEST_F(TokenizerTests, commentLineCStyleSpace)
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ(" ", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(1, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(4, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
 	EXPECT_EQ(0U, mpMessageCollector->messages().size());
 }
@@ -285,9 +285,9 @@ TEST_F(TokenizerTests, commentLineCStyleSpaceNSpace)
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ(" ", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(1, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(4, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn());
 	EXPECT_FALSE( mpTokenizer->eof() );
 	EXPECT_EQ(0U, mpMessageCollector->messages().size());
 }
@@ -299,9 +299,9 @@ TEST_F(TokenizerTests, commentLineCStyleSpaceRSpace)
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ(" ", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(1, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(4, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn());
 	EXPECT_FALSE( mpTokenizer->eof() );
 	EXPECT_EQ(0U, mpMessageCollector->messages().size());
 }
@@ -313,9 +313,9 @@ TEST_F(TokenizerTests, commentLineCStyleSlash)
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("/", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(1, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(4, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
 	EXPECT_EQ(0U, mpMessageCollector->messages().size());
 }
@@ -327,9 +327,9 @@ TEST_F(TokenizerTests, commentLineCStyle2StarsSlash)
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("**/", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(1, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(6, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(6), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
 	EXPECT_EQ(0U, mpMessageCollector->messages().size());
 }
@@ -348,9 +348,9 @@ TEST_F(TokenizerTests, 1DecimalDigit)
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type());
 		EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
-		EXPECT_EQ(1, mpTokenizer->current()->line());
-		EXPECT_EQ(1, mpTokenizer->current()->beginColumn()) << str;
-		EXPECT_EQ(2, mpTokenizer->current()->endColumn()) << str;
+		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) << str;
+		EXPECT_EQ(lang::compil::Column(2), mpTokenizer->current()->endColumn()) << str;
 		EXPECT_TRUE( mpTokenizer->eof() );
 		EXPECT_EQ(0U, mpMessageCollector->messages().size());
 	}
@@ -376,9 +376,9 @@ TEST_F(TokenizerTests, integerDecimalNumber)
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type()) << integers[i];
 		EXPECT_STREQ(integers[i], mpTokenizer->current()->text().c_str());
-		EXPECT_EQ(1, mpTokenizer->current()->line());
-		EXPECT_EQ(1, mpTokenizer->current()->beginColumn()) << integers[i];
-		EXPECT_EQ((int)strlen(integers[i]) + 1, mpTokenizer->current()->endColumn());
+		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) << integers[i];
+		EXPECT_EQ(lang::compil::Column((int)strlen(integers[i]) + 1), mpTokenizer->current()->endColumn());
 		EXPECT_TRUE( mpTokenizer->eof() ) << integers[i];
 		EXPECT_EQ(0U, mpMessageCollector->messages().size());
 	}
@@ -455,9 +455,9 @@ TEST_F(TokenizerTests, delimitedDecimal)
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type());
 		EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
-		EXPECT_EQ(1, mpTokenizer->current()->line());
-		EXPECT_EQ(1, mpTokenizer->current()->beginColumn()) << str;
-		EXPECT_EQ(2, mpTokenizer->current()->endColumn()) << str;
+		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) << str;
+		EXPECT_EQ(lang::compil::Column(2), mpTokenizer->current()->endColumn()) << str;
 		EXPECT_FALSE( mpTokenizer->eof() );
 		EXPECT_EQ(0U, mpMessageCollector->messages().size());
 	}
@@ -485,9 +485,9 @@ TEST_F(TokenizerTests, 1HexicalDigit)
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type());
 		EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
-		EXPECT_EQ(1, mpTokenizer->current()->line());
-		EXPECT_EQ(1, mpTokenizer->current()->beginColumn()) << str;
-		EXPECT_EQ(4, mpTokenizer->current()->endColumn()) << str;
+		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) << str;
+		EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn()) << str;
 		EXPECT_TRUE( mpTokenizer->eof() );
 		EXPECT_EQ(0U, mpMessageCollector->messages().size());
 	}
@@ -501,9 +501,9 @@ TEST_F(TokenizerTests, integerHexicalNumber)
 	EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 		mpTokenizer->current()->type());
 	EXPECT_STREQ("0x1234567890abcdefABCDEF", mpTokenizer->current()->text().c_str());
-	EXPECT_EQ(1, mpTokenizer->current()->line());
-	EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-	EXPECT_EQ(25, mpTokenizer->current()->endColumn());
+	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+	EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+	EXPECT_EQ(lang::compil::Column(25), mpTokenizer->current()->endColumn());
 	EXPECT_TRUE( mpTokenizer->eof() );
 	EXPECT_EQ(0U, mpMessageCollector->messages().size());
 }
@@ -553,7 +553,7 @@ TEST_F(TokenizerTests, wrongHexical)
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 		ASSERT_FALSE(mpTokenizer->current());
 
-		EXPECT_TRUE( mpTokenizer->eof() );
+		EXPECT_TRUE(mpTokenizer->eof());
 		EXPECT_EQ(1U, mpMessageCollector->messages().size());
 		EXPECT_TRUE(checkErrorMessage(0, 0, 1, compil::Message::t_invalidIntegerLiteral));
 	}
@@ -580,9 +580,9 @@ TEST_F(TokenizerTests, delimitedHexical)
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type());
 		EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
-		EXPECT_EQ(1, mpTokenizer->current()->line());
-		EXPECT_EQ(1, mpTokenizer->current()->beginColumn()) << str;
-		EXPECT_EQ(4, mpTokenizer->current()->endColumn()) << str;
+		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) << str;
+		EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn()) << str;
 		EXPECT_FALSE( mpTokenizer->eof() );
 		EXPECT_EQ(0U, mpMessageCollector->messages().size());
 	}
@@ -603,9 +603,9 @@ TEST_F(TokenizerTests, 1OctalDigit)
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type());
 		EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
-		EXPECT_EQ(1, mpTokenizer->current()->line());
-		EXPECT_EQ(1, mpTokenizer->current()->beginColumn()) << str;
-		EXPECT_EQ(3, mpTokenizer->current()->endColumn()) << str;
+		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) << str;
+		EXPECT_EQ(lang::compil::Column(3), mpTokenizer->current()->endColumn()) << str;
 		EXPECT_TRUE( mpTokenizer->eof() );
 		EXPECT_EQ(0U, mpMessageCollector->messages().size());
 	}
@@ -631,9 +631,9 @@ TEST_F(TokenizerTests, integerOctalNumber)
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type()) << integers[i];
 		EXPECT_STREQ(integers[i], mpTokenizer->current()->text().c_str());
-		EXPECT_EQ(1, mpTokenizer->current()->line());
-		EXPECT_EQ(1, mpTokenizer->current()->beginColumn()) << integers[i];
-		EXPECT_EQ((int)strlen(integers[i]) + 1, mpTokenizer->current()->endColumn());
+		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) << integers[i];
+		EXPECT_EQ(lang::compil::Column((int)strlen(integers[i]) + 1), mpTokenizer->current()->endColumn());
 		EXPECT_TRUE( mpTokenizer->eof() ) << integers[i];
 		EXPECT_EQ(0U, mpMessageCollector->messages().size());
 	}
@@ -688,9 +688,9 @@ TEST_F(TokenizerTests, delimitedOctal)
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type());
 		EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
-		EXPECT_EQ(1, mpTokenizer->current()->line());
-		EXPECT_EQ(1, mpTokenizer->current()->beginColumn()) << str;
-		EXPECT_EQ(3, mpTokenizer->current()->endColumn()) << str;
+		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) << str;
+		EXPECT_EQ(lang::compil::Column(3), mpTokenizer->current()->endColumn()) << str;
 		EXPECT_FALSE( mpTokenizer->eof() );
 		EXPECT_EQ(0U, mpMessageCollector->messages().size());
 	}
@@ -720,10 +720,10 @@ TEST_F(TokenizerTests, floats)
 		EXPECT_EQ(compil::Token::TYPE_REAL_LITERAL, 
 			mpTokenizer->current()->type()) << floats[f];
 		EXPECT_STREQ(floats[f], mpTokenizer->current()->text().c_str());
-		EXPECT_EQ(1, mpTokenizer->current()->line());
-		EXPECT_EQ(1, mpTokenizer->current()->beginColumn()) 
+		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) 
 			<< floats[f];
-		EXPECT_EQ((int)strlen(floats[f]) + 1, mpTokenizer->current()->endColumn())
+		EXPECT_EQ(lang::compil::Column((int)strlen(floats[f]) + 1), mpTokenizer->current()->endColumn())
 			<< floats[f];
 		EXPECT_TRUE( mpTokenizer->eof() )
 			<< floats[f];
@@ -782,11 +782,11 @@ TEST_F(TokenizerTests, strings)
 		result.erase(result.length() - 1);
 
 		EXPECT_STREQ(result.c_str(), mpTokenizer->current()->text().c_str());
-		EXPECT_EQ(1, mpTokenizer->current()->line());
-		EXPECT_EQ(1, mpTokenizer->current()->beginColumn()) 
+		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) 
 			<< strings[s];
 
-		EXPECT_EQ((int)strlen(strings[s]) + 1, mpTokenizer->current()->endColumn())
+		EXPECT_EQ(lang::compil::Column((int)strlen(strings[s]) + 1), mpTokenizer->current()->endColumn())
 			<< strings[s];
 		EXPECT_TRUE( mpTokenizer->eof() )
 			<< strings[s];
@@ -903,9 +903,9 @@ TEST_F(TokenizerTests, identifier)
 				mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
 				str[2] = '\0';
 				EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
-				EXPECT_EQ(1, mpTokenizer->current()->line());
-				EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-				EXPECT_EQ(3, mpTokenizer->current()->endColumn());
+				EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+				EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+				EXPECT_EQ(lang::compil::Column(3), mpTokenizer->current()->endColumn());
 				EXPECT_EQ(0U, mpMessageCollector->messages().size());
 			}
 		}
@@ -933,9 +933,9 @@ TEST_F(TokenizerTests, arrow)
 		EXPECT_EQ(compil::Token::TYPE_OPERATOR_ARROW, pToken->type());
 		EXPECT_STREQ(std::string(arrows[a]).substr(0,3).c_str(), 
 			mpTokenizer->current()->text().c_str());
-		EXPECT_EQ(1, mpTokenizer->current()->line());
-		EXPECT_EQ(1, mpTokenizer->current()->beginColumn());
-		EXPECT_EQ(4, mpTokenizer->current()->endColumn());
+		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
+		EXPECT_EQ(lang::compil::Column(4), mpTokenizer->current()->endColumn());
 		EXPECT_EQ(0U, mpMessageCollector->messages().size());
 	}
 }

@@ -2,6 +2,8 @@
 
 #include "library/compil/document.h"
 
+#include "compil/all/object.h"
+
 #include "gtest/gtest.h"
 
 #include "boost/make_shared.hpp"
@@ -27,6 +29,10 @@
 #define HF_ASSERT_STREQ(a, b) \
     EXPECT_STREQ(a, b); \
     if (strcmp((a), (b)) != 0) return false;
+    
+#define HF_EXPECT_TRUE(a) \
+    EXPECT_TRUE(a); \
+    if (!(a)) result = false;
 
 #define HF_EXPECT_EQ(a, b) \
     EXPECT_EQ(a, b); \
@@ -107,14 +113,14 @@ public:
     bool checkWarningMessage(int mIndex, int line, int column, const char* text)
     {
         compil::Message expected(compil::Message::SEVERITY_WARNING, text, 
-                                 mpSourceId, line + 1, column);
+                                 mpSourceId, lang::compil::Line(line + 1), lang::compil::Column(column));
         return checkMessage(expected, mIndex);
     }
     
     bool checkErrorMessage(int mIndex, int line, int column, const char* text)
     {
         compil::Message expected(compil::Message::SEVERITY_ERROR, text, 
-                                 mpSourceId, line + 1, column);
+                                 mpSourceId, lang::compil::Line(line + 1), lang::compil::Column(column));
         return checkMessage(expected, mIndex);
     }
     
@@ -122,7 +128,7 @@ public:
                            const compil::Message::Argument& argument)
     {
         compil::Message expected(compil::Message::SEVERITY_ERROR, text, 
-                                 mpSourceId, line + 1, column);
+                                 mpSourceId, lang::compil::Line(line + 1), lang::compil::Column(column));
         return checkMessage(expected << argument, mIndex);
     }
     
@@ -131,7 +137,7 @@ public:
                            const compil::Message::Argument& argument2)
     {
         compil::Message expected(compil::Message::SEVERITY_ERROR, text, 
-                                 mpSourceId, line + 1, column);
+                                 mpSourceId, lang::compil::Line(line + 1), lang::compil::Column(column));
         return checkMessage(expected << argument1 << argument2, mIndex);
     }
 

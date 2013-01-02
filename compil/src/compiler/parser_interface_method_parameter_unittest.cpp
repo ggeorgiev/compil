@@ -21,8 +21,8 @@ public:
         compil::InterfaceSPtr pInterface = 
             boost::static_pointer_cast<compil::Interface>(pObject);
         EXPECT_STREQ(name, pInterface->name()->value().c_str());
-        EXPECT_EQ(line + 1, pInterface->line());
-        EXPECT_EQ(column, pInterface->column());
+        EXPECT_EQ(lang::compil::Line(line + 1), pInterface->line());
+        EXPECT_EQ(lang::compil::Column(column), pInterface->column());
     }
 
     void checkMethod(int iIndex, int mIndex, 
@@ -41,8 +41,8 @@ public:
             boost::static_pointer_cast<compil::Method>(pMObject);
 
         EXPECT_STREQ(name, pMethod->name()->value().c_str());
-        EXPECT_EQ(line + 1, pMethod->line());
-        EXPECT_EQ(column, pMethod->column());
+        EXPECT_EQ(lang::compil::Line(line + 1), pMethod->line());
+        EXPECT_EQ(lang::compil::Column(column), pMethod->column());
     }
 
     void checkParameter(int iIndex, int mIndex, int pIndex, 
@@ -69,8 +69,8 @@ public:
             boost::static_pointer_cast<compil::Parameter>(pPObject);
 
         EXPECT_STREQ(name, pParameter->name()->value().c_str());
-        EXPECT_EQ(line + 1, pParameter->line());
-        EXPECT_EQ(column, pParameter->column());
+        EXPECT_EQ(lang::compil::Line(line + 1), pParameter->line());
+        EXPECT_EQ(lang::compil::Column(column), pParameter->column());
         ASSERT_TRUE(pParameter->type());
         EXPECT_STREQ(type, pParameter->type()->name()->value().c_str());
     }

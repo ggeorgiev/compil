@@ -144,7 +144,7 @@ const char* Message::v_baseStructureMustBeSharableForSharableStructure =
     
 
 Message::Message(Severity severity, const std::string& text,
-                 const SourceIdSPtr& pSourceId, int line, int column)
+                 const SourceIdSPtr& pSourceId, const Line& line, const Column& column)
         : mSeverity(severity)
         , mText(text)
         , mpSourceId(pSourceId)
@@ -178,12 +178,12 @@ SourceIdSPtr Message::sourceId() const
     return mpSourceId;
 }
 
-int Message::line() const
+const Line& Message::line() const
 {
     return mLine;
 }
 
-int Message::column() const
+const Column& Message::column() const
 {
     return mColumn;
 }

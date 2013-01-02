@@ -22,8 +22,8 @@ public:
         compil::IdentifierSPtr pIdentifier = 
             boost::static_pointer_cast<compil::Identifier>(pObject);
         EXPECT_STREQ(name, pIdentifier->name()->value().c_str());
-        EXPECT_EQ(line + 1, pIdentifier->line());
-        EXPECT_EQ(column, pIdentifier->column());
+        EXPECT_EQ(lang::compil::Line(line + 1), pIdentifier->line());
+        EXPECT_EQ(lang::compil::Column(column), pIdentifier->column());
         if (comment)
         {
             ASSERT_TRUE(pIdentifier->comment());

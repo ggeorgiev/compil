@@ -60,8 +60,8 @@ public:
     bool eof() const;
 
     static const int nTabSize = 4;
-    int line() const;
-    int column() const;
+    Line line() const;
+    Column column() const;
 
     void absorbed(int ch);
 

@@ -23,8 +23,8 @@ public:
         compil::StructureSPtr pStructure = 
             boost::static_pointer_cast<compil::Structure>(pObject);
         EXPECT_STREQ(name, pStructure->name()->value().c_str());
-        EXPECT_EQ(line + 1, pStructure->line());
-        HF_EXPECT_EQ(column, pStructure->column());
+        EXPECT_EQ(lang::compil::Line(line + 1), pStructure->line());
+        HF_EXPECT_EQ(lang::compil::Column(column), pStructure->column());
         
         if (comment)
         {
