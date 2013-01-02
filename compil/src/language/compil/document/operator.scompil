@@ -43,6 +43,18 @@ enum OperatorAction
     notEqualTo;
     greaterThan;
     lessThan;
+    
+    // prefix ++
+    prefixPP;
+    
+    // postfix ++
+    postfixPP;
+    
+    // prefix --
+    prefixMM;
+    
+    // postfix --
+    postfixMM;
 }
 
 strong flags 

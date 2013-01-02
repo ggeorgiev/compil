@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "library/c++/compil/builder.h"
+#include "library/compil/package.h"
 
 #include "c++/class/identifier_class_name.h"
 
@@ -39,50 +39,26 @@
 namespace lib
 {
 
-namespace cpp
+namespace compil
 {
 
-ClassNameSPtr CppBuilder::className()
+PackageSPtr CompilPackage::time()
 {
-    static ClassNameSPtr className;
-    if (!className)
-        className = identifierClassNameRef() << (identifierRef() << "Builder");
-    
-    return className;
-}
+    static PackageSPtr package;
+    if (!package)
+    {
+        PackageElementSPtr peTime = boost::make_shared<PackageElement>();
+        peTime->set_value("time");
 
-ClassSPtr CppBuilder::class_(const ClassSPtr& structureClass)
-{
-    static boost::unordered_map<ClassSPtr, ClassSPtr> map;
-    boost::unordered_map<ClassSPtr, ClassSPtr>::iterator it = map.find(structureClass);
-    if (it != map.end())
-        return it->second;
-
-    ClassSPtr builderClass = classRef()
-        << structureClass
-        << className();
+        std::vector<PackageElementSPtr> elements;
+        elements.push_back(peTime);
         
-    map[structureClass] = builderClass;
+        package = boost::make_shared<Package>();
+        package->set_short(elements);
+        package->set_levels(elements);
+    }
     
-    return builderClass;
-}
-
-MethodNameSPtr CppBuilder::methodNameBuild()
-{
-    static MethodNameSPtr methodName;
-    if (!methodName)
-        methodName =  methodNameRef() << "build";
-    
-    return methodName;
-}
-
-MethodNameSPtr CppBuilder::methodNameFinalize()
-{
-    static MethodNameSPtr methodName;
-    if (!methodName)
-        methodName =  methodNameRef() << "finalize";
-    
-    return methodName;
+    return package;
 }
 
 }

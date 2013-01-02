@@ -33,6 +33,7 @@
 compil { }
 
 import "c++/class/method_name.scompil";
+import "c++/class/class.scompil";
 
 package lang.cpp;
 
@@ -40,4 +41,5 @@ streamable
 structure Method
 {
     reference<MethodName> name;
+    weak reference<Class> class;
 }

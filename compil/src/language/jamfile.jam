@@ -9,6 +9,7 @@ gtest-defines ;
 project language
     : requirements 
         <include>.
+        <include>$(TOP)/core/c++
     ;
     
 lib language
@@ -159,10 +160,10 @@ lib language
     boost_templates
   :
     <compil-stable-type>main
-    <include>$(TOP)/core/c++
   :
   :
     <include>.
+    <include>$(TOP)/core/c++
   ;
 
 gtest language 

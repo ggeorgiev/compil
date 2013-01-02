@@ -33,6 +33,8 @@
 #include "compil/document/document.h"
 #include "compil/all/object_factory.h"
 
+#include "boost/make_shared.hpp"
+
 #include <set>
 
 #include <limits.h>
@@ -42,34 +44,6 @@ namespace lang
 
 namespace compil
 {
-
-static bool bInit = false;
-static TypeSPtr pBoolType(new CastableType());
-
-static IntegerSPtr pSizeType(new Integer());
-
-static IntegerSPtr pSmallType(new Integer());
-static IntegerSPtr pShortType(new Integer());
-static IntegerSPtr pIntegerType(new Integer());
-static IntegerSPtr pLongType(new Integer());
-
-static IntegerSPtr pByteType(new Integer());
-static IntegerSPtr pWordType(new Integer());
-static IntegerSPtr pDWordType(new Integer());
-static IntegerSPtr pQWordType(new Integer());
-
-static TypeSPtr pReal32Type(new CastableType());
-static TypeSPtr pReal64Type(new CastableType());
-static TypeSPtr pStringType(new CastableType());
-static TypeSPtr pBinaryType(new CastableType());
-
-static TypeSPtr pDateType(new Type());
-static TypeSPtr pTimeType(new Type());
-static TypeSPtr pDatetimeType(new Type());
-static TypeSPtr pTimeDirationType(new Type());
-
-static UnaryTemplateSPtr pReference(new Reference());
-static UnaryTemplateSPtr pVector(new UnaryContainer());
 
 EnumerationValueSPtr Document::invalidEnumerationValue(const EnumerationSPtr& pEnumeration)
 {
@@ -106,186 +80,7 @@ EnumerationValueSPtr Document::allEnumerationValue(const EnumerationSPtr& pEnume
 
 Document::Document()
 {
-    if (!bInit)
-    {
-        bInit = true;
 
-        NameSPtr pName;
-
-        pName.reset(new Name());
-        pName->set_value("boolean");
-        pBoolType->set_name(pName);
-        pBoolType->set_literal(Type::ELiteral::boolean());
-        pBoolType->set_kind(Type::EKind::builtin());
-        //pBoolType->set_cast(CastableType::ECast::weak());
-
-        pName.reset(new Name());
-        pName->set_value("size");
-        pSizeType->set_name(pName);
-        pSizeType->set_min("−9223372036854775808");
-        pSizeType->set_min("9223372036854775807");
-
-        pName.reset(new Name());
-        pName->set_value("small");
-        pSmallType->set_name(pName);
-        pSmallType->set_min("−128");
-        pSmallType->set_min("127");
-
-        pName.reset(new Name());
-        pName->set_value("short");
-        pShortType->set_name(pName);
-        pShortType->set_min("−32768");
-        pShortType->set_min("32767");
-
-        pName.reset(new Name());
-        pName->set_value("integer");
-        pIntegerType->set_name(pName);
-        pIntegerType->set_min("−2147483648");
-        pIntegerType->set_min("2147483647");
-
-        pName.reset(new Name());
-        pName->set_value("long");
-        pLongType->set_name(pName);
-        pLongType->set_min("−9223372036854775808");
-        pLongType->set_min("9223372036854775807");
-
-        pName.reset(new Name());
-        pName->set_value("byte");
-        pByteType->set_name(pName);
-        pByteType->set_min("0");
-        pByteType->set_min("255");
-
-        pName.reset(new Name());
-        pName->set_value("word");
-        pWordType->set_name(pName);
-        pWordType->set_min("0");
-        pWordType->set_min("65535");
-
-        pName.reset(new Name());
-        pName->set_value("dword");
-        pDWordType->set_name(pName);
-        pDWordType->set_min("0");
-        pDWordType->set_min("4294967295");
-
-        pName.reset(new Name());
-        pName->set_value("qword");
-        pQWordType->set_name(pName);
-        pQWordType->set_min("0");
-        pQWordType->set_min("18446744073709551615");
-
-        pName.reset(new Name());
-        pName->set_value("real32");
-        pReal32Type->set_name(pName);
-        pReal32Type->set_literal(Type::ELiteral::real());
-        pReal32Type->set_kind(Type::EKind::builtin());
-        //pReal32Type->set_cast(CastableType::ECast::weak());
-
-        pName.reset(new Name());
-        pName->set_value("real64");
-        pReal64Type->set_name(pName);
-        pReal64Type->set_literal(Type::ELiteral::real());
-        pReal64Type->set_kind(Type::EKind::builtin());
-        //pReal64Type->set_cast(CastableType::ECast::weak());
-
-        pName.reset(new Name());
-        pName->set_value("string");
-        pStringType->set_name(pName);
-        pStringType->set_literal(Type::ELiteral::string());
-        pStringType->set_kind(Type::EKind::string());
-        //pStringType->set_cast(CastableType::ECast::weak());
-
-        pName.reset(new Name());
-        pName->set_value("binary");
-        pBinaryType->set_name(pName);
-        pBinaryType->set_literal(Type::ELiteral::binary());
-        pBinaryType->set_kind(Type::EKind::string());
-        //pBinaryType->set_cast(CastableType::ECast::weak());
-
-        PackageElement peTime;
-        peTime.set_value("time");
-
-        PackageSPtr pPackage(new Package());
-        std::vector<PackageElement> elements;
-        elements.push_back(peTime);
-        pPackage->set_short(elements);
-        pPackage->set_levels(elements);
-
-        pName.reset(new Name());
-        pName->set_value("binary");
-        pBinaryType->set_name(pName);
-        pBinaryType->set_literal(Type::ELiteral::binary());
-        pBinaryType->set_kind(Type::EKind::string());
-
-        pName.reset(new Name());
-        pName->set_value("date");
-        pDateType->set_name(pName);
-        pDateType->set_literal(Type::ELiteral::binary());
-        pDateType->set_kind(Type::EKind::object());
-        pDateType->set_package(pPackage);
-
-        pName.reset(new Name());
-        pName->set_value("time");
-        pTimeType->set_name(pName);
-        pTimeType->set_literal(Type::ELiteral::binary());
-        pTimeType->set_kind(Type::EKind::object());
-        pTimeType->set_package(pPackage);
-
-        pName.reset(new Name());
-        pName->set_value("datetime");
-        pDatetimeType->set_name(pName);
-        pDatetimeType->set_literal(Type::ELiteral::binary());
-        pDatetimeType->set_kind(Type::EKind::object());
-        pDatetimeType->set_package(pPackage);
-
-        pName.reset(new Name());
-        pName->set_value("duration");
-        pTimeDirationType->set_name(pName);
-        pTimeDirationType->set_literal(Type::ELiteral::binary());
-        pTimeDirationType->set_kind(Type::EKind::object());
-        pTimeDirationType->set_package(pPackage);
-
-        pName.reset(new Name());
-        pName->set_value("reference");
-        pReference->set_name(pName);
-        pReference->set_literal(Type::ELiteral::reference());
-        pReference->set_kind(Type::EKind::object());
-        pReference->set_cast(CastableType::ECast::weak());
-
-        pName.reset(new Name());
-        pName->set_value("vector");
-        pVector->set_name(pName);
-        pVector->set_literal(Type::ELiteral::binary());
-        pVector->set_kind(Type::EKind::object());
-        pVector->set_cast(CastableType::ECast::weak());
-    }
-
-    addType(pBoolType);
-
-    addType(pSizeType);
-
-    addType(pSmallType);
-    addType(pShortType);
-    addType(pIntegerType);
-    addType(pLongType);
-
-    addType(pByteType);
-    addType(pWordType);
-    addType(pDWordType);
-    addType(pQWordType);
-
-    addType(pReal32Type);
-    addType(pReal64Type);
-    addType(pStringType);
-    addType(pBinaryType);
-
-
-    addType(pDateType);
-    addType(pTimeType);
-    addType(pDatetimeType);
-    addType(pTimeDirationType);
-
-    addUnfinishedUnaryTemplate(pReference);
-    addUnfinishedUnaryTemplate(pVector);
 }
 
 Document::~Document()
@@ -312,13 +107,13 @@ void Document::setPackage(const PackageSPtr& pPackage)
     mpPackage = pPackage;
 }
 
-static bool compareElementValues(const std::vector<PackageElement>& v1, const std::vector<PackageElement>& v2)
+static bool compareElementValues(const std::vector<PackageElementSPtr>& v1, const std::vector<PackageElementSPtr>& v2)
 {
     if (v1.size() != v2.size())
         return false;
     for (size_t i = 0; i < v1.size(); ++i)
     {
-        if (v1[i].value() != v2[i].value())
+        if (v1[i]->value() != v2[i]->value())
             return false;
     }
     return true;
@@ -326,13 +121,13 @@ static bool compareElementValues(const std::vector<PackageElement>& v1, const st
 
 bool Document::isVisible(const PackageSPtr& pTypePackage,
                          const PackageSPtr& pCurrentPackage,
-                         const std::vector<PackageElement>& lookup_package_elements)
+                         const std::vector<PackageElementSPtr>& lookup_package_elements)
 {
-    std::vector<PackageElement> type_package_elements;
+    std::vector<PackageElementSPtr> type_package_elements;
     if (pTypePackage)
         type_package_elements = pTypePackage->short_();
 
-    std::vector<PackageElement> current_package_elements;
+    std::vector<PackageElementSPtr> current_package_elements;
     if (pCurrentPackage)
         current_package_elements = pCurrentPackage->short_();
 
@@ -347,7 +142,7 @@ bool Document::isVisible(const PackageSPtr& pTypePackage,
 }
 
 TypeSPtr Document::findType(const PackageSPtr& pPackage,
-                            const std::vector<PackageElement>& package_elements,
+                            const std::vector<PackageElementSPtr>& package_elements,
                             const std::string& name) const
 {
     std::vector<TypeSPtr>::const_iterator it;
@@ -362,7 +157,7 @@ TypeSPtr Document::findType(const PackageSPtr& pPackage,
 }
 
 TypeSPtr Document::findType(const PackageSPtr& pPackage,
-                            const std::vector<PackageElement>& package_elements,
+                            const std::vector<PackageElementSPtr>& package_elements,
                             const std::vector<ObjectSPtr>& objects, const std::string& name) const
 {
     std::vector<ObjectSPtr>::const_iterator it;

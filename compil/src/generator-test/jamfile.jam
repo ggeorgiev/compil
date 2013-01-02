@@ -28,7 +28,7 @@ lib generator-test
 #    packages_fields.compil
 #    packages.compil
 #    references.compil
-#    specimens.compil
+     specimens.compil
 #    strong_enumeration.compil
 #    strong_identifier.compil
 #    structure_field_override.compil
@@ -67,6 +67,7 @@ gtest generator-test
     [ convert _ cpp
       :
         immutable_structure.compil
+        specimens.compil
         structures.compil
       :
         <compil-type>test

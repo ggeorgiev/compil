@@ -2,7 +2,7 @@ compil { }
 
 package specimen;
 
-specimen<integer> SessionIndex
+specimen<integer> IntegerSpecimen
 {
 }
 

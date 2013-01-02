@@ -32,6 +32,8 @@
 
 #include "c++_h_generator.h"
 
+#include "implementer/implementer_stream.h"
+
 #include "compil/all/object_factory.h"
 
 #include <boost/foreach.hpp>
@@ -665,6 +667,20 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
         closeBlock(inlineDefinitionStream);
         eol(inlineDefinitionStream);
     }
+    
+    {  // new way section
+        using namespace lang::cpp;
+        
+        ClassSPtr class_ = classRef()
+            << (identifierClassNameRef() << (identifierRef() << pSpecimen->name()->value()));
+
+        if (pParameterType->hasOperator(EOperatorAction::prefixMM(), EOperatorFlags::native()))
+        {
+        }
+    }
+
+// }
+
     
     if (!pBaseSpecimen)
     {

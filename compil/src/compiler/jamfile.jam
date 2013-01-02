@@ -43,6 +43,7 @@ lib compiler
     boost_filesystem
     
     $(TOP)/language//language
+    $(TOP)/library//compil-library
   :
     <implicit-dependency>$(TOP)/language//language
   :

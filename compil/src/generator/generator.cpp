@@ -174,10 +174,11 @@ void Generator::openNamespace(int streamIndex)
 {
     if (mDocument->package())
     {
-        const std::vector<PackageElement>& elements = mDocument->package()->short_();
-        for(std::vector<PackageElement>::const_iterator it = elements.begin(); it != elements.end(); ++it)
+        const std::vector<PackageElementSPtr>& elements = mDocument->package()->short_();
+        for(std::vector<PackageElementSPtr>::const_iterator it = elements.begin(); it != elements.end(); ++it)
         {
-            line() << "namespace " << it->value();
+            const PackageElementSPtr& element = *it;
+            line() << "namespace " << element->value();
             openBlock(streamIndex, 0);
             --mIndent[streamIndex];
             eol(streamIndex);
@@ -189,8 +190,8 @@ void Generator::closeNamespace(int streamIndex)
 {
     if (mDocument->package())
     {
-        const std::vector<PackageElement>& elements = mDocument->package()->short_();
-        for(std::vector<PackageElement>::const_iterator it = elements.begin(); it != elements.end(); ++it)
+        const std::vector<PackageElementSPtr>& elements = mDocument->package()->short_();
+        for(std::vector<PackageElementSPtr>::const_iterator it = elements.begin(); it != elements.end(); ++it)
         {
             ++mIndent[streamIndex];
             closeBlock(streamIndex);

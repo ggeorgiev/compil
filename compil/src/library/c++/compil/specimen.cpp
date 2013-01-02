@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "library/c++/compil/builder.h"
+#include "library/c++/compil/specimen.h"
 
 #include "c++/class/identifier_class_name.h"
 
@@ -42,47 +42,31 @@ namespace lib
 namespace cpp
 {
 
-ClassNameSPtr CppBuilder::className()
+ClassNameSPtr CppSpecimen::className(const SpecimenSPtr& specimen)
 {
-    static ClassNameSPtr className;
-    if (!className)
-        className = identifierClassNameRef() << (identifierRef() << "Builder");
-    
-    return className;
-}
-
-ClassSPtr CppBuilder::class_(const ClassSPtr& structureClass)
-{
-    static boost::unordered_map<ClassSPtr, ClassSPtr> map;
-    boost::unordered_map<ClassSPtr, ClassSPtr>::iterator it = map.find(structureClass);
+    static boost::unordered_map<SpecimenSPtr, ClassNameSPtr> map;
+    boost::unordered_map<SpecimenSPtr, ClassNameSPtr>::iterator it = map.find(specimen);
     if (it != map.end())
         return it->second;
 
-    ClassSPtr builderClass = classRef()
-        << structureClass
-        << className();
+    ClassNameSPtr className = identifierClassNameRef() << (identifierRef() << specimen->name()->value());
+    
+    map[specimen] = className;
+    return className;
+}
+
+ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
+{
+    static boost::unordered_map<SpecimenSPtr, ClassSPtr> map;
+    boost::unordered_map<SpecimenSPtr, ClassSPtr>::iterator it = map.find(specimen);
+    if (it != map.end())
+        return it->second;
+
+    ClassSPtr class_ = classRef()
+        << className(specimen);
         
-    map[structureClass] = builderClass;
-    
-    return builderClass;
-}
-
-MethodNameSPtr CppBuilder::methodNameBuild()
-{
-    static MethodNameSPtr methodName;
-    if (!methodName)
-        methodName =  methodNameRef() << "build";
-    
-    return methodName;
-}
-
-MethodNameSPtr CppBuilder::methodNameFinalize()
-{
-    static MethodNameSPtr methodName;
-    if (!methodName)
-        methodName =  methodNameRef() << "finalize";
-    
-    return methodName;
+    map[specimen] = class_;
+    return class_;
 }
 
 }

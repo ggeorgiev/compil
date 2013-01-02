@@ -53,9 +53,10 @@ public:
     virtual bool generate();
     
 protected:
-    virtual void generateStructureDeclaration(const StructureSPtr& pStructure);
+    virtual void generateSpecimenDeclaration(const SpecimenSPtr& specimen);
+    virtual void generateStructureDeclaration(const StructureSPtr& structure);
 
-    virtual void generateObjectDeclaration(const ObjectSPtr& pObject);
+    virtual void generateObjectDeclaration(const ObjectSPtr& object);
 
     static const int mainStream;
 };

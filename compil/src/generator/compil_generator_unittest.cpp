@@ -34,6 +34,8 @@
 
 #include "configuration_manager.h"
 
+#include "library/compil/document.h"
+
 #include "gtest/gtest.h"
 
 #include "boost/make_shared.hpp"
@@ -46,7 +48,7 @@ public:
     virtual void SetUp() 
     {
         mpParser.reset(new compil::Parser());
-        mDocument.reset(new compil::Document());
+        mDocument = lib::compil::CompilDocument::create();
         mpConfigurationManager.reset(new compil::ConfigurationManager());
         mpCompilGenerator.reset(new compil::CompilGenerator());
 

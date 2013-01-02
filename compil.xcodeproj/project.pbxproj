@@ -434,6 +434,14 @@
 		5EFFA6EF1693802400035CAA /* project_parser-mixin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "project_parser-mixin.h"; sourceTree = "<group>"; };
 		5EFFA6F01693835000035CAA /* parser-mixin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "parser-mixin.cpp"; sourceTree = "<group>"; };
 		5EFFA6F11693835200035CAA /* parser-mixin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "parser-mixin.h"; sourceTree = "<group>"; };
+		5EFFA6F21693B1AF00035CAA /* specimen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = specimen.cpp; sourceTree = "<group>"; };
+		5EFFA6F31693B1AF00035CAA /* specimen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = specimen.h; sourceTree = "<group>"; };
+		5EFFA6F41693B5A500035CAA /* namespace.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = namespace.cpp; sourceTree = "<group>"; };
+		5EFFA6F51693B5A500035CAA /* namespace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = namespace.h; sourceTree = "<group>"; };
+		5EFFA6F71693BD3C00035CAA /* package.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = package.cpp; sourceTree = "<group>"; };
+		5EFFA6F81693BD3C00035CAA /* package.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = package.h; sourceTree = "<group>"; };
+		5EFFA6F91693C1A400035CAA /* document.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = document.cpp; sourceTree = "<group>"; };
+		5EFFA6FA1693C1A500035CAA /* document.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = document.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -1019,6 +1027,7 @@
 			isa = PBXGroup;
 			children = (
 				5E9DE70A1690FA4B0020522D /* c++ */,
+				5EFFA6F61693BD3C00035CAA /* compil */,
 				5E9DE7091690F99D0020522D /* jamfile.jam */,
 			);
 			path = library;
@@ -1049,6 +1058,10 @@
 			children = (
 				5E9DE7111690FA4B0020522D /* builder.cpp */,
 				5E9DE7121690FA4B0020522D /* builder.h */,
+				5EFFA6F41693B5A500035CAA /* namespace.cpp */,
+				5EFFA6F51693B5A500035CAA /* namespace.h */,
+				5EFFA6F21693B1AF00035CAA /* specimen.cpp */,
+				5EFFA6F31693B1AF00035CAA /* specimen.h */,
 			);
 			path = compil;
 			sourceTree = "<group>";
@@ -1244,6 +1257,17 @@
 				5EFFA6EA16936D8900035CAA /* version.scompil */,
 			);
 			path = all;
+			sourceTree = "<group>";
+		};
+		5EFFA6F61693BD3C00035CAA /* compil */ = {
+			isa = PBXGroup;
+			children = (
+				5EFFA6F91693C1A400035CAA /* document.cpp */,
+				5EFFA6FA1693C1A500035CAA /* document.h */,
+				5EFFA6F71693BD3C00035CAA /* package.cpp */,
+				5EFFA6F81693BD3C00035CAA /* package.h */,
+			);
+			path = compil;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */

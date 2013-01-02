@@ -16,6 +16,8 @@
 #include "c++_test_generator.h"
 #include "c++_flags_enumeration_generator.h"
 
+#include "library/compil/document.h"
+
 #include "boost_path_resolve.h"
 #include "boost/make_shared.hpp"
 #include "boost/algorithm/string.hpp"
@@ -113,7 +115,7 @@ int main(int argc, const char **argv)
     compil::ParserPtr pParser(new compil::Parser());
     pParser->addValidator(pPartialValidator);
 
-    compil::DocumentSPtr document(new compil::Document());
+    compil::DocumentSPtr document = lib::compil::CompilDocument::create();
     {
         compil::SourceId::Builder builder;
         compil::FileSourceProvider::fillSourceFields(input_file_path.generic_string(), builder);

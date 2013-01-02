@@ -42,6 +42,6 @@ structure Package
 {
     runtime identification;
 
-    vector<PackageElement> short;
-    vector<PackageElement> levels;
+    vector<reference<PackageElement>> short;
+    vector<reference<PackageElement>> levels;
 }

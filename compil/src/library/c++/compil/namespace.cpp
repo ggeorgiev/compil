@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "library/c++/compil/builder.h"
+#include "library/c++/compil/package.h"
 
 #include "c++/class/identifier_class_name.h"
 
@@ -42,47 +42,19 @@ namespace lib
 namespace cpp
 {
 
-ClassNameSPtr CppBuilder::className()
+NamespaceSPtr CppNamespace::namespace_(const PackageSPtr& package)
 {
-    static ClassNameSPtr className;
-    if (!className)
-        className = identifierClassNameRef() << (identifierRef() << "Builder");
-    
-    return className;
-}
-
-ClassSPtr CppBuilder::class_(const ClassSPtr& structureClass)
-{
-    static boost::unordered_map<ClassSPtr, ClassSPtr> map;
-    boost::unordered_map<ClassSPtr, ClassSPtr>::iterator it = map.find(structureClass);
+    static boost::unordered_map<PackageSPtr, NamespaceSPtr> map;
+    boost::unordered_map<PackageSPtr, NamespaceSPtr>::iterator it = map.find(package);
     if (it != map.end())
         return it->second;
 
-    ClassSPtr builderClass = classRef()
-        << structureClass
-        << className();
-        
-    map[structureClass] = builderClass;
+    NamespaceSPtr namespace_ = namespaceRef();
+    std::vector<PackageElement>
     
-    return builderClass;
-}
-
-MethodNameSPtr CppBuilder::methodNameBuild()
-{
-    static MethodNameSPtr methodName;
-    if (!methodName)
-        methodName =  methodNameRef() << "build";
     
-    return methodName;
-}
-
-MethodNameSPtr CppBuilder::methodNameFinalize()
-{
-    static MethodNameSPtr methodName;
-    if (!methodName)
-        methodName =  methodNameRef() << "finalize";
-    
-    return methodName;
+    map[specimen] = className;
+    return className;
 }
 
 }

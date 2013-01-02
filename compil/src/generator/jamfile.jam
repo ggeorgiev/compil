@@ -78,7 +78,7 @@ lib generator-lib
     boost_filesystem
     
     $(TOP)/compiler//compiler
-    $(TOP)/library//library
+    $(TOP)/library//cpp-library
     $(TOP)/language//language
   :
     <implicit-dependency>$(TOP)/language//language

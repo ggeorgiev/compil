@@ -44,7 +44,7 @@ namespace cpp
 
 using namespace lang::cpp;
 
-class CompilBuilder
+class CppBuilder
 {
 public:
     static ClassNameSPtr className();

@@ -30,11 +30,13 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "library/c++/compil/builder.h"
+#ifndef _IMPLEMENTER_COMPIL_SPECIMEN_H__
+#define _IMPLEMENTER_COMPIL_SPECIMEN_H__
 
-#include "c++/class/identifier_class_name.h"
+#include "c++/class/class.h"
+#include "c++/class/method-cpp.h"
 
-#include "boost/unordered_map.hpp"
+#include "compil/all/object_factory.h"
 
 namespace lib
 {
@@ -42,49 +44,19 @@ namespace lib
 namespace cpp
 {
 
-ClassNameSPtr CppBuilder::className()
+using namespace lang::cpp;
+using namespace lang::compil;
+
+class CppSpecimen
 {
-    static ClassNameSPtr className;
-    if (!className)
-        className = identifierClassNameRef() << (identifierRef() << "Builder");
-    
-    return className;
-}
-
-ClassSPtr CppBuilder::class_(const ClassSPtr& structureClass)
-{
-    static boost::unordered_map<ClassSPtr, ClassSPtr> map;
-    boost::unordered_map<ClassSPtr, ClassSPtr>::iterator it = map.find(structureClass);
-    if (it != map.end())
-        return it->second;
-
-    ClassSPtr builderClass = classRef()
-        << structureClass
-        << className();
-        
-    map[structureClass] = builderClass;
-    
-    return builderClass;
-}
-
-MethodNameSPtr CppBuilder::methodNameBuild()
-{
-    static MethodNameSPtr methodName;
-    if (!methodName)
-        methodName =  methodNameRef() << "build";
-    
-    return methodName;
-}
-
-MethodNameSPtr CppBuilder::methodNameFinalize()
-{
-    static MethodNameSPtr methodName;
-    if (!methodName)
-        methodName =  methodNameRef() << "finalize";
-    
-    return methodName;
-}
+public:
+    static ClassNameSPtr className(const SpecimenSPtr& specimen);
+    static ClassSPtr class_(const SpecimenSPtr& specimen);
+};
 
 }
 
 }
+
+#endif
+

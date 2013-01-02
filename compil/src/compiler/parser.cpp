@@ -35,6 +35,8 @@
 #include "structure_fields_validator.h"
 #include "structure_sharable_validator.h"
 
+#include "library/compil/document.h"
+
 #include <boost/make_shared.hpp>
 #include <boost/algorithm/string.hpp>
 #include <boost/foreach.hpp>
@@ -64,31 +66,31 @@ Parser::Parser()
     {
         bInit = true;
 
-        Document document;
-        std::vector<PackageElement> package_elements;
+        DocumentSPtr document = lib::compil::CompilDocument::create();
+        std::vector<PackageElementSPtr> package_elements;
         pParameterTypeEnumerationValidator->addAcceptableType(
-            document.findType(PackageSPtr(), package_elements, "small"));
+            document->findType(PackageSPtr(), package_elements, "small"));
         pParameterTypeEnumerationValidator->addAcceptableType(
-            document.findType(PackageSPtr(), package_elements, "short"));
+            document->findType(PackageSPtr(), package_elements, "short"));
         pParameterTypeEnumerationValidator->addAcceptableType(
-            document.findType(PackageSPtr(), package_elements, "integer"));
+            document->findType(PackageSPtr(), package_elements, "integer"));
 
         pParameterTypeIdentifierValidator->addAcceptableType(
-            document.findType(PackageSPtr(), package_elements, "small"));
+            document->findType(PackageSPtr(), package_elements, "small"));
         pParameterTypeIdentifierValidator->addAcceptableType(
-            document.findType(PackageSPtr(), package_elements, "short"));
+            document->findType(PackageSPtr(), package_elements, "short"));
         pParameterTypeIdentifierValidator->addAcceptableType(
-            document.findType(PackageSPtr(), package_elements, "integer"));
+            document->findType(PackageSPtr(), package_elements, "integer"));
         pParameterTypeIdentifierValidator->addAcceptableType(
-            document.findType(PackageSPtr(), package_elements, "long"));
+            document->findType(PackageSPtr(), package_elements, "long"));
         pParameterTypeIdentifierValidator->addAcceptableType(
-            document.findType(PackageSPtr(), package_elements, "byte"));
+            document->findType(PackageSPtr(), package_elements, "byte"));
         pParameterTypeIdentifierValidator->addAcceptableType(
-            document.findType(PackageSPtr(), package_elements, "word"));
+            document->findType(PackageSPtr(), package_elements, "word"));
         pParameterTypeIdentifierValidator->addAcceptableType(
-            document.findType(PackageSPtr(), package_elements, "dword"));
+            document->findType(PackageSPtr(), package_elements, "dword"));
         pParameterTypeIdentifierValidator->addAcceptableType(
-            document.findType(PackageSPtr(), package_elements, "qword"));
+            document->findType(PackageSPtr(), package_elements, "qword"));
     }
 
     addValidator(pParameterTypeEnumerationValidator);
@@ -184,14 +186,14 @@ void Parser::skipComments(CommentSPtr pComment)
 }
 
 bool Parser::convertStringElementsToPackageElements(const std::vector<std::string>& string_elements,
-                                                    std::vector<PackageElement>& package_elements)
+                                                    std::vector<PackageElementSPtr>& package_elements)
 {
     std::vector<PackageElement>::const_reverse_iterator eit = mpSourceId->externalElements().rbegin();
 
     std::vector<std::string>::const_reverse_iterator it;
     for (it = string_elements.rbegin(); it != string_elements.rend(); ++it)
     {
-        PackageElement pe;
+        PackageElementSPtr pe = boost::make_shared<PackageElement>();
         if (*it == "*")
         {
             if (eit == mpSourceId->externalElements().rend())
@@ -199,7 +201,7 @@ bool Parser::convertStringElementsToPackageElements(const std::vector<std::strin
                 *this << errorMessage(Message::p_asteriskPackageElement);
                 return false;
             }
-            pe = *eit;
+            pe->set_value(eit->value());
             ++eit;
         }
         else
@@ -207,7 +209,7 @@ bool Parser::convertStringElementsToPackageElements(const std::vector<std::strin
             if (eit->value() == *it)
                 ++eit;
 
-            pe.set_value(*it);
+            pe->set_value(*it);
         }
         package_elements.insert(package_elements.begin(), pe);
     }
@@ -276,11 +278,11 @@ PackageSPtr Parser::parsePackage()
         return PackageSPtr();
     }
 
-    std::vector<PackageElement> short_;
+    std::vector<PackageElementSPtr> short_;
     if (!convertStringElementsToPackageElements(short_elements, short_))
         return PackageSPtr();
         
-    std::vector<PackageElement> levels;
+    std::vector<PackageElementSPtr> levels;
     if (!convertStringElementsToPackageElements(levels_elements, levels))
         return PackageSPtr();
     
@@ -291,7 +293,7 @@ PackageSPtr Parser::parsePackage()
 }
 
 
-bool Parser::parseType(std::vector<PackageElement>& package_elements, TokenPtr& pNameToken)
+bool Parser::parseType(std::vector<PackageElementSPtr>& package_elements, TokenPtr& pNameToken)
 {
     pNameToken = mContext->mTokenizer->current();
 
@@ -302,8 +304,8 @@ bool Parser::parseType(std::vector<PackageElement>& package_elements, TokenPtr& 
         if (!expect(Token::TYPE_IDENTIFIER))
             return false;
 
-        PackageElement pe;
-        pe.set_value(pNameToken->text());
+        PackageElementSPtr pe = boost::make_shared<PackageElement>();
+        pe->set_value(pNameToken->text());
 
         package_elements.push_back(pe);
         pNameToken = mContext->mTokenizer->current();
@@ -320,7 +322,7 @@ bool Parser::parseParameterType(InitTypeMethod initTypeMethod,
 {
     TypeSPtr pType;
 
-    std::vector<PackageElement> package_elements;
+    std::vector<PackageElementSPtr> package_elements;
     if (!mContext->mTokenizer->check(Token::TYPE_ANGLE_BRACKET, "<"))
     {
         if (defaultTypeName.empty())
@@ -695,7 +697,7 @@ SpecimenSPtr Parser::parseSpecimen(const CommentSPtr& pComment)
             return SpecimenSPtr();
         }
 
-        std::vector<PackageElement> package_elements;
+        std::vector<PackageElementSPtr> package_elements;
         TokenPtr pTypeNameToken;
         if (!parseType(package_elements, pTypeNameToken))
             return SpecimenSPtr();
@@ -956,7 +958,7 @@ FieldSPtr Parser::parseField(const CommentSPtr& pComment,
 
     assert(mContext->mTokenizer->check(Token::TYPE_IDENTIFIER));
 
-    std::vector<PackageElement> package_elements;
+    std::vector<PackageElementSPtr> package_elements;
     TokenPtr pTypeNameToken;
     if (!parseType(package_elements, pTypeNameToken))
         return FieldSPtr();
@@ -1159,7 +1161,7 @@ UpcopySPtr Parser::parseUpcopy(const CommentSPtr& pComment,
         return UpcopySPtr();
     }
 
-    std::vector<PackageElement> package_elements;
+    std::vector<PackageElementSPtr> package_elements;
     TokenPtr pTypeNameToken;
     if (!parseType(package_elements, pTypeNameToken))
         return UpcopySPtr();
@@ -1330,7 +1332,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
             return StructureSPtr();
         }
 
-        std::vector<PackageElement> package_elements;
+        std::vector<PackageElementSPtr> package_elements;
         TokenPtr pTypeNameToken;
         if (!parseType(package_elements, pTypeNameToken))
             return StructureSPtr();
@@ -1654,7 +1656,7 @@ ParameterSPtr Parser::parseParameter(const CommentSPtr pComment)
         return ParameterSPtr();
     }
 
-    std::vector<PackageElement> package_elements;
+    std::vector<PackageElementSPtr> package_elements;
     TypeSPtr pType = mDocument->findType(mpPackage, package_elements, mContext->mTokenizer->current()->text());
     if (!pType)
     {

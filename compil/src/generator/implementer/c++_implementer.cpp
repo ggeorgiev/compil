@@ -33,6 +33,8 @@
 #include "implementer/c++_implementer.h"
 #include "aligner.h"
 
+#include "library/compil/package.h"
+
 #include "compil/all/object_factory.h"
 
 #include "boost/filesystem.hpp"
@@ -288,13 +290,7 @@ cpp::frm::TypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
     {
         if (name == "datetime")
         {
-            PackageElement peTime;
-            peTime.set_value("time");
-
-            std::vector<PackageElement> elements;
-            elements.push_back(peTime);
-
-            if (pType->package()->short_() == elements)
+            if (pType->package() == lib::compil::CompilPackage::time())
             {
                 return cpp::frm::typeRef() << nsBoostPosixTime
                                            << cpp::frm::typeNameRef("ptime");
@@ -466,13 +462,7 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
 
     if (pType->package())
     {
-        PackageElement peTime;
-        peTime.set_value("time");
-
-        std::vector<PackageElement> elements;
-        elements.push_back(peTime);
-
-        if (pType->package()->short_() == elements)
+        if (pType->package() == lib::compil::CompilPackage::time())
         {
             dep.push_back(
                 Dependency("boost/date_time/posix_time/posix_time.hpp",
@@ -710,7 +700,7 @@ EnumerationSPtr CppImplementer::objectEnumeration(const DocumentSPtr& document,
     pEnumeration->set_cast(CastableType::ECast::strong());
     pEnumeration->set_flags(false);
 
-    std::vector<PackageElement> package_elements;
+    std::vector<PackageElementSPtr> package_elements;
     pEnumeration->set_parameterType(document->findType(PackageSPtr(), package_elements, "integer"));
 
     NameSPtr pName(new Name());
@@ -897,9 +887,12 @@ Dependency CppImplementer::cppHeaderFileDependency(const std::string filename,
 
 
         boost::filesystem::path result;
-        const std::vector<PackageElement>& elements = package->levels();
-        for (std::vector<PackageElement>::const_iterator it = elements.begin(); it != elements.end(); ++it)
-            result /= it->value();
+        const std::vector<PackageElementSPtr>& elements = package->levels();
+        for (std::vector<PackageElementSPtr>::const_iterator it = elements.begin(); it != elements.end(); ++it)
+        {
+            const PackageElementSPtr& element = *it;
+            result /= element->value();
+        }
         result /= pth.filename();
 
         return Dependency(result.generic_string(),

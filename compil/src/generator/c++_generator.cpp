@@ -32,6 +32,8 @@
 
 #include "c++_generator.h"
 
+#include "library/compil/package.h"
+
 #include "compil/all/object_factory.h"
 
 #include "boost/lexical_cast.hpp"
@@ -41,6 +43,8 @@ namespace cf = cpp::frm;
 
 namespace compil
 {
+
+using namespace lib::compil;
 
 const int CppGenerator::copyrightStream = 0;
 const int CppGenerator::includeStream = 1;
@@ -1383,13 +1387,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                         {
                             if (pField->type()->name()->value() == "datetime")
                             {
-                                PackageElement peTime;
-                                peTime.set_value("time");
-                            
-                                std::vector<PackageElement> elements;
-                                elements.push_back(peTime);
-
-                                if (pField->type()->package()->short_() == elements)
+                                if (pField->type()->package() == CompilPackage::time())
                                 {
                                     table() << TableAligner::row()
                                             << accessObject
@@ -1808,10 +1806,11 @@ void CppGenerator::generateStructureInprocIdentificationMethodsDefinition(
     line()  << "return (size_t)\"";
     if (pStructure->package())
     {
-        const std::vector<PackageElement>& elements = pStructure->package()->levels();
-        for(std::vector<PackageElement>::const_iterator it = elements.begin(); it != elements.end(); ++it)
+        const std::vector<PackageElementSPtr>& elements = pStructure->package()->levels();
+        for(std::vector<PackageElementSPtr>::const_iterator it = elements.begin(); it != elements.end(); ++it)
         {
-            line()  << it->value()
+            const PackageElementSPtr& element = *it;
+            line()  << element->value()
                     << ".";
         }
     }

@@ -70,7 +70,7 @@ public:
  
     typedef boost::function1<void, const TypeSPtr&> InitTypeMethod;
 
-    bool parseType(std::vector<PackageElement>& package_elements, TokenPtr& pNameToken);
+    bool parseType(std::vector<PackageElementSPtr>& package_elements, TokenPtr& pNameToken);
     bool parseParameterType(InitTypeMethod initTypeMethod,
                             const std::string& defaultTypeName = "");
                             
@@ -185,7 +185,7 @@ private:
     static Token::Type getTokenType(const Type::ELiteral& literal);
     
     bool convertStringElementsToPackageElements(const std::vector<std::string>& string_elements,
-                                                std::vector<PackageElement>& package_elements);
+                                                std::vector<PackageElementSPtr>& package_elements);
 };
 
 typedef boost::shared_ptr<Parser> ParserPtr;
