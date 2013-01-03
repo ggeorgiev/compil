@@ -12,8 +12,6 @@ project generator-self
 boost-defines ;
 
 lib generator-self-compil :
-    $(TOP)/core/boost/boost_assert_handler.cpp
-   
     generator/method_group.compil
     
     generator/cpp/format/argument.compil
@@ -43,6 +41,8 @@ lib generator-self-compil :
     generator/cpp/format/variable_name.compil
 
     boost_templates
+    
+    $(TOP)/core//core
   :
     <compil-type>main
     <include>$(TOP)/core/c++

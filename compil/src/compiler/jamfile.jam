@@ -15,8 +15,6 @@ project compiler
 
 lib compiler
   :
-    $(TOP)/core/boost/boost_assert_handler.cpp
-  
     configuration/configuration.cpp
     configuration/configuration_manager.cpp
 
@@ -43,6 +41,7 @@ lib compiler
     boost_filesystem
     
     $(TOP)/library//library
+    $(TOP)/core//core
   :
     <implicit-dependency>$(TOP)/language//cpp-language
     <implicit-dependency>$(TOP)/language//compil-language

@@ -58,10 +58,13 @@ static std::string document2 =
 "import \"a.compil\";\n"
 "\n";
 
+static std::string documentError =
+"blah\n";
+
 TEST(GeneratorProjectTests, initProjectFile)
 {
     TestSourceProviderSPtr provider = boost::make_shared<TestSourceProvider>();
-    provider->addFile("/foo/a.compilprj", project1);
+    provider->file("/foo/a.compilprj", project1);
     string_vector sources;
     string_vector imports;
     
@@ -87,7 +90,7 @@ TEST(GeneratorProjectTests, initProjectFile)
 TEST(GeneratorProjectTests, initProjectFileNegative)
 {
     TestSourceProviderSPtr provider = boost::make_shared<TestSourceProvider>();
-    provider->addFile("/foo/b.compilprj", project1);
+    provider->file("/foo/b.compilprj", project1);
     string_vector sources;
     string_vector imports;
     
@@ -111,7 +114,7 @@ TEST(GeneratorProjectTests, initSourceFiles)
 {
     TestSourceProviderSPtr provider = boost::make_shared<TestSourceProvider>();
     provider->setWorkingDirectory("/foo/");
-    provider->addFile("/foo/a.compilprj", project1);
+    provider->file("/foo/a.compilprj", project1);
 
     string_vector sources;
     sources.push_back("a.compil");
@@ -136,6 +139,40 @@ TEST(GeneratorProjectTests, initSourceFiles)
         EXPECT_TRUE(project.init("", "/", "main", sources, imports));
         EXPECT_STREQ("/", project.projectDirectory().c_str());
     }
+}
+
+TEST(GeneratorProjectTests, parseDocuments)
+{
+    TestSourceProviderSPtr provider = boost::make_shared<TestSourceProvider>();
+    provider->setWorkingDirectory("/foo/");
+    provider->file("/foo/a.compilprj", project1);
+    provider->file("/foo/a.compil", document1);
+    provider->file("/foo/b.compil", document2);
+
+    string_vector sources;
+    string_vector imports;
+    
+    GeneratorProject project(provider);
+    EXPECT_TRUE(project.init("/foo/a.compilprj", "", "main", sources, imports));
+    EXPECT_STREQ("/foo/", project.projectDirectory().c_str());
+    EXPECT_TRUE(project.parseDocuments());
+}
+
+TEST(GeneratorProjectTests, parseDocumentsNegative)
+{
+    TestSourceProviderSPtr provider = boost::make_shared<TestSourceProvider>();
+    provider->setWorkingDirectory("/foo/");
+    provider->file("/foo/a.compilprj", project1);
+    provider->file("/foo/a.compil", documentError);
+    provider->file("/foo/b.compil", document2);
+
+    string_vector sources;
+    string_vector imports;
+    
+    GeneratorProject project(provider);
+    EXPECT_TRUE(project.init("/foo/a.compilprj", "", "main", sources, imports));
+    EXPECT_STREQ("/foo/", project.projectDirectory().c_str());
+    EXPECT_FALSE(project.parseDocuments());
 }
 
 }

@@ -74,6 +74,8 @@ rule boost-defines ( )
       :
         boost_requirements_for_all
         boost_filesystem-lib
+        
+        boost_system
       :
       :
       :

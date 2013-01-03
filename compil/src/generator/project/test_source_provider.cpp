@@ -32,6 +32,7 @@
 
 #include "test_source_provider.h"
 
+#include <boost/filesystem.hpp>
 #include "boost/algorithm/string.hpp"
 #include "boost/make_shared.hpp"
 
@@ -51,6 +52,40 @@ TestSourceProvider::~TestSourceProvider()
 
 SourceIdSPtr TestSourceProvider::sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source)
 {
+    SourceId::Builder builder;
+    builder.set_original(source)
+           .set_parent(pCurrentSourceId);
+
+    // first check the current source location
+    if (pCurrentSourceId)
+    {
+        std::string current_location = directory(pCurrentSourceId->value());
+        std::string source_location = current_location + source;
+        if (isExists(source_location))
+        {
+            fillSourceFields(source_location, builder);
+            return builder.finalize();
+        }
+    }
+    
+    std::string source_location = mWorkingDirectory + source;
+    if (isExists(source_location))
+    {
+        fillSourceFields(source_location, builder);
+        return builder.finalize();
+    }
+
+    std::vector<std::string>::const_iterator it;
+    for (it = mImportDirectories.begin(); it != mImportDirectories.end(); ++it)
+    {
+        std::string source_location = *it + source;
+        if (isExists(source_location))
+        {
+            fillSourceFields(source_location, builder);
+            return builder.finalize();
+        }
+    }
+
     return SourceIdSPtr();
 }
 
@@ -63,6 +98,7 @@ StreamPtr TestSourceProvider::openInputStream(const SourceIdSPtr& pSourceId)
 
 void TestSourceProvider::setImportDirectories(const std::vector<std::string>& importDirectories)
 {
+    mImportDirectories = importDirectories;
 }
 
 std::string TestSourceProvider::workingDirectory()
@@ -101,9 +137,52 @@ std::string TestSourceProvider::absolute(const std::string& sourceFile)
     return workingDirectory() + sourceFile;
 }
 
-void TestSourceProvider::addFile(const std::string& path, const std::string& test)
+void TestSourceProvider::file(const std::string& path, const std::string& test)
 {
     mFilesystem[path] = test;
+}
+
+using namespace boost;
+using namespace filesystem;
+
+std::string TestSourceProvider::getUniquePresentationString(const std::string& source)
+{
+    path src_path = absolute(source);
+    path root = workingDirectory();
+
+    path::iterator i = src_path.begin();
+    for (path::iterator it = root.begin(); it != root.end(); ++it)
+    {
+        if (*i != *it)
+            break;
+
+        ++i;
+        if (i == src_path.end())
+            break;
+    }
+
+    std::string result;
+    while (i != src_path.end())
+    {
+        if (!result.empty())
+            result += "_";
+        result += i->string();
+        ++i;
+    }
+    return result;
+}
+
+std::vector<PackageElementSPtr> TestSourceProvider::getExternalElements(const std::string& source)
+{
+    std::vector<PackageElementSPtr> result;
+    return result;
+}
+
+void TestSourceProvider::fillSourceFields(const std::string& source, SourceId::Builder& builder)
+{
+    builder.set_value(source)
+           .set_uniquePresentation(getUniquePresentationString(source))
+           .set_externalElements(getExternalElements(source));
 }
 
 }

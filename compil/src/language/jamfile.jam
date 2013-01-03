@@ -208,12 +208,11 @@ lib compil-language
 
 gtest language 
   :
-    $(TOP)/core/boost/boost_assert_handler.cpp
-
     [ glob *_unittest.cpp ]
     
     cpp-language
     compil-language
+    $(TOP)/core//core
   :
     <implicit-dependency>cpp-language
     <implicit-dependency>compil-language

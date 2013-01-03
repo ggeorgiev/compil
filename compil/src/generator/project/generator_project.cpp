@@ -144,10 +144,12 @@ bool GeneratorProject::init(const std::string& projectFile,
             return false;
         }
         
-        section << (filePathRef() << file.substr(mProjectDirectory.length() + 1));
+        section << (filePathRef() << file.substr(mProjectDirectory.length()));
     }
         
     mProject = (projectRef() << section);
+    
+    mSourceProvider->setWorkingDirectory(mProjectDirectory);
     return true;
 }
 
@@ -173,11 +175,18 @@ bool GeneratorProject::parseDocuments()
         }
     }
     
+    SourceIdSPtr parent;
     for (boost::unordered_set<std::string>::iterator it = files.begin(); it != files.end(); ++it)
     {
-        
-        
-        
+        const std::string& sourceFile = *it;
+        ParserPtr parser = boost::make_shared<Parser>();
+    
+        DocumentSPtr document;
+        SourceIdSPtr sourceId = mSourceProvider->sourceId(parent, sourceFile);
+        if (!parser->parseDocument(mSourceProvider, sourceId, document))
+            return false;
+            
+        mDocuments[sourceFile] = document;
     }
     return true;
 }

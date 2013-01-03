@@ -13,8 +13,6 @@ project generator-test
     
 lib generator-test
   :
-    $(TOP)/core/boost/boost_assert_handler.cpp  
-  
 #    containers.compil
 #    default_values.compil
 #    factories_another_factory_package.compil
@@ -54,6 +52,8 @@ lib generator-test
 #    ]
     
     boost_templates
+    
+    $(TOP)/core//core
   :
     <compil-type>main
     <include>$(TOP)/core/c++

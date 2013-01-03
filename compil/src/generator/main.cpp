@@ -118,12 +118,10 @@ int main(int argc, const char **argv)
     pParser->addValidator(pPartialValidator);
 
     compil::DocumentSPtr document;
-    {
-        compil::SourceIdSPtr sourceId = pFileSourceProvider->sourceId(compil::SourceIdSPtr(), source_file);
-		bool bResult = pParser->parseDocument(pFileSourceProvider, sourceId, document);
-        if (!bResult)
-            return 1;
-    }
+    compil::SourceIdSPtr sourceId = pFileSourceProvider->sourceId(compil::SourceIdSPtr(), source_file);
+    bool bResult = pParser->parseDocument(pFileSourceProvider, sourceId, document);
+    if (!bResult)
+        return 1;
 
     compil::CppFormatterPtr pFormatter = boost::make_shared<compil::CppFormatter>
         (pConfigurationManager->getConfiguration<FormatterConfiguration>(), document->package());

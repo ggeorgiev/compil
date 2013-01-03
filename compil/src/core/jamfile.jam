@@ -1,0 +1,30 @@
+path-constant TOP : .. ;
+path-constant ROOT : $(TOP)/.. ;
+
+boost-defines ;
+gtest-defines ;
+
+project core
+  : requirements
+    <include>$(TOP)
+  ;
+
+lib core
+  :
+    boost/boost_assert_handler.cpp
+
+    platform/application.cpp
+    
+    boost_filesystem
+  :
+  :
+  :
+    <include>$(TOP)
+  ;
+
+
+gtest core
+  :
+    [ glob-tree *_unittest.cpp ]
+    core
+  ;

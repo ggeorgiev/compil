@@ -16,6 +16,7 @@ project all
       <variant>debug <address-model>32 <link>static <threading>multi
     ;
 
+build-project core ;
 build-project language ;
 build-project library ;
 build-project compiler ;

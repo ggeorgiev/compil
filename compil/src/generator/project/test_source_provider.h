@@ -61,10 +61,15 @@ public:
     virtual std::string directory(const std::string& sourceFile);
     virtual std::string absolute(const std::string& sourceFile);
     
-    void addFile(const std::string& path, const std::string& test);
+    void file(const std::string& path, const std::string& test);
 
 private:
+    std::string getUniquePresentationString(const std::string& source);
+    std::vector<PackageElementSPtr> getExternalElements(const std::string& source);
+    void fillSourceFields(const std::string& source, SourceId::Builder& builder);
+
     std::string mWorkingDirectory;
+    std::vector<std::string> mImportDirectories;
     boost::unordered_map<std::string, std::string> mFilesystem;
 };
 

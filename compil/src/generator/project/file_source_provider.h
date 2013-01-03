@@ -61,14 +61,12 @@ public:
 
     virtual std::string directory(const std::string& sourceFile);
     virtual std::string absolute(const std::string& sourceFile);
-    
-   
-    void fillSourceFields(const std::string& source, SourceId::Builder& builder);
 
 private:
     boost::filesystem::path mWorkingDirectory;
     std::vector<boost::filesystem::path> mImportDirectories;
     
+    void fillSourceFields(const std::string& source, SourceId::Builder& builder);
     std::string getUniquePresentationString(const std::string& source);
     std::vector<PackageElementSPtr> getExternalElements(const std::string& source);
 };
