@@ -18,14 +18,21 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
-      useCustomWorkingDirectory = "NO"
+      useCustomWorkingDirectory = "YES"
+      customWorkingDirectory = "/Users/george/github/compil/compil/src"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <PathRunnable
-         FilePath = "/Users/george/ggeorgiev_frodo_home_mac/intermediate/docx/darwin-4.2.1/debug/address-model-64/link-static/threading-multi/docx-unit_test">
+         FilePath = "/Users/george/github/compil/intermediate/generator/ef27f9a8a84252954bd5504269c0b5c1/generator">
       </PathRunnable>
+      <CommandLineArguments>
+         <CommandLineArgument
+            argument = "-I/Users/george/github/compil/compil/boost/include -I/Users/george/github/compil/compil/src/core/boost -I/Users/george/github/compil/compil/src/core/c++ -Igenerator-test -t main --project-directory=generator-test --core-directory=core/c++ generator-test/immutable_structure.compil -o /Users/george/github/compil/intermediate/generator-test/ef27f9a8a84252954bd5504269c0b5c1"
+            isEnabled = "YES">
+         </CommandLineArgument>
+      </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>

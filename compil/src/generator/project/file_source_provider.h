@@ -66,7 +66,7 @@ public:
     void fillSourceFields(const std::string& source, SourceId::Builder& builder);
 
 private:
-    std::string mWorkingDirectory;
+    boost::filesystem::path mWorkingDirectory;
     std::vector<boost::filesystem::path> mImportDirectories;
     
     std::string getUniquePresentationString(const std::string& source);

@@ -30,7 +30,7 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "--type=main"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--type=partial"
@@ -38,7 +38,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--type=test"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-self/compiler/model/default_value.compil"

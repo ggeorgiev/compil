@@ -175,7 +175,9 @@ bool GeneratorProject::parseDocuments()
     
     for (boost::unordered_set<std::string>::iterator it = files.begin(); it != files.end(); ++it)
     {
-    
+        
+        
+        
     }
     return true;
 }

@@ -2149,7 +2149,6 @@ bool Parser::parseDocument(const StreamPtr& pInput,
 
     if (mDocument->mainFile() == file)
     {
-
         std::vector<LateTypeResolveInfo>::iterator it;
         for (it = mLateTypeResolve.begin(); it != mLateTypeResolve.end() ; ++it)
         {
@@ -2197,7 +2196,6 @@ bool Parser::parseDocument(const SourceIdSPtr& sourceId,
 bool Parser::parseDocument(const ISourceProviderSPtr& sourceProvider,
                            const SourceIdSPtr& sourceId,
                            DocumentSPtr& document)
-
 {
     initDocumentContext();
     mContext->mSourceProvider = sourceProvider;

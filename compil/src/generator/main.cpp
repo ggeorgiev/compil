@@ -93,22 +93,24 @@ int main(int argc, const char **argv)
         return 1;
     }
     
+    std::string absoluteProjectDirectory = boost::filesystem::absolute(project_directory).generic_string();
+    
     std::string source_file;
     {
-        std::string pd = boost::filesystem::absolute(project_directory).generic_string();
         std::string fp = boost::filesystem::absolute(input_file_path).generic_string();
         
-        if (!boost::starts_with(fp, pd))
+        if (!boost::starts_with(fp, absoluteProjectDirectory))
         {
             std::cout << "the compil file is not in the project_directory!!!\n";
             return 1;
         }
         
-        source_file = fp.substr(pd.length() + 1);
+        source_file = fp.substr(absoluteProjectDirectory.length() + 1);
     }
 
     pFileSourceProvider->setImportDirectories(pGeneratorConfiguration->import_directories);
-
+    pFileSourceProvider->setWorkingDirectory(absoluteProjectDirectory);
+    
     compil::PartialValidatorPtr pPartialValidator(
             new compil::PartialValidator(pGeneratorConfiguration->type));
 
@@ -117,12 +119,8 @@ int main(int argc, const char **argv)
 
     compil::DocumentSPtr document;
     {
-        compil::SourceId::Builder builder;
-        pFileSourceProvider->fillSourceFields(input_file_path.generic_string(), builder);
-        builder.set_original(source_file);
-        compil::SourceIdSPtr pSourceId(builder.finalize());
-
-		bool bResult = pParser->parseDocument(pFileSourceProvider, pSourceId, document);
+        compil::SourceIdSPtr sourceId = pFileSourceProvider->sourceId(compil::SourceIdSPtr(), source_file);
+		bool bResult = pParser->parseDocument(pFileSourceProvider, sourceId, document);
         if (!bResult)
             return 1;
     }

@@ -44,7 +44,7 @@ using namespace boost;
 using namespace filesystem;
 
 FileSourceProvider::FileSourceProvider()
-    : mWorkingDirectory(current_path().generic_string())
+    : mWorkingDirectory(current_path())
 {
 }
 
@@ -70,8 +70,8 @@ SourceIdSPtr FileSourceProvider::sourceId(const SourceIdSPtr& pCurrentSourceId, 
             return builder.finalize();
         }
     }
-
-    path source_location = source;
+    
+    path source_location = mWorkingDirectory / source;
     if (exists(source_location))
     {
         fillSourceFields(source_location.generic_string(), builder);
@@ -112,7 +112,7 @@ void FileSourceProvider::setImportDirectories(const std::vector<std::string>& im
 
 std::string FileSourceProvider::workingDirectory()
 {
-    return mWorkingDirectory;
+    return mWorkingDirectory.generic_string();
 }
 
 void FileSourceProvider::setWorkingDirectory(const std::string& directory)
