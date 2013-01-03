@@ -30,52 +30,55 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
+#include "test_source_provider.h"
 
-#ifndef _FILE_SOURCE_PROVIDER_H__
-#define _FILE_SOURCE_PROVIDER_H__
-
-#include "i_source_provider.h"
-
-#include <boost/filesystem.hpp>
-
-#include <boost/shared_ptr.hpp>
+#include "boost/algorithm/string.hpp"
 
 namespace compil
 {
 
-class FileSourceProvider : public ISourceProvider
+TestSourceProvider::TestSourceProvider()
 {
-public:
-    FileSourceProvider();
-    virtual ~FileSourceProvider();
-
-    virtual void setImportDirectories(const std::vector<std::string>& importDirectories);
-
-    virtual SourceIdSPtr sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source);
-
-    virtual StreamPtr openInputStream(const SourceIdSPtr& pSourceId);
-    static void fillSourceFields(const std::string& source, SourceId::Builder& builder);
-
-private:
-    static std::string getUniquePresentationString(const std::string& source);
-    static std::vector<PackageElementSPtr> getExternalElements(const std::string& source);
-
-    std::vector<boost::filesystem::path> mImportDirectories;
-};
-
-typedef boost::shared_ptr<FileSourceProvider> FileSourceProviderPtr;
-
 }
 
-#else
-
-namespace compil
+TestSourceProvider::~TestSourceProvider()
 {
-
-class FileSourceProvider;
-typedef boost::shared_ptr<FileSourceProvider> FileSourceProviderPtr;
-
 }
 
-#endif
+SourceIdSPtr TestSourceProvider::sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source)
+{
+    return SourceIdSPtr();
+}
+
+StreamPtr TestSourceProvider::openInputStream(const SourceIdSPtr& pSourceId)
+{
+    return StreamPtr();
+}
+
+bool TestSourceProvider::isAbsolute(const std::string& sourceLocation)
+{
+    return boost::starts_with(sourceLocation, "/");
+}
+
+bool TestSourceProvider::isExists(const std::string& sourceLocation)
+{
+    return mFilesystem.count(sourceLocation) != 0;
+}
+
+std::string TestSourceProvider::currentLocation()
+{
+    return mCurrentLocation;
+}
+
+void TestSourceProvider::setCurrentLocation(const std::string& currentLocation)
+{
+    mCurrentLocation = currentLocation;
+}
+
+void TestSourceProvider::addFile(const std::string& path, const std::string& test)
+{
+    mFilesystem[path] = test;
+}
+
+}
 

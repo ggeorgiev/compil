@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -30,18 +30,56 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-compil { }
 
-import "compil/all/package_element.scompil";
+#ifndef _FILE_SOURCE_PROVIDER_H__
+#define _FILE_SOURCE_PROVIDER_H__
 
-package lang.compil;
+#include "i_source_provider.h"
 
-immutable
-structure SourceId
+#include <boost/filesystem.hpp>
+
+#include <boost/shared_ptr.hpp>
+
+namespace compil
 {
-    string value;
-    vector<reference<PackageElement>> externalElements;
-    string uniquePresentation;
-    reference<SourceId> parent = null;
-    string original = optional;
+
+class FileSourceProvider : public ISourceProvider
+{
+public:
+    FileSourceProvider();
+    virtual ~FileSourceProvider();
+
+    virtual void setImportDirectories(const std::vector<std::string>& importDirectories);
+
+    virtual SourceIdSPtr sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source);
+    virtual StreamPtr openInputStream(const SourceIdSPtr& pSourceId);
+    
+    virtual bool isAbsolute(const std::string& sourceLocation);
+    virtual bool isExists(const std::string& sourceLocation);
+    virtual std::string currentLocation();
+    
+    static void fillSourceFields(const std::string& source, SourceId::Builder& builder);
+
+private:
+    static std::string getUniquePresentationString(const std::string& source);
+    static std::vector<PackageElementSPtr> getExternalElements(const std::string& source);
+
+    std::vector<boost::filesystem::path> mImportDirectories;
+};
+
+typedef boost::shared_ptr<FileSourceProvider> FileSourceProviderPtr;
+
 }
+
+#else
+
+namespace compil
+{
+
+class FileSourceProvider;
+typedef boost::shared_ptr<FileSourceProvider> FileSourceProviderPtr;
+
+}
+
+#endif
+

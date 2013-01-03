@@ -109,6 +109,21 @@ StreamPtr FileSourceProvider::openInputStream(const SourceIdSPtr& pSourceId)
     return pInput;
 }
 
+bool FileSourceProvider::isAbsolute(const std::string& sourceLocation)
+{
+    return path(sourceLocation).is_absolute();
+}
+
+bool FileSourceProvider::isExists(const std::string& sourceLocation)
+{
+    return exists(path(sourceLocation));
+}
+
+std::string FileSourceProvider::currentLocation()
+{
+    return current_path().generic_string();
+}
+
 std::string FileSourceProvider::getUniquePresentationString(const std::string& source)
 {
     path src_path = absolute(source);

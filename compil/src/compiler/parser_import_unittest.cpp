@@ -102,6 +102,24 @@ public:
         return "";
     }
     
+    virtual bool isAbsolute(const std::string& sourceLocation)
+    {
+        BOOST_ASSERT(false);
+        return false;
+    }
+    
+    virtual bool isExists(const std::string& sourceLocation)
+    {
+        BOOST_ASSERT(false);
+        return false;
+    }
+
+    virtual std::string currentLocation()
+    {
+        BOOST_ASSERT(false);
+        return "";
+    }
+    
     std::string mSource;
 };
 

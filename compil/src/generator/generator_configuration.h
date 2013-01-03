@@ -59,6 +59,7 @@ public:
     std::string source_file;
     std::string output_directory;
     std::string core_directory;
+    std::string project_file;
     std::string project_directory;
     string_vector import_directories;
 };

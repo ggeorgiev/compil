@@ -1,6 +1,6 @@
 #include <stdio.h>
 
-#include "file_source_provider.h"
+#include "generator/project/file_source_provider.h"
 
 #include "configuration_manager.h"
 #include "general_configuration.h"

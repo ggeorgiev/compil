@@ -30,18 +30,38 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-compil { }
+#ifndef _GENERATOR_PROJECT_H__
+#define _GENERATOR_PROJECT_H__
 
-import "compil/all/package_element.scompil";
+#include "i_source_provider.h"
 
-package lang.compil;
+#include <vector>
 
-immutable
-structure SourceId
+namespace compil
 {
-    string value;
-    vector<reference<PackageElement>> externalElements;
-    string uniquePresentation;
-    reference<SourceId> parent = null;
-    string original = optional;
+
+typedef std::vector<std::string> string_vector;
+
+class GeneratorProject
+{
+public:
+    GeneratorProject(const ISourceProviderPtr& sourceProvider);
+    virtual ~GeneratorProject();
+    
+    bool init(const std::string& projectFile,
+              const std::string& projectDirectory,
+              const string_vector& sourceFiles);
+    
+    const std::string& projectPath() const;
+    
+private:
+    ISourceProviderPtr mSourceProvider;
+    std::string mProjectPath;
+    
+    string_vector mSourceFiles;
+};
+
 }
+
+#endif
+

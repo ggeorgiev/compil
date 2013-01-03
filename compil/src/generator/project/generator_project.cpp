@@ -30,18 +30,67 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-compil { }
+#include "generator/project/generator_project.h"
 
-import "compil/all/package_element.scompil";
-
-package lang.compil;
-
-immutable
-structure SourceId
+namespace compil
 {
-    string value;
-    vector<reference<PackageElement>> externalElements;
-    string uniquePresentation;
-    reference<SourceId> parent = null;
-    string original = optional;
+
+GeneratorProject::GeneratorProject(const ISourceProviderPtr& sourceProvider)
+    : mSourceProvider(sourceProvider)
+{
 }
+
+GeneratorProject::~GeneratorProject()
+{
+}
+
+bool GeneratorProject::init(const std::string& projectFile,
+                            const std::string& projectDirectory,
+                            const string_vector& sourceFiles)
+{
+    if (!projectFile.empty())
+    {
+        if (sourceFiles.size() > 0)
+        {
+            std::cout << "the project file is specified the source files will be loaded from it" << std::endl
+                      << "the provided source files will be ignored" << std::endl;
+        }
+    }
+
+    if (mSourceProvider->isAbsolute(projectFile))
+    {
+        if (!mSourceProvider->isExists(projectFile))
+        {
+            std::cout << "the project file not found: " << projectFile << std::endl;
+            return false;
+        }
+        
+        if (!projectDirectory.empty())
+        {
+            std::cout << "the project directory will be based on the project file" << std::endl
+                      << "the specified oriject directory will be ignored" << std::endl;
+        }
+        
+        mProjectPath = projectFile;
+        return true;
+    }
+
+    std::string projectPath = projectDirectory + projectFile;
+    if (mSourceProvider->isExists(projectPath))
+    {
+        mProjectPath = projectPath;
+        return true;
+    }
+    
+    return false;
+}
+
+const std::string& GeneratorProject::projectPath() const
+{
+    return mProjectPath;
+}
+
+
+
+}
+

@@ -59,6 +59,10 @@ public:
     virtual SourceIdSPtr sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source) = 0;
 
     virtual StreamPtr openInputStream(const SourceIdSPtr& pSourceId) = 0;
+    
+    virtual bool isAbsolute(const std::string& sourceLocation) = 0;
+    virtual bool isExists(const std::string& sourceLocation) = 0;
+    virtual std::string currentLocation() = 0;
 };
 
 typedef boost::shared_ptr<ISourceProvider> ISourceProviderPtr;

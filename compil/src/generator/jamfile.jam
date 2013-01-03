@@ -60,13 +60,16 @@ lib generator-lib
     namer/namer_configuration.cpp
     namer/namer_stream.cpp
     
+    project/file_source_provider.cpp
+    project/generator_project.cpp
+    
     boost_path_resolve.cpp
     c++_flags_enumeration_generator.cpp
     c++_generator.cpp
     c++_h_generator.cpp
     c++_test_generator.cpp
     compil_generator.cpp
-    file_source_provider.cpp
+    
     general_configuration.cpp
     generator_configuration.cpp
     generator.cpp
@@ -96,6 +99,8 @@ exe generator
     
 gtest generator
   :
+    project/test_source_provider.cpp
+    
     [ glob-tree *_unittest.cpp ]
     generator-lib
   :
