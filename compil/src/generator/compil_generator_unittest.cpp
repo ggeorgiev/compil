@@ -48,7 +48,6 @@ public:
     virtual void SetUp() 
     {
         mpParser.reset(new compil::Parser());
-        mDocument = lib::compil::CompilDocument::create();
         mpConfigurationManager.reset(new compil::ConfigurationManager());
         mpCompilGenerator.reset(new compil::CompilGenerator());
 
@@ -56,7 +55,7 @@ public:
         mpConfigurationManager->registerConfiguration(pAlignerConfiguration);
         
         mpFormatter = boost::make_shared<compil::CppFormatter>
-            (mpConfigurationManager->getConfiguration<FormatterConfiguration>(), mDocument->package());
+            (mpConfigurationManager->getConfiguration<FormatterConfiguration>(), compil::PackageSPtr());
         mpImplementer = boost::make_shared<compil::CppImplementer>
             (mpConfigurationManager->getConfiguration<ImplementerConfiguration>(), mpFormatter);
     }

@@ -30,60 +30,41 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_ISOURCEPROVIDER_H__
-#define _COMPIL_ISOURCEPROVIDER_H__
+#ifndef _HOOK_SOURCE_PROVIDER_H__
+#define _HOOK_SOURCE_PROVIDER_H__
 
-#include "namespace_alias.h"
-
-#include "compil/all/source_id.h"
+#include "i_source_provider.h"
 
 #include <boost/shared_ptr.hpp>
-
-#include <iostream>
-
-typedef boost::shared_ptr<std::istream> StreamPtr;
+#include <boost/unordered_map.hpp>
 
 namespace compil
 {
 
-class ISourceProvider
+class HookSourceProvider : public ISourceProvider
 {
 public:
-    virtual ~ISourceProvider() {}
+    HookSourceProvider(const ISourceProviderSPtr& sourceProvider);
+    virtual ~HookSourceProvider();
 
-    // Determine unique source id. In the context of file system the
-    // source provider will resolve the import source to absolute
-    // path. Depending on the location of the file importing another
-    // different source string could be resolved as the same source
-    // and vise verse.
-    virtual SourceIdSPtr sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source) = 0;
-    virtual StreamPtr openInputStream(const SourceIdSPtr& pSourceId) = 0;
-    virtual void setImportDirectories(const std::vector<std::string>& importDirectories) = 0;
-    
-    virtual std::string workingDirectory() = 0;
-    virtual void setWorkingDirectory(const std::string& directory) = 0;
+    virtual SourceIdSPtr sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source);
+    virtual StreamPtr openInputStream(const SourceIdSPtr& pSourceId);
+    virtual void setImportDirectories(const std::vector<std::string>& importDirectories);
 
-    virtual bool isAbsolute(const std::string& sourceFile) = 0;
-    virtual bool isExists(const std::string& sourceFile) = 0;
+    virtual std::string workingDirectory();
+    virtual void setWorkingDirectory(const std::string& directory);
 
-    virtual std::string directory(const std::string& sourceFile) = 0;
-    virtual std::string absolute(const std::string& sourceFile) = 0;
+    virtual bool isAbsolute(const std::string& sourceFile);
+    virtual bool isExists(const std::string& sourceFile);
 
+    virtual std::string directory(const std::string& sourceFile);
+    virtual std::string absolute(const std::string& sourceFile);
+
+private:
+    ISourceProviderSPtr mSourceProvider;
 };
 
-typedef boost::shared_ptr<ISourceProvider> ISourceProviderSPtr;
-
-}
-
-#else
-
-typedef boost::shared_ptr<std::istream> StreamPtr;
-
-namespace compil
-{
-
-class ISourceProvider;
-typedef boost::shared_ptr<ISourceProvider> ISourceProviderSPtr;
+typedef boost::shared_ptr<HookSourceProvider> HookSourceProviderSPtr;
 
 }
 

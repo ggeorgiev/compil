@@ -102,24 +102,46 @@ public:
         return "";
     }
     
-    virtual bool isAbsolute(const std::string& sourceLocation)
+    virtual void setImportDirectories(const std::vector<std::string>& importDirectories)
+    {
+        BOOST_ASSERT(false);
+    }
+    
+    virtual std::string workingDirectory()
+    {
+        BOOST_ASSERT(false);
+        return "";
+    }
+
+    virtual void setWorkingDirectory(const std::string& directory)
+    {
+        BOOST_ASSERT(false);
+    }
+
+    virtual bool isAbsolute(const std::string& sourceFile)
     {
         BOOST_ASSERT(false);
         return false;
     }
     
-    virtual bool isExists(const std::string& sourceLocation)
+    virtual bool isExists(const std::string& sourceFile)
     {
         BOOST_ASSERT(false);
         return false;
     }
 
-    virtual std::string currentLocation()
+    virtual std::string directory(const std::string& sourceFile)
     {
         BOOST_ASSERT(false);
         return "";
     }
     
+    virtual std::string absolute(const std::string& sourceFile)
+    {
+        BOOST_ASSERT(false);
+        return "";
+    }
+ 
     std::string mSource;
 };
 

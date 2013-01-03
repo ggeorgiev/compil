@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "test_source_provider.h"
+#include "generator/project/hook_source_provider.h"
 
 #include "boost/algorithm/string.hpp"
 #include "boost/make_shared.hpp"
@@ -40,70 +40,58 @@
 namespace compil
 {
 
-TestSourceProvider::TestSourceProvider()
-    : mWorkingDirectory("/")
+HookSourceProvider::HookSourceProvider(const ISourceProviderSPtr& sourceProvider)
+    : mSourceProvider(sourceProvider)
 {
 }
 
-TestSourceProvider::~TestSourceProvider()
+HookSourceProvider::~HookSourceProvider()
 {
 }
 
-SourceIdSPtr TestSourceProvider::sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source)
+SourceIdSPtr HookSourceProvider::sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source)
 {
-    return SourceIdSPtr();
+    return mSourceProvider->sourceId(pCurrentSourceId, source);
 }
 
-StreamPtr TestSourceProvider::openInputStream(const SourceIdSPtr& pSourceId)
+StreamPtr HookSourceProvider::openInputStream(const SourceIdSPtr& pSourceId)
 {
-    boost::shared_ptr<std::istringstream> pInput =
-        boost::make_shared<std::istringstream>(mFilesystem[pSourceId->value()]);
-    return pInput;
+    return mSourceProvider->openInputStream(pSourceId);
 }
 
-void TestSourceProvider::setImportDirectories(const std::vector<std::string>& importDirectories)
+void HookSourceProvider::setImportDirectories(const std::vector<std::string>& importDirectories)
 {
+    mSourceProvider->setImportDirectories(importDirectories);
 }
 
-std::string TestSourceProvider::workingDirectory()
+std::string HookSourceProvider::workingDirectory()
 {
-    return mWorkingDirectory;
+    return mSourceProvider->workingDirectory();
 }
 
-void TestSourceProvider::setWorkingDirectory(const std::string& directory)
+void HookSourceProvider::setWorkingDirectory(const std::string& directory)
 {
-    mWorkingDirectory = directory;
+    return mSourceProvider->setWorkingDirectory(directory);
 }
 
-bool TestSourceProvider::isAbsolute(const std::string& sourceFile)
+bool HookSourceProvider::isAbsolute(const std::string& sourceFile)
 {
-    return boost::starts_with(sourceFile, "/");
+    return mSourceProvider->isAbsolute(sourceFile);
 }
 
-bool TestSourceProvider::isExists(const std::string& sourceFile)
+bool HookSourceProvider::isExists(const std::string& sourceFile)
 {
-    return mFilesystem.count(sourceFile) != 0;
+    return mSourceProvider->isExists(sourceFile);
 }
 
-std::string TestSourceProvider::directory(const std::string& sourceFile)
+std::string HookSourceProvider::directory(const std::string& sourceFile)
 {
-    size_t slashIdx = sourceFile.find_last_of("/");
-    if (slashIdx == std::string::npos)
-        return "";
-
-    return sourceFile.substr(0, slashIdx + 1);
+    return mSourceProvider->directory(sourceFile);
 }
 
-std::string TestSourceProvider::absolute(const std::string& sourceFile)
+std::string HookSourceProvider::absolute(const std::string& sourceFile)
 {
-    if (isAbsolute(sourceFile))
-        return sourceFile;
-    return workingDirectory() + sourceFile;
-}
-
-void TestSourceProvider::addFile(const std::string& path, const std::string& test)
-{
-    mFilesystem[path] = test;
+    return mSourceProvider->absolute(sourceFile);
 }
 
 }

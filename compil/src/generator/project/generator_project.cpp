@@ -31,11 +31,17 @@
 //
 
 #include "generator/project/generator_project.h"
+#include "namespace_alias.h"
+
+#include "compiler/parser.h"
+
+#include "boost/algorithm/string.hpp"
+#include "boost/unordered_set.hpp"
 
 namespace compil
 {
 
-GeneratorProject::GeneratorProject(const ISourceProviderPtr& sourceProvider)
+GeneratorProject::GeneratorProject(const ISourceProviderSPtr& sourceProvider)
     : mSourceProvider(sourceProvider)
 {
 }
@@ -44,19 +50,10 @@ GeneratorProject::~GeneratorProject()
 {
 }
 
-bool GeneratorProject::init(const std::string& projectFile,
-                            const std::string& projectDirectory,
-                            const string_vector& sourceFiles)
+bool GeneratorProject::determineProjectPath(const std::string& projectFile,
+                                            const std::string& projectDirectory,
+                                            std::string& projectPath)
 {
-    if (!projectFile.empty())
-    {
-        if (sourceFiles.size() > 0)
-        {
-            std::cout << "the project file is specified the source files will be loaded from it" << std::endl
-                      << "the provided source files will be ignored" << std::endl;
-        }
-    }
-
     if (mSourceProvider->isAbsolute(projectFile))
     {
         if (!mSourceProvider->isExists(projectFile))
@@ -71,26 +68,116 @@ bool GeneratorProject::init(const std::string& projectFile,
                       << "the specified oriject directory will be ignored" << std::endl;
         }
         
-        mProjectPath = projectFile;
+        projectPath = projectFile;
         return true;
     }
 
-    std::string projectPath = projectDirectory + projectFile;
+    projectPath = projectDirectory + projectFile;
     if (mSourceProvider->isExists(projectPath))
-    {
-        mProjectPath = projectPath;
         return true;
-    }
-    
+
     return false;
 }
 
-const std::string& GeneratorProject::projectPath() const
+bool GeneratorProject::init(const std::string& projectFile,
+                            const std::string& projectDirectory,
+                            const std::string& type,
+                            const string_vector& sourceFiles,
+                            const string_vector& importDirectories)
 {
-    return mProjectPath;
+    string_vector directories;
+    for (string_vector::const_iterator it = importDirectories.begin(); it != importDirectories.end(); ++it)
+    {
+        std::string directory = mSourceProvider->absolute(*it);
+        if (!mSourceProvider->isExists(directory))
+        {
+            std::cout << "WARNING: the import directory: " << *it << std::endl
+                      << "         does not exist" << std::endl;
+            continue;
+        }
+        directories.push_back(directory);
+    }
+    mSourceProvider->setImportDirectories(directories);
+
+    if (!projectFile.empty())
+    {
+        std::string projectPath;
+        if (!determineProjectPath(projectFile, projectDirectory, projectPath))
+            return false;
+            
+        projectPath = mSourceProvider->absolute(projectPath);
+            
+        if (sourceFiles.size() > 0)
+        {
+            std::cout << "WARNING: the project file is specified the source files will be loaded from it" << std::endl
+                      << "         the provided source files will be ignored" << std::endl;
+        }
+        
+        SourceId::Builder builder;
+        builder.set_value(projectPath);
+
+        SourceIdSPtr sourceId = builder.finalize();
+        StreamPtr pInput = mSourceProvider->openInputStream(sourceId);
+
+        ParserPtr pParser = boost::make_shared<Parser>();
+        if (!pParser->parseProject(sourceId, pInput, mProject))
+            return false;
+        
+        mProjectDirectory = mSourceProvider->directory(projectPath);
+        return true;
+    }
+    
+    mProjectDirectory = projectDirectory.empty()
+                      ? mSourceProvider->workingDirectory()
+                      : projectDirectory;
+                      
+    mProjectDirectory = mSourceProvider->absolute(mProjectDirectory);
+    
+    SectionSPtr section = (sectionRef() << (nameRef() << type));
+    for (string_vector::const_iterator it = sourceFiles.begin(); it != sourceFiles.end(); ++it)
+    {
+        std::string file = mSourceProvider->absolute(*it);
+        if (!boost::starts_with(file, mProjectDirectory))
+        {
+            std::cout << "the compil file: " << file << std::endl
+                      << "is not in the project directory: " << mProjectDirectory << std::endl;
+            return false;
+        }
+        
+        section << (filePathRef() << file.substr(mProjectDirectory.length() + 1));
+    }
+        
+    mProject = (projectRef() << section);
+    return true;
 }
 
-
-
+const std::string& GeneratorProject::projectDirectory() const
+{
+    return mProjectDirectory;
 }
 
+bool GeneratorProject::parseDocuments()
+{
+    boost::unordered_set<std::string> files;
+    
+    const std::vector<SectionSPtr>& sections = mProject->sections();
+    for (std::vector<SectionSPtr>::const_iterator it = sections.begin(); it != sections.end(); ++it)
+    {
+        const SectionSPtr& section = *it;
+        const std::vector<FilePathSPtr>& paths = section->paths();
+        
+        for (std::vector<FilePathSPtr>::const_iterator pit = paths.begin(); pit != paths.end(); ++pit)
+        {
+            const FilePathSPtr& path = *pit;
+            files.insert(path->path());
+        }
+    }
+    
+    for (boost::unordered_set<std::string>::iterator it = files.begin(); it != files.end(); ++it)
+    {
+    
+    }
+    return true;
+}
+
+}

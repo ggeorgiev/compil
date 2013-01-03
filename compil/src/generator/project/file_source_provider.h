@@ -49,22 +49,28 @@ public:
     FileSourceProvider();
     virtual ~FileSourceProvider();
 
-    virtual void setImportDirectories(const std::vector<std::string>& importDirectories);
-
     virtual SourceIdSPtr sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source);
     virtual StreamPtr openInputStream(const SourceIdSPtr& pSourceId);
+    virtual void setImportDirectories(const std::vector<std::string>& importDirectories);
     
-    virtual bool isAbsolute(const std::string& sourceLocation);
-    virtual bool isExists(const std::string& sourceLocation);
-    virtual std::string currentLocation();
+    virtual std::string workingDirectory();
+    virtual void setWorkingDirectory(const std::string& directory);
+
+    virtual bool isAbsolute(const std::string& sourceFile);
+    virtual bool isExists(const std::string& sourceFile);
+
+    virtual std::string directory(const std::string& sourceFile);
+    virtual std::string absolute(const std::string& sourceFile);
     
-    static void fillSourceFields(const std::string& source, SourceId::Builder& builder);
+   
+    void fillSourceFields(const std::string& source, SourceId::Builder& builder);
 
 private:
-    static std::string getUniquePresentationString(const std::string& source);
-    static std::vector<PackageElementSPtr> getExternalElements(const std::string& source);
-
+    std::string mWorkingDirectory;
     std::vector<boost::filesystem::path> mImportDirectories;
+    
+    std::string getUniquePresentationString(const std::string& source);
+    std::vector<PackageElementSPtr> getExternalElements(const std::string& source);
 };
 
 typedef boost::shared_ptr<FileSourceProvider> FileSourceProviderPtr;

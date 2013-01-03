@@ -98,7 +98,9 @@ Parser::Parser()
 
 Parser::Parser(const Parser& parentParser)
 {
-    mContext = parentParser.mContext;
+    mContext = boost::make_shared<DocumentParseContext>();
+    *mContext = *parentParser.mContext;
+    mDocument = parentParser.mDocument;
 }
 
 Parser::~Parser()
@@ -2093,14 +2095,16 @@ void Parser::initDocumentContext()
         mContext->mMessageCollector = boost::make_shared<MessageCollector>();
         mContext->mSources = boost::make_shared<ParseContext::SourceMap>();
     }
+    
+    if (!mDocument)
+        mDocument = lib::compil::CompilDocument::create();
 }
 
 bool Parser::parseDocument(const StreamPtr& pInput,
-                           const DocumentSPtr& document)
+                           DocumentSPtr& document)
 {
     initDocumentContext();
     mContext->mTokenizer = boost::make_shared<Tokenizer>(mContext->mMessageCollector, mContext->mSourceId, pInput);
-    mDocument = document;
 
     FileSPtr file = parseFile();
     if (!file)
@@ -2161,15 +2165,28 @@ bool Parser::parseDocument(const StreamPtr& pInput,
         if (!validate(mDocument))
             return false;
     }
+    
+    document = mDocument;
     return true;
 }
 
 bool Parser::parseDocument(const SourceIdSPtr& sourceId,
                            const StreamPtr& pInput,
-                           const DocumentSPtr& document)
+                           DocumentSPtr& document)
 {
     initDocumentContext();
     mContext->mSourceId = sourceId;
+    mDocument->set_sourceId(sourceId);
+    
+    NameSPtr name = (nameRef() << sourceId);
+    std::string file = sourceId->original();
+    size_t slashIdx = file.find_last_of(".");
+    if (slashIdx == std::string::npos)
+        name << file;
+    else
+        name << file.substr(0, slashIdx);
+
+    mDocument->set_name(name);
 
     assert(sourceId);
     mContext->mSources->insert(ParseContext::SourceMap::value_type(sourceId->value(), sourceId));
@@ -2177,9 +2194,9 @@ bool Parser::parseDocument(const SourceIdSPtr& sourceId,
     return parseDocument(pInput, document);
 }
 
-bool Parser::parseDocument(const ISourceProviderPtr& sourceProvider,
+bool Parser::parseDocument(const ISourceProviderSPtr& sourceProvider,
                            const SourceIdSPtr& sourceId,
-                           const DocumentSPtr& document)
+                           DocumentSPtr& document)
 
 {
     initDocumentContext();

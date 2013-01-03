@@ -35,6 +35,11 @@
 
 #include "i_source_provider.h"
 
+#include "compil/project/project.h"
+#include "compil/document/document.h"
+
+#include "boost/unordered_map.hpp"
+
 #include <vector>
 
 namespace compil
@@ -45,20 +50,29 @@ typedef std::vector<std::string> string_vector;
 class GeneratorProject
 {
 public:
-    GeneratorProject(const ISourceProviderPtr& sourceProvider);
+    GeneratorProject(const ISourceProviderSPtr& sourceProvider);
     virtual ~GeneratorProject();
     
     bool init(const std::string& projectFile,
               const std::string& projectDirectory,
-              const string_vector& sourceFiles);
+              const std::string& type,
+              const string_vector& sourceFiles,
+              const string_vector& importDirectories);
+              
+    bool parseDocuments();
     
-    const std::string& projectPath() const;
+    const std::string& projectDirectory() const;
     
 private:
-    ISourceProviderPtr mSourceProvider;
-    std::string mProjectPath;
+    bool determineProjectPath(const std::string& projectFile,
+                              const std::string& projectDirectory,
+                              std::string& projectPath);
+
+    ISourceProviderSPtr mSourceProvider;
+    std::string mProjectDirectory;
+    ProjectSPtr mProject;
     
-    string_vector mSourceFiles;
+    boost::unordered_map<std::string, DocumentSPtr> mDocuments;
 };
 
 }

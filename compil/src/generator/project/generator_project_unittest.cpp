@@ -41,10 +41,11 @@ namespace compil
 {
 
 static std::string project1 =
+"compil {}\n"
 "section main\n"
 "{\n"
-"    a.compil\n"
-"    b.compil\n"
+"    a.compil;\n"
+"    b.compil;\n"
 "}\n";
 
 static std::string document1 =
@@ -57,52 +58,83 @@ static std::string document2 =
 "import \"a.compil\";\n"
 "\n";
 
-
-
-TEST(GeneratorProjectTests, init)
+TEST(GeneratorProjectTests, initProjectFile)
 {
     TestSourceProviderSPtr provider = boost::make_shared<TestSourceProvider>();
     provider->addFile("/foo/a.compilprj", project1);
     string_vector sources;
+    string_vector imports;
     
     {
         GeneratorProject project(provider);
-        EXPECT_TRUE(project.init("a.compilprj", "/foo/", sources));
-        EXPECT_STREQ("/foo/a.compilprj", project.projectPath().c_str());
+        EXPECT_TRUE(project.init("a.compilprj", "/foo/", "", sources, imports));
+        EXPECT_STREQ("/foo/", project.projectDirectory().c_str());
     }
 
     {
         GeneratorProject project(provider);
-        EXPECT_TRUE(project.init("/foo/a.compilprj", "/foo/", sources));
-        EXPECT_STREQ("/foo/a.compilprj", project.projectPath().c_str());
+        EXPECT_TRUE(project.init("/foo/a.compilprj", "/foo/", "", sources, imports));
+        EXPECT_STREQ("/foo/", project.projectDirectory().c_str());
     }
 
     {
         GeneratorProject project(provider);
-        EXPECT_TRUE(project.init("foo/a.compilprj", "/", sources));
-        EXPECT_STREQ("/foo/a.compilprj", project.projectPath().c_str());
+        EXPECT_TRUE(project.init("foo/a.compilprj", "/", "", sources, imports));
+        EXPECT_STREQ("/foo/", project.projectDirectory().c_str());
     }
 }
 
-TEST(GeneratorProjectTests, initNegative)
+TEST(GeneratorProjectTests, initProjectFileNegative)
 {
     TestSourceProviderSPtr provider = boost::make_shared<TestSourceProvider>();
     provider->addFile("/foo/b.compilprj", project1);
     string_vector sources;
+    string_vector imports;
     
     {
         GeneratorProject project(provider);
-        EXPECT_FALSE(project.init("a.compilprj", "/foo/", sources));
+        EXPECT_FALSE(project.init("a.compilprj", "/foo/", "", sources, imports));
     }
 
     {
         GeneratorProject project(provider);
-        EXPECT_FALSE(project.init("/foo/a.compilprj", "/foo/", sources));
+        EXPECT_FALSE(project.init("/foo/a.compilprj", "/foo/", "", sources, imports));
     }
 
     {
         GeneratorProject project(provider);
-        EXPECT_FALSE(project.init("foo/a.compilprj", "/", sources));
+        EXPECT_FALSE(project.init("foo/a.compilprj", "/", "", sources, imports));
+    }
+}
+
+TEST(GeneratorProjectTests, initSourceFiles)
+{
+    TestSourceProviderSPtr provider = boost::make_shared<TestSourceProvider>();
+    provider->setWorkingDirectory("/foo/");
+    provider->addFile("/foo/a.compilprj", project1);
+
+    string_vector sources;
+    sources.push_back("a.compil");
+    sources.push_back("b.compil");
+    
+    string_vector imports;
+    
+    {
+        GeneratorProject project(provider);
+        EXPECT_TRUE(project.init("", "/foo/", "main", sources, imports));
+        EXPECT_STREQ("/foo/", project.projectDirectory().c_str());
+    }
+
+    {
+        GeneratorProject project(provider);
+        EXPECT_TRUE(project.init("", "/foo/", "main", sources, imports));
+        EXPECT_STREQ("/foo/", project.projectDirectory().c_str());
+    }
+
+    {
+        GeneratorProject project(provider);
+        EXPECT_TRUE(project.init("", "/", "main", sources, imports));
+        EXPECT_STREQ("/", project.projectDirectory().c_str());
     }
 }
 

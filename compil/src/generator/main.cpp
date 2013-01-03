@@ -115,17 +115,12 @@ int main(int argc, const char **argv)
     compil::ParserPtr pParser(new compil::Parser());
     pParser->addValidator(pPartialValidator);
 
-    compil::DocumentSPtr document = lib::compil::CompilDocument::create();
+    compil::DocumentSPtr document;
     {
         compil::SourceId::Builder builder;
-        compil::FileSourceProvider::fillSourceFields(input_file_path.generic_string(), builder);
+        pFileSourceProvider->fillSourceFields(input_file_path.generic_string(), builder);
         builder.set_original(source_file);
         compil::SourceIdSPtr pSourceId(builder.finalize());
-
-        compil::NameSPtr pName(new compil::Name());
-        pName->set_value(input_file_path.stem().string());
-        pName->set_sourceId(pSourceId);
-		document->setName(pName);
 
 		bool bResult = pParser->parseDocument(pFileSourceProvider, pSourceId, document);
         if (!bResult)

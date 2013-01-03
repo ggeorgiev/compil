@@ -37,29 +37,19 @@
 
 #include "boost/make_shared.hpp"
 
-using namespace boost;
-using namespace filesystem;
-
 namespace compil
 {
 
+using namespace boost;
+using namespace filesystem;
+
 FileSourceProvider::FileSourceProvider()
+    : mWorkingDirectory(current_path().generic_string())
 {
 }
 
 FileSourceProvider::~FileSourceProvider()
 {
-}
-
-void FileSourceProvider::setImportDirectories(const std::vector<std::string>& importDirectories)
-{
-    std::vector<std::string>::const_iterator it;
-    for (it = importDirectories.begin(); it != importDirectories.end(); ++it)
-    {
-        path it_path(*it);
-        path absolute_path = absolute(it_path);
-        mImportDirectories.push_back(absolute_path);
-    }
 }
 
 SourceIdSPtr FileSourceProvider::sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source)
@@ -109,25 +99,53 @@ StreamPtr FileSourceProvider::openInputStream(const SourceIdSPtr& pSourceId)
     return pInput;
 }
 
-bool FileSourceProvider::isAbsolute(const std::string& sourceLocation)
+void FileSourceProvider::setImportDirectories(const std::vector<std::string>& importDirectories)
 {
-    return path(sourceLocation).is_absolute();
+    // TODO: importDirectories must be already absolute - this could be optimized here
+    std::vector<std::string>::const_iterator it;
+    for (it = importDirectories.begin(); it != importDirectories.end(); ++it)
+    {
+        path absolute_path(absolute(*it));
+        mImportDirectories.push_back(absolute_path);
+    }
 }
 
-bool FileSourceProvider::isExists(const std::string& sourceLocation)
+std::string FileSourceProvider::workingDirectory()
 {
-    return exists(path(sourceLocation));
+    return mWorkingDirectory;
 }
 
-std::string FileSourceProvider::currentLocation()
+void FileSourceProvider::setWorkingDirectory(const std::string& directory)
 {
-    return current_path().generic_string();
+    mWorkingDirectory = directory;
+}
+
+bool FileSourceProvider::isAbsolute(const std::string& sourceFile)
+{
+    return path(sourceFile).is_absolute();
+}
+
+bool FileSourceProvider::isExists(const std::string& sourceFile)
+{
+    return exists(path(sourceFile));
+}
+
+std::string FileSourceProvider::directory(const std::string& sourceFile)
+{
+    return path(sourceFile).parent_path().generic_string();
+}
+
+std::string FileSourceProvider::absolute(const std::string& sourceFile)
+{
+    if (isAbsolute(sourceFile))
+        return sourceFile;
+    return workingDirectory() + sourceFile;
 }
 
 std::string FileSourceProvider::getUniquePresentationString(const std::string& source)
 {
     path src_path = absolute(source);
-    path root = absolute(".");
+    path root = workingDirectory();
 
     path::iterator i = src_path.begin();
     for (path::iterator it = root.begin(); it != root.end(); ++it)

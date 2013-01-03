@@ -31,8 +31,8 @@
 //
 
 
-#ifndef _FILE_SOURCE_PROVIDER_H__
-#define _FILE_SOURCE_PROVIDER_H__
+#ifndef _TEST_SOURCE_PROVIDER_H__
+#define _TEST_SOURCE_PROVIDER_H__
 
 #include "i_source_provider.h"
 
@@ -50,16 +50,21 @@ public:
 
     virtual SourceIdSPtr sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source);
     virtual StreamPtr openInputStream(const SourceIdSPtr& pSourceId);
+    virtual void setImportDirectories(const std::vector<std::string>& importDirectories);
 
-    virtual bool isAbsolute(const std::string& sourceLocation);
-    virtual bool isExists(const std::string& sourceLocation);
-    virtual std::string currentLocation();
+    virtual std::string workingDirectory();
+    virtual void setWorkingDirectory(const std::string& directory);
 
-    void setCurrentLocation(const std::string& currentLocation);
+    virtual bool isAbsolute(const std::string& sourceFile);
+    virtual bool isExists(const std::string& sourceFile);
+
+    virtual std::string directory(const std::string& sourceFile);
+    virtual std::string absolute(const std::string& sourceFile);
+    
     void addFile(const std::string& path, const std::string& test);
 
 private:
-    std::string mCurrentLocation;
+    std::string mWorkingDirectory;
     boost::unordered_map<std::string, std::string> mFilesystem;
 };
 

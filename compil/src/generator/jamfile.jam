@@ -62,6 +62,7 @@ lib generator-lib
     
     project/file_source_provider.cpp
     project/generator_project.cpp
+    project/hook_source_provider.cpp
     
     boost_path_resolve.cpp
     c++_flags_enumeration_generator.cpp

@@ -77,9 +77,6 @@ public:
     Document();
     virtual ~Document();
     
-    NameSPtr name() const;
-    void setName(const NameSPtr& pName);
-    
     PackageSPtr package() const;
     void setPackage(const PackageSPtr& pPackage);
 

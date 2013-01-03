@@ -125,13 +125,13 @@ public:
     // Parse the input and construct a Descriptor from it.
     // Returns true if no errors occurred, false otherwise.
     bool parseDocument(const StreamPtr& pInput,
-                       const DocumentSPtr& document);
+                       DocumentSPtr& document);
     bool parseDocument(const SourceIdSPtr& sourceId, 
                        const StreamPtr& pInput, 
-                       const DocumentSPtr& document);
-    bool parseDocument(const ISourceProviderPtr& pSourceProvider,
+                       DocumentSPtr& document);
+    bool parseDocument(const ISourceProviderSPtr& pSourceProvider,
                        const SourceIdSPtr& pSourceId,
-                       const DocumentSPtr& document);
+                       DocumentSPtr& document);
                
     void setDocumentInput(const StreamPtr& pInput);
     

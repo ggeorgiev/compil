@@ -70,11 +70,11 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/compil/src/generator-test/immutable_structure.compil"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/compil/src/generator-test/specimens.compil"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/strong_enumeration.compil"

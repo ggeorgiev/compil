@@ -87,16 +87,6 @@ Document::~Document()
 {
 }
 
-NameSPtr Document::name() const
-{
-    return mpName;
-}
-
-void Document::setName(const NameSPtr& pName)
-{
-    mpName = pName;
-}
-
 PackageSPtr Document::package() const
 {
     return mpPackage;

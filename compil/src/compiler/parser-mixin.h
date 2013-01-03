@@ -49,7 +49,7 @@ struct ParseContext
     typedef std::map<std::string, SourceIdSPtr> SourceMap;
     typedef boost::shared_ptr<SourceMap> SourceMapSPtr;
 
-    ISourceProviderPtr  mSourceProvider;
+    ISourceProviderSPtr mSourceProvider;
     SourceMapSPtr       mSources;
 
     MessageCollectorPtr mMessageCollector;

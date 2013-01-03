@@ -2973,7 +2973,7 @@ void CppGenerator::generateObjectDefinition(const ObjectSPtr& pObject)
 
 bool CppGenerator::generate()
 {
-    addDependency(impl->cppHeaderFileDependency(mDocument->name()->sourceId()->original(),
+    addDependency(impl->cppHeaderFileDependency(mDocument->sourceId()->original(),
                                                 mDocument->package()));
 
     openNamespace(definitionStream);
