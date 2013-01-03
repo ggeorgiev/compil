@@ -2212,7 +2212,7 @@ void Parser::initProjectContext()
 
 bool Parser::parseProject(const SourceIdSPtr& sourceId,
                           const StreamPtr& pInput,
-                          const ProjectSPtr& project)
+                          ProjectSPtr& project)
 {
     initProjectContext();
     mContext->mTokenizer = boost::make_shared<Tokenizer>(mContext->mMessageCollector, sourceId, pInput);
@@ -2245,6 +2245,7 @@ bool Parser::parseProject(const SourceIdSPtr& sourceId,
     if (mContext->mMessageCollector->severity() > Message::SEVERITY_WARNING)
         return false;
         
+    project = context->mProject;
     return true;
 }
 

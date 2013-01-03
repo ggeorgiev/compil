@@ -61,6 +61,7 @@ protected:
 
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(str));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		EXPECT_EQ(lang::compil::Line(line), mpTokenizer->line()) << str;
 		EXPECT_EQ(lang::compil::Column(column), mpTokenizer->column()) << str;
 		EXPECT_TRUE( mpTokenizer->eof() ) << str;
@@ -119,6 +120,7 @@ TEST_F(TokenizerTests, IncorrectBlockCStyleComment)
 
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(str));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		EXPECT_FALSE(mpTokenizer->current()) << str;
 		EXPECT_TRUE(mpTokenizer->eof()) << str;
 		ASSERT_EQ(1U, mMessageCollector->messages().size()) << str;
@@ -131,6 +133,7 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenSpaceClose)
 	boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 		"/* */"));
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+    mpTokenizer->shift();
 	ASSERT_TRUE(mpTokenizer);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ(" ", mpTokenizer->current()->text().c_str());
@@ -147,6 +150,7 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenStarClose)
 	boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 		"/***/"));
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+    mpTokenizer->shift();
 	ASSERT_TRUE(mpTokenizer);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("*", mpTokenizer->current()->text().c_str());
@@ -162,6 +166,7 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenSlashClose)
 	boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 		"/*/*/"));
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+    mpTokenizer->shift();
 	ASSERT_TRUE(mpTokenizer);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("/", mpTokenizer->current()->text().c_str());
@@ -177,6 +182,7 @@ TEST_F(TokenizerTests, commentBlockCStyleOpen2SlashesClose)
 	boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 		"/*//*/"));
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+    mpTokenizer->shift();
 	ASSERT_TRUE(mpTokenizer);
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("//", mpTokenizer->current()->text().c_str());
@@ -192,6 +198,7 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenNClose)
 	boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 		"/*\n*/"));
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+    mpTokenizer->shift();
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("", mpTokenizer->current()->text().c_str());
 	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -215,6 +222,7 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenN2SlashesClose)
 	boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 		"/*\n//*/"));
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+    mpTokenizer->shift();
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("", mpTokenizer->current()->text().c_str());
 	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -238,6 +246,7 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenSpaceNSpaceClose)
 	boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 		"/* \n */"));
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+    mpTokenizer->shift();
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ(" ", mpTokenizer->current()->text().c_str());
 	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -261,6 +270,7 @@ TEST_F(TokenizerTests, commentLineCStyle)
 	boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 		"//"));
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+    mpTokenizer->shift();
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("", mpTokenizer->current()->text().c_str());
 	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -275,6 +285,7 @@ TEST_F(TokenizerTests, commentLineCStyleSpace)
 	boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 		"// "));
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+    mpTokenizer->shift();
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ(" ", mpTokenizer->current()->text().c_str());
 	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -289,6 +300,7 @@ TEST_F(TokenizerTests, commentLineCStyleSpaceNSpace)
 	boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 		"// \n "));
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+    mpTokenizer->shift();
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ(" ", mpTokenizer->current()->text().c_str());
 	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -303,6 +315,7 @@ TEST_F(TokenizerTests, commentLineCStyleSpaceRSpace)
 	boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 		"// \n "));
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+    mpTokenizer->shift();
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ(" ", mpTokenizer->current()->text().c_str());
 	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -317,6 +330,7 @@ TEST_F(TokenizerTests, commentLineCStyleSlash)
 	boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 		"///"));
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+    mpTokenizer->shift();
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("/", mpTokenizer->current()->text().c_str());
 	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -331,6 +345,7 @@ TEST_F(TokenizerTests, commentLineCStyle2StarsSlash)
 	boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 		"//**/"));
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+    mpTokenizer->shift();
 	EXPECT_EQ(compil::Token::TYPE_COMMENT, mpTokenizer->current()->type());
 	EXPECT_STREQ("**/", mpTokenizer->current()->text().c_str());
 	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -351,7 +366,8 @@ TEST_F(TokenizerTests, 1DecimalDigit)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
-		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
+		mpTokenizer->shift();
+        EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL,
 			mpTokenizer->current()->type());
 		EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
 		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -379,7 +395,8 @@ TEST_F(TokenizerTests, integerDecimalNumber)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
-		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
+        mpTokenizer->shift();
+		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL,
 			mpTokenizer->current()->type()) << integers[i];
 		EXPECT_STREQ(integers[i], mpTokenizer->current()->text().c_str());
 		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -407,6 +424,7 @@ TEST_F(TokenizerTests, nonIntegerDecimalNumber)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		if (mpTokenizer->current())
 			EXPECT_NE(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type()) << non_integers[i];
@@ -433,6 +451,7 @@ TEST_F(TokenizerTests, wrongDecimal)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		ASSERT_FALSE(mpTokenizer->current()) << str;
 
 		EXPECT_TRUE( mpTokenizer->eof() );
@@ -458,6 +477,7 @@ TEST_F(TokenizerTests, delimitedDecimal)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type());
 		EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
@@ -487,6 +507,7 @@ TEST_F(TokenizerTests, 1HexicalDigit)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		ASSERT_TRUE(mpTokenizer->current());
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type());
@@ -504,6 +525,7 @@ TEST_F(TokenizerTests, integerHexicalNumber)
 	boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 		"0x1234567890abcdefABCDEF"));
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+    mpTokenizer->shift();
 	EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 		mpTokenizer->current()->type());
 	EXPECT_STREQ("0x1234567890abcdefABCDEF", mpTokenizer->current()->text().c_str());
@@ -531,6 +553,7 @@ TEST_F(TokenizerTests, nonIntegerHexicalNumber)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		if (mpTokenizer->current())
 			EXPECT_NE(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type()) << non_integers[i];
@@ -557,6 +580,7 @@ TEST_F(TokenizerTests, wrongHexical)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		ASSERT_FALSE(mpTokenizer->current());
 
 		EXPECT_TRUE(mpTokenizer->eof());
@@ -583,6 +607,7 @@ TEST_F(TokenizerTests, delimitedHexical)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type());
 		EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
@@ -605,6 +630,7 @@ TEST_F(TokenizerTests, 1OctalDigit)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		ASSERT_TRUE(mpTokenizer->current());
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type());
@@ -634,6 +660,7 @@ TEST_F(TokenizerTests, integerOctalNumber)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type()) << integers[i];
 		EXPECT_STREQ(integers[i], mpTokenizer->current()->text().c_str());
@@ -666,6 +693,7 @@ TEST_F(TokenizerTests, wrongOctalDigit)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		ASSERT_FALSE(mpTokenizer->current()) << str;
 
 		EXPECT_TRUE( mpTokenizer->eof() );
@@ -691,6 +719,7 @@ TEST_F(TokenizerTests, delimitedOctal)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
 			mpTokenizer->current()->type());
 		EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
@@ -723,6 +752,7 @@ TEST_F(TokenizerTests, floats)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		EXPECT_EQ(compil::Token::TYPE_REAL_LITERAL, 
 			mpTokenizer->current()->type()) << floats[f];
 		EXPECT_STREQ(floats[f], mpTokenizer->current()->text().c_str());
@@ -755,6 +785,7 @@ TEST_F(TokenizerTests, nonFloats)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		if (mpTokenizer->current())
 			EXPECT_NE(compil::Token::TYPE_REAL_LITERAL, 
 			mpTokenizer->current()->type()) << non_floats[f];
@@ -781,6 +812,7 @@ TEST_F(TokenizerTests, strings)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		EXPECT_EQ(compil::Token::TYPE_STRING_LITERAL, 
 			mpTokenizer->current()->type()) << strings[s];
 
@@ -824,6 +856,7 @@ TEST_F(TokenizerTests, notTerminatedStrings)
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			strings[s]));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 
 		compil::TokenPtr pToken = mpTokenizer->current();
 		if (pToken)
@@ -854,6 +887,7 @@ TEST_F(TokenizerTests, wrongEscapee)
 		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
 			strings[s]));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 
 		compil::TokenPtr pToken = mpTokenizer->current();
 		if (pToken)
@@ -907,6 +941,7 @@ TEST_F(TokenizerTests, identifier)
 				mMessageCollector.reset(new compil::MessageCollector());
 				mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 				mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+                mpTokenizer->shift();
 				str[2] = '\0';
 				EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
 				EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -934,6 +969,7 @@ TEST_F(TokenizerTests, arrow)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		compil::TokenPtr pToken = mpTokenizer->current();
 		ASSERT_TRUE(pToken);
 		EXPECT_EQ(compil::Token::TYPE_OPERATOR_ARROW, pToken->type());
@@ -961,6 +997,7 @@ TEST_F(TokenizerTests, bitwise_operator)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		compil::TokenPtr pToken = mpTokenizer->current();
 		EXPECT_EQ(compil::Token::TYPE_BITWISE_OPERATOR, pToken->type());
 	}
@@ -981,6 +1018,7 @@ TEST_F(TokenizerTests, relational_operator1)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		compil::TokenPtr pToken = mpTokenizer->current();
         EXPECT_EQ(compil::Token::TYPE_RELATIONAL_OPERATOR1, pToken->type());
 	}
@@ -1001,6 +1039,7 @@ TEST_F(TokenizerTests, relational_operator2)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		compil::TokenPtr pToken = mpTokenizer->current();
         EXPECT_EQ(compil::Token::TYPE_RELATIONAL_OPERATOR2, pToken->type());
 	}
@@ -1025,6 +1064,7 @@ TEST_F(TokenizerTests, non_arrow)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		compil::TokenPtr pToken = mpTokenizer->current();
 		if (pToken)
 			EXPECT_NE(compil::Token::TYPE_OPERATOR_ARROW, pToken->type());
@@ -1048,6 +1088,7 @@ TEST_F(TokenizerTests, angle_brackets)
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shift();
 		compil::TokenPtr pToken = mpTokenizer->current();
 		while (pToken)
 		{
@@ -1056,5 +1097,81 @@ TEST_F(TokenizerTests, angle_brackets)
 			mpTokenizer->shift();
 			pToken = mpTokenizer->current();
 		}
+	}
+}
+
+TEST_F(TokenizerTests, filepaths)
+{
+	const char* filepaths[] =
+	{ 
+		"file",                     "file",
+		"path/file",                "path/file",
+		"FILE1234567890",           "FILE1234567890",
+		"FILE-+._",                 "FILE-+._",
+	};
+
+	for (size_t f = 0; f < sizeof(filepaths) / sizeof(filepaths[0]); ++f)
+	{
+		std::cout << "    " << filepaths[f] << "\n";
+		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
+			filepaths[f]));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
+		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shiftFilepath();
+		EXPECT_EQ(compil::Token::TYPE_FILEPATH,
+			mpTokenizer->current()->type()) << filepaths[f];
+
+		std::string result = filepaths[++f];
+
+		EXPECT_STREQ(result.c_str(), mpTokenizer->current()->text().c_str());
+		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) 
+			<< result;
+
+		EXPECT_EQ(lang::compil::Column((int)result.length() + 1), mpTokenizer->current()->endColumn())
+			<< result;
+		EXPECT_TRUE( mpTokenizer->eof() )
+			<< result;
+		EXPECT_EQ(0U, mMessageCollector->messages().size());
+	}
+}
+
+TEST_F(TokenizerTests, filepathsDelimiter)
+{
+	const char* filepaths[] =
+	{ 
+		"file",                     "file",
+		"file blah",                "file",
+		"file;blah",                "file",
+		"file#blah",                "file",
+		"file{blah",                "file",
+		"file}blah",                "file",
+		"file\nblah",               "file",
+		"file\rblah",               "file",
+	};
+
+	for (size_t f = 0; f < sizeof(filepaths) / sizeof(filepaths[0]); ++f)
+	{
+		std::cout << "    " << filepaths[f] << "\n";
+		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
+			filepaths[f]));
+		mMessageCollector.reset(new compil::MessageCollector());
+		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
+		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
+        mpTokenizer->shiftFilepath();
+		EXPECT_EQ(compil::Token::TYPE_FILEPATH,
+			mpTokenizer->current()->type()) << filepaths[f];
+
+		std::string result = filepaths[++f];
+
+		EXPECT_STREQ(result.c_str(), mpTokenizer->current()->text().c_str());
+		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) 
+			<< result;
+
+		EXPECT_EQ(lang::compil::Column((int)result.length() + 1), mpTokenizer->current()->endColumn())
+			<< result;
+		EXPECT_EQ(0U, mMessageCollector->messages().size());
 	}
 }

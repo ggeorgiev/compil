@@ -54,6 +54,7 @@ Tokenizer::Tokenizer(const MessageCollectorPtr& pMessageCollector,
         , mBlockComment(false)
 {
     tokenize(pSourceId, pInput);
+    shift();
 }
 
 Tokenizer::~Tokenizer()
@@ -65,7 +66,9 @@ void Tokenizer::tokenize(const SourceIdSPtr& pSourceId, const boost::shared_ptr<
     BOOST_ASSERT(!mpInput);
     mpSourceId = pSourceId;
     mpInput = pInput;
-    shift();
+    mCurrentLine = 0;
+    mCurrentColumn = 0;
+    mBlockComment = false;
 }
 
 static bool isEOL(int ch)
@@ -256,6 +259,22 @@ static bool isCStyleLineCommentSecondChar(int ch)
 static bool isCStyleBlockCommentSecondChar(int ch)
 {
     return (ch == '*'); // C style block comment second character
+}
+
+static bool isPortableFilepathChar(int ch)
+{
+    return
+        // only '/' is supported as delimiter
+           (ch == '/')
+        // The portable path chars according to the POSIX standard
+        || ((ch >= 'a') && (ch <= 'z'))
+        || ((ch >= 'A' ) && (ch <= 'Z'))
+        || ((ch >= '0') && (ch <= '9'))
+        || (ch == '.')
+        || (ch == '_')
+        || (ch == '-')
+        // I think '+' is also nice to be supported
+        || (ch == '+');
 }
 
 void Tokenizer::skipWhiteSpaces()
@@ -761,7 +780,6 @@ bool Tokenizer::consumeEqualOperator(int ch)
 
     mpCurrent->setEndColumn(column());
     return true;
-
 }
 
 void Tokenizer::consumeIdentifier(int ch)
@@ -889,6 +907,34 @@ void Tokenizer::shift()
     {
         mpCurrent.reset();
     }
+}
+
+void Tokenizer::shiftFilepath()
+{
+    // do not call shift file in the middle of a block comment
+    BOOST_ASSERT(!mBlockComment);
+
+    // we do not support files with whitespaces in the beggining
+    skipWhiteSpaces();
+        
+    mpCurrent.reset(new Token);
+    mpCurrent->setLine(line());
+    mpCurrent->setBeginColumn(column());
+    mpCurrent->setType(Token::TYPE_FILEPATH);
+
+    while (!eof())
+    {
+        int ch = mpInput->get();
+        if (!isPortableFilepathChar(ch))
+        {
+            mpInput->clear();
+            mpInput->unget();
+            break;
+        }
+        absorbed(ch);
+        mpCurrent->addChar(ch);
+    }
+    mpCurrent->setEndColumn(column());
 }
 
 bool Tokenizer::eof() const

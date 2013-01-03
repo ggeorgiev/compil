@@ -138,8 +138,8 @@ public:
     void initProjectContext();
     
     bool parseProject(const SourceIdSPtr& sourceId,
-               const StreamPtr& pInput,
-               const ProjectSPtr& project);
+                      const StreamPtr& pInput,
+                      ProjectSPtr& project);
                
    const std::vector<Message>& messages();
 

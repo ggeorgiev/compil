@@ -107,8 +107,13 @@ public:
         TYPE_REAL_LITERAL,
         
         // string literal
-        TYPE_STRING_LITERAL
+        TYPE_STRING_LITERAL,
 
+
+        // special literals - you may recieve some of this literals only with a special call
+        
+        // Filepath - you need to call shiftFilepath
+        TYPE_FILEPATH,
     };
 
     Type type() const;

@@ -37,7 +37,13 @@ namespace compil
 
 FilePathSPtr ProjectParserMixin::parseFilePath(const ProjectParseContextSPtr& context)
 {
-    return FilePathSPtr();
+    context->mTokenizer->shiftFilepath();
+
+    FilePathSPtr filePath = boost::make_shared<FilePath>();
+    initilizeObject(context, filePath);
+    filePath << context->mTokenizer->current()->text();
+    
+    return filePath;
 }
 
 SectionSPtr ProjectParserMixin::parseSection(const ProjectParseContextSPtr& context, const CommentSPtr& comment)
@@ -69,8 +75,6 @@ SectionSPtr ProjectParserMixin::parseSection(const ProjectParseContextSPtr& cont
         return SectionSPtr();
     }
     
-    context->mTokenizer->shift();
-    skipComments(context);
     for (;;)
     {
         if (context->mTokenizer->eot())
@@ -80,18 +84,32 @@ SectionSPtr ProjectParserMixin::parseSection(const ProjectParseContextSPtr& cont
             return SectionSPtr();
         }
         
-        if (context->mTokenizer->check(Token::TYPE_BRACKET, "}"))
-            break;
-
         FilePathSPtr filePath = parseFilePath(context);
         if (!filePath)
         {
             context->mMessageCollector->addMessage(errorMessage(context, Message::p_expectStatementName)
-                                                   << Message::Statement("specimen"));
+                                                   << Message::Statement("file path"));
             return SectionSPtr();
         }
-    }
+        
+        // ignore empty paths
+        if (!filePath->path().empty())
+            section << filePath;
 
+        context->mTokenizer->shift();
+        if (context->mTokenizer->check(Token::TYPE_BRACKET, "}"))
+        if (filePath->path().empty())
+            break;
+        
+        if (!context->mTokenizer->expect(Token::TYPE_DELIMITER, ";"))
+        {
+            if (filePath && !filePath->path().empty())
+            {
+                context->mMessageCollector->addMessage(errorMessage(context, Message::p_expectSemicolon));
+                return SectionSPtr();
+            }
+        }
+    }
 
     return section;
 }

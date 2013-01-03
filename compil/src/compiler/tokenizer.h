@@ -57,6 +57,7 @@ public:
 
     // shifts the tokenizer to the next token
     void shift();
+    void shiftFilepath();
     bool eof() const;
     bool eot() const;
 
