@@ -203,7 +203,7 @@ bool GeneratorProject::parseDocuments()
         SourceIdSPtr sourceId = mSourceProvider->sourceId(parent, sourceFile);
         if (!sourceId)
         {
-            std::cout << "ERROR: the source compil file: " << sourceFile << std::endl;
+            std::cout << "ERROR: missing source compil file: " << sourceFile << std::endl;
             // TODO dump the list of the directories it looks into
             return false;
         }

@@ -32,9 +32,9 @@
 
 compil { }
 
-import "compil/document/package.scompil";
 import "compil/all/comment.scompil";
 import "compil/all/name.scompil";
+import "compil/all/package.scompil";
 
 package lang.compil;
 

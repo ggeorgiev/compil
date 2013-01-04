@@ -158,6 +158,7 @@ section main
     compil/all/name.scompil;
     compil/all/object_factory.scompil;
     compil/all/object.scompil;
+    compil/all/package.scompil;
     compil/all/package_element.scompil;
     compil/all/source_id.scompil;
     compil/all/version.scompil;
@@ -177,7 +178,6 @@ section main
     compil/document/operator_action.scompil;
     compil/document/operator_flags.scompil;
     compil/document/operator.scompil;
-    compil/document/package.scompil;
     compil/document/parameter.scompil;
     compil/document/reference.scompil;
     compil/document/unary_container.scompil;

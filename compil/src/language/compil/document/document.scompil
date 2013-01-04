@@ -34,6 +34,7 @@ compil { }
 
 import "compil/all/file.scompil";
 import "compil/all/name.scompil";
+import "compil/all/package.scompil";
 
 package lang.compil;
 
@@ -44,5 +45,6 @@ structure Document
     runtime identification;
     
     reference<File> mainFile;
+    reference<Package> package = optional;
     reference<Name> name;
 }

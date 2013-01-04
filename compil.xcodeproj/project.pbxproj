@@ -41,6 +41,7 @@
 		5E046CE71696604E00E354F3 /* compil_generator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = compil_generator.cpp; sourceTree = "<group>"; };
 		5E046CE81696604E00E354F3 /* compil_generator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = compil_generator.h; sourceTree = "<group>"; };
 		5E046CE91696604E00E354F3 /* compil_generator_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = compil_generator_unittest.cpp; sourceTree = "<group>"; };
+		5E046D011696DB6900E354F3 /* package.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = package.scompil; sourceTree = "<group>"; };
 		5E261F581645FA8A00EA7414 /* type.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = type.compil; sourceTree = "<group>"; };
 		5E261F5A1645FBD500EA7414 /* type.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = type.cpp; sourceTree = "<group>"; };
 		5E261F5B1645FBD500EA7414 /* type.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type.h; sourceTree = "<group>"; };
@@ -431,7 +432,6 @@
 		5EFFA6C31692702400035CAA /* interface.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = interface.scompil; sourceTree = "<group>"; };
 		5EFFA6C41692702400035CAA /* method.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method.scompil; sourceTree = "<group>"; };
 		5EFFA6C81692702400035CAA /* operator.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = operator.scompil; sourceTree = "<group>"; };
-		5EFFA6C91692702400035CAA /* package.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = package.scompil; sourceTree = "<group>"; };
 		5EFFA6CB1692702400035CAA /* parameter.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = parameter.scompil; sourceTree = "<group>"; };
 		5EFFA6CC1692702400035CAA /* reference.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = reference.scompil; sourceTree = "<group>"; };
 		5EFFA6CE1692702400035CAA /* specimen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = specimen.cpp; sourceTree = "<group>"; };
@@ -1334,7 +1334,6 @@
 				5E35351216948F6200716B12 /* operator_action.scompil */,
 				5E35351316948F6A00716B12 /* operator_flags.scompil */,
 				5EFFA6C81692702400035CAA /* operator.scompil */,
-				5EFFA6C91692702400035CAA /* package.scompil */,
 				5EFFA6CB1692702400035CAA /* parameter.scompil */,
 				5EFFA6CC1692702400035CAA /* reference.scompil */,
 				5EFFA6CE1692702400035CAA /* specimen.cpp */,
@@ -1372,6 +1371,7 @@
 				5EFFA6E616936B8B00035CAA /* object.scompil */,
 				5EFFA6E716936B8B00035CAA /* object_factory.scompil */,
 				5EFFA6EB16936E4900035CAA /* package_element.scompil */,
+				5E046D011696DB6900E354F3 /* package.scompil */,
 				5EFFA6E816936B8B00035CAA /* source_id.scompil */,
 				5EFFA6EA16936D8900035CAA /* version.scompil */,
 			);
@@ -1583,6 +1583,7 @@
 				5E046CF31696B3C500E354F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5E046CF71696BA7F00E354F3 /* Build configuration list for PBXLegacyTarget "clean" */ = {
 			isa = XCConfigurationList;
@@ -1591,6 +1592,7 @@
 				5E046CF91696BA7F00E354F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5E335F201425381A004CB818 /* Build configuration list for PBXProject "compil" */ = {
 			isa = XCConfigurationList;

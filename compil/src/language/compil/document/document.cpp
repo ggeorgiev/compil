@@ -87,16 +87,6 @@ Document::~Document()
 {
 }
 
-PackageSPtr Document::package() const
-{
-    return mpPackage;
-}
-
-void Document::setPackage(const PackageSPtr& pPackage)
-{
-    mpPackage = pPackage;
-}
-
 bool Document::compareElementValues(const std::vector<PackageElementSPtr>& v1, const std::vector<PackageElementSPtr>& v2)
 {
     if (v1.size() != v2.size())

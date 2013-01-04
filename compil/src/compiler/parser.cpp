@@ -2128,7 +2128,7 @@ bool Parser::parseDocument(const StreamPtr& pInput,
         if (!mpPackage)
             return false;
         if (mDocument->mainFile() == file)
-            mDocument->setPackage(mpPackage);
+            mDocument->set_package(mpPackage);
 
         mContext->mTokenizer->shift();
         pStatementComment = lastComment();

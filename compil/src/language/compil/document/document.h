@@ -51,7 +51,6 @@
 #include "compil/document/interface.h"
 #include "compil/document/method.h"
 #include "compil/document/operator.h"
-#include "compil/document/package.h"
 #include "compil/document/parameter.h"
 #include "compil/document/reference.h"
 #include "compil/document/specimen.h"
@@ -77,9 +76,6 @@ public:
     Document();
     virtual ~Document();
     
-    PackageSPtr package() const;
-    void setPackage(const PackageSPtr& pPackage);
-
     static bool isVisible(const PackageSPtr& pTypePackage,
                           const PackageSPtr& pCurrentPackage,
                           const std::vector<PackageElementSPtr>& lookup_package_elements);

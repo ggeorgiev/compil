@@ -152,6 +152,7 @@ lib compil-language
     $(GEN)/compil/all/object_factory.cpp
     $(GEN)/compil/all/object.cpp
     $(GEN)/compil/all/package_element.cpp
+    $(GEN)/compil/all/package.cpp
     $(GEN)/compil/all/source_id.cpp
     $(GEN)/compil/all/version.cpp
 
@@ -170,7 +171,6 @@ lib compil-language
     $(GEN)/compil/document/operator_action.cpp
     $(GEN)/compil/document/operator_flags.cpp
     $(GEN)/compil/document/operator.cpp
-    $(GEN)/compil/document/package.cpp
     $(GEN)/compil/document/parameter.cpp
     $(GEN)/compil/document/reference.cpp
     $(GEN)/compil/document/unary_container.cpp
