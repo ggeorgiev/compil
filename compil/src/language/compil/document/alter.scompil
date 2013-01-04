@@ -35,7 +35,7 @@ compil { }
 import "compil/document/field.scompil";
 import "compil/document/default_value.scompil";
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 // this is a structure blah blah
 structure Alter 

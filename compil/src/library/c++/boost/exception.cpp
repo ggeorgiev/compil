@@ -32,7 +32,7 @@
 
 #include "library/c++/boost/exception.h"
 
-#include "c++/class/identifier_class_name.h"
+#include "language/c++/class/identifier_class_name.h"
 
 namespace lib
 {

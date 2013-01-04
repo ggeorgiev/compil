@@ -6,12 +6,12 @@ import convert ;
 boost-defines ;
 gtest-defines ;
 
-GEN = .gen ;
+GEN = .gen/language ;
 
 project language
     : requirements 
-      <include>.
-      <include>$(GEN)
+      <include>$(TOP)
+      <include>.gen
       <include>$(TOP)/core/c++
     ;
 
@@ -139,8 +139,8 @@ lib cpp-language
   :
   :
   :
-    <include>.
-    <include>$(GEN)
+    <include>$(TOP)
+    <include>.gen
     <include>$(TOP)/core/c++
   ;   
     
@@ -201,8 +201,8 @@ lib compil-language
   :
   :
   :
-    <include>.
-    <include>$(GEN)
+    <include>$(TOP)
+    <include>.gen
     <include>$(TOP)/core/c++
   ;
 

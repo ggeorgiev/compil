@@ -33,7 +33,7 @@
 #include "library/c++/compil/specimen.h"
 #include "library/c++/compil/namespace.h"
 
-#include "c++/class/identifier_class_name.h"
+#include "language/c++/class/identifier_class_name.h"
 
 #include "boost/unordered_map.hpp"
 

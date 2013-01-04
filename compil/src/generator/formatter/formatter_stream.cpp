@@ -32,11 +32,11 @@
 
 #include "formatter_stream.h"
 
-#include "c++/expression/expression_factory.h"
-#include "c++/statement/statement_factory.h"
+#include "language/c++/expression/expression_factory.h"
+#include "language/c++/statement/statement_factory.h"
 
-#include "all/list.h"
-#include "all/scope.h"
+#include "language/all/list.h"
+#include "language/all/scope.h"
 
 using namespace lang::all;
 using namespace lang::cpp;

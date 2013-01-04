@@ -35,7 +35,7 @@ compil { }
 import "c++/test/test_name.scompil";
 import "c++/statement/statement.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure Test 

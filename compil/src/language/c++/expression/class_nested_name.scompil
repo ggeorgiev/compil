@@ -35,7 +35,7 @@ compil { }
 import "c++/expression/nested_name.scompil";
 import "c++/class/identifier_class_name.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure ClassNestedName

@@ -33,7 +33,7 @@
 #ifndef _IMPLEMENTER_BOOST_NAMESPACE_H__
 #define _IMPLEMENTER_BOOST_NAMESPACE_H__
 
-#include "c++/namespace/namespace.h"
+#include "language/c++/namespace/namespace.h"
 
 namespace lib
 {

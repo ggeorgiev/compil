@@ -39,7 +39,7 @@ import "compil/all/comment.scompil";
 import "compil/all/name.scompil";
 
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 structure Field 
     inherit Object

@@ -41,7 +41,7 @@ import "c++/declaration/simple_block_declaration.scompil";
 import "c++/declaration/type_declaration_specifier.scompil";
 import "c++/declaration/type_name_simple_type_specifier.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 hierarchy
 factory<Declaration> DeclarationFactory

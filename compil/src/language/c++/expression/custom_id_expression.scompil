@@ -34,7 +34,7 @@ compil { }
 
 import "c++/expression/id_expression.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure CustomIdExpression

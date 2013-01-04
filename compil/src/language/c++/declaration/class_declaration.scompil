@@ -35,7 +35,7 @@ compil { }
 import "c++/declaration/declaration.scompil";
 import "c++/class/class.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure ClassDeclaration

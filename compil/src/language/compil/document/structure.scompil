@@ -34,7 +34,7 @@ compil { }
 
 import "compil/document/type.scompil";
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 partial sharable
 structure Structure 

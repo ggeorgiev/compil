@@ -35,7 +35,7 @@ compil { }
 import "c++/declarator/declarator.scompil";
 import "c++/declarator/declarator_id_direct_declarator.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 hierarchy
 factory<Declarator> DeclaratorFactory

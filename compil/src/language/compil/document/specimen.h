@@ -33,7 +33,7 @@
 #ifndef __LANGUAGE_COMPIL_SPECIMEN_COMPIL_H_
 #define __LANGUAGE_COMPIL_SPECIMEN_COMPIL_H_
 
-#include "compil/document/specimen-partial.h"
+#include "language/compil/document/specimen-partial.h"
 
 namespace lang
 {

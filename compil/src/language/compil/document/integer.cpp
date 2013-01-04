@@ -1,5 +1,5 @@
-#include "compil/document/integer.h"
-#include "compil/document/operator.h"
+#include "language/compil/document/integer.h"
+#include "language/compil/document/operator.h"
 
 namespace lang
 {

@@ -1394,7 +1394,7 @@
 /* Begin PBXLegacyTarget section */
 		5E046CF01696B3C500E354F3 /* gen-language */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "--project-file=language/language.scompilprj -o language/.gen -cpp.include_path=include_path_based_on_package";
+			buildArgumentsString = "--project-file=language/language.scompilprj -o language/.gen --cpp.include_path=include_path_based_on_package";
 			buildConfigurationList = 5E046CF11696B3C500E354F3 /* Build configuration list for PBXLegacyTarget "gen-language" */;
 			buildPhases = (
 			);

@@ -35,7 +35,7 @@ compil { }
 import "c++/expression/additive_expression.scompil";
 import "c++/expression/multiplicative_expression.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure MultiplicativeAdditiveExpression

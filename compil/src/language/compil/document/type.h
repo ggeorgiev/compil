@@ -33,7 +33,7 @@
 #ifndef __LANGUAGE_COMPIL_TYPE_COMPIL_H_
 #define __LANGUAGE_COMPIL_TYPE_COMPIL_H_
 
-#include "compil/document/type-partial.h"
+#include "language/compil/document/type-partial.h"
 
 namespace lang
 {

@@ -35,7 +35,7 @@ compil { }
 import "c++/declaration/block_declaration.scompil";
 import "c++/declaration/simple_declaration.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure SimpleBlockDeclaration

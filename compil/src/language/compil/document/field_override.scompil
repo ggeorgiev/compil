@@ -36,7 +36,7 @@ import "compil/document/field.scompil";
 import "compil/document/type.scompil";
 import "compil/all/comment.scompil";
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 structure FieldOverride
     inherit Object

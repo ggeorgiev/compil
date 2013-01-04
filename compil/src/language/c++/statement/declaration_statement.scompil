@@ -35,7 +35,7 @@ compil { }
 import "c++/statement/statement.scompil";
 import "c++/declaration/block_declaration.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 sharable streamable
 structure DeclarationStatement

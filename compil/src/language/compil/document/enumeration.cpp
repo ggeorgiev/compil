@@ -1,5 +1,5 @@
-#include "compil/document/enumeration.h"
-#include "compil/all/object_factory.h"
+#include "language/compil/document/enumeration.h"
+#include "language/compil/all/object_factory.h"
 
 #include <boost/foreach.hpp>
 

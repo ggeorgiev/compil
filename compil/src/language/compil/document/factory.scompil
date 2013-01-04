@@ -35,7 +35,7 @@ compil { }
 import "compil/document/unary_template.scompil";
 import "compil/document/filter.scompil";
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 partial
 structure Factory 

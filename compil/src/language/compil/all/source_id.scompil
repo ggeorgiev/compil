@@ -34,7 +34,7 @@ compil { }
 
 import "compil/all/package_element.scompil";
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 immutable
 structure SourceId

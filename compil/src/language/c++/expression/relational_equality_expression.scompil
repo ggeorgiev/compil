@@ -35,7 +35,7 @@ compil { }
 import "c++/expression/equality_expression.scompil";
 import "c++/expression/relational_expression.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure RelationalEqualityExpression

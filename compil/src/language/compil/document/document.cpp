@@ -30,8 +30,8 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "compil/document/document.h"
-#include "compil/all/object_factory.h"
+#include "language/compil/document/document.h"
+#include "language/compil/all/object_factory.h"
 
 #include "boost/make_shared.hpp"
 

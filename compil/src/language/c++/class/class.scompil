@@ -35,7 +35,7 @@ compil { }
 import "c++/class/class_name.scompil";
 import "c++/namespace/namespace.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure Class 

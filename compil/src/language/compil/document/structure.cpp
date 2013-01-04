@@ -1,5 +1,5 @@
-#include "compil/document/structure.h"
-#include "compil/all/object_factory.h"
+#include "language/compil/document/structure.h"
+#include "language/compil/all/object_factory.h"
 
 namespace lang
 {

@@ -35,7 +35,8 @@
 #define _COMPIL_TOKEN_H__
 
 #include "namespace_alias.h"
-#include "compil/all/object.h"
+
+#include "language/compil/all/object.h"
 
 #include <boost/shared_ptr.hpp>
 

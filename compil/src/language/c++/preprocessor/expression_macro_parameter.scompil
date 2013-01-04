@@ -35,7 +35,7 @@ compil { }
 import "c++/preprocessor/macro_parameter.scompil";
 import "c++/expression/expression.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure ExpressionMacroParameter

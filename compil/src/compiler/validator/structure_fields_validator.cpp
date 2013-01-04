@@ -32,7 +32,7 @@
 
 #include "structure_fields_validator.h"
 
-#include "compil/document/structure.h"
+#include "language/compil/document/structure.h"
 
 #include <set>
 

@@ -36,7 +36,7 @@ import "compil/all/file.scompil";
 import "compil/all/name.scompil";
 import "compil/all/package.scompil";
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 partial
 structure Document 

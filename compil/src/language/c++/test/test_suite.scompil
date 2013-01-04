@@ -35,7 +35,7 @@ compil { }
 import "test_suite_name.scompil";
 import "test.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure TestSuite

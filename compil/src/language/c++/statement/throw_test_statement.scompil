@@ -36,7 +36,7 @@ import "c++/statement/statement.scompil";
 import "c++/expression/expression.scompil";
 import "c++/class/class.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure ThrowTestStatement

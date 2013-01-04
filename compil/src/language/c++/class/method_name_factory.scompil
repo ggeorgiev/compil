@@ -36,7 +36,7 @@ import "c++/class/method_name.scompil";
 import "c++/class/identifier_method_name.scompil";
 import "c++/class/operator_method_name.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 hierarchy
 factory<MethodName> MethodNameFactory

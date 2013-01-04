@@ -39,9 +39,9 @@
 
 #include "formatter_stream.h"
 
-#include "c++/class/class_name_factory.h"
-#include "c++/class/method_name_factory.h"
-#include "c++/namespace/namespace_name_factory.h"
+#include "language/c++/class/class_name_factory.h"
+#include "language/c++/class/method_name_factory.h"
+#include "language/c++/namespace/namespace_name_factory.h"
 
 namespace nmr
 {

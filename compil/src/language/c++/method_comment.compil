@@ -34,7 +34,7 @@ compil { }
 
 import "comment.compil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 structure MethodComment
     inherit Comment

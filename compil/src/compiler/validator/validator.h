@@ -35,7 +35,7 @@
 
 #include "message_collector.h"
 
-#include "compil/all/object.h"
+#include "language/compil/all/object.h"
 
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>

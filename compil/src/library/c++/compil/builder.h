@@ -33,8 +33,8 @@
 #ifndef _IMPLEMENTER_COMPIL_BUILDER_H__
 #define _IMPLEMENTER_COMPIL_BUILDER_H__
 
-#include "c++/class/class.h"
-#include "c++/class/method.h"
+#include "language/c++/class/class.h"
+#include "language/c++/class/method.h"
 
 namespace lib
 {

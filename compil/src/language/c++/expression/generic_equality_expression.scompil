@@ -34,7 +34,7 @@ compil { }
 
 import "c++/expression/equality_expression.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 structure GenericEqualityExpression
     inherit EqualityExpression

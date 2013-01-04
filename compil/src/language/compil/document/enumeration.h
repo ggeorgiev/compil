@@ -39,7 +39,7 @@
 #ifndef __LANGUAGE_COMPIL_ENUMERATION_COMPIL_H_
 #define __LANGUAGE_COMPIL_ENUMERATION_COMPIL_H_
 
-#include "compil/document/enumeration-partial.h"
+#include "language/compil/document/enumeration-partial.h"
 
 namespace lang
 {

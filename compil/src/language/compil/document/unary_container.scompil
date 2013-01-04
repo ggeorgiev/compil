@@ -34,7 +34,7 @@ compil { }
 
 import "compil/document/unary_template.scompil";
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 structure UnaryContainer 
     inherit UnaryTemplate

@@ -34,7 +34,7 @@ compil { }
 
 import "compil/document/castable_type.scompil";
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 structure UnaryTemplate 
     inherit CastableType

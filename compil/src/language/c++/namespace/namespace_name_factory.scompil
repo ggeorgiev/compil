@@ -35,7 +35,7 @@ compil { }
 import "c++/namespace/namespace_name.scompil";
 import "c++/namespace/identifier_namespace_name.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 hierarchy
 factory<NamespaceName> NamespaceNameFactory

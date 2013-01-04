@@ -34,7 +34,7 @@ compil { }
 
 import "c++/declarator/parameter_declaratoin_list.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure ParameterDeclarationClause

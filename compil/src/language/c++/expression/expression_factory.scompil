@@ -58,7 +58,7 @@ import "c++/expression/unary_cast_expression.scompil";
 import "c++/expression/unqualified_id_expression.scompil";
 import "c++/expression/variable_expression.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 hierarchy
 factory<Expression> ExpressionFactory

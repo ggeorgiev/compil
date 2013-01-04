@@ -36,7 +36,7 @@ import "compil/project/section.scompil";
 import "compil/all/file.scompil";
 import "compil/all/package.scompil";
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 streamable
 structure Project

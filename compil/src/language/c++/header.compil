@@ -37,7 +37,7 @@ import "header_type.compil";
 import "header_path.compil";
 import "header_section.compil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure Header

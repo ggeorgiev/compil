@@ -43,7 +43,7 @@
 #include "tokenizer.h"
 #include "validator.h"
 
-#include "compil/document/document.h"
+#include "language/compil/document/document.h"
 
 #include "boost/function.hpp"
 #include "boost/bind.hpp"

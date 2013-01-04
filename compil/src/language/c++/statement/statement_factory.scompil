@@ -40,7 +40,7 @@ import "c++/statement/variable_declaration_statement.scompil";
 import "c++/statement/throw_test_statement.scompil";
 import "c++/statement/unary_test_statement.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 hierarchy
 factory<Statement> StatementFactory

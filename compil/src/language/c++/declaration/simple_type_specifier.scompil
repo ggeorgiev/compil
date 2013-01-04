@@ -34,7 +34,7 @@ compil { }
 
 import "c++/declaration/type_specifier.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure SimpleTypeSpecifier

@@ -53,7 +53,7 @@ compil { }
 
 import "c++/expression/expression.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure PostfixExpression

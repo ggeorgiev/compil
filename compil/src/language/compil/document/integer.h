@@ -33,7 +33,7 @@
 #ifndef __LANGUAGE_COMPIL_INTEGER_COMPIL_H_
 #define __LANGUAGE_COMPIL_INTEGER_COMPIL_H_
 
-#include "compil/document/integer-partial.h"
+#include "language/compil/document/integer-partial.h"
 
 namespace lang
 {

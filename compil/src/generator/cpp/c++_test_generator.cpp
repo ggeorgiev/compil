@@ -35,7 +35,7 @@
 #include "implementer/implementer_stream.h"
 #include "library/c++/boost/exception.h"
 
-#include "c++/logical/local_variable.h"
+#include "language/c++/logical/local_variable.h"
 
 #include "library/c++/compil/builder.h"
 #include "library/c++/compil/specimen.h"

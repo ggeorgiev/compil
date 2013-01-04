@@ -36,7 +36,7 @@ import "c++/expression/expression_list.scompil";
 import "c++/logical/variable.scompil";
 import "c++/class/method_name.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure MethodCallExpression

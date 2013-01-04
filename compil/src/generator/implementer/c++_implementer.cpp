@@ -35,7 +35,7 @@
 
 #include "library/compil/package.h"
 
-#include "compil/all/object_factory.h"
+#include "language/compil/all/object_factory.h"
 
 #include "boost/filesystem.hpp"
 #include "boost/algorithm/string.hpp"

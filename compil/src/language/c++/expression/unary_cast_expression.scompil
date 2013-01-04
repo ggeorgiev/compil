@@ -35,7 +35,7 @@ compil { }
 import "c++/expression/cast_expression.scompil";
 import "c++/expression/unary_expression.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure UnaryCastExpression

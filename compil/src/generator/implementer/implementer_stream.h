@@ -37,7 +37,7 @@
 
 #include "namer_stream.h"
 
-#include "c++/test/test_suite.h"
+#include "language/c++/test/test_suite.h"
 
 #include <boost/shared_ptr.hpp>
 

@@ -35,7 +35,7 @@ compil { }
 import "compil/document/structure.scompil";
 import "compil/all/comment.scompil";
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 structure Upcopy
     inherit Object

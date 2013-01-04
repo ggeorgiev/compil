@@ -32,8 +32,8 @@
 
 #include "library/c++/compil/builder.h"
 
-#include "c++/class/identifier_class_name.h"
-#include "c++/class/identifier_method_name.h"
+#include "language/c++/class/identifier_class_name.h"
+#include "language/c++/class/identifier_method_name.h"
 
 #include "boost/unordered_map.hpp"
 

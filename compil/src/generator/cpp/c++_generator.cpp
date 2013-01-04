@@ -34,7 +34,7 @@
 
 #include "library/compil/package.h"
 
-#include "compil/all/object_factory.h"
+#include "language/compil/all/object_factory.h"
 
 #include "boost/lexical_cast.hpp"
 #include "boost/algorithm/string.hpp"

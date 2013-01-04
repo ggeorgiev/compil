@@ -39,8 +39,8 @@
 
 #include "i_source_provider.h"
 
-#include "compil/project/project.h"
-#include "compil/document/document.h"
+#include "language/compil/project/project.h"
+#include "language/compil/document/document.h"
 
 #include "core/boost/boost_path.h"
 

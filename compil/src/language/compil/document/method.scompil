@@ -36,7 +36,7 @@ import "compil/document/interface.scompil";
 import "compil/all/comment.scompil";
 import "compil/all/name.scompil";
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 structure Method 
     inherit Object

@@ -32,7 +32,7 @@
 
 #include "library/compil/package.h"
 
-#include "c++/class/identifier_class_name.h"
+#include "language/c++/class/identifier_class_name.h"
 
 #include "boost/unordered_map.hpp"
 

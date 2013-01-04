@@ -34,7 +34,7 @@ compil { }
 
 import "compil/all/source_id.scompil";
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 specimen<integer> Line
 {

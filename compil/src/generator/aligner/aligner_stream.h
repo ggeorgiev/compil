@@ -37,8 +37,8 @@
 
 #include "aligner_configuration.h"
 
-#include "all/list.h"
-#include "all/scope.h"
+#include "language/all/list.h"
+#include "language/all/scope.h"
 
 #include <iostream>
 

@@ -36,7 +36,7 @@ import "c++/declaration/declaration.scompil";
 import "c++/declaration/declaration_specifier_sequence.scompil";
 import "c++/declarator/init_declarator.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure SimpleDeclaration

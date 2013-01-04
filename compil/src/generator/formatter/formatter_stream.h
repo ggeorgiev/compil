@@ -38,12 +38,12 @@
 #include "formatter_configuration.h"
 #include "aligner_stream.h"
 
-#include "c++/expression/expression_factory.h"
-#include "c++/statement/statement_factory.h"
-#include "c++/declaration/declaration_factory.h"
-#include "c++/declarator/declarator_factory.h"
-#include "c++/preprocessor/macro_parameter_factory.h"
-#include "c++/namespace/identifier_namespace_name.h"
+#include "language/c++/expression/expression_factory.h"
+#include "language/c++/statement/statement_factory.h"
+#include "language/c++/declaration/declaration_factory.h"
+#include "language/c++/declarator/declarator_factory.h"
+#include "language/c++/preprocessor/macro_parameter_factory.h"
+#include "language/c++/namespace/identifier_namespace_name.h"
 
 class FormatterStream
 {

@@ -32,7 +32,7 @@
 
 compil { }
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 structure PackageElement
 {

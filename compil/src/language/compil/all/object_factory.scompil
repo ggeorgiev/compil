@@ -70,7 +70,7 @@ import "compil/project/section.scompil";
 
 
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 hierarchy factory<Object> ObjectFactory
 {

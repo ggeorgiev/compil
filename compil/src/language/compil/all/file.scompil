@@ -35,7 +35,7 @@ compil { }
 import "compil/all/comment.scompil";
 import "compil/all/version.scompil";
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 streamable
 structure File 

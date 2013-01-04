@@ -36,7 +36,7 @@ import "c++/declaration/simple_type_specifier.scompil";
 import "c++/declaration/type_name.scompil";
 import "c++/expression/nested_name_specifier.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure TypeNameSimpleTypeSpecifier

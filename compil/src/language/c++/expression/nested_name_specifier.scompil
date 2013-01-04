@@ -35,7 +35,7 @@ compil { }
 import "c++/expression/expression.scompil";
 import "c++/expression/nested_name.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure NestedNameSpecifier

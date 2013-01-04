@@ -32,7 +32,7 @@
 
 compil { }
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure MethodName

@@ -32,7 +32,7 @@
 
 compil { }
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 strong flags
 enum OperatorFlags

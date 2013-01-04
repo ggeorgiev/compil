@@ -35,7 +35,7 @@ compil { }
 import "c++/expression/id_expression.scompil";
 import "c++/expression/unqualified_id.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure UnqualifiedIdExpression

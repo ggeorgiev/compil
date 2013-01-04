@@ -34,7 +34,7 @@ compil { }
 
 import "header.compil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure Include

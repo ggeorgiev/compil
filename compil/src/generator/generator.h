@@ -46,7 +46,7 @@
 
 #include "configuration_manager.h"
 
-#include "compil/document/document.h"
+#include "language/compil/document/document.h"
 
 #include <boost/shared_ptr.hpp>
 

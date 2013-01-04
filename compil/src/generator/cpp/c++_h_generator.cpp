@@ -36,7 +36,7 @@
 
 #include "library/c++/compil/specimen.h"
 
-#include "compil/all/object_factory.h"
+#include "language/compil/all/object_factory.h"
 
 #include <boost/foreach.hpp>
 

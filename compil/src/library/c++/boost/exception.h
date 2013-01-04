@@ -35,7 +35,7 @@
 
 #include "library/c++/boost/namespace.h"
 
-#include "c++/class/class.h"
+#include "language/c++/class/class.h"
 
 namespace lib
 {

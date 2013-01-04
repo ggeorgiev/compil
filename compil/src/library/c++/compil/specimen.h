@@ -33,10 +33,10 @@
 #ifndef _IMPLEMENTER_COMPIL_SPECIMEN_H__
 #define _IMPLEMENTER_COMPIL_SPECIMEN_H__
 
-#include "c++/class/class.h"
-#include "c++/class/method.h"
+#include "language/c++/class/class.h"
+#include "language/c++/class/method.h"
 
-#include "compil/all/object_factory.h"
+#include "language/compil/all/object_factory.h"
 
 namespace lib
 {

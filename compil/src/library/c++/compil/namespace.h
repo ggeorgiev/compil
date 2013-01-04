@@ -33,9 +33,9 @@
 #ifndef _IMPLEMENTER_COMPIL_SPECIMENT_H__
 #define _IMPLEMENTER_COMPIL_SPECIMENT_H__
 
-#include "c++/namespace/namespace.h"
+#include "language/c++/namespace/namespace.h"
 
-#include "compil/all/object_factory.h"
+#include "language/compil/all/object_factory.h"
 
 namespace lib
 {

@@ -35,7 +35,7 @@ compil { }
 import "c++/class/method_name.scompil";
 import "c++/overloading/operator_function_id.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure OperatorMethodName

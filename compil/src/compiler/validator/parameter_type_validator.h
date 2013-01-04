@@ -35,7 +35,7 @@
 
 #include "validator.h"
 
-#include "compil/document/type.h"
+#include "language/compil/document/type.h"
 
 namespace compil
 {

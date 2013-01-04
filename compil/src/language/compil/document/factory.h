@@ -38,7 +38,7 @@
 #ifndef __LANGUAGE_COMPIL_FACTORY_COMPIL_H_
 #define __LANGUAGE_COMPIL_FACTORY_COMPIL_H_
 
-#include "compil/document/factory-partial.h"
+#include "language/compil/document/factory-partial.h"
 
 namespace lang
 {

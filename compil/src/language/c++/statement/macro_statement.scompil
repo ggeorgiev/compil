@@ -36,7 +36,7 @@ import "c++/statement/statement.scompil";
 import "c++/preprocessor/macro_name.scompil";
 import "c++/preprocessor/macro_parameter.scompil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure MacroStatement

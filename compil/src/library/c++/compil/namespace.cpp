@@ -32,7 +32,7 @@
 
 #include "library/c++/compil/namespace.h"
 
-#include "c++/namespace/identifier_namespace_name.h"
+#include "language/c++/namespace/identifier_namespace_name.h"
 
 #include "boost/unordered_map.hpp"
 

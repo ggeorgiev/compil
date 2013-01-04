@@ -33,10 +33,10 @@
 #ifndef __LANGUAGE_COMPIL_STRUCTURE_COMPIL__H_
 #define __LANGUAGE_COMPIL_STRUCTURE_COMPIL__H_
 
-#include "compil/document/structure-partial.h"
-#include "compil/document/alter.h"
-#include "compil/document/field.h"
-#include "compil/document/operator.h"
+#include "language/compil/document/structure-partial.h"
+#include "language/compil/document/alter.h"
+#include "language/compil/document/field.h"
+#include "language/compil/document/operator.h"
 
 #include <boost/shared_ptr.hpp>
 #include <boost/weak_ptr.hpp>

@@ -37,7 +37,7 @@ import "header_guard.compil";
 import "header.compil";
 import "namespace.compil";
 
-package lang.cpp;
+package lang.cpp | *.*.*;
 
 streamable
 structure Document
