@@ -40,8 +40,9 @@
 namespace compil
 {
 
-HookSourceProvider::HookSourceProvider(const ISourceProviderSPtr& sourceProvider)
-    : mSourceProvider(sourceProvider)
+HookSourceProvider::HookSourceProvider(const ISourceProviderSPtr& sourceProvider, const std::time_t& initTime)
+    : mUpdateTime(initTime)
+    , mSourceProvider(sourceProvider)
 {
 }
 
@@ -56,6 +57,9 @@ SourceIdSPtr HookSourceProvider::sourceId(const SourceIdSPtr& pCurrentSourceId, 
 
 StreamPtr HookSourceProvider::openInputStream(const SourceIdSPtr& pSourceId)
 {
+    std::time_t sourceTime = fileTime(pSourceId->value());
+    if (mUpdateTime < sourceTime)
+        mUpdateTime = sourceTime;
     return mSourceProvider->openInputStream(pSourceId);
 }
 
@@ -84,6 +88,11 @@ bool HookSourceProvider::isExists(const std::string& sourceFile)
     return mSourceProvider->isExists(sourceFile);
 }
 
+std::time_t HookSourceProvider::fileTime(const std::string& sourceFile)
+{
+    return mSourceProvider->fileTime(sourceFile);
+}
+
 std::string HookSourceProvider::directory(const std::string& sourceFile)
 {
     return mSourceProvider->directory(sourceFile);
@@ -92,6 +101,11 @@ std::string HookSourceProvider::directory(const std::string& sourceFile)
 std::string HookSourceProvider::absolute(const std::string& sourceFile)
 {
     return mSourceProvider->absolute(sourceFile);
+}
+
+std::time_t HookSourceProvider::getUpdateTime()
+{
+    return mUpdateTime;
 }
 
 }

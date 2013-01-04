@@ -164,6 +164,15 @@ TEST_F(ParserProjectTests, sectionMainOpenFileClose)
     EXPECT_TRUE(checkErrorMessage(0, 1, 21, compil::Message::p_expectSemicolon));
 }
 
+TEST_F(ParserProjectTests, sectionMainOpenFileFileClose)
+{
+    ASSERT_FALSE( parseProject(
+        "section main { file file }") );
+        
+    ASSERT_EQ(2U, mpParser->messages().size());
+    EXPECT_TRUE(checkErrorMessage(0, 1, 21, compil::Message::p_expectSemicolon));
+}
+
 TEST_F(ParserProjectTests, sectionMainOpenFileSemicolonClose)
 {
     ASSERT_TRUE( parseProject(

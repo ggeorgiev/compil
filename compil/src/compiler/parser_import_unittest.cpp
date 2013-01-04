@@ -129,6 +129,12 @@ public:
         BOOST_ASSERT(false);
         return false;
     }
+    
+    virtual std::time_t fileTime(const std::string& sourceFile)
+    {
+        BOOST_ASSERT(false);
+        return std::time_t();
+    }
 
     virtual std::string directory(const std::string& sourceFile)
     {

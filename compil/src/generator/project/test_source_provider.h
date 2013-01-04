@@ -57,6 +57,7 @@ public:
 
     virtual bool isAbsolute(const std::string& sourceFile);
     virtual bool isExists(const std::string& sourceFile);
+    virtual std::time_t fileTime(const std::string& sourceFile);
 
     virtual std::string directory(const std::string& sourceFile);
     virtual std::string absolute(const std::string& sourceFile);

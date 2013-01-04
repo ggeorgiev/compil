@@ -1,5 +1,6 @@
 #include <stdio.h>
 
+#include "generator/project/generator_project.h"
 #include "generator/project/file_source_provider.h"
 
 #include "configuration_manager.h"
@@ -79,21 +80,38 @@ int main(int argc, const char **argv)
 
     compil::FileSourceProviderPtr pFileSourceProvider(new compil::FileSourceProvider());
     
-    boost::filesystem::path project_directory;
-    if (pGeneratorConfiguration->project_directory.empty())
-        project_directory = boost::filesystem::current_path();
+#if 1
+    string_vector sources;
+    if (!pGeneratorConfiguration->sourceFile.empty())
+        sources.push_back(pGeneratorConfiguration->sourceFile);
+
+    compil::GeneratorProject project(pFileSourceProvider);
+    if (!project.init(pGeneratorConfiguration->projectFile,
+                      pGeneratorConfiguration->projectDirectory,
+                      pGeneratorConfiguration->type,
+                      sources,
+                      pGeneratorConfiguration->importDirectories))
+        return 1;
+        
+    if (!project.parseDocuments())
+        return 1;
+#endif
+
+    boost::filesystem::path projectDirectory;
+    if (pGeneratorConfiguration->projectDirectory.empty())
+        projectDirectory = boost::filesystem::current_path();
     else
-        project_directory = boost::filesystem::resolve(pGeneratorConfiguration->project_directory);
+        projectDirectory = boost::filesystem::resolve(pGeneratorConfiguration->projectDirectory);
         
     boost::filesystem::path input_file_path =
-        boost::filesystem::resolve(pGeneratorConfiguration->source_file);
+        boost::filesystem::resolve(pGeneratorConfiguration->sourceFile);
     if (!boost::filesystem::exists(input_file_path))
     {
         std::cout << "compil input file doesn't exist!!!\n";
         return 1;
     }
     
-    std::string absoluteProjectDirectory = boost::filesystem::absolute(project_directory).generic_string();
+    std::string absoluteProjectDirectory = boost::filesystem::absolute(projectDirectory).generic_string() + "/";
     
     std::string source_file;
     {
@@ -105,10 +123,10 @@ int main(int argc, const char **argv)
             return 1;
         }
         
-        source_file = fp.substr(absoluteProjectDirectory.length() + 1);
+        source_file = fp.substr(absoluteProjectDirectory.length());
     }
 
-    pFileSourceProvider->setImportDirectories(pGeneratorConfiguration->import_directories);
+    pFileSourceProvider->setImportDirectories(pGeneratorConfiguration->importDirectories);
     pFileSourceProvider->setWorkingDirectory(absoluteProjectDirectory);
     
     compil::PartialValidatorPtr pPartialValidator(

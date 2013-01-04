@@ -56,9 +56,9 @@ void GeneratorConfiguration::addCommonOptions(bpo::options_description& options)
     options.add_options()
         ("output-directory,o", bpo::value<std::string>(&output_directory), "output directory")
         ("core-directory,C", bpo::value<std::string>(&core_directory), "core directory")
-        ("project-file", bpo::value<std::string>(&project_file), "project file")
-        ("project-directory", bpo::value<std::string>(&project_directory), "project directory")
-        ("import-path,I", bpo::value<string_vector>(&import_directories)->composing(), "import compil path")
+        ("project-file", bpo::value<std::string>(&projectFile), "project file")
+        ("project-directory", bpo::value<std::string>(&projectDirectory), "project directory")
+        ("import-path,I", bpo::value<string_vector>(&importDirectories)->composing(), "import compil path")
         ;
 }
 
@@ -67,7 +67,7 @@ bpo::options_description GeneratorConfiguration::commandLineOptions()
     bpo::options_description options("Generation Configuration");
     options.add_options()
         ("type,t", bpo::value<std::string>(&type), "output type")
-        ("source-file", bpo::value<std::string>(&source_file), "source compil file")
+        ("source-file", bpo::value<std::string>(&sourceFile), "source compil file")
         ;
     addCommonOptions(options);
     return options;

@@ -44,7 +44,7 @@ namespace compil
 class HookSourceProvider : public ISourceProvider
 {
 public:
-    HookSourceProvider(const ISourceProviderSPtr& sourceProvider);
+    HookSourceProvider(const ISourceProviderSPtr& sourceProvider, const std::time_t& initTime);
     virtual ~HookSourceProvider();
 
     virtual SourceIdSPtr sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source);
@@ -56,11 +56,15 @@ public:
 
     virtual bool isAbsolute(const std::string& sourceFile);
     virtual bool isExists(const std::string& sourceFile);
+    virtual std::time_t fileTime(const std::string& sourceFile);
 
     virtual std::string directory(const std::string& sourceFile);
     virtual std::string absolute(const std::string& sourceFile);
+    
+    std::time_t getUpdateTime();
 
 private:
+    std::time_t mUpdateTime;
     ISourceProviderSPtr mSourceProvider;
 };
 

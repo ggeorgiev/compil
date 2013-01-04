@@ -124,6 +124,13 @@ void ProjectParserMixin::parseProjectStatement(const ProjectParseContextSPtr& co
             context->mProject << section;
         }
     }
+    else
+    {
+        context->mMessageCollector->addMessage(errorMessage(context, Message::p_unknownStatment)
+                                               << Message::Context("top")
+                                               << Message::Options("section"));
+        context->mTokenizer->shift();
+    }
 }
 
 

@@ -112,7 +112,7 @@ void FileSourceProvider::setImportDirectories(const std::vector<std::string>& im
 
 std::string FileSourceProvider::workingDirectory()
 {
-    return mWorkingDirectory.generic_string();
+    return mWorkingDirectory.generic_string() + "/";
 }
 
 void FileSourceProvider::setWorkingDirectory(const std::string& directory)
@@ -128,6 +128,17 @@ bool FileSourceProvider::isAbsolute(const std::string& sourceFile)
 bool FileSourceProvider::isExists(const std::string& sourceFile)
 {
     return exists(path(sourceFile));
+}
+
+std::time_t FileSourceProvider::fileTime(const std::string& sourceFile)
+{
+    boost::system::error_code ec;
+    std::time_t time = last_write_time(path(sourceFile), ec);
+    
+    // if we are unable to take the time we better assume the file is modified
+    if (ec)
+        return std::numeric_limits<std::time_t>::max();
+    return time;
 }
 
 std::string FileSourceProvider::directory(const std::string& sourceFile)

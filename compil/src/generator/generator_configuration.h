@@ -56,12 +56,12 @@ public:
     
 
     std::string type;
-    std::string source_file;
+    std::string sourceFile;
     std::string output_directory;
     std::string core_directory;
-    std::string project_file;
-    std::string project_directory;
-    string_vector import_directories;
+    std::string projectFile;
+    std::string projectDirectory;
+    string_vector importDirectories;
 };
 
 typedef boost::shared_ptr<GeneratorConfiguration> GeneratorConfigurationPtr;

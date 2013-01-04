@@ -121,6 +121,11 @@ bool TestSourceProvider::isExists(const std::string& sourceFile)
     return mFilesystem.count(sourceFile) != 0;
 }
 
+std::time_t TestSourceProvider::fileTime(const std::string& sourceFile)
+{
+    return 0;
+}
+
 std::string TestSourceProvider::directory(const std::string& sourceFile)
 {
     size_t slashIdx = sourceFile.find_last_of("/");

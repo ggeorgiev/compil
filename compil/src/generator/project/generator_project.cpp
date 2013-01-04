@@ -31,9 +31,12 @@
 //
 
 #include "generator/project/generator_project.h"
+#include "generator/project/hook_source_provider.h"
 #include "namespace_alias.h"
 
 #include "compiler/parser.h"
+
+#include "core/platform/application.h"
 
 #include "boost/algorithm/string.hpp"
 #include "boost/unordered_set.hpp"
@@ -85,6 +88,8 @@ bool GeneratorProject::init(const std::string& projectFile,
                             const string_vector& sourceFiles,
                             const string_vector& importDirectories)
 {
+    mInitTime = 0;//mSourceProvider->fileTime(plt::getApplicationPath().generic_string());
+
     string_vector directories;
     for (string_vector::const_iterator it = importDirectories.begin(); it != importDirectories.end(); ++it)
     {
@@ -124,6 +129,7 @@ bool GeneratorProject::init(const std::string& projectFile,
             return false;
         
         mProjectDirectory = mSourceProvider->directory(projectPath);
+        mSourceProvider->setWorkingDirectory(mProjectDirectory);
         return true;
     }
     
@@ -139,8 +145,8 @@ bool GeneratorProject::init(const std::string& projectFile,
         std::string file = mSourceProvider->absolute(*it);
         if (!boost::starts_with(file, mProjectDirectory))
         {
-            std::cout << "the compil file: " << file << std::endl
-                      << "is not in the project directory: " << mProjectDirectory << std::endl;
+            std::cout << "ERROR: the compil file: " << file << std::endl
+                      << "       is not in the project directory: " << mProjectDirectory << std::endl;
             return false;
         }
         
@@ -183,8 +189,22 @@ bool GeneratorProject::parseDocuments()
     
         DocumentSPtr document;
         SourceIdSPtr sourceId = mSourceProvider->sourceId(parent, sourceFile);
-        if (!parser->parseDocument(mSourceProvider, sourceId, document))
+        if (!sourceId)
+        {
+            std::cout << "ERROR: the source compil file: " << sourceFile << std::endl;
+            // TODO dump the list of the directories it looks into
             return false;
+        }
+        HookSourceProviderSPtr hook = boost::make_shared<HookSourceProvider>(mSourceProvider, mInitTime);
+        
+        if (!parser->parseDocument(hook, sourceId, document))
+            return false;
+           
+        time_t time = hook->getUpdateTime();
+        struct tm* ts = localtime(&time);
+        char cBuffer[128];
+        strftime(cBuffer, sizeof(cBuffer), "%a %Y-%m-%d %H:%M:%S %Z", ts);  
+        std::cout << cBuffer << " : " << sourceFile << std::endl;
             
         mDocuments[sourceFile] = document;
     }

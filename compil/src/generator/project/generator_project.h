@@ -71,6 +71,12 @@ private:
     ISourceProviderSPtr mSourceProvider;
     std::string mProjectDirectory;
     ProjectSPtr mProject;
+    // this time is used as minimum modification time for all documents.
+    // It is based on the time of the generator itself as well as the time
+    // of config and other project initialization involved resources
+    std::time_t mInitTime;
+
+
     
     boost::unordered_map<std::string, DocumentSPtr> mDocuments;
 };
