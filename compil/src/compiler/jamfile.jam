@@ -43,8 +43,6 @@ lib compiler
     $(TOP)/library//library
     $(TOP)/core//core
   :
-    <implicit-dependency>$(TOP)/language//cpp-language
-    <implicit-dependency>$(TOP)/language//compil-language
   :
   :
     <include>.
@@ -58,7 +56,4 @@ gtest compiler
   :
     [ glob-tree *_unittest.cpp ]
     compiler
-  :
-    <implicit-dependency>$(TOP)/language//cpp-language
-    <implicit-dependency>$(TOP)/language//compil-language
   ;

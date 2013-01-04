@@ -29,6 +29,11 @@
 			<key>orderHint</key>
 			<integer>7</integer>
 		</dict>
+		<key>gen-language.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>8</integer>
+		</dict>
 		<key>generate-project.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -47,6 +52,11 @@
 	</dict>
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
+		<key>5E046CF01696B3C500E354F3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
 		<key>5E335F221425381A004CB818</key>
 		<dict>
 			<key>primary</key>

@@ -2,7 +2,6 @@ path-constant TOP : . ;
 path-constant ROOT : $(TOP)/.. ;
 
 import jamcompil ;
-import jamcompilstable ;
 
 include $(TOP)/jamlibrary.jam ;
 

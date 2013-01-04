@@ -76,7 +76,5 @@ gtest generator-test
     main_generator-test_unittest.cpp
     
     generator-test
-  :
-    <implicit-dependency>generator-test
   ;
 

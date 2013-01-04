@@ -174,6 +174,8 @@ section main
     compil/document/import.scompil;
     compil/document/interface.scompil;
     compil/document/method.scompil;
+    compil/document/operator_action.scompil;
+    compil/document/operator_flags.scompil;
     compil/document/operator.scompil;
     compil/document/package.scompil;
     compil/document/parameter.scompil;
