@@ -2175,7 +2175,9 @@ bool Parser::parseDocument(const SourceIdSPtr& sourceId,
 {
     initDocumentContext();
     mContext->mSourceId = sourceId;
-    mDocument->set_sourceId(sourceId);
+    
+    if (!mDocument->sourceId())
+        mDocument->set_sourceId(sourceId);
     
     if (!mDocument->name())
     {
