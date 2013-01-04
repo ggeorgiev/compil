@@ -45,7 +45,7 @@ public:
     }
 
 protected:
-    AlignerConfigurationPtr mpConfig;
+    AlignerConfigurationSPtr mpConfig;
     compil::TableAlignerPtr mpAligner;
 };
 

@@ -45,7 +45,7 @@
 class AlignerStream
 {
 public:
-    AlignerStream(const AlignerConfigurationPtr& configuration);
+    AlignerStream(const AlignerConfigurationSPtr& configuration);
     virtual ~AlignerStream();
     
     std::string str();
@@ -54,7 +54,7 @@ public:
     AlignerStream& operator<<(const lang::all::List& list);
     AlignerStream& operator<<(const lang::all::Scope& scope);
 
-    AlignerConfigurationPtr mConfiguration;
+    AlignerConfigurationSPtr mConfiguration;
 private:
     std::string indent() const;
 

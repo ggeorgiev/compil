@@ -39,7 +39,7 @@
 namespace compil
 {
 
-FunctionDefinitionAligner::FunctionDefinitionAligner(const AlignerConfigurationPtr& pConfig) 
+FunctionDefinitionAligner::FunctionDefinitionAligner(const AlignerConfigurationSPtr& pConfig) 
         : TableAligner(pConfig)
 {
 }

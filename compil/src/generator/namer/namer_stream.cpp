@@ -38,8 +38,8 @@ namespace nmr
 {
 
 NamerStream::NamerStream(const NamerConfigurationSPtr& namerConfiguration,
-                const FormatterConfigurationPtr& formatterConfiguration,
-                const AlignerConfigurationPtr& alignerConfiguration)
+                const FormatterConfigurationSPtr& formatterConfiguration,
+                const AlignerConfigurationSPtr& alignerConfiguration)
     : mFormatter(formatterConfiguration, alignerConfiguration)
     , mConfiguration(namerConfiguration)
 {

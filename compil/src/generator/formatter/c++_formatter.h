@@ -59,7 +59,7 @@ namespace compil
 class CppFormatter
 {
 public:
-    CppFormatter(const FormatterConfigurationPtr& pFormatterConfiguration,
+    CppFormatter(const FormatterConfigurationSPtr& pFormatterConfiguration,
                  const PackageSPtr& pCurrentPackage);
     virtual ~CppFormatter();
     
@@ -171,7 +171,7 @@ public:
     virtual std::string defaultValue(const AlterSPtr& pAlter) const;
     virtual std::string defaultValue(const FieldSPtr& pField) const;
     
-    FormatterConfigurationPtr mpFormatterConfiguration;
+    FormatterConfigurationSPtr mpFormatterConfiguration;
 
 protected:
     PackageSPtr mpCurrentPackage;

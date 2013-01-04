@@ -54,7 +54,7 @@ extern cpp::frm::NamespaceSPtr nsBoostPosixTime;
 class CppImplementer
 {
 public:
-    CppImplementer(const ImplementerConfigurationPtr& pConfig, const CppFormatterPtr& pFrm);
+    CppImplementer(const ImplementerConfigurationSPtr& pConfig, const CppFormatterPtr& pFrm);
     virtual ~CppImplementer();
     
     virtual bool needMutableMethod(const FieldSPtr& pField, const StructureSPtr& pCurrentStructure);
@@ -137,7 +137,7 @@ public:
                                                const PackageSPtr& package);
     virtual Dependency cppHeaderFileDependency(const TypeSPtr& type);
     
-    ImplementerConfigurationPtr mpConfiguration;
+    ImplementerConfigurationSPtr mpConfiguration;
     
 private:
     CppFormatterPtr mpFrm;

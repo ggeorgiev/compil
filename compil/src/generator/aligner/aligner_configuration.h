@@ -82,13 +82,13 @@ public:
     int mCommentColumnWidthLimit;
 };
 
-typedef boost::shared_ptr<AlignerConfiguration> AlignerConfigurationPtr;
+typedef boost::shared_ptr<AlignerConfiguration> AlignerConfigurationSPtr;
 typedef boost::weak_ptr<AlignerConfiguration> AlignerConfigurationWPtr;
 
 #else
 
 class AlignerConfiguration;
-typedef boost::shared_ptr<AlignerConfiguration> AlignerConfigurationPtr;
+typedef boost::shared_ptr<AlignerConfiguration> AlignerConfigurationSPtr;
 typedef boost::weak_ptr<AlignerConfiguration> AlignerConfigurationWPtr;
 
 #endif

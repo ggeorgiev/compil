@@ -50,7 +50,7 @@ cpp::frm::NamespaceSPtr nsBoost = cpp::frm::namespaceRef() << cpp::frm::namespac
 cpp::frm::NamespaceSPtr nsBoostPosixTime = cpp::frm::namespaceRef() << cpp::frm::namespaceNameRef("boost")
                                                                     << cpp::frm::namespaceNameRef("posix_time");
 
-CppImplementer::CppImplementer(const ImplementerConfigurationPtr& pConfig, const CppFormatterPtr& pFrm)
+CppImplementer::CppImplementer(const ImplementerConfigurationSPtr& pConfig, const CppFormatterPtr& pFrm)
         : mpConfiguration(pConfig)
         , mpFrm(pFrm)
 {

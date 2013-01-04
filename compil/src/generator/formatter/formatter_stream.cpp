@@ -41,8 +41,8 @@
 using namespace lang::all;
 using namespace lang::cpp;
 
-FormatterStream::FormatterStream(const FormatterConfigurationPtr& formatterConfiguration,
-                                 const AlignerConfigurationPtr& alignerConfiguration)
+FormatterStream::FormatterStream(const FormatterConfigurationSPtr& formatterConfiguration,
+                                 const AlignerConfigurationSPtr& alignerConfiguration)
     : mAligner(alignerConfiguration)
     , mConfiguration(formatterConfiguration)
 {

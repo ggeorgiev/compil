@@ -47,7 +47,7 @@ namespace compil
 class LineAligner : public Aligner
 {
 public:
-    LineAligner(const AlignerConfigurationPtr& pConfig);
+    LineAligner(const AlignerConfigurationSPtr& pConfig);
     virtual ~LineAligner();
 
     bool isEmpty() const;

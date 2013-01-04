@@ -44,10 +44,10 @@
 class ImplementerStream
 {
 public:
-    ImplementerStream(const ImplementerConfigurationPtr& implementerConfiguration,
+    ImplementerStream(const ImplementerConfigurationSPtr& implementerConfiguration,
                       const NamerConfigurationSPtr& namerConfiguration,
-                      const FormatterConfigurationPtr& formatterConfiguration,
-                      const AlignerConfigurationPtr& alignerConfiguration);
+                      const FormatterConfigurationSPtr& formatterConfiguration,
+                      const AlignerConfigurationSPtr& alignerConfiguration);
     virtual ~ImplementerStream();
     
     std::string str();
@@ -56,7 +56,7 @@ public:
     
 private:
     nmr::NamerStream mNamer;
-    ImplementerConfigurationPtr mConfiguration;
+    ImplementerConfigurationSPtr mConfiguration;
 };
 
 typedef boost::shared_ptr<ImplementerStream> ImplementerStreamSPtr;

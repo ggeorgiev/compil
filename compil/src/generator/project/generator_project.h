@@ -33,6 +33,10 @@
 #ifndef _GENERATOR_PROJECT_H__
 #define _GENERATOR_PROJECT_H__
 
+#include "generator/implementer/implementer_configuration.h"
+#include "generator/formatter/formatter_configuration.h"
+#include "generator/aligner/aligner_configuration.h"
+
 #include "i_source_provider.h"
 
 #include "compil/project/project.h"
@@ -71,7 +75,10 @@ public:
               
     bool parseDocuments();
     
-    bool generate(const boost::filesystem::path& output);
+    bool generate(const boost::filesystem::path& outputDirectory,
+                  const AlignerConfigurationSPtr& alignerConfiguration,
+                  const FormatterConfigurationSPtr& formatterConfiguration,
+                  const ImplementerConfigurationSPtr& implementerConfiguration);
     
     const boost::filesystem::path& projectDirectory() const;
     

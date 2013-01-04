@@ -45,6 +45,6 @@ public:
     }
 
 protected:
-    AlignerConfigurationPtr mpConfig;
+    AlignerConfigurationSPtr mpConfig;
     compil::FunctionDefinitionAlignerPtr mpAligner;
 };

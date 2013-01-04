@@ -48,8 +48,8 @@
 class FormatterStream
 {
 public:
-    FormatterStream(const FormatterConfigurationPtr& formatterConfiguration,
-                    const AlignerConfigurationPtr& alignerConfiguration);
+    FormatterStream(const FormatterConfigurationSPtr& formatterConfiguration,
+                    const AlignerConfigurationSPtr& alignerConfiguration);
     virtual ~FormatterStream();
     
     std::string str();
@@ -100,7 +100,7 @@ public:
 
 private:
     AlignerStream mAligner;
-    FormatterConfigurationPtr mConfiguration;
+    FormatterConfigurationSPtr mConfiguration;
 };
 
 typedef boost::shared_ptr<FormatterStream> FormatterStreamSPtr;

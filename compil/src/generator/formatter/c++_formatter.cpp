@@ -41,7 +41,7 @@
 namespace compil
 {
 
-CppFormatter::CppFormatter(const FormatterConfigurationPtr& pFormatterConfiguration,
+CppFormatter::CppFormatter(const FormatterConfigurationSPtr& pFormatterConfiguration,
                            const PackageSPtr& pCurrentPackage)
     : mpFormatterConfiguration(pFormatterConfiguration)
     , mpCurrentPackage(pCurrentPackage)

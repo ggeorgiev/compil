@@ -50,13 +50,13 @@ public:
     std::string mClassNamePrefix;
 };
 
-typedef boost::shared_ptr<FormatterConfiguration> FormatterConfigurationPtr;
+typedef boost::shared_ptr<FormatterConfiguration> FormatterConfigurationSPtr;
 typedef boost::weak_ptr<FormatterConfiguration> FormatterConfigurationWPtr;
 
 #else
 
 class FormatterConfiguration;
-typedef boost::shared_ptr<FormatterConfiguration> FormatterConfigurationPtr;
+typedef boost::shared_ptr<FormatterConfiguration> FormatterConfigurationSPtr;
 typedef boost::weak_ptr<FormatterConfiguration> FormatterConfigurationWPtr;
 
 #endif

@@ -44,10 +44,10 @@ Generator::~Generator()
 }
 
 bool Generator::init(const std::string& type,
-                     const AlignerConfigurationPtr& pAlignerConfiguration,
+                     const AlignerConfigurationSPtr& pAlignerConfiguration,
                      const CppFormatterPtr& pFormatter,
                      const CppImplementerPtr& pImplementer,
-                     const boost::shared_ptr<std::ostream>& pOutput, 
+                     const boost::shared_ptr<std::ostream>& pOutput,
                      const DocumentSPtr& document)
 {
     mType = type;

@@ -35,10 +35,10 @@
 using namespace lang;
 using namespace lang::cpp;
 
-ImplementerStream::ImplementerStream(const ImplementerConfigurationPtr& implementerConfiguration,
+ImplementerStream::ImplementerStream(const ImplementerConfigurationSPtr& implementerConfiguration,
                                      const NamerConfigurationSPtr& namerConfiguration,
-                                     const FormatterConfigurationPtr& formatterConfiguration,
-                                     const AlignerConfigurationPtr& alignerConfiguration)
+                                     const FormatterConfigurationSPtr& formatterConfiguration,
+                                     const AlignerConfigurationSPtr& alignerConfiguration)
     : mNamer(namerConfiguration, formatterConfiguration, alignerConfiguration)
     , mConfiguration(implementerConfiguration)
 {

@@ -47,7 +47,7 @@ TableCeil::~TableCeil()
 {
 }
 
-TableAligner::TableAligner(const AlignerConfigurationPtr& pConfig) 
+TableAligner::TableAligner(const AlignerConfigurationSPtr& pConfig) 
 	: Aligner(pConfig)
 {
 }

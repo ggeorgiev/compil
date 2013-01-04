@@ -52,8 +52,8 @@ class NamerStream
 {
 public:
     NamerStream(const NamerConfigurationSPtr& namerConfiguration,
-                const FormatterConfigurationPtr& formatterConfiguration,
-                const AlignerConfigurationPtr& alignerConfiguration);
+                const FormatterConfigurationSPtr& formatterConfiguration,
+                const AlignerConfigurationSPtr& alignerConfiguration);
     virtual ~NamerStream();
     
     std::string str();

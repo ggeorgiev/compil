@@ -124,13 +124,13 @@ public:
     } mAssert;
 };
 
-typedef boost::shared_ptr<ImplementerConfiguration> ImplementerConfigurationPtr;
+typedef boost::shared_ptr<ImplementerConfiguration> ImplementerConfigurationSPtr;
 typedef boost::weak_ptr<ImplementerConfiguration> ImplementerConfigurationWPtr;
 
 #else
 
 class ImplementerConfiguration;
-typedef boost::shared_ptr<ImplementerConfiguration> ImplementerConfigurationPtr;
+typedef boost::shared_ptr<ImplementerConfiguration> ImplementerConfigurationSPtr;
 typedef boost::weak_ptr<ImplementerConfiguration> ImplementerConfigurationWPtr;
 
 #endif

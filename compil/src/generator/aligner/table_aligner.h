@@ -81,7 +81,7 @@ public:
     };
 
 
-    TableAligner(const AlignerConfigurationPtr& pConfig);
+    TableAligner(const AlignerConfigurationSPtr& pConfig);
     virtual ~TableAligner();
 
     bool isEmpty() const;

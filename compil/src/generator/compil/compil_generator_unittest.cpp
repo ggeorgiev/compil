@@ -51,7 +51,7 @@ public:
         mpConfigurationManager.reset(new compil::ConfigurationManager());
         mpCompilGenerator.reset(new compil::CompilGenerator());
 
-        AlignerConfigurationPtr pAlignerConfiguration(new AlignerConfiguration());
+        AlignerConfigurationSPtr pAlignerConfiguration(new AlignerConfiguration());
         mpConfigurationManager->registerConfiguration(pAlignerConfiguration);
         
         mpFormatter = boost::make_shared<compil::CppFormatter>

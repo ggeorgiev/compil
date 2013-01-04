@@ -66,7 +66,7 @@ public:
     virtual bool generate() = 0;
     
     bool init(const std::string& type,
-              const AlignerConfigurationPtr& pAlignerConfiguration,
+              const AlignerConfigurationSPtr& pAlignerConfiguration,
               const CppFormatterPtr& pFormatter,
               const CppImplementerPtr& pImplementer,
 		      const boost::shared_ptr<std::ostream>& pOutput,
@@ -109,7 +109,7 @@ protected:
     
     CppFormatterPtr frm;
     CppImplementerPtr impl;
-    AlignerConfigurationPtr mpAlignerConfiguration;
+    AlignerConfigurationSPtr mpAlignerConfiguration;
 
     DocumentSPtr mDocument;
     std::vector<boost::shared_ptr<std::stringstream> > mStreams;

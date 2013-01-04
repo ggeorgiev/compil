@@ -34,7 +34,7 @@
 
 using namespace lang::all;
 
-AlignerStream::AlignerStream(const AlignerConfigurationPtr& configuration)
+AlignerStream::AlignerStream(const AlignerConfigurationSPtr& configuration)
     : mConfiguration(configuration)
 {
 }

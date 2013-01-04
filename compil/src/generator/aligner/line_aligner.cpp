@@ -38,7 +38,7 @@
 namespace compil
 {
 
-LineAligner::LineAligner(const AlignerConfigurationPtr& pConfig)
+LineAligner::LineAligner(const AlignerConfigurationSPtr& pConfig)
         : Aligner(pConfig)
 {
     pCurrent.reset(new std::ostringstream());

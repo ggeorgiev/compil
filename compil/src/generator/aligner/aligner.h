@@ -151,12 +151,12 @@ public:
 
     typedef boost::shared_ptr<std::ostringstream> OSStreamPtr;
 
-    Aligner(const AlignerConfigurationPtr& pConfig);
+    Aligner(const AlignerConfigurationSPtr& pConfig);
     virtual ~Aligner();
 
     virtual std::string str(int indent) const = 0;
 
-    AlignerConfigurationPtr mpConfiguration;
+    AlignerConfigurationSPtr mpConfiguration;
 };
 
 }

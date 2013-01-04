@@ -43,7 +43,7 @@ namespace compil
 class FunctionDefinitionAligner : public TableAligner
 {
 public:
-    FunctionDefinitionAligner(const AlignerConfigurationPtr& pConfig);
+    FunctionDefinitionAligner(const AlignerConfigurationSPtr& pConfig);
     virtual ~FunctionDefinitionAligner();
 };
 
