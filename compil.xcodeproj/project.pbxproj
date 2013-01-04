@@ -14,6 +14,13 @@
 			remoteGlobalIDString = 5E046CF01696B3C500E354F3;
 			remoteInfo = "gen-language";
 		};
+		5E046CFA1696BA8A00E354F3 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5E335F1D1425381A004CB818 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 5E046CF61696BA7F00E354F3;
+			remoteInfo = clean;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
@@ -1394,10 +1401,25 @@
 			buildToolPath = "../compil-stable/tool/macosxx86/bin/generator";
 			buildWorkingDirectory = compil/src;
 			dependencies = (
+				5E046CFB1696BA8A00E354F3 /* PBXTargetDependency */,
 			);
 			name = "gen-language";
 			passBuildSettingsInEnvironment = 0;
 			productName = "gen-language";
+		};
+		5E046CF61696BA7F00E354F3 /* clean */ = {
+			isa = PBXLegacyTarget;
+			buildArgumentsString = "$(ACTION)";
+			buildConfigurationList = 5E046CF71696BA7F00E354F3 /* Build configuration list for PBXLegacyTarget "clean" */;
+			buildPhases = (
+			);
+			buildToolPath = compil/clean.sh;
+			buildWorkingDirectory = "";
+			dependencies = (
+			);
+			name = clean;
+			passBuildSettingsInEnvironment = 1;
+			productName = clean;
 		};
 		5E335F221425381A004CB818 /* compil */ = {
 			isa = PBXLegacyTarget;
@@ -1434,6 +1456,7 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
+				5E046CF61696BA7F00E354F3 /* clean */,
 				5E046CF01696B3C500E354F3 /* gen-language */,
 				5E335F221425381A004CB818 /* compil */,
 			);
@@ -1446,10 +1469,27 @@
 			target = 5E046CF01696B3C500E354F3 /* gen-language */;
 			targetProxy = 5E046CF41696B3FA00E354F3 /* PBXContainerItemProxy */;
 		};
+		5E046CFB1696BA8A00E354F3 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 5E046CF61696BA7F00E354F3 /* clean */;
+			targetProxy = 5E046CFA1696BA8A00E354F3 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
 		5E046CF21696B3C500E354F3 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		5E046CF31696B3C500E354F3 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+		5E046CF81696BA7F00E354F3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1464,7 +1504,7 @@
 			};
 			name = Debug;
 		};
-		5E046CF31696B3C500E354F3 /* Release */ = {
+		5E046CF91696BA7F00E354F3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
@@ -1524,23 +1564,12 @@
 		5E335F261425381A004CB818 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				DEBUGGING_SYMBOLS = YES;
-				GCC_GENERATE_DEBUGGING_SYMBOLS = YES;
-				GCC_OPTIMIZATION_LEVEL = 0;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Debug;
 		};
 		5E335F271425381A004CB818 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				COMBINE_HIDPI_IMAGES = YES;
-				OTHER_CFLAGS = "";
-				OTHER_LDFLAGS = "";
-				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
 			name = Release;
 		};
@@ -1552,6 +1581,14 @@
 			buildConfigurations = (
 				5E046CF21696B3C500E354F3 /* Debug */,
 				5E046CF31696B3C500E354F3 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		5E046CF71696BA7F00E354F3 /* Build configuration list for PBXLegacyTarget "clean" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				5E046CF81696BA7F00E354F3 /* Debug */,
+				5E046CF91696BA7F00E354F3 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 		};

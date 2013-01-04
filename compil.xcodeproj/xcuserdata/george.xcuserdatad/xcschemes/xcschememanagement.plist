@@ -9,6 +9,11 @@
 			<key>orderHint</key>
 			<integer>1</integer>
 		</dict>
+		<key>clean.xcscheme</key>
+		<dict>
+			<key>orderHint</key>
+			<integer>9</integer>
+		</dict>
 		<key>compil.xcscheme</key>
 		<dict>
 			<key>orderHint</key>
@@ -53,6 +58,11 @@
 	<key>SuppressBuildableAutocreation</key>
 	<dict>
 		<key>5E046CF01696B3C500E354F3</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>5E046CF61696BA7F00E354F3</key>
 		<dict>
 			<key>primary</key>
 			<true/>
