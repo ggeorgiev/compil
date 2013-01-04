@@ -32,6 +32,10 @@
             argument = "--project-file=/Users/george/github/compil/compil/src/language/language.scompilprj"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "-o /Users/george/github/compil/intermediate/test"
+            isEnabled = "YES">
+         </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>

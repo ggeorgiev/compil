@@ -59,8 +59,8 @@ SourceIdSPtr TestSourceProvider::sourceId(const SourceIdSPtr& pCurrentSourceId, 
     // first check the current source location
     if (pCurrentSourceId)
     {
-        std::string current_location = directory(pCurrentSourceId->value());
-        std::string source_location = current_location + source;
+        boost::filesystem::path current_location = directory(pCurrentSourceId->value());
+        boost::filesystem::path source_location = current_location / source;
         if (isExists(source_location))
         {
             fillSourceFields(source_location, builder);
@@ -68,17 +68,17 @@ SourceIdSPtr TestSourceProvider::sourceId(const SourceIdSPtr& pCurrentSourceId, 
         }
     }
     
-    std::string source_location = mWorkingDirectory + source;
+    boost::filesystem::path source_location = mWorkingDirectory / source;
     if (isExists(source_location))
     {
         fillSourceFields(source_location, builder);
         return builder.finalize();
     }
 
-    std::vector<std::string>::const_iterator it;
+    std::vector<boost::filesystem::path>::const_iterator it;
     for (it = mImportDirectories.begin(); it != mImportDirectories.end(); ++it)
     {
-        std::string source_location = *it + source;
+        boost::filesystem::path source_location = *it / source;
         if (isExists(source_location))
         {
             fillSourceFields(source_location, builder);
@@ -96,53 +96,49 @@ StreamPtr TestSourceProvider::openInputStream(const SourceIdSPtr& pSourceId)
     return pInput;
 }
 
-void TestSourceProvider::setImportDirectories(const std::vector<std::string>& importDirectories)
+void TestSourceProvider::setImportDirectories(const std::vector<boost::filesystem::path>& importDirectories)
 {
     mImportDirectories = importDirectories;
 }
 
-std::string TestSourceProvider::workingDirectory()
+boost::filesystem::path TestSourceProvider::workingDirectory()
 {
     return mWorkingDirectory;
 }
 
-void TestSourceProvider::setWorkingDirectory(const std::string& directory)
+void TestSourceProvider::setWorkingDirectory(const boost::filesystem::path& directory)
 {
     mWorkingDirectory = directory;
 }
 
-bool TestSourceProvider::isAbsolute(const std::string& sourceFile)
+bool TestSourceProvider::isAbsolute(const boost::filesystem::path& file)
 {
-    return boost::starts_with(sourceFile, "/");
+    return boost::starts_with(file.generic_string(), "/");
 }
 
-bool TestSourceProvider::isExists(const std::string& sourceFile)
+bool TestSourceProvider::isExists(const boost::filesystem::path& file)
 {
-    return mFilesystem.count(sourceFile) != 0;
+    return mFilesystem.count(file) != 0;
 }
 
-std::time_t TestSourceProvider::fileTime(const std::string& sourceFile)
+std::time_t TestSourceProvider::fileTime(const boost::filesystem::path& file)
 {
     return 0;
 }
 
-std::string TestSourceProvider::directory(const std::string& sourceFile)
+boost::filesystem::path TestSourceProvider::directory(const boost::filesystem::path& file)
 {
-    size_t slashIdx = sourceFile.find_last_of("/");
-    if (slashIdx == std::string::npos)
-        return "";
-
-    return sourceFile.substr(0, slashIdx + 1);
+    return file.parent_path();
 }
 
-std::string TestSourceProvider::absolute(const std::string& sourceFile)
+boost::filesystem::path TestSourceProvider::absolute(const boost::filesystem::path& file)
 {
-    if (isAbsolute(sourceFile))
-        return sourceFile;
-    return workingDirectory() + sourceFile;
+    if (isAbsolute(file))
+        return file;
+    return workingDirectory() / file;
 }
 
-void TestSourceProvider::file(const std::string& path, const std::string& test)
+void TestSourceProvider::file(const boost::filesystem::path& path, const std::string& test)
 {
     mFilesystem[path] = test;
 }
@@ -150,7 +146,7 @@ void TestSourceProvider::file(const std::string& path, const std::string& test)
 using namespace boost;
 using namespace filesystem;
 
-std::string TestSourceProvider::getUniquePresentationString(const std::string& source)
+std::string TestSourceProvider::getUniquePresentationString(const boost::filesystem::path& source)
 {
     path src_path = absolute(source);
     path root = workingDirectory();
@@ -177,15 +173,15 @@ std::string TestSourceProvider::getUniquePresentationString(const std::string& s
     return result;
 }
 
-std::vector<PackageElementSPtr> TestSourceProvider::getExternalElements(const std::string& source)
+std::vector<PackageElementSPtr> TestSourceProvider::getExternalElements(const boost::filesystem::path& source)
 {
     std::vector<PackageElementSPtr> result;
     return result;
 }
 
-void TestSourceProvider::fillSourceFields(const std::string& source, SourceId::Builder& builder)
+void TestSourceProvider::fillSourceFields(const boost::filesystem::path& source, SourceId::Builder& builder)
 {
-    builder.set_value(source)
+    builder.set_value(source.generic_string())
            .set_uniquePresentation(getUniquePresentationString(source))
            .set_externalElements(getExternalElements(source));
 }

@@ -12,6 +12,7 @@ project core
 lib core
   :
     boost/boost_assert_handler.cpp
+    boost/boost_path.cpp
 
     platform/application.cpp
     

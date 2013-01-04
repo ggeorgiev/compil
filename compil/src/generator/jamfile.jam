@@ -15,6 +15,8 @@ project generator
 
 lib generator-lib
   :
+    compil/compil_generator.cpp
+    
     cpp/format/argument.cpp
     cpp/format/cast_operator.cpp
     cpp/format/comment.cpp
@@ -40,6 +42,11 @@ lib generator-lib
     cpp/format/type_name.cpp
     cpp/format/type.cpp
     cpp/format/variable_name.cpp
+    
+    cpp/c++_flags_enumeration_generator.cpp
+    cpp/c++_generator.cpp
+    cpp/c++_h_generator.cpp
+    cpp/c++_test_generator.cpp
 
     aligner/aligner.cpp
     aligner/aligner_configuration.cpp
@@ -63,13 +70,6 @@ lib generator-lib
     project/file_source_provider.cpp
     project/generator_project.cpp
     project/hook_source_provider.cpp
-    
-    boost_path_resolve.cpp
-    c++_flags_enumeration_generator.cpp
-    c++_generator.cpp
-    c++_h_generator.cpp
-    c++_test_generator.cpp
-    compil_generator.cpp
     
     general_configuration.cpp
     generator_configuration.cpp

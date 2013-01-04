@@ -102,47 +102,47 @@ public:
         return "";
     }
     
-    virtual void setImportDirectories(const std::vector<std::string>& importDirectories)
+    virtual void setImportDirectories(const std::vector<boost::filesystem::path>& importDirectories)
     {
         BOOST_ASSERT(false);
     }
     
-    virtual std::string workingDirectory()
+    virtual boost::filesystem::path workingDirectory()
     {
         BOOST_ASSERT(false);
         return "";
     }
 
-    virtual void setWorkingDirectory(const std::string& directory)
+    virtual void setWorkingDirectory(const boost::filesystem::path& directory)
     {
         BOOST_ASSERT(false);
     }
 
-    virtual bool isAbsolute(const std::string& sourceFile)
+    virtual bool isAbsolute(const boost::filesystem::path& file)
     {
         BOOST_ASSERT(false);
         return false;
     }
     
-    virtual bool isExists(const std::string& sourceFile)
+    virtual bool isExists(const boost::filesystem::path& file)
     {
         BOOST_ASSERT(false);
         return false;
     }
     
-    virtual std::time_t fileTime(const std::string& sourceFile)
+    virtual std::time_t fileTime(const boost::filesystem::path& file)
     {
         BOOST_ASSERT(false);
         return std::time_t();
     }
 
-    virtual std::string directory(const std::string& sourceFile)
+    virtual boost::filesystem::path directory(const boost::filesystem::path& file)
     {
         BOOST_ASSERT(false);
         return "";
     }
     
-    virtual std::string absolute(const std::string& sourceFile)
+    virtual boost::filesystem::path absolute(const boost::filesystem::path& file)
     {
         BOOST_ASSERT(false);
         return "";

@@ -38,12 +38,22 @@
 #include "compil/project/project.h"
 #include "compil/document/document.h"
 
+#include "core/boost/boost_path.h"
+
 #include "boost/unordered_map.hpp"
+#include <boost/filesystem.hpp>
 
 #include <vector>
 
 namespace compil
 {
+
+struct SourceData
+{
+    std::time_t updateTime;
+    std::string becauseOf;
+    DocumentSPtr document;
+};
 
 typedef std::vector<std::string> string_vector;
 
@@ -61,24 +71,24 @@ public:
               
     bool parseDocuments();
     
-    const std::string& projectDirectory() const;
+    bool generate(const boost::filesystem::path& output);
+    
+    const boost::filesystem::path& projectDirectory() const;
     
 private:
     bool determineProjectPath(const std::string& projectFile,
                               const std::string& projectDirectory,
-                              std::string& projectPath);
+                              boost::filesystem::path& projectPath);
 
     ISourceProviderSPtr mSourceProvider;
-    std::string mProjectDirectory;
+    boost::filesystem::path mProjectDirectory;
     ProjectSPtr mProject;
     // this time is used as minimum modification time for all documents.
     // It is based on the time of the generator itself as well as the time
     // of config and other project initialization involved resources
     std::time_t mInitTime;
 
-
-    
-    boost::unordered_map<std::string, DocumentSPtr> mDocuments;
+    boost::unordered_map<boost::filesystem::path, SourceData> mDocuments;
 };
 
 }

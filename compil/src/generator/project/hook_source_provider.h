@@ -49,22 +49,24 @@ public:
 
     virtual SourceIdSPtr sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source);
     virtual StreamPtr openInputStream(const SourceIdSPtr& pSourceId);
-    virtual void setImportDirectories(const std::vector<std::string>& importDirectories);
+    virtual void setImportDirectories(const std::vector<boost::filesystem::path>& importDirectories);
 
-    virtual std::string workingDirectory();
-    virtual void setWorkingDirectory(const std::string& directory);
+    virtual boost::filesystem::path workingDirectory();
+    virtual void setWorkingDirectory(const boost::filesystem::path& directory);
 
-    virtual bool isAbsolute(const std::string& sourceFile);
-    virtual bool isExists(const std::string& sourceFile);
-    virtual std::time_t fileTime(const std::string& sourceFile);
+    virtual bool isAbsolute(const boost::filesystem::path& file);
+    virtual bool isExists(const boost::filesystem::path& file);
+    virtual std::time_t fileTime(const boost::filesystem::path& file);
 
-    virtual std::string directory(const std::string& sourceFile);
-    virtual std::string absolute(const std::string& sourceFile);
+    virtual boost::filesystem::path directory(const boost::filesystem::path& file);
+    virtual boost::filesystem::path absolute(const boost::filesystem::path& file);
     
     std::time_t getUpdateTime();
+    std::string getBecauseOf();
 
 private:
     std::time_t mUpdateTime;
+    std::string mBecauseOf;
     ISourceProviderSPtr mSourceProvider;
 };
 

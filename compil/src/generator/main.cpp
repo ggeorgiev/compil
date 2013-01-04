@@ -1,5 +1,10 @@
 #include <stdio.h>
 
+#include "generator/cpp/c++_generator.h"
+#include "generator/cpp/c++_h_generator.h"
+#include "generator/cpp/c++_test_generator.h"
+#include "generator/cpp/c++_flags_enumeration_generator.h"
+
 #include "generator/project/generator_project.h"
 #include "generator/project/file_source_provider.h"
 
@@ -12,14 +17,11 @@
 
 #include "partial_validator.h"
 
-#include "c++_generator.h"
-#include "c++_h_generator.h"
-#include "c++_test_generator.h"
-#include "c++_flags_enumeration_generator.h"
 
 #include "library/compil/document.h"
 
-#include "boost_path_resolve.h"
+#include "core/boost/boost_path.h"
+
 #include "boost/make_shared.hpp"
 #include "boost/algorithm/string.hpp"
 
@@ -28,6 +30,7 @@
 
 static boost::shared_ptr<std::ostream> openStream(const boost::filesystem::path& path)
 {
+    boost::filesystem::create_directories(path.parent_path());
     boost::shared_ptr<std::ofstream> pOutput(new std::ofstream());
     pOutput->open(path.string().c_str());
     return pOutput;
@@ -95,6 +98,9 @@ int main(int argc, const char **argv)
         
     if (!project.parseDocuments())
         return 1;
+        
+    if (!project.generate(boost::filesystem::resolve(pGeneratorConfiguration->output_directory)))
+        return 1;
 #endif
 
     boost::filesystem::path projectDirectory;
@@ -125,8 +131,15 @@ int main(int argc, const char **argv)
         
         source_file = fp.substr(absoluteProjectDirectory.length());
     }
+    
+    std::vector<boost::filesystem::path> importDirectories;
+    for (std::vector<std::string>::const_iterator it = pGeneratorConfiguration->importDirectories.begin(); it != pGeneratorConfiguration->importDirectories.end(); ++it)
+    {
+        boost::filesystem::path absolute_path(boost::filesystem::absolute(*it));
+        importDirectories.push_back(absolute_path);
+    }
 
-    pFileSourceProvider->setImportDirectories(pGeneratorConfiguration->importDirectories);
+    pFileSourceProvider->setImportDirectories(importDirectories);
     pFileSourceProvider->setWorkingDirectory(absoluteProjectDirectory);
     
     compil::PartialValidatorPtr pPartialValidator(

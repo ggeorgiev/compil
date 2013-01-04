@@ -2177,15 +2177,18 @@ bool Parser::parseDocument(const SourceIdSPtr& sourceId,
     mContext->mSourceId = sourceId;
     mDocument->set_sourceId(sourceId);
     
-    NameSPtr name = (nameRef() << sourceId);
-    std::string file = sourceId->original();
-    size_t slashIdx = file.find_last_of(".");
-    if (slashIdx == std::string::npos)
-        name << file;
-    else
-        name << file.substr(0, slashIdx);
+    if (!mDocument->name())
+    {
+        NameSPtr name = (nameRef() << sourceId);
+        std::string file = sourceId->original();
+        size_t slashIdx = file.find_last_of(".");
+        if (slashIdx == std::string::npos)
+            name << file;
+        else
+            name << file.substr(0, slashIdx);
 
-    mDocument->set_name(name);
+        mDocument->set_name(name);
+    }
 
     assert(sourceId);
     mContext->mSources->insert(ParseContext::SourceMap::value_type(sourceId->value(), sourceId));

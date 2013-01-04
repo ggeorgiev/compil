@@ -49,6 +49,7 @@ namespace filesystem {
 // to access the file/directory from the file system.
 
 path resolve(const path& p);
+path relative_path(const path& directory, const path& to);
 
 }
 

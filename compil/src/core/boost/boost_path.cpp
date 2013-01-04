@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 // based on code from Adam Bowen posted on stackoverflow.com
 
-#include "boost_path_resolve.h"
+#include "core/boost/boost_path.h"
 
 namespace boost {
 
@@ -60,6 +60,34 @@ path resolve(const path& p)
         result /= *it;
     }
     return result;
+}
+
+path relative_path(const path& directory, const path& to)
+{
+    path::iterator itFrom = directory.begin();
+    path::iterator itTo = to.begin();
+
+    // If directory do not have same root, just return "to path"!!!
+    if (*itFrom != *itTo) 
+    {
+        assert(*itFrom == *itTo);
+        return to;  
+    }
+    
+    while ((itFrom != directory.end()) && (itTo != to.end()) && (*itFrom == *itTo))
+    {
+        ++itFrom;
+        ++itTo;
+    }
+
+    path relPath;
+    for (;itFrom != directory.end(); ++itFrom)
+        relPath /= "..";
+
+    for (;itTo != to.end(); ++itTo)
+        relPath /= *itTo;
+
+    return relPath;
 }
 
 }

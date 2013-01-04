@@ -41,6 +41,8 @@
 #include "boost/algorithm/string.hpp"
 #include "boost/unordered_set.hpp"
 
+#include <fstream>
+
 namespace compil
 {
 
@@ -55,7 +57,7 @@ GeneratorProject::~GeneratorProject()
 
 bool GeneratorProject::determineProjectPath(const std::string& projectFile,
                                             const std::string& projectDirectory,
-                                            std::string& projectPath)
+                                            boost::filesystem::path& projectPath)
 {
     if (mSourceProvider->isAbsolute(projectFile))
     {
@@ -75,7 +77,8 @@ bool GeneratorProject::determineProjectPath(const std::string& projectFile,
         return true;
     }
 
-    projectPath = projectDirectory + projectFile;
+    projectPath = projectDirectory;
+    projectPath /= projectFile;
     if (mSourceProvider->isExists(projectPath))
         return true;
 
@@ -88,12 +91,12 @@ bool GeneratorProject::init(const std::string& projectFile,
                             const string_vector& sourceFiles,
                             const string_vector& importDirectories)
 {
-    mInitTime = 0;//mSourceProvider->fileTime(plt::getApplicationPath().generic_string());
+    mInitTime = mSourceProvider->fileTime(plt::getApplicationPath().generic_string());
 
-    string_vector directories;
+    std::vector<boost::filesystem::path> directories;
     for (string_vector::const_iterator it = importDirectories.begin(); it != importDirectories.end(); ++it)
     {
-        std::string directory = mSourceProvider->absolute(*it);
+        boost::filesystem::path directory = mSourceProvider->absolute(*it);
         if (!mSourceProvider->isExists(directory))
         {
             std::cout << "WARNING: the import directory: " << *it << std::endl
@@ -106,7 +109,7 @@ bool GeneratorProject::init(const std::string& projectFile,
 
     if (!projectFile.empty())
     {
-        std::string projectPath;
+        boost::filesystem::path projectPath;
         if (!determineProjectPath(projectFile, projectDirectory, projectPath))
             return false;
             
@@ -119,7 +122,7 @@ bool GeneratorProject::init(const std::string& projectFile,
         }
         
         SourceId::Builder builder;
-        builder.set_value(projectPath);
+        builder.set_value(projectPath.generic_string());
 
         SourceIdSPtr sourceId = builder.finalize();
         StreamPtr pInput = mSourceProvider->openInputStream(sourceId);
@@ -142,15 +145,18 @@ bool GeneratorProject::init(const std::string& projectFile,
     SectionSPtr section = (sectionRef() << (nameRef() << type));
     for (string_vector::const_iterator it = sourceFiles.begin(); it != sourceFiles.end(); ++it)
     {
-        std::string file = mSourceProvider->absolute(*it);
-        if (!boost::starts_with(file, mProjectDirectory))
+        boost::filesystem::path file = mSourceProvider->absolute(*it);
+        boost::filesystem::path relative = boost::filesystem::relative_path(mProjectDirectory, file);
+        
+        if (   mSourceProvider->isAbsolute(relative)
+            || boost::starts_with(relative.generic_string(), ".."))
         {
             std::cout << "ERROR: the compil file: " << file << std::endl
                       << "       is not in the project directory: " << mProjectDirectory << std::endl;
             return false;
         }
         
-        section << (filePathRef() << file.substr(mProjectDirectory.length()));
+        section << (filePathRef() << relative.generic_string());
     }
         
     mProject = (projectRef() << section);
@@ -159,7 +165,7 @@ bool GeneratorProject::init(const std::string& projectFile,
     return true;
 }
 
-const std::string& GeneratorProject::projectDirectory() const
+const boost::filesystem::path& GeneratorProject::projectDirectory() const
 {
     return mProjectDirectory;
 }
@@ -199,15 +205,61 @@ bool GeneratorProject::parseDocuments()
         
         if (!parser->parseDocument(hook, sourceId, document))
             return false;
-           
-        time_t time = hook->getUpdateTime();
-        struct tm* ts = localtime(&time);
-        char cBuffer[128];
-        strftime(cBuffer, sizeof(cBuffer), "%a %Y-%m-%d %H:%M:%S %Z", ts);  
-        std::cout << cBuffer << " : " << sourceFile << std::endl;
             
-        mDocuments[sourceFile] = document;
+        SourceData data;
+        data.updateTime = hook->getUpdateTime();
+        data.becauseOf = hook->getBecauseOf();
+        data.document = document;
+#if 0
+        struct tm* ts = localtime(&data.updateTime);
+        char cBuffer[128];
+        strftime(cBuffer, sizeof(cBuffer), "%Y-%m-%d %H:%M:%S", ts);  
+#endif
+        mDocuments[sourceFile] = data;
     }
+    return true;
+}
+
+static void closeStream(std::ofstream* pOutputStream)
+{
+    pOutputStream->flush();
+    pOutputStream->close();
+}
+
+static boost::shared_ptr<std::ostream> openStream(const boost::filesystem::path& path)
+{
+    boost::filesystem::create_directories(path.parent_path());
+    boost::shared_ptr<std::ofstream> pOutput(new std::ofstream(), &closeStream);
+    pOutput->open(path.string().c_str());
+    return pOutput;
+}
+
+bool GeneratorProject::generate(const boost::filesystem::path& output)
+{
+    const std::vector<SectionSPtr>& sections = mProject->sections();
+    for (std::vector<SectionSPtr>::const_iterator it = sections.begin(); it != sections.end(); ++it)
+    {
+        const SectionSPtr& section = *it;
+        const std::vector<FilePathSPtr>& paths = section->paths();
+        
+        for (std::vector<FilePathSPtr>::const_iterator pit = paths.begin(); pit != paths.end(); ++pit)
+        {
+            const FilePathSPtr& path = *pit;
+            SourceData data = mDocuments[path->path()];
+            
+            boost::filesystem::path cpp_output = output;
+            cpp_output /= data.document->name()->value() + ".cpp";
+            
+            if (   !mSourceProvider->isExists(cpp_output)
+                || (mSourceProvider->fileTime(cpp_output) <= data.updateTime))
+            {
+                std::cout << "#" << cpp_output.generic_string() << std::endl
+                          << "    because: " << data.becauseOf << std::endl;
+                boost::shared_ptr<std::ostream> pOutput = openStream(cpp_output);
+            }
+        }
+    }
+    
     return true;
 }
 

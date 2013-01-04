@@ -38,6 +38,7 @@
 #include "compil/all/source_id.h"
 
 #include <boost/shared_ptr.hpp>
+#include <boost/filesystem.hpp>
 
 #include <iostream>
 
@@ -58,17 +59,17 @@ public:
     // and vise verse.
     virtual SourceIdSPtr sourceId(const SourceIdSPtr& pCurrentSourceId, const std::string& source) = 0;
     virtual StreamPtr openInputStream(const SourceIdSPtr& pSourceId) = 0;
-    virtual void setImportDirectories(const std::vector<std::string>& importDirectories) = 0;
+    virtual void setImportDirectories(const std::vector<boost::filesystem::path>& importDirectories) = 0;
     
-    virtual std::string workingDirectory() = 0;
-    virtual void setWorkingDirectory(const std::string& directory) = 0;
+    virtual boost::filesystem::path workingDirectory() = 0;
+    virtual void setWorkingDirectory(const boost::filesystem::path& directory) = 0;
 
-    virtual bool isAbsolute(const std::string& sourceFile) = 0;
-    virtual bool isExists(const std::string& sourceFile) = 0;
-    virtual std::time_t fileTime(const std::string& sourceFile) = 0;
+    virtual bool isAbsolute(const boost::filesystem::path& file) = 0;
+    virtual bool isExists(const boost::filesystem::path& file) = 0;
+    virtual std::time_t fileTime(const boost::filesystem::path& file) = 0;
 
-    virtual std::string directory(const std::string& sourceFile) = 0;
-    virtual std::string absolute(const std::string& sourceFile) = 0;
+    virtual boost::filesystem::path directory(const boost::filesystem::path& file) = 0;
+    virtual boost::filesystem::path absolute(const boost::filesystem::path& file) = 0;
 
 };
 

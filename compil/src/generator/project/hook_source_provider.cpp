@@ -42,6 +42,7 @@ namespace compil
 
 HookSourceProvider::HookSourceProvider(const ISourceProviderSPtr& sourceProvider, const std::time_t& initTime)
     : mUpdateTime(initTime)
+    , mBecauseOf("initialization")
     , mSourceProvider(sourceProvider)
 {
 }
@@ -59,53 +60,61 @@ StreamPtr HookSourceProvider::openInputStream(const SourceIdSPtr& pSourceId)
 {
     std::time_t sourceTime = fileTime(pSourceId->value());
     if (mUpdateTime < sourceTime)
+    {
+        mBecauseOf = pSourceId->original();
         mUpdateTime = sourceTime;
+    }
     return mSourceProvider->openInputStream(pSourceId);
 }
 
-void HookSourceProvider::setImportDirectories(const std::vector<std::string>& importDirectories)
+void HookSourceProvider::setImportDirectories(const std::vector<boost::filesystem::path>& importDirectories)
 {
     mSourceProvider->setImportDirectories(importDirectories);
 }
 
-std::string HookSourceProvider::workingDirectory()
+boost::filesystem::path HookSourceProvider::workingDirectory()
 {
     return mSourceProvider->workingDirectory();
 }
 
-void HookSourceProvider::setWorkingDirectory(const std::string& directory)
+void HookSourceProvider::setWorkingDirectory(const boost::filesystem::path& directory)
 {
     return mSourceProvider->setWorkingDirectory(directory);
 }
 
-bool HookSourceProvider::isAbsolute(const std::string& sourceFile)
+bool HookSourceProvider::isAbsolute(const boost::filesystem::path& file)
 {
-    return mSourceProvider->isAbsolute(sourceFile);
+    return mSourceProvider->isAbsolute(file);
 }
 
-bool HookSourceProvider::isExists(const std::string& sourceFile)
+bool HookSourceProvider::isExists(const boost::filesystem::path& file)
 {
-    return mSourceProvider->isExists(sourceFile);
+    return mSourceProvider->isExists(file);
 }
 
-std::time_t HookSourceProvider::fileTime(const std::string& sourceFile)
+std::time_t HookSourceProvider::fileTime(const boost::filesystem::path& file)
 {
-    return mSourceProvider->fileTime(sourceFile);
+    return mSourceProvider->fileTime(file);
 }
 
-std::string HookSourceProvider::directory(const std::string& sourceFile)
+boost::filesystem::path HookSourceProvider::directory(const boost::filesystem::path& file)
 {
-    return mSourceProvider->directory(sourceFile);
+    return mSourceProvider->directory(file);
 }
 
-std::string HookSourceProvider::absolute(const std::string& sourceFile)
+boost::filesystem::path HookSourceProvider::absolute(const boost::filesystem::path& file)
 {
-    return mSourceProvider->absolute(sourceFile);
+    return mSourceProvider->absolute(file);
 }
 
 std::time_t HookSourceProvider::getUpdateTime()
 {
     return mUpdateTime;
+}
+
+std::string HookSourceProvider::getBecauseOf()
+{
+    return mBecauseOf;
 }
 
 }

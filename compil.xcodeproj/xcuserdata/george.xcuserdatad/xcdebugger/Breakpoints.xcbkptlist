@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "compil/src/generator/project/generator_project.cpp"
-         timestampString = "378952556.290732"
+         timestampString = "378962924.598779"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "136"
-         endingLineNumber = "136"
+         startingLineNumber = "139"
+         endingLineNumber = "139"
          landmarkName = "GeneratorProject::init(const std::string&amp; projectFile, const std::string&amp; projectDirectory, const std::string&amp; type, const string_vector&amp; sourceFiles, const string_vector&amp; importDirectories)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -21,11 +21,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "compil/src/generator/main.cpp"
-         timestampString = "378949822.560539"
+         timestampString = "378963313.586686"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "211"
-         endingLineNumber = "211"
+         startingLineNumber = "224"
+         endingLineNumber = "224"
          landmarkName = "main(int argc, const char **argv)"
          landmarkType = "7">
       </FileBreakpoint>
@@ -34,11 +34,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "compil/src/generator/main.cpp"
-         timestampString = "378949822.560539"
+         timestampString = "378963313.586686"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "261"
-         endingLineNumber = "261"
+         startingLineNumber = "274"
+         endingLineNumber = "274"
          landmarkName = "main(int argc, const char **argv)"
          landmarkType = "7">
       </FileBreakpoint>
@@ -46,26 +46,13 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "compil/src/generator/main.cpp"
-         timestampString = "378950698.457251"
+         filePath = "compil/src/generator/project/generator_project_unittest.cpp"
+         timestampString = "378958621.519272"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "100"
-         endingLineNumber = "100"
-         landmarkName = "main(int argc, const char **argv)"
-         landmarkType = "7">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "compil/src/generator/main.cpp"
-         timestampString = "378953077.416856"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "114"
-         endingLineNumber = "114"
-         landmarkName = "main(int argc, const char **argv)"
+         startingLineNumber = "73"
+         endingLineNumber = "73"
+         landmarkName = "TEST(GeneratorProjectTests, initProjectFile)"
          landmarkType = "7">
       </FileBreakpoint>
    </FileBreakpoints>

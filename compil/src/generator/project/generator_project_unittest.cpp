@@ -70,20 +70,20 @@ TEST(GeneratorProjectTests, initProjectFile)
     
     {
         GeneratorProject project(provider);
-        EXPECT_TRUE(project.init("a.compilprj", "/foo/", "", sources, imports));
-        EXPECT_STREQ("/foo/", project.projectDirectory().c_str());
+        EXPECT_TRUE(project.init("a.compilprj", "/foo", "", sources, imports));
+        EXPECT_STREQ("/foo", project.projectDirectory().c_str());
     }
 
     {
         GeneratorProject project(provider);
-        EXPECT_TRUE(project.init("/foo/a.compilprj", "/foo/", "", sources, imports));
-        EXPECT_STREQ("/foo/", project.projectDirectory().c_str());
+        EXPECT_TRUE(project.init("/foo/a.compilprj", "/foo", "", sources, imports));
+        EXPECT_STREQ("/foo", project.projectDirectory().c_str());
     }
 
     {
         GeneratorProject project(provider);
         EXPECT_TRUE(project.init("foo/a.compilprj", "/", "", sources, imports));
-        EXPECT_STREQ("/foo/", project.projectDirectory().c_str());
+        EXPECT_STREQ("/foo", project.projectDirectory().c_str());
     }
 }
 
@@ -113,7 +113,7 @@ TEST(GeneratorProjectTests, initProjectFileNegative)
 TEST(GeneratorProjectTests, initSourceFiles)
 {
     TestSourceProviderSPtr provider = boost::make_shared<TestSourceProvider>();
-    provider->setWorkingDirectory("/foo/");
+    provider->setWorkingDirectory("/foo");
     provider->file("/foo/a.compilprj", project1);
 
     string_vector sources;
@@ -124,14 +124,14 @@ TEST(GeneratorProjectTests, initSourceFiles)
     
     {
         GeneratorProject project(provider);
-        EXPECT_TRUE(project.init("", "/foo/", "main", sources, imports));
-        EXPECT_STREQ("/foo/", project.projectDirectory().c_str());
+        EXPECT_TRUE(project.init("", "/foo", "main", sources, imports));
+        EXPECT_STREQ("/foo", project.projectDirectory().c_str());
     }
 
     {
         GeneratorProject project(provider);
-        EXPECT_TRUE(project.init("", "/foo/", "main", sources, imports));
-        EXPECT_STREQ("/foo/", project.projectDirectory().c_str());
+        EXPECT_TRUE(project.init("", "/foo", "main", sources, imports));
+        EXPECT_STREQ("/foo", project.projectDirectory().c_str());
     }
 
     {
@@ -154,7 +154,7 @@ TEST(GeneratorProjectTests, parseDocuments)
     
     GeneratorProject project(provider);
     EXPECT_TRUE(project.init("/foo/a.compilprj", "", "main", sources, imports));
-    EXPECT_STREQ("/foo/", project.projectDirectory().c_str());
+    EXPECT_STREQ("/foo", project.projectDirectory().c_str());
     EXPECT_TRUE(project.parseDocuments());
 }
 
@@ -171,7 +171,7 @@ TEST(GeneratorProjectTests, parseDocumentsNegative)
     
     GeneratorProject project(provider);
     EXPECT_TRUE(project.init("/foo/a.compilprj", "", "main", sources, imports));
-    EXPECT_STREQ("/foo/", project.projectDirectory().c_str());
+    EXPECT_STREQ("/foo", project.projectDirectory().c_str());
     EXPECT_FALSE(project.parseDocuments());
 }
 
