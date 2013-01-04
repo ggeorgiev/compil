@@ -34,7 +34,7 @@ compil { }
 
 import "compil/all/object.scompil";
 
-package lang.compil;
+package lang.compil | *.*.*;
 
 structure Comment
     inherit Object

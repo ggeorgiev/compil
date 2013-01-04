@@ -137,4 +137,120 @@ void ParserMixin::skipComments(const ParseContextSPtr& context, CommentSPtr pCom
     }
 }
 
+PackageSPtr ParserMixin::parsePackage(const ParseContextSPtr& context)
+{
+    PackageSPtr pPackage = boost::make_shared<Package>();
+    initilizeObject(context, pPackage);
+
+    std::vector<std::string> short_elements;
+    do
+    {
+        context->mTokenizer->shift();
+        skipComments(context);
+
+        if (   context->mTokenizer->expect(Token::TYPE_IDENTIFIER)
+            || context->mTokenizer->expect(Token::TYPE_ASTERISK))
+        {
+            short_elements.push_back(context->mTokenizer->current()->text());
+        }
+        else
+        {
+            context->mMessageCollector->addMessage(errorMessage(context, Message::p_expectStatementName)
+                                                   << Message::Statement("package"));
+            return PackageSPtr();
+        }
+
+        context->mTokenizer->shift();
+        skipComments(context);
+
+    } while (context->mTokenizer->expect(Token::TYPE_DOT));
+    
+    std::vector<std::string> levels_elements;
+    if (context->mTokenizer->check(Token::TYPE_BITWISE_OPERATOR, "|"))
+    {
+        do
+        {
+            context->mTokenizer->shift();
+            skipComments(context);
+
+            if (  context->mTokenizer->expect(Token::TYPE_IDENTIFIER)
+               || context->mTokenizer->expect(Token::TYPE_ASTERISK))
+            {
+                levels_elements.push_back(context->mTokenizer->current()->text());
+            }
+            else
+            {
+                context->mMessageCollector->addMessage(errorMessage(context, Message::p_expectStatementName)
+                                                       << Message::Statement("package"));
+                return PackageSPtr();
+            }
+
+            context->mTokenizer->shift();
+            skipComments(context);
+
+        } while (context->mTokenizer->expect(Token::TYPE_DOT));
+    }
+    else
+    {
+        levels_elements = short_elements;
+    }
+
+    if (!context->mTokenizer->expect(Token::TYPE_DELIMITER, ";"))
+    {
+        context->mMessageCollector->addMessage(errorMessage(context, Message::p_expectSemicolon));
+        return PackageSPtr();
+    }
+
+    std::vector<PackageElementSPtr> short_;
+    if (!convertStringElementsToPackageElements(context, short_elements, short_))
+        return PackageSPtr();
+        
+    std::vector<PackageElementSPtr> levels;
+    if (!convertStringElementsToPackageElements(context, levels_elements, levels))
+        return PackageSPtr();
+    
+
+    pPackage->set_short(short_);
+    pPackage->set_levels(levels);
+    return pPackage;
+}
+
+
+bool ParserMixin::convertStringElementsToPackageElements(const ParseContextSPtr& context,
+                                                         const std::vector<std::string>& string_elements,
+                                                         std::vector<PackageElementSPtr>& package_elements)
+{
+    std::vector<PackageElementSPtr>::const_reverse_iterator eit = context->mSourceId->externalElements().rbegin();
+
+    std::vector<std::string>::const_reverse_iterator it;
+    for (it = string_elements.rbegin(); it != string_elements.rend(); ++it)
+    {
+        PackageElementSPtr pe;
+        if (*it == "*")
+        {
+            if (eit == context->mSourceId->externalElements().rend())
+            {
+                context->mMessageCollector->addMessage(errorMessage(context, Message::p_asteriskPackageElement));
+                return false;
+            }
+            pe = *eit;
+            ++eit;
+        }
+        else
+        {
+            if ((*eit)->value() == *it)
+                ++eit;
+
+            pe = boost::make_shared<PackageElement>();
+            pe->set_value(*it);
+        }
+        package_elements.insert(package_elements.begin(), pe);
+    }
+    return true;
+}
+
+
+
+
+
 }

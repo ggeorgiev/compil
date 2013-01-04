@@ -133,6 +133,8 @@ public:
     virtual std::string applicationExtension();
     virtual std::string applicationHeaderExtension();
     
+    virtual std::string cppHeaderFilepath(const std::string filename,
+                                          const PackageSPtr& package);
     virtual Dependency cppHeaderFileDependency(const std::string filename,
                                                const PackageSPtr& package);
     virtual Dependency cppHeaderFileDependency(const TypeSPtr& type);

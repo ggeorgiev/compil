@@ -272,9 +272,12 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
                         (formatterConfiguration, data.document->package());
                     CppImplementerPtr implementer = boost::make_shared<CppImplementer>
                         (implementerConfiguration, formatter);
+                        
+                    std::string filepath = implementer->cppHeaderFilepath(data.document->name()->value(),
+                                                                          data.document->package());
 
                     boost::filesystem::path cppOutput = outputDirectory;
-                    cppOutput /= getFileStem(type, data.document->name()->value()) + implementer->applicationExtension();
+                    cppOutput /= getFileStem(type, filepath) + implementer->applicationExtension();
                     
                     if (   !mSourceProvider->isExists(cppOutput)
                         || (mSourceProvider->fileTime(cppOutput) <= data.updateTime))
@@ -307,9 +310,12 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
                         (formatterConfiguration, data.document->package());
                     CppImplementerPtr implementer = boost::make_shared<CppImplementer>
                         (implementerConfiguration, formatter);
+                        
+                    std::string filepath = implementer->cppHeaderFilepath(data.document->name()->value(),
+                                                                          data.document->package());
 
                     boost::filesystem::path cppHeaderOutput = outputDirectory;
-                    cppHeaderOutput /= getFileStem(type, data.document->name()->value()) + implementer->applicationHeaderExtension();
+                    cppHeaderOutput /= getFileStem(type, filepath) + implementer->applicationHeaderExtension();
                     
                     if (   !mSourceProvider->isExists(cppHeaderOutput)
                         || (mSourceProvider->fileTime(cppHeaderOutput) <= data.updateTime))
@@ -350,9 +356,12 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
                     (formatterConfiguration, data.document->package());
                 CppImplementerPtr implementer = boost::make_shared<CppImplementer>
                     (implementerConfiguration, formatter);
+                    
+                std::string filepath = implementer->cppHeaderFilepath(data.document->name()->value(),
+                                                                      data.document->package());
 
                 boost::filesystem::path cppTestOutput = outputDirectory;
-                cppTestOutput /= getFileStem(type, data.document->name()->value()) + implementer->applicationExtension();
+                cppTestOutput /= getFileStem(type, filepath) + implementer->applicationExtension();
                 
                 if (   !mSourceProvider->isExists(cppTestOutput)
                     || (mSourceProvider->fileTime(cppTestOutput) <= data.updateTime))

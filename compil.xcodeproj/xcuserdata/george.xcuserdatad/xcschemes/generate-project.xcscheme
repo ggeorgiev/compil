@@ -36,6 +36,10 @@
             argument = "-o /Users/george/github/compil/intermediate/test"
             isEnabled = "YES">
          </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--cpp.include_path=include_path_based_on_package"
+            isEnabled = "YES">
+         </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>
       </AdditionalOptions>

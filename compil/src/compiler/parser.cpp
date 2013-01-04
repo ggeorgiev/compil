@@ -137,117 +137,6 @@ CommentSPtr Parser::lastComment()
     return pComment;
 }
 
-bool Parser::convertStringElementsToPackageElements(const std::vector<std::string>& string_elements,
-                                                    std::vector<PackageElementSPtr>& package_elements)
-{
-    std::vector<PackageElementSPtr>::const_reverse_iterator eit = mContext->mSourceId->externalElements().rbegin();
-
-    std::vector<std::string>::const_reverse_iterator it;
-    for (it = string_elements.rbegin(); it != string_elements.rend(); ++it)
-    {
-        PackageElementSPtr pe;
-        if (*it == "*")
-        {
-            if (eit == mContext->mSourceId->externalElements().rend())
-            {
-                *this << errorMessage(mContext, Message::p_asteriskPackageElement);
-                return false;
-            }
-            pe = *eit;
-            ++eit;
-        }
-        else
-        {
-            if ((*eit)->value() == *it)
-                ++eit;
-
-            pe = boost::make_shared<PackageElement>();
-            pe->set_value(*it);
-        }
-        package_elements.insert(package_elements.begin(), pe);
-    }
-    return true;
-}
-
-PackageSPtr Parser::parsePackage()
-{
-    PackageSPtr pPackage(new Package());
-    initilizeObject(mContext, pPackage);
-
-    std::vector<std::string> short_elements;
-    do
-    {
-        mContext->mTokenizer->shift();
-        skipComments(mContext);
-
-        if (   mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER)
-            || mContext->mTokenizer->expect(Token::TYPE_ASTERISK))
-        {
-            short_elements.push_back(mContext->mTokenizer->current()->text());
-        }
-        else
-        {
-            *this << (errorMessage(mContext, Message::p_expectStatementName)
-                        << Message::Statement("package"));
-            return PackageSPtr();
-        }
-
-        mContext->mTokenizer->shift();
-        skipComments(mContext);
-
-    } while (mContext->mTokenizer->expect(Token::TYPE_DOT));
-    
-    std::vector<std::string> levels_elements;
-    if (mContext->mTokenizer->check(Token::TYPE_BITWISE_OPERATOR, "|"))
-    {
-        do
-        {
-            mContext->mTokenizer->shift();
-            skipComments(mContext);
-
-            if (  mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER)
-               || mContext->mTokenizer->expect(Token::TYPE_ASTERISK))
-            {
-                levels_elements.push_back(mContext->mTokenizer->current()->text());
-            }
-            else
-            {
-                *this << (errorMessage(mContext, Message::p_expectStatementName)
-                            << Message::Statement("package"));
-                return PackageSPtr();
-            }
-
-            mContext->mTokenizer->shift();
-            skipComments(mContext);
-
-        } while (mContext->mTokenizer->expect(Token::TYPE_DOT));
-    }
-    else
-    {
-        levels_elements = short_elements;
-    }
-
-    if (!mContext->mTokenizer->expect(Token::TYPE_DELIMITER, ";"))
-    {
-        *this << errorMessage(mContext, Message::p_expectSemicolon);
-        return PackageSPtr();
-    }
-
-    std::vector<PackageElementSPtr> short_;
-    if (!convertStringElementsToPackageElements(short_elements, short_))
-        return PackageSPtr();
-        
-    std::vector<PackageElementSPtr> levels;
-    if (!convertStringElementsToPackageElements(levels_elements, levels))
-        return PackageSPtr();
-    
-
-    pPackage->set_short(short_);
-    pPackage->set_levels(levels);
-    return pPackage;
-}
-
-
 bool Parser::parseType(std::vector<PackageElementSPtr>& package_elements, TokenPtr& pNameToken)
 {
     pNameToken = mContext->mTokenizer->current();
@@ -2124,7 +2013,7 @@ bool Parser::parseDocument(const StreamPtr& pInput,
 
     if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "package"))
     {
-        mpPackage = parsePackage();
+        mpPackage = parsePackage(mContext);
         if (!mpPackage)
             return false;
         if (mDocument->mainFile() == file)
@@ -2246,7 +2135,7 @@ bool Parser::parseProject(const SourceIdSPtr& sourceId,
         return false;
         
     if (!context->mProject->mainFile())
-        context->mProject->set_mainFile(file);
+        context->mProject << file;
         
     CommentSPtr pStatementComment = lastComment();
     while (mContext->mTokenizer->current())

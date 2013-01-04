@@ -42,7 +42,7 @@ namespace compil
 
 HookSourceProvider::HookSourceProvider(const ISourceProviderSPtr& sourceProvider, const std::time_t& initTime)
     : mUpdateTime(initTime)
-    , mBecauseOf("initialization")
+    , mBecauseOf("the generator")
     , mSourceProvider(sourceProvider)
 {
 }

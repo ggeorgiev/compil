@@ -77,6 +77,13 @@ public:
                                 
     static CommentSPtr parseComment(const ParseContextSPtr& context);
     static void skipComments(const ParseContextSPtr& context, CommentSPtr pComment = CommentSPtr());
+    
+    static PackageSPtr parsePackage(const ParseContextSPtr& context);
+    static bool convertStringElementsToPackageElements(const ParseContextSPtr& context,
+                                                       const std::vector<std::string>& string_elements,
+                                                       std::vector<PackageElementSPtr>& package_elements);
+ 
+
                       
 private:
     static Message severityMessage(const ParseContextSPtr& context,

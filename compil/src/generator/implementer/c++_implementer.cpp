@@ -862,29 +862,22 @@ std::string CppImplementer::applicationHeaderExtension()
     return "";
 }
 
-Dependency CppImplementer::cppHeaderFileDependency(const std::string filename,
-                                                   const PackageSPtr& package)
+std::string CppImplementer::cppHeaderFilepath(const std::string filename,
+                                              const PackageSPtr& package)
 {
-    std::string h_ext = applicationHeaderExtension();
-
     boost::filesystem::path pth(filename);
     if (!pth.has_stem())
-        return Dependency();
+        return "";
 
-    pth.replace_extension(h_ext);
+    pth.replace_extension("");
 
     if (mpConfiguration->mCppIncludePath == ImplementerConfiguration::include_path_based_on_import)
-    {
-        return Dependency(pth.generic_string(),
-                          Dependency::quote_type,
-                          Dependency::application_level);
-    }
+        return pth.generic_string();
 
     if (mpConfiguration->mCppIncludePath == ImplementerConfiguration::include_path_based_on_package)
     {
         if (!package)
-            return Dependency();
-
+            return "";
 
         boost::filesystem::path result;
         const std::vector<PackageElementSPtr>& elements = package->levels();
@@ -894,14 +887,28 @@ Dependency CppImplementer::cppHeaderFileDependency(const std::string filename,
             result /= element->value();
         }
         result /= pth.filename();
-
-        return Dependency(result.generic_string(),
-                          Dependency::quote_type,
-                          Dependency::application_level);
+        return result.generic_string();
     }
-
+    
     assert(false && "unknown mCppIncludePath");
-    return Dependency();
+    return "";
+}
+
+
+Dependency CppImplementer::cppHeaderFileDependency(const std::string filename,
+                                                   const PackageSPtr& package)
+{
+    std::string include = cppHeaderFilepath(filename, package);
+
+    boost::filesystem::path pth(include);
+    if (!pth.has_stem())
+        return Dependency();
+
+    pth.replace_extension(applicationHeaderExtension());
+
+    return Dependency(pth.generic_string(),
+                      Dependency::quote_type,
+                      Dependency::application_level);
 }
 
 Dependency CppImplementer::cppHeaderFileDependency(const TypeSPtr& type)
