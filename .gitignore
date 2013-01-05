@@ -9,7 +9,7 @@
 # Intermediate #
 ################
 intermediate/
-.gen
+#.gen do not exclude the generated files - this is the whole point of this branch
 
 # Packages #
 ############
