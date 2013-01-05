@@ -130,7 +130,8 @@ bool GeneratorProject::init(const std::string& projectFile,
         SourceIdSPtr sourceId = mSourceProvider->sourceId(SourceIdSPtr(), projectPath.generic_string());
         if (!sourceId)
         {
-            std::cout << "ERROR: the project file does not exist: " <<  projectPath.native() << std::endl;
+            std::cout << "ERROR: the project file does not exist: " 
+					  <<  projectPath.generic_string() << std::endl;
             return false;
         }
         
