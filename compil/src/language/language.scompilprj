@@ -32,7 +32,7 @@
 
 compil { }
 
-//core package core.compil;
+core package core.compil;
 
 section main
 {

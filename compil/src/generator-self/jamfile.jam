@@ -45,7 +45,6 @@ lib generator-self-compil :
     $(TOP)/core//core
   :
     <compil-type>main
-    <include>$(TOP)/core/c++
   ;
 
 

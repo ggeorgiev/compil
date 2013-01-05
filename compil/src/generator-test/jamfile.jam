@@ -7,8 +7,6 @@ gtest-defines ;
 project generator-test
     : requirements 
         <include>.
-        <include>$(TOP)/core/c++
-        <include>$(TOP)/core/boost
     ;
     
 lib generator-test
@@ -56,8 +54,6 @@ lib generator-test
     $(TOP)/core//core
   :
     <compil-type>main
-    <include>$(TOP)/core/c++
-    <include>$(TOP)/core/boost
   ;
   
 gtest generator-test 

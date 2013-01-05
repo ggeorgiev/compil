@@ -281,12 +281,12 @@ bool CppTestGenerator::generate()
                              Dependency::thirdparty_level,
                              Dependency::private_section,
                              "Google Test framework"));
-                             
-    addDependency(Dependency("boost_assert_handler.h",
+
+    addDependency(Dependency("core/boost/boost_assert_handler.h",
                              Dependency::system_type,
                              Dependency::thirdparty_level,
                              Dependency::private_section,
-                             "Boost C++ Utility"));
+                             "Boost C++ core"));
                              
     includeHeaders(mainStream, Dependency::private_section);
     

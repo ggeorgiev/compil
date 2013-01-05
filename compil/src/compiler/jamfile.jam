@@ -9,9 +9,7 @@ project compiler
         <include>configuration
         <include>message
         <include>validator
-        <include>$(TOP)/core/c++
     ;
-    
 
 lib compiler
   :
@@ -49,11 +47,11 @@ lib compiler
     <include>configuration
     <include>message
     <include>validator
-    <include>$(TOP)/core/c++
   ;
     
 gtest compiler
   :
     [ glob-tree *_unittest.cpp ]
+    
     compiler
   ;

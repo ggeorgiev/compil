@@ -12,7 +12,6 @@ project language
     : requirements 
       <include>$(TOP)
       <include>.gen
-      <include>$(TOP)/core/c++
     ;
 
 lib cpp-language
@@ -134,13 +133,14 @@ lib cpp-language
     $(GEN)/c++/test/test_suite.cpp
     $(GEN)/c++/test/test_suite_name.cpp
 
+    $(TOP)/core//core
+    
     boost_templates
   :
   :
   :
     <include>$(TOP)
     <include>.gen
-    <include>$(TOP)/core/c++
   ;   
     
 lib compil-language
@@ -197,12 +197,13 @@ lib compil-language
     $(GEN)/compil/document/type-partial.cpp
     
     boost_templates
+
+    $(TOP)/core//core
   :
   :
   :
     <include>$(TOP)
     <include>.gen
-    <include>$(TOP)/core/c++
   ;
 
 alias language
@@ -216,6 +217,5 @@ gtest language
     [ glob *_unittest.cpp ]
     
     language
-    $(TOP)/core//core
   ;
 
