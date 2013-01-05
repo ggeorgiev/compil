@@ -54,11 +54,10 @@ extern cpp::frm::NamespaceSPtr nsBoostPosixTime;
 class CppImplementer
 {
 public:
-    CppImplementer(const CppFormatterPtr& pFrm);
+    CppImplementer(const ImplementerConfigurationSPtr& pConfig,
+                   const CppFormatterPtr& pFrm,
+                   const PackageSPtr& corePackage);
     virtual ~CppImplementer();
-    
-    virtual bool init(const PackageSPtr& corePackage,
-                      const ImplementerConfigurationSPtr& pConfig);
     
     virtual bool needMutableMethod(const FieldSPtr& pField, const StructureSPtr& pCurrentStructure);
     virtual bool needConstructorInitialization(const FieldSPtr& pField);
@@ -141,7 +140,7 @@ public:
     
     virtual std::string applicationExtension(const EExtensionType type);
 
-    virtual std::string cppFilepath(const PackageSPtr& package);
+    static std::string cppFilepath(const PackageSPtr& package);
 
     virtual PackageSPtr cppHeaderPackage(const PackageSPtr& package);
     virtual Dependency cppHeaderFileDependency(const std::string filename,
@@ -151,8 +150,8 @@ public:
     ImplementerConfigurationSPtr mConfiguration;
     
 private:
-    PackageSPtr mCorePackage;
     CppFormatterPtr mpFrm;
+    PackageSPtr mCorePackage;
 };
 
 typedef boost::shared_ptr<CppImplementer> CppImplementerPtr;

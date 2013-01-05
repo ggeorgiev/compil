@@ -79,6 +79,7 @@ int main(int argc, const char **argv)
         return 1;
         
     if (!project.generate(boost::filesystem::resolve(pGeneratorConfiguration->outputDirectory),
+                          boost::filesystem::resolve(pGeneratorConfiguration->coreOutputDirectory),
                           pConfigurationManager->getConfiguration<AlignerConfiguration>(),
                           pConfigurationManager->getConfiguration<FormatterConfiguration>(),
                           pConfigurationManager->getConfiguration<ImplementerConfiguration>()))

@@ -38,7 +38,6 @@
 #include "language/compil/all/object_factory.h"
 
 #include "boost/filesystem.hpp"
-#include "boost/algorithm/string.hpp"
 
 #include <sstream>
 
@@ -50,46 +49,18 @@ cpp::frm::NamespaceSPtr nsBoost = cpp::frm::namespaceRef() << cpp::frm::namespac
 cpp::frm::NamespaceSPtr nsBoostPosixTime = cpp::frm::namespaceRef() << cpp::frm::namespaceNameRef("boost")
                                                                     << cpp::frm::namespaceNameRef("posix_time");
 
-CppImplementer::CppImplementer(const CppFormatterPtr& pFrm)
-        : mpFrm(pFrm)
+CppImplementer::CppImplementer(const ImplementerConfigurationSPtr& config,
+                               const CppFormatterPtr& pFrm,
+                               const PackageSPtr& corePackage)
+        : mConfiguration(config)
+        , mpFrm(pFrm)
+        , mCorePackage(corePackage)
 {
 }
 
 CppImplementer::~CppImplementer()
 {
 }
-
-static bool isDot(char ch)
-{
-    return ch == '.';
-}
-
-bool CppImplementer::init(const PackageSPtr& corePackage, const ImplementerConfigurationSPtr& config)
-{
-    mCorePackage = corePackage;
-    
-    if (!mCorePackage)
-    {
-        if (config && !config->corePackage.empty())
-        {
-            std::vector<std::string> elements;
-            boost::split(elements, config->corePackage, isDot);
-            
-            std::vector<PackageElementSPtr> packageElements;
-            for (std::vector<std::string>::iterator it = elements.begin(); it != elements.end(); ++it)
-                packageElements.push_back(packageElementRef() << *it);
-                
-            mCorePackage = boost::make_shared<Package>();
-            mCorePackage->set_short(packageElements);
-            mCorePackage->set_levels(packageElements);
-        }
-    }
-    
-    mConfiguration = config;
-    
-    return true;
-}
-
 
 bool CppImplementer::needMutableMethod(const FieldSPtr& pField, const StructureSPtr& pCurrentStructure)
 {
@@ -445,7 +416,7 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
                 
             dep.push_back(
                 Dependency(cppFilepath(mCorePackage),
-                           "flags_enumeration.hpp",
+                           "flags_enumeration" + applicationExtension(declaration),
                            Dependency::quote_type,
                            Dependency::core_level,
                            Dependency::private_section,

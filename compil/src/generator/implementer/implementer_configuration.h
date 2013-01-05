@@ -59,7 +59,6 @@ public:
     };
     
     ECppExtension applicationCppExtension;
-    ECppExtension coreCppExtension;
 
     enum ECppHeaderExtension
     {
@@ -69,7 +68,6 @@ public:
     };
     
     ECppHeaderExtension applicationCppHeaderExtension;
-    ECppHeaderExtension coreCppHeaderExtension;
     
     enum ECppIncludePath
     {

@@ -35,6 +35,7 @@
 #include "generator/cpp/c++_generator.h"
 #include "generator/cpp/c++_h_generator.h"
 #include "generator/cpp/c++_test_generator.h"
+#include "generator/cpp/c++_flags_enumeration_generator.h"
 #include "generator/implementer/c++_implementer.h"
 #include "generator/formatter/c++_formatter.h"
 
@@ -130,7 +131,8 @@ bool GeneratorProject::init(const std::string& projectFile,
         SourceIdSPtr sourceId = mSourceProvider->sourceId(SourceIdSPtr(), projectPath.generic_string());
         if (!sourceId)
         {
-            std::cout << "ERROR: the project file does not exist: " <<  projectPath.native() << std::endl;
+            std::cout << "ERROR: the project file does not exist: "
+                      << projectPath.generic_string() << std::endl;
             return false;
         }
         
@@ -243,11 +245,13 @@ static boost::shared_ptr<std::ostream> openStream(const boost::filesystem::path&
     return pOutput;
 }
 
-static std::string getFileStem(const std::string& type, const std::string& documentName)
+static std::string getFileStem(const std::string& type,
+                               const boost::filesystem::path& documentName)
 {
-    if (type == "main")
-        return documentName;
-    return documentName + "-" + type;
+    std::string result = documentName.stem().generic_string();
+    if ((type == "main") || (type == "core"))
+        return result;
+    return result + "-" + type;
 }
 
 bool GeneratorProject::executeGenerator(const std::string& type,
@@ -264,23 +268,22 @@ bool GeneratorProject::executeGenerator(const std::string& type,
     CppFormatterPtr formatter = boost::make_shared<CppFormatter>
         (formatterConfiguration, data.document->package());
     CppImplementerPtr implementer = boost::make_shared<CppImplementer>
-        (formatter);
+        (implementerConfiguration, formatter, mCorePackage);
         
-    implementer->init(mProject->corePackage(), implementerConfiguration);
-        
-    PackageSPtr package = implementer->cppHeaderPackage(data.document->package());
-
-    boost::filesystem::path cppOutput = outputDirectory;
-    if (package)
-        cppOutput /= implementer->cppFilepath(package);
-    cppOutput /= getFileStem(type, data.document->name()->value()) + implementer->applicationExtension(extensionType);
+    boost::filesystem::path output = outputDirectory;
     
-    if (   !mSourceProvider->isExists(cppOutput)
-        || (mSourceProvider->fileTime(cppOutput) <= data.updateTime))
+    PackageSPtr package = implementer->cppHeaderPackage(data.document->package());
+    if (package)
+        output /= CppImplementer::cppFilepath(package);
+        
+    output /= getFileStem(type, data.document->name()->value()) + implementer->applicationExtension(extensionType);
+    
+    if (   !mSourceProvider->isExists(output)
+        || (mSourceProvider->fileTime(output) <= data.updateTime))
     {
-        std::cout << "#" << cppOutput.generic_string() << std::endl
+        std::cout << "#" << output.generic_string() << std::endl
                   << "    because: " << data.becauseOf << std::endl;
-        boost::shared_ptr<std::ostream> outputStream = openStream(cppOutput);
+        boost::shared_ptr<std::ostream> outputStream = openStream(output);
     
         bool bResult = generator.init(type,
                                       alignerConfiguration,
@@ -303,16 +306,92 @@ bool GeneratorProject::executeGenerator(const std::string& type,
     for (std::vector<Dependency>::iterator it = dependencies.begin(); it != dependencies.end(); ++it)
     {
         const Dependency& dependency = *it;
-        mCoreDependencies.insert(dependency.mHeaderName);
+        mCoreDependencies.insert(getFileStem("core", dependency.mHeaderName));
     }
     return true;
 }
 
+bool GeneratorProject::executeCoreGenerator(const std::string& name,
+                                            const CppImplementer::EExtensionType& extensionType,
+                                            const boost::filesystem::path& outputDirectory,
+                                            const AlignerConfigurationSPtr& alignerConfiguration,
+                                            const FormatterConfigurationSPtr& formatterConfiguration,
+                                            const ImplementerConfigurationSPtr& implementerConfiguration,
+                                            Generator& generator)
+{
+    CppFormatterPtr formatter = boost::make_shared<CppFormatter>
+        (formatterConfiguration, mCorePackage);
+    CppImplementerPtr implementer = boost::make_shared<CppImplementer>
+        (implementerConfiguration, formatter, mCorePackage);
+        
+    PackageSPtr package = implementer->cppHeaderPackage(mCorePackage);
+
+    boost::filesystem::path output = outputDirectory;
+    if (package)
+        output /= implementer->cppFilepath(package);
+    output /= getFileStem("core", name) + implementer->applicationExtension(extensionType);
+    
+    {
+        std::cout << "#" << output.generic_string() << std::endl;
+        boost::shared_ptr<std::ostream> outputStream = openStream(output);
+    
+        bool bResult = generator.init("core",
+                                      alignerConfiguration,
+                                      formatter,
+                                      implementer,
+                                      outputStream,
+                                      DocumentSPtr());
+
+        if (bResult)
+            bResult = generator.generate();
+                                      
+        if (!bResult)
+        {
+            std::cout << "ERROR: the generation failed for: " << name << std::endl;
+            return false;
+        }
+    }
+    
+    std::vector<Dependency> dependencies = generator.getCoreDependencies();
+    for (std::vector<Dependency>::iterator it = dependencies.begin(); it != dependencies.end(); ++it)
+    {
+        const Dependency& dependency = *it;
+        mCoreDependencies.insert(dependency.mHeaderName);
+    }
+    
+    return true;
+}
+
+static bool isDot(char ch)
+{
+    return ch == '.';
+}
+
 bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
+                                const boost::filesystem::path& outputCoreDirectory,
                                 const AlignerConfigurationSPtr& alignerConfiguration,
                                 const FormatterConfigurationSPtr& formatterConfiguration,
                                 const ImplementerConfigurationSPtr& implementerConfiguration)
 {
+    mCorePackage = mProject->corePackage();
+    
+    if (!mCorePackage)
+    {
+        if (implementerConfiguration && !implementerConfiguration->corePackage.empty())
+        {
+            std::vector<std::string> elements;
+            boost::split(elements, implementerConfiguration->corePackage, isDot);
+            
+            std::vector<PackageElementSPtr> packageElements;
+            for (std::vector<std::string>::iterator it = elements.begin(); it != elements.end(); ++it)
+                packageElements.push_back(packageElementRef() << *it);
+                
+            mCorePackage = boost::make_shared<Package>();
+            mCorePackage->set_short(packageElements);
+            mCorePackage->set_levels(packageElements);
+        }
+    }
+
     const std::vector<SectionSPtr>& sections = mProject->sections();
     for (std::vector<SectionSPtr>::const_iterator it = sections.begin(); it != sections.end(); ++it)
     {
@@ -360,35 +439,16 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
             }
         }
     }
-/*
-    for (boost::unordered_set<std::string>::iterator it = mCoreDependencies.begin(); it != mCoreDependencies.end(); ++it)
+
+    if (mCoreDependencies.count(getFileStem("core", "flags_enumeration")))
     {
-        const std::string& dependency = *it;
-        if (dependency != "flags_enumeration.hpp")
-            continue;
-        
-        boost::filesystem::path cpp_flags_enumerator_output = core;
-        cpp_flags_enumerator_output /= "flags_enumeration.hpp";
-
-        boost::shared_ptr<std::ostream> pOutput = openStream(cpp_flags_enumerator_output);
-
-        compil::CppFlagsEnumerationGenerator generator;
-        bool bResult = generator.init("partial",
-                                      pConfigurationManager->getConfiguration<AlignerConfiguration>(),
-                                      pFormatter,
-                                      pImplementer,
-                                      pOutput,
-                                      pModel);
-        if (bResult) generator.generate();
-        
-        closeStream(pOutput);
-        
-        if (!bResult)
-            return 1;
-
-        break;
+        CppFlagsEnumerationGenerator generator;
+        if (!executeCoreGenerator("flags_enumeration", CppImplementer::declaration, outputCoreDirectory,
+                                  alignerConfiguration, formatterConfiguration, implementerConfiguration,
+                                  generator))
+            return false;
     }
-*/    
+
     return true;
 }
 

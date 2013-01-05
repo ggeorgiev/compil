@@ -47,7 +47,7 @@
 
 #include "boost/unordered_map.hpp"
 #include "boost/unordered_set.hpp"
-#include <boost/filesystem.hpp>
+#include "boost/filesystem.hpp"
 
 #include <vector>
 
@@ -78,6 +78,7 @@ public:
     bool parseDocuments();
     
     bool generate(const boost::filesystem::path& outputDirectory,
+                  const boost::filesystem::path& outputCoreDirectory,
                   const AlignerConfigurationSPtr& alignerConfiguration,
                   const FormatterConfigurationSPtr& formatterConfiguration,
                   const ImplementerConfigurationSPtr& implementerConfiguration);
@@ -93,6 +94,14 @@ private:
                           const FormatterConfigurationSPtr& formatterConfiguration,
                           const ImplementerConfigurationSPtr& implementerConfiguration,
                           Generator& generator);
+                          
+    bool executeCoreGenerator(const std::string& name,
+                              const CppImplementer::EExtensionType& extensionType,
+                              const boost::filesystem::path& outputDirectory,
+                              const AlignerConfigurationSPtr& alignerConfiguration,
+                              const FormatterConfigurationSPtr& formatterConfiguration,
+                              const ImplementerConfigurationSPtr& implementerConfiguration,
+                              Generator& generator);
 
     bool determineProjectPath(const std::string& projectFile,
                               const std::string& projectDirectory,
@@ -101,6 +110,7 @@ private:
     ISourceProviderSPtr mSourceProvider;
     boost::filesystem::path mProjectDirectory;
     ProjectSPtr mProject;
+    PackageSPtr mCorePackage;
     // this time is used as minimum modification time for all documents.
     // It is based on the time of the generator itself as well as the time
     // of config and other project initialization involved resources

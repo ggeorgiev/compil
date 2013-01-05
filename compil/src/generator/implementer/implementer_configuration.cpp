@@ -36,9 +36,7 @@
 
 ImplementerConfiguration::ImplementerConfiguration()
     : applicationCppExtension(use_cpp)
-    , coreCppExtension(use_cpp)
     , applicationCppHeaderExtension(use_h)
-    , coreCppHeaderExtension(use_hpp)
     , mCppIncludePath(include_path_based_on_import)
     , mFlagsEnumeration(flags_enumeration_use_core_template)
     , mIntegerTypes(use_native)

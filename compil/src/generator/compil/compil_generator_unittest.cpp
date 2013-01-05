@@ -57,9 +57,7 @@ public:
         mpFormatter = boost::make_shared<compil::CppFormatter>
             (mConfigurationManager->getConfiguration<FormatterConfiguration>(), compil::PackageSPtr());
         mpImplementer = boost::make_shared<compil::CppImplementer>
-            (mpFormatter);
-            
-        mpImplementer->init(compil::PackageSPtr(), mConfigurationManager->getConfiguration<ImplementerConfiguration>());
+            (mConfigurationManager->getConfiguration<ImplementerConfiguration>(), mpFormatter, compil::PackageSPtr());
     }
 
     bool checkGeneration(const char* input, const char* output)
