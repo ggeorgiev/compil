@@ -141,11 +141,9 @@ public:
     
     virtual std::string applicationExtension(const EExtensionType type);
 
-    virtual std::string cppFilepath(const PackageSPtr& package,
-                                    const std::string filename);
+    virtual std::string cppFilepath(const PackageSPtr& package);
 
-    virtual std::string cppHeaderFilepath(const std::string filename,
-                                          const PackageSPtr& package);
+    virtual PackageSPtr cppHeaderPackage(const PackageSPtr& package);
     virtual Dependency cppHeaderFileDependency(const std::string filename,
                                                const PackageSPtr& package);
     virtual Dependency cppHeaderFileDependency(const TypeSPtr& type);

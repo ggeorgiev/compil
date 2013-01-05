@@ -69,15 +69,18 @@ public:
     };
 
     
-    Dependency(const std::string& header = "",
+    Dependency(const std::string& headerPackage = "",
+               const std::string& headerName = "",
                DependencyType type = invalid_type, 
                DependencyLevel level = application_level, 
                DependencySection section = private_section,
                const std::string& library = "");
                
     operator bool() const;
-    
-    std::string mHeader;
+
+    // TODO: change this to package object
+    std::string mHeaderPackage;
+    std::string mHeaderName;
     DependencyType mType;
     DependencyLevel mLevel;
     DependencySection mSection;

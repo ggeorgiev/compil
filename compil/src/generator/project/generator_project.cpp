@@ -268,11 +268,12 @@ bool GeneratorProject::executeGenerator(const std::string& type,
         
     implementer->init(mProject->corePackage(), implementerConfiguration);
         
-    std::string filepath = implementer->cppHeaderFilepath(data.document->name()->value(),
-                                                          data.document->package());
+    PackageSPtr package = implementer->cppHeaderPackage(data.document->package());
 
     boost::filesystem::path cppOutput = outputDirectory;
-    cppOutput /= getFileStem(type, filepath) + implementer->applicationExtension(extensionType);
+    if (package)
+        cppOutput /= implementer->cppFilepath(package);
+    cppOutput /= getFileStem(type, data.document->name()->value()) + implementer->applicationExtension(extensionType);
     
     if (   !mSourceProvider->isExists(cppOutput)
         || (mSourceProvider->fileTime(cppOutput) <= data.updateTime))
@@ -296,6 +297,13 @@ bool GeneratorProject::executeGenerator(const std::string& type,
             std::cout << "ERROR: the generation failed for: " << path->path() << std::endl;
             return false;
         }
+    }
+    
+    std::vector<Dependency> dependencies = generator.getCoreDependencies();
+    for (std::vector<Dependency>::iterator it = dependencies.begin(); it != dependencies.end(); ++it)
+    {
+        const Dependency& dependency = *it;
+        mCoreDependencies.insert(dependency.mHeaderName);
     }
     return true;
 }
@@ -352,7 +360,35 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
             }
         }
     }
-    
+/*
+    for (boost::unordered_set<std::string>::iterator it = mCoreDependencies.begin(); it != mCoreDependencies.end(); ++it)
+    {
+        const std::string& dependency = *it;
+        if (dependency != "flags_enumeration.hpp")
+            continue;
+        
+        boost::filesystem::path cpp_flags_enumerator_output = core;
+        cpp_flags_enumerator_output /= "flags_enumeration.hpp";
+
+        boost::shared_ptr<std::ostream> pOutput = openStream(cpp_flags_enumerator_output);
+
+        compil::CppFlagsEnumerationGenerator generator;
+        bool bResult = generator.init("partial",
+                                      pConfigurationManager->getConfiguration<AlignerConfiguration>(),
+                                      pFormatter,
+                                      pImplementer,
+                                      pOutput,
+                                      pModel);
+        if (bResult) generator.generate();
+        
+        closeStream(pOutput);
+        
+        if (!bResult)
+            return 1;
+
+        break;
+    }
+*/    
     return true;
 }
 

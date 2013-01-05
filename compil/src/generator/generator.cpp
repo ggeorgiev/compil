@@ -227,9 +227,13 @@ void Generator::includeHeaders(int streamIndex, Dependency::DependencySection se
         const Dependency& dependency = *it;
         if (section != dependency.mSection)
             continue;
-        if (header == dependency.mHeader)
+            
+        std::string newHeader = dependency.mHeaderPackage.empty()
+                              ? dependency.mHeaderName
+                              : dependency.mHeaderPackage + "/" + dependency.mHeaderName;
+        if (header == newHeader)
             continue;
-        header = dependency.mHeader;
+        header = newHeader;
         
         if (library != dependency.mLibrary)
         {
@@ -245,7 +249,7 @@ void Generator::includeHeaders(int streamIndex, Dependency::DependencySection se
         else if (dependency.mType == Dependency::quote_type)
             line() << "\"";
         
-        line() << dependency.mHeader;
+        line() << newHeader;
         
         if (dependency.mType == Dependency::system_type)
             line() << ">";

@@ -276,13 +276,15 @@ bool CppTestGenerator::generate()
     addDependency(impl->cppHeaderFileDependency(mDocument->name()->value(),
                                                 mDocument->package()));
                                                 
-    addDependency(Dependency("gtest/gtest.h",
+    addDependency(Dependency("gtest",
+                             "gtest.h",
                              Dependency::system_type,
                              Dependency::thirdparty_level,
                              Dependency::private_section,
                              "Google Test framework"));
 
-    addDependency(Dependency("core/boost/boost_assert_handler.h",
+    addDependency(Dependency("core/boost",
+                             "boost_assert_handler.h",
                              Dependency::system_type,
                              Dependency::thirdparty_level,
                              Dependency::private_section,

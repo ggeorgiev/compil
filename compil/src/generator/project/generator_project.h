@@ -46,6 +46,7 @@
 #include "core/boost/boost_path.h"
 
 #include "boost/unordered_map.hpp"
+#include "boost/unordered_set.hpp"
 #include <boost/filesystem.hpp>
 
 #include <vector>
@@ -106,6 +107,8 @@ private:
     std::time_t mInitTime;
 
     boost::unordered_map<boost::filesystem::path, SourceData> mDocuments;
+    
+    boost::unordered_set<std::string> mCoreDependencies;
 };
 
 }

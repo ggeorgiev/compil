@@ -903,7 +903,8 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
             << "object);";
     eol(declarationStream);
 
-    addDependency(Dependency("utility",
+    addDependency(Dependency("",
+                             "utility",
                              Dependency::system_type,
                              Dependency::stl_level,
                              Dependency::private_section,
@@ -1877,7 +1878,8 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
         if (pStructure->sharable())
         if (impl->mConfiguration->mPointer == ImplementerConfiguration::use_boost_pointers)
         {
-            addDependency(Dependency("boost/enable_shared_from_this.hpp",
+            addDependency(Dependency("boost",
+                                     "enable_shared_from_this.hpp",
                                      Dependency::system_type,
                                      Dependency::thirdparty_level,
                                      Dependency::private_section,

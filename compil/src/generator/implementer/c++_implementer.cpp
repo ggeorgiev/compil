@@ -361,18 +361,20 @@ std::vector<Dependency> CppImplementer::classPointerDependencies()
     if (mConfiguration->mPointer == ImplementerConfiguration::use_boost_pointers)
     {
         dep.push_back(
-            Dependency("boost/shared_ptr.hpp",
-                        Dependency::system_type,
-                        Dependency::thirdparty_level,
-                        Dependency::global_section,
-                        "Boost C++ Smart Pointers"));
+            Dependency("boost",
+                       "shared_ptr.hpp",
+                       Dependency::system_type,
+                       Dependency::thirdparty_level,
+                       Dependency::global_section,
+                       "Boost C++ Smart Pointers"));
 
         dep.push_back(
-            Dependency("boost/weak_ptr.hpp",
-                        Dependency::system_type,
-                        Dependency::thirdparty_level,
-                        Dependency::global_section,
-                        "Boost C++ Smart Pointers"));
+            Dependency("boost",
+                       "weak_ptr.hpp",
+                       Dependency::system_type,
+                       Dependency::thirdparty_level,
+                       Dependency::global_section,
+                       "Boost C++ Smart Pointers"));
     }
 
     return dep;
@@ -385,11 +387,12 @@ std::vector<Dependency> CppImplementer::classReferenceDependencies()
     if (mConfiguration->mPointer == ImplementerConfiguration::use_boost_pointers)
     {
         dep.push_back(
-            Dependency("boost/make_shared.hpp",
-                        Dependency::system_type,
-                        Dependency::thirdparty_level,
-                        Dependency::global_section,
-                        "Boost C++ Smart Pointers"));
+            Dependency("boost",
+                       "make_shared.hpp",
+                       Dependency::system_type,
+                       Dependency::thirdparty_level,
+                       Dependency::global_section,
+                       "Boost C++ Smart Pointers"));
     }
 
     return dep;
@@ -412,7 +415,8 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
         if (mConfiguration->mIntegerTypes == ImplementerConfiguration::use_intnn_t)
         {
             dep.push_back(
-                Dependency("sys/types.h",
+                Dependency("sys",
+                           "types.h",
                            Dependency::system_type,
                            Dependency::system_level,
                            Dependency::private_section,
@@ -422,7 +426,8 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
         if (mConfiguration->mIntegerTypes == ImplementerConfiguration::use_boost_intnn_t)
         {
             dep.push_back(
-                Dependency("boost/cstdint.hpp",
+                Dependency("boost",
+                           "cstdint.hpp",
                            Dependency::system_type,
                            Dependency::thirdparty_level,
                            Dependency::global_section,
@@ -439,7 +444,8 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
             // todo: we should report an error here mCorePackage is null
                 
             dep.push_back(
-                Dependency(cppFilepath(mCorePackage, "flags_enumeration.hpp"),
+                Dependency(cppFilepath(mCorePackage),
+                           "flags_enumeration.hpp",
                            Dependency::quote_type,
                            Dependency::core_level,
                            Dependency::private_section,
@@ -455,7 +461,8 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
             if (mConfiguration->mString == ImplementerConfiguration::use_stl_string)
             {
                 dep.push_back(
-                    Dependency("string",
+                    Dependency("",
+                               "string",
                                Dependency::system_type,
                                Dependency::stl_level,
                                Dependency::global_section,
@@ -467,7 +474,8 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
         if (name == "vector")
         {
             dep.push_back(
-                Dependency("vector",
+                Dependency("",
+                           "vector",
                            Dependency::system_type,
                            Dependency::stl_level,
                            Dependency::global_section,
@@ -485,7 +493,8 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
         if (pType->package() == lib::compil::CompilPackage::time())
         {
             dep.push_back(
-                Dependency("boost/date_time/posix_time/posix_time.hpp",
+                Dependency("boost/date_time",
+                           "posix_time/posix_time.hpp",
                            Dependency::system_type,
                            Dependency::thirdparty_level,
                            Dependency::private_section,
@@ -567,7 +576,8 @@ Dependency CppImplementer::nullDependency()
 {
     if (mConfiguration->mNullOr0 == ImplementerConfiguration::use_null)
     {
-        return Dependency("stddef.h",
+        return Dependency("",
+                          "stddef.h",
                           Dependency::system_type,
                           Dependency::system_level,
                           Dependency::private_section,
@@ -593,13 +603,15 @@ Dependency CppImplementer::assert_dependency()
     switch (mConfiguration->mAssert)
     {
         case ImplementerConfiguration::use_std_assert:
-            return Dependency("assert.h",
+            return Dependency("",
+                              "assert.h",
                               Dependency::system_type,
                               Dependency::system_level,
                               Dependency::private_section,
                               "Standard C library");
         case ImplementerConfiguration::use_boost_assert:
-            return Dependency("boost/assert.hpp",
+            return Dependency("boost",
+                              "assert.hpp",
                               Dependency::system_type,
                               Dependency::thirdparty_level,
                               Dependency::global_section,
@@ -611,7 +623,8 @@ Dependency CppImplementer::assert_dependency()
 
 Dependency CppImplementer::unordered_set_dependency()
 {
-    return Dependency("boost/unordered_set.hpp",
+    return Dependency("boost",
+                      "unordered_set.hpp",
                       Dependency::system_type,
                       Dependency::thirdparty_level,
                       Dependency::private_section,
@@ -619,7 +632,8 @@ Dependency CppImplementer::unordered_set_dependency()
 }
 Dependency CppImplementer::unordered_map_dependency()
 {
-    return Dependency("boost/unordered_map.hpp",
+    return Dependency("boost",
+                      "unordered_map.hpp",
                       Dependency::system_type,
                       Dependency::thirdparty_level,
                       Dependency::private_section,
@@ -883,8 +897,7 @@ std::string CppImplementer::applicationExtension(const EExtensionType type)
     return "";
 }
 
-std::string CppImplementer::cppFilepath(const PackageSPtr& package,
-                                        const std::string filename)
+std::string CppImplementer::cppFilepath(const PackageSPtr& package)
 {
     boost::filesystem::path result;
     if (package)
@@ -896,48 +909,34 @@ std::string CppImplementer::cppFilepath(const PackageSPtr& package,
             result /= element->value();
         }
     }
-    result /= filename;
     return result.generic_string();
 }
 
-
-std::string CppImplementer::cppHeaderFilepath(const std::string filename,
-                                              const PackageSPtr& package)
+PackageSPtr CppImplementer::cppHeaderPackage(const PackageSPtr& package)
 {
-    boost::filesystem::path pth(filename);
-    if (!pth.has_stem())
-        return "";
-
-    pth.replace_extension("");
-
     if (mConfiguration->mCppIncludePath == ImplementerConfiguration::include_path_based_on_import)
-        return pth.generic_string();
+        return PackageSPtr();
 
     if (mConfiguration->mCppIncludePath == ImplementerConfiguration::include_path_based_on_package)
-    {
-        if (!package)
-            return "";
-            
-        return cppFilepath(package, pth.filename().generic_string());
-    }
+        return package;
     
     assert(false && "unknown mCppIncludePath");
-    return "";
+    return PackageSPtr();
 }
-
 
 Dependency CppImplementer::cppHeaderFileDependency(const std::string filename,
                                                    const PackageSPtr& package)
 {
-    std::string include = cppHeaderFilepath(filename, package);
+    PackageSPtr headerPackage = cppHeaderPackage(package);
 
-    boost::filesystem::path pth(include);
-    if (!pth.has_stem())
+    boost::filesystem::path path(filename);
+    if (!path.has_stem())
         return Dependency();
 
-    pth.replace_extension(applicationExtension(declaration));
+    path.replace_extension(applicationExtension(declaration));
 
-    return Dependency(pth.generic_string(),
+    return Dependency(headerPackage ? cppFilepath(headerPackage) : "",
+                      path.generic_string(),
                       Dependency::quote_type,
                       Dependency::application_level);
 }

@@ -35,12 +35,18 @@
 namespace compil
 {
 
-Dependency::Dependency(const std::string& header,
+Dependency::Dependency(const std::string& headerPackage,
+                       const std::string& headerName,
                        DependencyType type, 
                        DependencyLevel level,
                        DependencySection section,
                        const std::string& library)
-    : mHeader(header), mType(type), mLevel(level), mSection(section), mLibrary(library)
+    : mHeaderPackage(headerPackage)
+    , mHeaderName(headerName)
+    , mType(type)
+    , mLevel(level)
+    , mSection(section)
+    , mLibrary(library)
 {
 }
 
@@ -66,9 +72,14 @@ bool Dependency::compare(const Dependency& d1, const Dependency& d2)
     if (d1.mLibrary > d2.mLibrary)
         return false;
         
-    if (d1.mHeader < d2.mHeader)
+    if (d1.mHeaderPackage < d2.mHeaderPackage)
         return true;
-    if (d1.mHeader > d2.mHeader)
+    if (d1.mHeaderPackage > d2.mHeaderPackage)
+        return false;
+
+    if (d1.mHeaderName < d2.mHeaderName)
+        return true;
+    if (d1.mHeaderName > d2.mHeaderName)
         return false;
         
     if (d1.mType < d2.mType)
