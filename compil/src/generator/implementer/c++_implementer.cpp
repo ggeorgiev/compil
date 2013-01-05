@@ -904,10 +904,8 @@ Dependency CppImplementer::cppHeaderFileDependency(const std::string filename,
     if (!path.has_stem())
         return Dependency();
 
-    path.replace_extension(applicationExtension(declaration));
-
     return Dependency(headerPackage ? cppFilepath(headerPackage) : "",
-                      path.generic_string(),
+                      path.stem().generic_string() + applicationExtension(declaration),
                       Dependency::quote_type,
                       Dependency::application_level);
 }
