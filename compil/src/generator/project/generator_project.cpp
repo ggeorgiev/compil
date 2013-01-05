@@ -127,10 +127,13 @@ bool GeneratorProject::init(const std::string& projectFile,
                       << "         the provided source files will be ignored" << std::endl;
         }
         
-        SourceId::Builder builder;
-        builder.set_value(projectPath.generic_string());
-
-        SourceIdSPtr sourceId = builder.finalize();
+        SourceIdSPtr sourceId = mSourceProvider->sourceId(SourceIdSPtr(), projectPath.generic_string());
+        if (!sourceId)
+        {
+            std::cout << "ERROR: the project file does not exist: " <<  projectPath.native() << std::endl;
+            return false;
+        }
+        
         StreamPtr pInput = mSourceProvider->openInputStream(sourceId);
 
         ParserPtr pParser = boost::make_shared<Parser>();
@@ -247,6 +250,56 @@ static std::string getFileStem(const std::string& type, const std::string& docum
     return documentName + "-" + type;
 }
 
+bool GeneratorProject::executeGenerator(const std::string& type,
+                                        const FilePathSPtr& path,
+                                        const CppImplementer::EExtensionType& extensionType,
+                                        const boost::filesystem::path& outputDirectory,
+                                        const AlignerConfigurationSPtr& alignerConfiguration,
+                                        const FormatterConfigurationSPtr& formatterConfiguration,
+                                        const ImplementerConfigurationSPtr& implementerConfiguration,
+                                        Generator& generator)
+{
+    const SourceData& data = mDocuments[path->path()];
+    
+    CppFormatterPtr formatter = boost::make_shared<CppFormatter>
+        (formatterConfiguration, data.document->package());
+    CppImplementerPtr implementer = boost::make_shared<CppImplementer>
+        (formatter);
+        
+    implementer->init(mProject->corePackage(), implementerConfiguration);
+        
+    std::string filepath = implementer->cppHeaderFilepath(data.document->name()->value(),
+                                                          data.document->package());
+
+    boost::filesystem::path cppOutput = outputDirectory;
+    cppOutput /= getFileStem(type, filepath) + implementer->applicationExtension(extensionType);
+    
+    if (   !mSourceProvider->isExists(cppOutput)
+        || (mSourceProvider->fileTime(cppOutput) <= data.updateTime))
+    {
+        std::cout << "#" << cppOutput.generic_string() << std::endl
+                  << "    because: " << data.becauseOf << std::endl;
+        boost::shared_ptr<std::ostream> outputStream = openStream(cppOutput);
+    
+        bool bResult = generator.init(type,
+                                      alignerConfiguration,
+                                      formatter,
+                                      implementer,
+                                      outputStream,
+                                      data.document);
+
+        if (bResult)
+            bResult = generator.generate();
+                                      
+        if (!bResult)
+        {
+            std::cout << "ERROR: the generation failed for: " << path->path() << std::endl;
+            return false;
+        }
+    }
+    return true;
+}
+
 bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
                                 const AlignerConfigurationSPtr& alignerConfiguration,
                                 const FormatterConfigurationSPtr& formatterConfiguration,
@@ -265,82 +318,21 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
             for (std::vector<FilePathSPtr>::const_iterator pit = paths.begin(); pit != paths.end(); ++pit)
             {
                 const FilePathSPtr& path = *pit;
-                SourceData data = mDocuments[path->path()];
                 
                 {
-                    CppFormatterPtr formatter = boost::make_shared<CppFormatter>
-                        (formatterConfiguration, data.document->package());
-                    CppImplementerPtr implementer = boost::make_shared<CppImplementer>
-                        (implementerConfiguration, formatter);
-                        
-                    std::string filepath = implementer->cppHeaderFilepath(data.document->name()->value(),
-                                                                          data.document->package());
-
-                    boost::filesystem::path cppOutput = outputDirectory;
-                    cppOutput /= getFileStem(type, filepath) + implementer->applicationExtension();
-                    
-                    if (   !mSourceProvider->isExists(cppOutput)
-                        || (mSourceProvider->fileTime(cppOutput) <= data.updateTime))
-                    {
-                        std::cout << "#" << cppOutput.generic_string() << std::endl
-                                  << "    because: " << data.becauseOf << std::endl;
-                        boost::shared_ptr<std::ostream> outputStream = openStream(cppOutput);
-                    
-                        CppGenerator generator;
-                        bool bResult = generator.init(type,
-                                                      alignerConfiguration,
-                                                      formatter,
-                                                      implementer,
-                                                      outputStream,
-                                                      data.document);
-
-                        if (bResult)
-                            bResult = generator.generate();
-                                                      
-                        if (!bResult)
-                        {
-                            std::cout << "ERROR: the generation failed for: " << path->path() << std::endl;
-                            return false;
-                        }
-                    }
+                    CppGenerator generator;
+                    if (!executeGenerator(type, path, CppImplementer::definition, outputDirectory,
+                                          alignerConfiguration, formatterConfiguration, implementerConfiguration,
+                                          generator))
+                        return false;
                 }
                 
                 {
-                    CppFormatterPtr formatter = boost::make_shared<CppFormatter>
-                        (formatterConfiguration, data.document->package());
-                    CppImplementerPtr implementer = boost::make_shared<CppImplementer>
-                        (implementerConfiguration, formatter);
-                        
-                    std::string filepath = implementer->cppHeaderFilepath(data.document->name()->value(),
-                                                                          data.document->package());
-
-                    boost::filesystem::path cppHeaderOutput = outputDirectory;
-                    cppHeaderOutput /= getFileStem(type, filepath) + implementer->applicationHeaderExtension();
-                    
-                    if (   !mSourceProvider->isExists(cppHeaderOutput)
-                        || (mSourceProvider->fileTime(cppHeaderOutput) <= data.updateTime))
-                    {
-                        std::cout << "#" << cppHeaderOutput.generic_string() << std::endl
-                                  << "    because: " << data.becauseOf << std::endl;
-                        boost::shared_ptr<std::ostream> outputStream = openStream(cppHeaderOutput);
-                    
-                        CppHeaderGenerator generator;
-                        bool bResult = generator.init(type,
-                                                      alignerConfiguration,
-                                                      formatter,
-                                                      implementer,
-                                                      outputStream,
-                                                      data.document);
-
-                        if (bResult)
-                            bResult = generator.generate();
-                                                      
-                        if (!bResult)
-                        {
-                            std::cout << "ERROR: the generation failed for: " << path->path() << std::endl;
-                            return false;
-                        }
-                    }
+                    CppHeaderGenerator generator;
+                    if (!executeGenerator(type, path, CppImplementer::declaration, outputDirectory,
+                                          alignerConfiguration, formatterConfiguration, implementerConfiguration,
+                                          generator))
+                        return false;
                 }
             }
         }
@@ -350,42 +342,12 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
             for (std::vector<FilePathSPtr>::const_iterator pit = paths.begin(); pit != paths.end(); ++pit)
             {
                 const FilePathSPtr& path = *pit;
-                SourceData data = mDocuments[path->path()];
-
-                CppFormatterPtr formatter = boost::make_shared<CppFormatter>
-                    (formatterConfiguration, data.document->package());
-                CppImplementerPtr implementer = boost::make_shared<CppImplementer>
-                    (implementerConfiguration, formatter);
-                    
-                std::string filepath = implementer->cppHeaderFilepath(data.document->name()->value(),
-                                                                      data.document->package());
-
-                boost::filesystem::path cppTestOutput = outputDirectory;
-                cppTestOutput /= getFileStem(type, filepath) + implementer->applicationExtension();
-                
-                if (   !mSourceProvider->isExists(cppTestOutput)
-                    || (mSourceProvider->fileTime(cppTestOutput) <= data.updateTime))
                 {
-                    std::cout << "#" << cppTestOutput.generic_string() << std::endl
-                              << "    because: " << data.becauseOf << std::endl;
-                    boost::shared_ptr<std::ostream> outputStream = openStream(cppTestOutput);
-                
                     CppTestGenerator generator;
-                    bool bResult = generator.init(type,
-                                                  alignerConfiguration,
-                                                  formatter,
-                                                  implementer,
-                                                  outputStream,
-                                                  data.document);
-
-                    if (bResult)
-                        bResult = generator.generate();
-                                                  
-                    if (!bResult)
-                    {
-                        std::cout << "ERROR: the generation failed for: " << path->path() << std::endl;
+                    if (!executeGenerator(type, path, CppImplementer::definition, outputDirectory,
+                                          alignerConfiguration, formatterConfiguration, implementerConfiguration,
+                                          generator))
                         return false;
-                    }
                 }
             }
         }

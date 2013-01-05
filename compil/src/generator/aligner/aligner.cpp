@@ -133,7 +133,7 @@ cpp::frm::VariableNameSPtr value    = cpp::frm::variableNameRef("value");
 
 
 Aligner::Aligner(const AlignerConfigurationSPtr& pConfiguration)
-        : mpConfiguration(pConfiguration)
+        : mConfiguration(pConfiguration)
 {
 }
 

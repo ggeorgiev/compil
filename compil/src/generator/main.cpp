@@ -78,7 +78,7 @@ int main(int argc, const char **argv)
     if (!project.parseDocuments())
         return 1;
         
-    if (!project.generate(boost::filesystem::resolve(pGeneratorConfiguration->output_directory),
+    if (!project.generate(boost::filesystem::resolve(pGeneratorConfiguration->outputDirectory),
                           pConfigurationManager->getConfiguration<AlignerConfiguration>(),
                           pConfigurationManager->getConfiguration<FormatterConfiguration>(),
                           pConfigurationManager->getConfiguration<ImplementerConfiguration>()))

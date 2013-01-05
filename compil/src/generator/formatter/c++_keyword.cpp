@@ -36,7 +36,7 @@ namespace compil
 {
 
 CppKeyword::CppKeyword(const FormatterConfigurationSPtr& pConfig)
-        : mpConfiguration(pConfig)
+        : mConfiguration(pConfig)
 {
 }
 

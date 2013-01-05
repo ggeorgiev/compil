@@ -71,7 +71,9 @@ SourceIdSPtr FileSourceProvider::sourceId(const SourceIdSPtr& pCurrentSourceId, 
         }
     }
     
-    path source_location = mWorkingDirectory / source;
+    boost::filesystem::path source_location = isAbsolute(source)
+                                            ? source
+                                            : mWorkingDirectory / source;
     if (exists(source_location))
     {
         fillSourceFields(source_location, builder);

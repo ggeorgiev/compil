@@ -55,8 +55,8 @@ SectionSPtr ProjectParserMixin::parseSection(const ProjectParseContextSPtr& cont
     skipComments(context);
     if (!context->mTokenizer->expect(Token::TYPE_IDENTIFIER))
     {
-        context->mMessageCollector->addMessage(errorMessage(context, Message::p_expectStatementName)
-                                               << Message::Statement("section"));
+        *context <<= errorMessage(context, Message::p_expectStatementName)
+                     << Message::Statement("section");
         return SectionSPtr();
     }
     
@@ -70,8 +70,8 @@ SectionSPtr ProjectParserMixin::parseSection(const ProjectParseContextSPtr& cont
     
     if (!context->mTokenizer->expect(Token::TYPE_BRACKET, "{"))
     {
-        context->mMessageCollector->addMessage(errorMessage(context, Message::p_expectStatementBody)
-                                               << Message::Statement("section"));
+        *context <<= errorMessage(context, Message::p_expectStatementBody)
+                     << Message::Statement("section");
         return SectionSPtr();
     }
     
@@ -79,16 +79,16 @@ SectionSPtr ProjectParserMixin::parseSection(const ProjectParseContextSPtr& cont
     {
         if (context->mTokenizer->eot())
         {
-            context->mMessageCollector->addMessage(errorMessage(context, Message::p_unexpectEOFInStatementBody)
-                                                   << Message::Statement("section"));
+            *context <<= errorMessage(context, Message::p_unexpectEOFInStatementBody)
+                         << Message::Statement("section");
             return SectionSPtr();
         }
         
         FilePathSPtr filePath = parseFilePath(context);
         if (!filePath)
         {
-            context->mMessageCollector->addMessage(errorMessage(context, Message::p_expectStatementName)
-                                                   << Message::Statement("file path"));
+            *context <<= errorMessage(context, Message::p_expectStatementName)
+                         << Message::Statement("file path");
             return SectionSPtr();
         }
         
@@ -105,7 +105,7 @@ SectionSPtr ProjectParserMixin::parseSection(const ProjectParseContextSPtr& cont
         {
             if (filePath && !filePath->path().empty())
             {
-                context->mMessageCollector->addMessage(errorMessage(context, Message::p_expectSemicolon));
+                *context <<= errorMessage(context, Message::p_expectSemicolon);
                 return SectionSPtr();
             }
         }
@@ -114,8 +114,16 @@ SectionSPtr ProjectParserMixin::parseSection(const ProjectParseContextSPtr& cont
     return section;
 }
 
-void ProjectParserMixin::parseProjectStatement(const ProjectParseContextSPtr& context, const CommentSPtr& comment)
+bool ProjectParserMixin::parseProjectStatement(const ProjectParseContextSPtr& context, const CommentSPtr& comment)
 {
+    TokenPtr core;
+    if (context->mTokenizer->check(Token::TYPE_IDENTIFIER, "core"))
+    {
+        core = context->mTokenizer->current();
+        context->mTokenizer->shift();
+        skipComments(context);
+    }    
+
     if (context->mTokenizer->check(Token::TYPE_IDENTIFIER, "section"))
     {
         SectionSPtr section = parseSection(context, comment);
@@ -125,18 +133,61 @@ void ProjectParserMixin::parseProjectStatement(const ProjectParseContextSPtr& co
         }
     }
     else
+    if (context->mTokenizer->check(Token::TYPE_IDENTIFIER, "package"))
     {
-        context->mMessageCollector->addMessage(errorMessage(context, Message::p_unknownStatment)
-                                               << Message::Context("top")
-                                               << Message::Options("section"));
+        if (!core)
+        {
+            *context <<= errorMessage(context, Message::p_unknownStatment)
+                         << Message::Context("package")
+                         << Message::Options("core");
+        }
+        PackageSPtr package = parsePackage(context);
+        if (!core || !package)
+            return false;
+            
+        core.reset();
+        context->mProject->set_corePackage(package);
+    }    
+    else
+    {
+        *context <<= errorMessage(context, Message::p_unknownStatment)
+                     << Message::Context("top")
+                     << Message::Options("section");
         context->mTokenizer->shift();
     }
+    
+    return true;
 }
-
 
 ProjectSPtr ProjectParserMixin::parseProject(const ProjectParseContextSPtr& context)
 {
-    return ProjectSPtr();
+    context->mProject = boost::make_shared<Project>();
+    
+    FileSPtr file = parseFile(context);
+    if (!file)
+        return ProjectSPtr();
+        
+    if (!context->mProject->mainFile())
+        context->mProject << file;
+        
+    CommentSPtr pStatementComment = lastComment(context);
+    while (context->mTokenizer->current())
+    {
+        if (context->mTokenizer->check(Token::TYPE_IDENTIFIER))
+        {
+            parseProjectStatement(context, pStatementComment);
+        }
+        else
+        {
+            context->mTokenizer->shift();
+        }
+        pStatementComment = lastComment(context);
+    }
+    
+    if (context->mMessageCollector->severity() > Message::SEVERITY_WARNING)
+        return ProjectSPtr();
+
+    return context->mProject;
 }
 
 }

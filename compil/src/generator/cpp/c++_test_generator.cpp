@@ -117,7 +117,7 @@ void CppTestGenerator::generateSpecimenDeclaration(const SpecimenSPtr& specimen)
     
     NamerConfigurationSPtr nc = boost::make_shared<NamerConfiguration>();
     
-    ImplementerStream stream(impl->mpConfiguration, nc, frm->mpFormatterConfiguration, mpAlignerConfiguration);
+    ImplementerStream stream(impl->mConfiguration, nc, frm->mpFormatterConfiguration, mpAlignerConfiguration);
     
     stream << suite;
     
@@ -242,7 +242,7 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& structu
     
     NamerConfigurationSPtr nc = boost::make_shared<NamerConfiguration>();
     
-    ImplementerStream stream(impl->mpConfiguration, nc, frm->mpFormatterConfiguration, mpAlignerConfiguration);
+    ImplementerStream stream(impl->mConfiguration, nc, frm->mpFormatterConfiguration, mpAlignerConfiguration);
     
     stream << suite;
     

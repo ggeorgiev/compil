@@ -37,6 +37,11 @@
 namespace compil
 {
 
+void ParseContext::operator<<=(const Message& message)
+{
+    mMessageCollector->addMessage(message);
+}
+
 void ParserMixin::initilizeObject(const ParseContextSPtr& context, ObjectSPtr object)
 {
     initilizeObject(context, context->mTokenizer->current(), object);
@@ -63,9 +68,9 @@ Message ParserMixin::errorMessage(const ParseContextSPtr& context,
 }
 
 Message ParserMixin::warningMessage(const ParseContextSPtr& context,
-                                  const char* message,
-                                  const Line& line,
-                                  const Column& column)
+                                    const char* message,
+                                    const Line& line,
+                                    const Column& column)
 {
     return severityMessage(context, Message::SEVERITY_WARNING, message, line, column);
 }
@@ -123,6 +128,64 @@ CommentSPtr ParserMixin::parseComment(const ParseContextSPtr& context)
     }
     return pComment;
 }
+
+CommentSPtr ParserMixin::lastComment(const ParseContextSPtr& context)
+{
+    CommentSPtr comment = parseComment(context);
+    while (comment)
+    {
+        if (!context->mTokenizer->current())
+            break;
+        if (context->mTokenizer->current()->type() != Token::TYPE_COMMENT)
+            break;
+        context->mMessageCollector->addMessage(Message::SEVERITY_WARNING, Message::p_misplacedComment,
+                                               context->mSourceId, comment->line(), comment->column());
+        comment = parseComment(context);
+    }
+    return comment;
+}
+
+
+FileSPtr ParserMixin::parseFile(const ParseContextSPtr& context)
+{
+    FileSPtr file = boost::make_shared<File>();
+
+    CommentSPtr pComment = parseComment(context);
+    while (pComment)
+    {
+        file->mutable_comments().push_back(pComment);
+        pComment = parseComment(context);
+    }
+
+    if (!context->mTokenizer->check(Token::TYPE_IDENTIFIER, "compil"))
+        return FileSPtr();
+
+    initilizeObject(context, file);
+
+    context->mTokenizer->shift();
+    if (!context->mTokenizer->expect(Token::TYPE_BRACKET, "{"))
+    {
+        *context <<= errorMessage(context, Message::p_expectStatementBody)
+                     << Message::Statement("compil");
+        return FileSPtr();
+    }
+
+    context->mTokenizer->shift();
+    skipComments(context);
+
+    if (!context->mTokenizer->expect(Token::TYPE_BRACKET, "}"))
+    {
+        *context <<= errorMessage(context, Message::p_unexpectEOFInStatementBody)
+                     << Message::Statement("compil");
+        return FileSPtr();
+    }
+
+    context->mTokenizer->shift();
+
+    return file;
+}
+
+
 
 void ParserMixin::skipComments(const ParseContextSPtr& context, CommentSPtr pComment)
 {
@@ -238,7 +301,7 @@ bool ParserMixin::convertStringElementsToPackageElements(const ParseContextSPtr&
         }
         else
         {
-            if ((*eit)->value() == *it)
+            if (*eit && (*eit)->value() == *it)
                 ++eit;
 
             pe = boost::make_shared<PackageElement>();

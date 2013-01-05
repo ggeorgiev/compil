@@ -38,6 +38,7 @@
 
 #include <boost/shared_ptr.hpp>
 #include <boost/unordered_map.hpp>
+#include <boost/unordered_set.hpp>
 
 namespace compil
 {
@@ -72,6 +73,7 @@ private:
     boost::filesystem::path mWorkingDirectory;
     std::vector<boost::filesystem::path> mImportDirectories;
     boost::unordered_map<boost::filesystem::path, std::string> mFilesystem;
+    boost::unordered_set<boost::filesystem::path> mDirectories;
 };
 
 typedef boost::shared_ptr<TestSourceProvider> TestSourceProviderSPtr;

@@ -45,6 +45,8 @@ structure Project
     runtime identification;
     
     reference<File> mainFile;
+    
+    reference<Package> corePackage = optional;
 
     vector<reference<Section>> sections;
 }

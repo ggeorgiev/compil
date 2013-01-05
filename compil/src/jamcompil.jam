@@ -105,6 +105,6 @@ rule generate ( targets * : source * : properties * )
 
 actions generate
 {
-    $(COMPIL-COMMAND) -I$(IMPORTS:W) -t $(COMPIL-TYPE) --project-directory=$(COMPIL-PROJECT-ROOT) --core-directory=core/c++ $(>) -o $(<[1]:D) || exit 1
+    $(COMPIL-COMMAND) -I$(IMPORTS:W) -t $(COMPIL-TYPE) --project-directory=$(COMPIL-PROJECT-ROOT) --core-output-directory=core/c++ $(>) -o $(<[1]:D) || exit 1
 }
 

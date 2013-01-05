@@ -46,6 +46,8 @@ namespace compil
 
 struct ParseContext
 {
+    void operator<<=(const Message& message);
+
     typedef std::map<std::string, SourceIdSPtr> SourceMap;
     typedef boost::shared_ptr<SourceMap> SourceMapSPtr;
 
@@ -71,12 +73,15 @@ public:
                                 const Column& column = Column(-1));
                                 
     static Message warningMessage(const ParseContextSPtr& context,
-                                 const char* message,
-                                 const Line& line = Line(-1),
-                                 const Column& column = Column(-1));
+                                  const char* message,
+                                  const Line& line = Line(-1),
+                                  const Column& column = Column(-1));
                                 
     static CommentSPtr parseComment(const ParseContextSPtr& context);
+    static CommentSPtr lastComment(const ParseContextSPtr& context);
     static void skipComments(const ParseContextSPtr& context, CommentSPtr pComment = CommentSPtr());
+    
+    static FileSPtr parseFile(const ParseContextSPtr& context);
     
     static PackageSPtr parsePackage(const ParseContextSPtr& context);
     static bool convertStringElementsToPackageElements(const ParseContextSPtr& context,

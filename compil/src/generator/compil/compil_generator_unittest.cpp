@@ -48,16 +48,18 @@ public:
     virtual void SetUp() 
     {
         mpParser.reset(new compil::Parser());
-        mpConfigurationManager.reset(new compil::ConfigurationManager());
+        mConfigurationManager.reset(new compil::ConfigurationManager());
         mpCompilGenerator.reset(new compil::CompilGenerator());
 
         AlignerConfigurationSPtr pAlignerConfiguration(new AlignerConfiguration());
-        mpConfigurationManager->registerConfiguration(pAlignerConfiguration);
+        mConfigurationManager->registerConfiguration(pAlignerConfiguration);
         
         mpFormatter = boost::make_shared<compil::CppFormatter>
-            (mpConfigurationManager->getConfiguration<FormatterConfiguration>(), compil::PackageSPtr());
+            (mConfigurationManager->getConfiguration<FormatterConfiguration>(), compil::PackageSPtr());
         mpImplementer = boost::make_shared<compil::CppImplementer>
-            (mpConfigurationManager->getConfiguration<ImplementerConfiguration>(), mpFormatter);
+            (mpFormatter);
+            
+        mpImplementer->init(compil::PackageSPtr(), mConfigurationManager->getConfiguration<ImplementerConfiguration>());
     }
 
     bool checkGeneration(const char* input, const char* output)
@@ -70,7 +72,7 @@ public:
 
         boost::shared_ptr<std::ostringstream> pOutput(new std::ostringstream());
         EXPECT_TRUE( mpCompilGenerator->init("main",
-                                             mpConfigurationManager->getConfiguration<AlignerConfiguration>(),
+                                             mConfigurationManager->getConfiguration<AlignerConfiguration>(),
                                              mpFormatter,
                                              mpImplementer, 
                                              pOutput, 
@@ -85,7 +87,7 @@ public:
 protected:
     compil::DocumentSPtr mDocument;
     compil::ParserPtr mpParser;
-    compil::ConfigurationManagerPtr mpConfigurationManager;
+    compil::ConfigurationManagerPtr mConfigurationManager;
     
     compil::CppFormatterPtr mpFormatter;
     compil::CppImplementerPtr mpImplementer;

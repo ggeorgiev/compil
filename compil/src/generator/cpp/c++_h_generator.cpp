@@ -1875,7 +1875,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
     else
     {
         if (pStructure->sharable())
-        if (impl->mpConfiguration->mPointer == ImplementerConfiguration::use_boost_pointers)
+        if (impl->mConfiguration->mPointer == ImplementerConfiguration::use_boost_pointers)
         {
             addDependency(Dependency("boost/enable_shared_from_this.hpp",
                                      Dependency::system_type,
@@ -2070,7 +2070,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                                     << frm->cppAutoDestructorName(pStructure))
             << ";";
 
-    if (impl->mpConfiguration->mPointer == ImplementerConfiguration::use_boost_pointers)
+    if (impl->mConfiguration->mPointer == ImplementerConfiguration::use_boost_pointers)
     {
         StructureSPtr pRecursivelyBaseStructure = pStructure->recursivelyBaseStructure();
         if (pStructure != pRecursivelyBaseStructure)

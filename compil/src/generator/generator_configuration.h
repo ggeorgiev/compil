@@ -57,8 +57,8 @@ public:
 
     std::string type;
     std::string sourceFile;
-    std::string output_directory;
-    std::string core_directory;
+    std::string outputDirectory;
+    std::string coreOutputDirectory;
     std::string projectFile;
     std::string projectDirectory;
     string_vector importDirectories;

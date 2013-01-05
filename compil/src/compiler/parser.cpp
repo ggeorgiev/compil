@@ -120,23 +120,6 @@ Parser::~Parser()
     }
 }
 
-CommentSPtr Parser::lastComment()
-{
-    CommentSPtr pComment = parseComment(mContext);
-    while (pComment)
-    {
-        if (!mContext->mTokenizer->current())
-            break;
-        if (mContext->mTokenizer->current()->type() != Token::TYPE_COMMENT)
-            break;
-        mContext->mMessageCollector->addMessage(
-            Message::SEVERITY_WARNING, Message::p_misplacedComment,
-            mContext->mSourceId, pComment->line(), pComment->column());
-        pComment = parseComment(mContext);
-    }
-    return pComment;
-}
-
 bool Parser::parseType(std::vector<PackageElementSPtr>& package_elements, TokenPtr& pNameToken)
 {
     pNameToken = mContext->mTokenizer->current();
@@ -398,7 +381,7 @@ EnumerationSPtr Parser::parseEnumeration(const CommentSPtr& pComment,
             return EnumerationSPtr();
         }
 
-        CommentSPtr pEnumerationComment = lastComment();
+        CommentSPtr pEnumerationComment = lastComment(mContext);
 
         if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER))
         {
@@ -751,7 +734,7 @@ FactorySPtr Parser::parseFactory(const CommentSPtr& pComment,
             return FactorySPtr();
         }
 
-        CommentSPtr pBodyComment = lastComment();
+        CommentSPtr pBodyComment = lastComment(mContext);
 
         if (!mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "filter"))
         {
@@ -1297,7 +1280,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
             return StructureSPtr();
         }
 
-        CommentSPtr pBodyComment = lastComment();
+        CommentSPtr pBodyComment = lastComment(mContext);
 
         TokenPtr pStrong;
         TokenPtr pWeak;
@@ -1574,7 +1557,7 @@ MethodSPtr Parser::parseMethod(const CommentSPtr& pComment)
     }
     mContext->mTokenizer->shift();
 
-    CommentSPtr pParameterComment = lastComment();
+    CommentSPtr pParameterComment = lastComment(mContext);
 
     std::vector<ObjectSPtr> parameters;
     while (!mContext->mTokenizer->check(Token::TYPE_BRACKET, "}"))
@@ -1654,7 +1637,7 @@ InterfaceSPtr Parser::parseInterface(const CommentSPtr& pComment)
             return InterfaceSPtr();
         }
 
-        CommentSPtr pMethodComment = lastComment();
+        CommentSPtr pMethodComment = lastComment(mContext);
         if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "method"))
         {
             MethodSPtr pMethod = parseMethod(pMethodComment);
@@ -1932,45 +1915,6 @@ bool Parser::parseImport()
     return true;
 }
 
-FileSPtr Parser::parseFile()
-{
-    FileSPtr file = boost::make_shared<File>();
-
-    CommentSPtr pComment = parseComment(mContext);
-    while (pComment)
-    {
-        file->mutable_comments().push_back(pComment);
-        pComment = parseComment(mContext);
-    }
-
-    if (!mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "compil"))
-        return FileSPtr();
-
-    initilizeObject(mContext, file);
-
-    mContext->mTokenizer->shift();
-    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "{"))
-    {
-        *this << (errorMessage(mContext, Message::p_expectStatementBody)
-                    << Message::Statement("compil"));
-        return FileSPtr();
-    }
-
-    mContext->mTokenizer->shift();
-    skipComments(mContext);
-
-    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "}"))
-    {
-        *this << (errorMessage(mContext, Message::p_unexpectEOFInStatementBody)
-                    << Message::Statement("compil"));
-        return FileSPtr();
-    }
-
-    mContext->mTokenizer->shift();
-
-    return file;
-}
-
 void Parser::addValidator(const ValidatorPtr& pValidator)
 {
     mvValidator.push_back(pValidator);
@@ -1995,20 +1939,20 @@ bool Parser::parseDocument(const StreamPtr& pInput,
     initDocumentContext();
     mContext->mTokenizer = boost::make_shared<Tokenizer>(mContext->mMessageCollector, mContext->mSourceId, pInput);
 
-    FileSPtr file = parseFile();
+    FileSPtr file = parseFile(mContext);
     if (!file)
         return false;
 
     if (!mDocument->mainFile())
         mDocument->set_mainFile(file);
 
-    CommentSPtr pStatementComment = lastComment();
+    CommentSPtr pStatementComment = lastComment(mContext);
     while (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "import"))
     {
         if (!parseImport())
             return false;
         mContext->mTokenizer->shift();
-        pStatementComment = lastComment();
+        pStatementComment = lastComment(mContext);
     }
 
     if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "package"))
@@ -2020,7 +1964,7 @@ bool Parser::parseDocument(const StreamPtr& pInput,
             mDocument->set_package(mpPackage);
 
         mContext->mTokenizer->shift();
-        pStatementComment = lastComment();
+        pStatementComment = lastComment(mContext);
     }
 
     while (mContext->mTokenizer->current())
@@ -2033,7 +1977,7 @@ bool Parser::parseDocument(const StreamPtr& pInput,
         {
             mContext->mTokenizer->shift();
         }
-        pStatementComment = lastComment();
+        pStatementComment = lastComment(mContext);
     }
 
     if (mDocument->mainFile() == file)
@@ -2128,34 +2072,8 @@ bool Parser::parseProject(const SourceIdSPtr& sourceId,
     mContext->mSourceId = sourceId;
     
     ProjectParseContextSPtr context = boost::static_pointer_cast<ProjectParseContext>(mContext);
-    context->mProject = boost::make_shared<Project>();
-    
-    FileSPtr file = parseFile();
-    if (!file)
-        return false;
-        
-    if (!context->mProject->mainFile())
-        context->mProject << file;
-        
-    CommentSPtr pStatementComment = lastComment();
-    while (mContext->mTokenizer->current())
-    {
-        if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER))
-        {
-            parseProjectStatement(context, pStatementComment);
-        }
-        else
-        {
-            mContext->mTokenizer->shift();
-        }
-        pStatementComment = lastComment();
-    }
-    
-    if (mContext->mMessageCollector->severity() > Message::SEVERITY_WARNING)
-        return false;
-        
-    project = context->mProject;
-    return true;
+    project = ProjectParserMixin::parseProject(context);
+    return project;
 }
 
 const std::vector<Message>& Parser::messages()

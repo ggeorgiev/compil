@@ -32,6 +32,8 @@
 
 compil { }
 
+core package core.compil;
+
 section main
 {
     all/list.scompil;

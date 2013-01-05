@@ -156,7 +156,7 @@ public:
 
     virtual std::string str(int indent) const = 0;
 
-    AlignerConfigurationSPtr mpConfiguration;
+    AlignerConfigurationSPtr mConfiguration;
 };
 
 }

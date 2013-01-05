@@ -8,11 +8,11 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "compil/src/generator/project/generator_project.cpp"
-         timestampString = "378969111.92196"
+         timestampString = "379049053.098882"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "145"
-         endingLineNumber = "145"
+         startingLineNumber = "148"
+         endingLineNumber = "148"
          landmarkName = "GeneratorProject::init(const std::string&amp; projectFile, const std::string&amp; projectDirectory, const std::string&amp; type, const string_vector&amp; sourceFiles, const string_vector&amp; importDirectories)"
          landmarkType = "5">
       </FileBreakpoint>
@@ -46,14 +46,27 @@
          shouldBeEnabled = "Yes"
          ignoreCount = "0"
          continueAfterRunningActions = "No"
-         filePath = "compil/src/generator/project/generator_project_unittest.cpp"
-         timestampString = "378958621.519272"
+         filePath = "compil/src/generator/project/test_source_provider.cpp"
+         timestampString = "379049290.530734"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "73"
-         endingLineNumber = "73"
-         landmarkName = "TEST(GeneratorProjectTests, initProjectFile)"
-         landmarkType = "7">
+         startingLineNumber = "147"
+         endingLineNumber = "147"
+         landmarkName = "TestSourceProvider::file(const boost::filesystem::path&amp; path, const std::string&amp; test)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/project/test_source_provider.cpp"
+         timestampString = "379049290.530734"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "123"
+         endingLineNumber = "123"
+         landmarkName = "TestSourceProvider::isExists(const boost::filesystem::path&amp; file)"
+         landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>
    <ExceptionBreakpoints>

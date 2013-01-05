@@ -1371,7 +1371,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                     case EObjectId::kType:
                         if (pField->type()->name()->value() == "string")
                         {
-                            switch (impl->mpConfiguration->mString)
+                            switch (impl->mConfiguration->mString)
                             {
                                 case ImplementerConfiguration::use_char_pointer:
                                     table() << TableAligner::row()
@@ -1457,7 +1457,7 @@ void CppGenerator::generateStructureFieldWritingDefinition(const StructureSPtr& 
                         break;
 
                     case EObjectId::kReference:
-                        switch (impl->mpConfiguration->mPointer)
+                        switch (impl->mConfiguration->mPointer)
                         {
                             case ImplementerConfiguration::use_raw_pointers:
                                 table() << TableAligner::row()
@@ -2748,7 +2748,7 @@ void CppGenerator::generateStructureDefinition(const StructureSPtr& pStructure)
     closeBlock(definitionStream);
     eol(definitionStream);
 
-    if (impl->mpConfiguration->mPointer == ImplementerConfiguration::use_boost_pointers)
+    if (impl->mConfiguration->mPointer == ImplementerConfiguration::use_boost_pointers)
     {
         StructureSPtr pRecursivelyBaseStructure = pStructure->recursivelyBaseStructure();
         if (pStructure != pRecursivelyBaseStructure)

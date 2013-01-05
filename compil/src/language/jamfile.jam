@@ -6,7 +6,7 @@ import convert ;
 boost-defines ;
 gtest-defines ;
 
-GEN = .gen/language ;
+local GEN = .gen/language ;
 
 project language
     : requirements 
@@ -14,7 +14,6 @@ project language
       <include>.gen
       <include>$(TOP)/core/c++
     ;
-
 
 lib cpp-language
   :

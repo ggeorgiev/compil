@@ -62,8 +62,6 @@ public:
     Parser(const Parser& parentParser);
     ~Parser();
     
-    CommentSPtr lastComment();
-
     typedef boost::function1<void, const TypeSPtr&> InitTypeMethod;
 
     bool parseType(std::vector<PackageElementSPtr>& package_elements, TokenPtr& pNameToken);
@@ -114,8 +112,6 @@ public:
     
     void parseAnyStatement(const CommentSPtr& pComment);
     
-    FileSPtr parseFile();
-    
     void addValidator(const ValidatorPtr& pValidator);
     
     void initDocumentContext();
@@ -141,8 +137,9 @@ public:
                
    const std::vector<Message>& messages();
 
-private:
     ParseContextSPtr mContext;
+
+private:
 
     struct LateTypeResolveInfo
     {

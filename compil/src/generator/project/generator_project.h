@@ -36,6 +36,7 @@
 #include "generator/implementer/implementer_configuration.h"
 #include "generator/formatter/formatter_configuration.h"
 #include "generator/aligner/aligner_configuration.h"
+#include "generator/generator.h"
 
 #include "i_source_provider.h"
 
@@ -83,6 +84,15 @@ public:
     const boost::filesystem::path& projectDirectory() const;
     
 private:
+    bool executeGenerator(const std::string& type,
+                          const FilePathSPtr& path,
+                          const CppImplementer::EExtensionType& extensionType,
+                          const boost::filesystem::path& outputDirectory,
+                          const AlignerConfigurationSPtr& alignerConfiguration,
+                          const FormatterConfigurationSPtr& formatterConfiguration,
+                          const ImplementerConfigurationSPtr& implementerConfiguration,
+                          Generator& generator);
+
     bool determineProjectPath(const std::string& projectFile,
                               const std::string& projectDirectory,
                               boost::filesystem::path& projectPath);

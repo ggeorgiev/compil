@@ -65,7 +65,7 @@ FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner,
 FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner,
                                       const Aligner::FunctionSpace&)
 {
-    if (aligner.mpConfiguration->mFunctionSpace)
+    if (aligner.mConfiguration->mFunctionSpace)
         aligner << ' ';
     return aligner;
 }

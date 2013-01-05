@@ -48,7 +48,7 @@ public:
     virtual bool isKeyword(const std::string& word);
     virtual std::string escapeKeyword(const std::string& word);
     
-    FormatterConfigurationSPtr mpConfiguration;
+    FormatterConfigurationSPtr mConfiguration;
 };
 
 typedef boost::shared_ptr<CppKeyword> CppKeywordPtr;

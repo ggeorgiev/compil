@@ -103,7 +103,7 @@ std::string TableAligner::str(int indent) const
 				width.push_back(0);
         }
         
-        bool too_long = row_length > (size_t)mpConfiguration->mColumnWidthLimit;
+        bool too_long = row_length > (size_t)mConfiguration->mColumnWidthLimit;
         vSplit[r] = too_long;
                 
 		for (size_t i = 0; i < row.size(); ++i)
@@ -135,7 +135,7 @@ std::string TableAligner::str(int indent) const
     r = 0;
 	for (rit = mTable.begin(); rit != mTable.end(); ++rit, ++r)
 	{
-		LineAlignerPtr aligner(new LineAligner(mpConfiguration));
+		LineAlignerPtr aligner(new LineAligner(mConfiguration));
 		const Row& row = *rit;
         if (row.mType == Row::comment)
         {
@@ -160,7 +160,7 @@ std::string TableAligner::str(int indent) const
                     boost::trim(pfield);
                     *aligner << pfield;
                     out << aligner->str(indent);
-                    aligner.reset(new LineAligner(mpConfiguration));
+                    aligner.reset(new LineAligner(mConfiguration));
                     *aligner << std::string(pos, ' ');
                     for (size_t j = 1; j < pTableCeil->mOptionalNewLineColumns.size(); ++j)
                     {
@@ -170,7 +170,7 @@ std::string TableAligner::str(int indent) const
                         boost::trim(pfield);
                         *aligner << pfield;
                         out << aligner->str(indent + row.mIndent);
-                        aligner.reset(new LineAligner(mpConfiguration));
+                        aligner.reset(new LineAligner(mConfiguration));
                         *aligner << std::string(pos, ' ');
                     }
                     pfield = field.substr(*pTableCeil->mOptionalNewLineColumns.rbegin());
@@ -254,7 +254,7 @@ static TableAligner& serialize(TableAligner& aligner, const cpp::frm::TypeSPtr& 
     
     aligner << type->name();
         
-	if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
+	if (aligner.mConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
 	{
         if (type->decoration() != cpp::frm::ETypeDecoration::invalid())
             aligner << type->decoration();
@@ -263,7 +263,7 @@ static TableAligner& serialize(TableAligner& aligner, const cpp::frm::TypeSPtr& 
         if (align)
             aligner << TableAligner::col();
 	}
-	else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_name)
+	else if (aligner.mConfiguration->mDecoration == AlignerConfiguration::part_of_the_name)
 	{
         if (space)
             aligner << ' ';
@@ -272,7 +272,7 @@ static TableAligner& serialize(TableAligner& aligner, const cpp::frm::TypeSPtr& 
         if (type->decoration() != cpp::frm::ETypeDecoration::invalid())
             aligner << type->decoration();
 	}
-	else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
+	else if (aligner.mConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
 	{
         if (space)
             aligner << ' ';
@@ -371,7 +371,7 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::ConstructorSPtr&
         
     aligner << TableAligner::col();
     aligner << TableAligner::col();
-    if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
+    if (aligner.mConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
         aligner << TableAligner::col();
         
     if (constructor->namespace_())
@@ -423,7 +423,7 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::DestructorSPtr& 
                 << "::";
     }
     aligner << '~';
-    if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
+    if (aligner.mConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
         aligner << TableAligner::col();
     aligner << destructor->name();
     aligner << Aligner::FunctionSpace();
@@ -635,7 +635,7 @@ TableAligner& operator<<(TableAligner& aligner, const cpp::frm::VariableNameSPtr
 
 TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionSpace&)
 {
-    if (aligner.mpConfiguration->mFunctionSpace)
+    if (aligner.mConfiguration->mFunctionSpace)
         aligner << ' ';
     aligner << TableAligner::col();
 	return aligner;
@@ -643,7 +643,7 @@ TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionSpace&)
 
 TableAligner& operator<<(TableAligner& aligner, const Aligner::FunctionDefinitionTypeSpace&)
 {
-    if (aligner.mpConfiguration->mFunctionTypeOnNewLine)
+    if (aligner.mConfiguration->mFunctionTypeOnNewLine)
         aligner << TableAligner::row();
     else
         aligner << ' ';

@@ -158,7 +158,7 @@ TEST_F(ParserTests, lastComment0)
         "");
 
     mpParser->setDocumentInput(pInput);
-    compil::CommentSPtr pComment = mpParser->lastComment();
+    compil::CommentSPtr pComment = compil::ParserMixin::lastComment(mpParser->mContext);
 
     ASSERT_FALSE( pComment );
 }
@@ -169,7 +169,7 @@ TEST_F(ParserTests, lastComment1EOF)
         "//comment1");
 
     mpParser->setDocumentInput(pInput);
-    compil::CommentSPtr pComment = mpParser->lastComment();
+    compil::CommentSPtr pComment = compil::ParserMixin::lastComment(mpParser->mContext);
 
     ASSERT_TRUE( pComment );
     EXPECT_STREQ(pComment->lines()[0].c_str(), "comment1");
@@ -182,7 +182,7 @@ TEST_F(ParserTests, lastComment1Something)
         "something");
 
     mpParser->setDocumentInput(pInput);
-    compil::CommentSPtr pComment = mpParser->lastComment();
+    compil::CommentSPtr pComment = compil::ParserMixin::lastComment(mpParser->mContext);
 
     ASSERT_TRUE( pComment );
     EXPECT_STREQ(pComment->lines()[0].c_str(), "comment1");
@@ -196,7 +196,7 @@ TEST_F(ParserTests, lastComment2EOF)
         "//comment2");
 
     mpParser->setDocumentInput(pInput);
-    compil::CommentSPtr pComment = mpParser->lastComment();
+    compil::CommentSPtr pComment = compil::ParserMixin::lastComment(mpParser->mContext);
 
     ASSERT_TRUE( pComment );
     EXPECT_STREQ(pComment->lines()[0].c_str(), "comment2");
@@ -211,7 +211,7 @@ TEST_F(ParserTests, lastComment2Something)
         "something");
 
     mpParser->setDocumentInput(pInput);
-    compil::CommentSPtr pComment = mpParser->lastComment();
+    compil::CommentSPtr pComment = compil::ParserMixin::lastComment(mpParser->mContext);
 
     ASSERT_TRUE( pComment );
     EXPECT_STREQ(pComment->lines()[0].c_str(), "comment2");

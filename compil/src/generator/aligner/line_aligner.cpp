@@ -64,14 +64,14 @@ bool LineAligner::isEmpty() const
 void LineAligner::calcWhiteSpaces(int indent, int& nspaces, int& ntabs) const
 {
 	nspaces = ntabs = 0;
-    switch (mpConfiguration->mAlignment)
+    switch (mConfiguration->mAlignment)
     {
     case AlignerConfiguration::tabs_only:
     case AlignerConfiguration::smart_tabs:
         ntabs = indent;
         break;
     case AlignerConfiguration::spaces_only:
-        nspaces = indent * mpConfiguration->mTabSize;
+        nspaces = indent * mConfiguration->mTabSize;
         break;
     default:
         assert(false && "unknown alignment type");
@@ -205,11 +205,11 @@ LineAligner& operator<<(LineAligner& aligner, const cpp::frm::TypeSPtr& type)
     
     if (type->decoration() != cpp::frm::ETypeDecoration::invalid())
     {
-        if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
+        if (aligner.mConfiguration->mDecoration == AlignerConfiguration::part_of_the_type)
             aligner << type->decoration();
-        else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::part_of_the_name)
+        else if (aligner.mConfiguration->mDecoration == AlignerConfiguration::part_of_the_name)
             aligner << ' ' << type->decoration();
-        else if (aligner.mpConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
+        else if (aligner.mConfiguration->mDecoration == AlignerConfiguration::next_to_the_name)
             aligner << ' ' << type->decoration();
         else
             assert(false && "unknown decoration type");
@@ -267,8 +267,8 @@ std::string LineAligner::comment(int indent, const std::string& comment) const
         ++length;
     }
         
-    size_t size = mpConfiguration->mCommentColumnWidthLimit - 
-                  (ntabs * mpConfiguration->mTabSize + nspaces + length) - 3;
+    size_t size = mConfiguration->mCommentColumnWidthLimit - 
+                  (ntabs * mConfiguration->mTabSize + nspaces + length) - 3;
     
     std::vector<std::string> words;
     boost::split(words, comment, is_space);
@@ -313,7 +313,7 @@ std::ostringstream& LineAligner::line() const
 
 LineAligner& operator<<(LineAligner& aligner, const Aligner::FunctionSpace&)
 {
-    if (aligner.mpConfiguration->mFunctionSpace)
+    if (aligner.mConfiguration->mFunctionSpace)
         aligner << ' ';
     return aligner;
 }

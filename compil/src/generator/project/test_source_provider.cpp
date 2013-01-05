@@ -68,7 +68,9 @@ SourceIdSPtr TestSourceProvider::sourceId(const SourceIdSPtr& pCurrentSourceId, 
         }
     }
     
-    boost::filesystem::path source_location = mWorkingDirectory / source;
+    boost::filesystem::path source_location = isAbsolute(source)
+                                            ? source
+                                            : mWorkingDirectory / source;
     if (isExists(source_location))
     {
         fillSourceFields(source_location, builder);
@@ -118,7 +120,7 @@ bool TestSourceProvider::isAbsolute(const boost::filesystem::path& file)
 
 bool TestSourceProvider::isExists(const boost::filesystem::path& file)
 {
-    return mFilesystem.count(file) != 0;
+    return (mFilesystem.count(file) != 0) || (mDirectories.count(file) != 0);
 }
 
 std::time_t TestSourceProvider::fileTime(const boost::filesystem::path& file)
@@ -141,6 +143,13 @@ boost::filesystem::path TestSourceProvider::absolute(const boost::filesystem::pa
 void TestSourceProvider::file(const boost::filesystem::path& path, const std::string& test)
 {
     mFilesystem[path] = test;
+    
+    boost::filesystem::path directory = path;
+    while (directory.has_parent_path())
+    {
+        directory = directory.parent_path();
+        mDirectories.insert(directory);
+    }
 }
 
 using namespace boost;

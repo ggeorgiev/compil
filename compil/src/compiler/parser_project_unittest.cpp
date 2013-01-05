@@ -48,6 +48,8 @@ public:
 };
 
 /*
+core package a.b.c;
+
 section main
 {
     all/list.scompil;
@@ -61,6 +63,26 @@ section main
     c++/class/method_name.scompil;
 }
 */
+
+TEST_F(ParserProjectTests, package)
+{
+    ASSERT_FALSE( parseProject(
+        "package name1.name2;") );
+
+    ASSERT_EQ(1U, messages().size());
+    EXPECT_TRUE(checkErrorMessage(0, 1, 1, compil::Message::p_unknownStatment,
+                                  compil::Message::Context("package"),
+                                  compil::Message::Options("core")));
+}
+
+TEST_F(ParserProjectTests, corePackage)
+{
+    ASSERT_TRUE( parseProject(
+        "core package name1.name2;") );
+
+    ASSERT_EQ(0U, messages().size());
+    EXPECT_TRUE(mProject->corePackage() != NULL);
+}
 
 TEST_F(ParserProjectTests, section)
 {
