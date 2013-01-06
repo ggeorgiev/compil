@@ -1,14 +1,8 @@
 #!/bin/bash
+BASEDIR=$(dirname $0)
+$BASEDIR/generate.sh || exit 1
 
-../compil-stable/tool/linuxx86/bin/generator \
-    --project-file=language/language.scompilprj \
-    -o language/.gen \
-    --core-output-directory=. \
-    --cpp.include_path=include_path_based_on_package \
-    || exit 1
-    
-    
-../boost/tool/linuxx86/bin/b2
+../boost/tool/linuxx86/bin/b2 \
     cxxflags=--coverage \
     linkflags=--coverage \
     toolset=gcc \

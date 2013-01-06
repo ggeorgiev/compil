@@ -407,6 +407,7 @@
 		5ED6E06D16992F5F00E2D2E1 /* get-latest-generators.bat */ = {isa = PBXFileReference; lastKnownFileType = text; path = "get-latest-generators.bat"; sourceTree = "<group>"; };
 		5ED6E0711699336000E2D2E1 /* valgrind.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = valgrind.sh; sourceTree = "<group>"; };
 		5ED6E0721699456400E2D2E1 /* coverage.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = coverage.sh; sourceTree = "<group>"; };
+		5ED6E075169951A200E2D2E1 /* generate.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate.sh; sourceTree = "<group>"; };
 		5EDF77631695D3BB00C8BD79 /* hook_source_provider.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = hook_source_provider.cpp; sourceTree = "<group>"; };
 		5EDF77641695D3BB00C8BD79 /* hook_source_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hook_source_provider.h; sourceTree = "<group>"; };
 		5EEF3E8416910658003003E5 /* identifier_method_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = identifier_method_name.scompil; sourceTree = "<group>"; };
@@ -1309,8 +1310,9 @@
 		5ED6E0701699336000E2D2E1 /* linux */ = {
 			isa = PBXGroup;
 			children = (
-				5ED6E0711699336000E2D2E1 /* valgrind.sh */,
 				5ED6E0721699456400E2D2E1 /* coverage.sh */,
+				5ED6E075169951A200E2D2E1 /* generate.sh */,
+				5ED6E0711699336000E2D2E1 /* valgrind.sh */,
 			);
 			path = linux;
 			sourceTree = "<group>";
