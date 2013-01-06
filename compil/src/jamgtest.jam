@@ -1,4 +1,7 @@
+import os ;
 import testing ;
+
+USE_VALGRIND =  [ os.environ USE_VALGRIND ] ;
 
 rule gtest_library_location ( properties * )
 {
@@ -57,6 +60,14 @@ rule gtest-defines ( )
 
 rule gtest ( name : sources * : properties * )
 {
+    local valgrind = ;
+    if $(USE_VALGRIND:E) = true
+    {
+        valgrind =
+            <testing.launcher>valgrind
+          ;
+    }
+
     path-constant result_xml_path : $(ROOT)/../intermediate/test-reports/$(name).xml ;
     unit-test $(name)-unit
       :
@@ -64,6 +75,8 @@ rule gtest ( name : sources * : properties * )
         gtest
       :
         <testing.arg>--gtest_output=xml:$(result_xml_path)
+        
         $(properties)
+        $(valgrind)
       ;
 }

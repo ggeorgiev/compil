@@ -405,6 +405,7 @@
 		5EC0D2891619482B00802C95 /* type_decoration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = type_decoration.cpp; sourceTree = "<group>"; };
 		5EC0D28A1619482B00802C95 /* type_decoration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type_decoration.h; sourceTree = "<group>"; };
 		5ED6E06D16992F5F00E2D2E1 /* get-latest-generators.bat */ = {isa = PBXFileReference; lastKnownFileType = text; path = "get-latest-generators.bat"; sourceTree = "<group>"; };
+		5ED6E0711699336000E2D2E1 /* valgrind.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = valgrind.sh; sourceTree = "<group>"; };
 		5EDF77631695D3BB00C8BD79 /* hook_source_provider.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = hook_source_provider.cpp; sourceTree = "<group>"; };
 		5EDF77641695D3BB00C8BD79 /* hook_source_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hook_source_provider.h; sourceTree = "<group>"; };
 		5EEF3E8416910658003003E5 /* identifier_method_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = identifier_method_name.scompil; sourceTree = "<group>"; };
@@ -539,6 +540,7 @@
 		5E335F1B1425381A004CB818 = {
 			isa = PBXGroup;
 			children = (
+				5ED6E06F1699336000E2D2E1 /* scripts */,
 				5E9DE6C3168E28CA0020522D /* compil-stable */,
 				5E88A19415E188BB002D43A5 /* src */,
 			);
@@ -1292,6 +1294,23 @@
 				5EB86FB7168D6C3E0049B6A9 /* variable_name.scompil */,
 			);
 			path = logical;
+			sourceTree = "<group>";
+		};
+		5ED6E06F1699336000E2D2E1 /* scripts */ = {
+			isa = PBXGroup;
+			children = (
+				5ED6E0701699336000E2D2E1 /* linux */,
+			);
+			name = scripts;
+			path = compil/scripts;
+			sourceTree = "<group>";
+		};
+		5ED6E0701699336000E2D2E1 /* linux */ = {
+			isa = PBXGroup;
+			children = (
+				5ED6E0711699336000E2D2E1 /* valgrind.sh */,
+			);
+			path = linux;
 			sourceTree = "<group>";
 		};
 		5EEF3E8A16910EC2003003E5 /* compil */ = {
