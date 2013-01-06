@@ -31,11 +31,13 @@
 //
 
 #include "file_source_provider.h"
-#include <fstream>
 
 #include "core/boost/boost_path.h"
 
 #include "boost/make_shared.hpp"
+
+#include <fstream>
+#include <limits> 
 
 namespace compil
 {
