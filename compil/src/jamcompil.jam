@@ -8,6 +8,7 @@ import "class" : new ;
 type.register COMPIL : compil ;
 
 feature.feature <compil-binary> : : free ;
+feature.feature <compil-valgrind> : : free ;
 feature.feature <compil-project-root> : : free ;
 feature.feature <compil-binary-dependencies> : : free dependency ;
 feature.feature <compil-type> : main partial test : free optional ;
@@ -49,6 +50,12 @@ class compil-generator : generator
         # Ignore usage-requirements returned as first element.
         compil-binary-dependencies = $(compil-binary-dependencies[2-]) ;
         
+        local valgrind = ;
+        if $(USE_VALGRIND:E) = true
+        {
+            valgrind = valgrind ;
+        }
+        
         for local target in $(compil-binary-dependencies)
         {
             if [ $(target).type ] = EXE
@@ -66,6 +73,7 @@ class compil-generator : generator
         property-set = [ $(property-set).add-raw
             <dependency>$(compil-binary-dependencies)
             <compil-binary>$(compil-binary)
+            <compil-valgrind>$(valgrind)
             <compil-project-root>$(compil-project-root)
             <compil-binary-dependencies>$(compil-binary-dependencies)
         ] ;
@@ -93,6 +101,7 @@ generators.register [
                          : <compil-type>test ] ;
 
 toolset.flags jamcompil.generate COMPIL-COMMAND <compil-binary> ;
+toolset.flags jamcompil.generate COMPIL-VALGRIND <compil-valgrind> ;
 toolset.flags jamcompil.generate COMPIL-PROJECT-ROOT <compil-project-root> ;
 toolset.flags jamcompil.generate COMPIL-DEPENDENCIES <compil-binary-dependencies> ;
 toolset.flags jamcompil.generate COMPIL-TYPE <compil-type> ;
@@ -105,6 +114,6 @@ rule generate ( targets * : source * : properties * )
 
 actions generate
 {
-    $(COMPIL-COMMAND) -I$(IMPORTS:W) -t $(COMPIL-TYPE) --project-directory=$(COMPIL-PROJECT-ROOT) --core-output-directory=. --core_package=core.compil $(>) -o $(<[1]:D) || exit 1
+    $(COMPIL-VALGRIND) $(COMPIL-COMMAND) -I$(IMPORTS:W) -t $(COMPIL-TYPE) --project-directory=$(COMPIL-PROJECT-ROOT) --core-output-directory=. --core_package=core.compil $(>) -o $(<[1]:D) || exit 1
 }
 
