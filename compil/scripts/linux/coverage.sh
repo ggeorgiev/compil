@@ -14,16 +14,6 @@ $BASEDIR/generate.sh || exit 1
     runtime-link=shared \
     || exit 1
 
-lcov -o full.info -c --directory ../../intermediate/ || exit 1
+# generate cobertura reports
+../scripts/linux/gcovr -r $PWD --object-directory ../../intermediate/* --xml -o coverage.xml
 
-if [ ! -d coverage ]
-then
-    mkdir coverage || exit 1
-fi
-
-lcov -e full.info "$PWD/*" -o src.info || exit 1
-lcov -r src.info *-gtest* *-partial* -o compil.info || exit 1
-genhtml --no-branch-coverage -o ./coverage compil.info || exit 1
-rm -rf /var/www/coverage || exit 1
-mv coverage /var/www || exit 1
-rm *.info || exit 1
