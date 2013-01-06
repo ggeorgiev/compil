@@ -35,7 +35,7 @@
 #ifndef _NAMER_CONFIGURATION_H__
 #define _NAMER_CONFIGURATION_H__
 
-#include "configuration.h"
+#include "core/configuration/configuration.h"
 
 class NamerConfiguration : public compil::Configuration
 {

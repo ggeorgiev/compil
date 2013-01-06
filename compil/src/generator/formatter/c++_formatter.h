@@ -34,7 +34,7 @@
 #ifndef _CPP_FORMATTER_H__
 #define _CPP_FORMATTER_H__
 
-#include"namespace_alias.h"
+#include "compiler/namespace_alias.h"
 
 #include "formatter_configuration.h"
 #include "c++_keyword.h"

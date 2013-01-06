@@ -33,7 +33,7 @@
 #ifndef _COMPIL_VALIDATOR_H__
 #define _COMPIL_VALIDATOR_H__
 
-#include "message_collector.h"
+#include "compiler/message/message_collector.h"
 
 #include "language/compil/all/object.h"
 

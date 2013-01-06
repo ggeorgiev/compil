@@ -34,7 +34,7 @@
 #ifndef _TEST_SOURCE_PROVIDER_H__
 #define _TEST_SOURCE_PROVIDER_H__
 
-#include "i_source_provider.h"
+#include "compiler/i_source_provider.h"
 
 #include <boost/shared_ptr.hpp>
 #include <boost/unordered_map.hpp>

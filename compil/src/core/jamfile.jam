@@ -14,9 +14,13 @@ lib core
     boost/boost_assert_handler.cpp
     boost/boost_path.cpp
 
+    configuration/configuration.cpp
+    configuration/configuration_manager.cpp
+    
     platform/application.cpp
     
     boost_filesystem
+    boost_program_options
   :
   :
   :

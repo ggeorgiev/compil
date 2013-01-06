@@ -35,7 +35,7 @@
 #ifndef _GENERAL_CONFIGURATION_H__
 #define _GENERAL_CONFIGURATION_H__
 
-#include "configuration.h"
+#include "core/configuration/configuration.h"
 
 class GeneralConfiguration : public compil::Configuration
 {

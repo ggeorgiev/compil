@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "message_collector.h"
+#include "compiler/message/message_collector.h"
 
 namespace compil
 {

@@ -30,9 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 #include "compil_generator.h"
-#include "parser.h"
+#include "compiler/parser.h"
 
-#include "configuration_manager.h"
+#include "core/configuration/configuration_manager.h"
 
 #include "library/compil/document.h"
 

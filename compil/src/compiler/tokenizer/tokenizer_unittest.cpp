@@ -30,8 +30,8 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "parser_unittest.h"
-#include "tokenizer.h"
+#include "compiler/parser_unittest.h"
+#include "compiler/tokenizer/tokenizer.h"
 
 #include "gtest/gtest.h"
 

@@ -157,6 +157,7 @@ lib compil-language
 
     $(GEN)/compil/document/alter.cpp
     $(GEN)/compil/document/castable_type.cpp
+    $(GEN)/compil/document/constant.cpp
     $(GEN)/compil/document/default_value.cpp
     $(GEN)/compil/document/enumeration_value.cpp
     $(GEN)/compil/document/field.cpp

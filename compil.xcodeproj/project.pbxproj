@@ -48,7 +48,24 @@
 		5E261F5F1646002A00EA7414 /* type_name.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = type_name.compil; sourceTree = "<group>"; };
 		5E261F61164602B400EA7414 /* type_name.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = type_name.cpp; sourceTree = "<group>"; };
 		5E261F62164602B400EA7414 /* type_name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type_name.h; sourceTree = "<group>"; };
-		5E2D75901697E17B005B0D7C /* flags_enumeration.hpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.h; path = flags_enumeration.hpp; sourceTree = "<group>"; };
+		5E2BD477169A3072007251F8 /* constant.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = constant.scompil; sourceTree = "<group>"; };
+		5E2BD47A169A3216007251F8 /* token.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = token.cpp; sourceTree = "<group>"; };
+		5E2BD47B169A3216007251F8 /* token.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = token.h; sourceTree = "<group>"; };
+		5E2BD47C169A3216007251F8 /* tokenizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tokenizer.cpp; sourceTree = "<group>"; };
+		5E2BD47D169A3216007251F8 /* tokenizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tokenizer.h; sourceTree = "<group>"; };
+		5E2BD47E169A3216007251F8 /* tokenizer_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tokenizer_unittest.cpp; sourceTree = "<group>"; };
+		5E2BD486169A64FC007251F8 /* document_parser-mixin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "document_parser-mixin.cpp"; sourceTree = "<group>"; };
+		5E2BD487169A64FC007251F8 /* document_parser-mixin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "document_parser-mixin.h"; sourceTree = "<group>"; };
+		5E2BD488169A64FC007251F8 /* parser-mixin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "parser-mixin.cpp"; sourceTree = "<group>"; };
+		5E2BD489169A64FC007251F8 /* parser-mixin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "parser-mixin.h"; sourceTree = "<group>"; };
+		5E2BD48A169A64FC007251F8 /* project_parser-mixin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "project_parser-mixin.cpp"; sourceTree = "<group>"; };
+		5E2BD48B169A64FC007251F8 /* project_parser-mixin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "project_parser-mixin.h"; sourceTree = "<group>"; };
+		5E2BD48E169A6537007251F8 /* configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = configuration.cpp; sourceTree = "<group>"; };
+		5E2BD48F169A6537007251F8 /* configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = configuration.h; sourceTree = "<group>"; };
+		5E2BD490169A6537007251F8 /* configuration_manager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = configuration_manager.cpp; sourceTree = "<group>"; };
+		5E2BD491169A6537007251F8 /* configuration_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = configuration_manager.h; sourceTree = "<group>"; };
+		5E2BD492169A6537007251F8 /* configuration_manager_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = configuration_manager_unittest.cpp; sourceTree = "<group>"; };
+		5E2BD493169A654F007251F8 /* flags_enumeration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = flags_enumeration.h; sourceTree = "<group>"; };
 		5E2F05A916951B890063DA88 /* generator_project.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = generator_project.cpp; sourceTree = "<group>"; };
 		5E2F05AA16951B890063DA88 /* generator_project.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = generator_project.h; sourceTree = "<group>"; };
 		5E2F05AB16951B890063DA88 /* generator_project_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = generator_project_unittest.cpp; sourceTree = "<group>"; };
@@ -107,11 +124,6 @@
 		5E84125C1694CF29001BF4C6 /* parser_project_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = parser_project_unittest.cpp; sourceTree = "<group>"; };
 		5E84125E1694D618001BF4C6 /* name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = name.scompil; sourceTree = "<group>"; };
 		5E88A19515E188BB002D43A5 /* compile.bat */ = {isa = PBXFileReference; lastKnownFileType = text; path = compile.bat; sourceTree = "<group>"; };
-		5E88A19815E188BB002D43A5 /* configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = configuration.cpp; sourceTree = "<group>"; };
-		5E88A19915E188BB002D43A5 /* configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = configuration.h; sourceTree = "<group>"; };
-		5E88A19B15E188BB002D43A5 /* configuration_manager.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = configuration_manager.cpp; sourceTree = "<group>"; };
-		5E88A19C15E188BB002D43A5 /* configuration_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = configuration_manager.h; sourceTree = "<group>"; };
-		5E88A19D15E188BB002D43A5 /* configuration_manager_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = configuration_manager_unittest.cpp; sourceTree = "<group>"; };
 		5E88A19E15E188BB002D43A5 /* i_source_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = i_source_provider.h; sourceTree = "<group>"; };
 		5E88A19F15E188BB002D43A5 /* jamfile.jam */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.jam; path = jamfile.jam; sourceTree = "<group>"; };
 		5E88A1A015E188BB002D43A5 /* main_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main_unittest.cpp; sourceTree = "<group>"; };
@@ -139,11 +151,6 @@
 		5E88A20315E188BB002D43A5 /* parser_structure_upcopy_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = parser_structure_upcopy_unittest.cpp; sourceTree = "<group>"; };
 		5E88A20415E188BB002D43A5 /* parser_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = parser_unittest.cpp; sourceTree = "<group>"; };
 		5E88A20515E188BB002D43A5 /* parser_unittest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parser_unittest.h; sourceTree = "<group>"; };
-		5E88A20615E188BB002D43A5 /* token.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = token.cpp; sourceTree = "<group>"; };
-		5E88A20715E188BB002D43A5 /* token.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = token.h; sourceTree = "<group>"; };
-		5E88A20815E188BB002D43A5 /* tokenizer.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tokenizer.cpp; sourceTree = "<group>"; };
-		5E88A20915E188BB002D43A5 /* tokenizer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = tokenizer.h; sourceTree = "<group>"; };
-		5E88A20A15E188BB002D43A5 /* tokenizer_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = tokenizer_unittest.cpp; sourceTree = "<group>"; };
 		5E88A20C15E188BB002D43A5 /* parameter_type_validator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = parameter_type_validator.cpp; sourceTree = "<group>"; };
 		5E88A20D15E188BB002D43A5 /* parameter_type_validator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = parameter_type_validator.h; sourceTree = "<group>"; };
 		5E88A20E15E188BB002D43A5 /* parameter_type_validator_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = parameter_type_validator_unittest.cpp; sourceTree = "<group>"; };
@@ -463,12 +470,6 @@
 		5EFFA6E916936D8300035CAA /* comment.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = comment.scompil; sourceTree = "<group>"; };
 		5EFFA6EA16936D8900035CAA /* version.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = version.scompil; sourceTree = "<group>"; };
 		5EFFA6EB16936E4900035CAA /* package_element.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = package_element.scompil; sourceTree = "<group>"; };
-		5EFFA6EC16937F9100035CAA /* document_parser-mixin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; name = "document_parser-mixin.cpp"; path = "compil/src/compiler/document_parser-mixin.cpp"; sourceTree = SOURCE_ROOT; };
-		5EFFA6ED16937F9100035CAA /* document_parser-mixin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "document_parser-mixin.h"; path = "compil/src/compiler/document_parser-mixin.h"; sourceTree = SOURCE_ROOT; };
-		5EFFA6EE1693802300035CAA /* project_parser-mixin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "project_parser-mixin.cpp"; sourceTree = "<group>"; };
-		5EFFA6EF1693802400035CAA /* project_parser-mixin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "project_parser-mixin.h"; sourceTree = "<group>"; };
-		5EFFA6F01693835000035CAA /* parser-mixin.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "parser-mixin.cpp"; sourceTree = "<group>"; };
-		5EFFA6F11693835200035CAA /* parser-mixin.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "parser-mixin.h"; sourceTree = "<group>"; };
 		5EFFA6F21693B1AF00035CAA /* specimen.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = specimen.cpp; sourceTree = "<group>"; };
 		5EFFA6F31693B1AF00035CAA /* specimen.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = specimen.h; sourceTree = "<group>"; };
 		5EFFA6F41693B5A500035CAA /* namespace.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = namespace.cpp; sourceTree = "<group>"; };
@@ -515,10 +516,47 @@
 			path = compil;
 			sourceTree = "<group>";
 		};
+		5E2BD479169A3216007251F8 /* tokenizer */ = {
+			isa = PBXGroup;
+			children = (
+				5E2BD47A169A3216007251F8 /* token.cpp */,
+				5E2BD47B169A3216007251F8 /* token.h */,
+				5E2BD47C169A3216007251F8 /* tokenizer.cpp */,
+				5E2BD47D169A3216007251F8 /* tokenizer.h */,
+				5E2BD47E169A3216007251F8 /* tokenizer_unittest.cpp */,
+			);
+			path = tokenizer;
+			sourceTree = "<group>";
+		};
+		5E2BD485169A64FC007251F8 /* parser */ = {
+			isa = PBXGroup;
+			children = (
+				5E2BD486169A64FC007251F8 /* document_parser-mixin.cpp */,
+				5E2BD487169A64FC007251F8 /* document_parser-mixin.h */,
+				5E2BD488169A64FC007251F8 /* parser-mixin.cpp */,
+				5E2BD489169A64FC007251F8 /* parser-mixin.h */,
+				5E2BD48A169A64FC007251F8 /* project_parser-mixin.cpp */,
+				5E2BD48B169A64FC007251F8 /* project_parser-mixin.h */,
+			);
+			path = parser;
+			sourceTree = "<group>";
+		};
+		5E2BD48D169A6537007251F8 /* configuration */ = {
+			isa = PBXGroup;
+			children = (
+				5E2BD48E169A6537007251F8 /* configuration.cpp */,
+				5E2BD48F169A6537007251F8 /* configuration.h */,
+				5E2BD490169A6537007251F8 /* configuration_manager.cpp */,
+				5E2BD491169A6537007251F8 /* configuration_manager.h */,
+				5E2BD492169A6537007251F8 /* configuration_manager_unittest.cpp */,
+			);
+			path = configuration;
+			sourceTree = "<group>";
+		};
 		5E2D758F1697E17B005B0D7C /* compil */ = {
 			isa = PBXGroup;
 			children = (
-				5E2D75901697E17B005B0D7C /* flags_enumeration.hpp */,
+				5E2BD493169A654F007251F8 /* flags_enumeration.h */,
 			);
 			path = compil;
 			sourceTree = "<group>";
@@ -694,12 +732,12 @@
 		5E88A19615E188BB002D43A5 /* compiler */ = {
 			isa = PBXGroup;
 			children = (
-				5E88A19715E188BB002D43A5 /* configuration */,
 				5E88A1A115E188BB002D43A5 /* message */,
-				5EFFA6EC16937F9100035CAA /* document_parser-mixin.cpp */,
-				5EFFA6ED16937F9100035CAA /* document_parser-mixin.h */,
-				5E88A19E15E188BB002D43A5 /* i_source_provider.h */,
+				5E2BD485169A64FC007251F8 /* parser */,
+				5E2BD479169A3216007251F8 /* tokenizer */,
+				5E88A20B15E188BB002D43A5 /* validator */,
 				5E88A19F15E188BB002D43A5 /* jamfile.jam */,
+				5E88A19E15E188BB002D43A5 /* i_source_provider.h */,
 				5E88A1A015E188BB002D43A5 /* main_unittest.cpp */,
 				5EFFA6DE1692766F00035CAA /* namespace_alias.h */,
 				5E88A1F315E188BB002D43A5 /* parser.cpp */,
@@ -722,30 +760,8 @@
 				5E88A20315E188BB002D43A5 /* parser_structure_upcopy_unittest.cpp */,
 				5E88A20415E188BB002D43A5 /* parser_unittest.cpp */,
 				5E88A20515E188BB002D43A5 /* parser_unittest.h */,
-				5EFFA6F01693835000035CAA /* parser-mixin.cpp */,
-				5EFFA6F11693835200035CAA /* parser-mixin.h */,
-				5EFFA6EE1693802300035CAA /* project_parser-mixin.cpp */,
-				5EFFA6EF1693802400035CAA /* project_parser-mixin.h */,
-				5E88A20615E188BB002D43A5 /* token.cpp */,
-				5E88A20715E188BB002D43A5 /* token.h */,
-				5E88A20815E188BB002D43A5 /* tokenizer.cpp */,
-				5E88A20915E188BB002D43A5 /* tokenizer.h */,
-				5E88A20A15E188BB002D43A5 /* tokenizer_unittest.cpp */,
-				5E88A20B15E188BB002D43A5 /* validator */,
 			);
 			path = compiler;
-			sourceTree = "<group>";
-		};
-		5E88A19715E188BB002D43A5 /* configuration */ = {
-			isa = PBXGroup;
-			children = (
-				5E88A19815E188BB002D43A5 /* configuration.cpp */,
-				5E88A19915E188BB002D43A5 /* configuration.h */,
-				5E88A19B15E188BB002D43A5 /* configuration_manager.cpp */,
-				5E88A19C15E188BB002D43A5 /* configuration_manager.h */,
-				5E88A19D15E188BB002D43A5 /* configuration_manager_unittest.cpp */,
-			);
-			path = configuration;
 			sourceTree = "<group>";
 		};
 		5E88A1A115E188BB002D43A5 /* message */ = {
@@ -785,10 +801,11 @@
 		5E88A21C15E188BB002D43A5 /* core */ = {
 			isa = PBXGroup;
 			children = (
-				5E046CDA16963CBE00E354F3 /* jamfile.jam */,
 				5E88A21D15E188BB002D43A5 /* boost */,
 				5E2D758F1697E17B005B0D7C /* compil */,
+				5E2BD48D169A6537007251F8 /* configuration */,
 				5E046CD616963AC600E354F3 /* platform */,
+				5E046CDA16963CBE00E354F3 /* jamfile.jam */,
 			);
 			path = core;
 			sourceTree = "<group>";
@@ -1332,6 +1349,7 @@
 			children = (
 				5EFFA6AE1692702400035CAA /* alter.scompil */,
 				5EFFA6AF1692702400035CAA /* castable_type.scompil */,
+				5E2BD477169A3072007251F8 /* constant.scompil */,
 				5EFFA6B11692702400035CAA /* default_value.scompil */,
 				5EFFA6DB1692709600035CAA /* document.cpp */,
 				5EFFA6DC1692709600035CAA /* document.h */,

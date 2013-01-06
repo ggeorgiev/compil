@@ -38,7 +38,7 @@
 #include "generator/aligner/aligner_configuration.h"
 #include "generator/generator.h"
 
-#include "i_source_provider.h"
+#include "compiler/i_source_provider.h"
 
 #include "language/compil/project/project.h"
 #include "language/compil/document/document.h"

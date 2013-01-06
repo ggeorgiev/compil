@@ -30,69 +30,17 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "token.h"
+compil { }
 
-namespace compil
+import "compil/all/name.scompil";
+
+package lang.compil | *.*.*;
+
+structure Constant 
+    inherit Object
 {
-
-Token::Token()
-        : mType(TYPE_INVALID)
-{
+    runtime identification;
+    
+    reference<Name> name;
+    string value;
 }
-
-Token::~Token()
-{
-}
-
-Token::Type Token::type() const
-{
-    return mType;
-}
-
-void Token::setType(Type type)
-{
-    mType = type;
-}
-
-std::string Token::text() const
-{
-    return mText;
-}
-
-void Token::addChar(int ch)
-{
-    mText += (char)ch;
-}
-
-const Line& Token::line() const
-{
-    return mLine;
-}
-   
-void Token::setLine(const Line& line)
-{
-    mLine = line;
-}
-
-const Column& Token::beginColumn() const
-{
-    return mBeginColumn;
-}
-
-void Token::setBeginColumn(const Column& column)
-{
-    mBeginColumn = column;
-}
-
-const Column& Token::endColumn() const
-{
-    return mEndColumn;
-}
-
-void Token::setEndColumn(const Column& column)
-{
-    mEndColumn = column;
-}
-
-}
-

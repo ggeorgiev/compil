@@ -33,7 +33,7 @@
 #ifndef _COMPIL_PARAMETER_TYPE_VALIDATOR_H__
 #define _COMPIL_PARAMETER_TYPE_VALIDATOR_H__
 
-#include "validator.h"
+#include "compiler/validator/validator.h"
 
 #include "language/compil/document/type.h"
 

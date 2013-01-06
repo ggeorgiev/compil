@@ -35,7 +35,7 @@
 #ifndef _IMPLEMENTER_CONFIGURATION_H__
 #define _IMPLEMENTER_CONFIGURATION_H__
 
-#include "configuration.h"
+#include "core/configuration/configuration.h"
 
 class ImplementerConfiguration : public compil::Configuration
 {

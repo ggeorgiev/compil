@@ -30,36 +30,69 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "generator/general_configuration.h"
+#include "compiler/tokenizer/token.h"
 
+namespace compil
+{
 
-GeneralConfiguration::GeneralConfiguration()
+Token::Token()
+        : mType(TYPE_INVALID)
 {
 }
 
-
-GeneralConfiguration::~GeneralConfiguration()
+Token::~Token()
 {
 }
 
-std::string GeneralConfiguration::staticName()
+Token::Type Token::type() const
 {
-    return "General";
-}
-    
-std::string GeneralConfiguration::name()
-{
-    return staticName();
+    return mType;
 }
 
-bpo::options_description GeneralConfiguration::commandLineOptions()
+void Token::setType(Type type)
 {
-    bpo::options_description options("General options");
-    options.add_options()
-        ("version,v", bpo::bool_switch(&version), "print version string")
-        ("help,h", bpo::bool_switch(&help), "print help message")
-        ("configuration-file,c", bpo::value<std::string>(&configuration_file), "configuration file")
-        ;
-    return options;
+    mType = type;
+}
+
+std::string Token::text() const
+{
+    return mText;
+}
+
+void Token::addChar(int ch)
+{
+    mText += (char)ch;
+}
+
+const Line& Token::line() const
+{
+    return mLine;
+}
+   
+void Token::setLine(const Line& line)
+{
+    mLine = line;
+}
+
+const Column& Token::beginColumn() const
+{
+    return mBeginColumn;
+}
+
+void Token::setBeginColumn(const Column& column)
+{
+    mBeginColumn = column;
+}
+
+const Column& Token::endColumn() const
+{
+    return mEndColumn;
+}
+
+void Token::setEndColumn(const Column& column)
+{
+    mEndColumn = column;
+}
+
 }
 

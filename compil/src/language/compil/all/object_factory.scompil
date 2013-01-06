@@ -41,6 +41,7 @@ import "compil/all/version.scompil";
 
 import "compil/document/alter.scompil";
 import "compil/document/castable_type.scompil";
+import "compil/document/constant.scompil";
 import "compil/document/default_value.scompil";
 import "compil/document/document.scompil";
 import "compil/document/enumeration_value.scompil";

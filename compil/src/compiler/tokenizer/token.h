@@ -34,7 +34,7 @@
 #ifndef _COMPIL_TOKEN_H__
 #define _COMPIL_TOKEN_H__
 
-#include "namespace_alias.h"
+#include "compiler/namespace_alias.h"
 
 #include "language/compil/all/object.h"
 

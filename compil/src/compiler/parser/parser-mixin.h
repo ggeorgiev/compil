@@ -33,9 +33,9 @@
 #ifndef _COMPIL_PARSER_MIXIN_H__
 #define _COMPIL_PARSER_MIXIN_H__
 
-#include "tokenizer.h"
+#include "compiler/tokenizer/tokenizer.h"
 
-#include "i_source_provider.h"
+#include "compiler/i_source_provider.h"
 
 #include "language/compil/all/object_factory.h"
 

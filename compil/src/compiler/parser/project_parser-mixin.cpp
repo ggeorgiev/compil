@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "project_parser-mixin.h"
+#include "compiler/parser/project_parser-mixin.h"
 
 namespace compil
 {

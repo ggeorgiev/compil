@@ -33,8 +33,8 @@
 #ifndef _COMPIL_TOKENIZER_H__
 #define _COMPIL_TOKENIZER_H__
 
-#include "token.h"
-#include "message_collector.h"
+#include "compiler/tokenizer/token.h"
+#include "compiler/message/message_collector.h"
 
 #include <boost/shared_ptr.hpp>
 

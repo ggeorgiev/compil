@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "namer_configuration.h"
+#include "generator/namer/namer_configuration.h"
 
 NamerConfiguration::NamerConfiguration()
 {

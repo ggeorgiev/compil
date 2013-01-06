@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "structure_fields_validator.h"
+#include "compiler/validator/structure_fields_validator.h"
 
 #include "language/compil/document/structure.h"
 

@@ -44,7 +44,7 @@
 #include "c++_formatter.h"
 
 
-#include "configuration_manager.h"
+#include "core/configuration/configuration_manager.h"
 
 #include "language/compil/document/document.h"
 

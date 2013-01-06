@@ -3,19 +3,19 @@
 #include "generator/project/generator_project.h"
 #include "generator/project/file_source_provider.h"
 
-#include "configuration_manager.h"
+#include "compiler/parser.h"
+#include "compiler/validator/partial_validator.h"
+
 #include "general_configuration.h"
 #include "generator_configuration.h"
 #include "aligner_configuration.h"
 #include "formatter_configuration.h"
-#include "parser.h"
-
-#include "partial_validator.h"
 
 
 #include "library/compil/document.h"
 
 #include "core/boost/boost_path.h"
+#include "core/configuration/configuration_manager.h"
 
 #include "boost/make_shared.hpp"
 #include "boost/algorithm/string.hpp"

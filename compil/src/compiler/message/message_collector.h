@@ -34,7 +34,7 @@
 #ifndef _MESSAGE_COLLECTOR_H__
 #define _MESSAGE_COLLECTOR_H__
 
-#include "message.h"
+#include "compiler/message/message.h"
 
 #include <boost/shared_ptr.hpp>
 

@@ -39,7 +39,7 @@
 #include "generator/implementer/c++_implementer.h"
 #include "generator/formatter/c++_formatter.h"
 
-#include "namespace_alias.h"
+#include "compiler/namespace_alias.h"
 
 #include "compiler/parser.h"
 

@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "tokenizer.h"
+#include "compiler/tokenizer/tokenizer.h"
 
 #include <sstream>
 

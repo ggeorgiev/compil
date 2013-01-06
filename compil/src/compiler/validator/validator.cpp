@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "validator.h"
+#include "compiler/validator/validator.h"
 
 namespace compil
 {

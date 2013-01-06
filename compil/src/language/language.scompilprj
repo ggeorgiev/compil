@@ -166,6 +166,7 @@ section main
     compil/all/version.scompil;
 
     compil/document/alter.scompil;
+    compil/document/constant.scompil;
     compil/document/castable_type.scompil;
     compil/document/default_value.scompil;
     compil/document/enumeration_value.scompil;

@@ -30,10 +30,10 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "parser.h"
-#include "parameter_type_validator.h"
-#include "structure_fields_validator.h"
-#include "structure_sharable_validator.h"
+#include "compiler/parser.h"
+#include "compiler/validator/parameter_type_validator.h"
+#include "compiler/validator/structure_fields_validator.h"
+#include "compiler/validator/structure_sharable_validator.h"
 
 #include "library/compil/document.h"
 

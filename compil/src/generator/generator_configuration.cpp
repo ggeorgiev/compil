@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "generator_configuration.h"
+#include "generator/generator_configuration.h"
 
 
 GeneratorConfiguration::GeneratorConfiguration()

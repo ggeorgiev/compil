@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "parameter_type_validator.h"
+#include "compiler/validator/parameter_type_validator.h"
 
 namespace compil
 {

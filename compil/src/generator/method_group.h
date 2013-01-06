@@ -39,7 +39,7 @@
 
 #include "method_group.h"
 // Compil C++ Template Library
-#include "core/compil/flags_enumeration.hpp"
+#include "core/compil/flags_enumeration.h"
 
 // This enumeration class provides namespaced set of constant values.
 // It is designed to provide type control over operations with enum values

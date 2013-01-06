@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "partial_validator.h"
+#include "compiler/validator/partial_validator.h"
 
 #include "language/compil/document/structure.h"
 

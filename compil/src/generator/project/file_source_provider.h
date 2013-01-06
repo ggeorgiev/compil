@@ -34,7 +34,7 @@
 #ifndef _FILE_SOURCE_PROVIDER_H__
 #define _FILE_SOURCE_PROVIDER_H__
 
-#include "i_source_provider.h"
+#include "compiler/i_source_provider.h"
 
 #include <boost/filesystem.hpp>
 

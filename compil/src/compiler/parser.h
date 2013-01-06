@@ -33,15 +33,15 @@
 #ifndef _COMPIL_PARSER_H__
 #define _COMPIL_PARSER_H__
 
-#include "namespace_alias.h"
+#include "compiler/namespace_alias.h"
 
-#include "document_parser-mixin.h"
-#include "project_parser-mixin.h"
+#include "compiler/parser/document_parser-mixin.h"
+#include "compiler/parser/project_parser-mixin.h"
 
-#include "message_collector.h"
+#include "compiler/message/message_collector.h"
 
-#include "tokenizer.h"
-#include "validator.h"
+#include "compiler/tokenizer/tokenizer.h"
+#include "compiler/validator/validator.h"
 
 #include "language/compil/document/document.h"
 

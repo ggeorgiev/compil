@@ -5,19 +5,20 @@ gtest-defines ;
 
 project compiler
     : requirements 
-        <include>.
-        <include>configuration
-        <include>message
-        <include>validator
+      <include>$(TOP)
     ;
 
 lib compiler
   :
-    configuration/configuration.cpp
-    configuration/configuration_manager.cpp
-
     message/message.cpp
     message/message_collector.cpp
+
+    parser/document_parser-mixin.cpp
+    parser/project_parser-mixin.cpp
+    parser/parser-mixin.cpp
+
+    tokenizer/token.cpp
+    tokenizer/tokenizer.cpp
 
     validator/parameter_type_validator.cpp
     validator/partial_validator.cpp
@@ -25,16 +26,9 @@ lib compiler
     validator/structure_sharable_validator.cpp
     validator/validator.cpp
 
-    document_parser-mixin.cpp
-    project_parser-mixin.cpp
-    parser-mixin.cpp
-
     parser.cpp 
-    token.cpp
-    tokenizer.cpp
     
     boost_templates
-    boost_program_options
     boost_system
     boost_filesystem
     
@@ -43,10 +37,7 @@ lib compiler
   :
   :
   :
-    <include>.
-    <include>configuration
-    <include>message
-    <include>validator
+      <include>$(TOP)
   ;
     
 gtest compiler
