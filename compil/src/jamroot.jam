@@ -12,7 +12,11 @@ project all
     : build-dir 
       $(ROOT)/../intermediate 
     : default-build 
-      <variant>debug <address-model>32 <link>static <threading>multi
+      <variant>debug 
+      <architecture>x86
+      <address-model>64
+      <link>static <runtime-link>shared
+      <threading>multi
     ;
 
 build-project core ;
