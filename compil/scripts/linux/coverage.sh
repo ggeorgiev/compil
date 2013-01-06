@@ -15,5 +15,11 @@ $BASEDIR/generate.sh || exit 1
     || exit 1
 
 # generate cobertura reports
-../scripts/linux/gcovr -r $PWD --object-directory ../../intermediate/* --xml -o coverage.xml
+../scripts/linux/gcovr \
+    --verbose \
+    --root . \
+    --object-directory ../../intermediate/* \
+    --output coverage.xml \
+    --xml \
+    || exit 1
 
