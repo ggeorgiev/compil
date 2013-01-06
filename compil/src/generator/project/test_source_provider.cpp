@@ -144,11 +144,11 @@ void TestSourceProvider::file(const boost::filesystem::path& path, const std::st
 {
     mFilesystem[path] = test;
     
-    boost::filesystem::path directory = path;
-    while (directory.has_parent_path())
+    boost::filesystem::path directory = path.parent_path();
+    while (!directory.empty())
     {
-        directory = directory.parent_path();
         mDirectories.insert(directory);
+        directory = directory.parent_path();
     }
 }
 

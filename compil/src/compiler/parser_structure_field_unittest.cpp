@@ -457,7 +457,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceParameterTypeNameEqOpti
     
     checkStructure(0, 1, 1, "sname");
     EXPECT_TRUE(checkField(0, 0, 3, 3, "fname", "reference"));
-    EXPECT_TRUE(checkFieldDefault(0, 0, 3, 30, true, false));
+    EXPECT_TRUE(checkFieldDefault(0, 0, 3, 30, true));
 }
 
 TEST_F(ParserStructureFieldTests, structureFieldWeakReferenceParameterTypeNameEqOptionalDone)
@@ -470,7 +470,7 @@ TEST_F(ParserStructureFieldTests, structureFieldWeakReferenceParameterTypeNameEq
     
     checkStructure(0, 1, 1, "sname");
     EXPECT_TRUE(checkField(0, 0, 3, 3, "fname", "reference"));
-    EXPECT_TRUE(checkFieldDefault(0, 0, 3, 35, true, false));
+    EXPECT_TRUE(checkFieldDefault(0, 0, 3, 35, true));
 }
 
 TEST_F(ParserStructureFieldTests, structureFieldReferenceNull)
