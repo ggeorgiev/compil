@@ -37,6 +37,8 @@
 
 #include "compiler/parser/document_parser-mixin.h"
 #include "compiler/parser/project_parser-mixin.h"
+#include "compiler/parser/specimen_parser-mixin.h"
+#include "compiler/parser/type_parser-mixin.h"
 
 #include "compiler/message/message_collector.h"
 
@@ -45,9 +47,6 @@
 
 #include "language/compil/document/document.h"
 
-#include "boost/function.hpp"
-#include "boost/bind.hpp"
-
 #include <map>
 
 namespace compil
@@ -55,6 +54,8 @@ namespace compil
 
 class Parser : public DocumentParserMixin
              , public ProjectParserMixin
+             , public SpecimenParserMixin
+             , public TypeParserMixin
 {
 public:
     Parser();
@@ -62,18 +63,12 @@ public:
     Parser(const Parser& parentParser);
     ~Parser();
     
-    typedef boost::function1<void, const TypeSPtr&> InitTypeMethod;
-
-    bool parseType(std::vector<PackageElementSPtr>& package_elements, TokenPtr& pNameToken);
-    bool parseParameterType(InitTypeMethod initTypeMethod,
-                            const std::string& defaultTypeName = "");
-                            
     EnumerationValueSPtr parseEnumerationValue(const CommentSPtr& pComment,
                                                const std::vector<EnumerationValueSPtr>& values);
     EnumerationSPtr parseEnumeration(const CommentSPtr& pComment,
                                      const TokenPtr& pCast,
                                      const TokenPtr& pFlags);
-    SpecimenSPtr parseSpecimen(const CommentSPtr& pComment);
+
     IdentifierSPtr parseIdentifier(const CommentSPtr& pComment,
                                    const TokenPtr& pCast);
                                    
@@ -116,6 +111,11 @@ public:
     
     void initDocumentContext();
     
+    const DocumentSPtr document()
+    {
+        return boost::static_pointer_cast<DocumentParseContext>(mContext)->mDocument;
+    }
+    
     // Parse the input and construct a Descriptor from it.
     // Returns true if no errors occurred, false otherwise.
     bool parseDocument(const StreamPtr& pInput,
@@ -135,26 +135,15 @@ public:
                       const StreamPtr& pInput,
                       ProjectSPtr& project);
                
-   const std::vector<Message>& messages();
+    const std::vector<Message>& messages();
 
     ParseContextSPtr mContext;
 
 private:
-
-    struct LateTypeResolveInfo
-    {
-        TokenPtr pToken;
-        std::string classifier;
-        InitTypeMethod initTypeMethod;
-    };
-    
     std::vector<LateTypeResolveInfo> mLateTypeResolve;
     void lateTypeResolve(const TypeSPtr& pNewType);
     
-    PackageSPtr mpPackage;
-
     FileSPtr mFile;
-    DocumentSPtr mDocument;
     std::vector<ValidatorPtr> mvValidator;
     
     Parser& operator<<(const Message& message);

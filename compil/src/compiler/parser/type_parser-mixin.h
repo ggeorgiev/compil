@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-//
+// 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or
-// promote products derived from this software without specific prior
+//     * The name of George Georgiev can not be used to endorse or 
+// promote products derived from this software without specific prior 
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -30,9 +30,41 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
+#ifndef _COMPIL_TYPE_PARSER_MIXIN_H__
+#define _COMPIL_TYPE_PARSER_MIXIN_H__
+
 #include "compiler/parser/document_parser-mixin.h"
+
+#include "boost/function.hpp"
+#include "boost/bind.hpp"
+
+#include <vector>
 
 namespace compil
 {
 
+typedef boost::function1<void, const TypeSPtr&> InitTypeMethod;
+
+struct LateTypeResolveInfo
+{
+    TokenPtr token;
+    std::string classifier;
+    InitTypeMethod initTypeMethod;
+};
+
+class TypeParserMixin : public ParserMixin
+{
+public:
+    static bool parseType(const ParseContextSPtr& context,
+                          std::vector<PackageElementSPtr>& packageElements,
+                          TokenPtr& nameToken);
+
+    static bool parseTypeParameter(const DocumentParseContextSPtr& context,
+                                   const InitTypeMethod& initTypeMethod,
+                                   const std::string& defaultTypeName,
+                                   std::vector<LateTypeResolveInfo>& lateTypeResolve);
+};
+
 }
+
+#endif // _COMPIL_TYPE_PARSER_MIXIN_H__

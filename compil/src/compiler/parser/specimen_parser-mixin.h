@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-//
+// 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or
-// promote products derived from this software without specific prior
+//     * The name of George Georgiev can not be used to endorse or 
+// promote products derived from this software without specific prior 
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -30,9 +30,23 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
+#ifndef _COMPIL_SPECIMEN_PARSER_MIXIN_H__
+#define _COMPIL_SPECIMEN_PARSER_MIXIN_H__
+
 #include "compiler/parser/document_parser-mixin.h"
+#include "compiler/parser/type_parser-mixin.h"
 
 namespace compil
 {
 
+class SpecimenParserMixin : public ParserMixin
+{
+public:
+    static SpecimenSPtr parseSpecimen(const DocumentParseContextSPtr& context,
+                                      const CommentSPtr& comment,
+                                      std::vector<LateTypeResolveInfo>& lateTypeResolve);
+};
+
 }
+
+#endif // _COMPIL_SPECIMEN_PARSER_MIXIN_H__

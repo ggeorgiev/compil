@@ -33,14 +33,17 @@
 #ifndef _COMPIL_DOCUMENT_PARSER_MIXIN_H__
 #define _COMPIL_DOCUMENT_PARSER_MIXIN_H__
 
-#include "parser-mixin.h"
+#include "compiler/parser/parser-mixin.h"
 
 namespace compil
 {
 
 struct DocumentParseContext : public ParseContext
 {
+    DocumentSPtr mDocument;
 };
+
+typedef boost::shared_ptr<DocumentParseContext> DocumentParseContextSPtr;
 
 class DocumentParserMixin : public ParserMixin
 {

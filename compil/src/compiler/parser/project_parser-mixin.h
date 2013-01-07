@@ -33,7 +33,7 @@
 #ifndef _COMPIL_PROJECT_PARSER_MIXIN_H__
 #define _COMPIL_PROJECT_PARSER_MIXIN_H__
 
-#include "parser-mixin.h"
+#include "compiler/parser/parser-mixin.h"
 
 namespace compil
 {

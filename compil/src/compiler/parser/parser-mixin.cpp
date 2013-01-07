@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "parser-mixin.h"
+#include "compiler/parser/parser-mixin.h"
 
 #include <boost/algorithm/string.hpp>
 
@@ -57,6 +57,12 @@ void ParserMixin::initilizeObject(const ParseContextSPtr& context, const TokenPt
     object->set_sourceId(context->mSourceId);
     object->set_line(token->line());
     object->set_column(token->beginColumn());
+}
+
+void ParserMixin::initilizeType(const ParseContextSPtr& context, TypeSPtr type)
+{
+    initilizeObject(context, type);
+    type->set_package(context->mPackage);
 }
 
 Message ParserMixin::errorMessage(const ParseContextSPtr& context,

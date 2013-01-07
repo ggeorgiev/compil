@@ -14,8 +14,10 @@ lib compiler
     message/message_collector.cpp
 
     parser/document_parser-mixin.cpp
-    parser/project_parser-mixin.cpp
     parser/parser-mixin.cpp
+    parser/project_parser-mixin.cpp
+    parser/specimen_parser-mixin.cpp
+    parser/type_parser-mixin.cpp
 
     tokenizer/token.cpp
     tokenizer/tokenizer.cpp

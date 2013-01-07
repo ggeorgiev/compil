@@ -98,9 +98,9 @@ Parser::Parser()
 
 Parser::Parser(const Parser& parentParser)
 {
-    mContext = boost::make_shared<DocumentParseContext>();
-    *mContext = *parentParser.mContext;
-    mDocument = parentParser.mDocument;
+    DocumentParseContextSPtr context = boost::make_shared<DocumentParseContext>();
+    *context = *boost::static_pointer_cast<DocumentParseContext>(parentParser.mContext);
+    mContext = context;
 }
 
 Parser::~Parser()
@@ -118,126 +118,6 @@ Parser::~Parser()
                       << it->text() << "\n";
         }
     }
-}
-
-bool Parser::parseType(std::vector<PackageElementSPtr>& package_elements, TokenPtr& pNameToken)
-{
-    pNameToken = mContext->mTokenizer->current();
-
-    mContext->mTokenizer->shift();
-    while (mContext->mTokenizer->check(Token::TYPE_DOT))
-    {
-        mContext->mTokenizer->shift();
-        if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
-            return false;
-
-        PackageElementSPtr pe = boost::make_shared<PackageElement>();
-        pe->set_value(pNameToken->text());
-
-        package_elements.push_back(pe);
-        pNameToken = mContext->mTokenizer->current();
-        mContext->mTokenizer->shift();
-    }
-
-    return true;
-}
-
-// returns false if the format is broken
-// if it returns true the type still could be unknown
-bool Parser::parseParameterType(InitTypeMethod initTypeMethod,
-                                const std::string& defaultTypeName)
-{
-    TypeSPtr pType;
-
-    std::vector<PackageElementSPtr> package_elements;
-    if (!mContext->mTokenizer->check(Token::TYPE_ANGLE_BRACKET, "<"))
-    {
-        if (defaultTypeName.empty())
-        {
-            *this << (errorMessage(mContext, Message::p_expectType)
-                        << Message::Classifier("class parameter"));
-            return false;
-        }
-
-        StructureSPtr pStructure;
-        if (pType) pStructure = ObjectFactory::downcastStructure(pType);
-
-        if (pStructure)
-            pType = mDocument->findType(mpPackage, package_elements, pStructure->objects(), defaultTypeName);
-        else
-            pType = mDocument->findType(mpPackage, package_elements, defaultTypeName);
-
-        if (!pType)
-        {
-            *this << (errorMessage(mContext, Message::p_unknownClassifierType)
-                        << Message::Classifier("default class parameter")
-                        << Message::Type(defaultTypeName));
-        }
-        else
-        {
-            initTypeMethod(pType);
-        }
-        return true;
-    }
-
-    mContext->mTokenizer->shift();
-    skipComments(mContext);
-
-    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
-    {
-        *this << (errorMessage(mContext, Message::p_expectType)
-                    << Message::Classifier("class parameter"));
-        return false;
-    }
-
-    TokenPtr pNameToken;
-    if (!parseType(package_elements, pNameToken))
-        return FieldSPtr();
-
-    skipComments(mContext);
-
-    UnaryTemplateSPtr pUnaryTemplate = mDocument->findUnfinishedUnaryTemplate(pNameToken->text());
-    if (pUnaryTemplate)
-    {
-        UnaryTemplateSPtr pUnaryTemplateClone =
-            ObjectFactory::downcastUnaryTemplate(ObjectFactory::clone(pUnaryTemplate));
-
-        parseParameterType(boost::bind(&UnaryTemplate::set_parameterType, pUnaryTemplateClone, _1));
-
-        mDocument->cache(pUnaryTemplateClone);
-        pType = pUnaryTemplateClone;
-
-        ReferenceSPtr pReference = ObjectFactory::downcastReference(pType);
-        if (pReference)
-            pReference->set_weak(false);
-    }
-    else
-    {
-        pType = mDocument->findType(mpPackage, package_elements, pNameToken->text());
-    }
-
-    if (!mContext->mTokenizer->expect(Token::TYPE_ANGLE_BRACKET, ">"))
-    {
-        *this << errorMessage(mContext, Message::p_expectClosingAngleBracket);
-        return false;
-    }
-
-    mContext->mTokenizer->shift();
-    skipComments(mContext);
-
-    if (pType)
-    {
-        initTypeMethod(pType);
-    }
-    else
-    {
-        LateTypeResolveInfo info;
-        info.pToken = pNameToken;
-        info.classifier = "class parameter";
-        info.initTypeMethod = initTypeMethod;
-        mLateTypeResolve.push_back(info);
-    }
-    return true;
 }
 
 EnumerationValueSPtr Parser::parseEnumerationValue(const CommentSPtr& pComment,
@@ -332,7 +212,7 @@ EnumerationSPtr Parser::parseEnumeration(const CommentSPtr& pComment,
     initilizeObject(mContext, pCast
                             ? pCast
                             : pFlags, pEnumeration);
-    pEnumeration->set_package(mpPackage);
+    pEnumeration->set_package(mContext->mPackage);
 
     CastableType::ECast cast = CastableType::ECast::weak();
     if (pCast && pCast->text() == "strong")
@@ -343,7 +223,10 @@ EnumerationSPtr Parser::parseEnumeration(const CommentSPtr& pComment,
     mContext->mTokenizer->shift();
     skipComments(mContext);
 
-    if (!parseParameterType(boost::bind(&Enumeration::set_parameterType, pEnumeration, _1), "integer"))
+    if (!parseTypeParameter(boost::static_pointer_cast<DocumentParseContext>(mContext),
+                            boost::bind(&Enumeration::set_parameterType, pEnumeration, _1),
+                            "integer",
+                            mLateTypeResolve))
         return EnumerationSPtr();
 
     if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
@@ -435,7 +318,7 @@ IdentifierSPtr Parser::parseIdentifier(const CommentSPtr& pComment,
     IdentifierSPtr pIdentifier(new Identifier());
     pIdentifier->set_comment(pComment);
     initilizeObject(mContext, pCast, pIdentifier);
-    pIdentifier->set_package(mpPackage);
+    pIdentifier->set_package(mContext->mPackage);
 
     CastableType::ECast cast = CastableType::ECast::weak();
     if (pCast && pCast->text() == "strong")
@@ -445,7 +328,10 @@ IdentifierSPtr Parser::parseIdentifier(const CommentSPtr& pComment,
     mContext->mTokenizer->shift();
     skipComments(mContext);
 
-    if (!parseParameterType(boost::bind(&Identifier::set_parameterType, pIdentifier, _1), "integer"))
+    if (!parseTypeParameter(boost::static_pointer_cast<DocumentParseContext>(mContext),
+                            boost::bind(&Identifier::set_parameterType, pIdentifier, _1),
+                            "integer",
+                            mLateTypeResolve))
         return IdentifierSPtr();
 
     if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
@@ -483,97 +369,6 @@ IdentifierSPtr Parser::parseIdentifier(const CommentSPtr& pComment,
         return IdentifierSPtr();
 
     return pIdentifier;
-}
-
-SpecimenSPtr Parser::parseSpecimen(const CommentSPtr& pComment)
-{
-    SpecimenSPtr pSpecimen(new Specimen());
-    pSpecimen->set_comment(pComment);
-    initilizeObject(mContext, pSpecimen);
-    pSpecimen->set_package(mpPackage);
-
-    mContext->mTokenizer->shift();
-    skipComments(mContext);
-
-    if (!parseParameterType(boost::bind(&Specimen::set_parameterType, pSpecimen, _1), "integer"))
-        return SpecimenSPtr();
-
-    if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
-    {
-        *this << (errorMessage(mContext, Message::p_expectStatementName)
-                    << Message::Statement("specimen"));
-        return SpecimenSPtr();
-    }
-
-    NameSPtr pName(new Name());
-    initilizeObject(mContext, pName);
-    pName->set_value(mContext->mTokenizer->current()->text());
-
-    pSpecimen->set_name(pName);
-
-    mContext->mTokenizer->shift();
-    skipComments(mContext);
-    if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "inherit"))
-    {
-        mContext->mTokenizer->shift();
-        skipComments(mContext);
-        if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
-        {
-            *this << (errorMessage(mContext, Message::p_expectClassifierStatementName)
-                        << Message::Classifier("base")
-                        << Message::Statement("specimen"));
-            return SpecimenSPtr();
-        }
-
-        std::vector<PackageElementSPtr> package_elements;
-        TokenPtr pTypeNameToken;
-        if (!parseType(package_elements, pTypeNameToken))
-            return SpecimenSPtr();
-
-        skipComments(mContext);
-
-        TypeSPtr pType = mDocument->findType(mpPackage, package_elements, pTypeNameToken->text());
-        if (!pType)
-        {
-            *this << (errorMessage(mContext, Message::p_unknownClassifierType,
-                                   pTypeNameToken->line(), pTypeNameToken->beginColumn())
-                        << Message::Classifier("base")
-                        << Message::Type(pTypeNameToken->text()));
-            return SpecimenSPtr();
-        }
-        if (pType->runtimeObjectId() != EObjectId::specimen())
-        {
-            *this << (errorMessage(mContext, Message::p_expectAppropriateType,
-                                   pTypeNameToken->line(), pTypeNameToken->beginColumn())
-                        << Message::Classifier("base")
-                        << Message::Options("speciment"));
-            return SpecimenSPtr();
-        }
-
-        SpecimenSPtr pBaseSpecimen = boost::static_pointer_cast<Specimen>(pType);
-        pSpecimen->set_baseSpecimen(pBaseSpecimen);
-    }
-
-    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "{"))
-    {
-        *this << (errorMessage(mContext, Message::p_expectStatementBody)
-                    << Message::Statement("specimen"));
-        return SpecimenSPtr();
-    }
-
-    mContext->mTokenizer->shift();
-    skipComments(mContext);
-    if (!mContext->mTokenizer->expect(Token::TYPE_BRACKET, "}"))
-    {
-        *this << (errorMessage(mContext, Message::p_unexpectEOFInStatementBody)
-                    << Message::Statement("specimen"));
-        return SpecimenSPtr();
-    }
-
-    if (!validate(pSpecimen))
-        return SpecimenSPtr();
-
-    return pSpecimen;
 }
 
 FilterSPtr Parser::parseFilter(const CommentSPtr& pComment,
@@ -646,7 +441,7 @@ FactorySPtr Parser::parseFactory(const CommentSPtr& pComment,
     initilizeObject(mContext, pFunctionType
                             ? pFunctionType
                             : pFactoryType, pFactory);
-    pFactory->set_package(mpPackage);
+    pFactory->set_package(mContext->mPackage);
 
     mContext->mTokenizer->shift();
     skipComments(mContext);
@@ -678,8 +473,10 @@ FactorySPtr Parser::parseFactory(const CommentSPtr& pComment,
     }
 
     pFactory->set_type(type);
-
-    if (!parseParameterType(boost::bind(&Factory::set_parameterType, pFactory, _1)))
+    if (!parseTypeParameter(boost::static_pointer_cast<DocumentParseContext>(mContext),
+                            boost::bind(&Factory::set_parameterType, pFactory, _1),
+                            "",
+                            mLateTypeResolve))
         return FactorySPtr();
 
     if (!mContext->mTokenizer->expect(Token::TYPE_IDENTIFIER))
@@ -789,19 +586,22 @@ FieldSPtr Parser::parseField(const CommentSPtr& pComment,
 
     std::vector<PackageElementSPtr> package_elements;
     TokenPtr pTypeNameToken;
-    if (!parseType(package_elements, pTypeNameToken))
+    if (!parseType(mContext, package_elements, pTypeNameToken))
         return FieldSPtr();
 
     skipComments(mContext);
 
     TypeSPtr pType;
-    UnaryTemplateSPtr pUnaryTemplate = mDocument->findUnfinishedUnaryTemplate(pTypeNameToken->text());
+    UnaryTemplateSPtr pUnaryTemplate = document()->findUnfinishedUnaryTemplate(pTypeNameToken->text());
     if (pUnaryTemplate)
     {
         UnaryTemplateSPtr pUnaryTemplateClone =
             ObjectFactory::downcastUnaryTemplate(ObjectFactory::clone(pUnaryTemplate));
 
-        if (!parseParameterType(boost::bind(&UnaryTemplate::set_parameterType, pUnaryTemplateClone, _1)))
+        if (!parseTypeParameter(boost::static_pointer_cast<DocumentParseContext>(mContext),
+                                boost::bind(&UnaryTemplate::set_parameterType, pUnaryTemplateClone, _1),
+                                "",
+                                mLateTypeResolve))
             return FieldSPtr();
 
         pType = pUnaryTemplateClone;
@@ -815,7 +615,7 @@ FieldSPtr Parser::parseField(const CommentSPtr& pComment,
     }
     else
     {
-        pType = mDocument->findType(mpPackage, package_elements, structureObjects, pTypeNameToken->text());
+        pType = document()->findType(mContext->mPackage, package_elements, structureObjects, pTypeNameToken->text());
     }
 
     if (pType)
@@ -825,7 +625,7 @@ FieldSPtr Parser::parseField(const CommentSPtr& pComment,
     else
     {
         LateTypeResolveInfo info;
-        info.pToken = pTypeNameToken;
+        info.token = pTypeNameToken;
         info.classifier = "field";
         info.initTypeMethod = boost::bind(&Field::set_type, pField, _1);
         mLateTypeResolve.push_back(info);
@@ -992,10 +792,10 @@ UpcopySPtr Parser::parseUpcopy(const CommentSPtr& pComment,
 
     std::vector<PackageElementSPtr> package_elements;
     TokenPtr pTypeNameToken;
-    if (!parseType(package_elements, pTypeNameToken))
+    if (!parseType(mContext, package_elements, pTypeNameToken))
         return UpcopySPtr();
 
-    TypeSPtr pType = mDocument->findType(mpPackage, package_elements, pTypeNameToken->text());
+    TypeSPtr pType = document()->findType(mContext->mPackage, package_elements, pTypeNameToken->text());
     if (!pType)
     {
         *this << (errorMessage(mContext, Message::p_unknownClassifierType,
@@ -1119,7 +919,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
                               (pPartial    ? pPartial    :
                               (pSharable   ? pSharable   :
                                              pStreamable))))), pStructure);
-    pStructure->set_package(mpPackage);
+    pStructure->set_package(mContext->mPackage);
 
     pStructure->set_abstract(pAbstract);
     pStructure->set_controlled(pContolled);
@@ -1163,12 +963,12 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
 
         std::vector<PackageElementSPtr> package_elements;
         TokenPtr pTypeNameToken;
-        if (!parseType(package_elements, pTypeNameToken))
+        if (!parseType(mContext, package_elements, pTypeNameToken))
             return StructureSPtr();
 
         skipComments(mContext);
 
-        TypeSPtr pType = mDocument->findType(mpPackage, package_elements, pTypeNameToken->text());
+        TypeSPtr pType = document()->findType(mContext->mPackage, package_elements, pTypeNameToken->text());
         if (!pType)
         {
             *this << (errorMessage(mContext, Message::p_unknownClassifierType,
@@ -1486,7 +1286,9 @@ ParameterSPtr Parser::parseParameter(const CommentSPtr pComment)
     }
 
     std::vector<PackageElementSPtr> package_elements;
-    TypeSPtr pType = mDocument->findType(mpPackage, package_elements, mContext->mTokenizer->current()->text());
+    TypeSPtr pType = document()->findType(mContext->mPackage,
+                                          package_elements,
+                                          mContext->mTokenizer->current()->text());
     if (!pType)
     {
         *this << (errorMessage(mContext, Message::p_unknownClassifierType)
@@ -1774,7 +1576,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
         pStreamable.reset();
         if (pStructure)
         {
-            mDocument->addStructure(pStructure);
+            document()->addStructure(pStructure);
             lateTypeResolve(pStructure);
         }
     }
@@ -1783,7 +1585,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
     {
         InterfaceSPtr pInterface = parseInterface(pComment);
         if (pInterface)
-            mDocument->addInterface(pInterface);
+            document()->addInterface(pInterface);
     }
     else
     if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "enum"))
@@ -1792,16 +1594,16 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
         pCast.reset();
         pFlags.reset();
         if (pEnumeration)
-            mDocument->addEnumeration(pEnumeration);
+            document()->addEnumeration(pEnumeration);
     }
     else
     if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "specimen"))
     {
-        SpecimenSPtr pSpecimen = parseSpecimen(pComment);
-        if (pSpecimen)
-        {
-            mDocument->addSpecimen(pSpecimen);
-        }
+        SpecimenSPtr specimen = parseSpecimen(boost::static_pointer_cast<DocumentParseContext>(mContext),
+                                              pComment,
+                                              mLateTypeResolve);
+        if (specimen && validate(specimen))
+            document()->addSpecimen(specimen);
     }
     else
     if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "identifier"))
@@ -1809,7 +1611,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
         IdentifierSPtr pIdentifier = parseIdentifier(pComment, pCast);
         pCast.reset();
         if (pIdentifier)
-            mDocument->addIdentifier(pIdentifier);
+            document()->addIdentifier(pIdentifier);
     }
     else
     if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "factory"))
@@ -1818,7 +1620,7 @@ void Parser::parseAnyStatement(const CommentSPtr& pComment)
         pFunctionType.reset();
         pFactoryType.reset();
         if (pFactory)
-            mDocument->addFactory(pFactory);
+            document()->addFactory(pFactory);
     }
     else
     {
@@ -1865,7 +1667,7 @@ bool Parser::parseImport()
         return false;
     }
 
-    mDocument->addImport(pImport);
+    document()->addImport(pImport);
 
     if (!mContext->mSourceProvider)
     {
@@ -1907,7 +1709,9 @@ bool Parser::parseImport()
     }
 
     Parser parser(*this);
-    if (!parser.parseDocument(pSourceId, pStream, mDocument))
+    
+    DocumentSPtr document;
+    if (!parser.parseDocument(pSourceId, pStream, document))
         return false;
 
     mLateTypeResolve.insert(mLateTypeResolve.end(), parser.mLateTypeResolve.begin(), parser.mLateTypeResolve.end());
@@ -1924,17 +1728,16 @@ void Parser::initDocumentContext()
 {
     if (!mContext)
     {
-        mContext = boost::make_shared<DocumentParseContext>();
-        mContext->mMessageCollector = boost::make_shared<MessageCollector>();
-        mContext->mSources = boost::make_shared<ParseContext::SourceMap>();
+        DocumentParseContextSPtr context = boost::make_shared<DocumentParseContext>();
+        context->mMessageCollector = boost::make_shared<MessageCollector>();
+        context->mSources = boost::make_shared<ParseContext::SourceMap>();
+        context->mDocument = lib::compil::CompilDocument::create();
+        mContext = context;
     }
-    
-    if (!mDocument)
-        mDocument = lib::compil::CompilDocument::create();
 }
 
 bool Parser::parseDocument(const StreamPtr& pInput,
-                           DocumentSPtr& document)
+                           DocumentSPtr& resultDocument)
 {
     initDocumentContext();
     mContext->mTokenizer = boost::make_shared<Tokenizer>(mContext->mMessageCollector, mContext->mSourceId, pInput);
@@ -1943,8 +1746,8 @@ bool Parser::parseDocument(const StreamPtr& pInput,
     if (!file)
         return false;
 
-    if (!mDocument->mainFile())
-        mDocument->set_mainFile(file);
+    if (!document()->mainFile())
+        document()->set_mainFile(file);
 
     CommentSPtr pStatementComment = lastComment(mContext);
     while (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "import"))
@@ -1957,11 +1760,11 @@ bool Parser::parseDocument(const StreamPtr& pInput,
 
     if (mContext->mTokenizer->check(Token::TYPE_IDENTIFIER, "package"))
     {
-        mpPackage = parsePackage(mContext);
-        if (!mpPackage)
+        mContext->mPackage = parsePackage(mContext);
+        if (!mContext->mPackage)
             return false;
-        if (mDocument->mainFile() == file)
-            mDocument->set_package(mpPackage);
+        if (document()->mainFile() == file)
+            document()->set_package(mContext->mPackage);
 
         mContext->mTokenizer->shift();
         pStatementComment = lastComment(mContext);
@@ -1980,39 +1783,39 @@ bool Parser::parseDocument(const StreamPtr& pInput,
         pStatementComment = lastComment(mContext);
     }
 
-    if (mDocument->mainFile() == file)
+    if (document()->mainFile() == file)
     {
         std::vector<LateTypeResolveInfo>::iterator it;
         for (it = mLateTypeResolve.begin(); it != mLateTypeResolve.end() ; ++it)
         {
             *this << (errorMessage(mContext, Message::p_unknownClassifierType,
-                                   it->pToken->line(), it->pToken->beginColumn())
+                                   it->token->line(), it->token->beginColumn())
                   << Message::Classifier(it->classifier)
-                  << Message::Type(it->pToken->text()));
+                  << Message::Type(it->token->text()));
         }
 
         if (mContext->mMessageCollector->severity() > Message::SEVERITY_WARNING)
             return false;
 
-        if (!validate(mDocument))
+        if (!validate(document()))
             return false;
     }
     
-    document = mDocument;
+    resultDocument = document();
     return true;
 }
 
 bool Parser::parseDocument(const SourceIdSPtr& sourceId,
                            const StreamPtr& pInput,
-                           DocumentSPtr& document)
+                           DocumentSPtr& resultDocument)
 {
     initDocumentContext();
     mContext->mSourceId = sourceId;
     
-    if (!mDocument->sourceId())
-        mDocument->set_sourceId(sourceId);
+    if (!document()->sourceId())
+        document()->set_sourceId(sourceId);
     
-    if (!mDocument->name())
+    if (!document()->name())
     {
         NameSPtr name = (nameRef() << sourceId);
         std::string file = sourceId->original();
@@ -2022,13 +1825,13 @@ bool Parser::parseDocument(const SourceIdSPtr& sourceId,
         else
             name << file.substr(0, slashIdx);
 
-        mDocument->set_name(name);
+        document()->set_name(name);
     }
 
     assert(sourceId);
     mContext->mSources->insert(ParseContext::SourceMap::value_type(sourceId->value(), sourceId));
 
-    return parseDocument(pInput, document);
+    return parseDocument(pInput, resultDocument);
 }
 
 bool Parser::parseDocument(const ISourceProviderSPtr& sourceProvider,
@@ -2103,7 +1906,7 @@ void Parser::lateTypeResolve(const TypeSPtr& pNewType)
     std::vector<LateTypeResolveInfo>::iterator it = mLateTypeResolve.begin();
     while (it != mLateTypeResolve.end())
     {
-        if (it->pToken->text() == pNewType->name()->value())
+        if (it->token->text() == pNewType->name()->value())
         {
             it->initTypeMethod(pNewType);
             it = mLateTypeResolve.erase(it);

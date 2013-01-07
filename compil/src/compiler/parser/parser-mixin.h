@@ -56,7 +56,9 @@ struct ParseContext
 
     MessageCollectorPtr mMessageCollector;
     TokenizerPtr        mTokenizer;
+
     SourceIdSPtr        mSourceId;
+    PackageSPtr         mPackage;
 };
 
 typedef boost::shared_ptr<ParseContext> ParseContextSPtr;
@@ -66,6 +68,8 @@ class ParserMixin
 public:
     static void initilizeObject(const ParseContextSPtr& context, ObjectSPtr object);
     static void initilizeObject(const ParseContextSPtr& context, const TokenPtr& token, ObjectSPtr object);
+
+    static void initilizeType(const ParseContextSPtr& context, TypeSPtr type);
 
     static Message errorMessage(const ParseContextSPtr& context,
                                 const char* message,
