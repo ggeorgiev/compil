@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "c++_generator.h"
+#include "generator/cpp/c++_generator.h"
 
 #include "library/compil/package.h"
 

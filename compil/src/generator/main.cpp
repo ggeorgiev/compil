@@ -1,16 +1,12 @@
-#include <stdio.h>
-
 #include "generator/project/generator_project.h"
 #include "generator/project/file_source_provider.h"
+#include "generator/general_configuration.h"
+#include "generator/generator_configuration.h"
+#include "generator/formatter/formatter_configuration.h"
+#include "generator/aligner/aligner_configuration.h"
 
 #include "compiler/parser.h"
 #include "compiler/validator/partial_validator.h"
-
-#include "general_configuration.h"
-#include "generator_configuration.h"
-#include "aligner_configuration.h"
-#include "formatter_configuration.h"
-
 
 #include "library/compil/document.h"
 
@@ -22,6 +18,8 @@
 
 #include <iostream>
 #include <fstream>
+
+#include <stdio.h>
 
 int main(int argc, const char **argv)
 {

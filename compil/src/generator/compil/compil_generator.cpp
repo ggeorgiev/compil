@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "compil_generator.h"
+#include "generator/compil/compil_generator.h"
 
 #include "language/compil/all/object_factory.h"
 

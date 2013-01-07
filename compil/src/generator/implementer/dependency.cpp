@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "implementer/dependency.h"
+#include "generator/implementer/dependency.h"
 
 namespace compil
 {

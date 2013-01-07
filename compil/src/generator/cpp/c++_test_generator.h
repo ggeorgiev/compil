@@ -34,7 +34,7 @@
 #ifndef _CPP_TEST_GENERATOR_H__
 #define _CPP_TEST_GENERATOR_H__
 
-#include "generator.h"
+#include "generator/generator.h"
 
 #include <boost/shared_ptr.hpp>
 

@@ -34,16 +34,16 @@
 #ifndef _ALIGNER_H__
 #define _ALIGNER_H__
 
-#include "aligner_configuration.h"
+#include "generator/aligner/aligner_configuration.h"
 
-#include "cpp/format/argument.h"
-#include "cpp/format/cast_operator.h"
-#include "cpp/format/constructor.h"
-#include "cpp/format/function_call.h"
-#include "cpp/format/destructor.h"
-#include "cpp/format/function.h"
-#include "cpp/format/method.h"
-#include "cpp/format/initialization.h"
+#include "generator/cpp/format/argument.h"
+#include "generator/cpp/format/cast_operator.h"
+#include "generator/cpp/format/constructor.h"
+#include "generator/cpp/format/function_call.h"
+#include "generator/cpp/format/destructor.h"
+#include "generator/cpp/format/function.h"
+#include "generator/cpp/format/method.h"
+#include "generator/cpp/format/initialization.h"
 
 #include <boost/shared_ptr.hpp>
 

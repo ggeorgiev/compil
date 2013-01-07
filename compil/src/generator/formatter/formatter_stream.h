@@ -35,8 +35,8 @@
 #ifndef _FORMATTER_STREAM_H__
 #define _FORMATTER_STREAM_H__
 
-#include "formatter_configuration.h"
-#include "aligner_stream.h"
+#include "generator/formatter/formatter_configuration.h"
+#include "generator/aligner/aligner_stream.h"
 
 #include "language/c++/expression/expression_factory.h"
 #include "language/c++/statement/statement_factory.h"

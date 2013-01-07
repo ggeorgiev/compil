@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "c++_flags_enumeration_generator.h"
+#include "generator/cpp/c++_flags_enumeration_generator.h"
 
 namespace cf = cpp::frm;
 

@@ -33,9 +33,9 @@
 #ifndef _IMPLEMENTER_STREAM_H__
 #define _IMPLEMENTER_STREAM_H__
 
-#include "implementer/implementer_configuration.h"
+#include "generator/implementer/implementer_configuration.h"
 
-#include "namer_stream.h"
+#include "generator/namer/namer_stream.h"
 
 #include "language/c++/test/test_suite.h"
 

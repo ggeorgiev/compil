@@ -35,9 +35,9 @@
 #ifndef _NAMER_STREAM_H__
 #define _NAMER_STREAM_H__
 
-#include "namer_configuration.h"
+#include "generator/namer/namer_configuration.h"
 
-#include "formatter_stream.h"
+#include "generator/formatter/formatter_stream.h"
 
 #include "language/c++/class/class_name_factory.h"
 #include "language/c++/class/method_name_factory.h"

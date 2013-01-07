@@ -34,8 +34,8 @@
 #ifndef _CPP_HEADER_GENERATOR_H__
 #define _CPP_HEADER_GENERATOR_H__
 
-#include "generator.h"
-#include "method_group.h"
+#include "generator/generator.h"
+#include "generator/method_group.h"
 
 #include <boost/shared_ptr.hpp>
 

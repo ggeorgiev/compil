@@ -30,8 +30,8 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "implementer/c++_implementer.h"
-#include "aligner.h"
+#include "generator/implementer/c++_implementer.h"
+#include "generator/aligner/aligner.h"
 
 #include "library/compil/package.h"
 

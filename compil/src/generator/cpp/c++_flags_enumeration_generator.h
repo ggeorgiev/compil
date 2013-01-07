@@ -34,7 +34,7 @@
 #ifndef _CPP_FLAGS_ENUMERATION_GENERATOR_H__
 #define _CPP_FLAGS_ENUMERATION_GENERATOR_H__
 
-#include "generator.h"
+#include "generator/generator.h"
 
 #include <boost/shared_ptr.hpp>
 

@@ -34,14 +34,14 @@
 #ifndef _GENERATOR_H__
 #define _GENERATOR_H__
 
-#include "implementer/dependency.h"
-#include "implementer/c++_implementer.h"
+#include "generator/implementer/dependency.h"
+#include "generator/implementer/c++_implementer.h"
 
-#include "line_aligner.h"
-#include "table_aligner.h"
-#include "function_definition_aligner.h"
+#include "generator/aligner/line_aligner.h"
+#include "generator/aligner/table_aligner.h"
+#include "generator/aligner/function_definition_aligner.h"
 
-#include "c++_formatter.h"
+#include "generator/formatter/c++_formatter.h"
 
 
 #include "core/configuration/configuration_manager.h"

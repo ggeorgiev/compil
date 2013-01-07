@@ -36,16 +36,16 @@
 
 #include "compiler/namespace_alias.h"
 
-#include "formatter_configuration.h"
+#include "generator/formatter/formatter_configuration.h"
 #include "c++_keyword.h"
 
-#include "cpp/format/constructor_name.h"
-#include "cpp/format/destructor_name.h"
-#include "cpp/format/method_name.h"
-#include "cpp/format/namespace.h"
-#include "cpp/format/parameter_value.h"
-#include "cpp/format/type.h"
-#include "cpp/format/variable_name.h"
+#include "generator/cpp/format/constructor_name.h"
+#include "generator/cpp/format/destructor_name.h"
+#include "generator/cpp/format/method_name.h"
+#include "generator/cpp/format/namespace.h"
+#include "generator/cpp/format/parameter_value.h"
+#include "generator/cpp/format/type.h"
+#include "generator/cpp/format/variable_name.h"
 
 #include "language/compil/all/object_factory.h"
 

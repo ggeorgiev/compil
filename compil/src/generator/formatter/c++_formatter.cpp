@@ -30,9 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "c++_formatter.h"
+#include "generator/formatter/c++_formatter.h"
 
-#include "aligner.h"
+#include "generator/aligner/aligner.h"
 
 #include "language/compil/all/object_factory.h"
 

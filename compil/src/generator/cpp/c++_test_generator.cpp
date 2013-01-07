@@ -30,15 +30,15 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "c++_test_generator.h"
+#include "generator/cpp/c++_test_generator.h"
 
-#include "implementer/implementer_stream.h"
+#include "generator/implementer/implementer_stream.h"
+
 #include "library/c++/boost/exception.h"
-
-#include "language/c++/logical/local_variable.h"
-
 #include "library/c++/compil/builder.h"
 #include "library/c++/compil/specimen.h"
+
+#include "language/c++/logical/local_variable.h"
 
 namespace compil
 {

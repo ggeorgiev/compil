@@ -30,9 +30,8 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "c++_h_generator.h"
-
-#include "implementer/implementer_stream.h"
+#include "generator/cpp/c++_h_generator.h"
+#include "generator/implementer/implementer_stream.h"
 
 #include "library/c++/compil/specimen.h"
 

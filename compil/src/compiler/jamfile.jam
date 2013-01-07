@@ -4,9 +4,9 @@ boost-defines ;
 gtest-defines ;
 
 project compiler
-    : requirements 
-      <include>$(TOP)
-    ;
+  : requirements
+    <include>$(TOP)
+  ;
 
 lib compiler
   :
@@ -37,7 +37,7 @@ lib compiler
   :
   :
   :
-      <include>$(TOP)
+    <include>$(TOP)
   ;
     
 gtest compiler

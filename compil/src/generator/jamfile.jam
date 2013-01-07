@@ -6,11 +6,7 @@ gtest-defines ;
 
 project generator
   : requirements
-    <include>.
-    <include>aligner
-    <include>aligner/object
-    <include>formatter
-    <include>namer
+    <include>$(TOP)
   ;
 
 lib generator-lib
@@ -83,6 +79,8 @@ lib generator-lib
     
     $(TOP)/compiler//compiler
     $(TOP)/library//library
+  :
+    <include>$(TOP)
   ;
     
 exe generator
