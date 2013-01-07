@@ -27,7 +27,9 @@ $BASEDIR/generate.sh || exit 1
     --verbose \
     --root ../.. \
     --object-directory ../../intermediate/* \
-    --exclude debug-symbols-on \
+    --exclude .*debug-symbols-on.* \
+    --exclude .*compil.boost.* \
+    --exclude .*compil.gtest.* \
     --output coverage-app.xml \
     --xml \
     || exit 1
