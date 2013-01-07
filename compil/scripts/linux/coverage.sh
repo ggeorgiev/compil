@@ -16,10 +16,24 @@ $BASEDIR/generate.sh || exit 1
 
 # generate cobertura reports
 ../scripts/linux/gcovr \
-    --verbose \
-    --root ../.. \
+    --root ../../intermediate/generator-test/gcc-4.7/release/address-model-64/architecture-x86/debug-symbols-on/link-static/threading-multi \
     --object-directory ../../intermediate/* \
-    --output coverage.xml \
+    --output coverage-gen.xml \
+    --xml \
+    || exit 1
+    
+../scripts/linux/gcovr \
+    --root ../../intermediate
+    --object-directory ../../intermediate/* \
+    --exclude /debug-symbols-on/
+    --output coverage-app.xml \
+    --xml \
+    || exit 1
+
+../scripts/linux/gcovr \
+    --root ../../intermediate/compil/src
+    --object-directory ../../intermediate/* \
+    --output coverage-src.xml \
     --xml \
     || exit 1
 

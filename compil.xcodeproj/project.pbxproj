@@ -66,6 +66,7 @@
 		5E2BD491169A6537007251F8 /* configuration_manager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = configuration_manager.h; sourceTree = "<group>"; };
 		5E2BD492169A6537007251F8 /* configuration_manager_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = configuration_manager_unittest.cpp; sourceTree = "<group>"; };
 		5E2BD493169A654F007251F8 /* flags_enumeration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = flags_enumeration.h; sourceTree = "<group>"; };
+		5E2BD49E169A9D82007251F8 /* gcovr */ = {isa = PBXFileReference; lastKnownFileType = text; path = gcovr; sourceTree = "<group>"; };
 		5E2F05A916951B890063DA88 /* generator_project.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = generator_project.cpp; sourceTree = "<group>"; };
 		5E2F05AA16951B890063DA88 /* generator_project.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = generator_project.h; sourceTree = "<group>"; };
 		5E2F05AB16951B890063DA88 /* generator_project_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = generator_project_unittest.cpp; sourceTree = "<group>"; };
@@ -1328,6 +1329,7 @@
 			isa = PBXGroup;
 			children = (
 				5ED6E0721699456400E2D2E1 /* coverage.sh */,
+				5E2BD49E169A9D82007251F8 /* gcovr */,
 				5ED6E075169951A200E2D2E1 /* generate.sh */,
 				5ED6E0711699336000E2D2E1 /* valgrind.sh */,
 			);
