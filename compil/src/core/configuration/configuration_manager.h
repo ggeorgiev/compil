@@ -47,9 +47,9 @@ public:
     ConfigurationManager();
     virtual ~ConfigurationManager();
     
-    void registerConfiguration(const ConfigurationPtr& pConfiguration);
+    void registerConfiguration(const ConfigurationSPtr& configuration);
     
-    bool parse(int argc, const char **argv, std::string* pConfigurationFile);
+    bool parse(int argc, const char **argv, const std::string& defaultConfigFile = "");
     
     void printVersion() const;
     void printHelp() const;
@@ -57,7 +57,7 @@ public:
     template <class T>
     const boost::shared_ptr<T> getConfiguration() const
     {
-        std::vector<ConfigurationPtr>::const_iterator it;
+        std::vector<ConfigurationSPtr>::const_iterator it;
         for (it = mvConfiguration.begin(); it != mvConfiguration.end(); ++it)
         {
             if (T::staticName() == (*it)->name())
@@ -67,21 +67,11 @@ public:
     }
     
 private:
-    std::vector<ConfigurationPtr> mvConfiguration;
+    bpo::variables_map mVariablesMap;
+    std::vector<ConfigurationSPtr> mvConfiguration;
     
 };
 
-typedef boost::shared_ptr<ConfigurationManager> ConfigurationManagerPtr;
-typedef boost::weak_ptr<ConfigurationManager> ConfigurationManagerWPtr;
-
-}
-
-#else // _CONFIGURATION_MANAGER_H__
-
-namespace compil
-{
-
-class ConfigurationManager;
 typedef boost::shared_ptr<ConfigurationManager> ConfigurationManagerPtr;
 typedef boost::weak_ptr<ConfigurationManager> ConfigurationManagerWPtr;
 

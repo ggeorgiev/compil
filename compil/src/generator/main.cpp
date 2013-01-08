@@ -40,7 +40,7 @@ int main(int argc, const char **argv)
     ImplementerConfigurationSPtr pImplementerConfiguration(new ImplementerConfiguration());
     pConfigurationManager->registerConfiguration(pImplementerConfiguration);
 
-    if (!pConfigurationManager->parse(argc, argv, &pGeneralConfiguration->configuration_file))
+    if (!pConfigurationManager->parse(argc, argv, pGeneralConfiguration->configuration_file))
     {
         std::cout << "failed to parse the arguments!!!\n";
         pConfigurationManager->printHelp();
@@ -61,15 +61,11 @@ int main(int argc, const char **argv)
 
     compil::FileSourceProviderPtr pFileSourceProvider(new compil::FileSourceProvider());
     
-    string_vector sources;
-    if (!pGeneratorConfiguration->sourceFile.empty())
-        sources.push_back(pGeneratorConfiguration->sourceFile);
-
     compil::GeneratorProject project(pFileSourceProvider);
     if (!project.init(pGeneratorConfiguration->projectFile,
                       pGeneratorConfiguration->projectDirectory,
                       pGeneratorConfiguration->type,
-                      sources,
+                      pGeneratorConfiguration->sourceFiles,
                       pGeneratorConfiguration->importDirectories))
         return 1;
         

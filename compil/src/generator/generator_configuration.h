@@ -50,18 +50,19 @@ public:
     void addCommonOptions(bpo::options_description& options);
     
     virtual bpo::options_description commandLineOptions();
-    virtual string_vector commandLinePositinalOptions();
+    virtual std::string commandLineExtraPositionalOptions();
     
     virtual bpo::options_description configurationOptions();
     
 
     std::string type;
-    std::string sourceFile;
     std::string outputDirectory;
     std::string coreOutputDirectory;
     std::string projectFile;
     std::string projectDirectory;
     string_vector importDirectories;
+    
+    string_vector sourceFiles;
 };
 
 typedef boost::shared_ptr<GeneratorConfiguration> GeneratorConfigurationPtr;

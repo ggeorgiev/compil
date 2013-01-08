@@ -85,15 +85,15 @@ TEST(TestConfigurationManager, construct)
     
     const char* arg[] = { "@@@path", "-c", "config.ini", "--test=commandline" };
     
-    pConfigurationManager->parse(3, arg, NULL);
-    EXPECT_STREQ(pConfiguration->config.c_str(), "config.ini");
+    pConfigurationManager->parse(1, arg);
+    EXPECT_STREQ(pConfiguration->config.c_str(), "");
     EXPECT_STREQ(pConfiguration->test.c_str(), "");
     
-    pConfigurationManager->parse(3, arg, &pConfiguration->config);
+    pConfigurationManager->parse(3, arg);
     EXPECT_STREQ(pConfiguration->config.c_str(), "config.ini");
     EXPECT_STREQ(pConfiguration->test.c_str(), "config");
     
-    pConfigurationManager->parse(4, arg, NULL);
+    pConfigurationManager->parse(4, arg);
     EXPECT_STREQ(pConfiguration->config.c_str(), "config.ini");
     EXPECT_STREQ(pConfiguration->test.c_str(), "commandline");
     

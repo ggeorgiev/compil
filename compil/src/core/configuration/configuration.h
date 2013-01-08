@@ -30,15 +30,14 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include <boost/shared_ptr.hpp>
-
-#include <boost/program_options.hpp>
-namespace bpo = boost::program_options;
-
 #ifndef _CONFIGURATION_H__
 #define _CONFIGURATION_H__
 
 #include "configuration.h"
+
+#include <boost/shared_ptr.hpp>
+#include <boost/program_options.hpp>
+namespace bpo = boost::program_options;
 
 typedef std::vector<std::string> string_vector;
 
@@ -50,30 +49,19 @@ class Configuration
 public:
     Configuration();
     virtual ~Configuration();
-    
+
     virtual std::string name() = 0;
-    
+
     virtual bpo::options_description commandLineOptions();
-    virtual string_vector commandLinePositinalOptions();
-    
+    virtual string_vector commandLinePositionalOptions();
+    virtual std::string commandLineExtraPositionalOptions();
+
     virtual bpo::options_description configurationOptions();
 };
 
-typedef boost::shared_ptr<Configuration> ConfigurationPtr;
-typedef boost::weak_ptr<Configuration> ConfigurationWPtr;
-
-}
-
-#else // _CONFIGURATION_H__
-
-namespace compil
-{
-
-class Configuration;
-typedef boost::shared_ptr<Configuration> ConfigurationPtr;
+typedef boost::shared_ptr<Configuration> ConfigurationSPtr;
 typedef boost::weak_ptr<Configuration> ConfigurationWPtr;
 
 }
 
 #endif // _CONFIGURATION_H__
-

@@ -67,17 +67,15 @@ bpo::options_description GeneratorConfiguration::commandLineOptions()
     bpo::options_description options("Generation Configuration");
     options.add_options()
         ("type,t", bpo::value<std::string>(&type), "output type")
-        ("source-file", bpo::value<std::string>(&sourceFile), "source compil file")
+        ("source-file", bpo::value(&sourceFiles), "source compil file")
         ;
     addCommonOptions(options);
     return options;
 }
 
-string_vector GeneratorConfiguration::commandLinePositinalOptions()
+std::string GeneratorConfiguration::commandLineExtraPositionalOptions()
 {
-    string_vector positional_options;
-    positional_options.push_back("source-file");
-    return positional_options;
+    return "source-file";
 }
 
 bpo::options_description GeneratorConfiguration::configurationOptions()

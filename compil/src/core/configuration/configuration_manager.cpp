@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "configuration_manager.h"
+#include "core/configuration/configuration_manager.h"
 
 #include <boost/program_options.hpp>
 #include <boost/program_options/parsers.hpp>
@@ -51,58 +51,91 @@ ConfigurationManager::~ConfigurationManager()
 {
 }
 
-void ConfigurationManager::registerConfiguration(const ConfigurationPtr& pConfiguration)
+void ConfigurationManager::registerConfiguration(const ConfigurationSPtr& configuration)
 {
-    mvConfiguration.push_back(pConfiguration);
+    mvConfiguration.push_back(configuration);
 }
 
-bool ConfigurationManager::parse(int argc, const char **argv, std::string* pConfigurationFile)
+bool ConfigurationManager::parse(int argc, const char **argv, const std::string& defaultConfigFile)
 {
-    try 
+	try
     {
+        mVariablesMap.clear();
+        
         bpo::options_description commandLineOptions;
         bpo::positional_options_description commandLinePositionalOptions;
         unsigned positional_option_index = 0;
-        
-        
-        std::vector<ConfigurationPtr>::iterator itc;
+
+        std::string commandLineExtraPositionalOptions;
+
+        std::vector<ConfigurationSPtr>::iterator itc;
         for (itc = mvConfiguration.begin(); itc != mvConfiguration.end(); ++itc)
         {
-            commandLineOptions.add((*itc)->commandLineOptions());
-            
-            string_vector positional_options = (*itc)->commandLinePositinalOptions();
+            const ConfigurationSPtr& configuration = *itc;
+            commandLineOptions.add(configuration->commandLineOptions());
+
+            string_vector positional_options = configuration->commandLinePositionalOptions();
             string_vector::iterator itp;
             for (itp = positional_options.begin(); itp != positional_options.end(); ++itp)
                 commandLinePositionalOptions.add(itp->c_str(), ++positional_option_index);
+
+            std::string commandLineExtra = configuration->commandLineExtraPositionalOptions();
+            if (!commandLineExtra.empty())
+            {
+                if (!commandLineExtraPositionalOptions.empty())
+                {
+                    std::cout << "more than one configuration with extra positional option." << std::endl;
+                    return false;
+                }
+                commandLineExtraPositionalOptions = commandLineExtra;
+            }
         }
-        
-        bpo::variables_map vm;
+
+        if (!commandLineExtraPositionalOptions.empty())
+            commandLinePositionalOptions.add(commandLineExtraPositionalOptions.c_str(), -1);
+
         bpo::parsed_options parsed = bpo::command_line_parser(argc, argv)
-                                         .options(commandLineOptions)
-                                         .positional(commandLinePositionalOptions).run(); 
-        bpo::store(parsed, vm);
-        bpo::notify(vm);
+                                                        .style(  bpo::command_line_style::unix_style
+                                                               & ~bpo::command_line_style::allow_sticky)
+                                                        .options(commandLineOptions)
+                                                        .positional(commandLinePositionalOptions)
+                                                        .allow_unregistered()
+                                                        .run();
+        bpo::store(parsed, mVariablesMap);
+        bpo::notify(mVariablesMap);
         
-        if (pConfigurationFile && !pConfigurationFile->empty())
+        std::string configFile = defaultConfigFile;
+        if (mVariablesMap.count("config"))
+            configFile = mVariablesMap["config"].as<const std::string>();
+            
+        if (!configFile.empty())
         {
+            // The section that loads config values from files
             bpo::options_description configurationOptions;
             for (itc = mvConfiguration.begin(); itc != mvConfiguration.end(); ++itc)
             {
-                configurationOptions.add((*itc)->configurationOptions());
+                const ConfigurationSPtr& configuration = *itc;
+                configurationOptions.add(configuration->configurationOptions());
             }
-            
-            std::ifstream configurationFile;
-            configurationFile.open(pConfigurationFile->c_str());
-                        
-            bpo::store(bpo::parse_config_file(configurationFile, configurationOptions), vm);
-            bpo::notify(vm);
+
+            std::ifstream configurationFS;
+            configurationFS.open(configFile.c_str());
+
+            if (configurationFS.good())
+            {
+                bpo::store(bpo::parse_config_file(configurationFS, configurationOptions),
+                    mVariablesMap);
+                bpo::notify(mVariablesMap);
+                configurationFS.close();
+            }
         }
     }
     catch (bpo::error error)
     {
-        std::cout << error.what() << "\n";
+        std::cout << "boost::program_options parse error:" << error.what() << std::endl;
         return false;
     }
+
     return true;
 }
 
@@ -116,7 +149,7 @@ void ConfigurationManager::printHelp() const
     printVersion();
     
     bpo::options_description helpOptions;
-    std::vector<ConfigurationPtr>::const_iterator it;
+    std::vector<ConfigurationSPtr>::const_iterator it;
     for (it = mvConfiguration.begin(); it != mvConfiguration.end(); ++it)
     {
         helpOptions.add((*it)->commandLineOptions());
@@ -126,4 +159,3 @@ void ConfigurationManager::printHelp() const
 }
 
 }
-

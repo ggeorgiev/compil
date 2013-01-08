@@ -49,12 +49,16 @@ bpo::options_description Configuration::commandLineOptions()
     return options;
 }
 
-string_vector Configuration::commandLinePositinalOptions()
+string_vector Configuration::commandLinePositionalOptions()
 {
     string_vector positional_options;
     return positional_options;
 }
 
+std::string Configuration::commandLineExtraPositionalOptions()
+{
+    return "";
+}
 
 bpo::options_description Configuration::configurationOptions()
 {
@@ -62,6 +66,4 @@ bpo::options_description Configuration::configurationOptions()
     return options;
 }
 
-
 }
-
