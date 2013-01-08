@@ -92,7 +92,9 @@ public:
                                                        const std::vector<std::string>& string_elements,
                                                        std::vector<PackageElementSPtr>& package_elements);
  
-
+    static void recoverAfterError(const ParseContextSPtr& context);
+    
+    static Token::Type getTokenType(const Type::ELiteral& literal);
                       
 private:
     static Message severityMessage(const ParseContextSPtr& context,

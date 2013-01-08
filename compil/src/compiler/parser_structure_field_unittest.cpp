@@ -299,7 +299,7 @@ TEST_F(ParserStructureFieldTests, structureFieldDefaultNoValue)
         "}") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
-    EXPECT_TRUE(checkErrorMessage(0, 3, 14, compil::Message::p_expectFieldDefaultValue));
+    EXPECT_TRUE(checkErrorMessage(0, 3, 14, compil::Message::p_expectValue));
 }
 
 TEST_F(ParserStructureFieldTests, structureFieldDefaultCommentNoValue)
@@ -312,7 +312,7 @@ TEST_F(ParserStructureFieldTests, structureFieldDefaultCommentNoValue)
 
     ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 3, 15, compil::Message::p_misplacedComment));
-    EXPECT_TRUE(checkErrorMessage(1, 3, 26, compil::Message::p_expectFieldDefaultValue));
+    EXPECT_TRUE(checkErrorMessage(1, 3, 26, compil::Message::p_expectValue));
 }
 
 TEST_F(ParserStructureFieldTests, structureFieldOptional)
@@ -432,7 +432,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceParameterTypeNameEq)
         "}") );
     
     ASSERT_EQ(1U, mpParser->messages().size());
-    EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectFieldDefaultValue));
+    EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectValue));
 }
 
 TEST_F(ParserStructureFieldTests, structureFieldReferenceParameterTypeNameEqOptional)

@@ -277,7 +277,8 @@ TEST_F(ParserStructureTests, structureNameNameAlterFieldAssigment)
         "structure base {integer a;} structure name inherit base alter a=") );
 
     ASSERT_LE(1U, mpParser->messages().size());
-    EXPECT_TRUE(checkErrorMessage(0, 1, 65, compil::Message::p_expectFieldDefaultValue));
+    EXPECT_TRUE(checkErrorMessage(0, 1, 65, compil::Message::p_expectValue,
+                                            compil::Message::Statement("field")));
 }
 
 TEST_F(ParserStructureTests, structureNameNameAlterFieldAssigmentValue)

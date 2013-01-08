@@ -159,7 +159,7 @@ public:
     static const char* p_unknownClassifierType;
     
     static const char* p_expectBaseStructureFieldName;
-    static const char* p_expectFieldDefaultValue;
+    static const char* p_expectValue;
     
     static const char* p_expectType;
     static const char* p_expectAppropriateType;

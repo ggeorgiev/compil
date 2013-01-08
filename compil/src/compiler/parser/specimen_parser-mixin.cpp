@@ -35,14 +35,72 @@
 namespace compil
 {
 
+ConstantSPtr SpecimenParserMixin::parseConstant(const DocumentParseContextSPtr& context,
+                                                const CommentSPtr& comment,
+                                                const Type::ELiteral& literal)
+{
+    BOOST_ASSERT(context->mTokenizer->check(Token::TYPE_IDENTIFIER, "constant"));
+
+    ConstantSPtr constant = boost::make_shared<Constant>();
+    initilizeObject(context, constant);
+    
+    context->mTokenizer->shift();
+    skipComments(context);
+    
+    if (!context->mTokenizer->expect(Token::TYPE_IDENTIFIER))
+    {
+        *context <<= errorMessage(context, Message::p_expectStatementName)
+                     << Message::Statement("constant");
+        return ConstantSPtr();
+    }
+    
+    NameSPtr name = boost::make_shared<Name>();
+    initilizeObject(context, name);
+    name->set_value(context->mTokenizer->current()->text());
+    constant->set_name(name);
+
+    context->mTokenizer->shift();
+    skipComments(context);
+
+    if (!context->mTokenizer->expect(Token::TYPE_OPERATOR, "="))
+    {
+        *context <<= errorMessage(context, Message::p_expectAssignmentOperator);
+        return ConstantSPtr();
+    }
+
+    context->mTokenizer->shift();
+    skipComments(context);
+
+    Token::Type type = getTokenType(literal);
+    if (!context->mTokenizer->expect(type))
+    {
+        *context <<= errorMessage(context, Message::p_expectValue)
+                     << Message::Statement("constant");
+        return ConstantSPtr();
+    }
+
+    constant->set_value(context->mTokenizer->current()->text());
+    
+    context->mTokenizer->shift();
+    skipComments(context);
+    
+    if (!context->mTokenizer->expect(Token::TYPE_DELIMITER, ";"))
+    {
+        *context <<= errorMessage(context, Message::p_expectSemicolon);
+        return ConstantSPtr();
+    }
+
+    context->mTokenizer->shift();
+    return constant;
+}
+
 SpecimenSPtr SpecimenParserMixin::parseSpecimen(const DocumentParseContextSPtr& context,
                                                 const CommentSPtr& comment,
                                                 std::vector<LateTypeResolveInfo>& lateTypeResolve)
 {
-    SpecimenSPtr specimen(new Specimen());
+    SpecimenSPtr specimen = boost::make_shared<Specimen>();
     specimen->set_comment(comment);
-    initilizeObject(context, specimen);
-    specimen->set_package(context->mPackage);
+    initilizeType(context, specimen);
 
     context->mTokenizer->shift();
     skipComments(context);
@@ -103,7 +161,7 @@ SpecimenSPtr SpecimenParserMixin::parseSpecimen(const DocumentParseContextSPtr& 
             *context <<= errorMessage(context, Message::p_expectAppropriateType,
                                       typeNameToken->line(), typeNameToken->beginColumn())
                          << Message::Classifier("base")
-                         << Message::Options("speciment");
+                         << Message::Options("specimen");
             return SpecimenSPtr();
         }
 
@@ -117,8 +175,48 @@ SpecimenSPtr SpecimenParserMixin::parseSpecimen(const DocumentParseContextSPtr& 
                      << Message::Statement("specimen");
         return SpecimenSPtr();
     }
+    
+    std::vector<ConstantSPtr> constants;
 
     context->mTokenizer->shift();
+    for (;;)
+    {
+        CommentSPtr bodyComment = lastComment(context);
+        
+        if (context->mTokenizer->eot())
+        {
+            *context <<= errorMessage(context, Message::p_unexpectEOFInStatementBody)
+                         << Message::Statement("specimen");
+            return SpecimenSPtr();
+        }
+
+        if (context->mTokenizer->check(Token::TYPE_BRACKET, "}"))
+        {
+            skipComments(context, bodyComment);
+            break;
+        }
+        
+        if (!context->mTokenizer->check(Token::TYPE_IDENTIFIER, "constant"))
+        {
+            *context <<= errorMessage(context, Message::p_unknownStatment)
+                         << Message::Context("specimen item")
+                         << Message::Options("constant");
+            recoverAfterError(context);
+            return SpecimenSPtr();
+        }
+
+
+        ConstantSPtr constant = parseConstant(context, bodyComment, specimen->literal());
+        if (!constant)
+        {
+            recoverAfterError(context);
+            break;
+        }
+        constants.push_back(constant);
+    }
+    
+    specimen->set_constants(constants);
+
     skipComments(context);
     if (!context->mTokenizer->expect(Token::TYPE_BRACKET, "}"))
     {

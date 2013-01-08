@@ -68,10 +68,10 @@ void CppTestGenerator::generateSpecimenDeclaration(const SpecimenSPtr& specimen)
     
     ClassSPtr class_ = CppSpecimen::class_(specimen);
         
-    VariableExpressionSPtr speciment1 = variableExpressionRef()
-        << (localVariableRef() << (variableNameRef() << "speciment1"));
-    VariableExpressionSPtr speciment2 = variableExpressionRef()
-        << (localVariableRef() << (variableNameRef() << "speciment2"));
+    VariableExpressionSPtr specimen1 = variableExpressionRef()
+        << (localVariableRef() << (variableNameRef() << "specimen1"));
+    VariableExpressionSPtr specimen2 = variableExpressionRef()
+        << (localVariableRef() << (variableNameRef() << "specimen2"));
         
     if (specimen->hasOperator(EOperatorAction::equalTo(), EOperatorFlags::native()))
     {
@@ -79,14 +79,14 @@ void CppTestGenerator::generateSpecimenDeclaration(const SpecimenSPtr& specimen)
         test << TestName("operatorEqualTo");
 
         test << (variableDeclarationStatementRef() << class_
-                                                   << speciment1->variable());
+                                                   << specimen1->variable());
         test << (variableDeclarationStatementRef() << class_
-                                                   << speciment2->variable());
+                                                   << specimen2->variable());
                                                    
         GenericEqualityExpressionSPtr genericEqualityExpression = boost::make_shared<GenericEqualityExpression>();
         genericEqualityExpression->set_type(EqualityExpression::EType::equalTo());
-        genericEqualityExpression->set_first(speciment1);
-        genericEqualityExpression->set_second(speciment2);
+        genericEqualityExpression->set_first(specimen1);
+        genericEqualityExpression->set_second(specimen2);
         
         test    << (unaryTestStatementRef() << UnaryTestStatement::EType::isTrue()
                                             << genericEqualityExpression);
@@ -100,14 +100,14 @@ void CppTestGenerator::generateSpecimenDeclaration(const SpecimenSPtr& specimen)
         test << TestName("operatorNotEqualTo");
 
         test << (variableDeclarationStatementRef() << class_
-                                                   << speciment1->variable());
+                                                   << specimen1->variable());
         test << (variableDeclarationStatementRef() << class_
-                                                   << speciment2->variable());
+                                                   << specimen2->variable());
                                                    
         GenericEqualityExpressionSPtr genericEqualityExpression = boost::make_shared<GenericEqualityExpression>();
         genericEqualityExpression->set_type(EqualityExpression::EType::notEqualTo());
-        genericEqualityExpression->set_first(speciment1);
-        genericEqualityExpression->set_second(speciment2);
+        genericEqualityExpression->set_first(specimen1);
+        genericEqualityExpression->set_second(specimen2);
         
         test    << (unaryTestStatementRef() << UnaryTestStatement::EType::isFalse()
                                             << genericEqualityExpression);

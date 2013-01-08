@@ -30,8 +30,8 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _IMPLEMENTER_COMPIL_SPECIMENT_H__
-#define _IMPLEMENTER_COMPIL_SPECIMENT_H__
+#ifndef _IMPLEMENTER_COMPIL_PACKAGE_H__
+#define _IMPLEMENTER_COMPIL_PACKAGE_H__
 
 #include "language/c++/namespace/namespace.h"
 

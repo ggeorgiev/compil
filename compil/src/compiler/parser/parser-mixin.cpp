@@ -318,8 +318,40 @@ bool ParserMixin::convertStringElementsToPackageElements(const ParseContextSPtr&
     return true;
 }
 
+void ParserMixin::recoverAfterError(const ParseContextSPtr& context)
+{
+    for (;;)
+    {
+        if (!context->mTokenizer->current())
+            return;
 
+        if (context->mTokenizer->check(Token::TYPE_BRACKET, "}"))
+            break;
 
+        context->mTokenizer->shift();
+    }
+}
 
+Token::Type ParserMixin::getTokenType(const Type::ELiteral& literal)
+{
+    switch (literal.value())
+    {
+        case Type::ELiteral::kBoolean:
+        case Type::ELiteral::kReference:
+        case Type::ELiteral::kIdentifier:
+            return Token::TYPE_IDENTIFIER;
+        case Type::ELiteral::kInteger:
+            return Token::TYPE_INTEGER_LITERAL;
+        case Type::ELiteral::kReal:
+            return Token::TYPE_REAL_LITERAL;
+        case Type::ELiteral::kString:
+            return Token::TYPE_STRING_LITERAL;
+        case Type::ELiteral::kBinary:
+            break;
+        default:
+            assert(false);
+    }
+    return Token::TYPE_INVALID;
+}
 
 }

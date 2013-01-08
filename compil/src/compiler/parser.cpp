@@ -272,7 +272,7 @@ EnumerationSPtr Parser::parseEnumeration(const CommentSPtr& pComment,
                 parseEnumerationValue(pEnumerationComment, enumerationValues);
             if (!pEnumerationValue)
             {
-                recover();
+                recoverAfterError(mContext);
                 break;
             }
             pEnumerationValue->set_enumeration(pEnumeration);
@@ -508,7 +508,7 @@ FactorySPtr Parser::parseFactory(const CommentSPtr& pComment,
         if (pFactory->type() != Factory::EType::object())
         {
             *this << (errorMessage(mContext, Message::p_filterInNonObjectFactory));
-            recover();
+            recoverAfterError(mContext);
             return FactorySPtr();
         }
 
@@ -516,7 +516,7 @@ FactorySPtr Parser::parseFactory(const CommentSPtr& pComment,
            || (!ObjectFactory::downcastStructure(pFactory->parameterType().lock())))
         {
             *this << (errorMessage(mContext, Message::p_filterInFactoryForNonStructure));
-            recover();
+            recoverAfterError(mContext);
             return FactorySPtr();
         }
     }
@@ -543,7 +543,7 @@ FactorySPtr Parser::parseFactory(const CommentSPtr& pComment,
             ObjectFactory::downcastStructure(pFactory->parameterType().lock()));
         if (!pFilter)
         {
-            recover();
+            recoverAfterError(mContext);
             break;
         }
         filters.push_back(pFilter);
@@ -673,7 +673,8 @@ FieldSPtr Parser::parseField(const CommentSPtr& pComment,
         Token::Type type = getTokenType(pType->literal());
         if (!mContext->mTokenizer->expect(type))
         {
-            *this << errorMessage(mContext, Message::p_expectFieldDefaultValue);
+            *this << (errorMessage(mContext, Message::p_expectValue)
+                     << Message::Statement("field"));
             return FieldSPtr();
         }
 
@@ -1037,7 +1038,8 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
                 Token::Type type = getTokenType(pField->type()->literal());
                 if (!mContext->mTokenizer->expect(type))
                 {
-                    *this << errorMessage(mContext, Message::p_expectFieldDefaultValue);
+                    *this << (errorMessage(mContext, Message::p_expectValue)
+                             << Message::Statement("field"));
                     return StructureSPtr();
                 }
 
@@ -1139,7 +1141,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
                 parseIdentification(pBodyComment, pIdentificationType);
             if (!pIdentification)
             {
-                recover();
+                recoverAfterError(mContext);
                 break;
             }
             pIdentificationType.reset();
@@ -1153,7 +1155,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
                 parseUpcopy(pBodyComment, pStructure);
             if (!pUpcopy)
             {
-                recover();
+                recoverAfterError(mContext);
                 break;
             }
             pUpcopy->set_structure(pStructure);
@@ -1166,7 +1168,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
             pOperatorDeclaration.reset();
             if (!pOperator)
             {
-                recover();
+                recoverAfterError(mContext);
                 break;
             }
             pOperator->set_structure(pStructure);
@@ -1179,7 +1181,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
                 parseEnumeration(pBodyComment, pStrong ? pStrong : pWeak, pFlags);
             if (!pEnumeration)
             {
-                recover();
+                recoverAfterError(mContext);
                 break;
             }
             pStrong.reset();
@@ -1194,7 +1196,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
             FieldSPtr pField = parseField(pBodyComment, objects, pWeak);
             if (!pField)
             {
-                recover();
+                recoverAfterError(mContext);
                 break;
             }
 
@@ -1206,7 +1208,7 @@ StructureSPtr Parser::parseStructure(const CommentSPtr& pComment,
                 pOverride.reset();
                 if (!pFieldOverride)
                 {
-                    recover();
+                    recoverAfterError(mContext);
                     break;
                 }
 
@@ -1374,7 +1376,7 @@ MethodSPtr Parser::parseMethod(const CommentSPtr& pComment)
         ParameterSPtr pParameter = parseParameter(pParameterComment);
         if (!pParameter)
         {
-            recover();
+            recoverAfterError(mContext);
             break;
         }
 
@@ -1445,7 +1447,7 @@ InterfaceSPtr Parser::parseInterface(const CommentSPtr& pComment)
             MethodSPtr pMethod = parseMethod(pMethodComment);
             if (!pMethod)
             {
-                recover();
+                recoverAfterError(mContext);
                 break;
             }
             pMethod->set_interface(pInterface);
@@ -1474,7 +1476,7 @@ bool Parser::unexpectedStatement(const TokenPtr& pToken)
     *this << (errorMessage(mContext, Message::p_unexpectedStatmentModificator, pToken->line(), pToken->beginColumn())
           << Message::Modificator(pToken->text()));
 
-    recover();
+    recoverAfterError(mContext);
 
     return true;
 }
@@ -1884,23 +1886,6 @@ const std::vector<Message>& Parser::messages()
     return mContext->mMessageCollector->messages();
 }
 
-void Parser::recover()
-{
-    for (;;)
-    {
-        if (!mContext->mTokenizer->current())
-            return;
-
-        if (mContext->mTokenizer->check(Token::TYPE_BRACKET, "}"))
-            break;
-
-        //if (check(Token::TYPE_DELIMITER))
-        //    break;
-
-        mContext->mTokenizer->shift();
-    }
-}
-
 void Parser::lateTypeResolve(const TypeSPtr& pNewType)
 {
     std::vector<LateTypeResolveInfo>::iterator it = mLateTypeResolve.begin();
@@ -1943,28 +1928,6 @@ bool Parser::validate(const ObjectSPtr& pObject)
     }
 
     return bResult;
-}
-
-Token::Type Parser::getTokenType(const Type::ELiteral& literal)
-{
-    switch (literal.value())
-    {
-        case Type::ELiteral::kBoolean:
-        case Type::ELiteral::kReference:
-        case Type::ELiteral::kIdentifier:
-            return Token::TYPE_IDENTIFIER;
-        case Type::ELiteral::kInteger:
-            return Token::TYPE_INTEGER_LITERAL;
-        case Type::ELiteral::kReal:
-            return Token::TYPE_REAL_LITERAL;
-        case Type::ELiteral::kString:
-            return Token::TYPE_STRING_LITERAL;
-        case Type::ELiteral::kBinary:
-            break;
-        default:
-            assert(false);
-    }
-    return Token::TYPE_INVALID;
 }
 
 }

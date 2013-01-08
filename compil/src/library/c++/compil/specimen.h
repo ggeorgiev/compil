@@ -30,8 +30,8 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _IMPLEMENTER_COMPIL_SPECIMEN_H__
-#define _IMPLEMENTER_COMPIL_SPECIMEN_H__
+#ifndef _LIBRARY_CPP_COMPIL_SPECIMEN_H__
+#define _LIBRARY_CPP_COMPIL_SPECIMEN_H__
 
 #include "language/c++/class/class.h"
 #include "language/c++/class/method.h"
@@ -58,5 +58,5 @@ public:
 
 }
 
-#endif
+#endif // _LIBRARY_CPP_COMPIL_SPECIMEN_H__
 

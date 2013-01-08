@@ -42,6 +42,10 @@ namespace compil
 class SpecimenParserMixin : public ParserMixin
 {
 public:
+    static ConstantSPtr parseConstant(const DocumentParseContextSPtr& context,
+                                      const CommentSPtr& comment,
+                                      const Type::ELiteral& literal);
+
     static SpecimenSPtr parseSpecimen(const DocumentParseContextSPtr& context,
                                       const CommentSPtr& comment,
                                       std::vector<LateTypeResolveInfo>& lateTypeResolve);

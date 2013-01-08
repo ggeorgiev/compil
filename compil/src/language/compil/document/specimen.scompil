@@ -32,6 +32,7 @@
 
 compil { }
 
+import "compil/document/constant.scompil";
 import "compil/document/unary_template.scompil";
 
 package lang.compil | *.*.*;
@@ -44,4 +45,5 @@ structure Specimen
     runtime identification;
     
     weak reference<Specimen> baseSpecimen = null;
+    vector<reference<Constant>> constants;
 }

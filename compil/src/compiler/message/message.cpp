@@ -93,8 +93,8 @@ const char* Message::p_unknownClassifierType =
 const char* Message::p_expectBaseStructureFieldName =
     "Expected base struct field name";
 
-const char* Message::p_expectFieldDefaultValue =
-    "Expected default value";
+const char* Message::p_expectValue =
+    "Expected %statement% value";
 
 const char* Message::p_expectType =
     "Expected %classifier% type";

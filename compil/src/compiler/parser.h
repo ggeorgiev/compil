@@ -149,13 +149,9 @@ private:
     Parser& operator<<(const Message& message);
 
     bool unexpectedStatement(const TokenPtr& pToken);
-    void recover();
 
     bool validate(const DocumentSPtr& document);
     bool validate(const ObjectSPtr& pObject);
-    
-    
-    static Token::Type getTokenType(const Type::ELiteral& literal);
 };
 
 typedef boost::shared_ptr<Parser> ParserPtr;

@@ -30,8 +30,8 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _IMPLEMENTER_COMPIL_SPECIMENT_H__
-#define _IMPLEMENTER_COMPIL_SPECIMENT_H__
+#ifndef _LIBRARY_CPP_COMPIL_NAMESPACE_H__
+#define _LIBRARY_CPP_COMPIL_NAMESPACE_H__
 
 #include "language/c++/namespace/namespace.h"
 
@@ -56,5 +56,5 @@ public:
 
 }
 
-#endif
+#endif // _LIBRARY_CPP_COMPIL_NAMESPACE_H__
 
