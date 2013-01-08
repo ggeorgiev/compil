@@ -477,7 +477,7 @@ void CppGenerator::generateSpecimenDefinition(const SpecimenSPtr& pSpecimen)
     {
         line()  << (cf::initializationRef() << frm->memberVariableName(value));
     }
-    openBlock(definitionStream);
+    openBlock(definitionStream, 2);
     closeBlock(definitionStream);
     eol(definitionStream);
 
@@ -1543,6 +1543,15 @@ void CppGenerator::generateStructureFieldConstantDefinition(const StructureSPtr&
                << "::"
                << pDefaultValue->value()
                << "();";
+    }
+    else if (pField->type()->runtimeObjectId() == EObjectId::specimen())
+    {
+        line()  << "return "
+                << impl->cppType(pField->type())
+                << "("
+                << frm->defaultValue(literal, pDefaultValue->value())
+                << ");";
+        eol(definitionStream);
     }
     else
     {

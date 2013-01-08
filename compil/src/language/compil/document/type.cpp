@@ -21,6 +21,11 @@ bool Type::hasOperator(const EOperatorAction& action,
     return false;
 }
 
+const Type::ELiteral& Type::literal() const
+{
+    return TypePartial::literal();
+}
+
 }
 
 }

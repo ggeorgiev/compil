@@ -28,6 +28,19 @@ bool Specimen::hasOperator(const EOperatorAction& action,
     return false;
 }
 
+const Type::ELiteral& Specimen::literal() const
+{
+    SpecimenSPtr base = baseSpecimen().lock();
+    if (base)
+        return base->literal();
+        
+    TypeSPtr type = parameterType().lock();
+    if (type)
+        return type->literal();
+        
+    return Type::literal();
+}
+
 }
 
 }

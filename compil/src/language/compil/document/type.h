@@ -52,6 +52,8 @@ public:
     
     virtual bool hasOperator(const EOperatorAction& action,
                              const EOperatorFlags& flags) const;
+                             
+    virtual const ELiteral& literal() const;
 };
 
 }

@@ -17,3 +17,9 @@ specimen<StringSpecimen> SpecimenFromSpecimen
 specimen<string> StringSpecimen2 inherit StringSpecimen
 {
 }
+
+structure SpecimenDefaultValue
+{
+    IntegerSpecimen i = 1;
+    StringSpecimen s = "specimen";
+}
