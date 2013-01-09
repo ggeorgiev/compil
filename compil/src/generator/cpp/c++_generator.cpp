@@ -2401,6 +2401,7 @@ void CppGenerator::generateBaseStructureDefinition(const StructureSPtr& pStructu
                 break;
             }
             case EObjectId::kEnumeration:
+            case EObjectId::kFieldOverride:
             case EObjectId::kIdentification:
             case EObjectId::kUpcopy:
             case EObjectId::kOperator:

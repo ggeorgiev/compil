@@ -19,7 +19,7 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       launchStyle = "0"
       useCustomWorkingDirectory = "YES"
-      customWorkingDirectory = "/Users/george/github/compil/compil/src"
+      customWorkingDirectory = "/Users/george/ggeorgiev_frodo_home_mac/compil"
       buildConfiguration = "Debug"
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
@@ -30,6 +30,10 @@
       <CommandLineArguments>
          <CommandLineArgument
             argument = "--type=main"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--core_package=core/primitive --cpp.include_path=include_path_based_on_package -I. -t partial --core-directory=core/primitive --flat-output=1 open_xml/object/xml_part.compil -o /Users/george/ggeorgiev_frodo_home_mac/intermediate/compil/darwin-4.2.1/debug/address-model-32/architecture-x86/link-static/runtime-link-static/threading-multi/open_xml/object"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
@@ -70,11 +74,11 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/compil/src/generator-test/immutable_structure.compil"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/compil/src/generator-test/specimens.compil"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/strong_enumeration.compil"

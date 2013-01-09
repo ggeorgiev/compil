@@ -1456,6 +1456,8 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                                                                   const FieldSPtr& pField,
                                                                   const EMethodGroup& mg)
 {
+    addDependency(impl->cppHeaderFileDependency(pField->type()));
+    
     StructureSPtr pStructure = pField->structure().lock();
 
     if (!table().isEmpty())
@@ -1776,6 +1778,7 @@ void CppHeaderGenerator::generateImmutableBaseStructureBuilderDeclaration(const 
                 generateStructureFieldMethodsDeclaration(pCurrStructure, pField, mg);
                 break;
             }
+            case EObjectId::kFieldOverride:
             case EObjectId::kIdentification:
             case EObjectId::kOperator:
             case EObjectId::kEnumeration:
@@ -1815,6 +1818,7 @@ void CppHeaderGenerator::generateBaseStructureDeclaration(const StructureSPtr& p
                 generateStructureFieldMethodsDeclaration(pCurrStructure, pField, mg);
                 break;
             }
+            case EObjectId::kFieldOverride:
             case EObjectId::kIdentification:
             case EObjectId::kOperator:
             case EObjectId::kEnumeration:

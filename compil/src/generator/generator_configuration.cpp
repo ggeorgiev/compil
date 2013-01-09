@@ -55,11 +55,12 @@ void GeneratorConfiguration::addCommonOptions(bpo::options_description& options)
 {
     options.add_options()
         ("output-directory,o", bpo::value<std::string>(&outputDirectory), "output directory")
+        ("flat-output", bpo::value<bool>(&flatOutput), "flat output (write the files directly in the output directory)")
         ("core-output-directory", bpo::value<std::string>(&coreOutputDirectory), "core output directory")
+        ("flat-core-output", bpo::value<bool>(&flatCoreOutput), "flat core output (write the files directly in the output directory)")
         ("project-file", bpo::value<std::string>(&projectFile), "project file")
         ("project-directory", bpo::value<std::string>(&projectDirectory), "project directory")
-        ("import-path,I", bpo::value<string_vector>(&importDirectories)->composing(), "import compil path")
-        ;
+        ("import-path,I", bpo::value<string_vector>(&importDirectories)->composing(), "import compil path");
 }
 
 bpo::options_description GeneratorConfiguration::commandLineOptions()

@@ -306,7 +306,8 @@ cpp::frm::TypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
     if (pType->runtimeObjectId() == EObjectId::enumeration())
         return mpFrm->cppEnumType(ObjectFactory::downcastEnumeration(pType));
     if (pType->runtimeObjectId() == EObjectId::specimen())
-        return cpp::frm::typeRef() << cpp::frm::typeNameRef(mpFrm->cppClassName(name));
+        return cpp::frm::typeRef() << mpFrm->cppPackageNamespace(pType->package())
+                                   << cpp::frm::typeNameRef(mpFrm->cppClassName(name));
     if (pType->runtimeObjectId() == EObjectId::identifier())
         return cpp::frm::typeRef() << cpp::frm::typeNameRef(mpFrm->cppClassName(name));
 

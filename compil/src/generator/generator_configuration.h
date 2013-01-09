@@ -57,7 +57,9 @@ public:
 
     std::string type;
     std::string outputDirectory;
+    bool flatOutput;
     std::string coreOutputDirectory;
+    bool flatCoreOutput;
     std::string projectFile;
     std::string projectDirectory;
     string_vector importDirectories;

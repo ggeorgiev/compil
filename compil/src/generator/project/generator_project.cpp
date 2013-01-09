@@ -258,6 +258,7 @@ bool GeneratorProject::executeGenerator(const std::string& type,
                                         const FilePathSPtr& path,
                                         const CppImplementer::EExtensionType& extensionType,
                                         const boost::filesystem::path& outputDirectory,
+                                        const bool flatOutput,
                                         const AlignerConfigurationSPtr& alignerConfiguration,
                                         const FormatterConfigurationSPtr& formatterConfiguration,
                                         const ImplementerConfigurationSPtr& implementerConfiguration,
@@ -272,9 +273,12 @@ bool GeneratorProject::executeGenerator(const std::string& type,
         
     boost::filesystem::path output = outputDirectory;
     
-    PackageSPtr package = implementer->cppHeaderPackage(data.document->package());
-    if (package)
-        output /= CppImplementer::cppFilepath(package);
+    if (!flatOutput)
+    {
+        PackageSPtr package = implementer->cppHeaderPackage(data.document->package());
+        if (package)
+            output /= CppImplementer::cppFilepath(package);
+    }
         
     output /= getFileStem(type, data.document->name()->value()) + implementer->applicationExtension(extensionType);
     
@@ -314,6 +318,7 @@ bool GeneratorProject::executeGenerator(const std::string& type,
 bool GeneratorProject::executeCoreGenerator(const std::string& name,
                                             const CppImplementer::EExtensionType& extensionType,
                                             const boost::filesystem::path& outputDirectory,
+                                            const bool flatOutput,
                                             const AlignerConfigurationSPtr& alignerConfiguration,
                                             const FormatterConfigurationSPtr& formatterConfiguration,
                                             const ImplementerConfigurationSPtr& implementerConfiguration,
@@ -324,11 +329,15 @@ bool GeneratorProject::executeCoreGenerator(const std::string& name,
     CppImplementerPtr implementer = boost::make_shared<CppImplementer>
         (implementerConfiguration, formatter, mCorePackage);
         
-    PackageSPtr package = implementer->cppHeaderPackage(mCorePackage);
-
     boost::filesystem::path output = outputDirectory;
-    if (package)
-        output /= implementer->cppFilepath(package);
+    
+    if (!flatOutput)
+    {
+        PackageSPtr package = implementer->cppHeaderPackage(mCorePackage);
+        if (package)
+            output /= implementer->cppFilepath(package);
+    }
+    
     output /= getFileStem("core", name) + implementer->applicationExtension(extensionType);
     
     {
@@ -368,7 +377,9 @@ static bool isDot(char ch)
 }
 
 bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
+                                const bool flatOutput,
                                 const boost::filesystem::path& outputCoreDirectory,
+                                const bool flatCoreOutput,
                                 const AlignerConfigurationSPtr& alignerConfiguration,
                                 const FormatterConfigurationSPtr& formatterConfiguration,
                                 const ImplementerConfigurationSPtr& implementerConfiguration)
@@ -408,7 +419,7 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
                 
                 {
                     CppGenerator generator;
-                    if (!executeGenerator(type, path, CppImplementer::definition, outputDirectory,
+                    if (!executeGenerator(type, path, CppImplementer::definition, outputDirectory, flatOutput,
                                           alignerConfiguration, formatterConfiguration, implementerConfiguration,
                                           generator))
                         return false;
@@ -416,7 +427,7 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
                 
                 {
                     CppHeaderGenerator generator;
-                    if (!executeGenerator(type, path, CppImplementer::declaration, outputDirectory,
+                    if (!executeGenerator(type, path, CppImplementer::declaration, outputDirectory, flatOutput,
                                           alignerConfiguration, formatterConfiguration, implementerConfiguration,
                                           generator))
                         return false;
@@ -431,7 +442,7 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
                 const FilePathSPtr& path = *pit;
                 {
                     CppTestGenerator generator;
-                    if (!executeGenerator(type, path, CppImplementer::definition, outputDirectory,
+                    if (!executeGenerator(type, path, CppImplementer::definition, outputDirectory, flatOutput,
                                           alignerConfiguration, formatterConfiguration, implementerConfiguration,
                                           generator))
                         return false;
@@ -443,7 +454,7 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
     if (mCoreDependencies.count(getFileStem("core", "flags_enumeration")))
     {
         CppFlagsEnumerationGenerator generator;
-        if (!executeCoreGenerator("flags_enumeration", CppImplementer::declaration, outputCoreDirectory,
+        if (!executeCoreGenerator("flags_enumeration", CppImplementer::declaration, outputCoreDirectory, flatCoreOutput,
                                   alignerConfiguration, formatterConfiguration, implementerConfiguration,
                                   generator))
             return false;

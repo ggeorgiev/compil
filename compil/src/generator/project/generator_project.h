@@ -78,7 +78,9 @@ public:
     bool parseDocuments();
     
     bool generate(const boost::filesystem::path& outputDirectory,
+                  const bool flatOutput,
                   const boost::filesystem::path& outputCoreDirectory,
+                  const bool flatCoreOutput,
                   const AlignerConfigurationSPtr& alignerConfiguration,
                   const FormatterConfigurationSPtr& formatterConfiguration,
                   const ImplementerConfigurationSPtr& implementerConfiguration);
@@ -90,6 +92,7 @@ private:
                           const FilePathSPtr& path,
                           const CppImplementer::EExtensionType& extensionType,
                           const boost::filesystem::path& outputDirectory,
+                          const bool flatOutput,
                           const AlignerConfigurationSPtr& alignerConfiguration,
                           const FormatterConfigurationSPtr& formatterConfiguration,
                           const ImplementerConfigurationSPtr& implementerConfiguration,
@@ -98,6 +101,7 @@ private:
     bool executeCoreGenerator(const std::string& name,
                               const CppImplementer::EExtensionType& extensionType,
                               const boost::filesystem::path& outputDirectory,
+                              const bool flatCoreOutput,
                               const AlignerConfigurationSPtr& alignerConfiguration,
                               const FormatterConfigurationSPtr& formatterConfiguration,
                               const ImplementerConfigurationSPtr& implementerConfiguration,
