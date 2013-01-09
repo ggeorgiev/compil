@@ -35,7 +35,7 @@
 
 #include "language/compil/document/type-partial.h"
 
-#import "boost/unordered_map.hpp"
+#include "boost/unordered_map.hpp"
 
 namespace lang
 {
