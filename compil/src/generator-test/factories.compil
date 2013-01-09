@@ -27,6 +27,7 @@ structure IObjBase
     InnerBase innerBase;
 }
 
+abstract
 structure Obj // inherit ObjBase
 {
     strong enum Inner

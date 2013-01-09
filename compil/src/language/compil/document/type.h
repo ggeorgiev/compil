@@ -35,6 +35,8 @@
 
 #include "language/compil/document/type-partial.h"
 
+#import "boost/unordered_map.hpp"
+
 namespace lang
 {
 
@@ -54,6 +56,13 @@ public:
                              const EOperatorFlags& flags) const;
                              
     virtual const ELiteral& literal() const;
+    
+    struct hasher
+    {
+        size_t operator()(const EOperatorAction& action) const;
+    };
+    
+    boost::unordered_map<EOperatorAction, EOperatorFlags, hasher> mOperatorSupport;
 };
 
 }

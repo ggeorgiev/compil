@@ -60,14 +60,6 @@ TEST(FactoriesTest, create_downcast)
 TEST(FactoriesTest, hierarchyClone)
 {
     {
-        ObjSPtr pObj(new Obj());
-        pObj->set_o(1);
-        ObjSPtr pCloneObj = HierarchyObjFactory::clone(pObj);
-        EXPECT_EQ(pObj->o(), pCloneObj->o());
-        pObj->set_o(pObj->o() + 1);
-        EXPECT_NE(pObj->o(), pCloneObj->o());
-    }
-    {
         ObjSPtr pObj(new ObjA());
         pObj->set_o(1);
         ObjSPtr pCloneObj = HierarchyObjFactory::clone(pObj);

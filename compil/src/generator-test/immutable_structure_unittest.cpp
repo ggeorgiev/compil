@@ -32,7 +32,7 @@
 
 #include "immutable_structure.h"
 
-#include "boost_assert_handler.h"
+#include "core/boost/boost_assert_handler.h"
 
 #include "gtest/gtest.h"
 

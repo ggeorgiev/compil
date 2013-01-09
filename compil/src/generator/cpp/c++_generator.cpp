@@ -1751,8 +1751,10 @@ void CppGenerator::generateStructureInprocIdentificationMethodsDefinition(
         addDependencies(impl->dependencies(factory));
 
         StructureSPtr pParameterType = Structure::downcast(factory->parameterType().lock());
+        
+        StructureSPtr base = pStructure->baseStructure().lock();
 
-        if (first)
+        if (first && (base || !pStructure->abstract()))
         {
             line()  << "bool g_init_"
                     << frm->cppMainClassType(pStructure)
@@ -1783,8 +1785,7 @@ void CppGenerator::generateStructureInprocIdentificationMethodsDefinition(
             first = false;
         }
 
-        StructureSPtr pBase = pStructure->baseStructure().lock();
-        while (pBase)
+        while (base)
         {
             table() << TableAligner::row()
                     << (first ? "" : "&& ")
@@ -1794,7 +1795,7 @@ void CppGenerator::generateStructureInprocIdentificationMethodsDefinition(
                     << fnRegisterRelationship
                     << TableAligner::col()
                     << "("
-                    << frm->cppMainClassType(pBase)
+                    << frm->cppMainClassType(base)
                     << "::"
                     << impl->staticMethodName(fnInprocId->value())
                     << "(), "
@@ -1804,11 +1805,11 @@ void CppGenerator::generateStructureInprocIdentificationMethodsDefinition(
                     << impl->staticMethodName(fnInprocId->value())
                     << "())";
 
-            if (pBase == pParameterType)
+            if (base == pParameterType)
                 break;
 
             first = false;
-            pBase = pBase->baseStructure().lock();
+            base = base->baseStructure().lock();
         }
     }
     if (!first)

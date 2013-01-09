@@ -35,6 +35,7 @@ compil { }
 import "compil/all/comment.scompil";
 import "compil/all/name.scompil";
 import "compil/all/package.scompil";
+import "compil/document/operator_action.scompil";
 
 package lang.compil | *.*.*;
 

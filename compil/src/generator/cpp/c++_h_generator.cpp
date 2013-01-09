@@ -774,15 +774,12 @@ void CppHeaderGenerator::generateHierarchyFactoryDeclaration(const FactorySPtr& 
     line()  << "public:";
     eol(declarationStream, -1);
 
-    if (!pParameterStructure->abstract())
-    {
-        table() << (cf::methodRef() << cf::EMethodSpecifier::static_()
-                                    << impl->cppPtrType(pParameterType)
-                                    << fnClone
-                                    << (cf::argumentRef() << impl->cppPtrDecoratedType(pParameterType)
-                                                          << object))
-                << ";";
-    }
+    table() << (cf::methodRef() << cf::EMethodSpecifier::static_()
+                                << impl->cppPtrType(pParameterType)
+                                << fnClone
+                                << (cf::argumentRef() << impl->cppPtrDecoratedType(pParameterType)
+                                                      << object))
+            << ";";
 
     std::vector<StructureSPtr> structs = impl->hierarchie(mDocument,
                                                           pParameterStructure,
