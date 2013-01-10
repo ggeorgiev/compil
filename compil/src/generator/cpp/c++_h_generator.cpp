@@ -507,7 +507,9 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
 
     addDependencies(impl->dependencies(pParameterType));
     addDependencies(impl->classReferenceDependencies());
-    addDependency(impl->cppHeaderFileDependency(pBaseSpecimen));
+    
+    if (pBaseSpecimen && pBaseSpecimen->sourceId() != mDocument->sourceId())
+        addDependency(impl->cppHeaderFileDependency(pBaseSpecimen));
 
     generateForwardClassDeclarations(pSpecimen);
 
@@ -1456,7 +1458,8 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                                                                   const FieldSPtr& pField,
                                                                   const EMethodGroup& mg)
 {
-    addDependency(impl->cppHeaderFileDependency(pField->type()));
+    if (pField->type()->sourceId() != mDocument->sourceId())
+        addDependency(impl->cppHeaderFileDependency(pField->type()));
     
     StructureSPtr pStructure = pField->structure().lock();
 
@@ -1832,7 +1835,8 @@ void CppHeaderGenerator::generateBaseStructureDeclaration(const StructureSPtr& p
 void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStructure)
 {
     StructureSPtr pBaseStructure = pStructure->baseStructure().lock();
-    addDependency(impl->cppHeaderFileDependency(pBaseStructure));
+    if (pBaseStructure && pBaseStructure->sourceId() != mDocument->sourceId())
+        addDependency(impl->cppHeaderFileDependency(pBaseStructure));
 
     generateForwardClassDeclarations(pStructure);
 
