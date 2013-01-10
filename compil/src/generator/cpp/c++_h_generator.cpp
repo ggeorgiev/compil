@@ -2331,11 +2331,17 @@ bool CppHeaderGenerator::generate()
     commentInLine(forwardDeclarationStream, "Forward declarations");
 
     if (mType == "partial")
+    {
         addDependency(impl->cppHeaderFileDependency(mDocument->name()->value() + "-partial",
                                                     mDocument->package()));
+        excludeDependency(impl->cppHeaderFileDependency(mDocument->name()->value(),
+                                                        mDocument->package()));
+    }
     else
+    {
         addDependency(impl->cppHeaderFileDependency(mDocument->name()->value(),
                                                     mDocument->package()));
+    }
 
     const std::vector<ObjectSPtr>& objects = mDocument->objects();
     std::vector<ObjectSPtr>::const_iterator it;

@@ -204,7 +204,7 @@ void Generator::addDependency(const Dependency& dependency)
 {
     if (!dependency) return;
     
-    dependencies.push_back(dependency);
+    dependencies.insert(dependency);
 }
 
 void Generator::addDependencies(const std::vector<Dependency>& dependencies)
@@ -214,17 +214,25 @@ void Generator::addDependencies(const std::vector<Dependency>& dependencies)
         addDependency(*it);
 }
 
+void Generator::excludeDependency(const Dependency& dependency)
+{
+    if (!dependency) return;
+    
+    excludeDependencies.insert(dependency);
+}
+
 void Generator::includeHeaders(int streamIndex, Dependency::DependencySection section)
 {
-    std::sort(dependencies.begin(), dependencies.end(), Dependency::compare);
-
     bool bHasAny = false;
     std::string header;
     std::string library;
-    std::vector<Dependency>::iterator it;
+    std::set<Dependency>::iterator it;
     for (it = dependencies.begin(); it != dependencies.end(); ++it)
     {
         const Dependency& dependency = *it;
+        if (excludeDependencies.find(dependency) != excludeDependencies.end())
+            continue;
+        
         if (section != dependency.mSection)
             continue;
             
@@ -305,7 +313,7 @@ std::vector<Dependency> Generator::getCoreDependencies() const
 {
     std::vector<Dependency> result;
     
-    std::vector<Dependency>::const_iterator it;
+    std::set<Dependency>::const_iterator it;
     for (it = dependencies.begin(); it != dependencies.end(); ++it)
     {
         if (it->mLevel == Dependency::core_level)

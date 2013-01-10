@@ -77,7 +77,8 @@ public:
                const std::string& library = "");
                
     operator bool() const;
-
+    bool operator <(const Dependency& dependency) const;
+    
     // TODO: change this to package object
     std::string mHeaderPackage;
     std::string mHeaderName;
@@ -85,8 +86,6 @@ public:
     DependencyLevel mLevel;
     DependencySection mSection;
     std::string mLibrary;
-    
-    static bool compare(const Dependency& d1, const Dependency& d2); 
 };
 
 }

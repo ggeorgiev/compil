@@ -10,6 +10,7 @@ structure MutableStructure
 abstract partial 
 structure MutableAbstractStructure
 {
+    reference<MutableStructure> ref;
 }
 
 immutable partial

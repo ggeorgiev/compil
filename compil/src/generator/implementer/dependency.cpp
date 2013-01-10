@@ -55,36 +55,36 @@ Dependency::operator bool() const
     return mType != invalid_type;
 }
 
-bool Dependency::compare(const Dependency& d1, const Dependency& d2)
+bool Dependency::operator <(const Dependency& dependency) const
 {
-    if (d1.mSection < d2.mSection)
+    if (mSection < dependency.mSection)
         return true;
-    if (d1.mSection > d2.mSection)
+    if (mSection > dependency.mSection)
         return false;
         
-    if (d1.mLevel < d2.mLevel)
+    if (mLevel < dependency.mLevel)
         return true;
-    if (d1.mLevel > d2.mLevel)
+    if (mLevel > dependency.mLevel)
         return false;
         
-    if (d1.mLibrary < d2.mLibrary)
+    if (mLibrary < dependency.mLibrary)
         return true;
-    if (d1.mLibrary > d2.mLibrary)
+    if (mLibrary > dependency.mLibrary)
         return false;
         
-    if (d1.mHeaderPackage < d2.mHeaderPackage)
+    if (mHeaderPackage < dependency.mHeaderPackage)
         return true;
-    if (d1.mHeaderPackage > d2.mHeaderPackage)
+    if (mHeaderPackage > dependency.mHeaderPackage)
         return false;
 
-    if (d1.mHeaderName < d2.mHeaderName)
+    if (mHeaderName < dependency.mHeaderName)
         return true;
-    if (d1.mHeaderName > d2.mHeaderName)
+    if (mHeaderName > dependency.mHeaderName)
         return false;
         
-    if (d1.mType < d2.mType)
+    if (mType < dependency.mType)
         return true;
-    if (d1.mType > d2.mType)
+    if (mType > dependency.mType)
         return false;
         
     return false;

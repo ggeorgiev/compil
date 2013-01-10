@@ -95,6 +95,8 @@ protected:
     
     void addDependency(const Dependency& dependency);
     void addDependencies(const std::vector<Dependency>& dependencies);
+
+    void excludeDependency(const Dependency& dependency);
     
     void includeHeaders(int streamIndex, Dependency::DependencySection section);
     void commentInLine(int streamIndex, const std::string& comment);
@@ -114,7 +116,8 @@ protected:
     DocumentSPtr mDocument;
     std::vector<boost::shared_ptr<std::stringstream> > mStreams;
     
-    std::vector<Dependency> dependencies;
+    std::set<Dependency> dependencies;
+    std::set<Dependency> excludeDependencies;
 
 private:
     boost::shared_ptr<std::ostream> mpOutput;
