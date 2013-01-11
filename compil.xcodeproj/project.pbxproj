@@ -424,6 +424,7 @@
 		5EDF77641695D3BB00C8BD79 /* hook_source_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hook_source_provider.h; sourceTree = "<group>"; };
 		5EEF3E8416910658003003E5 /* identifier_method_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = identifier_method_name.scompil; sourceTree = "<group>"; };
 		5EEF3E8616910660003003E5 /* method_name_factory.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_name_factory.scompil; sourceTree = "<group>"; };
+		5EF1AC42169FB69100AD5883 /* generate.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate.sh; sourceTree = "<group>"; };
 		5EFFA6AE1692702400035CAA /* alter.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = alter.scompil; sourceTree = "<group>"; };
 		5EFFA6AF1692702400035CAA /* castable_type.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = castable_type.scompil; sourceTree = "<group>"; };
 		5EFFA6B11692702400035CAA /* default_value.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = default_value.scompil; sourceTree = "<group>"; };
@@ -1328,6 +1329,7 @@
 			isa = PBXGroup;
 			children = (
 				5ED6E0701699336000E2D2E1 /* linux */,
+				5EF1AC41169FB69100AD5883 /* macosx */,
 			);
 			name = scripts;
 			path = compil/scripts;
@@ -1352,6 +1354,14 @@
 				5EFFA6E01693664000035CAA /* project */,
 			);
 			path = compil;
+			sourceTree = "<group>";
+		};
+		5EF1AC41169FB69100AD5883 /* macosx */ = {
+			isa = PBXGroup;
+			children = (
+				5EF1AC42169FB69100AD5883 /* generate.sh */,
+			);
+			path = macosx;
 			sourceTree = "<group>";
 		};
 		5EFFA6AD1692702400035CAA /* document */ = {
