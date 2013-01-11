@@ -1463,11 +1463,15 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
 
     StructureSPtr pStructure = pField->structure().lock();
 
-    if (mg.isSet(EMethodGroup::reading()) && mg.isClear(EMethodGroup::special()))
+    if (   (mg.isSet(EMethodGroup::reading()) && mg.isClear(EMethodGroup::special()))
+        || mg.isSet(EMethodGroup::writing()))
     {
         if (!table().isEmpty())
-            table() << TableAligner::row();
+           table() << TableAligner::row();
+    }
 
+    if (mg.isSet(EMethodGroup::reading()) && mg.isClear(EMethodGroup::special()))
+    {
         if (pField->comment())
             commentInTable(pField->comment());
 
@@ -1533,9 +1537,6 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
 
     if (mg.isSet(EMethodGroup::writing()))
     {
-        if (!table().isEmpty())
-            table() << TableAligner::row();
-
         if (mg.isClear(EMethodGroup::builder()))
         {
             commentInTable("Setter method for the data field " + pField->name()->value());
@@ -1589,43 +1590,40 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
         }
     }
 
-    if (pStructure->controlled())
+    if (pStructure->controlled() && mg.isSet(EMethodGroup::writing()) && mg.isClear(EMethodGroup::special()))
     {
-        if (mg.isSet(EMethodGroup::writing()) && mg.isClear(EMethodGroup::special()))
+        if (   pField->defaultValue()
+            && !pField->defaultValue()->optional())
         {
-            if (   pField->defaultValue()
-                && !pField->defaultValue()->optional())
-            {
-                commentInTable("Updates the data field " + pField->name()->value() +
-                               ". If the new value is equal to the default it clears the field else"
-                               " it sets it to the new value");
-                table() << (cf::methodRef() << resultType
-                                            << frm->updateMethodName(pField)
-                                            << (cf::argumentRef() << impl->cppInnerSetDecoratedType(pField->type(),
-                                                                                                    pCurrStructure)
-                                                                  << frm->cppVariableName(pField)))
-                        << ";";
-            }
-
-            if (pField->defaultValue())
-            {
-                if (pField->defaultValue()->optional())
-                    commentInTable("Clears the optional data field " + pField->name()->value());
-                else
-                    commentInTable("Resets the data field " + pField->name()->value() +
-                                   " to its default value " + frm->defaultValue(pField));
-            }
-            else
-            {
-                commentInTable(
-                    "Erases the required data field " + pField->name()->value() + ". Object can "
-                    "not be instantiated before the field data is set again");
-            }
-
-            table() << (cf::methodRef() << vd
-                                        << frm->destroyMethodName(pField))
+            commentInTable("Updates the data field " + pField->name()->value() +
+                            ". If the new value is equal to the default it clears the field else"
+                            " it sets it to the new value");
+            table() << (cf::methodRef() << resultType
+                                        << frm->updateMethodName(pField)
+                                        << (cf::argumentRef() << impl->cppInnerSetDecoratedType(pField->type(),
+                                                                                                pCurrStructure)
+                                                                << frm->cppVariableName(pField)))
                     << ";";
         }
+
+        if (pField->defaultValue())
+        {
+            if (pField->defaultValue()->optional())
+                commentInTable("Clears the optional data field " + pField->name()->value());
+            else
+                commentInTable("Resets the data field " + pField->name()->value() +
+                                " to its default value " + frm->defaultValue(pField));
+        }
+        else
+        {
+            commentInTable(
+                "Erases the required data field " + pField->name()->value() + ". Object can "
+                "not be instantiated before the field data is set again");
+        }
+
+        table() << (cf::methodRef() << vd
+                                    << frm->destroyMethodName(pField))
+                << ";";
     }
 }
 
