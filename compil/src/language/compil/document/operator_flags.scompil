@@ -50,4 +50,6 @@ enum OperatorFlags
     internal;
     external;
     location = member | internal | external;
+    
+    natural = native | object | member;
 }

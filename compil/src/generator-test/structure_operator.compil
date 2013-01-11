@@ -25,6 +25,7 @@ structure Structure1
     integer i1;
     Weak w1;
     Strong s1;
+    string str1;
 }
 
 structure Structure2a inherit Structure1

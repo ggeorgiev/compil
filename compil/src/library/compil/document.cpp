@@ -161,9 +161,11 @@ DocumentSPtr CompilDocument::create()
         pStringType->set_literal(Type::ELiteral::string());
         pStringType->set_kind(Type::EKind::string());
         //pStringType->set_cast(CastableType::ECast::weak());
-        pStringType->mOperatorSupport[EOperatorAction::equalTo()] = EOperatorFlags::native();
-        pStringType->mOperatorSupport[EOperatorAction::notEqualTo()] = EOperatorFlags::native();
-        pStringType->mOperatorSupport[EOperatorAction::lessThan()] = EOperatorFlags::native();
+        
+        
+        pStringType->mOperatorSupport[EOperatorAction::equalTo()] = EOperatorFlags::natural();
+        pStringType->mOperatorSupport[EOperatorAction::notEqualTo()] = EOperatorFlags::natural();
+        pStringType->mOperatorSupport[EOperatorAction::lessThan()] = EOperatorFlags::natural();
 
         pName.reset(new Name());
         pName->set_value("binary");
