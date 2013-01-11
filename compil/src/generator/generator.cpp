@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -51,19 +51,19 @@ bool Generator::init(const std::string& type,
                      const DocumentSPtr& document)
 {
     mType = type;
-    
+
     mpOutput = pOutput;
     mDocument = document;
-    
+
     mpAlignerConfiguration = pAlignerConfiguration;
 
     mpLineAligner.reset(new LineAligner(mpAlignerConfiguration));
     mpTableAligner.reset(new TableAligner(mpAlignerConfiguration));
     mpFunctionDefinitionAligner.reset(new FunctionDefinitionAligner(mpAlignerConfiguration));
-    
+
     frm = pFormatter;
     impl = pImplementer;
-    
+
     return true;
 }
 
@@ -93,12 +93,12 @@ void Generator::eot(int streamIndex, int indentOffset)
     *mStreams[streamIndex] << table().str(indentOffset + mIndent[streamIndex]);
     mpTableAligner.reset(new TableAligner(mpAlignerConfiguration));
 }
-    
+
 FunctionDefinitionAligner& Generator::fdef()
 {
     return *mpFunctionDefinitionAligner;
 }
-    
+
 void Generator::eofd(int streamIndex, int indentOffset)
 {
     *mStreams[streamIndex] << fdef().str(indentOffset + mIndent[streamIndex]);
@@ -112,7 +112,7 @@ void Generator::openBlock(int streamIndex, int indentOffset, const char* open)
     count += table().isEmpty() ? 0 : 1;
     count += fdef().isEmpty() ? 0 : 1;
     assert(count == 1);
-           
+
     if (!line().isEmpty())
     {
         if (mpAlignerConfiguration->mOpenBlockOnNewLine)
@@ -155,7 +155,7 @@ void Generator::openBlock(int streamIndex, int indentOffset, const char* open)
             eofd(indentOffset, streamIndex);
         }
     }
-    
+
     ++mIndent[streamIndex];
 }
 
@@ -169,7 +169,7 @@ void Generator::closeBlock(int streamIndex, const char* close)
     eol(streamIndex);
 }
 
-    
+
 void Generator::openNamespace(int streamIndex)
 {
     if (mDocument->package())
@@ -197,13 +197,13 @@ void Generator::closeNamespace(int streamIndex)
             closeBlock(streamIndex);
             eol(streamIndex);
         }
-    } 
+    }
 }
 
 void Generator::addDependency(const Dependency& dependency)
 {
     if (!dependency) return;
-    
+
     dependencies.insert(dependency);
 }
 
@@ -217,7 +217,7 @@ void Generator::addDependencies(const std::vector<Dependency>& dependencies)
 void Generator::excludeDependency(const Dependency& dependency)
 {
     if (!dependency) return;
-    
+
     excludeDependencies.insert(dependency);
 }
 
@@ -232,38 +232,38 @@ void Generator::includeHeaders(int streamIndex, Dependency::DependencySection se
         const Dependency& dependency = *it;
         if (excludeDependencies.find(dependency) != excludeDependencies.end())
             continue;
-        
+
         if (section != dependency.mSection)
             continue;
-            
+
         std::string newHeader = dependency.mHeaderPackage.empty()
                               ? dependency.mHeaderName
                               : dependency.mHeaderPackage + "/" + dependency.mHeaderName;
         if (header == newHeader)
             continue;
         header = newHeader;
-        
+
         if (library != dependency.mLibrary)
         {
             commentInLine(streamIndex, dependency.mLibrary);
             library = dependency.mLibrary;
         }
-            
+
         bHasAny = true;
-            
+
         line() << "#include ";
         if (dependency.mType == Dependency::system_type)
             line() << "<";
         else if (dependency.mType == Dependency::quote_type)
             line() << "\"";
-        
+
         line() << newHeader;
-        
+
         if (dependency.mType == Dependency::system_type)
             line() << ">";
         else if (dependency.mType == Dependency::quote_type)
             line() << "\"";
-            
+
         eol(streamIndex);
     }
     if (bHasAny)
@@ -286,8 +286,11 @@ void Generator::commentInLine(int streamIndex, const CommentSPtr& pComment)
 
 void Generator::commentInTable(const std::string& comment)
 {
-    table() << TableAligner::row_comment()
-            << comment;
+    if (!comment.empty())
+    {
+        table() << TableAligner::row_comment()
+                << comment;
+    }
 }
 
 void Generator::commentInTable(const CommentSPtr& pComment)
@@ -312,14 +315,14 @@ bool Generator::serializeStreams()
 std::vector<Dependency> Generator::getCoreDependencies() const
 {
     std::vector<Dependency> result;
-    
+
     std::set<Dependency>::const_iterator it;
     for (it = dependencies.begin(); it != dependencies.end(); ++it)
     {
         if (it->mLevel == Dependency::core_level)
             result.push_back(*it);
     }
-    
+
     return result;
 }
 

@@ -277,7 +277,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
             "importing value from components that you do not have control over (such as "
             "3rd party libraries or serialization functionality).");
     }
-    
+
     table() << (cf::constructorRef() << specifier
                                      << frm->cppConstructorName(pEnumeration)
                                      << (cf::argumentRef() << impl->cppDecoratedType(pParameterType)
@@ -336,7 +336,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
     {
         cf::CommentSPtr comment = cf::commentRef() <<
             "Cast operator that casts the enum to its native type";
-            
+
         table() << (cf::castOperatorRef() << comment
                                           << impl->cppDecoratedType(pParameterType)
                                           << cf::EMethodDeclaration::const_())
@@ -507,7 +507,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
 
     addDependencies(impl->dependencies(pParameterType));
     addDependencies(impl->classReferenceDependencies());
-    
+
     if (pBaseSpecimen && pBaseSpecimen->sourceId() != mDocument->sourceId())
         addDependency(impl->cppHeaderFileDependency(pBaseSpecimen));
 
@@ -541,7 +541,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
                                     << cf::EMethodDeclaration::const_())
                 << ";";
     }
-    
+
     if (pParameterType->hasOperator(EOperatorAction::equalTo(), EOperatorFlags::native()))
     {
         table() << (cf::methodRef() << cf::EMethodSpecifier::inline_()
@@ -563,7 +563,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
                                     << cf::EMethodDeclaration::const_())
                 << ";";
     }
-    
+
     if (pParameterType->hasOperator(EOperatorAction::lessThan(), EOperatorFlags::native()))
     {
         table() << (cf::methodRef() << cf::EMethodSpecifier::inline_()
@@ -574,7 +574,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
                                     << cf::EMethodDeclaration::const_())
                 << ";";
     }
-    
+
     if (pParameterType->hasOperator(EOperatorAction::addition(), EOperatorFlags::native()))
     {
         table() << (cf::methodRef() << cf::EMethodSpecifier::inline_()
@@ -585,7 +585,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
                                     << cf::EMethodDeclaration::const_())
                 << ";";
     }
-    
+
     if (pParameterType->hasOperator(EOperatorAction::subtraction(), EOperatorFlags::native()))
     {
         table() << (cf::methodRef() << cf::EMethodSpecifier::inline_()
@@ -596,9 +596,9 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
                                     << cf::EMethodDeclaration::const_())
                 << ";";
     }
-    
+
     eot(declarationStream);
-    
+
     fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
                                 << frm->cppSharedPtrName(pSpecimen)
                                 << frm->methodName(frm->cppRefName(pSpecimen->name()->value())));
@@ -608,7 +608,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
             << ">();";
     closeBlock(inlineDefinitionStream);
     eol(inlineDefinitionStream);
-    
+
     fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
                                 << frm->cppSharedPtrName(pSpecimen)
                                 << frm->methodName(frm->cppRefName(pSpecimen->name()->value()))
@@ -620,7 +620,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
             << ">(value);";
     closeBlock(inlineDefinitionStream);
     eol(inlineDefinitionStream);
-    
+
     if (!pBaseSpecimen)
     {
         fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
@@ -635,7 +635,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
         closeBlock(inlineDefinitionStream);
         eol(inlineDefinitionStream);
     }
-    
+
     if (pParameterType->hasOperator(EOperatorAction::equalTo(), EOperatorFlags::native()))
     {
         fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
@@ -654,7 +654,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
         closeBlock(inlineDefinitionStream);
         eol(inlineDefinitionStream);
     }
-    
+
     if (pParameterType->hasOperator(EOperatorAction::notEqualTo(), EOperatorFlags::native()))
     {
         fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
@@ -673,7 +673,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
         closeBlock(inlineDefinitionStream);
         eol(inlineDefinitionStream);
     }
-    
+
     if (pParameterType->hasOperator(EOperatorAction::lessThan(), EOperatorFlags::native()))
     {
         fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
@@ -692,7 +692,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
         closeBlock(inlineDefinitionStream);
         eol(inlineDefinitionStream);
     }
-    
+
     if (pParameterType->hasOperator(EOperatorAction::addition(), EOperatorFlags::native()))
     {
         fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
@@ -713,7 +713,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
         closeBlock(inlineDefinitionStream);
         eol(inlineDefinitionStream);
     }
-    
+
     if (pParameterType->hasOperator(EOperatorAction::subtraction(), EOperatorFlags::native()))
     {
         fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
@@ -734,7 +734,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
         closeBlock(inlineDefinitionStream);
         eol(inlineDefinitionStream);
     }
-    
+
     if (!pBaseSpecimen)
     {
         line()  << "private:";
@@ -1126,7 +1126,7 @@ void CppHeaderGenerator::generateIdentifierDeclaration(const IdentifierSPtr& pId
             << ";";
 
     table() << TableAligner::row();
-    
+
     table() << (cf::methodRef() << impl->cppDecoratedType(pParameterType)
                                 << fnValue
                                 << cf::EMethodDeclaration::const_())
@@ -1460,14 +1460,14 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
 {
     if (pField->type()->sourceId() != mDocument->sourceId())
         addDependency(impl->cppHeaderFileDependency(pField->type()));
-    
-    StructureSPtr pStructure = pField->structure().lock();
 
-    if (!table().isEmpty())
-        table() << TableAligner::row();
+    StructureSPtr pStructure = pField->structure().lock();
 
     if (mg.isSet(EMethodGroup::reading()) && mg.isClear(EMethodGroup::special()))
     {
+        if (!table().isEmpty())
+            table() << TableAligner::row();
+
         if (pField->comment())
             commentInTable(pField->comment());
 
@@ -1533,6 +1533,9 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
 
     if (mg.isSet(EMethodGroup::writing()))
     {
+        if (!table().isEmpty())
+            table() << TableAligner::row();
+
         if (mg.isClear(EMethodGroup::builder()))
         {
             commentInTable("Setter method for the data field " + pField->name()->value());
@@ -1545,14 +1548,14 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                 commentInTable("Hide setter method for the data field " + pField->name()->value() +
                                ", no implementation");
         }
-        
+
         table() << (cf::methodRef() << resultType
                                     << frm->setMethodName(pField)
                                     << (cf::argumentRef() << impl->cppInnerSetDecoratedType(pField->type(),
                                                                                             pCurrStructure)
                                                           << frm->cppVariableName(pField)))
                 << ";";
-                
+
         if (impl->needMutableMethod(pField, pCurrStructure))
         {
             commentInTable("Provides mutable access to field " + pField->name()->value());
@@ -1560,7 +1563,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                                         << frm->mutableMethodName(pField))
                     << ";";
         }
-                
+
         if (pCurrStructure->streamable())
         {
             commentInTable("Store operator for the data field " + pField->name()->value());
@@ -1570,7 +1573,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                                                                                                 pCurrStructure)
                                                               << frm->cppVariableName(pField)))
                     << ";";
-                    
+
             UnaryContainerSPtr pUnaryContainer = ObjectFactory::downcastUnaryContainer(pField->type());
             if (pUnaryContainer)
             {
@@ -1583,7 +1586,7 @@ void CppHeaderGenerator::generateStructureFieldMethodsDeclaration(const Structur
                                                                   << frm->cppItemVariableName(pField)))
                         << ";";
             }
-        }        
+        }
     }
 
     if (pStructure->controlled())
@@ -1631,7 +1634,7 @@ void CppHeaderGenerator::generateStructureFieldOverrideMethodsDeclaration(const 
 {
     const FieldSPtr& pField = pFieldOverride->field();
     StructureSPtr pStructure = pField->structure().lock();
-    
+
     addDependencies(impl->dependencies(pField));
 
 
@@ -1771,13 +1774,13 @@ void CppHeaderGenerator::generateImmutableBaseStructureBuilderDeclaration(const 
                 FieldSPtr pField = boost::static_pointer_cast<Field>(pObject);
                 if (pCurrStructure->isOverriden(pField) != overridden.isSet(EMethodGroup::overridden()))
                     continue;
-                
+
                 EMethodGroup mg;
                 mg.set(EMethodGroup::builder());
                 mg.set(EMethodGroup::writing());
                 mg.set(EMethodGroup::special());
                 mg.set(overridden);
-                
+
                 generateStructureFieldMethodsDeclaration(pCurrStructure, pField, mg);
                 break;
             }
@@ -1812,12 +1815,13 @@ void CppHeaderGenerator::generateBaseStructureDeclaration(const StructureSPtr& p
                 FieldSPtr pField = boost::static_pointer_cast<Field>(pObject);
                 if (pCurrStructure->isOverriden(pField) != overridden.isSet(EMethodGroup::overridden()))
                     continue;
-                
+
                 EMethodGroup mg;
-                mg.set(EMethodGroup::writing());
+                if (!pStructure->immutable())
+                    mg.set(EMethodGroup::writing());
                 mg.set(EMethodGroup::special());
                 mg.set(overridden);
-                
+
                 generateStructureFieldMethodsDeclaration(pCurrStructure, pField, mg);
                 break;
             }
@@ -2111,7 +2115,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                                         << fnSharedFromThis)
                     << ";";
 
-            cf::CommentSPtr comment = cf::commentRef() << 
+            cf::CommentSPtr comment = cf::commentRef() <<
                 "This method is exactly the same as the previous one with exception that it allows "
                 "shared_from_this to be called from const methods.";
             table() << (cf::methodRef() << comment
@@ -2150,7 +2154,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
         encapsulateInTable("public");
 
         table() << TableAligner::row();
-        
+
         table() << (cf::methodRef() << methodSpecifier
                                     << bl
                                     << fnIsVoid
@@ -2169,7 +2173,8 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
     }
 
     generateBaseStructureDeclaration(pStructure, pBaseStructure, EMethodGroup::nil());
-    eot(declarationStream);
+    if (!table().isEmpty())
+        eot(declarationStream);
 
     if (pStructure->hasField())
     {
@@ -2214,12 +2219,12 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
 
     closeBlock(declarationStream, "};");
     eol(declarationStream);
-    
-    
+
+
     if (pStructure->streamable() && !pStructure->immutable())
     {
         addDependencies(impl->classReferenceDependencies());
-        
+
         fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
                                     << frm->cppSharedPtrName(pStructure)
                                     << frm->methodName(frm->cppRefName(pStructure->name()->value())));
@@ -2232,9 +2237,9 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
 
 
         cf::TypeSPtr resultType = impl->cppPtrDecoratedType(pStructure);
-        
+
         std::vector<FieldSPtr> allFileds = pStructure->combinedFields();
-        
+
         std::vector<FieldSPtr>::const_iterator it;
         for (it = allFileds.begin(); it != allFileds.end(); ++it)
         {
@@ -2246,7 +2251,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                                         << (cf::argumentRef() << resultType)
                                         << (cf::argumentRef() << impl->cppSetDecoratedType(pField->type())))
                     << ";";
-                    
+
             UnaryContainerSPtr pUnaryContainer = ObjectFactory::downcastUnaryContainer(pField->type());
             if (pUnaryContainer)
             {
