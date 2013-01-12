@@ -32,11 +32,17 @@
 
 compil { }
 
-import "method.compil";
+import "c++/declarator/function_difinition.scompil";
+import "c++/declaration/declaration_specifier.scompil";
 
 package lang.cpp | *.*.*;
 
-structure Constructor
-    inherit Method
+streamable
+structure BodyFunctionDifinition
+    inherit FunctionDifinition
 {
+    runtime identification;
+    
+    reference<DeclarationSpecifier> specifier = optional;
+    reference<Declarator> declarator;
 }

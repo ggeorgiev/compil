@@ -62,6 +62,14 @@ FormatterStream& FormatterStream::operator<<(const AdditiveShiftExpressionSPtr& 
     return *this << expression->expression();
 }
 
+FormatterStream& FormatterStream::operator<<(const lang::cpp::BodyFunctionDifinitionSPtr& difinition)
+{
+    if (difinition->specifier())
+        *this << difinition->specifier();
+        
+    return *this << difinition->declarator();
+}
+
 FormatterStream& FormatterStream::operator<<(const CastPmExpressionSPtr& expression)
 {
     return *this << expression->expression();
@@ -91,9 +99,27 @@ FormatterStream& FormatterStream::operator<<(const ClassTypeNameSPtr& declaratio
     return *this << declaration->className();
 }
 
+FormatterStream& FormatterStream::operator<<(const ClassHeadSPtr& head)
+{
+    *this << head->key();
+    mAligner << " ";
+    *this << IdentifierClassName::downcast(head->name());
+    return *this;
+}
+
 FormatterStream& FormatterStream::operator<<(const ClassNestedNameSPtr& expression)
 {
     return *this << expression->name();
+}
+
+FormatterStream& FormatterStream::operator<<(const ClassSpecifierSPtr& specifier)
+{
+    *this << specifier->head();
+    mAligner << "\n{\n";
+    if (specifier->members())
+        *this << specifier->members();
+    mAligner << "}";
+    return *this;
 }
 
 FormatterStream& FormatterStream::operator<<(const CustomExpressionSPtr& expression)
@@ -114,6 +140,10 @@ FormatterStream& FormatterStream::operator<<(const DeclarationSPtr& declaration)
         return *this << ClassTypeName::downcast(declaration);
     if (declaration->runtimeDeclarationId() == DeclarationSpecifierSequence::staticDeclarationId())
         return *this << DeclarationSpecifierSequence::downcast(declaration);
+    if (declaration->runtimeDeclarationId() == FunctionDifinitionMemberDeclaration::staticDeclarationId())
+        return *this << FunctionDifinitionMemberDeclaration::downcast(declaration);
+    if (declaration->runtimeDeclarationId() == IdentifierMethodName::staticDeclarationId())
+        return *this << IdentifierMethodName::downcast(declaration);
     if (declaration->runtimeDeclarationId() == SimpleBlockDeclaration::staticDeclarationId())
         return *this << SimpleBlockDeclaration::downcast(declaration);
     if (declaration->runtimeDeclarationId() == SimpleDeclaration::staticDeclarationId())
@@ -142,12 +172,18 @@ FormatterStream& FormatterStream::operator<<(const DeclarationSpecifierSequenceS
 
 FormatterStream& FormatterStream::operator<<(const DeclaratorSPtr& declarator)
 {
+    if (declarator->runtimeDeclaratorId() == BodyFunctionDifinition::staticDeclaratorId())
+        return *this << BodyFunctionDifinition::downcast(declarator);
+    if (declarator->runtimeDeclaratorId() == FunctionNameDeclaratorId::staticDeclaratorId())
+        return *this << FunctionNameDeclaratorId::downcast(declarator);
     if (declarator->runtimeDeclaratorId() == InitDeclarator::staticDeclaratorId())
         return *this << InitDeclarator::downcast(declarator);
-    if (declarator->runtimeDeclaratorId() == DeclaratorId::staticDeclaratorId())
-        return *this << DeclaratorId::downcast(declarator);
     if (declarator->runtimeDeclaratorId() == DeclaratorIdDirectDeclarator::staticDeclaratorId())
         return *this << DeclaratorIdDirectDeclarator::downcast(declarator);
+    if (declarator->runtimeDeclaratorId() == ParametersDirectDeclarator::staticDeclaratorId())
+        return *this << ParametersDirectDeclarator::downcast(declarator);
+    if (declarator->runtimeDeclaratorId() == TypeNameDeclaratorId::staticDeclaratorId())
+        return *this << TypeNameDeclaratorId::downcast(declarator);
 
     return *this;
 }
@@ -158,14 +194,21 @@ FormatterStream& FormatterStream::operator<<(const DeclarationStatementSPtr& sta
                  << statement->close();
 }
 
-FormatterStream& FormatterStream::operator<<(const DeclaratorIdSPtr& declarator)
-{
-    return *this << declarator->typeName();
-}
-
 FormatterStream& FormatterStream::operator<<(const DeclaratorIdDirectDeclaratorSPtr& declarator)
 {
     return *this << declarator->declarator();
+}
+
+FormatterStream& FormatterStream::operator<<(const EAccessSpecifier& specifier)
+{
+    mAligner << specifier.shortName();
+    return *this;
+}
+
+FormatterStream& FormatterStream::operator<<(const EClassKey& key)
+{
+    mAligner << key.shortName();
+    return *this;
 }
 
 FormatterStream& FormatterStream::operator<<(const ExpressionSPtr& expression)
@@ -242,6 +285,16 @@ FormatterStream& FormatterStream::operator<<(const ExpressionStatementSPtr& stat
     return *this;
 }
 
+FormatterStream& FormatterStream::operator<<(const FunctionNameDeclaratorIdSPtr& declarator)
+{
+    return *this << declarator->functionName();
+}
+
+FormatterStream& FormatterStream::operator<<(const FunctionDifinitionMemberDeclarationSPtr& declaration)
+{
+    return *this << declaration->difinition();
+}
+
 FormatterStream& FormatterStream::operator<<(const IdentifierUnqualifiedIdSPtr& expression)
 {
     mAligner << expression->identifier()->value();
@@ -255,6 +308,11 @@ FormatterStream& FormatterStream::operator<<(const IdentifierSPtr& identifier)
 }
 
 FormatterStream& FormatterStream::operator<<(const IdentifierClassNameSPtr& name)
+{
+    return *this << name->identifier();
+}
+
+FormatterStream& FormatterStream::operator<<(const IdentifierMethodNameSPtr& name)
 {
     return *this << name->identifier();
 }
@@ -324,6 +382,31 @@ FormatterStream& FormatterStream::operator<<(const MemberAccessPostfixExpression
     return *this;
 }
 
+FormatterStream& FormatterStream::operator<<(const MemberSpecificationSPtr& specification)
+{
+    const std::vector<MemberSpecificationSectionSPtr>& sections = specification->sections();
+    
+    for (std::vector<MemberSpecificationSectionSPtr>::const_iterator it = sections.begin(); it != sections.end(); ++it)
+        *this << *it;
+    
+    return *this;
+}
+
+FormatterStream& FormatterStream::operator<<(const MemberSpecificationSectionSPtr& section)
+{
+    *this << section->accessSpecifier();
+    mAligner << ":\n";
+    
+    const std::vector<MemberDeclarationSPtr>& declarations = section->declarations();
+    for (std::vector<MemberDeclarationSPtr>::const_iterator it = declarations.begin(); it != declarations.end(); ++it)
+    {
+        *this << *it;
+        mAligner << ";\n";
+    }
+    
+    return *this;
+}
+
 FormatterStream& FormatterStream::operator<<(const MultiplicativeAdditiveExpressionSPtr& expression)
 {
     return *this << expression->expression();
@@ -338,6 +421,14 @@ FormatterStream& FormatterStream::operator<<(const NestedNameSpecifierSPtr& expr
 {
     *this << expression->name();
     mAligner << "::";
+    return *this;
+}
+
+FormatterStream& FormatterStream::operator<<(const lang::cpp::ParametersDirectDeclaratorSPtr& declarator)
+{
+    *this << declarator->declarator();
+    mAligner << "(";
+    mAligner << ")";
     return *this;
 }
 
@@ -418,6 +509,11 @@ FormatterStream& FormatterStream::operator<<(const Statement::EClose& close)
 FormatterStream& FormatterStream::operator<<(const TypeDeclarationSpecifierSPtr& declaration)
 {
     return *this << declaration->declaration();
+}
+
+FormatterStream& FormatterStream::operator<<(const TypeNameDeclaratorIdSPtr& declarator)
+{
+    return *this << declarator->typeName();
 }
 
 FormatterStream& FormatterStream::operator<<(const TypeNameSimpleTypeSpecifierSPtr& declaration)

@@ -33,7 +33,6 @@
 compil { }
 
 import "c++/declarator/declarator.scompil";
-import "c++/declaration/type_name.scompil";
 
 package lang.cpp | *.*.*;
 
@@ -42,6 +41,4 @@ structure DeclaratorId
     inherit Declarator
 {
     runtime identification;
-
-    reference<TypeName> typeName = optional;
 }

@@ -54,6 +54,7 @@ std::string GeneratorConfiguration::name()
 void GeneratorConfiguration::addCommonOptions(bpo::options_description& options)
 {
     options.add_options()
+        ("force,f", bpo::value<bool>(&force), "force generation")
         ("output-directory,o", bpo::value<std::string>(&outputDirectory), "output directory")
         ("flat-output", bpo::value<bool>(&flatOutput), "flat output (write the files directly in the output directory)")
         ("core-output-directory", bpo::value<std::string>(&coreOutputDirectory), "core output directory")

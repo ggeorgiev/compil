@@ -32,17 +32,17 @@
 
 compil { }
 
-import "c++/declarator/body_function_difinition.scompil";
-import "c++/declarator/declarator.scompil";
-import "c++/declarator/declarator_id_direct_declarator.scompil";
-import "c++/declarator/function_name_declarator_id.scompil";
-import "c++/declarator/type_name_declarator_id.scompil";
-import "c++/declarator/parameters_direct_declarator.scompil";
-import "c++/class/pure_member_declarator.scompil";
+import "c++/class/method_name.scompil";
+import "c++/class/class_name.scompil";
 
 package lang.cpp | *.*.*;
 
-hierarchy
-factory<Declarator> DeclaratorFactory
+streamable
+structure ConstructorMethodName
+    inherit MethodName
 {
+    runtime identification;
+    
+    reference<ClassName> className;
 }
+

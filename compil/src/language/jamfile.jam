@@ -20,14 +20,24 @@ lib cpp-language
     $(GEN)/all/scope.cpp
     
     $(GEN)/c++/class/class.cpp
+    $(GEN)/c++/class/class_head.cpp
+    $(GEN)/c++/class/class_key.cpp
     $(GEN)/c++/class/class_name.cpp
     $(GEN)/c++/class/class_name_factory.cpp
+    $(GEN)/c++/class/class_specifier.cpp
+    $(GEN)/c++/class/constructor.cpp
+    $(GEN)/c++/class/constructor_method_name.cpp
+    $(GEN)/c++/class/function_difinition_member_declaration.cpp
     $(GEN)/c++/class/identifier_class_name.cpp
     $(GEN)/c++/class/identifier_method_name.cpp
+    $(GEN)/c++/class/member_declaration.cpp
+    $(GEN)/c++/class/member_declarator.cpp
+    $(GEN)/c++/class/member_specification.cpp
     $(GEN)/c++/class/method.cpp
-    $(GEN)/c++/class/method_name_factory.cpp
     $(GEN)/c++/class/method_name.cpp
     $(GEN)/c++/class/operator_method_name.cpp
+    $(GEN)/c++/class/pure_member_declarator.cpp
+    $(GEN)/c++/class/pure_specifier.cpp
 
     $(GEN)/c++/declaration/block_declaration.cpp
     $(GEN)/c++/declaration/class_declaration.cpp
@@ -36,6 +46,7 @@ lib cpp-language
     $(GEN)/c++/declaration/declaration_factory.cpp
     $(GEN)/c++/declaration/declaration_specifier.cpp
     $(GEN)/c++/declaration/declaration_specifier_sequence.cpp
+    $(GEN)/c++/declaration/function_name.cpp
     $(GEN)/c++/declaration/function_specifier.cpp
     $(GEN)/c++/declaration/simple_declaration.cpp
     $(GEN)/c++/declaration/simple_block_declaration.cpp
@@ -45,15 +56,22 @@ lib cpp-language
     $(GEN)/c++/declaration/type_name_simple_type_specifier.cpp
     $(GEN)/c++/declaration/type_specifier.cpp
 
+    $(GEN)/c++/declarator/body_function_difinition.cpp
     $(GEN)/c++/declarator/declarator.cpp
     $(GEN)/c++/declarator/declarator_factory.cpp
     $(GEN)/c++/declarator/declarator_id.cpp
     $(GEN)/c++/declarator/declarator_id_direct_declarator.cpp
     $(GEN)/c++/declarator/direct_declarator.cpp
+    $(GEN)/c++/declarator/function_difinition.cpp
+    $(GEN)/c++/declarator/function_name_declarator_id.cpp
     $(GEN)/c++/declarator/init_declarator.cpp
     $(GEN)/c++/declarator/parameter_declaratoin.cpp
     $(GEN)/c++/declarator/parameter_declaratoin_clause.cpp
     $(GEN)/c++/declarator/parameter_declaratoin_list.cpp
+    $(GEN)/c++/declarator/parameters_direct_declarator.cpp
+    $(GEN)/c++/declarator/type_name_declarator_id.cpp
+    
+    $(GEN)/c++/derieved_class/access_specifier.cpp
     
     $(GEN)/c++/expression/additive_expression.cpp
     $(GEN)/c++/expression/additive_shift_expression.cpp

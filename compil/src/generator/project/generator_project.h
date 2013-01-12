@@ -69,7 +69,8 @@ public:
     GeneratorProject(const ISourceProviderSPtr& sourceProvider);
     virtual ~GeneratorProject();
     
-    bool init(const std::string& projectFile,
+    bool init(const bool force,
+              const std::string& projectFile,
               const std::string& projectDirectory,
               const std::string& type,
               const string_vector& sourceFiles,

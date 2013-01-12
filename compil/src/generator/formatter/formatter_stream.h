@@ -38,10 +38,14 @@
 #include "generator/formatter/formatter_configuration.h"
 #include "generator/aligner/aligner_stream.h"
 
+#include "language/c++/class/class_specifier.h"
+#include "language/c++/class/member_specification.h"
+#include "language/c++/class/pure_member_declarator.h"
 #include "language/c++/expression/expression_factory.h"
 #include "language/c++/statement/statement_factory.h"
 #include "language/c++/declaration/declaration_factory.h"
 #include "language/c++/declarator/declarator_factory.h"
+#include "language/c++/derieved_class/access_specifier.h"
 #include "language/c++/preprocessor/macro_parameter_factory.h"
 #include "language/c++/namespace/identifier_namespace_name.h"
 
@@ -55,33 +59,43 @@ public:
     std::string str();
     
     FormatterStream& operator<<(const lang::cpp::AdditiveShiftExpressionSPtr& expression);
+    FormatterStream& operator<<(const lang::cpp::BodyFunctionDifinitionSPtr& difinition);
     FormatterStream& operator<<(const lang::cpp::CompoundStatementSPtr& statement);
     FormatterStream& operator<<(const lang::cpp::CastPmExpressionSPtr& expression);
+    FormatterStream& operator<<(const lang::cpp::ClassHeadSPtr& head);
     FormatterStream& operator<<(const lang::cpp::ClassNestedNameSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::ClassTypeNameSPtr& declaration);
+    FormatterStream& operator<<(const lang::cpp::ClassSpecifierSPtr& specifier);
     FormatterStream& operator<<(const lang::cpp::CustomExpressionSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::CustomIdExpressionSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::DeclarationSPtr& declaration);
     FormatterStream& operator<<(const lang::cpp::DeclarationSpecifierSequenceSPtr& declaration);
     FormatterStream& operator<<(const lang::cpp::DeclarationStatementSPtr& statement);
     FormatterStream& operator<<(const lang::cpp::DeclaratorSPtr& declarator);
-    FormatterStream& operator<<(const lang::cpp::DeclaratorIdSPtr& declarator);
     FormatterStream& operator<<(const lang::cpp::DeclaratorIdDirectDeclaratorSPtr& declarator);
+    FormatterStream& operator<<(const lang::cpp::EAccessSpecifier& specifier);
+    FormatterStream& operator<<(const lang::cpp::EClassKey& key);
     FormatterStream& operator<<(const lang::cpp::ExpressionSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::ExpressionListSPtr& expressionList);
     FormatterStream& operator<<(const lang::cpp::ExpressionStatementSPtr& statement);
+    FormatterStream& operator<<(const lang::cpp::FunctionNameDeclaratorIdSPtr& declarator);
+    FormatterStream& operator<<(const lang::cpp::FunctionDifinitionMemberDeclarationSPtr& declaration);
     FormatterStream& operator<<(const lang::cpp::GrammarEqualityExpressionSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::MacroStatementSPtr& statement);
     FormatterStream& operator<<(const lang::cpp::MemberAccessPostfixExpressionSPtr& expression);
+    FormatterStream& operator<<(const lang::cpp::MemberSpecificationSPtr& specification);
+    FormatterStream& operator<<(const lang::cpp::MemberSpecificationSectionSPtr& section);
     FormatterStream& operator<<(const lang::cpp::MultiplicativeAdditiveExpressionSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::NamespaceNestedNameSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::NestedNameSpecifierSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::IdentifierSPtr& identifier);
     FormatterStream& operator<<(const lang::cpp::IdentifierClassNameSPtr& name);
+    FormatterStream& operator<<(const lang::cpp::IdentifierMethodNameSPtr& name);
     FormatterStream& operator<<(const lang::cpp::IdentifierNamespaceNameSPtr& name);
     FormatterStream& operator<<(const lang::cpp::IdentifierUnqualifiedIdSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::IdExpressionPrimaryExpressionSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::InitDeclaratorSPtr& declarator);
+    FormatterStream& operator<<(const lang::cpp::ParametersDirectDeclaratorSPtr& declarator);
     FormatterStream& operator<<(const lang::cpp::ParenthesesPostfixExpressionSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::PmMultiplicativeExpressionSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::PostfixUnaryExpressionSPtr& expression);
@@ -93,6 +107,7 @@ public:
     FormatterStream& operator<<(const lang::cpp::StatementSPtr& statement);
     FormatterStream& operator<<(const lang::cpp::Statement::EClose& close);
     FormatterStream& operator<<(const lang::cpp::TypeDeclarationSpecifierSPtr& declaration);
+    FormatterStream& operator<<(const lang::cpp::TypeNameDeclaratorIdSPtr& declarator);
     FormatterStream& operator<<(const lang::cpp::TypeNameSimpleTypeSpecifierSPtr& declaration);
     FormatterStream& operator<<(const lang::cpp::UnaryCastExpressionSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::UnqualifiedIdExpressionSPtr& expression);

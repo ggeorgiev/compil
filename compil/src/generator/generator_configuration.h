@@ -55,6 +55,7 @@ public:
     virtual bpo::options_description configurationOptions();
     
 
+    bool force;
     std::string type;
     std::string outputDirectory;
     bool flatOutput;

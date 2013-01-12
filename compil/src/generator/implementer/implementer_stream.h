@@ -53,6 +53,7 @@ public:
     std::string str();
     
     ImplementerStream& operator<<(const lang::cpp::TestSuite& suite);
+    ImplementerStream& operator<<(const lang::cpp::ClassSPtr& class_);
     
 private:
     nmr::NamerStream mNamer;

@@ -40,14 +40,24 @@ section main
     all/scope.scompil;
     
     c++/class/class.scompil;
+    c++/class/class_head.scompil;
+    c++/class/class_key.scompil;
     c++/class/class_name.scompil;
     c++/class/class_name_factory.scompil;
+    c++/class/class_specifier.scompil;
+    c++/class/constructor.scompil;
+    c++/class/constructor_method_name.scompil;
+    c++/class/function_difinition_member_declaration.scompil;
     c++/class/identifier_class_name.scompil;
     c++/class/identifier_method_name.scompil;
+    c++/class/member_declaration.scompil;
+    c++/class/member_declarator.scompil;
+    c++/class/member_specification.scompil;
     c++/class/method.scompil;
-    c++/class/method_name_factory.scompil;
     c++/class/method_name.scompil;
     c++/class/operator_method_name.scompil;
+    c++/class/pure_member_declarator.scompil;
+    c++/class/pure_specifier.scompil;
 
     c++/declaration/block_declaration.scompil;
     c++/declaration/class_declaration.scompil;
@@ -56,6 +66,7 @@ section main
     c++/declaration/declaration_factory.scompil;
     c++/declaration/declaration_specifier.scompil;
     c++/declaration/declaration_specifier_sequence.scompil;
+    c++/declaration/function_name.scompil;
     c++/declaration/function_specifier.scompil;
     c++/declaration/simple_declaration.scompil;
     c++/declaration/simple_block_declaration.scompil;
@@ -65,15 +76,22 @@ section main
     c++/declaration/type_name_simple_type_specifier.scompil;
     c++/declaration/type_specifier.scompil;
 
+    c++/declarator/body_function_difinition.scompil;
     c++/declarator/declarator.scompil;
     c++/declarator/declarator_factory.scompil;
     c++/declarator/declarator_id.scompil;
     c++/declarator/declarator_id_direct_declarator.scompil;
     c++/declarator/direct_declarator.scompil;
+    c++/declarator/function_difinition.scompil;
+    c++/declarator/function_name_declarator_id.scompil;
     c++/declarator/init_declarator.scompil;
     c++/declarator/parameter_declaratoin.scompil;
     c++/declarator/parameter_declaratoin_clause.scompil;
     c++/declarator/parameter_declaratoin_list.scompil;
+    c++/declarator/parameters_direct_declarator.scompil;
+    c++/declarator/type_name_declarator_id.scompil;
+    
+    c++/derieved_class/access_specifier.scompil;
     
     c++/expression/additive_expression.scompil;
     c++/expression/additive_shift_expression.scompil;

@@ -49,6 +49,7 @@
 #include "boost/unordered_set.hpp"
 
 #include <fstream>
+#include <limits>
 
 namespace compil
 {
@@ -92,13 +93,16 @@ bool GeneratorProject::determineProjectPath(const std::string& projectFile,
     return false;
 }
 
-bool GeneratorProject::init(const std::string& projectFile,
+bool GeneratorProject::init(const bool force,
+                            const std::string& projectFile,
                             const std::string& projectDirectory,
                             const std::string& type,
                             const string_vector& sourceFiles,
                             const string_vector& importDirectories)
 {
-    mInitTime = mSourceProvider->fileTime(plt::getApplicationPath().generic_string());
+    mInitTime = force
+              ? std::numeric_limits<time_t>::max()
+              : mSourceProvider->fileTime(plt::getApplicationPath().generic_string());
 
     std::vector<boost::filesystem::path> directories;
     for (string_vector::const_iterator it = importDirectories.begin(); it != importDirectories.end(); ++it)

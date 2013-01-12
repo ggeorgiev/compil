@@ -33,6 +33,8 @@
 #include "generator/cpp/c++_h_generator.h"
 #include "generator/implementer/implementer_stream.h"
 
+#include "library/c++/boost/exception.h"
+#include "library/c++/compil/builder.h"
 #include "library/c++/compil/specimen.h"
 
 #include "language/compil/all/object_factory.h"
@@ -500,10 +502,30 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
     eol(declarationStream);
 }
 
-void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecimen)
+void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& specimen)
 {
-    TypeSPtr pParameterType = pSpecimen->parameterType().lock();
-    SpecimenSPtr pBaseSpecimen = pSpecimen->baseSpecimen().lock();
+    NamerConfigurationSPtr nc = boost::make_shared<NamerConfiguration>();
+    
+    ImplementerStream stream(impl->mConfiguration, nc, frm->mpFormatterConfiguration, mpAlignerConfiguration);
+    
+    lang::cpp::ClassSPtr class_ = lib::cpp::CppSpecimen::class_(specimen);
+
+    stream << class_;
+    
+#if 0
+    line() << "#if 0";
+    eol(declarationStream);
+
+    line() << stream.str();
+    eol(declarationStream);
+
+    line() << "#endif";
+    eol(declarationStream);
+    eol(declarationStream);    
+#endif
+
+    TypeSPtr pParameterType = specimen->parameterType().lock();
+    SpecimenSPtr pBaseSpecimen = specimen->baseSpecimen().lock();
 
     addDependencies(impl->dependencies(pParameterType));
     addDependencies(impl->classReferenceDependencies());
@@ -511,9 +533,9 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     if (pBaseSpecimen && pBaseSpecimen->sourceId() != mDocument->sourceId())
         addDependency(impl->cppHeaderFileDependency(pBaseSpecimen));
 
-    generateForwardClassDeclarations(pSpecimen);
+    generateForwardClassDeclarations(specimen);
 
-    line()  << "class " << frm->cppClassType(pSpecimen);
+    line()  << "class " << frm->cppClassType(specimen);
     if (pBaseSpecimen)
     {
         line()  << " : public "
@@ -523,11 +545,11 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     line()  << "public:";
     eol(declarationStream, -1);
 
-    table() << (cf::constructorRef() << frm->cppConstructorName(pSpecimen))
+    table() << (cf::constructorRef() << frm->cppConstructorName(specimen))
             << ";";
 
     table() << (cf::constructorRef() << cf::EConstructorSpecifier::explicit_()
-                                     << frm->cppConstructorName(pSpecimen)
+                                     << frm->cppConstructorName(specimen)
                                      << (cf::argumentRef() << impl->cppDecoratedType(pParameterType)
                                                            << value))
             << ";";
@@ -547,7 +569,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
         table() << (cf::methodRef() << cf::EMethodSpecifier::inline_()
                                     << bl
                                     << fnOperatorEq
-                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                    << (cf::argumentRef() << impl->cppDecoratedType(specimen)
                                                           << rValue)
                                     << cf::EMethodDeclaration::const_())
                 << ";";
@@ -558,7 +580,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
         table() << (cf::methodRef() << cf::EMethodSpecifier::inline_()
                                     << bl
                                     << fnOperatorNe
-                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                    << (cf::argumentRef() << impl->cppDecoratedType(specimen)
                                                           << rValue)
                                     << cf::EMethodDeclaration::const_())
                 << ";";
@@ -569,7 +591,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
         table() << (cf::methodRef() << cf::EMethodSpecifier::inline_()
                                     << bl
                                     << fnOperatorLt
-                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                    << (cf::argumentRef() << impl->cppDecoratedType(specimen)
                                                           << rValue)
                                     << cf::EMethodDeclaration::const_())
                 << ";";
@@ -578,9 +600,9 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     if (pParameterType->hasOperator(EOperatorAction::addition(), EOperatorFlags::native()))
     {
         table() << (cf::methodRef() << cf::EMethodSpecifier::inline_()
-                                    << impl->cppType(pSpecimen)
+                                    << impl->cppType(specimen)
                                     << fnOperatorPlus
-                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                    << (cf::argumentRef() << impl->cppDecoratedType(specimen)
                                                           << rValue)
                                     << cf::EMethodDeclaration::const_())
                 << ";";
@@ -589,9 +611,9 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     if (pParameterType->hasOperator(EOperatorAction::subtraction(), EOperatorFlags::native()))
     {
         table() << (cf::methodRef() << cf::EMethodSpecifier::inline_()
-                                    << impl->cppType(pSpecimen)
+                                    << impl->cppType(specimen)
                                     << fnOperatorMinus
-                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                    << (cf::argumentRef() << impl->cppDecoratedType(specimen)
                                                           << rValue)
                                     << cf::EMethodDeclaration::const_())
                 << ";";
@@ -600,23 +622,23 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     eot(declarationStream);
 
     fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
-                                << frm->cppSharedPtrName(pSpecimen)
-                                << frm->methodName(frm->cppRefName(pSpecimen->name()->value())));
+                                << frm->cppSharedPtrName(specimen)
+                                << frm->methodName(frm->cppRefName(specimen->name()->value())));
     openBlock(inlineDefinitionStream);
     line()  << "return boost::make_shared<"
-            << frm->cppClassType(pSpecimen)
+            << frm->cppClassType(specimen)
             << ">();";
     closeBlock(inlineDefinitionStream);
     eol(inlineDefinitionStream);
 
     fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
-                                << frm->cppSharedPtrName(pSpecimen)
-                                << frm->methodName(frm->cppRefName(pSpecimen->name()->value()))
+                                << frm->cppSharedPtrName(specimen)
+                                << frm->methodName(frm->cppRefName(specimen->name()->value()))
                                 << (cf::argumentRef() << impl->cppDecoratedType(pParameterType)
                                                       << value));
     openBlock(inlineDefinitionStream);
     line()  << "return boost::make_shared<"
-            << frm->cppClassType(pSpecimen)
+            << frm->cppClassType(specimen)
             << ">(value);";
     closeBlock(inlineDefinitionStream);
     eol(inlineDefinitionStream);
@@ -625,7 +647,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     {
         fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
                                     << impl->cppType(pParameterType)
-                                    << frm->cppClassNamespace(pSpecimen)
+                                    << frm->cppClassNamespace(specimen)
                                     << fnValue
                                     << cf::EMethodDeclaration::const_());
         openBlock(inlineDefinitionStream);
@@ -640,9 +662,9 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     {
         fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
                                     << bl
-                                    << frm->cppClassNamespace(pSpecimen)
+                                    << frm->cppClassNamespace(specimen)
                                     << fnOperatorEq
-                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                    << (cf::argumentRef() << impl->cppDecoratedType(specimen)
                                                           << rValue)
                                     << cf::EMethodDeclaration::const_());
         openBlock(inlineDefinitionStream);
@@ -659,9 +681,9 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     {
         fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
                                     << bl
-                                    << frm->cppClassNamespace(pSpecimen)
+                                    << frm->cppClassNamespace(specimen)
                                     << fnOperatorNe
-                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                    << (cf::argumentRef() << impl->cppDecoratedType(specimen)
                                                           << rValue)
                                     << cf::EMethodDeclaration::const_());
         openBlock(inlineDefinitionStream);
@@ -678,9 +700,9 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     {
         fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
                                     << bl
-                                    << frm->cppClassNamespace(pSpecimen)
+                                    << frm->cppClassNamespace(specimen)
                                     << fnOperatorLt
-                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                    << (cf::argumentRef() << impl->cppDecoratedType(specimen)
                                                           << rValue)
                                     << cf::EMethodDeclaration::const_());
         openBlock(inlineDefinitionStream);
@@ -696,15 +718,15 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     if (pParameterType->hasOperator(EOperatorAction::addition(), EOperatorFlags::native()))
     {
         fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
-                                    << impl->cppType(pSpecimen)
-                                    << frm->cppClassNamespace(pSpecimen)
+                                    << impl->cppType(specimen)
+                                    << frm->cppClassNamespace(specimen)
                                     << fnOperatorPlus
-                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                    << (cf::argumentRef() << impl->cppDecoratedType(specimen)
                                                           << rValue)
                                     << cf::EMethodDeclaration::const_());
         openBlock(inlineDefinitionStream);
         line()  << "return "
-                << impl->cppType(pSpecimen)
+                << impl->cppType(specimen)
                 << "("
                 << fnValue
                 << "() + rValue."
@@ -717,15 +739,15 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& pSpecim
     if (pParameterType->hasOperator(EOperatorAction::subtraction(), EOperatorFlags::native()))
     {
         fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
-                                    << impl->cppType(pSpecimen)
-                                    << frm->cppClassNamespace(pSpecimen)
+                                    << impl->cppType(specimen)
+                                    << frm->cppClassNamespace(specimen)
                                     << fnOperatorMinus
-                                    << (cf::argumentRef() << impl->cppDecoratedType(pSpecimen)
+                                    << (cf::argumentRef() << impl->cppDecoratedType(specimen)
                                                           << rValue)
                                     << cf::EMethodDeclaration::const_());
         openBlock(inlineDefinitionStream);
         line()  << "return "
-                << impl->cppType(pSpecimen)
+                << impl->cppType(specimen)
                 << "("
                 << fnValue
                 << "() - rValue."

@@ -62,7 +62,8 @@ int main(int argc, const char **argv)
     compil::FileSourceProviderPtr pFileSourceProvider(new compil::FileSourceProvider());
     
     compil::GeneratorProject project(pFileSourceProvider);
-    if (!project.init(pGeneratorConfiguration->projectFile,
+    if (!project.init(pGeneratorConfiguration->force,
+                      pGeneratorConfiguration->projectFile,
                       pGeneratorConfiguration->projectDirectory,
                       pGeneratorConfiguration->type,
                       pGeneratorConfiguration->sourceFiles,

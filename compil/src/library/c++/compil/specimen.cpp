@@ -62,10 +62,18 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
     boost::unordered_map<SpecimenSPtr, ClassSPtr>::iterator it = map.find(specimen);
     if (it != map.end())
         return it->second;
+        
+    ClassNameSPtr name = className(specimen);
+    
+    ConstructorSPtr defaultConstructor = constructorRef()
+        << EAccessSpecifier::public_()
+        << name;
 
     ClassSPtr class_ = classRef()
         << CppNamespace::namespace_(specimen->package())
-        << className(specimen);
+        << EClassKey::class_()
+        << name
+        << defaultConstructor;
         
     map[specimen] = class_;
     return class_;

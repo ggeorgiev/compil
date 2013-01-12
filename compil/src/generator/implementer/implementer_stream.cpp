@@ -117,3 +117,45 @@ ImplementerStream& ImplementerStream::operator<<(const TestSuite& suite)
 
     return *this;
 }
+
+ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& class_)
+{
+    MemberSpecificationSectionSPtr section = memberSpecificationSectionRef()
+        << EAccessSpecifier::public_();
+
+    const std::vector<ConstructorSPtr>& constructors = class_->constructors();
+    for (std::vector<ConstructorSPtr>::const_iterator it = constructors.begin(); it != constructors.end(); ++it)
+    {
+        ConstructorMethodNameSPtr constructorMethodName = constructorMethodNameRef()
+            << class_->name();
+    
+        FunctionNameDeclaratorIdSPtr functionNameDeclaratorId = functionNameDeclaratorIdRef()
+            << constructorMethodName;
+            
+        DeclaratorIdDirectDeclaratorSPtr declaratorIdDirectDeclarator = declaratorIdDirectDeclaratorRef()
+            << functionNameDeclaratorId;
+            
+        ParametersDirectDeclaratorSPtr parametersDirectDeclarator = parametersDirectDeclaratorRef()
+            << declaratorIdDirectDeclarator;
+    
+        BodyFunctionDifinitionSPtr bodyFunctionDifinition = bodyFunctionDifinitionRef()
+            << parametersDirectDeclarator;
+    
+        FunctionDifinitionMemberDeclarationSPtr functionDifinitionMemberDeclaration = functionDifinitionMemberDeclarationRef()
+            << bodyFunctionDifinition;
+            
+        section << functionDifinitionMemberDeclaration;
+    }
+    
+    MemberSpecificationSPtr specification = memberSpecificationRef()
+        << section;
+
+
+    ClassSpecifierSPtr specifier = classSpecifierRef()
+        << (classHeadRef() << class_->classKey()
+                           << class_->name())
+        << specification;
+
+    mNamer << specifier;
+    return *this;
+}

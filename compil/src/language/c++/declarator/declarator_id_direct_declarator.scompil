@@ -39,7 +39,7 @@ package lang.cpp | *.*.*;
 
 streamable
 structure DeclaratorIdDirectDeclarator
-    inherit Declarator
+    inherit DirectDeclarator
 {
     runtime identification;
     

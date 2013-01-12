@@ -32,10 +32,13 @@
 
 compil { }
 
+import "c++/declaration/function_name.scompil";
+
 package lang.cpp | *.*.*;
 
 streamable
 structure MethodName
+    inherit FunctionName
 {
     runtime identification;
 }
