@@ -32,11 +32,16 @@
 
 compil { }
 
+import "all/element.scompil";
+
 package lang.all | *.*;
 
 streamable
-structure List 
+structure List
+    inherit Element
 {
+    runtime identification;
+    
     strong enum Squiggles
     {
         none;
@@ -51,5 +56,5 @@ structure List
     }
     Delimiter delimiter;
     
-    vector<string> items;
+    vector<reference<Element>> elements;
 }

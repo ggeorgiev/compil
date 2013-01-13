@@ -35,9 +35,6 @@
 #include "language/c++/expression/expression_factory.h"
 #include "language/c++/statement/statement_factory.h"
 
-#include "language/all/list.h"
-#include "language/all/scope.h"
-
 using namespace lang::all;
 using namespace lang::cpp;
 
@@ -57,487 +54,534 @@ std::string FormatterStream::str()
     return mAligner.str();
 }
 
-FormatterStream& FormatterStream::operator<<(const AdditiveShiftExpressionSPtr& expression)
+FormatterStream& FormatterStream::operator<<(const lang::cpp::StatementSPtr& statement)
 {
-    return *this << expression->expression();
+    mAligner << convert(statement);
+    return *this;
 }
 
-FormatterStream& FormatterStream::operator<<(const lang::cpp::BodyFunctionDifinitionSPtr& difinition)
+FormatterStream& FormatterStream::operator<<(const lang::cpp::ClassSpecifierSPtr& specifier)
 {
+    mAligner << convert(specifier);
+    return *this;
+}
+
+ElementSPtr FormatterStream::convert(const AdditiveShiftExpressionSPtr& expression)
+{
+    return convert(expression->expression());
+}
+
+ElementSPtr FormatterStream::convert(const lang::cpp::BodyFunctionDifinitionSPtr& difinition)
+{
+    PassageSPtr passage = passageRef();
     if (difinition->specifier())
-        *this << difinition->specifier();
+        passage << convert(difinition->specifier());
         
-    return *this << difinition->declarator();
+    passage << convert(difinition->declarator());
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const CastPmExpressionSPtr& expression)
+ElementSPtr FormatterStream::convert(const CastPmExpressionSPtr& expression)
 {
-    return *this << expression->expression();
+    return convert(expression->expression());
 }
 
-FormatterStream& FormatterStream::operator<<(const CompoundStatementSPtr& compoundStatement)
+ElementSPtr FormatterStream::convert(const CompoundStatementSPtr& compoundStatement)
 {
-    Scope scope;
+    PassageSPtr passage = passageRef();
+
+    ScopeSPtr scope = scopeRef();
     scope << Scope::ESquiggles::brackets();
     
     const std::vector<StatementSPtr>& statements = compoundStatement->statements();
     for (std::vector<StatementSPtr>::const_iterator it = statements.begin(); it != statements.end(); ++it)
-    {
-        const StatementSPtr& statement = *it;
+        scope << convert(*it);
         
-        FormatterStream formatter(mConfiguration, mAligner.mConfiguration);
-        formatter << statement;
-        scope << formatter.str();
-    }
+    passage << scope
+            << convert(compoundStatement->close())
+            << endOfLineRef();
     
-    mAligner << scope;
-    return *this << compoundStatement->close();
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const ClassTypeNameSPtr& declaration)
+ElementSPtr FormatterStream::convert(const ClassTypeNameSPtr& declaration)
 {
-    return *this << declaration->className();
+    return convert(declaration->className());
 }
 
-FormatterStream& FormatterStream::operator<<(const ClassHeadSPtr& head)
+ElementSPtr FormatterStream::convert(const ClassHeadSPtr& head)
 {
-    *this << head->key();
-    mAligner << " ";
-    *this << IdentifierClassName::downcast(head->name());
-    return *this;
+    PassageSPtr passage = passageRef();
+    passage << convert(head->key())
+            << (stringRef() << " ")
+            << convert(IdentifierClassName::downcast(head->name()));
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const ClassNestedNameSPtr& expression)
+ElementSPtr FormatterStream::convert(const ClassNestedNameSPtr& expression)
 {
-    return *this << expression->name();
+    return convert(expression->name());
 }
 
-FormatterStream& FormatterStream::operator<<(const ClassSpecifierSPtr& specifier)
+ElementSPtr FormatterStream::convert(const ClassSpecifierSPtr& specifier)
 {
-    *this << specifier->head();
-    mAligner << "\n{\n";
+    PassageSPtr passage = passageRef();
+    passage << convert(specifier->head())
+            << (stringRef() << "\n{\n");
     if (specifier->members())
-        *this << specifier->members();
-    mAligner << "}";
-    return *this;
+        passage << convert(specifier->members());
+    passage << (stringRef() << "}");
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const CustomExpressionSPtr& expression)
+ElementSPtr FormatterStream::convert(const CustomExpressionSPtr& expression)
 {
-    mAligner << expression->value();
-    return *this;
+    return stringRef() << expression->value();
 }
 
-FormatterStream& FormatterStream::operator<<(const CustomIdExpressionSPtr& expression)
+ElementSPtr FormatterStream::convert(const CustomIdExpressionSPtr& expression)
 {
-    mAligner << expression->value();
-    return *this;
+    return stringRef() << expression->value();
 }
 
-FormatterStream& FormatterStream::operator<<(const DeclarationSPtr& declaration)
+ElementSPtr FormatterStream::convert(const DeclarationSPtr& declaration)
 {
     if (declaration->runtimeDeclarationId() == ClassTypeName::staticDeclarationId())
-        return *this << ClassTypeName::downcast(declaration);
+        return convert(ClassTypeName::downcast(declaration));
     if (declaration->runtimeDeclarationId() == DeclarationSpecifierSequence::staticDeclarationId())
-        return *this << DeclarationSpecifierSequence::downcast(declaration);
+        return convert(DeclarationSpecifierSequence::downcast(declaration));
     if (declaration->runtimeDeclarationId() == FunctionDifinitionMemberDeclaration::staticDeclarationId())
-        return *this << FunctionDifinitionMemberDeclaration::downcast(declaration);
+        return convert(FunctionDifinitionMemberDeclaration::downcast(declaration));
     if (declaration->runtimeDeclarationId() == IdentifierDestructorMethodName::staticDeclarationId())
-        return *this << IdentifierDestructorMethodName::downcast(declaration);
+        return convert(IdentifierDestructorMethodName::downcast(declaration));
     if (declaration->runtimeDeclarationId() == IdentifierMethodName::staticDeclarationId())
-        return *this << IdentifierMethodName::downcast(declaration);
+        return convert(IdentifierMethodName::downcast(declaration));
     if (declaration->runtimeDeclarationId() == SimpleBlockDeclaration::staticDeclarationId())
-        return *this << SimpleBlockDeclaration::downcast(declaration);
+        return convert(SimpleBlockDeclaration::downcast(declaration));
     if (declaration->runtimeDeclarationId() == SimpleDeclaration::staticDeclarationId())
-        return *this << SimpleDeclaration::downcast(declaration);
+        return convert(SimpleDeclaration::downcast(declaration));
     if (declaration->runtimeDeclarationId() == TypeNameSimpleTypeSpecifier::staticDeclarationId())
-        return *this << TypeNameSimpleTypeSpecifier::downcast(declaration);        
+        return convert(TypeNameSimpleTypeSpecifier::downcast(declaration));
     if (declaration->runtimeDeclarationId() == TypeDeclarationSpecifier::staticDeclarationId())
-        return *this << TypeDeclarationSpecifier::downcast(declaration);
+        return convert(TypeDeclarationSpecifier::downcast(declaration));
 
-    return *this;
+    BOOST_ASSERT(false);
+    return ElementSPtr();
 }
 
-FormatterStream& FormatterStream::operator<<(const DeclarationSpecifierSequenceSPtr& declaration)
+ElementSPtr FormatterStream::convert(const DeclarationSpecifierSequenceSPtr& declaration)
 {
     const std::vector<DeclarationSpecifierSPtr>& declarations = declaration->declarations();
     BOOST_ASSERT(declarations.size() >= 1);
 
+    PassageSPtr passage = passageRef();
     for (std::vector<DeclarationSpecifierSPtr>::const_iterator it = declarations.begin(); it != declarations.end(); ++it)
     {
         if (it != declarations.begin())
-            mAligner << " ";
-        *this << *it;
+            passage << (stringRef() << " ");
+        passage << convert(*it);
     }
-    return *this;
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const DeclaratorSPtr& declarator)
+ElementSPtr FormatterStream::convert(const DeclaratorSPtr& declarator)
 {
     if (declarator->runtimeDeclaratorId() == BodyFunctionDifinition::staticDeclaratorId())
-        return *this << BodyFunctionDifinition::downcast(declarator);
+        return convert(BodyFunctionDifinition::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == FunctionNameDeclaratorId::staticDeclaratorId())
-        return *this << FunctionNameDeclaratorId::downcast(declarator);
+        return convert(FunctionNameDeclaratorId::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == InitDeclarator::staticDeclaratorId())
-        return *this << InitDeclarator::downcast(declarator);
+        return convert(InitDeclarator::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == DeclaratorIdDirectDeclarator::staticDeclaratorId())
-        return *this << DeclaratorIdDirectDeclarator::downcast(declarator);
+        return convert(DeclaratorIdDirectDeclarator::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == ParametersDirectDeclarator::staticDeclaratorId())
-        return *this << ParametersDirectDeclarator::downcast(declarator);
+        return convert(ParametersDirectDeclarator::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == TypeNameDeclaratorId::staticDeclaratorId())
-        return *this << TypeNameDeclaratorId::downcast(declarator);
+        return convert(TypeNameDeclaratorId::downcast(declarator));
 
-    return *this;
+    BOOST_ASSERT(false);
+    return ElementSPtr();
 }
 
-FormatterStream& FormatterStream::operator<<(const DeclarationStatementSPtr& statement)
+ElementSPtr FormatterStream::convert(const DeclarationMacroParameterSPtr& parameter)
 {
-    return *this << statement->declaration()
-                 << statement->close();
+    return convert(parameter->declaration());
 }
 
-FormatterStream& FormatterStream::operator<<(const DeclaratorIdDirectDeclaratorSPtr& declarator)
+ElementSPtr FormatterStream::convert(const DeclarationStatementSPtr& statement)
 {
-    return *this << declarator->declarator();
+    PassageSPtr passage = passageRef();
+    passage << convert(statement->declaration())
+            << convert(statement->close())
+            << endOfLineRef();
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const EAccessSpecifier& specifier)
+ElementSPtr FormatterStream::convert(const DeclaratorIdDirectDeclaratorSPtr& declarator)
 {
-    mAligner << specifier.shortName();
-    return *this;
+    return convert(declarator->declarator());
 }
 
-FormatterStream& FormatterStream::operator<<(const EClassKey& key)
+ElementSPtr FormatterStream::convert(const EAccessSpecifier& specifier)
 {
-    mAligner << key.shortName();
-    return *this;
+    return stringRef() << specifier.shortName();
 }
 
-FormatterStream& FormatterStream::operator<<(const ExpressionSPtr& expression)
+ElementSPtr FormatterStream::convert(const EClassKey& key)
+{
+    return stringRef() << key.shortName();
+}
+
+ElementSPtr FormatterStream::convert(const ExpressionSPtr& expression)
 {
     if (expression->runtimeExpressionId() == AdditiveShiftExpression::staticExpressionId())
-        return *this << AdditiveShiftExpression::downcast(expression);
+        return convert(AdditiveShiftExpression::downcast(expression));
     if (expression->runtimeExpressionId() == CastPmExpression::staticExpressionId())
-        return *this << CastPmExpression::downcast(expression);
+        return convert(CastPmExpression::downcast(expression));
     if (expression->runtimeExpressionId() == ClassNestedName::staticExpressionId())
-        return *this << ClassNestedName::downcast(expression);
+        return convert(ClassNestedName::downcast(expression));
     if (expression->runtimeExpressionId() == CustomExpression::staticExpressionId())
-        return *this << CustomExpression::downcast(expression);
+        return convert(CustomExpression::downcast(expression));
     if (expression->runtimeExpressionId() == CustomIdExpression::staticExpressionId())
-        return *this << CustomIdExpression::downcast(expression);
+        return convert(CustomIdExpression::downcast(expression));
     if (expression->runtimeExpressionId() == ExpressionList::staticExpressionId())
-        return *this << ExpressionList::downcast(expression);
+        return convert(ExpressionList::downcast(expression));
     if (expression->runtimeExpressionId() == IdentifierUnqualifiedId::staticExpressionId())
-        return *this << IdentifierUnqualifiedId::downcast(expression);
+        return convert(IdentifierUnqualifiedId::downcast(expression));
     if (expression->runtimeExpressionId() == IdExpressionPrimaryExpression::staticExpressionId())
-        return *this << IdExpressionPrimaryExpression::downcast(expression);
+        return convert(IdExpressionPrimaryExpression::downcast(expression));
     if (expression->runtimeExpressionId() == GrammarEqualityExpression::staticExpressionId())
-        return *this << GrammarEqualityExpression::downcast(expression);        
+        return convert(GrammarEqualityExpression::downcast(expression));
     if (expression->runtimeExpressionId() == MemberAccessPostfixExpression::staticExpressionId())
-        return *this << MemberAccessPostfixExpression::downcast(expression);
+        return convert(MemberAccessPostfixExpression::downcast(expression));
     if (expression->runtimeExpressionId() == MultiplicativeAdditiveExpression::staticExpressionId())
-        return *this << MultiplicativeAdditiveExpression::downcast(expression);
+        return convert(MultiplicativeAdditiveExpression::downcast(expression));
     if (expression->runtimeExpressionId() == NamespaceNestedName::staticExpressionId())
-        return *this << NamespaceNestedName::downcast(expression);
+        return convert(NamespaceNestedName::downcast(expression));
     if (expression->runtimeExpressionId() == NestedNameSpecifier::staticExpressionId())
-        return *this << NestedNameSpecifier::downcast(expression);
+        return convert(NestedNameSpecifier::downcast(expression));
     if (expression->runtimeExpressionId() == ParenthesesPostfixExpression::staticExpressionId())
-        return *this << ParenthesesPostfixExpression::downcast(expression);
+        return convert(ParenthesesPostfixExpression::downcast(expression));
     if (expression->runtimeExpressionId() == PmMultiplicativeExpression::staticExpressionId())
-        return *this << PmMultiplicativeExpression::downcast(expression);
+        return convert(PmMultiplicativeExpression::downcast(expression));
     if (expression->runtimeExpressionId() == PostfixUnaryExpression::staticExpressionId())
-        return *this << PostfixUnaryExpression::downcast(expression);
+        return convert(PostfixUnaryExpression::downcast(expression));
     if (expression->runtimeExpressionId() == PrimaryExpressionPostfixExpression::staticExpressionId())
-        return *this << PrimaryExpressionPostfixExpression::downcast(expression);
+        return convert(PrimaryExpressionPostfixExpression::downcast(expression));
     if (expression->runtimeExpressionId() == RelationalEqualityExpression::staticExpressionId())
-        return *this << RelationalEqualityExpression::downcast(expression);
+        return convert(RelationalEqualityExpression::downcast(expression));
     if (expression->runtimeExpressionId() == ShiftRelationalExpression::staticExpressionId())
-        return *this << ShiftRelationalExpression::downcast(expression);
+        return convert(ShiftRelationalExpression::downcast(expression));
     if (expression->runtimeExpressionId() == UnaryCastExpression::staticExpressionId())
-        return *this << UnaryCastExpression::downcast(expression);
+        return convert(UnaryCastExpression::downcast(expression));
     if (expression->runtimeExpressionId() == UnqualifiedIdExpression::staticExpressionId())
-        return *this << UnqualifiedIdExpression::downcast(expression);
+        return convert(UnqualifiedIdExpression::downcast(expression));
         
-    return *this;
+    BOOST_ASSERT(false);
+    return ElementSPtr();
 }
 
-FormatterStream& FormatterStream::operator<<(const ExpressionListSPtr& expressionList)
+ElementSPtr FormatterStream::convert(const ExpressionListSPtr& expressionList)
 {
-    List list;
+    ListSPtr list = listRef();
     list << List::ESquiggles::none();
     list << List::EDelimiter::comma();
     
     const std::vector<ExpressionSPtr>& expressions = expressionList->expressions();
     for (std::vector<ExpressionSPtr>::const_iterator it = expressions.begin(); it != expressions.end(); ++it)
-    {
-        const ExpressionSPtr& expression = *it;
-        FormatterStream formatter(mConfiguration, mAligner.mConfiguration);
-        formatter << expression;
-        list << formatter.str();
-    }
+        list << convert(*it);
     
-    mAligner << list;
-    return *this;
+    return list;
 }
 
-FormatterStream& FormatterStream::operator<<(const ExpressionStatementSPtr& statement)
+ElementSPtr FormatterStream::convert(const ExpressionMacroParameterSPtr& parameter)
 {
-    *this << statement->expression();
-    mAligner << ";";
-    return *this;
+    return convert(parameter->expression());
 }
 
-FormatterStream& FormatterStream::operator<<(const FunctionNameDeclaratorIdSPtr& declarator)
+ElementSPtr FormatterStream::convert(const ExpressionStatementSPtr& statement)
 {
-    return *this << declarator->functionName();
+    PassageSPtr passage = passageRef();
+    passage << convert(statement->expression())
+            << (stringRef() << ";")
+            << endOfLineRef();
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const FunctionDifinitionMemberDeclarationSPtr& declaration)
+ElementSPtr FormatterStream::convert(const FunctionNameDeclaratorIdSPtr& declarator)
 {
-    return *this << declaration->difinition();
+    return convert(declarator->functionName());
 }
 
-FormatterStream& FormatterStream::operator<<(const IdentifierUnqualifiedIdSPtr& expression)
+ElementSPtr FormatterStream::convert(const FunctionDifinitionMemberDeclarationSPtr& declaration)
 {
-    mAligner << expression->identifier()->value();
-    return *this;
+    return convert(declaration->difinition());
 }
 
-FormatterStream& FormatterStream::operator<<(const IdentifierSPtr& identifier)
+ElementSPtr FormatterStream::convert(const IdentifierUnqualifiedIdSPtr& expression)
 {
-     mAligner << identifier->value();
-     return *this;
+    return convert(expression->identifier());
 }
 
-FormatterStream& FormatterStream::operator<<(const IdentifierClassNameSPtr& name)
+ElementSPtr FormatterStream::convert(const IdentifierSPtr& identifier)
 {
-    return *this << name->identifier();
+     return stringRef() << identifier->value();
 }
 
-FormatterStream& FormatterStream::operator<<(const lang::cpp::IdentifierDestructorMethodNameSPtr& name)
+ElementSPtr FormatterStream::convert(const IdentifierClassNameSPtr& name)
 {
-    mAligner << "~";
-    return *this << name->identifier();
+    return convert(name->identifier());
 }
 
-FormatterStream& FormatterStream::operator<<(const IdentifierMethodNameSPtr& name)
+ElementSPtr FormatterStream::convert(const IdentifierDestructorMethodNameSPtr& name)
 {
-    return *this << name->identifier();
+    PassageSPtr passage = passageRef();
+    passage << (stringRef() << "~")
+            << convert(name->identifier());
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const IdentifierNamespaceNameSPtr& name)
+ElementSPtr FormatterStream::convert(const IdentifierMethodNameSPtr& name)
 {
-    return *this << name->identifier();
+    return convert(name->identifier());
 }
 
-FormatterStream& FormatterStream::operator<<(const IdExpressionPrimaryExpressionSPtr& expression)
+ElementSPtr FormatterStream::convert(const IdentifierNamespaceNameSPtr& name)
 {
-    return *this << expression->expression();
+    return convert(name->identifier());
 }
 
-FormatterStream& FormatterStream::operator<<(const InitDeclaratorSPtr& declarator)
+ElementSPtr FormatterStream::convert(const IdExpressionPrimaryExpressionSPtr& expression)
 {
-    return *this << declarator->declarator();
+    return convert(expression->expression());
 }
 
-FormatterStream& FormatterStream::operator<<(const GrammarEqualityExpressionSPtr& expression)
+ElementSPtr FormatterStream::convert(const InitDeclaratorSPtr& declarator)
 {
-    *this << expression->first();
+    return convert(declarator->declarator());
+}
+
+ElementSPtr FormatterStream::convert(const GrammarEqualityExpressionSPtr& expression)
+{
+    PassageSPtr passage = passageRef();
+    passage << convert(expression->first());
     switch (expression->type().value())
     {
         case EqualityExpression::EType::kEqualTo:
-            mAligner << " == ";
+            passage << (stringRef() << " == ");
             break;
         case EqualityExpression::EType::kNotEqualTo:
-            mAligner << " != ";
+            passage << (stringRef() << " != ");
             break;
         default:
             BOOST_ASSERT(false);
     }
-    return *this << expression->second();
+    passage << convert(expression->second());
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const MacroStatementSPtr& macro)
+ElementSPtr FormatterStream::convert(const lang::cpp::MacroNameSPtr& name)
 {
-    mAligner << macro->name()->value();
+    return stringRef() << name->value();
+}
+
+ElementSPtr FormatterStream::convert(const MacroParameterSPtr& parameter)
+{
+    if (parameter->runtimeMacroParameterId() == ExpressionMacroParameter::staticMacroParameterId())
+        return convert(ExpressionMacroParameter::downcast(parameter));
+    if (parameter->runtimeMacroParameterId() == DeclarationMacroParameter::staticMacroParameterId())
+        return convert(DeclarationMacroParameter::downcast(parameter));
+
+    BOOST_ASSERT(false);
+    return ElementSPtr();
+}
+
+ElementSPtr FormatterStream::convert(const MacroStatementSPtr& macro)
+{
+    PassageSPtr passage = passageRef();
+    passage << convert(macro->name());
     
-    List list;
+    ListSPtr list = listRef();
     list << List::ESquiggles::parentheses();
     list << List::EDelimiter::comma();
     
     const std::vector<MacroParameterSPtr>& parameters = macro->parameters();
     for (std::vector<MacroParameterSPtr>::const_iterator it = parameters.begin(); it != parameters.end(); ++it)
-    {
-        const MacroParameterSPtr& parameter = *it;
-        FormatterStream formatter(mConfiguration, mAligner.mConfiguration);
-        if (parameter->runtimeMacroParameterId() == ExpressionMacroParameter::staticMacroParameterId())
-            formatter << ExpressionMacroParameter::downcast(parameter)->expression();
-        if (parameter->runtimeMacroParameterId() == DeclarationMacroParameter::staticMacroParameterId())
-            formatter << DeclarationMacroParameter::downcast(parameter)->declaration();
+        list << convert(*it);
+        
+    passage << list
+            << convert(macro->close())
+            << endOfLineRef();
 
-        list << formatter.str();
-    }
-    
-    mAligner << list;
-    return *this << macro->close();
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const MemberAccessPostfixExpressionSPtr& expression)
+ElementSPtr FormatterStream::convert(const MemberAccessPostfixExpressionSPtr& expression)
 {
-    *this << expression->first();
-    mAligner << ".";
-    *this << expression->second();
-    return *this;
+    PassageSPtr passage = passageRef();
+    passage << convert(expression->first())
+            << (stringRef() << ".")
+            << convert(expression->second());
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const MemberSpecificationSPtr& specification)
+ElementSPtr FormatterStream::convert(const MemberSpecificationSPtr& specification)
 {
     const std::vector<MemberSpecificationSectionSPtr>& sections = specification->sections();
     
+    PassageSPtr passage = passageRef();
     for (std::vector<MemberSpecificationSectionSPtr>::const_iterator it = sections.begin(); it != sections.end(); ++it)
-        *this << *it;
+        passage << convert(*it);
     
-    return *this;
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const MemberSpecificationSectionSPtr& section)
+ElementSPtr FormatterStream::convert(const MemberSpecificationSectionSPtr& section)
 {
-    *this << section->accessSpecifier();
-    mAligner << ":\n";
+    PassageSPtr passage = passageRef();
+
+    passage << convert(section->accessSpecifier())
+            << (stringRef() << ":\n");
     
     const std::vector<MemberDeclarationSPtr>& declarations = section->declarations();
     for (std::vector<MemberDeclarationSPtr>::const_iterator it = declarations.begin(); it != declarations.end(); ++it)
     {
-        *this << *it;
-        mAligner << ";\n";
+        passage << convert(*it)
+                << (stringRef() << ";\n");
     }
     
-    return *this;
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const MultiplicativeAdditiveExpressionSPtr& expression)
+ElementSPtr FormatterStream::convert(const MultiplicativeAdditiveExpressionSPtr& expression)
 {
-    return *this << expression->expression();
+    return convert(expression->expression());
 }
 
-FormatterStream& FormatterStream::operator<<(const NamespaceNestedNameSPtr& expression)
+ElementSPtr FormatterStream::convert(const NamespaceNestedNameSPtr& expression)
 {
-    return *this << expression->name();
+    return convert(expression->name());
 }
 
-FormatterStream& FormatterStream::operator<<(const NestedNameSpecifierSPtr& expression)
+ElementSPtr FormatterStream::convert(const NestedNameSpecifierSPtr& expression)
 {
-    *this << expression->name();
-    mAligner << "::";
-    return *this;
+    PassageSPtr passage = passageRef();
+    passage << convert(expression->name())
+            << (stringRef() << "::");
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const ParametersDirectDeclaratorSPtr& declarator)
+ElementSPtr FormatterStream::convert(const ParametersDirectDeclaratorSPtr& declarator)
 {
-    *this << declarator->declarator();
-    mAligner << "(";
-    mAligner << ")";
-    return *this;
+    PassageSPtr passage = passageRef();
+    passage << convert(declarator->declarator())
+            << (stringRef() << "(")
+            << (stringRef() << ")");
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const ParenthesesPostfixExpressionSPtr& expression)
+ElementSPtr FormatterStream::convert(const ParenthesesPostfixExpressionSPtr& expression)
 {
-    *this << expression->expression();
-    mAligner << "(";
+    PassageSPtr passage = passageRef();
+    passage << convert(expression->expression())
+            << (stringRef() << "(");
     if (expression->list())
-        *this << expression->list();
-    mAligner << ")";
-    return *this;
+        passage << convert(expression->list());
+    passage << (stringRef() << ")");
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const PmMultiplicativeExpressionSPtr& expression)
+ElementSPtr FormatterStream::convert(const PmMultiplicativeExpressionSPtr& expression)
 {
-    return *this << expression->expression();
+    return convert(expression->expression());
 }
 
-FormatterStream& FormatterStream::operator<<(const PostfixUnaryExpressionSPtr& expression)
+ElementSPtr FormatterStream::convert(const PostfixUnaryExpressionSPtr& expression)
 {
-    return *this << expression->expression();
+    return convert(expression->expression());
 }
 
-FormatterStream& FormatterStream::operator<<(const PrimaryExpressionPostfixExpressionSPtr& expression)
+ElementSPtr FormatterStream::convert(const PrimaryExpressionPostfixExpressionSPtr& expression)
 {
-    return *this << expression->expression();
+    return convert(expression->expression());
 }
 
-FormatterStream& FormatterStream::operator<<(const RelationalEqualityExpressionSPtr& expression)
+ElementSPtr FormatterStream::convert(const RelationalEqualityExpressionSPtr& expression)
 {
-    return *this << expression->expression();
+    return convert(expression->expression());
 }
 
-FormatterStream& FormatterStream::operator<<(const ShiftRelationalExpressionSPtr& expression)
+ElementSPtr FormatterStream::convert(const ShiftRelationalExpressionSPtr& expression)
 {
-    return *this << expression->expression();
+    return convert(expression->expression());
 }
 
-FormatterStream& FormatterStream::operator<<(const SimpleBlockDeclarationSPtr& declaration)
+ElementSPtr FormatterStream::convert(const SimpleBlockDeclarationSPtr& declaration)
 {
-    return *this << declaration->declaration();
+    return convert(declaration->declaration());
 }
 
-FormatterStream& FormatterStream::operator<<(const SimpleDeclarationSPtr& declaration)
+ElementSPtr FormatterStream::convert(const SimpleDeclarationSPtr& declaration)
 {
     BOOST_ASSERT(declaration->declaration() || declaration->declarator());
+
+    PassageSPtr passage = passageRef();
     if (declaration->declaration())
     {
-        *this << declaration->declaration();
-        mAligner << " ";
+        passage << convert(declaration->declaration())
+                << (stringRef() << " ");
     }
     if (declaration->declarator())
-        *this << declaration->declarator();
-    return *this;
+        passage << convert(declaration->declarator());
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const StatementSPtr& statement)
+ElementSPtr FormatterStream::convert(const StatementSPtr& statement)
 {
     if (statement->runtimeStatementId() == CompoundStatement::staticStatementId())
-        return *this << CompoundStatement::downcast(statement);
+        return convert(CompoundStatement::downcast(statement));
     if (statement->runtimeStatementId() == ExpressionStatement::staticStatementId())
-        return *this << ExpressionStatement::downcast(statement);
+        return convert(ExpressionStatement::downcast(statement));
     if (statement->runtimeStatementId() == DeclarationStatement::staticStatementId())
-        return *this << DeclarationStatement::downcast(statement);
+        return convert(DeclarationStatement::downcast(statement));
     if (statement->runtimeStatementId() == MacroStatement::staticStatementId())
-        return *this << MacroStatement::downcast(statement);
+        return convert(MacroStatement::downcast(statement));
          
-    return *this;
+    BOOST_ASSERT(false);
+    return ElementSPtr();
 }
 
-FormatterStream& FormatterStream::operator<<(const Statement::EClose& close)
+ElementSPtr FormatterStream::convert(const Statement::EClose& close)
 {
-    if (close == Statement::EClose::yes())
-        mAligner << ";";
-    return *this;
+    return stringRef() << ((close == Statement::EClose::yes()) ? ";" : "");
 }
 
-FormatterStream& FormatterStream::operator<<(const TypeDeclarationSpecifierSPtr& declaration)
+ElementSPtr FormatterStream::convert(const TypeDeclarationSpecifierSPtr& declaration)
 {
-    return *this << declaration->declaration();
+    return convert(declaration->declaration());
 }
 
-FormatterStream& FormatterStream::operator<<(const TypeNameDeclaratorIdSPtr& declarator)
+ElementSPtr FormatterStream::convert(const TypeNameDeclaratorIdSPtr& declarator)
 {
-    return *this << declarator->typeName();
+    return convert(declarator->typeName());
 }
 
-FormatterStream& FormatterStream::operator<<(const TypeNameSimpleTypeSpecifierSPtr& declaration)
+ElementSPtr FormatterStream::convert(const TypeNameSimpleTypeSpecifierSPtr& declaration)
 {
+    PassageSPtr passage = passageRef();
     if (declaration->specifier())
-        *this << declaration->specifier();
-    return *this << declaration->typeName();
+        passage << convert(declaration->specifier());
+    passage << convert(declaration->typeName());
+    return passage;
 }
 
-FormatterStream& FormatterStream::operator<<(const UnaryCastExpressionSPtr& expression)
+ElementSPtr FormatterStream::convert(const UnaryCastExpressionSPtr& expression)
 {
-    return *this << expression->expression();
+    return convert(expression->expression());
 }
 
-FormatterStream& FormatterStream::operator<<(const UnqualifiedIdExpressionSPtr& expression)
+ElementSPtr FormatterStream::convert(const UnqualifiedIdExpressionSPtr& expression)
 {
-    return *this << expression->unqualifiedId();
+    return convert(expression->unqualifiedId());
 }
 

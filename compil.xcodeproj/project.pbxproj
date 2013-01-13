@@ -372,6 +372,11 @@
 		5EB6476F16A28A410068B403 /* destructor.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = destructor.scompil; sourceTree = "<group>"; };
 		5EB6477116A28D240068B403 /* destructor_method_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = destructor_method_name.scompil; sourceTree = "<group>"; };
 		5EB6477216A295880068B403 /* identifier_destructor_method_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = identifier_destructor_method_name.scompil; sourceTree = "<group>"; };
+		5EB6477316A29D970068B403 /* element.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = element.scompil; sourceTree = "<group>"; };
+		5EB6477416A29DF60068B403 /* passage.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = passage.scompil; sourceTree = "<group>"; };
+		5EB6477516A29FC90068B403 /* string.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = string.scompil; sourceTree = "<group>"; };
+		5EB6477616A2A0CC0068B403 /* element_factory.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = element_factory.scompil; sourceTree = "<group>"; };
+		5EB6477716A3251D0068B403 /* end_of_line.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = end_of_line.scompil; sourceTree = "<group>"; };
 		5EB86F61168B99AC0049B6A9 /* implementer_stream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = implementer_stream.cpp; sourceTree = "<group>"; };
 		5EB86F62168B99AC0049B6A9 /* implementer_stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = implementer_stream.h; sourceTree = "<group>"; };
 		5EB86F63168B9CBD0049B6A9 /* formatter_stream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = formatter_stream.cpp; sourceTree = "<group>"; };
@@ -1254,8 +1259,13 @@
 		5EB86F71168BAE6A0049B6A9 /* all */ = {
 			isa = PBXGroup;
 			children = (
+				5EB6477316A29D970068B403 /* element.scompil */,
+				5EB6477616A2A0CC0068B403 /* element_factory.scompil */,
+				5EB6477716A3251D0068B403 /* end_of_line.scompil */,
 				5EB86F72168BAE6A0049B6A9 /* list.scompil */,
+				5EB6477416A29DF60068B403 /* passage.scompil */,
 				5EB86F73168BCAA10049B6A9 /* scope.scompil */,
+				5EB6477516A29FC90068B403 /* string.scompil */,
 			);
 			path = all;
 			sourceTree = "<group>";

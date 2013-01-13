@@ -30,46 +30,17 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include <boost/shared_ptr.hpp>
+compil { }
 
-#ifndef _ALIGNER_STREAM_H__
-#define _ALIGNER_STREAM_H__
+import "all/element.scompil";
 
-#include "aligner_configuration.h"
+package lang.all | *.*;
 
-#include "language/all/element_factory.h"
-
-#include <iostream>
-
-class AlignerStream
+streamable
+structure String
+    inherit Element
 {
-public:
-    AlignerStream(const AlignerConfigurationSPtr& configuration);
-    virtual ~AlignerStream();
+    runtime identification;
     
-    std::string str();
-    
-    AlignerStream& operator<<(const lang::all::ElementSPtr& element);
-
-    AlignerConfigurationSPtr mConfiguration;
-    
-protected:
-    AlignerStream& operator<<(const lang::all::EndOfLineSPtr&);
-    AlignerStream& operator<<(const lang::all::ListSPtr& list);
-    AlignerStream& operator<<(const lang::all::PassageSPtr& passage);
-    AlignerStream& operator<<(const lang::all::ScopeSPtr& scope);
-    AlignerStream& operator<<(const lang::all::StringSPtr& string);
-
-private:
-    std::string indent() const;
-
-    std::ostringstream stream;
-};
-
-typedef boost::shared_ptr<AlignerStream> AlignerStreamSPtr;
-typedef boost::weak_ptr<AlignerStream> AlignerStreamWPtr;
-
-
-
-#endif
-
+    string value;
+}

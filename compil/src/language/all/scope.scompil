@@ -32,11 +32,16 @@
 
 compil { }
 
+import "all/element.scompil";
+
 package lang.all | *.*;
 
 streamable
-structure Scope 
+structure Scope
+    inherit Element
 {
+    runtime identification;
+    
     strong enum Squiggles
     {
         none;
@@ -44,5 +49,5 @@ structure Scope
     }
     Squiggles squiggles;
 
-    vector<string> lines;
+    vector<reference<Element>> elements;
 }

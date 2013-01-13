@@ -36,9 +36,14 @@ core package core.compil;
 
 section main
 {
+    all/element.scompil;
+    all/element_factory.scompil;
+    all/end_of_line.scompil;
     all/list.scompil;
+    all/passage.scompil;
     all/scope.scompil;
-    
+    all/string.scompil;
+        
     c++/class/class.scompil;
     c++/class/class_head.scompil;
     c++/class/class_key.scompil;

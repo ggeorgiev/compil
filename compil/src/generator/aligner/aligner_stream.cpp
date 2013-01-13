@@ -45,68 +45,97 @@ AlignerStream::~AlignerStream()
 
 std::string AlignerStream::str()
 {
-    return string.str();
+    return stream.str();
 }
 
-AlignerStream& AlignerStream::operator<<(const std::string& str)
+AlignerStream& AlignerStream::operator<<(const ElementSPtr& element)
 {
-    string << str;
+    if (element->runtimeElementId() == EndOfLine::staticElementId())
+        return *this << (EndOfLine::downcast(element));
+    if (element->runtimeElementId() == List::staticElementId())
+        return *this << (List::downcast(element));
+    if (element->runtimeElementId() == Passage::staticElementId())
+        return *this << (Passage::downcast(element));
+    if (element->runtimeElementId() == Scope::staticElementId())
+        return *this << (Scope::downcast(element));
+    if (element->runtimeElementId() == String::staticElementId())
+        return *this << (String::downcast(element));
     return *this;
 }
 
-AlignerStream& AlignerStream::operator<<(const List& list)
+AlignerStream& AlignerStream::operator<<(const EndOfLineSPtr&)
 {
-    switch (list.squiggles().value())
+    stream << std::endl;
+    return *this;
+}
+
+AlignerStream& AlignerStream::operator<<(const ListSPtr& list)
+{
+    switch (list->squiggles().value())
     {
         case List::ESquiggles::kParentheses:
-            string << "(";
+            stream << "(";
             break;
     }
     
-    const std::vector<std::string>& items = list.items();
-    for (std::vector<std::string>::const_iterator it = items.begin(); it != items.end(); ++it)
+    const std::vector<ElementSPtr>& elements = list->elements();
+    for (std::vector<ElementSPtr>::const_iterator it = elements.begin(); it != elements.end(); ++it)
     {
-        const std::string& item = *it;
+        const ElementSPtr& element = *it;
         
-        if (it != items.begin())
+        if (it != elements.begin())
         {
-            switch (list.delimiter().value())
+            switch (list->delimiter().value())
             {
                 case List::EDelimiter::kComma:
-                    string << ", ";
+                    stream << ", ";
                     break;
             }
         }
         
-        string << item;
+        *this << element;
     }
     
-    switch (list.squiggles().value())
+    switch (list->squiggles().value())
     {
         case List::ESquiggles::kParentheses:
-            string << ")";
+            stream << ")";
             break;
     }
     
     return *this;
 }
 
-AlignerStream& AlignerStream::operator<<(const Scope& scope)
+AlignerStream& AlignerStream::operator<<(const PassageSPtr& passage)
 {
-    string << std::endl;
-    string << "{";
-    string << std::endl;
+    const std::vector<ElementSPtr>& elements = passage->elements();
+    for (std::vector<ElementSPtr>::const_iterator it = elements.begin(); it != elements.end(); ++it)
+        *this << *it;
+    return *this;
+}
+
+AlignerStream& AlignerStream::operator<<(const ScopeSPtr& scope)
+{
+    stream << std::endl;
+    stream << "{";
+    stream << std::endl;
     
-    const std::vector<std::string>& lines = scope.lines();
-    for (std::vector<std::string>::const_iterator it = lines.begin(); it != lines.end(); ++it)
+    const std::vector<ElementSPtr>& elements = scope->elements();
+    for (std::vector<ElementSPtr>::const_iterator it = elements.begin(); it != elements.end(); ++it)
     {
-        const std::string& line = *it;
-        string << indent() << line;
-        string << std::endl;
+        *this << *it;
+//        stream << indent() << line;
+//        stream << std::endl;
     }
     
-    string << "}";
-    string << std::endl;
+    stream << "}";
+    stream << std::endl;
+    return *this;
+}
+
+AlignerStream& AlignerStream::operator<<(const StringSPtr& string)
+{
+    stream << string->value();
     return *this;
 }
 
