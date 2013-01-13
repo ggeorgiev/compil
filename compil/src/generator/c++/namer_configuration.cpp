@@ -30,38 +30,22 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _IMPLEMENTER_STREAM_H__
-#define _IMPLEMENTER_STREAM_H__
+#include "generator/c++/namer_configuration.h"
 
-#include "generator/implementer/implementer_configuration.h"
-
-#include "generator/namer/namer_stream.h"
-
-#include "language/c++/test/test_suite.h"
-
-#include <boost/shared_ptr.hpp>
-
-class ImplementerStream
+NamerConfiguration::NamerConfiguration()
 {
-public:
-    ImplementerStream(const ImplementerConfigurationSPtr& implementerConfiguration,
-                      const NamerConfigurationSPtr& namerConfiguration,
-                      const FormatterConfigurationSPtr& formatterConfiguration,
-                      const AlignerConfigurationSPtr& alignerConfiguration);
-    virtual ~ImplementerStream();
-    
-    std::string str();
-    
-    ImplementerStream& operator<<(const lang::cpp::TestSuite& suite);
-    ImplementerStream& operator<<(const lang::cpp::ClassSPtr& class_);
-    
-private:
-    nmr::NamerStream mNamer;
-    ImplementerConfigurationSPtr mConfiguration;
-};
+}
 
-typedef boost::shared_ptr<ImplementerStream> ImplementerStreamSPtr;
-typedef boost::weak_ptr<ImplementerStream> ImplementerStreamWPtr;
+NamerConfiguration::~NamerConfiguration()
+{
+}
 
-#endif
-
+std::string NamerConfiguration::staticName()
+{
+    return "Namer";
+}
+    
+std::string NamerConfiguration::name()
+{
+    return staticName();
+}

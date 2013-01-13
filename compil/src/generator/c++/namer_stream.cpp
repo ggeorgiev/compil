@@ -567,6 +567,4 @@ NamerStream& NamerStream::operator<<(const ClassSpecifierSPtr& specifier)
     return *this;
 }
 
-
 }
-

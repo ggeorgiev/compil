@@ -13,6 +13,15 @@ lib generator-lib
   :
     compil/compil_generator.cpp
     
+    c++/aligner_configuration.cpp
+    c++/aligner_stream.cpp
+    c++/formatter_configuration.cpp
+    c++/formatter_stream.cpp
+    c++/implementer_configuration.cpp
+    c++/implementer_stream.cpp
+    c++/namer_configuration.cpp
+    c++/namer_stream.cpp
+
     cpp/format/argument.cpp
     cpp/format/cast_operator.cpp
     cpp/format/comment.cpp
@@ -45,23 +54,15 @@ lib generator-lib
     cpp/c++_test_generator.cpp
 
     aligner/aligner.cpp
-    aligner/aligner_configuration.cpp
-    aligner/aligner_stream.cpp
     aligner/function_definition_aligner.cpp
     aligner/line_aligner.cpp
     aligner/table_aligner.cpp
     formatter/c++_formatter.cpp
     formatter/c++_keyword.cpp
-    formatter/formatter_configuration.cpp
-    formatter/formatter_stream.cpp
     
     implementer/c++_implementer.cpp
     implementer/dependency.cpp
-    implementer/implementer_configuration.cpp
-    implementer/implementer_stream.cpp
     
-    namer/namer_configuration.cpp
-    namer/namer_stream.cpp
     
     project/file_source_provider.cpp
     project/generator_project.cpp

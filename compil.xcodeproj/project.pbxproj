@@ -193,8 +193,6 @@
 		5E88A21F15E188BB002D43A5 /* boost_assert_handler.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = boost_assert_handler.h; sourceTree = "<group>"; };
 		5E88A22415E188BB002D43A5 /* aligner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = aligner.cpp; sourceTree = "<group>"; };
 		5E88A22515E188BB002D43A5 /* aligner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aligner.h; sourceTree = "<group>"; };
-		5E88A22615E188BB002D43A5 /* aligner_configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = aligner_configuration.cpp; sourceTree = "<group>"; };
-		5E88A22715E188BB002D43A5 /* aligner_configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aligner_configuration.h; sourceTree = "<group>"; };
 		5E88A22815E188BB002D43A5 /* function_definition_aligner.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = function_definition_aligner.cpp; sourceTree = "<group>"; };
 		5E88A22915E188BB002D43A5 /* function_definition_aligner.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = function_definition_aligner.h; sourceTree = "<group>"; };
 		5E88A22A15E188BB002D43A5 /* function_definition_aligner_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = function_definition_aligner_unittest.cpp; sourceTree = "<group>"; };
@@ -207,8 +205,6 @@
 		5E88A26115E188BB002D43A5 /* c++_formatter.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "c++_formatter.h"; sourceTree = "<group>"; };
 		5E88A26215E188BB002D43A5 /* c++_keyword.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "c++_keyword.cpp"; sourceTree = "<group>"; };
 		5E88A26315E188BB002D43A5 /* c++_keyword.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "c++_keyword.h"; sourceTree = "<group>"; };
-		5E88A26415E188BB002D43A5 /* formatter_configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = formatter_configuration.cpp; sourceTree = "<group>"; };
-		5E88A26515E188BB002D43A5 /* formatter_configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = formatter_configuration.h; sourceTree = "<group>"; };
 		5E88A26715E188BB002D43A5 /* general_configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = general_configuration.cpp; sourceTree = "<group>"; };
 		5E88A26815E188BB002D43A5 /* general_configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = general_configuration.h; sourceTree = "<group>"; };
 		5E88A26915E188BB002D43A5 /* generator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = generator.cpp; sourceTree = "<group>"; };
@@ -219,8 +215,6 @@
 		5E88A26F15E188BB002D43A5 /* c++_implementer.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "c++_implementer.h"; sourceTree = "<group>"; };
 		5E88A27015E188BB002D43A5 /* dependency.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = dependency.cpp; sourceTree = "<group>"; };
 		5E88A27115E188BB002D43A5 /* dependency.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = dependency.h; sourceTree = "<group>"; };
-		5E88A27215E188BB002D43A5 /* implementer_configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = implementer_configuration.cpp; sourceTree = "<group>"; };
-		5E88A27315E188BB002D43A5 /* implementer_configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = implementer_configuration.h; sourceTree = "<group>"; };
 		5E88A27515E188BB002D43A5 /* jamfile.jam */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.jam; path = jamfile.jam; sourceTree = "<group>"; };
 		5E88A27615E188BB002D43A5 /* main.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main.cpp; sourceTree = "<group>"; };
 		5E88A27715E188BB002D43A5 /* main_generator_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = main_generator_unittest.cpp; sourceTree = "<group>"; };
@@ -305,10 +299,6 @@
 		5E963A381617D564008099AA /* function.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = function.compil; sourceTree = "<group>"; };
 		5E963A3A1617D6AB008099AA /* function.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = function.cpp; sourceTree = "<group>"; };
 		5E963A3B1617D6AB008099AA /* function.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = function.h; sourceTree = "<group>"; };
-		5E9DE6BE168D6D710020522D /* namer_configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = namer_configuration.cpp; sourceTree = "<group>"; };
-		5E9DE6BF168D6D710020522D /* namer_configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = namer_configuration.h; sourceTree = "<group>"; };
-		5E9DE6C0168D6D710020522D /* namer_stream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = namer_stream.cpp; sourceTree = "<group>"; };
-		5E9DE6C1168D6D710020522D /* namer_stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = namer_stream.h; sourceTree = "<group>"; };
 		5E9DE6C7168E28CA0020522D /* generator */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.executable"; path = generator; sourceTree = "<group>"; };
 		5E9DE6CA168E28CA0020522D /* generator.exe */ = {isa = PBXFileReference; lastKnownFileType = file; path = generator.exe; sourceTree = "<group>"; };
 		5E9DE6CB168E48C00020522D /* get-latest-generators.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "get-latest-generators.sh"; sourceTree = "<group>"; };
@@ -377,12 +367,6 @@
 		5EB6477516A29FC90068B403 /* string.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = string.scompil; sourceTree = "<group>"; };
 		5EB6477616A2A0CC0068B403 /* element_factory.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = element_factory.scompil; sourceTree = "<group>"; };
 		5EB6477716A3251D0068B403 /* end_of_line.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = end_of_line.scompil; sourceTree = "<group>"; };
-		5EB86F61168B99AC0049B6A9 /* implementer_stream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = implementer_stream.cpp; sourceTree = "<group>"; };
-		5EB86F62168B99AC0049B6A9 /* implementer_stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = implementer_stream.h; sourceTree = "<group>"; };
-		5EB86F63168B9CBD0049B6A9 /* formatter_stream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = formatter_stream.cpp; sourceTree = "<group>"; };
-		5EB86F64168B9CBD0049B6A9 /* formatter_stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = formatter_stream.h; sourceTree = "<group>"; };
-		5EB86F65168B9FDC0049B6A9 /* aligner_stream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = aligner_stream.cpp; sourceTree = "<group>"; };
-		5EB86F66168B9FDC0049B6A9 /* aligner_stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aligner_stream.h; sourceTree = "<group>"; };
 		5EB86F69168BA7320049B6A9 /* test.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = test.scompil; sourceTree = "<group>"; };
 		5EB86F6A168BA7320049B6A9 /* test_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_name.scompil; sourceTree = "<group>"; };
 		5EB86F6B168BA7320049B6A9 /* test_suite.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_suite.scompil; sourceTree = "<group>"; };
@@ -449,6 +433,22 @@
 		5EDF77631695D3BB00C8BD79 /* hook_source_provider.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = hook_source_provider.cpp; sourceTree = "<group>"; };
 		5EDF77641695D3BB00C8BD79 /* hook_source_provider.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = hook_source_provider.h; sourceTree = "<group>"; };
 		5EF1AC42169FB69100AD5883 /* generate.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate.sh; sourceTree = "<group>"; };
+		5EF6E09316A33A2C0027BA81 /* aligner_configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = aligner_configuration.cpp; sourceTree = "<group>"; };
+		5EF6E09416A33A2C0027BA81 /* aligner_configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aligner_configuration.h; sourceTree = "<group>"; };
+		5EF6E09516A33A2C0027BA81 /* aligner_stream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = aligner_stream.cpp; sourceTree = "<group>"; };
+		5EF6E09616A33A2C0027BA81 /* aligner_stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = aligner_stream.h; sourceTree = "<group>"; };
+		5EF6E09716A33A2C0027BA81 /* formatter_configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = formatter_configuration.cpp; sourceTree = "<group>"; };
+		5EF6E09816A33A2C0027BA81 /* formatter_configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = formatter_configuration.h; sourceTree = "<group>"; };
+		5EF6E09916A33A2C0027BA81 /* formatter_stream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = formatter_stream.cpp; sourceTree = "<group>"; };
+		5EF6E09A16A33A2C0027BA81 /* formatter_stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = formatter_stream.h; sourceTree = "<group>"; };
+		5EF6E09B16A33A2C0027BA81 /* implementer_configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = implementer_configuration.cpp; sourceTree = "<group>"; };
+		5EF6E09C16A33A2C0027BA81 /* implementer_configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = implementer_configuration.h; sourceTree = "<group>"; };
+		5EF6E09D16A33A2C0027BA81 /* implementer_stream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = implementer_stream.cpp; sourceTree = "<group>"; };
+		5EF6E09E16A33A2C0027BA81 /* implementer_stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = implementer_stream.h; sourceTree = "<group>"; };
+		5EF6E09F16A33A2C0027BA81 /* namer_configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = namer_configuration.cpp; sourceTree = "<group>"; };
+		5EF6E0A016A33A2C0027BA81 /* namer_configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = namer_configuration.h; sourceTree = "<group>"; };
+		5EF6E0A116A33A2C0027BA81 /* namer_stream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = namer_stream.cpp; sourceTree = "<group>"; };
+		5EF6E0A216A33A2C0027BA81 /* namer_stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = namer_stream.h; sourceTree = "<group>"; };
 		5EFFA6AE1692702400035CAA /* alter.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = alter.scompil; sourceTree = "<group>"; };
 		5EFFA6AF1692702400035CAA /* castable_type.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = castable_type.scompil; sourceTree = "<group>"; };
 		5EFFA6B11692702400035CAA /* default_value.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = default_value.scompil; sourceTree = "<group>"; };
@@ -866,20 +866,20 @@
 		5E88A22215E188BB002D43A5 /* generator */ = {
 			isa = PBXGroup;
 			children = (
+				5E88A22315E188BB002D43A5 /* aligner */,
+				5EF6E09216A33A2C0027BA81 /* c++ */,
 				5E046CE61696604E00E354F3 /* compil */,
 				5E5F99261617767400B91C54 /* cpp */,
-				5E88A22315E188BB002D43A5 /* aligner */,
 				5E88A25F15E188BB002D43A5 /* formatter */,
 				5E88A26D15E188BB002D43A5 /* implementer */,
-				5E9DE6BD168D6D710020522D /* namer */,
 				5E2F05A816951B890063DA88 /* project */,
-				5E88A27515E188BB002D43A5 /* jamfile.jam */,
 				5E88A26715E188BB002D43A5 /* general_configuration.cpp */,
 				5E88A26815E188BB002D43A5 /* general_configuration.h */,
 				5E88A26915E188BB002D43A5 /* generator.cpp */,
 				5E88A26A15E188BB002D43A5 /* generator.h */,
 				5E88A26B15E188BB002D43A5 /* generator_configuration.cpp */,
 				5E88A26C15E188BB002D43A5 /* generator_configuration.h */,
+				5E88A27515E188BB002D43A5 /* jamfile.jam */,
 				5E88A27615E188BB002D43A5 /* main.cpp */,
 				5E88A27715E188BB002D43A5 /* main_generator_unittest.cpp */,
 				5EA486AE1618AB6B00B42BC8 /* method_group.cpp */,
@@ -893,10 +893,6 @@
 			children = (
 				5E88A22415E188BB002D43A5 /* aligner.cpp */,
 				5E88A22515E188BB002D43A5 /* aligner.h */,
-				5E88A22615E188BB002D43A5 /* aligner_configuration.cpp */,
-				5E88A22715E188BB002D43A5 /* aligner_configuration.h */,
-				5EB86F65168B9FDC0049B6A9 /* aligner_stream.cpp */,
-				5EB86F66168B9FDC0049B6A9 /* aligner_stream.h */,
 				5E88A22815E188BB002D43A5 /* function_definition_aligner.cpp */,
 				5E88A22915E188BB002D43A5 /* function_definition_aligner.h */,
 				5E88A22A15E188BB002D43A5 /* function_definition_aligner_unittest.cpp */,
@@ -916,10 +912,6 @@
 				5E88A26115E188BB002D43A5 /* c++_formatter.h */,
 				5E88A26215E188BB002D43A5 /* c++_keyword.cpp */,
 				5E88A26315E188BB002D43A5 /* c++_keyword.h */,
-				5E88A26415E188BB002D43A5 /* formatter_configuration.cpp */,
-				5E88A26515E188BB002D43A5 /* formatter_configuration.h */,
-				5EB86F63168B9CBD0049B6A9 /* formatter_stream.cpp */,
-				5EB86F64168B9CBD0049B6A9 /* formatter_stream.h */,
 			);
 			path = formatter;
 			sourceTree = "<group>";
@@ -931,10 +923,6 @@
 				5E88A26F15E188BB002D43A5 /* c++_implementer.h */,
 				5E88A27015E188BB002D43A5 /* dependency.cpp */,
 				5E88A27115E188BB002D43A5 /* dependency.h */,
-				5E88A27215E188BB002D43A5 /* implementer_configuration.cpp */,
-				5E88A27315E188BB002D43A5 /* implementer_configuration.h */,
-				5EB86F61168B99AC0049B6A9 /* implementer_stream.cpp */,
-				5EB86F62168B99AC0049B6A9 /* implementer_stream.h */,
 			);
 			path = implementer;
 			sourceTree = "<group>";
@@ -1069,17 +1057,6 @@
 				5E88A2FE15E188BC002D43A5 /* method_specifier.compil */,
 			);
 			path = "c++";
-			sourceTree = "<group>";
-		};
-		5E9DE6BD168D6D710020522D /* namer */ = {
-			isa = PBXGroup;
-			children = (
-				5E9DE6BE168D6D710020522D /* namer_configuration.cpp */,
-				5E9DE6BF168D6D710020522D /* namer_configuration.h */,
-				5E9DE6C0168D6D710020522D /* namer_stream.cpp */,
-				5E9DE6C1168D6D710020522D /* namer_stream.h */,
-			);
-			path = namer;
 			sourceTree = "<group>";
 		};
 		5E9DE6C3168E28CA0020522D /* compil-stable */ = {
@@ -1418,6 +1395,29 @@
 				5EF1AC42169FB69100AD5883 /* generate.sh */,
 			);
 			path = macosx;
+			sourceTree = "<group>";
+		};
+		5EF6E09216A33A2C0027BA81 /* c++ */ = {
+			isa = PBXGroup;
+			children = (
+				5EF6E09316A33A2C0027BA81 /* aligner_configuration.cpp */,
+				5EF6E09416A33A2C0027BA81 /* aligner_configuration.h */,
+				5EF6E09516A33A2C0027BA81 /* aligner_stream.cpp */,
+				5EF6E09616A33A2C0027BA81 /* aligner_stream.h */,
+				5EF6E09716A33A2C0027BA81 /* formatter_configuration.cpp */,
+				5EF6E09816A33A2C0027BA81 /* formatter_configuration.h */,
+				5EF6E09916A33A2C0027BA81 /* formatter_stream.cpp */,
+				5EF6E09A16A33A2C0027BA81 /* formatter_stream.h */,
+				5EF6E09B16A33A2C0027BA81 /* implementer_configuration.cpp */,
+				5EF6E09C16A33A2C0027BA81 /* implementer_configuration.h */,
+				5EF6E09D16A33A2C0027BA81 /* implementer_stream.cpp */,
+				5EF6E09E16A33A2C0027BA81 /* implementer_stream.h */,
+				5EF6E09F16A33A2C0027BA81 /* namer_configuration.cpp */,
+				5EF6E0A016A33A2C0027BA81 /* namer_configuration.h */,
+				5EF6E0A116A33A2C0027BA81 /* namer_stream.cpp */,
+				5EF6E0A216A33A2C0027BA81 /* namer_stream.h */,
+			);
+			path = "c++";
 			sourceTree = "<group>";
 		};
 		5EFFA6AD1692702400035CAA /* document */ = {

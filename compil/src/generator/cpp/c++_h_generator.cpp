@@ -31,7 +31,7 @@
 //
 
 #include "generator/cpp/c++_h_generator.h"
-#include "generator/implementer/implementer_stream.h"
+#include "generator/c++/implementer_stream.h"
 
 #include "library/c++/boost/exception.h"
 #include "library/c++/compil/builder.h"

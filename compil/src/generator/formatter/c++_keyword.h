@@ -34,7 +34,7 @@
 #ifndef _CPP_KEYWORD_H__
 #define _CPP_KEYWORD_H__
 
-#include "formatter_configuration.h"
+#include "generator/c++/formatter_configuration.h"
 
 namespace compil
 {

@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "generator/implementer/implementer_stream.h"
+#include "generator/c++/implementer_stream.h"
 
 using namespace lang;
 using namespace lang::cpp;
