@@ -512,7 +512,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& specime
 
     stream << class_;
     
-#if 0
+#if 1
     line() << "#if 0";
     eol(declarationStream);
 

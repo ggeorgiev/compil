@@ -35,6 +35,7 @@ compil { }
 import "c++/class/class_name.scompil";
 import "c++/class/class_key.scompil";
 import "c++/class/constructor.scompil";
+import "c++/class/destructor.scompil";
 import "c++/namespace/namespace.scompil";
 
 package lang.cpp | *.*.*;
@@ -49,4 +50,5 @@ structure Class
     reference<ClassName> name;
     
     vector<reference<Constructor>> constructors;
+    reference<Destructor> destructor = optional;
 }

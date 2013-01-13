@@ -118,6 +118,26 @@ ImplementerStream& ImplementerStream::operator<<(const TestSuite& suite)
     return *this;
 }
 
+static FunctionDifinitionMemberDeclarationSPtr methodDifinition(const MethodNameSPtr& methodName)
+{
+    FunctionNameDeclaratorIdSPtr functionNameDeclaratorId = functionNameDeclaratorIdRef()
+        << methodName;
+        
+    DeclaratorIdDirectDeclaratorSPtr declaratorIdDirectDeclarator = declaratorIdDirectDeclaratorRef()
+        << functionNameDeclaratorId;
+        
+    ParametersDirectDeclaratorSPtr parametersDirectDeclarator = parametersDirectDeclaratorRef()
+        << declaratorIdDirectDeclarator;
+
+    BodyFunctionDifinitionSPtr bodyFunctionDifinition = bodyFunctionDifinitionRef()
+        << parametersDirectDeclarator;
+
+    FunctionDifinitionMemberDeclarationSPtr functionDifinitionMemberDeclaration = functionDifinitionMemberDeclarationRef()
+        << bodyFunctionDifinition;
+    
+    return functionDifinitionMemberDeclaration;
+}
+
 ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& class_)
 {
     MemberSpecificationSectionSPtr section = memberSpecificationSectionRef()
@@ -128,24 +148,18 @@ ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& cla
     {
         ConstructorMethodNameSPtr constructorMethodName = constructorMethodNameRef()
             << class_->name();
-    
-        FunctionNameDeclaratorIdSPtr functionNameDeclaratorId = functionNameDeclaratorIdRef()
-            << constructorMethodName;
             
-        DeclaratorIdDirectDeclaratorSPtr declaratorIdDirectDeclarator = declaratorIdDirectDeclaratorRef()
-            << functionNameDeclaratorId;
-            
-        ParametersDirectDeclaratorSPtr parametersDirectDeclarator = parametersDirectDeclaratorRef()
-            << declaratorIdDirectDeclarator;
-    
-        BodyFunctionDifinitionSPtr bodyFunctionDifinition = bodyFunctionDifinitionRef()
-            << parametersDirectDeclarator;
-    
-        FunctionDifinitionMemberDeclarationSPtr functionDifinitionMemberDeclaration = functionDifinitionMemberDeclarationRef()
-            << bodyFunctionDifinition;
-            
-        section << functionDifinitionMemberDeclaration;
+        section << methodDifinition(constructorMethodName);
     }
+
+    if (class_->destructor())
+    {
+        DestructorMethodNameSPtr destructorMethodName = destructorMethodNameRef()
+            << class_->name();
+        
+        section << methodDifinition(destructorMethodName);
+    }
+
     
     MemberSpecificationSPtr specification = memberSpecificationRef()
         << section;

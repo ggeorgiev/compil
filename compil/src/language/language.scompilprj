@@ -47,8 +47,11 @@ section main
     c++/class/class_specifier.scompil;
     c++/class/constructor.scompil;
     c++/class/constructor_method_name.scompil;
+    c++/class/destructor.scompil;
+    c++/class/destructor_method_name.scompil;
     c++/class/function_difinition_member_declaration.scompil;
     c++/class/identifier_class_name.scompil;
+    c++/class/identifier_destructor_method_name.scompil;
     c++/class/identifier_method_name.scompil;
     c++/class/member_declaration.scompil;
     c++/class/member_declarator.scompil;

@@ -369,6 +369,9 @@
 		5EA69D321693F265009255A0 /* variable_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = variable_expression.scompil; sourceTree = "<group>"; };
 		5EA69D371693FF37009255A0 /* grammar_equality_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = grammar_equality_expression.scompil; sourceTree = "<group>"; };
 		5EA69D3B1694013C009255A0 /* generic_equality_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = generic_equality_expression.scompil; sourceTree = "<group>"; };
+		5EB6476F16A28A410068B403 /* destructor.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = destructor.scompil; sourceTree = "<group>"; };
+		5EB6477116A28D240068B403 /* destructor_method_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = destructor_method_name.scompil; sourceTree = "<group>"; };
+		5EB6477216A295880068B403 /* identifier_destructor_method_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = identifier_destructor_method_name.scompil; sourceTree = "<group>"; };
 		5EB86F61168B99AC0049B6A9 /* implementer_stream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = implementer_stream.cpp; sourceTree = "<group>"; };
 		5EB86F62168B99AC0049B6A9 /* implementer_stream.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = implementer_stream.h; sourceTree = "<group>"; };
 		5EB86F63168B9CBD0049B6A9 /* formatter_stream.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = formatter_stream.cpp; sourceTree = "<group>"; };
@@ -1284,8 +1287,11 @@
 				5E93520616A1156E00EC4E70 /* class_specifier.scompil */,
 				5E24613C16A12D1600E5660B /* constructor.scompil */,
 				5E24616416A1FBCE00E5660B /* constructor_method_name.scompil */,
+				5EB6476F16A28A410068B403 /* destructor.scompil */,
+				5EB6477116A28D240068B403 /* destructor_method_name.scompil */,
 				5E24616A16A2472F00E5660B /* function_difinition_member_declaration.scompil */,
 				5E9DE6E0168FC3FF0020522D /* identifier_class_name.scompil */,
+				5EB6477216A295880068B403 /* identifier_destructor_method_name.scompil */,
 				5E24615E16A1F8FF00E5660B /* identifier_method_name.scompil */,
 				5E24614016A133A100E5660B /* member_declaration.scompil */,
 				5E24614216A138B700E5660B /* member_declarator.scompil */,

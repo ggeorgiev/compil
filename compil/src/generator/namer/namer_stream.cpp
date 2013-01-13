@@ -353,6 +353,11 @@ IdentifierMethodNameSPtr NamerStream::convertIdentifierMethodName(const MethodNa
         ClassNameSPtr className = ConstructorMethodName::downcast(name)->className();
         return identifierMethodNameRef() << convertIdentifierClassName(className)->identifier();
     }
+    if (name->runtimeDeclarationId() == DestructorMethodName::staticDeclarationId())
+    {
+        ClassNameSPtr className = DestructorMethodName::downcast(name)->className();
+        return identifierDestructorMethodNameRef() << convertIdentifierClassName(className)->identifier();
+    }
         
     BOOST_ASSERT(false);
     return IdentifierMethodNameSPtr();
@@ -556,7 +561,7 @@ NamerStream& NamerStream::operator<<(const StatementSPtr& statement)
     return *this;
 }
 
-NamerStream& NamerStream::operator<<(const lang::cpp::ClassSpecifierSPtr& specifier)
+NamerStream& NamerStream::operator<<(const ClassSpecifierSPtr& specifier)
 {
     mFormatter << convertClassSpecifier(specifier);
     return *this;

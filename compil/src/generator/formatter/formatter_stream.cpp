@@ -142,6 +142,8 @@ FormatterStream& FormatterStream::operator<<(const DeclarationSPtr& declaration)
         return *this << DeclarationSpecifierSequence::downcast(declaration);
     if (declaration->runtimeDeclarationId() == FunctionDifinitionMemberDeclaration::staticDeclarationId())
         return *this << FunctionDifinitionMemberDeclaration::downcast(declaration);
+    if (declaration->runtimeDeclarationId() == IdentifierDestructorMethodName::staticDeclarationId())
+        return *this << IdentifierDestructorMethodName::downcast(declaration);
     if (declaration->runtimeDeclarationId() == IdentifierMethodName::staticDeclarationId())
         return *this << IdentifierMethodName::downcast(declaration);
     if (declaration->runtimeDeclarationId() == SimpleBlockDeclaration::staticDeclarationId())
@@ -312,6 +314,12 @@ FormatterStream& FormatterStream::operator<<(const IdentifierClassNameSPtr& name
     return *this << name->identifier();
 }
 
+FormatterStream& FormatterStream::operator<<(const lang::cpp::IdentifierDestructorMethodNameSPtr& name)
+{
+    mAligner << "~";
+    return *this << name->identifier();
+}
+
 FormatterStream& FormatterStream::operator<<(const IdentifierMethodNameSPtr& name)
 {
     return *this << name->identifier();
@@ -424,7 +432,7 @@ FormatterStream& FormatterStream::operator<<(const NestedNameSpecifierSPtr& expr
     return *this;
 }
 
-FormatterStream& FormatterStream::operator<<(const lang::cpp::ParametersDirectDeclaratorSPtr& declarator)
+FormatterStream& FormatterStream::operator<<(const ParametersDirectDeclaratorSPtr& declarator)
 {
     *this << declarator->declarator();
     mAligner << "(";

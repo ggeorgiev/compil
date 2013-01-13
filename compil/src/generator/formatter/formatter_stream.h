@@ -90,6 +90,7 @@ public:
     FormatterStream& operator<<(const lang::cpp::NestedNameSpecifierSPtr& expression);
     FormatterStream& operator<<(const lang::cpp::IdentifierSPtr& identifier);
     FormatterStream& operator<<(const lang::cpp::IdentifierClassNameSPtr& name);
+    FormatterStream& operator<<(const lang::cpp::IdentifierDestructorMethodNameSPtr& name);
     FormatterStream& operator<<(const lang::cpp::IdentifierMethodNameSPtr& name);
     FormatterStream& operator<<(const lang::cpp::IdentifierNamespaceNameSPtr& name);
     FormatterStream& operator<<(const lang::cpp::IdentifierUnqualifiedIdSPtr& expression);

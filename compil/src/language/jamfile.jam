@@ -27,8 +27,11 @@ lib cpp-language
     $(GEN)/c++/class/class_specifier.cpp
     $(GEN)/c++/class/constructor.cpp
     $(GEN)/c++/class/constructor_method_name.cpp
+    $(GEN)/c++/class/destructor.cpp
+    $(GEN)/c++/class/destructor_method_name.cpp
     $(GEN)/c++/class/function_difinition_member_declaration.cpp
     $(GEN)/c++/class/identifier_class_name.cpp
+    $(GEN)/c++/class/identifier_destructor_method_name.cpp
     $(GEN)/c++/class/identifier_method_name.cpp
     $(GEN)/c++/class/member_declaration.cpp
     $(GEN)/c++/class/member_declarator.cpp

@@ -69,11 +69,16 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
         << EAccessSpecifier::public_()
         << name;
 
+    DestructorSPtr destructor = destructorRef()
+        << EAccessSpecifier::public_()
+        << name;
+
     ClassSPtr class_ = classRef()
         << CppNamespace::namespace_(specimen->package())
         << EClassKey::class_()
         << name
-        << defaultConstructor;
+        << defaultConstructor
+        << destructor;
         
     map[specimen] = class_;
     return class_;
