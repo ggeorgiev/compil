@@ -32,10 +32,29 @@
 
 compil { }
 
-package lang.all | *.*;
+import "all/mold/mold.scompil";
+
+package lang.all | *.*.*;
 
 streamable
-structure Element
+structure List
+    inherit Mold
 {
     runtime identification;
+    
+    strong enum Squiggles
+    {
+        none;
+        brackets;
+        parentheses;
+    }
+    Squiggles squiggles;
+
+    strong enum Delimiter
+    {
+        comma;
+    }
+    Delimiter delimiter;
+    
+    vector<reference<Element>> elements;
 }

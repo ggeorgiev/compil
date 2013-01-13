@@ -32,13 +32,13 @@
 
 compil { }
 
-import "all/element.scompil";
+import "all/mold/mold.scompil";
 
-package lang.all | *.*;
+package lang.all | *.*.*;
 
 streamable
 structure List
-    inherit Element
+    inherit Mold
 {
     runtime identification;
     

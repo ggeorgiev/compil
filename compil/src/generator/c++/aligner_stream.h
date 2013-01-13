@@ -37,7 +37,7 @@
 
 #include "aligner_configuration.h"
 
-#include "language/all/element_factory.h"
+#include "language/all/element/element_factory.h"
 
 #include <iostream>
 
@@ -49,18 +49,36 @@ public:
     
     std::string str();
     
-    AlignerStream& operator<<(const lang::all::ElementSPtr& element);
+    AlignerStream& operator<<(const lang::all::PassageSPtr& passage);
 
     AlignerConfigurationSPtr mConfiguration;
     
 protected:
-    AlignerStream& operator<<(const lang::all::EndOfLineSPtr&);
-    AlignerStream& operator<<(const lang::all::ListSPtr& list);
-    AlignerStream& operator<<(const lang::all::PassageSPtr& passage);
+    AlignerStream& operator<<(const lang::all::LineSPtr& line);
+    AlignerStream& operator<<(const lang::all::MoldSPtr& mold);
     AlignerStream& operator<<(const lang::all::ScopeSPtr& scope);
-    AlignerStream& operator<<(const lang::all::StringSPtr& string);
 
 private:
+    static std::vector<lang::all::ElementSPtr> flatten(const std::vector<lang::all::ElementSPtr>& elements);
+    static std::vector<lang::all::MoldSPtr> mold(const std::vector<lang::all::ElementSPtr>& elements);
+    
+    static std::string evaluate(const lang::all::ElementSPtr& element);
+    static std::string evaluate(const lang::all::ListSPtr& list);
+    static std::string evaluate(const lang::all::PassageSPtr& passage);
+    static std::string evaluate(const lang::all::StringSPtr& string);
+    
+    struct Endl {};
+    static const Endl* endl;
+    
+    struct ResetEndl {};
+    static const ResetEndl* resetEndl;
+
+    AlignerStream& operator<<(const std::string& string);
+    AlignerStream& operator<<(const Endl* endl);
+    AlignerStream& operator<<(const ResetEndl* resetEndl);
+        
+    bool endlOn;
+    
     std::string indent() const;
 
     std::ostringstream stream;

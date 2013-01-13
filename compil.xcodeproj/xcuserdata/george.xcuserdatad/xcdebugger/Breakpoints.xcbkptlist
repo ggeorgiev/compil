@@ -68,6 +68,19 @@
          landmarkName = "AlignerStream::operator&lt;&lt;(const ScopeSPtr&amp; scope)"
          landmarkType = "5">
       </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/c++/implementer_stream.cpp"
+         timestampString = "379820514.930646"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "113"
+         endingLineNumber = "113"
+         landmarkName = "ImplementerStream::operator&lt;&lt;(const TestSuite&amp; suite)"
+         landmarkType = "5">
+      </FileBreakpoint>
    </FileBreakpoints>
    <ExceptionBreakpoints>
       <ExceptionBreakpoint

@@ -32,9 +32,9 @@
 
 compil { }
 
-import "all/element.scompil";
+import "all/element/element.scompil";
 
-package lang.all | *.*;
+package lang.all | *.*.*;
 
 streamable
 structure String

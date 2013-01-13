@@ -493,7 +493,8 @@ StatementSPtr NamerStream::convertStatement(const StatementSPtr& statement)
     {
         CompoundStatementSPtr cstatment = CompoundStatement::downcast(statement);
 
-        CompoundStatementSPtr newstatement = compoundStatementRef();
+        CompoundStatementSPtr newstatement = compoundStatementRef()
+            << cstatment->close();
         const std::vector<StatementSPtr>& statements = cstatment->statements();
         for (std::vector<StatementSPtr>::const_iterator it = statements.begin(); it != statements.end(); ++it)
             newstatement << convertStatement(*it);

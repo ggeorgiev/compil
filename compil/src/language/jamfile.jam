@@ -16,13 +16,16 @@ project language
 
 lib cpp-language
   :
-    $(GEN)/all/element.cpp
-    $(GEN)/all/element_factory.cpp
-    $(GEN)/all/end_of_line.cpp
-    $(GEN)/all/list.cpp
-    $(GEN)/all/passage.cpp
-    $(GEN)/all/scope.cpp
-    $(GEN)/all/string.cpp
+    $(GEN)/all/element/element.cpp
+    $(GEN)/all/element/element_factory.cpp
+    $(GEN)/all/element/end_of_line.cpp
+    $(GEN)/all/element/list.cpp
+    $(GEN)/all/element/passage.cpp
+    $(GEN)/all/element/string.cpp
+    
+    $(GEN)/all/mold/line.cpp
+    $(GEN)/all/mold/mold.cpp
+    $(GEN)/all/mold/scope.cpp
         
     $(GEN)/c++/class/class.cpp
     $(GEN)/c++/class/class_head.cpp

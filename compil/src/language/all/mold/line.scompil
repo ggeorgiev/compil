@@ -32,15 +32,14 @@
 
 compil { }
 
-import "all/element.scompil";
+import "all/mold/mold.scompil";
 
-package lang.all | *.*;
+package lang.all | *.*.*;
 
 streamable
-structure Passage
-    inherit Element
+structure Line
+    inherit Mold
 {
     runtime identification;
-    
     vector<reference<Element>> elements;
 }

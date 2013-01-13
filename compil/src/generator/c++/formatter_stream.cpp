@@ -56,13 +56,13 @@ std::string FormatterStream::str()
 
 FormatterStream& FormatterStream::operator<<(const lang::cpp::StatementSPtr& statement)
 {
-    mAligner << convert(statement);
+    mAligner << (passageRef() << convert(statement));
     return *this;
 }
 
 FormatterStream& FormatterStream::operator<<(const lang::cpp::ClassSpecifierSPtr& specifier)
 {
-    mAligner << convert(specifier);
+    mAligner << (passageRef() << convert(specifier));
     return *this;
 }
 
@@ -88,8 +88,6 @@ ElementSPtr FormatterStream::convert(const CastPmExpressionSPtr& expression)
 
 ElementSPtr FormatterStream::convert(const CompoundStatementSPtr& compoundStatement)
 {
-    PassageSPtr passage = passageRef();
-
     ScopeSPtr scope = scopeRef();
     scope << Scope::ESquiggles::brackets();
     
@@ -97,11 +95,10 @@ ElementSPtr FormatterStream::convert(const CompoundStatementSPtr& compoundStatem
     for (std::vector<StatementSPtr>::const_iterator it = statements.begin(); it != statements.end(); ++it)
         scope << convert(*it);
         
-    passage << scope
-            << convert(compoundStatement->close())
-            << endOfLineRef();
-    
-    return passage;
+    if (compoundStatement->close() == Statement::EClose::yes())
+        scope << ";";
+
+    return scope;
 }
 
 ElementSPtr FormatterStream::convert(const ClassTypeNameSPtr& declaration)
@@ -127,10 +124,14 @@ ElementSPtr FormatterStream::convert(const ClassSpecifierSPtr& specifier)
 {
     PassageSPtr passage = passageRef();
     passage << convert(specifier->head())
-            << (stringRef() << "\n{\n");
+            << endOfLineRef()
+            << (stringRef() << "{")
+            << endOfLineRef();
+            
     if (specifier->members())
         passage << convert(specifier->members());
-    passage << (stringRef() << "}");
+    passage << (stringRef() << "}")
+            << endOfLineRef();
     return passage;
 }
 

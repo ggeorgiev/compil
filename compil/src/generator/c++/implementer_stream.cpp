@@ -104,15 +104,14 @@ ImplementerStream& ImplementerStream::operator<<(const TestSuite& suite)
         macro << (expressionMacroParameterRef() << (customExpressionRef() << test->name().value()));
         macro << Statement::EClose::no();
         
-        mNamer << macro;
-        
         CompoundStatementSPtr compoundStatement = compoundStatementRef();
         
         const std::vector<StatementSPtr>& statements = test->statements();
         for (std::vector<StatementSPtr>::const_iterator it = statements.begin(); it != statements.end(); ++it)
             compoundStatement << convertStatement(*it);
         
-        mNamer << compoundStatement;
+        mNamer << macro
+               << compoundStatement;
     }
 
     return *this;

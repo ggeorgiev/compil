@@ -30,12 +30,16 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "aligner_stream.h"
+#include "generator/c++/aligner_stream.h"
 
 using namespace lang::all;
 
+const AlignerStream::Endl* AlignerStream::endl = NULL;
+const AlignerStream::ResetEndl* AlignerStream::resetEndl = NULL;
+
 AlignerStream::AlignerStream(const AlignerConfigurationSPtr& configuration)
     : mConfiguration(configuration)
+    , endlOn(false)
 {
 }
 
@@ -45,40 +49,93 @@ AlignerStream::~AlignerStream()
 
 std::string AlignerStream::str()
 {
+    if (endlOn)
+    {
+        stream << std::endl;
+        endlOn = false;
+    }
+    
     return stream.str();
 }
 
-AlignerStream& AlignerStream::operator<<(const ElementSPtr& element)
+AlignerStream& AlignerStream::operator<<(const PassageSPtr& passage)
 {
-    if (element->runtimeElementId() == EndOfLine::staticElementId())
-        return *this << (EndOfLine::downcast(element));
+    std::vector<ElementSPtr> elements = flatten(passage->elements());
+    std::vector<MoldSPtr> molds = mold(elements);
+
+    for (std::vector<MoldSPtr>::const_iterator it = molds.begin(); it != molds.end(); ++it)
+        *this << *it;
+
+    return *this;
+}
+
+AlignerStream& AlignerStream::operator<<(const MoldSPtr& mold)
+{
+    if (mold->runtimeElementId() == Line::staticElementId())
+        return *this << (Line::downcast(mold));
+    if (mold->runtimeElementId() == Scope::staticElementId())
+        return *this << (Scope::downcast(mold));
+        
+    BOOST_ASSERT(false);
+    return *this;
+}
+
+AlignerStream& AlignerStream::operator<<(const ScopeSPtr& scope)
+{
+    *this << resetEndl
+          << endl
+          << "{"
+          << endl;
+    
+    std::vector<ElementSPtr> elements = flatten(scope->elements());
+    std::vector<MoldSPtr> molds = mold(elements);
+
+    for (std::vector<MoldSPtr>::const_iterator it = molds.begin(); it != molds.end(); ++it)
+    {
+        *this << *it
+              << endl;
+    }
+    
+    *this << "}"
+          << scope->close()
+          << endl;
+          
+    return *this;
+}
+
+AlignerStream& AlignerStream::operator<<(const LineSPtr& line)
+{
+    const std::vector<ElementSPtr>& elements = line->elements();
+    for (std::vector<ElementSPtr>::const_iterator it = elements.begin(); it != elements.end(); ++it)
+        *this << evaluate(*it);
+    return *this;
+}
+
+std::string AlignerStream::evaluate(const ElementSPtr& element)
+{
     if (element->runtimeElementId() == List::staticElementId())
-        return *this << (List::downcast(element));
+        return evaluate(List::downcast(element));
     if (element->runtimeElementId() == Passage::staticElementId())
-        return *this << (Passage::downcast(element));
-    if (element->runtimeElementId() == Scope::staticElementId())
-        return *this << (Scope::downcast(element));
+        return evaluate(Passage::downcast(element));
     if (element->runtimeElementId() == String::staticElementId())
-        return *this << (String::downcast(element));
-    return *this;
+        return evaluate(String::downcast(element));
+        
+    BOOST_ASSERT(false);
+    return "";
 }
 
-AlignerStream& AlignerStream::operator<<(const EndOfLineSPtr&)
+std::string AlignerStream::evaluate(const lang::all::ListSPtr& list)
 {
-    stream << std::endl;
-    return *this;
-}
-
-AlignerStream& AlignerStream::operator<<(const ListSPtr& list)
-{
+    std::string result;
+    
     switch (list->squiggles().value())
     {
         case List::ESquiggles::kParentheses:
-            stream << "(";
+            result += "(";
             break;
     }
     
-    const std::vector<ElementSPtr>& elements = list->elements();
+    std::vector<ElementSPtr> elements = list->elements();
     for (std::vector<ElementSPtr>::const_iterator it = elements.begin(); it != elements.end(); ++it)
     {
         const ElementSPtr& element = *it;
@@ -88,55 +145,92 @@ AlignerStream& AlignerStream::operator<<(const ListSPtr& list)
             switch (list->delimiter().value())
             {
                 case List::EDelimiter::kComma:
-                    stream << ", ";
+                    result += ", ";
                     break;
             }
         }
         
-        *this << element;
+        result += evaluate(element);
     }
     
     switch (list->squiggles().value())
     {
         case List::ESquiggles::kParentheses:
-            stream << ")";
+            result += ")";
             break;
     }
     
-    return *this;
+    return result;
 }
 
-AlignerStream& AlignerStream::operator<<(const PassageSPtr& passage)
+std::string AlignerStream::evaluate(const PassageSPtr& passage)
 {
-    const std::vector<ElementSPtr>& elements = passage->elements();
-    for (std::vector<ElementSPtr>::const_iterator it = elements.begin(); it != elements.end(); ++it)
-        *this << *it;
-    return *this;
-}
-
-AlignerStream& AlignerStream::operator<<(const ScopeSPtr& scope)
-{
-    stream << std::endl;
-    stream << "{";
-    stream << std::endl;
+    std::string result;
     
-    const std::vector<ElementSPtr>& elements = scope->elements();
+    std::vector<ElementSPtr> elements = flatten(passage->elements());
+    for (std::vector<ElementSPtr>::const_iterator it = elements.begin(); it != elements.end(); ++it)
+        result += evaluate(*it);
+
+    return result;
+}
+
+std::string AlignerStream::evaluate(const StringSPtr& string)
+{
+    return string->value();
+}
+
+std::vector<ElementSPtr> AlignerStream::flatten(const std::vector<ElementSPtr>& elements)
+{
+    std::vector<ElementSPtr> result;
+
     for (std::vector<ElementSPtr>::const_iterator it = elements.begin(); it != elements.end(); ++it)
     {
-        *this << *it;
-//        stream << indent() << line;
-//        stream << std::endl;
+        PassageSPtr ps = ElementFactory::downcastPassage(*it);
+        if (ps)
+        {
+            std::vector<ElementSPtr> pselements = flatten(ps->elements());
+            result.insert(result.end(), pselements.begin(), pselements.end());
+            continue;
+        }
+        
+        result.push_back(*it);
     }
-    
-    stream << "}";
-    stream << std::endl;
-    return *this;
+
+    return result;
 }
 
-AlignerStream& AlignerStream::operator<<(const StringSPtr& string)
+std::vector<MoldSPtr> AlignerStream::mold(const std::vector<ElementSPtr>& elements)
 {
-    stream << string->value();
-    return *this;
+    std::vector<MoldSPtr> result;
+    
+    for (std::vector<ElementSPtr>::const_iterator it = elements.begin(); it != elements.end(); ++it)
+    {
+        MoldSPtr mold = ElementFactory::downcastMold(*it);
+        if (mold)
+        {
+            result.push_back(mold);
+            continue;
+        }
+        
+        std::vector<ElementSPtr>::const_iterator first = it;
+        std::vector<ElementSPtr>::const_iterator last = it;
+        while (last != elements.end())
+        {
+            const ElementSPtr& element = *last;
+            if (element->runtimeElementId() == EndOfLine::staticElementId())
+            {
+                LineSPtr line = lineRef() << std::vector<ElementSPtr>(first, last);
+                result.push_back(line);
+                it = last;
+                break;
+            }
+            ++last;
+            
+            BOOST_ASSERT(last != elements.end());
+        }
+    }
+    
+    return result;
 }
 
 std::string AlignerStream::indent() const
@@ -153,4 +247,30 @@ std::string AlignerStream::indent() const
     }
     assert(false && "unknown alignment type");
     return "";
+}
+
+AlignerStream& AlignerStream::operator<<(const std::string& string)
+{
+    if (endlOn)
+    {
+        stream << std::endl;
+        endlOn = false;
+    }
+    stream << string;
+    return *this;
+}
+
+AlignerStream& AlignerStream::operator<<(const Endl* endl)
+{
+    if (endlOn)
+        stream << std::endl;
+    else
+        endlOn = true;
+    return *this;
+}
+
+AlignerStream& AlignerStream::operator<<(const ResetEndl* resetEndl)
+{
+    endlOn = false;
+    return *this;
 }

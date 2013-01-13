@@ -32,13 +32,24 @@
 
 compil { }
 
-import "all/element.scompil";
+import "all/mold/mold.scompil";
+import "all/element/passage.scompil";
 
-package lang.all | *.*;
+package lang.all | *.*.*;
 
 streamable
-structure EndOfLine
-    inherit Element
+structure Scope
+    inherit Mold
 {
     runtime identification;
+    
+    strong enum Squiggles
+    {
+        none;
+        brackets;
+    }
+    Squiggles squiggles;
+
+    vector<reference<Element>> elements;
+    string close;
 }
