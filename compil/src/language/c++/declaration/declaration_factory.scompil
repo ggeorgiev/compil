@@ -43,7 +43,7 @@ import "c++/declaration/type_name_simple_type_specifier.scompil";
 import "c++/class/constructor_method_name.scompil";
 import "c++/class/destructor_method_name.scompil";
 import "c++/class/identifier_destructor_method_name.scompil";
-import "c++/class/function_difinition_member_declaration.scompil";
+import "c++/class/function_definition_member_declaration.scompil";
 import "c++/class/identifier_method_name.scompil";
 
 

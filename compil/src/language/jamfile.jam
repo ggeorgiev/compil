@@ -37,7 +37,7 @@ lib cpp-language
     $(GEN)/c++/class/constructor_method_name.cpp
     $(GEN)/c++/class/destructor.cpp
     $(GEN)/c++/class/destructor_method_name.cpp
-    $(GEN)/c++/class/function_difinition_member_declaration.cpp
+    $(GEN)/c++/class/function_definition_member_declaration.cpp
     $(GEN)/c++/class/identifier_class_name.cpp
     $(GEN)/c++/class/identifier_destructor_method_name.cpp
     $(GEN)/c++/class/identifier_method_name.cpp
@@ -67,13 +67,13 @@ lib cpp-language
     $(GEN)/c++/declaration/type_name_simple_type_specifier.cpp
     $(GEN)/c++/declaration/type_specifier.cpp
 
-    $(GEN)/c++/declarator/body_function_difinition.cpp
+    $(GEN)/c++/declarator/body_function_definition.cpp
     $(GEN)/c++/declarator/declarator.cpp
     $(GEN)/c++/declarator/declarator_factory.cpp
     $(GEN)/c++/declarator/declarator_id.cpp
     $(GEN)/c++/declarator/declarator_id_direct_declarator.cpp
     $(GEN)/c++/declarator/direct_declarator.cpp
-    $(GEN)/c++/declarator/function_difinition.cpp
+    $(GEN)/c++/declarator/function_definition.cpp
     $(GEN)/c++/declarator/function_name_declarator_id.cpp
     $(GEN)/c++/declarator/init_declarator.cpp
     $(GEN)/c++/declarator/parameter_declaratoin.cpp

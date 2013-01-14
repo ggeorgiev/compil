@@ -71,13 +71,13 @@ ElementSPtr FormatterStream::convert(const AdditiveShiftExpressionSPtr& expressi
     return convert(expression->expression());
 }
 
-ElementSPtr FormatterStream::convert(const lang::cpp::BodyFunctionDifinitionSPtr& difinition)
+ElementSPtr FormatterStream::convert(const lang::cpp::BodyFunctionDefinitionSPtr& definition)
 {
     PassageSPtr passage = passageRef();
-    if (difinition->specifier())
-        passage << convert(difinition->specifier());
+    if (definition->specifier())
+        passage << convert(definition->specifier());
         
-    passage << convert(difinition->declarator());
+    passage << convert(definition->declarator());
     return passage;
 }
 
@@ -151,8 +151,8 @@ ElementSPtr FormatterStream::convert(const DeclarationSPtr& declaration)
         return convert(ClassTypeName::downcast(declaration));
     if (declaration->runtimeDeclarationId() == DeclarationSpecifierSequence::staticDeclarationId())
         return convert(DeclarationSpecifierSequence::downcast(declaration));
-    if (declaration->runtimeDeclarationId() == FunctionDifinitionMemberDeclaration::staticDeclarationId())
-        return convert(FunctionDifinitionMemberDeclaration::downcast(declaration));
+    if (declaration->runtimeDeclarationId() == FunctionDefinitionMemberDeclaration::staticDeclarationId())
+        return convert(FunctionDefinitionMemberDeclaration::downcast(declaration));
     if (declaration->runtimeDeclarationId() == IdentifierDestructorMethodName::staticDeclarationId())
         return convert(IdentifierDestructorMethodName::downcast(declaration));
     if (declaration->runtimeDeclarationId() == IdentifierMethodName::staticDeclarationId())
@@ -187,8 +187,8 @@ ElementSPtr FormatterStream::convert(const DeclarationSpecifierSequenceSPtr& dec
 
 ElementSPtr FormatterStream::convert(const DeclaratorSPtr& declarator)
 {
-    if (declarator->runtimeDeclaratorId() == BodyFunctionDifinition::staticDeclaratorId())
-        return convert(BodyFunctionDifinition::downcast(declarator));
+    if (declarator->runtimeDeclaratorId() == BodyFunctionDefinition::staticDeclaratorId())
+        return convert(BodyFunctionDefinition::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == FunctionNameDeclaratorId::staticDeclaratorId())
         return convert(FunctionNameDeclaratorId::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == InitDeclarator::staticDeclaratorId())
@@ -314,9 +314,9 @@ ElementSPtr FormatterStream::convert(const FunctionNameDeclaratorIdSPtr& declara
     return convert(declarator->functionName());
 }
 
-ElementSPtr FormatterStream::convert(const FunctionDifinitionMemberDeclarationSPtr& declaration)
+ElementSPtr FormatterStream::convert(const FunctionDefinitionMemberDeclarationSPtr& declaration)
 {
-    return convert(declaration->difinition());
+    return convert(declaration->definition());
 }
 
 ElementSPtr FormatterStream::convert(const IdentifierUnqualifiedIdSPtr& expression)

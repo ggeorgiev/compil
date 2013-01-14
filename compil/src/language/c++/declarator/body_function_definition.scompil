@@ -32,14 +32,14 @@
 
 compil { }
 
-import "c++/declarator/function_difinition.scompil";
+import "c++/declarator/function_definition.scompil";
 import "c++/declaration/declaration_specifier.scompil";
 
 package lang.cpp | *.*.*;
 
 streamable
-structure BodyFunctionDifinition
-    inherit FunctionDifinition
+structure BodyFunctionDefinition
+    inherit FunctionDefinition
 {
     runtime identification;
     

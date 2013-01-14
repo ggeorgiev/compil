@@ -54,12 +54,12 @@ std::string NamerStream::str()
     return mFormatter.str();
 }
 
-BodyFunctionDifinitionSPtr NamerStream::convertBodyFunctionDifinition(const BodyFunctionDifinitionSPtr& difinition)
+BodyFunctionDefinitionSPtr NamerStream::convertBodyFunctionDefinition(const BodyFunctionDefinitionSPtr& definition)
 {
-    BodyFunctionDifinitionSPtr newdifinition = bodyFunctionDifinitionRef()
-        << difinition->specifier()
-        << convertDeclarator(difinition->declarator());
-    return newdifinition;
+    BodyFunctionDefinitionSPtr newdefinition = bodyFunctionDefinitionRef()
+        << definition->specifier()
+        << convertDeclarator(definition->declarator());
+    return newdefinition;
 }
 
 ClassHeadSPtr NamerStream::convertClassHead(const ClassHeadSPtr& head)
@@ -248,19 +248,19 @@ FunctionNameDeclaratorIdSPtr NamerStream::convertFunctionNameDeclaratorId(const 
     return newdeclarator;
 }
 
-FunctionDifinitionSPtr NamerStream::convertFunctionDifinition(const FunctionDifinitionSPtr& difinition)
+FunctionDefinitionSPtr NamerStream::convertFunctionDefinition(const FunctionDefinitionSPtr& definition)
 {
-    if (difinition->runtimeDeclaratorId() == BodyFunctionDifinition::staticDeclaratorId())
-        return convertBodyFunctionDifinition(BodyFunctionDifinition::downcast(difinition));
+    if (definition->runtimeDeclaratorId() == BodyFunctionDefinition::staticDeclaratorId())
+        return convertBodyFunctionDefinition(BodyFunctionDefinition::downcast(definition));
 
     BOOST_ASSERT(false);
-    return FunctionDifinitionSPtr();
+    return FunctionDefinitionSPtr();
 }
 
-FunctionDifinitionMemberDeclarationSPtr NamerStream::convertFunctionDifinitionMemberDeclaration(const FunctionDifinitionMemberDeclarationSPtr& declaration)
+FunctionDefinitionMemberDeclarationSPtr NamerStream::convertFunctionDefinitionMemberDeclaration(const FunctionDefinitionMemberDeclarationSPtr& declaration)
 {
-    FunctionDifinitionMemberDeclarationSPtr newdeclaration = functionDifinitionMemberDeclarationRef()
-        << convertFunctionDifinition(declaration->difinition());
+    FunctionDefinitionMemberDeclarationSPtr newdeclaration = functionDefinitionMemberDeclarationRef()
+        << convertFunctionDefinition(declaration->definition());
         
     return newdeclaration;
 }
@@ -288,8 +288,8 @@ MacroParameterSPtr NamerStream::convertMacroParameter(const MacroParameterSPtr& 
 
 MemberDeclarationSPtr NamerStream::convertMemberDeclaration(const MemberDeclarationSPtr& declaration)
 {
-    if (declaration->runtimeDeclarationId() == FunctionDifinitionMemberDeclaration::staticDeclarationId())
-        return convertFunctionDifinitionMemberDeclaration(FunctionDifinitionMemberDeclaration::downcast(declaration));
+    if (declaration->runtimeDeclarationId() == FunctionDefinitionMemberDeclaration::staticDeclarationId())
+        return convertFunctionDefinitionMemberDeclaration(FunctionDefinitionMemberDeclaration::downcast(declaration));
         
     BOOST_ASSERT(false);
     return MemberDeclarationSPtr();

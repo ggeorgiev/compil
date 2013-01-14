@@ -63,7 +63,7 @@ public:
     
 protected:
     lang::all::ElementSPtr convert(const lang::cpp::AdditiveShiftExpressionSPtr& expression);
-    lang::all::ElementSPtr convert(const lang::cpp::BodyFunctionDifinitionSPtr& difinition);
+    lang::all::ElementSPtr convert(const lang::cpp::BodyFunctionDefinitionSPtr& definition);
     lang::all::ElementSPtr convert(const lang::cpp::CompoundStatementSPtr& statement);
     lang::all::ElementSPtr convert(const lang::cpp::CastPmExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::ClassHeadSPtr& head);
@@ -85,7 +85,7 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::ExpressionListSPtr& expressionList);
     lang::all::ElementSPtr convert(const lang::cpp::ExpressionStatementSPtr& statement);
     lang::all::ElementSPtr convert(const lang::cpp::FunctionNameDeclaratorIdSPtr& declarator);
-    lang::all::ElementSPtr convert(const lang::cpp::FunctionDifinitionMemberDeclarationSPtr& declaration);
+    lang::all::ElementSPtr convert(const lang::cpp::FunctionDefinitionMemberDeclarationSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::GrammarEqualityExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::MacroNameSPtr& name);
     lang::all::ElementSPtr convert(const lang::cpp::MacroParameterSPtr& parameter);

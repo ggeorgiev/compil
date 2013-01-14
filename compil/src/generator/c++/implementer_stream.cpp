@@ -117,7 +117,7 @@ ImplementerStream& ImplementerStream::operator<<(const TestSuite& suite)
     return *this;
 }
 
-static FunctionDifinitionMemberDeclarationSPtr methodDifinition(const MethodNameSPtr& methodName)
+static FunctionDefinitionMemberDeclarationSPtr methodDefinition(const MethodNameSPtr& methodName)
 {
     FunctionNameDeclaratorIdSPtr functionNameDeclaratorId = functionNameDeclaratorIdRef()
         << methodName;
@@ -128,13 +128,13 @@ static FunctionDifinitionMemberDeclarationSPtr methodDifinition(const MethodName
     ParametersDirectDeclaratorSPtr parametersDirectDeclarator = parametersDirectDeclaratorRef()
         << declaratorIdDirectDeclarator;
 
-    BodyFunctionDifinitionSPtr bodyFunctionDifinition = bodyFunctionDifinitionRef()
+    BodyFunctionDefinitionSPtr bodyFunctionDefinition = bodyFunctionDefinitionRef()
         << parametersDirectDeclarator;
 
-    FunctionDifinitionMemberDeclarationSPtr functionDifinitionMemberDeclaration = functionDifinitionMemberDeclarationRef()
-        << bodyFunctionDifinition;
+    FunctionDefinitionMemberDeclarationSPtr functionDefinitionMemberDeclaration = functionDefinitionMemberDeclarationRef()
+        << bodyFunctionDefinition;
     
-    return functionDifinitionMemberDeclaration;
+    return functionDefinitionMemberDeclaration;
 }
 
 ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& class_)
@@ -148,7 +148,7 @@ ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& cla
         ConstructorMethodNameSPtr constructorMethodName = constructorMethodNameRef()
             << class_->name();
             
-        section << methodDifinition(constructorMethodName);
+        section << methodDefinition(constructorMethodName);
     }
 
     if (class_->destructor())
@@ -156,7 +156,7 @@ ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& cla
         DestructorMethodNameSPtr destructorMethodName = destructorMethodNameRef()
             << class_->name();
         
-        section << methodDifinition(destructorMethodName);
+        section << methodDefinition(destructorMethodName);
     }
 
     

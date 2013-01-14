@@ -32,16 +32,13 @@
 
 compil { }
 
-import "c++/class/member_declaration.scompil";
-import "c++/declarator/function_difinition.scompil";
+import "c++/declarator/declarator.scompil";
 
 package lang.cpp | *.*.*;
 
 streamable
-structure FunctionDifinitionMemberDeclaration
-    inherit MemberDeclaration
+structure FunctionDefinition
+    inherit Declarator
 {
     runtime identification;
-    
-    reference<FunctionDifinition> difinition;
 }

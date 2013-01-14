@@ -64,7 +64,7 @@ public:
     NamerStream& operator<<(const lang::cpp::ClassSpecifierSPtr& specifier);
 
 private:
-    static BodyFunctionDifinitionSPtr       convertBodyFunctionDifinition(const BodyFunctionDifinitionSPtr& difinition);
+    static BodyFunctionDefinitionSPtr       convertBodyFunctionDefinition(const BodyFunctionDefinitionSPtr& definition);
     static ClassSpecifierSPtr               convertClassSpecifier(const ClassSpecifierSPtr& specifier);
     static ClassHeadSPtr                    convertClassHead(const ClassHeadSPtr& head);
     static DeclarationSPtr                  convertDeclaration(const DeclarationSPtr& declaration);
@@ -75,8 +75,8 @@ private:
     static EqualityExpressionSPtr           convertEqualityExpression(const ExpressionSPtr& expression);
     static ExpressionListSPtr               convertExpressionList(const ExpressionListSPtr& list);
     static ExpressionSPtr                   convertExpression(const ExpressionSPtr& expression);
-    static FunctionDifinitionSPtr           convertFunctionDifinition(const FunctionDifinitionSPtr& difinition);
-    static FunctionDifinitionMemberDeclarationSPtr convertFunctionDifinitionMemberDeclaration(const FunctionDifinitionMemberDeclarationSPtr& declaration);
+    static FunctionDefinitionSPtr           convertFunctionDefinition(const FunctionDefinitionSPtr& definition);
+    static FunctionDefinitionMemberDeclarationSPtr convertFunctionDefinitionMemberDeclaration(const FunctionDefinitionMemberDeclarationSPtr& declaration);
     static FunctionNameSPtr                 convertFunctionName(const FunctionNameSPtr& name);
     static IdentifierSPtr                   convertIdentifier(const ClassNameSPtr& name);
     static FunctionNameDeclaratorIdSPtr     convertFunctionNameDeclaratorId(const FunctionNameDeclaratorIdSPtr& declarator);

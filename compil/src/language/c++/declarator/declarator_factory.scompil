@@ -32,7 +32,7 @@
 
 compil { }
 
-import "c++/declarator/body_function_difinition.scompil";
+import "c++/declarator/body_function_definition.scompil";
 import "c++/declarator/declarator.scompil";
 import "c++/declarator/declarator_id_direct_declarator.scompil";
 import "c++/declarator/function_name_declarator_id.scompil";
