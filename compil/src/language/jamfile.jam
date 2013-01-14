@@ -53,7 +53,8 @@ lib cpp-language
     $(GEN)/c++/declaration/block_declaration.cpp
     $(GEN)/c++/declaration/class_declaration.cpp
     $(GEN)/c++/declaration/class_type_name.cpp
-    $(GEN)/c++/declaration/declaration.cpp    
+    $(GEN)/c++/declaration/cv_qualifier_type_specifier.cpp
+    $(GEN)/c++/declaration/declaration.cpp
     $(GEN)/c++/declaration/declaration_factory.cpp
     $(GEN)/c++/declaration/declaration_specifier.cpp
     $(GEN)/c++/declaration/declaration_specifier_sequence.cpp
@@ -68,10 +69,14 @@ lib cpp-language
     $(GEN)/c++/declaration/type_specifier.cpp
 
     $(GEN)/c++/declarator/body_function_definition.cpp
+    $(GEN)/c++/declarator/class_declarator.cpp
+    $(GEN)/c++/declarator/cv_qualifier_sequence.cpp
+    $(GEN)/c++/declarator/cv_qualifier.cpp
     $(GEN)/c++/declarator/declarator.cpp
     $(GEN)/c++/declarator/declarator_factory.cpp
     $(GEN)/c++/declarator/declarator_id.cpp
     $(GEN)/c++/declarator/declarator_id_direct_declarator.cpp
+    $(GEN)/c++/declarator/declarator_parameter_declaratoin.cpp
     $(GEN)/c++/declarator/direct_declarator.cpp
     $(GEN)/c++/declarator/function_definition.cpp
     $(GEN)/c++/declarator/function_name_declarator_id.cpp
@@ -80,6 +85,9 @@ lib cpp-language
     $(GEN)/c++/declarator/parameter_declaratoin_clause.cpp
     $(GEN)/c++/declarator/parameter_declaratoin_list.cpp
     $(GEN)/c++/declarator/parameters_direct_declarator.cpp
+    $(GEN)/c++/declarator/pointer_declarator.cpp
+    $(GEN)/c++/declarator/pointer_operator.cpp
+    $(GEN)/c++/declarator/reference_pointer_operator.cpp
     $(GEN)/c++/declarator/type_name_declarator_id.cpp
     
     $(GEN)/c++/derieved_class/access_specifier.cpp

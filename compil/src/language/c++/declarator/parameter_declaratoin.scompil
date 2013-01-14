@@ -40,4 +40,5 @@ streamable
 structure ParameterDeclaration
     inherit Declarator
 {
+    runtime identification;
 }

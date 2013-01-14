@@ -30,8 +30,8 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _IMPLEMENTER_BOOST_NAMESPACE_H__
-#define _IMPLEMENTER_BOOST_NAMESPACE_H__
+#ifndef _LIBRARY_CPP_BOOST_NAMESPACE_H__
+#define _LIBRARY_CPP_BOOST_NAMESPACE_H__
 
 #include "language/c++/namespace/namespace.h"
 
@@ -53,5 +53,5 @@ public:
 
 }
 
-#endif
+#endif // _LIBRARY_CPP_BOOST_NAMESPACE_H__
 

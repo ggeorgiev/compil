@@ -34,6 +34,7 @@ compil { }
 
 import "c++/declaration/class_declaration.scompil";
 import "c++/declaration/class_type_name.scompil";
+import "c++/declaration/cv_qualifier_type_specifier.scompil";
 import "c++/declaration/declaration.scompil";
 import "c++/declaration/declaration_specifier_sequence.scompil";
 import "c++/declaration/simple_declaration.scompil";

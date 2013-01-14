@@ -23,8 +23,21 @@ lib cpp-boost-library
 lib cpp-compil-library
   :
     c++/compil/builder.cpp
+    c++/compil/declaration.cpp
     c++/compil/namespace.cpp
     c++/compil/specimen.cpp
+    
+    $(TOP)/language//language
+  :
+  :
+  :
+    <include>$(TOP)
+  ;
+
+lib cpp-stl-library
+  :
+    c++/stl/namespace.cpp
+    c++/stl/string.cpp
     
     $(TOP)/language//language
   :
@@ -37,6 +50,7 @@ alias cpp-library
   :
     cpp-boost-library
     cpp-compil-library
+    cpp-stl-library
   ;
     
 

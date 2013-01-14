@@ -73,7 +73,8 @@ section main
     c++/declaration/block_declaration.scompil;
     c++/declaration/class_declaration.scompil;
     c++/declaration/class_type_name.scompil;
-    c++/declaration/declaration.scompil;    
+    c++/declaration/cv_qualifier_type_specifier.scompil;
+    c++/declaration/declaration.scompil;
     c++/declaration/declaration_factory.scompil;
     c++/declaration/declaration_specifier.scompil;
     c++/declaration/declaration_specifier_sequence.scompil;
@@ -86,12 +87,16 @@ section main
     c++/declaration/type_name.scompil;
     c++/declaration/type_name_simple_type_specifier.scompil;
     c++/declaration/type_specifier.scompil;
-
+    
     c++/declarator/body_function_definition.scompil;
+    c++/declarator/class_declarator.scompil;
+    c++/declarator/cv_qualifier_sequence.scompil;
+    c++/declarator/cv_qualifier.scompil;
     c++/declarator/declarator.scompil;
     c++/declarator/declarator_factory.scompil;
     c++/declarator/declarator_id.scompil;
     c++/declarator/declarator_id_direct_declarator.scompil;
+    c++/declarator/declarator_parameter_declaratoin.scompil;
     c++/declarator/direct_declarator.scompil;
     c++/declarator/function_definition.scompil;
     c++/declarator/function_name_declarator_id.scompil;
@@ -100,6 +105,9 @@ section main
     c++/declarator/parameter_declaratoin_clause.scompil;
     c++/declarator/parameter_declaratoin_list.scompil;
     c++/declarator/parameters_direct_declarator.scompil;
+    c++/declarator/pointer_declarator.scompil;
+    c++/declarator/pointer_operator.scompil;
+    c++/declarator/reference_pointer_operator.scompil;
     c++/declarator/type_name_declarator_id.scompil;
     
     c++/derieved_class/access_specifier.scompil;

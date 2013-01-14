@@ -103,7 +103,7 @@ ElementSPtr FormatterStream::convert(const CompoundStatementSPtr& compoundStatem
 
 ElementSPtr FormatterStream::convert(const ClassTypeNameSPtr& declaration)
 {
-    return convert(declaration->className());
+    return convert(IdentifierClassName::downcast(declaration->className()));
 }
 
 ElementSPtr FormatterStream::convert(const ClassHeadSPtr& head)
@@ -440,9 +440,24 @@ ElementSPtr FormatterStream::convert(const MemberSpecificationSPtr& specificatio
 ElementSPtr FormatterStream::convert(const MemberSpecificationSectionSPtr& section)
 {
     PassageSPtr passage = passageRef();
+    
+    passage << (levelRef() << -1)
+            << convert(section->accessSpecifier())
+            << (stringRef() << ":")
+            << endOfLineRef();
 
-    passage << convert(section->accessSpecifier())
-            << (stringRef() << ":\n");
+    ScopeSPtr scope = scopeRef();
+    scope << Scope::ESquiggles::brackets();
+    
+    const std::vector<StatementSPtr>& statements = compoundStatement->statements();
+    for (std::vector<StatementSPtr>::const_iterator it = statements.begin(); it != statements.end(); ++it)
+        scope << convert(*it);
+        
+    if (compoundStatement->close() == Statement::EClose::yes())
+        scope << ";";
+
+    return scope;
+
     
     const std::vector<MemberDeclarationSPtr>& declarations = section->declarations();
     for (std::vector<MemberDeclarationSPtr>::const_iterator it = declarations.begin(); it != declarations.end(); ++it)

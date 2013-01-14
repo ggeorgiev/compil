@@ -34,6 +34,7 @@ compil { }
 
 import "c++/declarator/function_definition.scompil";
 import "c++/declaration/declaration_specifier.scompil";
+import "c++/declarator/parameter_declaratoin_clause.scompil";
 
 package lang.cpp | *.*.*;
 
@@ -45,4 +46,6 @@ structure BodyFunctionDefinition
     
     reference<DeclarationSpecifier> specifier = optional;
     reference<Declarator> declarator;
+    
+    reference<ParameterDeclarationClause> parameters;
 }

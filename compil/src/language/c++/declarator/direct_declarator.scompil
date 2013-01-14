@@ -32,7 +32,7 @@
 
 compil { }
 
-import "c++/declarator/declarator_id.scompil";
+import "c++/declarator/declarator.scompil";
 
 package lang.cpp | *.*.*;
 

@@ -32,8 +32,12 @@
 
 #include "library/c++/compil/specimen.h"
 #include "library/c++/compil/namespace.h"
+#include "library/c++/compil/declaration.h"
+#include "library/c++/stl/string.h"
 
 #include "language/c++/class/identifier_class_name.h"
+#include "language/c++/declarator/declarator_factory.h"
+#include "language/c++/declaration/declaration_factory.h"
 
 #include "boost/unordered_map.hpp"
 
@@ -68,6 +72,29 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
     ConstructorSPtr defaultConstructor = constructorRef()
         << EAccessSpecifier::public_()
         << name;
+        
+    PointerOperatorSPtr reference = referencePointerOperatorRef();
+
+    ClassDeclaratorSPtr stdstring = classDeclaratorRef()
+        << StlString::stringClass();
+                    
+    PointerDeclaratorSPtr pointerDeclarator = pointerDeclaratorRef()
+        << stdstring
+        << reference;
+        
+    DeclaratorParameterDeclarationSPtr declaratorParameterDeclaration = declaratorParameterDeclarationRef()
+        << CppDeclaration::const_()
+        << pointerDeclarator;
+
+    ParameterDeclarationListSPtr list = parameterDeclarationListRef();
+
+    ParameterDeclarationClauseSPtr clause = parameterDeclarationClauseRef()
+        << list;
+
+    ConstructorSPtr valueConstructor = constructorRef()
+        << EAccessSpecifier::public_()
+        << name
+        << clause;
 
     DestructorSPtr destructor = destructorRef()
         << EAccessSpecifier::public_()
@@ -78,6 +105,7 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
         << EClassKey::class_()
         << name
         << defaultConstructor
+        << valueConstructor
         << destructor;
         
     map[specimen] = class_;

@@ -33,7 +33,7 @@
 compil { }
 
 import "c++/declaration/type_name.scompil";
-import "c++/class/identifier_class_name.scompil";
+import "c++/class/class_name.scompil";
 
 package lang.cpp | *.*.*;
 
@@ -43,5 +43,5 @@ structure ClassTypeName
 {
     runtime identification;
     
-    reference<IdentifierClassName> className;
+    reference<ClassName> className;
 }

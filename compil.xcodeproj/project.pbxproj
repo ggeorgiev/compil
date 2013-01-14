@@ -66,6 +66,20 @@
 		5E261F5F1646002A00EA7414 /* type_name.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = type_name.compil; sourceTree = "<group>"; };
 		5E261F61164602B400EA7414 /* type_name.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = type_name.cpp; sourceTree = "<group>"; };
 		5E261F62164602B400EA7414 /* type_name.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type_name.h; sourceTree = "<group>"; };
+		5E2AB4D516A3CE5600555AAF /* namespace.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = namespace.cpp; sourceTree = "<group>"; };
+		5E2AB4D616A3CE5600555AAF /* namespace.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = namespace.h; sourceTree = "<group>"; };
+		5E2AB4D716A3CE5600555AAF /* string.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = string.cpp; sourceTree = "<group>"; };
+		5E2AB4D816A3CE5600555AAF /* string.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = string.h; sourceTree = "<group>"; };
+		5E2AB4D916A3D16700555AAF /* cv_qualifier_sequence.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = cv_qualifier_sequence.scompil; sourceTree = "<group>"; };
+		5E2AB4DA16A3D16700555AAF /* cv_qualifier.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = cv_qualifier.scompil; sourceTree = "<group>"; };
+		5E2AB4DB16A3D44100555AAF /* cv_qualifier_type_specifier.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = cv_qualifier_type_specifier.scompil; sourceTree = "<group>"; };
+		5E2AB4DC16A3D6B400555AAF /* pointer_operator.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = pointer_operator.scompil; sourceTree = "<group>"; };
+		5E2AB4DD16A3D6B500555AAF /* reference_pointer_operator.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = reference_pointer_operator.scompil; sourceTree = "<group>"; };
+		5E2AB4DE16A3E3B500555AAF /* declaration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = declaration.cpp; sourceTree = "<group>"; };
+		5E2AB4DF16A3E3B500555AAF /* declaration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = declaration.h; sourceTree = "<group>"; };
+		5E2AB4E016A3E6D200555AAF /* declarator_parameter_declaratoin.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = declarator_parameter_declaratoin.scompil; sourceTree = "<group>"; };
+		5E2AB4E116A3EE9200555AAF /* pointer_declarator.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = pointer_declarator.scompil; sourceTree = "<group>"; };
+		5E2AB4E616A3F9DD00555AAF /* class_declarator.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = class_declarator.scompil; sourceTree = "<group>"; };
 		5E2BD477169A3072007251F8 /* constant.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = constant.scompil; sourceTree = "<group>"; };
 		5E2BD47A169A3216007251F8 /* token.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = token.cpp; sourceTree = "<group>"; };
 		5E2BD47B169A3216007251F8 /* token.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = token.h; sourceTree = "<group>"; };
@@ -554,6 +568,17 @@
 				5E24613E16A12E1200E5660B /* access_specifier.scompil */,
 			);
 			path = derieved_class;
+			sourceTree = "<group>";
+		};
+		5E2AB4D416A3CE5600555AAF /* stl */ = {
+			isa = PBXGroup;
+			children = (
+				5E2AB4D516A3CE5600555AAF /* namespace.cpp */,
+				5E2AB4D616A3CE5600555AAF /* namespace.h */,
+				5E2AB4D716A3CE5600555AAF /* string.cpp */,
+				5E2AB4D816A3CE5600555AAF /* string.h */,
+			);
+			path = stl;
 			sourceTree = "<group>";
 		};
 		5E2BD479169A3216007251F8 /* tokenizer */ = {
@@ -1119,6 +1144,7 @@
 				5E9DE6D2168F9E570020522D /* block_declaration.scompil */,
 				5E9DE6F716901C910020522D /* class_declaration.scompil */,
 				5E9DE6DB168FA37E0020522D /* class_type_name.scompil */,
+				5E2AB4DB16A3D44100555AAF /* cv_qualifier_type_specifier.scompil */,
 				5E9DE6DC168FA4070020522D /* declaration.scompil */,
 				5E9DE6DD168FA5A80020522D /* declaration_factory.scompil */,
 				5E9DE6E2168FC6400020522D /* declaration_specifier.scompil */,
@@ -1140,10 +1166,14 @@
 			isa = PBXGroup;
 			children = (
 				5E24614B16A1C61600E5660B /* body_function_definition.scompil */,
+				5E2AB4E616A3F9DD00555AAF /* class_declarator.scompil */,
+				5E2AB4DA16A3D16700555AAF /* cv_qualifier.scompil */,
+				5E2AB4D916A3D16700555AAF /* cv_qualifier_sequence.scompil */,
 				5E9DE6D7168FA1B70020522D /* declarator.scompil */,
 				5E9DE6DE168FAD690020522D /* declarator_factory.scompil */,
 				5E9DE6D9168FA2990020522D /* declarator_id.scompil */,
 				5E9DE6DF168FB81E0020522D /* declarator_id_direct_declarator.scompil */,
+				5E2AB4E016A3E6D200555AAF /* declarator_parameter_declaratoin.scompil */,
 				5E9DE6D8168FA25C0020522D /* direct_declarator.scompil */,
 				5E24614A16A1C55D00E5660B /* function_definition.scompil */,
 				5E24614D16A1EE9C00E5660B /* function_name_declarator_id.scompil */,
@@ -1152,6 +1182,9 @@
 				5E35350E1694811200716B12 /* parameter_declaratoin_clause.scompil */,
 				5E35350F1694814D00716B12 /* parameter_declaratoin_list.scompil */,
 				5E70054A16A26CEB00C5E561 /* parameters_direct_declarator.scompil */,
+				5E2AB4E116A3EE9200555AAF /* pointer_declarator.scompil */,
+				5E2AB4DC16A3D6B400555AAF /* pointer_operator.scompil */,
+				5E2AB4DD16A3D6B500555AAF /* reference_pointer_operator.scompil */,
 				5E24614E16A1EEB500E5660B /* type_name_declarator_id.scompil */,
 			);
 			path = declarator;
@@ -1183,6 +1216,7 @@
 			children = (
 				5E9DE70B1690FA4B0020522D /* boost */,
 				5E9DE7101690FA4B0020522D /* compil */,
+				5E2AB4D416A3CE5600555AAF /* stl */,
 			);
 			path = "c++";
 			sourceTree = "<group>";
@@ -1203,6 +1237,8 @@
 			children = (
 				5E9DE7111690FA4B0020522D /* builder.cpp */,
 				5E9DE7121690FA4B0020522D /* builder.h */,
+				5E2AB4DE16A3E3B500555AAF /* declaration.cpp */,
+				5E2AB4DF16A3E3B500555AAF /* declaration.h */,
 				5EFFA6F41693B5A500035CAA /* namespace.cpp */,
 				5EFFA6F51693B5A500035CAA /* namespace.h */,
 				5EFFA6F21693B1AF00035CAA /* specimen.cpp */,

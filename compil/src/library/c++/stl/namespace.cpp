@@ -30,25 +30,29 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-compil { }
+#include "library/c++/stl/namespace.h"
 
-import "c++/declarator/body_function_definition.scompil";
-import "c++/declarator/class_declarator.scompil";
-import "c++/declarator/cv_qualifier_sequence.scompil";
-import "c++/declarator/declarator.scompil";
-import "c++/declarator/declarator_id_direct_declarator.scompil";
-import "c++/declarator/declarator_parameter_declaratoin.scompil";
-import "c++/declarator/function_name_declarator_id.scompil";
-import "c++/declarator/parameters_direct_declarator.scompil";
-import "c++/declarator/parameter_declaratoin_clause.scompil";
-import "c++/declarator/pointer_declarator.scompil";
-import "c++/declarator/reference_pointer_operator.scompil";
-import "c++/declarator/type_name_declarator_id.scompil";
-import "c++/class/pure_member_declarator.scompil";
+#include "language/c++/namespace/identifier_namespace_name.h"
 
-package lang.cpp | *.*.*;
-
-hierarchy
-factory<Declarator> DeclaratorFactory
+namespace lib
 {
+
+namespace cpp
+{
+
+NamespaceSPtr StlNamespace::std()
+{
+    static NamespaceSPtr namespace_;
+
+    if (!namespace_)
+    {
+        namespace_ = namespaceRef()
+            << (identifierNamespaceNameRef() << (identifierRef() << "std"));
+    }
+    
+    return namespace_;
+}
+
+}
+
 }
