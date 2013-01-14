@@ -32,13 +32,13 @@
 
 compil { }
 
-import "c++/preprocessor/declaration_macro_parameter.scompil";
-import "c++/preprocessor/macro_parameter.scompil";
-import "c++/preprocessor/expression_macro_parameter.scompil";
+import "c++/preprocessor/declaration_macro_argument.scompil";
+import "c++/preprocessor/macro_argument.scompil";
+import "c++/preprocessor/expression_macro_argument.scompil";
 
 package lang.cpp | *.*.*;
 
 hierarchy
-factory<MacroParameter> MacroParameterFactory
+factory<MacroArgument> MacroArgumentFactory
 {
 }

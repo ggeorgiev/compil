@@ -336,9 +336,9 @@
 		5E9DE6F01690035D0020522D /* namespace_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = namespace_name.scompil; sourceTree = "<group>"; };
 		5E9DE6F1169008720020522D /* class_name_factory.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = class_name_factory.scompil; sourceTree = "<group>"; };
 		5E9DE6F216900A2A0020522D /* namespace_name_factory.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = namespace_name_factory.scompil; sourceTree = "<group>"; };
-		5E9DE6F4169018410020522D /* declaration_macro_parameter.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = declaration_macro_parameter.scompil; sourceTree = "<group>"; };
-		5E9DE6F5169018410020522D /* expression_macro_parameter.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = expression_macro_parameter.scompil; sourceTree = "<group>"; };
-		5E9DE6F61690188A0020522D /* macro_parameter_factory.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = macro_parameter_factory.scompil; sourceTree = "<group>"; };
+		5E9DE6F4169018410020522D /* declaration_macro_argument.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = declaration_macro_argument.scompil; sourceTree = "<group>"; };
+		5E9DE6F5169018410020522D /* expression_macro_argument.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = expression_macro_argument.scompil; sourceTree = "<group>"; };
+		5E9DE6F61690188A0020522D /* macro_argument_factory.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = macro_argument_factory.scompil; sourceTree = "<group>"; };
 		5E9DE6F716901C910020522D /* class_declaration.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = class_declaration.scompil; sourceTree = "<group>"; };
 		5E9DE7091690F99D0020522D /* jamfile.jam */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.jam; path = jamfile.jam; sourceTree = "<group>"; };
 		5E9DE70C1690FA4B0020522D /* exception.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = exception.cpp; sourceTree = "<group>"; };
@@ -368,7 +368,7 @@
 		5EB86F6C168BA7320049B6A9 /* test_suite_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = test_suite_name.scompil; sourceTree = "<group>"; };
 		5EB86F6E168BA81D0049B6A9 /* macro.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = macro.scompil; sourceTree = "<group>"; };
 		5EB86F6F168BA81D0049B6A9 /* macro_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = macro_name.scompil; sourceTree = "<group>"; };
-		5EB86F70168BA9540049B6A9 /* macro_parameter.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = macro_parameter.scompil; sourceTree = "<group>"; };
+		5EB86F70168BA9540049B6A9 /* macro_argument.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = macro_argument.scompil; sourceTree = "<group>"; };
 		5EB86F87168BDFA90049B6A9 /* compound_statement.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = compound_statement.scompil; sourceTree = "<group>"; };
 		5EB86F88168BE0920049B6A9 /* statement.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = statement.scompil; sourceTree = "<group>"; };
 		5EB86F8A168BE1910049B6A9 /* class_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = class_name.scompil; sourceTree = "<group>"; };
@@ -1225,11 +1225,11 @@
 		5EB86F6D168BA81D0049B6A9 /* preprocessor */ = {
 			isa = PBXGroup;
 			children = (
-				5E9DE6F4169018410020522D /* declaration_macro_parameter.scompil */,
-				5E9DE6F5169018410020522D /* expression_macro_parameter.scompil */,
+				5E9DE6F4169018410020522D /* declaration_macro_argument.scompil */,
+				5E9DE6F5169018410020522D /* expression_macro_argument.scompil */,
 				5EB86F6E168BA81D0049B6A9 /* macro.scompil */,
-				5EB86F70168BA9540049B6A9 /* macro_parameter.scompil */,
-				5E9DE6F61690188A0020522D /* macro_parameter_factory.scompil */,
+				5EB86F70168BA9540049B6A9 /* macro_argument.scompil */,
+				5E9DE6F61690188A0020522D /* macro_argument_factory.scompil */,
 				5EB86F6F168BA81D0049B6A9 /* macro_name.scompil */,
 			);
 			path = preprocessor;

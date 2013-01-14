@@ -32,14 +32,14 @@
 
 compil { }
 
-import "c++/preprocessor/macro_parameter.scompil";
+import "c++/preprocessor/macro_argument.scompil";
 import "c++/declaration/declaration.scompil";
 
 package lang.cpp | *.*.*;
 
 streamable
-structure DeclarationMacroParameter
-    inherit MacroParameter
+structure DeclarationMacroArgument
+    inherit MacroArgument
 {
     runtime identification;
     

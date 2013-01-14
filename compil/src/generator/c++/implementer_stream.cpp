@@ -61,8 +61,8 @@ static StatementSPtr convertStatement(const StatementSPtr& statement)
         MacroStatementSPtr macro = macroStatementRef()
             << (macroNameRef() << "ASSERT_THROW");
 
-        macro << (expressionMacroParameterRef() << teststatement->expression());
-        macro << (declarationMacroParameterRef() << (classDeclarationRef() << teststatement->class_()));
+        macro << (expressionMacroArgumentRef() << teststatement->expression());
+        macro << (declarationMacroArgumentRef() << (classDeclarationRef() << teststatement->class_()));
         return macro;
     }
 
@@ -82,7 +82,7 @@ static StatementSPtr convertStatement(const StatementSPtr& statement)
                 assert(false);
         }
         
-        macro << (expressionMacroParameterRef() << teststatement->expression());
+        macro << (expressionMacroArgumentRef() << teststatement->expression());
         return macro;
     }
     
@@ -100,8 +100,8 @@ ImplementerStream& ImplementerStream::operator<<(const TestSuite& suite)
         MacroStatementSPtr macro = macroStatementRef();
         macro << (macroNameRef() << "TEST");
         
-        macro << (expressionMacroParameterRef() << (customExpressionRef() << suite.name().value()));
-        macro << (expressionMacroParameterRef() << (customExpressionRef() << test->name().value()));
+        macro << (expressionMacroArgumentRef() << (customExpressionRef() << suite.name().value()));
+        macro << (expressionMacroArgumentRef() << (customExpressionRef() << test->name().value()));
         macro << Statement::EClose::no();
         
         CompoundStatementSPtr compoundStatement = compoundStatementRef();

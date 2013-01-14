@@ -160,11 +160,11 @@ section main
     c++/overloading/operator_function_id.scompil;
     c++/overloading/operator.scompil;
     
-    c++/preprocessor/declaration_macro_parameter.scompil;
-    c++/preprocessor/expression_macro_parameter.scompil;
+    c++/preprocessor/declaration_macro_argument.scompil;
+    c++/preprocessor/expression_macro_argument.scompil;
     c++/preprocessor/macro.scompil;
-    c++/preprocessor/macro_parameter.scompil;
-    c++/preprocessor/macro_parameter_factory.scompil;
+    c++/preprocessor/macro_argument.scompil;
+    c++/preprocessor/macro_argument_factory.scompil;
     c++/preprocessor/macro_name.scompil;
     
     c++/statement/compound_statement.scompil;

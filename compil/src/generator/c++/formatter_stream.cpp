@@ -204,7 +204,7 @@ ElementSPtr FormatterStream::convert(const DeclaratorSPtr& declarator)
     return ElementSPtr();
 }
 
-ElementSPtr FormatterStream::convert(const DeclarationMacroParameterSPtr& parameter)
+ElementSPtr FormatterStream::convert(const DeclarationMacroArgumentSPtr& parameter)
 {
     return convert(parameter->declaration());
 }
@@ -295,7 +295,7 @@ ElementSPtr FormatterStream::convert(const ExpressionListSPtr& expressionList)
     return list;
 }
 
-ElementSPtr FormatterStream::convert(const ExpressionMacroParameterSPtr& parameter)
+ElementSPtr FormatterStream::convert(const ExpressionMacroArgumentSPtr& parameter)
 {
     return convert(parameter->expression());
 }
@@ -386,12 +386,12 @@ ElementSPtr FormatterStream::convert(const lang::cpp::MacroNameSPtr& name)
     return stringRef() << name->value();
 }
 
-ElementSPtr FormatterStream::convert(const MacroParameterSPtr& parameter)
+ElementSPtr FormatterStream::convert(const MacroArgumentSPtr& parameter)
 {
-    if (parameter->runtimeMacroParameterId() == ExpressionMacroParameter::staticMacroParameterId())
-        return convert(ExpressionMacroParameter::downcast(parameter));
-    if (parameter->runtimeMacroParameterId() == DeclarationMacroParameter::staticMacroParameterId())
-        return convert(DeclarationMacroParameter::downcast(parameter));
+    if (parameter->runtimeMacroArgumentId() == ExpressionMacroArgument::staticMacroArgumentId())
+        return convert(ExpressionMacroArgument::downcast(parameter));
+    if (parameter->runtimeMacroArgumentId() == DeclarationMacroArgument::staticMacroArgumentId())
+        return convert(DeclarationMacroArgument::downcast(parameter));
 
     BOOST_ASSERT(false);
     return ElementSPtr();
@@ -406,8 +406,8 @@ ElementSPtr FormatterStream::convert(const MacroStatementSPtr& macro)
     list << List::ESquiggles::parentheses();
     list << List::EDelimiter::comma();
     
-    const std::vector<MacroParameterSPtr>& parameters = macro->parameters();
-    for (std::vector<MacroParameterSPtr>::const_iterator it = parameters.begin(); it != parameters.end(); ++it)
+    const std::vector<MacroArgumentSPtr>& parameters = macro->parameters();
+    for (std::vector<MacroArgumentSPtr>::const_iterator it = parameters.begin(); it != parameters.end(); ++it)
         list << convert(*it);
         
     passage << list

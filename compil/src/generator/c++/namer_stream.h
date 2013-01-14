@@ -83,7 +83,7 @@ private:
     static IdentifierClassNameSPtr          convertIdentifierClassName(const ClassNameSPtr& name);
     static IdentifierMethodNameSPtr         convertIdentifierMethodName(const MethodNameSPtr& name);
     static IdentifierNamespaceNameSPtr      convertIdentifierNamespaceName(const NamespaceNameSPtr& name);
-    static MacroParameterSPtr               convertMacroParameter(const MacroParameterSPtr& parameter);
+    static MacroArgumentSPtr               convertMacroArgument(const MacroArgumentSPtr& parameter);
     static MemberDeclarationSPtr            convertMemberDeclaration(const MemberDeclarationSPtr& declaration);
     static MemberDeclaratorSPtr             convertMemberDeclarator(const MemberDeclaratorSPtr& declarator);
     static MemberSpecificationSPtr          convertMemberSpecification(const MemberSpecificationSPtr& specification);

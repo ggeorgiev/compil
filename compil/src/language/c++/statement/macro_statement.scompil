@@ -34,7 +34,7 @@ compil { }
 
 import "c++/statement/statement.scompil";
 import "c++/preprocessor/macro_name.scompil";
-import "c++/preprocessor/macro_parameter.scompil";
+import "c++/preprocessor/macro_argument.scompil";
 
 package lang.cpp | *.*.*;
 
@@ -45,5 +45,5 @@ structure MacroStatement
     runtime identification;
     
     reference<MacroName> name;
-    vector<reference<MacroParameter>> parameters;
+    vector<reference<MacroArgument>> parameters;
 }

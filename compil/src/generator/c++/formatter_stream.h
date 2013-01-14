@@ -46,7 +46,7 @@
 #include "language/c++/declaration/declaration_factory.h"
 #include "language/c++/declarator/declarator_factory.h"
 #include "language/c++/derieved_class/access_specifier.h"
-#include "language/c++/preprocessor/macro_parameter_factory.h"
+#include "language/c++/preprocessor/macro_argument_factory.h"
 #include "language/c++/namespace/identifier_namespace_name.h"
 
 class FormatterStream
@@ -73,7 +73,7 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::CustomExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::CustomIdExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::DeclarationSPtr& declaration);
-    lang::all::ElementSPtr convert(const lang::cpp::DeclarationMacroParameterSPtr& parameter);
+    lang::all::ElementSPtr convert(const lang::cpp::DeclarationMacroArgumentSPtr& parameter);
     lang::all::ElementSPtr convert(const lang::cpp::DeclarationSpecifierSequenceSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::DeclarationStatementSPtr& statement);
     lang::all::ElementSPtr convert(const lang::cpp::DeclaratorSPtr& declarator);
@@ -81,14 +81,14 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::EAccessSpecifier& specifier);
     lang::all::ElementSPtr convert(const lang::cpp::EClassKey& key);
     lang::all::ElementSPtr convert(const lang::cpp::ExpressionSPtr& expression);
-    lang::all::ElementSPtr convert(const lang::cpp::ExpressionMacroParameterSPtr& parameter);
+    lang::all::ElementSPtr convert(const lang::cpp::ExpressionMacroArgumentSPtr& parameter);
     lang::all::ElementSPtr convert(const lang::cpp::ExpressionListSPtr& expressionList);
     lang::all::ElementSPtr convert(const lang::cpp::ExpressionStatementSPtr& statement);
     lang::all::ElementSPtr convert(const lang::cpp::FunctionNameDeclaratorIdSPtr& declarator);
     lang::all::ElementSPtr convert(const lang::cpp::FunctionDefinitionMemberDeclarationSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::GrammarEqualityExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::MacroNameSPtr& name);
-    lang::all::ElementSPtr convert(const lang::cpp::MacroParameterSPtr& parameter);
+    lang::all::ElementSPtr convert(const lang::cpp::MacroArgumentSPtr& parameter);
     lang::all::ElementSPtr convert(const lang::cpp::MacroStatementSPtr& statement);
     lang::all::ElementSPtr convert(const lang::cpp::MemberAccessPostfixExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::MemberSpecificationSPtr& specification);

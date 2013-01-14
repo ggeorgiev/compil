@@ -32,14 +32,14 @@
 
 compil { }
 
-import "c++/preprocessor/macro_parameter.scompil";
+import "c++/preprocessor/macro_argument.scompil";
 import "c++/expression/expression.scompil";
 
 package lang.cpp | *.*.*;
 
 streamable
-structure ExpressionMacroParameter
-    inherit MacroParameter
+structure ExpressionMacroArgument
+    inherit MacroArgument
 {
     runtime identification;
     

@@ -275,15 +275,15 @@ FunctionNameSPtr NamerStream::convertFunctionName(const FunctionNameSPtr& name)
     return FunctionNameSPtr();
 }
 
-MacroParameterSPtr NamerStream::convertMacroParameter(const MacroParameterSPtr& parameter)
+MacroArgumentSPtr NamerStream::convertMacroArgument(const MacroArgumentSPtr& parameter)
 {
-    if (parameter->runtimeMacroParameterId() == ExpressionMacroParameter::staticMacroParameterId())
-        return expressionMacroParameterRef() << convertExpression(ExpressionMacroParameter::downcast(parameter)->expression());
-    if (parameter->runtimeMacroParameterId() == DeclarationMacroParameter::staticMacroParameterId())
-        return declarationMacroParameterRef() << convertDeclaration(DeclarationMacroParameter::downcast(parameter)->declaration());
+    if (parameter->runtimeMacroArgumentId() == ExpressionMacroArgument::staticMacroArgumentId())
+        return expressionMacroArgumentRef() << convertExpression(ExpressionMacroArgument::downcast(parameter)->expression());
+    if (parameter->runtimeMacroArgumentId() == DeclarationMacroArgument::staticMacroArgumentId())
+        return declarationMacroArgumentRef() << convertDeclaration(DeclarationMacroArgument::downcast(parameter)->declaration());
 
     BOOST_ASSERT(false);
-    return MacroParameterSPtr();
+    return MacroArgumentSPtr();
 }
 
 MemberDeclarationSPtr NamerStream::convertMemberDeclaration(const MemberDeclarationSPtr& declaration)
@@ -517,9 +517,9 @@ StatementSPtr NamerStream::convertStatement(const StatementSPtr& statement)
             << mstatement->name()
             << mstatement->close();
             
-        const std::vector<MacroParameterSPtr>& parameters = mstatement->parameters();
-        for (std::vector<MacroParameterSPtr>::const_iterator it = parameters.begin(); it != parameters.end(); ++it)
-            newstatement << convertMacroParameter(*it);
+        const std::vector<MacroArgumentSPtr>& parameters = mstatement->parameters();
+        for (std::vector<MacroArgumentSPtr>::const_iterator it = parameters.begin(); it != parameters.end(); ++it)
+            newstatement << convertMacroArgument(*it);
         
         return newstatement;
     }
