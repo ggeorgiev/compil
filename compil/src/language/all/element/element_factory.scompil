@@ -37,6 +37,7 @@ import "all/element/end_of_line.scompil";
 import "all/element/list.scompil";
 import "all/element/passage.scompil";
 import "all/element/string.scompil";
+import "all/mold/level.scompil";
 import "all/mold/line.scompil";
 import "all/mold/mold.scompil";
 import "all/mold/scope.scompil";

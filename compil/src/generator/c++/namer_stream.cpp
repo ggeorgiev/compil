@@ -568,4 +568,10 @@ NamerStream& NamerStream::operator<<(const ClassSpecifierSPtr& specifier)
     return *this;
 }
 
+NamerStream& NamerStream::operator<<(const lang::all::EndOfLineSPtr& endl)
+{
+    mFormatter << endl;
+    return *this;
+}
+
 }

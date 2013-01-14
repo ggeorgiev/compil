@@ -62,6 +62,7 @@ public:
     
     NamerStream& operator<<(const lang::cpp::StatementSPtr& statement);
     NamerStream& operator<<(const lang::cpp::ClassSpecifierSPtr& specifier);
+    NamerStream& operator<<(const lang::all::EndOfLineSPtr& endl);
 
 private:
     static BodyFunctionDifinitionSPtr       convertBodyFunctionDifinition(const BodyFunctionDifinitionSPtr& difinition);

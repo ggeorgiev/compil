@@ -60,6 +60,7 @@ public:
     
     FormatterStream& operator<<(const lang::cpp::StatementSPtr& statement);
     FormatterStream& operator<<(const lang::cpp::ClassSpecifierSPtr& specifier);
+    FormatterStream& operator<<(const lang::all::EndOfLineSPtr& endl);
     
 protected:
     lang::all::ElementSPtr convert(const lang::cpp::AdditiveShiftExpressionSPtr& expression);
@@ -121,7 +122,6 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::UnaryCastExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::UnqualifiedIdExpressionSPtr& expression);
    
-
 private:
     AlignerStream mAligner;
     FormatterConfigurationSPtr mConfiguration;

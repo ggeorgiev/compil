@@ -54,6 +54,22 @@ public:
     AlignerConfigurationSPtr mConfiguration;
     
 protected:
+    struct ScopeLevel
+    {
+        ScopeLevel(long& lvl) : level(lvl)
+        {
+            ++level;
+        }
+
+        ~ScopeLevel()
+        {
+            --level;
+        }
+
+        long& level;
+    };
+
+    AlignerStream& operator<<(const lang::all::LevelSPtr& level);
     AlignerStream& operator<<(const lang::all::LineSPtr& line);
     AlignerStream& operator<<(const lang::all::MoldSPtr& mold);
     AlignerStream& operator<<(const lang::all::ScopeSPtr& scope);
@@ -62,10 +78,10 @@ private:
     static std::vector<lang::all::ElementSPtr> flatten(const std::vector<lang::all::ElementSPtr>& elements);
     static std::vector<lang::all::MoldSPtr> mold(const std::vector<lang::all::ElementSPtr>& elements);
     
-    static std::string evaluate(const lang::all::ElementSPtr& element);
-    static std::string evaluate(const lang::all::ListSPtr& list);
-    static std::string evaluate(const lang::all::PassageSPtr& passage);
-    static std::string evaluate(const lang::all::StringSPtr& string);
+    std::string evaluate(const lang::all::ElementSPtr& element);
+    std::string evaluate(const lang::all::ListSPtr& list);
+    std::string evaluate(const lang::all::PassageSPtr& passage);
+    std::string evaluate(const lang::all::StringSPtr& string);
     
     struct Endl {};
     static const Endl* endl;
@@ -79,7 +95,9 @@ private:
         
     bool endlOn;
     
-    std::string indent() const;
+    std::string indent();
+    long level;
+    long forceLevel;
 
     std::ostringstream stream;
 };
