@@ -34,6 +34,7 @@
 
 using namespace lang;
 using namespace lang::cpp;
+using namespace lang::all;
 
 ImplementerStream::ImplementerStream(const ImplementerConfigurationSPtr& implementerConfiguration,
                                      const NamerConfigurationSPtr& namerConfiguration,
@@ -111,7 +112,8 @@ ImplementerStream& ImplementerStream::operator<<(const TestSuite& suite)
             compoundStatement << convertStatement(*it);
         
         mNamer << macro
-               << compoundStatement;
+               << compoundStatement
+               << endOfLineRef();
     }
 
     return *this;

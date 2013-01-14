@@ -42,7 +42,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--type=main"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--type=partial"
@@ -50,7 +50,7 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "--type=test"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-self/compiler/model/default_value.compil"
@@ -82,11 +82,11 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/compil/src/generator-test/immutable_structure.compil"
-            isEnabled = "YES">
+            isEnabled = "NO">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/compil/src/generator-test/specimens.compil"
-            isEnabled = "NO">
+            isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/src/generator-test/strong_enumeration.compil"

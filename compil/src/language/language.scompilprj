@@ -43,6 +43,7 @@ section main
     all/element/passage.scompil;
     all/element/string.scompil;
 
+    all/mold/level.scompil;
     all/mold/line.scompil;
     all/mold/mold.scompil;
     all/mold/scope.scompil;

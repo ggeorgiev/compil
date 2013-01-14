@@ -73,12 +73,36 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "compil/src/generator/c++/implementer_stream.cpp"
-         timestampString = "379820514.930646"
+         timestampString = "379826325.084519"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "113"
-         endingLineNumber = "113"
+         startingLineNumber = "114"
+         endingLineNumber = "114"
          landmarkName = "ImplementerStream::operator&lt;&lt;(const TestSuite&amp; suite)"
+         landmarkType = "5">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/c++/formatter_stream.cpp"
+         timestampString = "379829775.736634"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "597"
+         endingLineNumber = "597">
+      </FileBreakpoint>
+      <FileBreakpoint
+         shouldBeEnabled = "Yes"
+         ignoreCount = "0"
+         continueAfterRunningActions = "No"
+         filePath = "compil/src/generator/c++/formatter_stream.cpp"
+         timestampString = "379828253.133231"
+         startingColumnNumber = "9223372036854775807"
+         endingColumnNumber = "9223372036854775807"
+         startingLineNumber = "121"
+         endingLineNumber = "121"
+         landmarkName = "FormatterStream::convert(const ClassSpecifierSPtr&amp; specifier)"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

@@ -23,6 +23,7 @@ lib cpp-language
     $(GEN)/all/element/passage.cpp
     $(GEN)/all/element/string.cpp
     
+    $(GEN)/all/mold/level.cpp
     $(GEN)/all/mold/line.cpp
     $(GEN)/all/mold/mold.cpp
     $(GEN)/all/mold/scope.cpp

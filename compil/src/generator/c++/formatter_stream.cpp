@@ -54,18 +54,6 @@ std::string FormatterStream::str()
     return mAligner.str();
 }
 
-FormatterStream& FormatterStream::operator<<(const lang::cpp::StatementSPtr& statement)
-{
-    mAligner << (passageRef() << convert(statement));
-    return *this;
-}
-
-FormatterStream& FormatterStream::operator<<(const lang::cpp::ClassSpecifierSPtr& specifier)
-{
-    mAligner << (passageRef() << convert(specifier));
-    return *this;
-}
-
 ElementSPtr FormatterStream::convert(const AdditiveShiftExpressionSPtr& expression)
 {
     return convert(expression->expression());
@@ -124,14 +112,17 @@ ElementSPtr FormatterStream::convert(const ClassSpecifierSPtr& specifier)
 {
     PassageSPtr passage = passageRef();
     passage << convert(specifier->head())
-            << endOfLineRef()
-            << (stringRef() << "{")
             << endOfLineRef();
-            
+
+    ScopeSPtr scope = scopeRef();
+    scope << Scope::ESquiggles::brackets();
+
     if (specifier->members())
-        passage << convert(specifier->members());
-    passage << (stringRef() << "}")
-            << endOfLineRef();
+        scope << convert(specifier->members());
+        
+    scope << ";"
+          << endOfLineRef();
+    passage << scope;
     return passage;
 }
 
@@ -445,25 +436,13 @@ ElementSPtr FormatterStream::convert(const MemberSpecificationSectionSPtr& secti
             << convert(section->accessSpecifier())
             << (stringRef() << ":")
             << endOfLineRef();
-
-    ScopeSPtr scope = scopeRef();
-    scope << Scope::ESquiggles::brackets();
-    
-    const std::vector<StatementSPtr>& statements = compoundStatement->statements();
-    for (std::vector<StatementSPtr>::const_iterator it = statements.begin(); it != statements.end(); ++it)
-        scope << convert(*it);
-        
-    if (compoundStatement->close() == Statement::EClose::yes())
-        scope << ";";
-
-    return scope;
-
     
     const std::vector<MemberDeclarationSPtr>& declarations = section->declarations();
     for (std::vector<MemberDeclarationSPtr>::const_iterator it = declarations.begin(); it != declarations.end(); ++it)
     {
         passage << convert(*it)
-                << (stringRef() << ";\n");
+                << (stringRef() << ";")
+                << endOfLineRef();
     }
     
     return passage;
@@ -601,3 +580,20 @@ ElementSPtr FormatterStream::convert(const UnqualifiedIdExpressionSPtr& expressi
     return convert(expression->unqualifiedId());
 }
 
+FormatterStream& FormatterStream::operator<<(const StatementSPtr& statement)
+{
+    mAligner << (passageRef() << convert(statement));
+    return *this;
+}
+
+FormatterStream& FormatterStream::operator<<(const ClassSpecifierSPtr& specifier)
+{
+    mAligner << (passageRef() << convert(specifier));
+    return *this;
+}
+
+FormatterStream& FormatterStream::operator<<(const EndOfLineSPtr& endl)
+{
+    mAligner << (passageRef() << endl);
+    return *this;
+}

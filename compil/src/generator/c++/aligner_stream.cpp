@@ -40,6 +40,8 @@ const AlignerStream::ResetEndl* AlignerStream::resetEndl = NULL;
 AlignerStream::AlignerStream(const AlignerConfigurationSPtr& configuration)
     : mConfiguration(configuration)
     , endlOn(false)
+    , level(0)
+    , forceLevel(0)
 {
 }
 
@@ -71,6 +73,8 @@ AlignerStream& AlignerStream::operator<<(const PassageSPtr& passage)
 
 AlignerStream& AlignerStream::operator<<(const MoldSPtr& mold)
 {
+    if (mold->runtimeElementId() == Level::staticElementId())
+        return *this << (Level::downcast(mold));
     if (mold->runtimeElementId() == Line::staticElementId())
         return *this << (Line::downcast(mold));
     if (mold->runtimeElementId() == Scope::staticElementId())
@@ -80,34 +84,51 @@ AlignerStream& AlignerStream::operator<<(const MoldSPtr& mold)
     return *this;
 }
 
+AlignerStream& AlignerStream::operator<<(const LevelSPtr& level)
+{
+    forceLevel = level->value();
+    return *this;
+}
+
+AlignerStream& AlignerStream::operator<<(const LineSPtr& line)
+{
+    std::string text;
+    const std::vector<ElementSPtr>& elements = line->elements();
+    for (std::vector<ElementSPtr>::const_iterator it = elements.begin(); it != elements.end(); ++it)
+        text += evaluate(*it);
+
+    if (!text.empty())
+    {
+        *this << indent()
+              << text;
+    }
+        
+    *this << endl;
+    return *this;
+}
+
 AlignerStream& AlignerStream::operator<<(const ScopeSPtr& scope)
 {
     *this << resetEndl
           << endl
+          << indent()
           << "{"
           << endl;
     
     std::vector<ElementSPtr> elements = flatten(scope->elements());
     std::vector<MoldSPtr> molds = mold(elements);
 
-    for (std::vector<MoldSPtr>::const_iterator it = molds.begin(); it != molds.end(); ++it)
     {
-        *this << *it
-              << endl;
+        ScopeLevel scopeLevel(level);
+        for (std::vector<MoldSPtr>::const_iterator it = molds.begin(); it != molds.end(); ++it)
+            *this << *it;
     }
     
-    *this << "}"
+    *this << indent()
+          << "}"
           << scope->close()
           << endl;
           
-    return *this;
-}
-
-AlignerStream& AlignerStream::operator<<(const LineSPtr& line)
-{
-    const std::vector<ElementSPtr>& elements = line->elements();
-    for (std::vector<ElementSPtr>::const_iterator it = elements.begin(); it != elements.end(); ++it)
-        *this << evaluate(*it);
     return *this;
 }
 
@@ -233,15 +254,20 @@ std::vector<MoldSPtr> AlignerStream::mold(const std::vector<ElementSPtr>& elemen
     return result;
 }
 
-std::string AlignerStream::indent() const
+std::string AlignerStream::indent()
 {
+    long lvl = level + forceLevel;
+    BOOST_ASSERT(lvl >= 0);
+
+    forceLevel = 0;
+
     switch (mConfiguration->mAlignment)
     {
         case AlignerConfiguration::tabs_only:
         case AlignerConfiguration::smart_tabs:
-            return "\t";
+            return std::string(lvl, '\t');
         case AlignerConfiguration::spaces_only:
-            return std::string(mConfiguration->mTabSize, ' ');
+            return std::string(lvl * mConfiguration->mTabSize, ' ');
         default:
             break;
     }
