@@ -40,5 +40,7 @@ streamable
 structure ParameterDeclarationList
     inherit Declarator
 {
+    runtime identification;
+
     vector<reference<ParameterDeclaration>> declarators;
 }

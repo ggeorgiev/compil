@@ -86,7 +86,8 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
         << CppDeclaration::const_()
         << pointerDeclarator;
 
-    ParameterDeclarationListSPtr list = parameterDeclarationListRef();
+    ParameterDeclarationListSPtr list = parameterDeclarationListRef()
+        << declaratorParameterDeclaration;
 
     ParameterDeclarationClauseSPtr clause = parameterDeclarationClauseRef()
         << list;

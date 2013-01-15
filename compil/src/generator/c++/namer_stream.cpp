@@ -56,9 +56,11 @@ std::string NamerStream::str()
 
 BodyFunctionDefinitionSPtr NamerStream::convertBodyFunctionDefinition(const BodyFunctionDefinitionSPtr& definition)
 {
-    BodyFunctionDefinitionSPtr newdefinition = bodyFunctionDefinitionRef()
-        << definition->specifier()
-        << convertDeclarator(definition->declarator());
+    BodyFunctionDefinitionSPtr newdefinition = bodyFunctionDefinitionRef();
+    if (definition->specifier())
+        newdefinition << convertDeclarationSpecifier(definition->specifier());
+    newdefinition << convertDeclarator(definition->declarator());
+        
     return newdefinition;
 }
 
@@ -80,6 +82,11 @@ ClassSpecifierSPtr NamerStream::convertClassSpecifier(const ClassSpecifierSPtr& 
     return newspecifier;
 }
 
+CVQualifierTypeSpecifierSPtr NamerStream::convertCVQualifierTypeSpecifier(const CVQualifierTypeSpecifierSPtr& specifier)
+{
+    return specifier;
+}
+
 DeclarationSPtr NamerStream::convertDeclaration(const DeclarationSPtr& declaration)
 {
     if (declaration->runtimeDeclarationId() == ClassDeclaration::staticDeclarationId())
@@ -92,8 +99,23 @@ DeclarationSPtr NamerStream::convertDeclaration(const DeclarationSPtr& declarati
     return DeclarationSPtr();
 }
 
+DeclarationSpecifierSPtr NamerStream::convertDeclarationSpecifier(const DeclarationSpecifierSPtr& declaration)
+{
+    if (declaration->runtimeDeclarationId() == TypeDeclarationSpecifier::staticDeclarationId())
+        return convertTypeDeclarationSpecifier(TypeDeclarationSpecifier::downcast(declaration));
+
+    BOOST_ASSERT(false);
+    return DeclarationSpecifierSPtr();
+}
+
 DeclaratorSPtr NamerStream::convertDeclarator(const DeclaratorSPtr& declarator)
 {
+    if (declarator->runtimeDeclaratorId() == ClassDeclarator::staticDeclaratorId())
+    {
+        ClassDeclaratorSPtr cdeclarator = ClassDeclarator::downcast(declarator);
+        return convertTypeNameDeclaratorId(cdeclarator->class_());
+    }
+
     DirectDeclaratorSPtr directDeclarator = DeclaratorFactory::downcastDirectDeclarator(declarator);
     if (directDeclarator)
         return convertDirectDeclarator(directDeclarator);
@@ -101,9 +123,26 @@ DeclaratorSPtr NamerStream::convertDeclarator(const DeclaratorSPtr& declarator)
     DeclaratorIdSPtr declaratorId = DeclaratorFactory::downcastDeclaratorId(declarator);
     if (declaratorId)
         return convertDeclaratorId(declaratorId);
+        
+    if (declarator->runtimeDeclaratorId() == ParameterDeclarationClause::staticDeclaratorId())
+        return convertParameterDeclarationClause(ParameterDeclarationClause::downcast(declarator));
+
+    if (declarator->runtimeDeclaratorId() == PointerDeclarator::staticDeclaratorId())
+        return convertPointerDeclarator(PointerDeclarator::downcast(declarator));
 
     BOOST_ASSERT(false);
     return DeclaratorSPtr();
+}
+
+DeclarationSpecifierSequenceSPtr NamerStream::convertDeclarationSpecifierSequence(const DeclarationSpecifierSequenceSPtr& declaration)
+{
+    DeclarationSpecifierSequenceSPtr newdeclaration = declarationSpecifierSequenceRef();
+    
+    const std::vector<DeclarationSpecifierSPtr>& declarations = declaration->declarations();
+    for (std::vector<DeclarationSpecifierSPtr>::const_iterator it = declarations.begin(); it != declarations.end(); ++it)
+        newdeclaration << convertDeclarationSpecifier(*it);
+
+    return newdeclaration;
 }
 
 DeclaratorIdSPtr NamerStream::convertDeclaratorId(const DeclaratorIdSPtr& declarator)
@@ -120,6 +159,15 @@ DeclaratorIdDirectDeclaratorSPtr NamerStream::convertDeclaratorIdDirectDeclarato
     DeclaratorIdDirectDeclaratorSPtr newdeclarator = declaratorIdDirectDeclaratorRef()
         << convertDeclaratorId(declarator->declarator());
     
+    return newdeclarator;
+}
+
+DeclaratorParameterDeclarationSPtr NamerStream::convertDeclaratorParameterDeclaration(const DeclaratorParameterDeclarationSPtr& declarator)
+{
+    DeclaratorParameterDeclarationSPtr newdeclarator = declaratorParameterDeclarationRef()
+        << convertDeclarationSpecifierSequence(declarator->declaration())
+        << convertDeclarator(declarator->declarator());
+        
     return newdeclarator;
 }
 
@@ -372,12 +420,48 @@ IdentifierNamespaceNameSPtr NamerStream::convertIdentifierNamespaceName(const Na
     return IdentifierNamespaceNameSPtr();
 }
 
+ParameterDeclarationSPtr NamerStream::convertParameterDeclaration(const ParameterDeclarationSPtr& declarator)
+{
+    if (declarator->runtimeDeclaratorId() == DeclaratorParameterDeclaration::staticDeclaratorId())
+        return convertDeclaratorParameterDeclaration(DeclaratorParameterDeclaration::downcast(declarator));
+        
+    BOOST_ASSERT(false);
+    return ParameterDeclarationSPtr();
+}
+
+ParameterDeclarationClauseSPtr NamerStream::convertParameterDeclarationClause(const ParameterDeclarationClauseSPtr& declarator)
+{
+    ParameterDeclarationClauseSPtr newdeclarator = parameterDeclarationClauseRef()
+        << convertParameterDeclarationList(declarator->list());
+
+    return newdeclarator;
+}
+
+ParameterDeclarationListSPtr NamerStream::convertParameterDeclarationList(const ParameterDeclarationListSPtr& declarator)
+{
+    ParameterDeclarationListSPtr newdeclarator = parameterDeclarationListRef();
+    
+    const std::vector<ParameterDeclarationSPtr>& declarators = declarator->declarators();
+    for (std::vector<ParameterDeclarationSPtr>::const_iterator it = declarators.begin(); it != declarators.end(); ++it)
+        newdeclarator << convertParameterDeclaration(*it);
+    return newdeclarator;
+}
+
 ParametersDirectDeclaratorSPtr NamerStream::convertParametersDirectDeclarator(const ParametersDirectDeclaratorSPtr& declarator)
 {
     ParametersDirectDeclaratorSPtr newdeclarator = parametersDirectDeclaratorRef()
-        << convertDirectDeclarator(declarator->declarator())
-        << declarator->parameters();
+        << convertDirectDeclarator(declarator->declarator());
+    if (declarator->parameters())
+        newdeclarator << convertParameterDeclarationClause(declarator->parameters());
         
+    return newdeclarator;
+}
+
+PointerDeclaratorSPtr NamerStream::convertPointerDeclarator(const PointerDeclaratorSPtr declarator)
+{
+    PointerDeclaratorSPtr newdeclarator = pointerDeclaratorRef()
+        << convertDeclarator(declarator->declarator())
+        << declarator->operator_();
     return newdeclarator;
 }
 
@@ -439,52 +523,6 @@ RelationalExpressionSPtr NamerStream::convertRelationalExpression(const Expressi
 
     BOOST_ASSERT(false);
     return RelationalExpressionSPtr();
-}
-
-TypeNameSimpleTypeSpecifierSPtr NamerStream::convertTypeNameSimpleTypeSpecifier(const ClassSPtr& class_)
-{
-    ClassTypeNameSPtr classTypeName = classTypeNameRef()
-        << convertIdentifierClassName(class_->name());
-        
-    NestedNameSpecifierSPtr nestedNameSpecifier;
-    
-    for (ClassSPtr nested = class_; nested->containerClass(); nested = nested->containerClass())
-    {
-        ClassNestedNameSPtr classNestedName = classNestedNameRef()
-            << convertIdentifierClassName(nested->containerClass()->name());
-        
-        NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
-            << classNestedName;
-            
-        if (nestedNameSpecifier)
-            thisNestedNameSpecifier << nestedNameSpecifier;
-            
-        nestedNameSpecifier = thisNestedNameSpecifier;
-    }
-    
-    if (class_->namespace_())
-    {
-        const std::vector<NamespaceNameSPtr>& names = class_->namespace_()->names();
-        for (std::vector<NamespaceNameSPtr>::const_reverse_iterator it = names.rbegin(); it != names.rend(); ++it)
-        {
-            NamespaceNestedNameSPtr namespaceNestedName = namespaceNestedNameRef()
-                << convertIdentifierNamespaceName(*it);
-        
-            NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
-                << namespaceNestedName;
-
-            if (nestedNameSpecifier)
-                thisNestedNameSpecifier << nestedNameSpecifier;
-
-            nestedNameSpecifier = thisNestedNameSpecifier;
-        }
-    }
-        
-    TypeNameSimpleTypeSpecifierSPtr typeNameSimpleTypeSpecifier = typeNameSimpleTypeSpecifierRef()
-        << nestedNameSpecifier
-        << classTypeName;
-        
-    return typeNameSimpleTypeSpecifier;
 }
 
 StatementSPtr NamerStream::convertStatement(const StatementSPtr& statement)
@@ -554,6 +592,117 @@ StatementSPtr NamerStream::convertStatement(const StatementSPtr& statement)
     }
     
     return statement;
+}
+
+TypeSpecifierSPtr NamerStream::convertTypeSpecifier(const TypeSpecifierSPtr& declaration)
+{
+    if (declaration->runtimeDeclarationId() == TypeNameSimpleTypeSpecifier::staticDeclarationId())
+        return TypeNameSimpleTypeSpecifier::downcast(declaration);
+    if (declaration->runtimeDeclarationId() == CVQualifierTypeSpecifier::staticDeclarationId())
+        return CVQualifierTypeSpecifier::downcast(declaration);
+
+    BOOST_ASSERT(false);
+    return TypeSpecifierSPtr();
+}
+
+TypeDeclarationSpecifierSPtr NamerStream::convertTypeDeclarationSpecifier(const TypeDeclarationSpecifierSPtr& declaration)
+{
+    TypeDeclarationSpecifierSPtr newdeclaration = typeDeclarationSpecifierRef()
+        << convertTypeSpecifier(declaration->declaration());
+        
+    return newdeclaration;
+}
+
+TypeNameDeclaratorIdSPtr NamerStream::convertTypeNameDeclaratorId(const ClassSPtr& class_)
+{
+    ClassTypeNameSPtr classTypeName = classTypeNameRef()
+        << convertIdentifierClassName(class_->name());
+        
+    NestedNameSpecifierSPtr nestedNameSpecifier;
+    
+    for (ClassSPtr nested = class_; nested->containerClass(); nested = nested->containerClass())
+    {
+        ClassNestedNameSPtr classNestedName = classNestedNameRef()
+            << convertIdentifierClassName(nested->containerClass()->name());
+        
+        NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
+            << classNestedName;
+            
+        if (nestedNameSpecifier)
+            thisNestedNameSpecifier << nestedNameSpecifier;
+            
+        nestedNameSpecifier = thisNestedNameSpecifier;
+    }
+    
+    if (class_->namespace_())
+    {
+        const std::vector<NamespaceNameSPtr>& names = class_->namespace_()->names();
+        for (std::vector<NamespaceNameSPtr>::const_reverse_iterator it = names.rbegin(); it != names.rend(); ++it)
+        {
+            NamespaceNestedNameSPtr namespaceNestedName = namespaceNestedNameRef()
+                << convertIdentifierNamespaceName(*it);
+        
+            NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
+                << namespaceNestedName;
+
+            if (nestedNameSpecifier)
+                thisNestedNameSpecifier << nestedNameSpecifier;
+
+            nestedNameSpecifier = thisNestedNameSpecifier;
+        }
+    }
+        
+    TypeNameDeclaratorIdSPtr typeNameDeclaratorId = typeNameDeclaratorIdRef()
+        << nestedNameSpecifier
+        << classTypeName;
+        
+    return typeNameDeclaratorId;
+}
+
+TypeNameSimpleTypeSpecifierSPtr NamerStream::convertTypeNameSimpleTypeSpecifier(const ClassSPtr& class_)
+{
+    ClassTypeNameSPtr classTypeName = classTypeNameRef()
+        << convertIdentifierClassName(class_->name());
+        
+    NestedNameSpecifierSPtr nestedNameSpecifier;
+    
+    for (ClassSPtr nested = class_; nested->containerClass(); nested = nested->containerClass())
+    {
+        ClassNestedNameSPtr classNestedName = classNestedNameRef()
+            << convertIdentifierClassName(nested->containerClass()->name());
+        
+        NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
+            << classNestedName;
+            
+        if (nestedNameSpecifier)
+            thisNestedNameSpecifier << nestedNameSpecifier;
+            
+        nestedNameSpecifier = thisNestedNameSpecifier;
+    }
+    
+    if (class_->namespace_())
+    {
+        const std::vector<NamespaceNameSPtr>& names = class_->namespace_()->names();
+        for (std::vector<NamespaceNameSPtr>::const_reverse_iterator it = names.rbegin(); it != names.rend(); ++it)
+        {
+            NamespaceNestedNameSPtr namespaceNestedName = namespaceNestedNameRef()
+                << convertIdentifierNamespaceName(*it);
+        
+            NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
+                << namespaceNestedName;
+
+            if (nestedNameSpecifier)
+                thisNestedNameSpecifier << nestedNameSpecifier;
+
+            nestedNameSpecifier = thisNestedNameSpecifier;
+        }
+    }
+        
+    TypeNameSimpleTypeSpecifierSPtr typeNameSimpleTypeSpecifier = typeNameSimpleTypeSpecifierRef()
+        << nestedNameSpecifier
+        << classTypeName;
+        
+    return typeNameSimpleTypeSpecifier;
 }
 
 NamerStream& NamerStream::operator<<(const StatementSPtr& statement)

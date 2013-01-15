@@ -34,6 +34,7 @@ compil { }
 
 import "c++/declarator/declarator_id.scompil";
 import "c++/declaration/type_name.scompil";
+import "c++/expression/nested_name_specifier.scompil";
 
 package lang.cpp | *.*.*;
 
@@ -43,5 +44,6 @@ structure TypeNameDeclaratorId
 {
     runtime identification;
 
+    reference<NestedNameSpecifier> spacifier = optional;
     reference<TypeName> typeName;
 }

@@ -46,6 +46,4 @@ structure BodyFunctionDefinition
     
     reference<DeclarationSpecifier> specifier = optional;
     reference<Declarator> declarator;
-    
-    reference<ParameterDeclarationClause> parameters;
 }

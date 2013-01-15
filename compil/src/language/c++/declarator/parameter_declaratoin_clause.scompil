@@ -40,5 +40,7 @@ streamable
 structure ParameterDeclarationClause
     inherit Declarator
 {
-    reference<ParameterDeclarationList> declarator = optional;
+    runtime identification;
+    
+    reference<ParameterDeclarationList> list = optional;
 }

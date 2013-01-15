@@ -40,5 +40,7 @@ streamable
 structure InitDeclarator
     inherit Declarator
 {
+    runtime identification;
+    
     reference<Declarator> declarator;
 }

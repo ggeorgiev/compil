@@ -39,6 +39,7 @@ import "c++/declarator/declarator.scompil";
 import "c++/declarator/declarator_id_direct_declarator.scompil";
 import "c++/declarator/declarator_parameter_declaratoin.scompil";
 import "c++/declarator/function_name_declarator_id.scompil";
+import "c++/declarator/init_declarator.scompil";
 import "c++/declarator/parameters_direct_declarator.scompil";
 import "c++/declarator/parameter_declaratoin_clause.scompil";
 import "c++/declarator/pointer_declarator.scompil";
