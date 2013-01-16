@@ -56,6 +56,8 @@
 		5E046CE81696604E00E354F3 /* compil_generator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = compil_generator.h; sourceTree = "<group>"; };
 		5E046CE91696604E00E354F3 /* compil_generator_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = compil_generator_unittest.cpp; sourceTree = "<group>"; };
 		5E046D011696DB6900E354F3 /* package.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = package.scompil; sourceTree = "<group>"; };
+		5E0D3CA516A6898F00B56ECD /* generate-tests.bat */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "generate-tests.bat"; sourceTree = "<group>"; };
+		5E0D3CA616A6898F00B56ECD /* generate.bat */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate.bat; sourceTree = "<group>"; };
 		5E24613C16A12D1600E5660B /* constructor.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = constructor.scompil; sourceTree = "<group>"; };
 		5E24613E16A12E1200E5660B /* access_specifier.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = access_specifier.scompil; sourceTree = "<group>"; };
 		5E24613F16A132F800E5660B /* member_specification.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = member_specification.scompil; sourceTree = "<group>"; };
@@ -537,6 +539,15 @@
 				5E046CE91696604E00E354F3 /* compil_generator_unittest.cpp */,
 			);
 			path = compil;
+			sourceTree = "<group>";
+		};
+		5E0D3CA416A6898F00B56ECD /* windows */ = {
+			isa = PBXGroup;
+			children = (
+				5E0D3CA516A6898F00B56ECD /* generate-tests.bat */,
+				5E0D3CA616A6898F00B56ECD /* generate.bat */,
+			);
+			path = windows;
 			sourceTree = "<group>";
 		};
 		5E24613D16A12E1200E5660B /* derieved_class */ = {
@@ -1332,6 +1343,7 @@
 			children = (
 				5ED6E0701699336000E2D2E1 /* linux */,
 				5EF1AC41169FB69100AD5883 /* macosx */,
+				5E0D3CA416A6898F00B56ECD /* windows */,
 			);
 			name = scripts;
 			path = compil/scripts;
@@ -1791,6 +1803,7 @@
 				5EC3C9B016A6537C00EB8000 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		5EC3C9B416A655C100EB8000 /* Build configuration list for PBXLegacyTarget "tests" */ = {
 			isa = XCConfigurationList;
@@ -1799,6 +1812,7 @@
 				5EC3C9B616A655C100EB8000 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};
