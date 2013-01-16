@@ -1,0 +1,31 @@
+compil { }
+
+import "factories.compil";
+import "factories_another_factory_package.compil";
+
+package factories2;
+
+structure ObjA3 inherit factories.ObjBase
+{
+    strong enum Inner3
+    {
+    }
+    
+    inproc identification;
+    
+    integer a3;
+    Inner3 inner3;
+}
+
+immutable
+structure IObjA3 inherit factories.IObjBase
+{
+    strong enum Inner3
+    {
+    }
+    
+    inproc identification;
+    
+    integer a3;
+    Inner3 inner3;
+}

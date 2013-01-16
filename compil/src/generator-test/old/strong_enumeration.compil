@@ -1,0 +1,32 @@
+compil { }
+
+strong enum<short> Weekday
+{
+    sunday;
+    monday;
+    tuesday;
+    wednesday;
+    thursday;
+    friday;
+    saturday;
+}
+
+structure Schedule
+{
+    Weekday weekday;
+}
+
+
+strong flags enum WeekdayFlags
+{
+    sunday;
+    monday;
+    tuesday;
+    wednesday;
+    thursday;
+    friday;
+    saturday;
+    
+    weekday = monday | tuesday | wednesday | thursday | friday;
+    weekend = saturday | sunday;
+}

@@ -1,7 +1,9 @@
+import os ;
+
+TESTS =  [ os.environ TESTS ] ;
+
 path-constant TOP : . ;
 path-constant ROOT : $(TOP)/.. ;
-
-import jamcompil ;
 
 include $(TOP)/jamlibrary.jam ;
 
@@ -19,12 +21,19 @@ project all
       <threading>multi
     ;
 
-build-project core ;
-build-project language ;
-build-project library ;
-build-project compiler ;
-build-project generator ;
-build-project generator-test ;
+if $(TESTS:E) = true
+{
+    build-project generator-test ;
+}
+else
+{
+    build-project core ;
+    build-project language ;
+    build-project library ;
+    build-project compiler ;
+    build-project generator ;
+}
+
 #build-project generator-self ;
 
 

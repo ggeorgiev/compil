@@ -1,0 +1,186 @@
+compil { }
+
+structure Case {}
+structure case {}
+structure Ase {}
+structure ase {}
+
+structure Class {}
+structure class {}
+structure Lass {}
+structure lass {}
+
+structure Enum {}
+structure enum {}
+structure Num {}
+structure num {}
+
+structure Defualt {}
+structure defualt {}
+structure Efualt {}
+structure efualt {}
+
+structure Interface {}
+structure interface {}
+structure Nterface {}
+structure nterface {}
+
+structure Private {}
+structure private {}
+structure Rivate {}
+structure rivate {}
+
+structure Protected {}
+structure protected {}
+structure Rotected {}
+structure rotected {}
+
+structure Public {}
+structure public {}
+structure Ublic {}
+structure ublic {}
+
+structure Switch {}
+structure switch {}
+structure Witch {}
+structure witch {}
+
+structure Template {}
+structure template {}
+structure Emplate {}
+structure emplate {}
+
+
+structure Fields
+{
+    integer Case;
+    integer Ase;
+    
+    integer Class;
+    integer Lass;
+    
+    integer Enum;
+    integer Num;
+    
+    integer Default;
+    integer Efault;
+    
+    integer Interface;
+    integer Nterface;
+    
+    integer Private;
+    integer Rivate;
+
+    integer Protected;
+    integer Rotected;
+
+    integer Public;
+    integer Ublic;
+    
+    integer Switch;
+    integer Witch;
+    
+    integer Template;
+    integer Emplate;
+}
+
+structure fields
+{
+    integer case;
+    integer ase;
+    
+    integer class;
+    integer lass;
+    
+    integer enum;
+    integer num;
+    
+    integer default;
+    integer efault;
+    
+    integer interface;
+    integer nterface;
+    
+    integer private;
+    integer rivate;
+
+    integer protected;
+    integer rotected;
+
+    integer public;
+    integer ublic;
+    
+    integer switch;
+    integer witch;
+    
+    integer template;
+    integer emplate;
+
+}
+
+enum Enumeration
+{
+    Case;
+    Ase;
+    
+    Class;
+    Lass;
+    
+    Enum;
+    Num;
+    
+    Default;
+    Efault;
+    
+    Interface;
+    Nterface;
+    
+    Private;
+    Rivate;
+    
+    Protected;
+    Rotected;
+
+    Public;
+    Ublic;
+    
+    Switch;
+    Witch;
+    
+    Template;
+    Emplate;
+}
+
+enum enumeration
+{
+    case;
+    ase;
+    
+    class;
+    lass;
+    
+    enum;
+    num;
+    
+    default;
+    efault;
+    
+    interface;
+    nterface;
+    
+    private;
+    rivate;
+    
+    protected;
+    rotected;
+
+    public;
+    ublic;
+    
+    switch;
+    witch;
+    
+    template;
+    emplate;
+}
+

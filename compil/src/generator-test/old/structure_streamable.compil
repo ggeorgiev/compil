@@ -1,0 +1,76 @@
+compil { }
+
+package streamable;
+
+strong enum Enum
+{
+    value1;
+    value2;
+}
+
+structure Item1
+{
+}
+
+structure Item2
+    inherit Item1
+{
+}
+
+streamable
+structure Structure1
+{
+    weak enum Weak
+    {
+        value1;
+        value2;
+    }
+    
+    strong enum Strong
+    {
+        value1;
+        value2;
+    }
+    
+    integer i1;
+    Weak w1;
+    Strong s1;
+    Item1 item1;
+    reference<Item1> refItem1;
+    vector<Enum> es1;
+}
+
+streamable
+structure Structure2
+    inherit Structure1
+{
+}
+
+immutable streamable
+structure IStructure1
+{
+    weak enum Weak
+    {
+        value1;
+        value2;
+    }
+    
+    strong enum Strong
+    {
+        value1;
+        value2;
+    }
+    
+    integer i1;
+    Weak w1;
+    Strong s1;
+    Item1 item1;
+    reference<Item1> refItem1;
+    vector<Enum> es1;
+}
+
+immutable streamable
+structure IStructure2
+    inherit IStructure1
+{
+}

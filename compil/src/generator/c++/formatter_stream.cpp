@@ -216,7 +216,7 @@ ElementSPtr FormatterStream::convert(const DeclarationMacroArgumentSPtr& paramet
     return convert(parameter->declaration());
 }
 
-ElementSPtr FormatterStream::convert(const lang::cpp::DeclaratorParameterDeclarationSPtr& declarator)
+ElementSPtr FormatterStream::convert(const DeclaratorParameterDeclarationSPtr& declarator)
 {
     PassageSPtr passage = passageRef();
     passage << convert(declarator->declaration())
@@ -248,7 +248,7 @@ ElementSPtr FormatterStream::convert(const EClassKey& key)
     return stringRef() << key.shortName();
 }
 
-ElementSPtr FormatterStream::convert(const lang::cpp::ECVQualifier& qualifier)
+ElementSPtr FormatterStream::convert(const ECVQualifier& qualifier)
 {
     return stringRef() << qualifier.shortName();
 }
@@ -542,7 +542,7 @@ ElementSPtr FormatterStream::convert(const PmMultiplicativeExpressionSPtr& expre
     return convert(expression->expression());
 }
 
-ElementSPtr FormatterStream::convert(const lang::cpp::PointerDeclaratorSPtr& declarator)
+ElementSPtr FormatterStream::convert(const PointerDeclaratorSPtr& declarator)
 {
     PassageSPtr passage = passageRef();
     passage << convert(declarator->declarator())
@@ -565,7 +565,7 @@ ElementSPtr FormatterStream::convert(const RelationalEqualityExpressionSPtr& exp
     return convert(expression->expression());
 }
 
-ElementSPtr FormatterStream::convert(const lang::cpp::ReferencePointerOperatorSPtr& expression)
+ElementSPtr FormatterStream::convert(const ReferencePointerOperatorSPtr& expression)
 {
     return stringRef() << "&";
 }

@@ -1,0 +1,24 @@
+compil { }
+
+package partial;
+
+partial
+structure MutableStructure
+{
+}
+
+abstract partial 
+structure MutableAbstractStructure
+{
+    reference<MutableStructure> ref;
+}
+
+immutable partial
+structure ImmutableStructure
+{
+}
+
+abstract immutable partial
+structure ImmutableAbstractStructure
+{
+}

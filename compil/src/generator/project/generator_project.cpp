@@ -346,7 +346,8 @@ bool GeneratorProject::executeCoreGenerator(const std::string& name,
     
     {
         std::cout << "#" << output.generic_string() << std::endl;
-        boost::shared_ptr<std::ostream> outputStream = openStream(output);
+        std::ostringstream* stringstream = new std::ostringstream();
+        boost::shared_ptr<std::ostream> outputStream(stringstream);
     
         bool bResult = generator.init("core",
                                       alignerConfiguration,
@@ -362,6 +363,28 @@ bool GeneratorProject::executeCoreGenerator(const std::string& name,
         {
             std::cout << "ERROR: the generation failed for: " << name << std::endl;
             return false;
+        }
+        
+        std::string current;
+        
+        std::ifstream file(output.c_str(), std::ios::binary);
+        if (file.is_open())
+        {
+            file.seekg(0, std::ios::end);
+            current.reserve((std::string::size_type)file.tellg());
+            file.seekg(0, std::ios::beg);
+            current.assign((std::istreambuf_iterator<char>(file)),
+                            std::istreambuf_iterator<char>());
+            file.close();
+        }
+        
+        if (current != stringstream->str())
+        {
+            boost::filesystem::create_directories(output.parent_path());
+            std::ofstream stream;
+            stream.open(output.c_str());
+            stream << stringstream->str();
+            stream.close();
         }
     }
     

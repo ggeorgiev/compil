@@ -1,0 +1,6 @@
+compil { }
+
+structure Times
+{
+    time.datetime datetime;
+}

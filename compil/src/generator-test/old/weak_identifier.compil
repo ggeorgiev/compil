@@ -1,0 +1,5 @@
+compil { }
+
+identifier<short> ScheduleId
+{
+}

@@ -1,0 +1,13 @@
+compil { }
+
+
+structure RefObject
+{
+}
+
+structure References
+{
+    reference<RefObject> object;
+    weak reference<RefObject> weakObject;
+}
+

@@ -1,0 +1,42 @@
+compil { }
+
+controlled immutable
+structure ImmutableStructure1
+{
+    integer r1;
+    integer o1 = optional;
+    integer d1 = 1;
+    
+    string s1;
+}
+
+controlled immutable
+structure ImmutableStructure2 inherit ImmutableStructure1
+{
+    integer r2;
+    integer o2 = optional;
+    integer d2 = 2;
+    
+    string s2;
+}
+
+controlled immutable
+structure ImmutableStructure3 inherit ImmutableStructure2
+{
+    integer r3;
+    integer o3 = optional;
+    integer d3 = 3;
+    
+    string s3;
+}
+
+controlled immutable
+structure ImmutableStructureAggregate
+{
+    ImmutableStructure1            rs;
+    ImmutableStructure1            os  = optional;
+    
+    reference<ImmutableStructure1> rrs;
+    reference<ImmutableStructure1> ors = optional;
+    reference<ImmutableStructure1> rns = null;
+}

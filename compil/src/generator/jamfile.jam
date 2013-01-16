@@ -98,4 +98,11 @@ gtest generator
     [ glob-tree *_unittest.cpp ]
     generator-lib
   ;
+  
+install dist
+  :
+    generator 
+  :
+    <location>$(ROOT)/../intermediate/dist
+  ;
 

@@ -1,0 +1,50 @@
+compil { }
+
+immutable
+structure ImmutableOuterStructure
+{
+    integer intValue1;
+
+    strong enum<short> StrongInnerEnum
+    {
+        value1;
+        value2;
+        value3;
+    }
+    
+    integer intValue2;
+    
+    weak enum<short> WeakInnerEnum
+    {
+        value1;
+        value2;
+        value3;
+    }
+    
+    StrongInnerEnum strong;
+    WeakInnerEnum weak;
+}
+
+structure MutableOuterStructure
+{
+    integer intValue1;
+
+    strong enum<short> StrongInnerEnum
+    {
+        value1;
+        value2;
+        value3;
+    }
+    
+    integer intValue2;
+    
+    weak enum<short> WeakInnerEnum
+    {
+        value1;
+        value2;
+        value3;
+    }
+    
+    StrongInnerEnum strong;
+    WeakInnerEnum weak;
+}

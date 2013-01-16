@@ -1,0 +1,15 @@
+compil { }
+
+import "factories.compil";
+
+package factories3;
+
+plugin
+factory<factories.ObjBase> PluginObjFactory
+{
+}
+
+plugin
+factory<factories.IObjBase> IPluginObjFactory
+{
+}
