@@ -15,7 +15,18 @@ echo '--memcheck:xml-file=compil_valgrind.%p.xml' >> .valgrindrc
     -s USE_VALGRIND=true \
     debug-symbols=on \
     toolset=gcc \
-    variant=release,debug \
+    variant=debug \
+    architecture=x86 \
+    address-model=64 \
+    link=static \
+    runtime-link=shared \
+    || exit 1
+    
+../boost/tool/linuxx86/bin/b2 \
+    -s USE_VALGRIND=true \
+    debug-symbols=on \
+    toolset=gcc \
+    variant=release \
     architecture=x86 \
     address-model=64 \
     link=static \

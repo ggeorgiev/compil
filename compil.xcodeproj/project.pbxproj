@@ -397,6 +397,8 @@
 		5EC3C9AB16A5B90E00EB8000 /* generator-test.compilprj */ = {isa = PBXFileReference; lastKnownFileType = text; path = "generator-test.compilprj"; sourceTree = "<group>"; };
 		5EC3C9BA16A6632200EB8000 /* specimens.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = specimens.compil; sourceTree = "<group>"; };
 		5EC3C9BB16A6632200EB8000 /* specimens-manual_test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "specimens-manual_test.cpp"; sourceTree = "<group>"; };
+		5EC3C9BD16A673E900EB8000 /* generate-tests.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "generate-tests.sh"; sourceTree = "<group>"; };
+		5EC3C9BE16A6753700EB8000 /* generate-tests.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "generate-tests.sh"; sourceTree = "<group>"; };
 		5EC6381E16A3BAF70018046A /* level.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = level.scompil; sourceTree = "<group>"; };
 		5ED6E06D16992F5F00E2D2E1 /* get-latest-generators.bat */ = {isa = PBXFileReference; lastKnownFileType = text; path = "get-latest-generators.bat"; sourceTree = "<group>"; };
 		5ED6E0711699336000E2D2E1 /* valgrind.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = valgrind.sh; sourceTree = "<group>"; };
@@ -1312,6 +1314,7 @@
 			children = (
 				5ED6E0721699456400E2D2E1 /* coverage.sh */,
 				5E2BD49E169A9D82007251F8 /* gcovr */,
+				5EC3C9BD16A673E900EB8000 /* generate-tests.sh */,
 				5ED6E075169951A200E2D2E1 /* generate.sh */,
 				5ED6E0711699336000E2D2E1 /* valgrind.sh */,
 			);
@@ -1331,6 +1334,7 @@
 		5EF1AC41169FB69100AD5883 /* macosx */ = {
 			isa = PBXGroup;
 			children = (
+				5EC3C9BE16A6753700EB8000 /* generate-tests.sh */,
 				5EF1AC42169FB69100AD5883 /* generate.sh */,
 			);
 			path = macosx;
@@ -1527,11 +1531,11 @@
 		};
 		5EC3C9AD16A6537C00EB8000 /* gen-tests */ = {
 			isa = PBXLegacyTarget;
-			buildArgumentsString = "--project-file=generator-test/generator-test.compilprj -o generator-test/.gen --core-output-directory=. --cpp.include_path=include_path_based_on_package";
+			buildArgumentsString = ../../intermediate/dist/generator;
 			buildConfigurationList = 5EC3C9AE16A6537C00EB8000 /* Build configuration list for PBXLegacyTarget "gen-tests" */;
 			buildPhases = (
 			);
-			buildToolPath = ../../intermediate/dist/generator;
+			buildToolPath = "../scripts/macosx/generate-tests.sh";
 			buildWorkingDirectory = compil/src;
 			dependencies = (
 				5EC3C9B216A6539600EB8000 /* PBXTargetDependency */,
