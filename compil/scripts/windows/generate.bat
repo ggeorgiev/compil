@@ -4,9 +4,8 @@ if "%GENERATOR%" == "" (
     SET GENERATOR=..\compil-stable\tool\windowsx86\bin\generator
 )
 
-BASEDIR=$(dirname $0)
-
-pushd $BASEDIR\..\..\src || exit 1
+SET BASEDIR=%~dp0
+pushd %BASEDIR%\..\..\src || exit 1
 
 %GENERATOR% ^
     --project-file=language\language.scompilprj ^
