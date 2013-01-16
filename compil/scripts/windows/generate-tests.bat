@@ -12,5 +12,3 @@ echo GENERATOR=%GENERATOR%
     --core-output-directory=. ^
     --cpp.include_path=include_path_based_on_package ^
     || exit 1
-
-popd || exit 1
