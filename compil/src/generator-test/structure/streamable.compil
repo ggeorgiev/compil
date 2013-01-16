@@ -1,6 +1,6 @@
 compil { }
 
-package streamable;
+package streamable | *;
 
 strong enum Enum
 {

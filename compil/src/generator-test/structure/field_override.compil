@@ -1,6 +1,6 @@
 compil { }
 
-package override;
+package override | *;
 
 controlled immutable
 structure Structure1

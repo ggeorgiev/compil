@@ -30,9 +30,12 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 // based on code from Adam Bowen posted on stackoverflow.com
 
-#include "structures.h"
+#include "structure/sanity.h"
 
 #include "gtest/gtest.h"
+
+namespace sanity
+{
 
 TEST(StructuresTest, isInitialize)
 {
@@ -176,4 +179,6 @@ TEST(StructuresTest, const_shared_from_this)
     StructureIsInitialize3SCPtr cstructure3 = structure3;
     StructureIsInitialize3SCPtr structure = cstructure3->shared_from_this();
     EXPECT_EQ(structure3, structure);
+}
+
 }

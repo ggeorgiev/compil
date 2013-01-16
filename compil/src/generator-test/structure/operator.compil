@@ -1,6 +1,6 @@
 compil { }
 
-package operator_;
+package operator_ | *;
 
 structure Structure1
 {

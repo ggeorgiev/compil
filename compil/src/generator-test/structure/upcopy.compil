@@ -1,6 +1,6 @@
 compil { }
 
-package upcopy;
+package upcopy | *;
 
 immutable
 structure Structure1

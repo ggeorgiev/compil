@@ -212,7 +212,7 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& structu
         suite << test;
     }
     
-    if (structure->isInitializable() && structure->immutable())
+    if (structure->isInitializable() && structure->immutable() && !structure->isInitializeAlwaysTrue())
     {
         TestSPtr test = testRef();
         test << TestName("negativeBuild");
@@ -292,6 +292,8 @@ bool CppTestGenerator::generate()
                              
     includeHeaders(mainStream, Dependency::private_section);
     
+    openNamespace(mainStream);
+    
     const std::vector<ObjectSPtr>& objects = mDocument->objects();
     std::vector<ObjectSPtr>::const_iterator it;
     for (it = objects.begin(); it != objects.end(); ++it)
@@ -301,6 +303,8 @@ bool CppTestGenerator::generate()
 
         generateObjectDeclaration(*it);
     }
+
+    closeNamespace(mainStream);
 
     return serializeStreams();
 }

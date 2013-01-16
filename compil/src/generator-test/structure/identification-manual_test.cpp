@@ -30,18 +30,43 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 // based on code from Adam Bowen posted on stackoverflow.com
 
-#include "structure_identification.h"
+#include "structure/identification.h"
 
 #include "gtest/gtest.h"
 
 namespace identification
 {
 
-TEST(StructureOperatorTest, construct)
+TEST(StructureIdentificationTest, construct)
 {
     Structure1 structure1;
     Structure2a structure2a;
     Structure2b structure2b;
+    Structure3aa structure3aa;
+    Structure3ab structure3ab;
+    Structure3ba structure3ba;
+    Structure3bb structure3bb;   
+}
+
+TEST(StructureIdentificationTest, static_values)
+{
+    EXPECT_EQ(EStructure1Id::structure1(), Structure1::staticStructure1Id());
+    EXPECT_EQ(EStructure1Id::structure2a(), Structure2a::staticStructure1Id());
+    EXPECT_EQ(EStructure1Id::structure3aa(), Structure3aa::staticStructure1Id());
+    EXPECT_EQ(EStructure1Id::structure3ba(), Structure3ba::staticStructure1Id());
+}
+
+TEST(StructureIdentificationTest, runtime_values)
+{
+    Structure1 structure1;
+    Structure2a structure2a;
+    Structure3aa structure3aa;
+    Structure3ba structure3ba;
+    
+    EXPECT_EQ(structure1.runtimeStructure1Id(), Structure1::staticStructure1Id());
+    EXPECT_EQ(structure2a.runtimeStructure1Id(), Structure2a::staticStructure1Id());
+    EXPECT_EQ(structure3aa.runtimeStructure1Id(), Structure3aa::staticStructure1Id());
+    EXPECT_EQ(structure3ba.runtimeStructure1Id(), Structure3ba::staticStructure1Id());
 }
 
 }

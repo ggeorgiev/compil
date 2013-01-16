@@ -399,6 +399,16 @@
 		5EC3C9BB16A6632200EB8000 /* specimens-manual_test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "specimens-manual_test.cpp"; sourceTree = "<group>"; };
 		5EC3C9BD16A673E900EB8000 /* generate-tests.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "generate-tests.sh"; sourceTree = "<group>"; };
 		5EC3C9BE16A6753700EB8000 /* generate-tests.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = "generate-tests.sh"; sourceTree = "<group>"; };
+		5EC3C9C016A67C9D00EB8000 /* field_override.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = field_override.compil; sourceTree = "<group>"; };
+		5EC3C9C116A67C9D00EB8000 /* identification.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = identification.compil; sourceTree = "<group>"; };
+		5EC3C9C216A67C9D00EB8000 /* identification-manual_test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "identification-manual_test.cpp"; sourceTree = "<group>"; };
+		5EC3C9C316A67C9D00EB8000 /* operator.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = operator.compil; sourceTree = "<group>"; };
+		5EC3C9C516A67C9D00EB8000 /* sanity.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = sanity.compil; sourceTree = "<group>"; };
+		5EC3C9C616A67C9D00EB8000 /* sanity-manual_test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "sanity-manual_test.cpp"; sourceTree = "<group>"; };
+		5EC3C9C716A67C9D00EB8000 /* streamable.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = streamable.compil; sourceTree = "<group>"; };
+		5EC3C9C816A67C9D00EB8000 /* streamable-manual_test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "streamable-manual_test.cpp"; sourceTree = "<group>"; };
+		5EC3C9C916A67C9D00EB8000 /* upcopy.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = upcopy.compil; sourceTree = "<group>"; };
+		5EC3C9CA16A67C9D00EB8000 /* upcopy-manual_test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "upcopy-manual_test.cpp"; sourceTree = "<group>"; };
 		5EC6381E16A3BAF70018046A /* level.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = level.scompil; sourceTree = "<group>"; };
 		5ED6E06D16992F5F00E2D2E1 /* get-latest-generators.bat */ = {isa = PBXFileReference; lastKnownFileType = text; path = "get-latest-generators.bat"; sourceTree = "<group>"; };
 		5ED6E0711699336000E2D2E1 /* valgrind.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = valgrind.sh; sourceTree = "<group>"; };
@@ -942,6 +952,7 @@
 			isa = PBXGroup;
 			children = (
 				5EC3C9B916A6632200EB8000 /* specimen */,
+				5EC3C9BF16A67C9D00EB8000 /* structure */,
 				5EC3C9AB16A5B90E00EB8000 /* generator-test.compilprj */,
 				5E88A2C015E188BC002D43A5 /* jamfile.jam */,
 			);
@@ -1297,6 +1308,23 @@
 				5EC3C9BB16A6632200EB8000 /* specimens-manual_test.cpp */,
 			);
 			path = specimen;
+			sourceTree = "<group>";
+		};
+		5EC3C9BF16A67C9D00EB8000 /* structure */ = {
+			isa = PBXGroup;
+			children = (
+				5EC3C9C016A67C9D00EB8000 /* field_override.compil */,
+				5EC3C9C116A67C9D00EB8000 /* identification.compil */,
+				5EC3C9C216A67C9D00EB8000 /* identification-manual_test.cpp */,
+				5EC3C9C316A67C9D00EB8000 /* operator.compil */,
+				5EC3C9C516A67C9D00EB8000 /* sanity.compil */,
+				5EC3C9C616A67C9D00EB8000 /* sanity-manual_test.cpp */,
+				5EC3C9C716A67C9D00EB8000 /* streamable.compil */,
+				5EC3C9C816A67C9D00EB8000 /* streamable-manual_test.cpp */,
+				5EC3C9C916A67C9D00EB8000 /* upcopy.compil */,
+				5EC3C9CA16A67C9D00EB8000 /* upcopy-manual_test.cpp */,
+			);
+			path = structure;
 			sourceTree = "<group>";
 		};
 		5ED6E06F1699336000E2D2E1 /* scripts */ = {

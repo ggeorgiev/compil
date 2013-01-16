@@ -32,28 +32,40 @@ bool Structure::isOptional() const
     if (!controlled())
         return false;
         
-    StructureSPtr pBaseStructure = baseStructure().lock();
-    if (pBaseStructure)
-    if (!pBaseStructure->isOptional()) return false;
-    
     bool bResult = false;
-    const std::vector<ObjectSPtr>& objs = objects();
-    std::vector<ObjectSPtr>::const_iterator it;
-    for (it = objs.begin(); it != objs.end(); ++it)
+    std::vector<FieldSPtr> fields = combinedFields();
+    for (std::vector<FieldSPtr>::iterator it = fields.begin(); it != fields.end(); ++it)
     {
-        FieldSPtr pField = ObjectFactory::downcastField(*it);
-        if (!pField)
+        const FieldSPtr& field = *it;
+        
+        if (isOverriden(field))
             continue;
         
-        if (!pField->defaultValue())
+        if (!field->defaultValue())
             return false;
         
-        if (!pField->defaultValue()->optional())
+        if (!field->defaultValue()->optional())
             continue;
         
         bResult = true;
     }
     return bResult;
+}
+
+bool Structure::isInitializeAlwaysTrue() const
+{
+    std::vector<FieldSPtr> fields = combinedFields();
+    for (std::vector<FieldSPtr>::iterator it = fields.begin(); it != fields.end(); ++it)
+    {
+        const FieldSPtr& field = *it;
+        
+        if (isOverriden(field))
+            continue;
+        
+        if (!field->defaultValue())
+            return false;
+    }
+    return true;
 }
 
 bool Structure::hasRuntimeIdentification() const
@@ -172,7 +184,7 @@ AlterSPtr Structure::findTopAlter(const FieldSPtr& field) const
     return AlterSPtr();
 }
 
-std::vector<FieldSPtr> Structure::combinedFields()
+std::vector<FieldSPtr> Structure::combinedFields() const
 {
     std::vector<FieldSPtr> result;
     StructureSPtr pBaseStructure = baseStructure().lock();

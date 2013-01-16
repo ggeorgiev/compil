@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 // based on code from Adam Bowen posted on stackoverflow.com
 
-#include "structure_streamable.h"
+#include "structure/streamable.h"
 
 #include "gtest/gtest.h"
 

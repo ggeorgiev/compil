@@ -58,6 +58,7 @@ public:
     bool isBuildable() const;
     bool isInitializable() const;
     bool isOptional() const;
+    bool isInitializeAlwaysTrue() const;
     
     bool hasRuntimeIdentification() const;
     static bool hasRuntimeIdentification(const StructureSPtr& pStructure);
@@ -72,7 +73,7 @@ public:
     FieldSPtr findField(const std::string& name) const;
     AlterSPtr findTopAlter(const FieldSPtr& field) const;
     
-    std::vector<FieldSPtr> combinedFields();
+    std::vector<FieldSPtr> combinedFields() const;
     
     bool fieldIterate(std::vector<FieldSPtr>& iteration);
     

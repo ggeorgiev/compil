@@ -1,6 +1,6 @@
 compil { }
 
-package identification;
+package identification | *;
 
 structure Structure1
 {

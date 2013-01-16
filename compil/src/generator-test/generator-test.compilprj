@@ -37,6 +37,13 @@ core package core.compil;
 section main
 {
     specimen/specimens.compil;
+    
+    structure/field_override.compil;
+    structure/identification.compil;
+    structure/operator.compil;
+    structure/sanity.compil;
+    structure/streamable.compil;
+    structure/upcopy.compil;
 }
 
 section partial
@@ -47,4 +54,11 @@ section partial
 section test
 {
     specimen/specimens.compil;
+    
+    structure/field_override.compil;
+    structure/identification.compil;
+    structure/operator.compil;
+    structure/sanity.compil;
+    structure/streamable.compil;
+    structure/upcopy.compil;
 }

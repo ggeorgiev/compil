@@ -1,5 +1,7 @@
 compil { }
 
+package sanity | *;
+
 controlled sharable
 structure StructureIsInitialize
 {
