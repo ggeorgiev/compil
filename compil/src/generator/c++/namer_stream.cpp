@@ -323,6 +323,52 @@ FunctionNameSPtr NamerStream::convertFunctionName(const FunctionNameSPtr& name)
     return FunctionNameSPtr();
 }
 
+IdentifierSPtr NamerStream::convertIdentifier(const ClassNameSPtr& name)
+{
+    if (name->runtimeClassNameId() == IdentifierClassName::staticClassNameId())
+        return IdentifierClassName::downcast(name)->identifier();
+        
+    BOOST_ASSERT(false);
+    return IdentifierSPtr();
+}
+
+IdentifierClassNameSPtr NamerStream::convertIdentifierClassName(const ClassNameSPtr& name)
+{
+    if (name->runtimeClassNameId() == IdentifierClassName::staticClassNameId())
+        return IdentifierClassName::downcast(name);
+        
+    BOOST_ASSERT(false);
+    return IdentifierClassNameSPtr();
+}
+
+IdentifierMethodNameSPtr NamerStream::convertIdentifierMethodName(const MethodNameSPtr& name)
+{
+    if (name->runtimeDeclarationId() == IdentifierMethodName::staticDeclarationId())
+        return IdentifierMethodName::downcast(name);
+    if (name->runtimeDeclarationId() == ConstructorMethodName::staticDeclarationId())
+    {
+        ClassNameSPtr className = ConstructorMethodName::downcast(name)->className();
+        return identifierMethodNameRef() << convertIdentifierClassName(className)->identifier();
+    }
+    if (name->runtimeDeclarationId() == DestructorMethodName::staticDeclarationId())
+    {
+        ClassNameSPtr className = DestructorMethodName::downcast(name)->className();
+        return identifierDestructorMethodNameRef() << convertIdentifierClassName(className)->identifier();
+    }
+        
+    BOOST_ASSERT(false);
+    return IdentifierMethodNameSPtr();
+}
+
+IdentifierNamespaceNameSPtr NamerStream::convertIdentifierNamespaceName(const NamespaceNameSPtr& name)
+{
+    if (name->runtimeNamespaceNameId() == IdentifierNamespaceName::staticNamespaceNameId())
+        return IdentifierNamespaceName::downcast(name);
+        
+    BOOST_ASSERT(false);
+    return IdentifierNamespaceNameSPtr();
+}
+
 MacroArgumentSPtr NamerStream::convertMacroArgument(const MacroArgumentSPtr& parameter)
 {
     if (parameter->runtimeMacroArgumentId() == ExpressionMacroArgument::staticMacroArgumentId())
@@ -374,50 +420,42 @@ MemberSpecificationSectionSPtr NamerStream::convertMemberSpecificationSection(co
     return newsection;
 }
 
-IdentifierSPtr NamerStream::convertIdentifier(const ClassNameSPtr& name)
+NestedNameSpecifierSPtr NamerStream::convertNestedNameSpecifier(const ClassSPtr& class_)
 {
-    if (name->runtimeClassNameId() == IdentifierClassName::staticClassNameId())
-        return IdentifierClassName::downcast(name)->identifier();
-        
-    BOOST_ASSERT(false);
-    return IdentifierSPtr();
-}
-
-IdentifierClassNameSPtr NamerStream::convertIdentifierClassName(const ClassNameSPtr& name)
-{
-    if (name->runtimeClassNameId() == IdentifierClassName::staticClassNameId())
-        return IdentifierClassName::downcast(name);
-        
-    BOOST_ASSERT(false);
-    return IdentifierClassNameSPtr();
-}
-
-IdentifierMethodNameSPtr NamerStream::convertIdentifierMethodName(const MethodNameSPtr& name)
-{
-    if (name->runtimeDeclarationId() == IdentifierMethodName::staticDeclarationId())
-        return IdentifierMethodName::downcast(name);
-    if (name->runtimeDeclarationId() == ConstructorMethodName::staticDeclarationId())
+    NestedNameSpecifierSPtr nestedNameSpecifier;
+    
+    for (ClassSPtr nested = class_; nested->containerClass(); nested = nested->containerClass())
     {
-        ClassNameSPtr className = ConstructorMethodName::downcast(name)->className();
-        return identifierMethodNameRef() << convertIdentifierClassName(className)->identifier();
+        ClassNestedNameSPtr classNestedName = classNestedNameRef()
+            << convertIdentifierClassName(nested->containerClass()->name());
+        
+        NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
+            << classNestedName;
+            
+        if (nestedNameSpecifier)
+            thisNestedNameSpecifier << nestedNameSpecifier;
+            
+        nestedNameSpecifier = thisNestedNameSpecifier;
     }
-    if (name->runtimeDeclarationId() == DestructorMethodName::staticDeclarationId())
+    
+    if (class_->namespace_())
     {
-        ClassNameSPtr className = DestructorMethodName::downcast(name)->className();
-        return identifierDestructorMethodNameRef() << convertIdentifierClassName(className)->identifier();
-    }
+        const std::vector<NamespaceNameSPtr>& names = class_->namespace_()->names();
+        for (std::vector<NamespaceNameSPtr>::const_reverse_iterator it = names.rbegin(); it != names.rend(); ++it)
+        {
+            NamespaceNestedNameSPtr namespaceNestedName = namespaceNestedNameRef()
+                << convertIdentifierNamespaceName(*it);
         
-    BOOST_ASSERT(false);
-    return IdentifierMethodNameSPtr();
-}
+            NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
+                << namespaceNestedName;
 
-IdentifierNamespaceNameSPtr NamerStream::convertIdentifierNamespaceName(const NamespaceNameSPtr& name)
-{
-    if (name->runtimeNamespaceNameId() == IdentifierNamespaceName::staticNamespaceNameId())
-        return IdentifierNamespaceName::downcast(name);
-        
-    BOOST_ASSERT(false);
-    return IdentifierNamespaceNameSPtr();
+            if (nestedNameSpecifier)
+                thisNestedNameSpecifier << nestedNameSpecifier;
+
+            nestedNameSpecifier = thisNestedNameSpecifier;
+        }
+    }
+    return nestedNameSpecifier;
 }
 
 ParameterDeclarationSPtr NamerStream::convertParameterDeclaration(const ParameterDeclarationSPtr& declarator)
@@ -618,39 +656,7 @@ TypeNameDeclaratorIdSPtr NamerStream::convertTypeNameDeclaratorId(const ClassSPt
     ClassTypeNameSPtr classTypeName = classTypeNameRef()
         << convertIdentifierClassName(class_->name());
         
-    NestedNameSpecifierSPtr nestedNameSpecifier;
-    
-    for (ClassSPtr nested = class_; nested->containerClass(); nested = nested->containerClass())
-    {
-        ClassNestedNameSPtr classNestedName = classNestedNameRef()
-            << convertIdentifierClassName(nested->containerClass()->name());
-        
-        NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
-            << classNestedName;
-            
-        if (nestedNameSpecifier)
-            thisNestedNameSpecifier << nestedNameSpecifier;
-            
-        nestedNameSpecifier = thisNestedNameSpecifier;
-    }
-    
-    if (class_->namespace_())
-    {
-        const std::vector<NamespaceNameSPtr>& names = class_->namespace_()->names();
-        for (std::vector<NamespaceNameSPtr>::const_reverse_iterator it = names.rbegin(); it != names.rend(); ++it)
-        {
-            NamespaceNestedNameSPtr namespaceNestedName = namespaceNestedNameRef()
-                << convertIdentifierNamespaceName(*it);
-        
-            NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
-                << namespaceNestedName;
-
-            if (nestedNameSpecifier)
-                thisNestedNameSpecifier << nestedNameSpecifier;
-
-            nestedNameSpecifier = thisNestedNameSpecifier;
-        }
-    }
+    NestedNameSpecifierSPtr nestedNameSpecifier = convertNestedNameSpecifier(class_);
         
     TypeNameDeclaratorIdSPtr typeNameDeclaratorId = typeNameDeclaratorIdRef()
         << nestedNameSpecifier
@@ -664,39 +670,7 @@ TypeNameSimpleTypeSpecifierSPtr NamerStream::convertTypeNameSimpleTypeSpecifier(
     ClassTypeNameSPtr classTypeName = classTypeNameRef()
         << convertIdentifierClassName(class_->name());
         
-    NestedNameSpecifierSPtr nestedNameSpecifier;
-    
-    for (ClassSPtr nested = class_; nested->containerClass(); nested = nested->containerClass())
-    {
-        ClassNestedNameSPtr classNestedName = classNestedNameRef()
-            << convertIdentifierClassName(nested->containerClass()->name());
-        
-        NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
-            << classNestedName;
-            
-        if (nestedNameSpecifier)
-            thisNestedNameSpecifier << nestedNameSpecifier;
-            
-        nestedNameSpecifier = thisNestedNameSpecifier;
-    }
-    
-    if (class_->namespace_())
-    {
-        const std::vector<NamespaceNameSPtr>& names = class_->namespace_()->names();
-        for (std::vector<NamespaceNameSPtr>::const_reverse_iterator it = names.rbegin(); it != names.rend(); ++it)
-        {
-            NamespaceNestedNameSPtr namespaceNestedName = namespaceNestedNameRef()
-                << convertIdentifierNamespaceName(*it);
-        
-            NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
-                << namespaceNestedName;
-
-            if (nestedNameSpecifier)
-                thisNestedNameSpecifier << nestedNameSpecifier;
-
-            nestedNameSpecifier = thisNestedNameSpecifier;
-        }
-    }
+    NestedNameSpecifierSPtr nestedNameSpecifier = convertNestedNameSpecifier(class_);
         
     TypeNameSimpleTypeSpecifierSPtr typeNameSimpleTypeSpecifier = typeNameSimpleTypeSpecifierRef()
         << nestedNameSpecifier
