@@ -30,18 +30,29 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-compil { }
+#ifndef _LIBRARY_CPP_COMPIL_CLASS_H__
+#define _LIBRARY_CPP_COMPIL_CLASS_H__
 
-import "c++/declarator/declarator.scompil";
-import "c++/class/class.scompil";
+#include "language/c++/class/class.h"
+#include "language/c++/expression/expression_factory.h"
 
-package lang.cpp | *.*.*;
-
-streamable
-structure ClassDeclarator
-    inherit Declarator
+namespace lib
 {
-    runtime identification;
-    
-    reference<Class> class;
+
+namespace cpp
+{
+
+using namespace lang::cpp;
+
+class CppClass
+{
+public:
+    static NestedNameSpecifierSPtr nestedNameSpecifier(const ClassSPtr& class_);
+};
+
 }
+
+}
+
+#endif // _LIBRARY_CPP_COMPIL_CLASS_H__
+

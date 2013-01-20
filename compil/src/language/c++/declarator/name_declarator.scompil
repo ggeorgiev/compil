@@ -32,16 +32,15 @@
 
 compil { }
 
-import "c++/declaration/declaration.scompil";
-import "c++/class/class.scompil";
+import "c++/declarator/declarator.scompil";
 
 package lang.cpp | *.*.*;
 
 streamable
-structure ClassDeclaration
-    inherit Declaration
+structure NameDeclarator
+    inherit Declarator
 {
     runtime identification;
     
-    reference<Class> class;
+    string name;
 }

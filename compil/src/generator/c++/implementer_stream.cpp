@@ -63,7 +63,7 @@ static StatementSPtr convertStatement(const StatementSPtr& statement)
             << (macroNameRef() << "ASSERT_THROW");
 
         macro << (expressionMacroArgumentRef() << teststatement->expression());
-        macro << (declarationMacroArgumentRef() << (classDeclarationRef() << teststatement->class_()));
+        macro << (declarationMacroArgumentRef() << (classDeclarationSpecifierRef() << teststatement->class_()));
         return macro;
     }
 

@@ -70,9 +70,11 @@ private:
     static ClassHeadSPtr                    convertClassHead(const ClassHeadSPtr& head);
     static CVQualifierTypeSpecifierSPtr     convertCVQualifierTypeSpecifier(const CVQualifierTypeSpecifierSPtr& specifier);
     static DeclarationSPtr                  convertDeclaration(const DeclarationSPtr& declaration);
+    static DeclarationSpecifierSPtr         convertDeclarationSpecifier(const ClassDeclarationSpecifierSPtr& specifier);
     static DeclarationSpecifierSPtr         convertDeclarationSpecifier(const DeclarationSpecifierSPtr& declaration);
     static DeclarationSpecifierSequenceSPtr convertDeclarationSpecifierSequence(const DeclarationSpecifierSequenceSPtr& declaration);
     static DeclaratorSPtr                   convertDeclarator(const DeclaratorSPtr& declarator);
+    static DeclaratorSPtr                   convertDeclarator(const ArgumentNameDeclaratorSPtr declarator);
     static DeclaratorIdSPtr                 convertDeclaratorId(const DeclaratorIdSPtr& declarator);
     static DeclaratorIdDirectDeclaratorSPtr convertDeclaratorIdDirectDeclarator(const DeclaratorIdDirectDeclaratorSPtr& declarator);
     static DeclaratorParameterDeclarationSPtr convertDeclaratorParameterDeclaration(const DeclaratorParameterDeclarationSPtr& declarator);
@@ -105,7 +107,6 @@ private:
     static StatementSPtr                    convertStatement(const StatementSPtr& statement);
     static TypeSpecifierSPtr                convertTypeSpecifier(const TypeSpecifierSPtr& declaration);
     static TypeDeclarationSpecifierSPtr     convertTypeDeclarationSpecifier(const TypeDeclarationSpecifierSPtr& declaration);
-    static TypeNameDeclaratorIdSPtr         convertTypeNameDeclaratorId(const ClassSPtr& class_);
     static TypeNameSimpleTypeSpecifierSPtr  convertTypeNameSimpleTypeSpecifier(const ClassSPtr& class_);
 
     FormatterStream mFormatter;

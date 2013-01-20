@@ -86,6 +86,10 @@
          </CommandLineArgument>
          <CommandLineArgument
             argument = "/Users/george/github/compil/compil/src/generator-test/specimens.compil"
+            isEnabled = "NO">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "/Users/george/github/compil/compil/src/generator-test/specimen/specimens.compil"
             isEnabled = "YES">
          </CommandLineArgument>
          <CommandLineArgument

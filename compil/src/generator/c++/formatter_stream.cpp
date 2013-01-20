@@ -194,6 +194,8 @@ ElementSPtr FormatterStream::convert(const DeclaratorSPtr& declarator)
         return convert(InitDeclarator::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == DeclaratorIdDirectDeclarator::staticDeclaratorId())
         return convert(DeclaratorIdDirectDeclarator::downcast(declarator));
+    if (declarator->runtimeDeclaratorId() == NameDeclarator::staticDeclaratorId())
+        return convert(NameDeclarator::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == ParameterDeclarationClause::staticDeclaratorId())
         return convert(ParameterDeclarationList::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == ParameterDeclarationList::staticDeclaratorId())
@@ -482,6 +484,13 @@ ElementSPtr FormatterStream::convert(const MultiplicativeAdditiveExpressionSPtr&
     return convert(expression->expression());
 }
 
+ElementSPtr FormatterStream::convert(const NameDeclaratorSPtr& declarator)
+{
+    PassageSPtr passage = passageRef();
+    passage << (stringRef() << declarator->name());
+    return passage;
+}
+
 ElementSPtr FormatterStream::convert(const NamespaceNestedNameSPtr& expression)
 {
     return convert(expression->name());
@@ -545,8 +554,8 @@ ElementSPtr FormatterStream::convert(const PmMultiplicativeExpressionSPtr& expre
 ElementSPtr FormatterStream::convert(const PointerDeclaratorSPtr& declarator)
 {
     PassageSPtr passage = passageRef();
-    passage << convert(declarator->declarator())
-            << convert(declarator->operator_());
+    passage << convert(declarator->operator_())
+            << convert(declarator->declarator());
     return passage;
 }
 

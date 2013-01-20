@@ -89,9 +89,9 @@ CVQualifierTypeSpecifierSPtr NamerStream::convertCVQualifierTypeSpecifier(const 
 
 DeclarationSPtr NamerStream::convertDeclaration(const DeclarationSPtr& declaration)
 {
-    if (declaration->runtimeDeclarationId() == ClassDeclaration::staticDeclarationId())
+    if (declaration->runtimeDeclarationId() == ClassDeclarationSpecifier::staticDeclarationId())
     {
-        ClassDeclarationSPtr cdeclaration = ClassDeclaration::downcast(declaration);
+        ClassDeclarationSpecifierSPtr cdeclaration = ClassDeclarationSpecifier::downcast(declaration);
         return convertTypeNameSimpleTypeSpecifier(cdeclaration->class_());
     }
     
@@ -99,8 +99,15 @@ DeclarationSPtr NamerStream::convertDeclaration(const DeclarationSPtr& declarati
     return DeclarationSPtr();
 }
 
+DeclarationSpecifierSPtr NamerStream::convertDeclarationSpecifier(const ClassDeclarationSpecifierSPtr& specifier)
+{
+    return typeDeclarationSpecifierRef() << convertTypeNameSimpleTypeSpecifier(specifier->class_());
+}
+
 DeclarationSpecifierSPtr NamerStream::convertDeclarationSpecifier(const DeclarationSpecifierSPtr& declaration)
 {
+    if (declaration->runtimeDeclarationId() == ClassDeclarationSpecifier::staticDeclarationId())
+        return convertDeclarationSpecifier(ClassDeclarationSpecifier::downcast(declaration));
     if (declaration->runtimeDeclarationId() == TypeDeclarationSpecifier::staticDeclarationId())
         return convertTypeDeclarationSpecifier(TypeDeclarationSpecifier::downcast(declaration));
 
@@ -108,13 +115,15 @@ DeclarationSpecifierSPtr NamerStream::convertDeclarationSpecifier(const Declarat
     return DeclarationSpecifierSPtr();
 }
 
+DeclaratorSPtr NamerStream::convertDeclarator(const ArgumentNameDeclaratorSPtr declarator)
+{
+    return nameDeclaratorRef() << declarator->name();
+}
+
 DeclaratorSPtr NamerStream::convertDeclarator(const DeclaratorSPtr& declarator)
 {
-    if (declarator->runtimeDeclaratorId() == ClassDeclarator::staticDeclaratorId())
-    {
-        ClassDeclaratorSPtr cdeclarator = ClassDeclarator::downcast(declarator);
-        return convertTypeNameDeclaratorId(cdeclarator->class_());
-    }
+    if (declarator->runtimeDeclaratorId() == ArgumentNameDeclarator::staticDeclaratorId())
+        return convertDeclarator(ArgumentNameDeclarator::downcast(declarator));
 
     DirectDeclaratorSPtr directDeclarator = DeclaratorFactory::downcastDirectDeclarator(declarator);
     if (directDeclarator)
@@ -649,20 +658,6 @@ TypeDeclarationSpecifierSPtr NamerStream::convertTypeDeclarationSpecifier(const 
         << convertTypeSpecifier(declaration->declaration());
         
     return newdeclaration;
-}
-
-TypeNameDeclaratorIdSPtr NamerStream::convertTypeNameDeclaratorId(const ClassSPtr& class_)
-{
-    ClassTypeNameSPtr classTypeName = classTypeNameRef()
-        << convertIdentifierClassName(class_->name());
-        
-    NestedNameSpecifierSPtr nestedNameSpecifier = convertNestedNameSpecifier(class_);
-        
-    TypeNameDeclaratorIdSPtr typeNameDeclaratorId = typeNameDeclaratorIdRef()
-        << nestedNameSpecifier
-        << classTypeName;
-        
-    return typeNameDeclaratorId;
 }
 
 TypeNameSimpleTypeSpecifierSPtr NamerStream::convertTypeNameSimpleTypeSpecifier(const ClassSPtr& class_)

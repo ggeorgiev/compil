@@ -29,7 +29,7 @@
       </PathRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "-I/Users/george/github/compil/compil/boost/include -I/Users/george/github/compil/compil/src/core/boost -I/Users/george/github/compil/compil/src/core/c++ -Igenerator-test -t main --project-directory=generator-test --core-directory=core/c++ generator-test/immutable_structure.compil -o /Users/george/github/compil/intermediate/generator-test/ef27f9a8a84252954bd5504269c0b5c1"
+            argument = "--project-file=generator-test/generator-test.compilprj --output-directory=generator-test/.gen --core-output-directory=. --cpp.include_path=include_path_based_on_package"
             isEnabled = "YES">
          </CommandLineArgument>
       </CommandLineArguments>

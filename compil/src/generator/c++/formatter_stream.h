@@ -98,6 +98,7 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::MemberSpecificationSPtr& specification);
     lang::all::ElementSPtr convert(const lang::cpp::MemberSpecificationSectionSPtr& section);
     lang::all::ElementSPtr convert(const lang::cpp::MultiplicativeAdditiveExpressionSPtr& expression);
+    lang::all::ElementSPtr convert(const lang::cpp::NameDeclaratorSPtr& declarator);
     lang::all::ElementSPtr convert(const lang::cpp::NamespaceNestedNameSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::NestedNameSpecifierSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::IdentifierSPtr& identifier);

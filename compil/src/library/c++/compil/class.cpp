@@ -30,26 +30,53 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-compil { }
+#include "library/c++/compil/class.h"
 
-import "c++/declarator/argument_name_declarator.scompil";
-import "c++/declarator/body_function_definition.scompil";
-import "c++/declarator/cv_qualifier_sequence.scompil";
-import "c++/declarator/declarator.scompil";
-import "c++/declarator/declarator_id_direct_declarator.scompil";
-import "c++/declarator/declarator_parameter_declaratoin.scompil";
-import "c++/declarator/function_name_declarator_id.scompil";
-import "c++/declarator/init_declarator.scompil";
-import "c++/declarator/parameters_direct_declarator.scompil";
-import "c++/declarator/parameter_declaratoin_clause.scompil";
-import "c++/declarator/pointer_declarator.scompil";
-import "c++/declarator/reference_pointer_operator.scompil";
-import "c++/declarator/type_name_declarator_id.scompil";
-import "c++/class/pure_member_declarator.scompil";
-
-package lang.cpp | *.*.*;
-
-hierarchy
-factory<Declarator> DeclaratorFactory
+namespace lib
 {
+
+namespace cpp
+{
+
+NestedNameSpecifierSPtr CppClass::nestedNameSpecifier(const ClassSPtr& class_)
+{
+    NestedNameSpecifierSPtr nestedNameSpecifier;
+    
+    for (ClassSPtr nested = class_; nested->containerClass(); nested = nested->containerClass())
+    {
+        ClassNestedNameSPtr classNestedName = classNestedNameRef()
+            << convertIdentifierClassName(nested->containerClass()->name());
+        
+        NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
+            << classNestedName;
+            
+        if (nestedNameSpecifier)
+            thisNestedNameSpecifier << nestedNameSpecifier;
+            
+        nestedNameSpecifier = thisNestedNameSpecifier;
+    }
+    
+    if (class_->namespace_())
+    {
+        const std::vector<NamespaceNameSPtr>& names = class_->namespace_()->names();
+        for (std::vector<NamespaceNameSPtr>::const_reverse_iterator it = names.rbegin(); it != names.rend(); ++it)
+        {
+            NamespaceNestedNameSPtr namespaceNestedName = namespaceNestedNameRef()
+                << convertIdentifierNamespaceName(*it);
+        
+            NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
+                << namespaceNestedName;
+
+            if (nestedNameSpecifier)
+                thisNestedNameSpecifier << nestedNameSpecifier;
+
+            nestedNameSpecifier = thisNestedNameSpecifier;
+        }
+    }
+    
+    return nestedNameSpecifier;
+}
+
+}
+
 }

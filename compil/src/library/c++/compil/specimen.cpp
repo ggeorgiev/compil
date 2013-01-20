@@ -75,15 +75,22 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
         
     PointerOperatorSPtr reference = referencePointerOperatorRef();
 
-    ClassDeclaratorSPtr stdstring = classDeclaratorRef()
+    ClassDeclarationSpecifierSPtr stdstring = classDeclarationSpecifierRef()
         << StlString::stringClass();
                     
+    ArgumentNameDeclaratorSPtr argumentNameDeclarator = argumentNameDeclaratorRef()
+        << "value";
+
     PointerDeclaratorSPtr pointerDeclarator = pointerDeclaratorRef()
-        << stdstring
-        << reference;
+        << reference
+        << argumentNameDeclarator;
+        
+    DeclarationSpecifierSequenceSPtr declarationSpecifierSequence = declarationSpecifierSequenceRef()
+        << (typeDeclarationSpecifierRef() << (cVQualifierTypeSpecifierRef() << ECVQualifier::const_()))
+        << stdstring;
         
     DeclaratorParameterDeclarationSPtr declaratorParameterDeclaration = declaratorParameterDeclarationRef()
-        << CppDeclaration::const_()
+        << declarationSpecifierSequence
         << pointerDeclarator;
 
     ParameterDeclarationListSPtr list = parameterDeclarationListRef()
