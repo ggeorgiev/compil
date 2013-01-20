@@ -33,9 +33,9 @@
 #ifndef _GENERATOR_PROJECT_H__
 #define _GENERATOR_PROJECT_H__
 
-#include "generator/c++/implementer_configuration.h"
-#include "generator/c++/formatter_configuration.h"
-#include "generator/c++/aligner_configuration.h"
+#include "generator/c++/configuration/implementer_configuration.h"
+#include "generator/c++/configuration/formatter_configuration.h"
+#include "generator/c++/configuration/aligner_configuration.h"
 #include "generator/generator.h"
 
 #include "compiler/i_source_provider.h"

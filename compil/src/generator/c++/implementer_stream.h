@@ -33,7 +33,7 @@
 #ifndef _IMPLEMENTER_STREAM_H__
 #define _IMPLEMENTER_STREAM_H__
 
-#include "generator/c++/implementer_configuration.h"
+#include "generator/c++/configuration/implementer_configuration.h"
 
 #include "generator/c++/namer_stream.h"
 

@@ -35,7 +35,7 @@
 #ifndef _ALIGNER_STREAM_H__
 #define _ALIGNER_STREAM_H__
 
-#include "aligner_configuration.h"
+#include "generator/c++/configuration/aligner_configuration.h"
 
 #include "language/all/element/element_factory.h"
 

@@ -29,36 +29,13 @@
 
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
-#ifndef _FUNCTION_DEFINITION_ALIGNER_H__
-#define _FUNCTION_DEFINITION_ALIGNER_H__
 
-#include "table_aligner.h"
-#include "generator/c++/configuration/aligner_configuration.h"
+compil { }
 
-#include <vector>
+package config.cpp | *.*.*;
 
-namespace compil
+strong enum PointerPosition
 {
-
-class FunctionDefinitionAligner : public TableAligner
-{
-public:
-    FunctionDefinitionAligner(const AlignerConfigurationSPtr& pConfig);
-    virtual ~FunctionDefinitionAligner();
-};
-
-typedef boost::shared_ptr<FunctionDefinitionAligner> FunctionDefinitionAlignerPtr;
-
-FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, 
-                                      const Aligner::FunctionSpace&);
-FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, 
-                                      const Aligner::FunctionDefinitionTypeSpace&);
-FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, 
-                                      const TableAligner::col&);
-FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, 
-                                      const TableAligner::row&);
-
-FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, char ch);
-FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, const std::string& str);
+    withTheType;
+    withTheName;
 }
-#endif

@@ -30,22 +30,35 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "generator/c++/namer_configuration.h"
+#include <boost/shared_ptr.hpp>
 
-NamerConfiguration::NamerConfiguration()
-{
-}
+#ifndef _FORMATTER_CONFIGURATION_H__
+#define _FORMATTER_CONFIGURATION_H__
 
-NamerConfiguration::~NamerConfiguration()
-{
-}
+#include "generator/c++/configuration/formatter_pointer_position.h"
 
-std::string NamerConfiguration::staticName()
+#include "core/configuration/configuration.h"
+
+class FormatterConfiguration : public compil::Configuration
 {
-    return "Namer";
-}
+public:
+    FormatterConfiguration();
+    virtual ~FormatterConfiguration();
     
-std::string NamerConfiguration::name()
-{
-    return staticName();
-}
+    static std::string staticName();
+    virtual std::string name();
+    
+    config::cpp::EPointerPosition mPointerPosition;
+};
+
+typedef boost::shared_ptr<FormatterConfiguration> FormatterConfigurationSPtr;
+typedef boost::weak_ptr<FormatterConfiguration> FormatterConfigurationWPtr;
+
+#else
+
+class FormatterConfiguration;
+typedef boost::shared_ptr<FormatterConfiguration> FormatterConfigurationSPtr;
+typedef boost::weak_ptr<FormatterConfiguration> FormatterConfigurationWPtr;
+
+#endif
+

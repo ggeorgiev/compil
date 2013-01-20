@@ -34,7 +34,7 @@
 #ifndef _CPP_IMPLEMENTER_H__
 #define _CPP_IMPLEMENTER_H__
 
-#include "generator/c++/implementer_configuration.h"
+#include "generator/c++/configuration/implementer_configuration.h"
 #include "generator/implementer/dependency.h"
 
 #include "generator/cpp/format/destructor_specifier.h"

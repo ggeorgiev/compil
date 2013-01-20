@@ -30,23 +30,22 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "formatter_configuration.h"
+#include "generator/c++/configuration/namer_configuration.h"
 
-FormatterConfiguration::FormatterConfiguration()
-    : mClassNamePrefix("")
+NamerConfiguration::NamerConfiguration()
 {
 }
 
-FormatterConfiguration::~FormatterConfiguration()
+NamerConfiguration::~NamerConfiguration()
 {
 }
 
-std::string FormatterConfiguration::staticName()
+std::string NamerConfiguration::staticName()
 {
-    return "Formatter";
+    return "Namer";
 }
     
-std::string FormatterConfiguration::name()
+std::string NamerConfiguration::name()
 {
     return staticName();
 }

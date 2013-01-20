@@ -7,19 +7,24 @@ gtest-defines ;
 project generator
   : requirements
     <include>$(TOP)
+    <include>.gen
   ;
+  
+local GEN = .gen/generator ;
 
 lib generator-lib
   :
     compil/compil_generator.cpp
     
-    c++/aligner_configuration.cpp
+           c++/configuration/aligner_configuration.cpp
+           c++/configuration/formatter_configuration.cpp
+    $(GEN)/c++/configuration/formatter_pointer_position.cpp
+           c++/configuration/implementer_configuration.cpp
+           c++/configuration/namer_configuration.cpp
+
     c++/aligner_stream.cpp
-    c++/formatter_configuration.cpp
     c++/formatter_stream.cpp
-    c++/implementer_configuration.cpp
     c++/implementer_stream.cpp
-    c++/namer_configuration.cpp
     c++/namer_stream.cpp
 
     cpp/format/argument.cpp
@@ -82,6 +87,7 @@ lib generator-lib
     $(TOP)/library//library
   :
     <include>$(TOP)
+    <include>.gen
   ;
     
 exe generator

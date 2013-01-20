@@ -176,8 +176,9 @@ ElementSPtr FormatterStream::convert(const DeclarationSpecifierSequenceSPtr& dec
     PassageSPtr passage = passageRef();
     for (std::vector<DeclarationSpecifierSPtr>::const_iterator it = declarations.begin(); it != declarations.end(); ++it)
     {
-        passage << convert(*it)
-                << (stringRef() << " ");
+        if (it != declarations.begin())
+            passage << (stringRef() << " ");
+        passage << convert(*it);
     }
     return passage;
 }
@@ -576,7 +577,12 @@ ElementSPtr FormatterStream::convert(const RelationalEqualityExpressionSPtr& exp
 
 ElementSPtr FormatterStream::convert(const ReferencePointerOperatorSPtr& expression)
 {
-    return stringRef() << "&";
+    if (mConfiguration->mPointerPosition == config::cpp::EPointerPosition::withTheType())
+        return stringRef() << "& ";
+    if (mConfiguration->mPointerPosition == config::cpp::EPointerPosition::withTheName())
+        return stringRef() << " &";
+    BOOST_ASSERT(false);
+    return ElementSPtr();
 }
 
 ElementSPtr FormatterStream::convert(const ShiftRelationalExpressionSPtr& expression)

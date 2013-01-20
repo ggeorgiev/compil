@@ -30,34 +30,23 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include <boost/shared_ptr.hpp>
+#include "formatter_configuration.h"
 
-#ifndef _FORMATTER_CONFIGURATION_H__
-#define _FORMATTER_CONFIGURATION_H__
-
-#include "core/configuration/configuration.h"
-
-class FormatterConfiguration : public compil::Configuration
+FormatterConfiguration::FormatterConfiguration()
+    : mPointerPosition(config::cpp::EPointerPosition::withTheType())
 {
-public:
-    FormatterConfiguration();
-    virtual ~FormatterConfiguration();
+}
+
+FormatterConfiguration::~FormatterConfiguration()
+{
+}
+
+std::string FormatterConfiguration::staticName()
+{
+    return "Formatter";
+}
     
-    static std::string staticName();
-    
-    virtual std::string name();
-    
-    std::string mClassNamePrefix;
-};
-
-typedef boost::shared_ptr<FormatterConfiguration> FormatterConfigurationSPtr;
-typedef boost::weak_ptr<FormatterConfiguration> FormatterConfigurationWPtr;
-
-#else
-
-class FormatterConfiguration;
-typedef boost::shared_ptr<FormatterConfiguration> FormatterConfigurationSPtr;
-typedef boost::weak_ptr<FormatterConfiguration> FormatterConfigurationWPtr;
-
-#endif
-
+std::string FormatterConfiguration::name()
+{
+    return staticName();
+}

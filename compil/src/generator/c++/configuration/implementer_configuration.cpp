@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "generator/c++/implementer_configuration.h"
+#include "generator/c++/configuration/implementer_configuration.h"
 
 #include "boost/algorithm/string.hpp"
 

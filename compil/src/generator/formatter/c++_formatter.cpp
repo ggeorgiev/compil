@@ -55,12 +55,12 @@ CppFormatter::~CppFormatter()
 
 std::string CppFormatter::cppClassName(const std::string& rawName)
 {
-    return mpKeyword->escapeKeyword(mpFormatterConfiguration->mClassNamePrefix + rawName);
+    return mpKeyword->escapeKeyword(rawName);
 }
 
 std::string CppFormatter::cppPrivateClassName(const std::string& rawName)
 {
-    return mpKeyword->escapeKeyword(mpFormatterConfiguration->mClassNamePrefix + rawName + "_");
+    return mpKeyword->escapeKeyword(rawName + "_");
 }
 
 std::string CppFormatter::cppRawPtrName(const std::string& rawName)

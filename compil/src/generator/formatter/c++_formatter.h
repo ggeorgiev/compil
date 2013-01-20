@@ -36,7 +36,7 @@
 
 #include "compiler/namespace_alias.h"
 
-#include "generator/c++/formatter_configuration.h"
+#include "generator/c++/configuration/formatter_configuration.h"
 #include "c++_keyword.h"
 
 #include "generator/cpp/format/constructor_name.h"

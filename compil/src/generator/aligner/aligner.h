@@ -34,7 +34,7 @@
 #ifndef _ALIGNER_H__
 #define _ALIGNER_H__
 
-#include "generator/c++/aligner_configuration.h"
+#include "generator/c++/configuration/aligner_configuration.h"
 
 #include "generator/cpp/format/argument.h"
 #include "generator/cpp/format/cast_operator.h"

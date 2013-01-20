@@ -2,8 +2,8 @@
 #include "generator/project/file_source_provider.h"
 #include "generator/general_configuration.h"
 #include "generator/generator_configuration.h"
-#include "generator/c++/formatter_configuration.h"
-#include "generator/c++/aligner_configuration.h"
+#include "generator/c++/configuration/formatter_configuration.h"
+#include "generator/c++/configuration/aligner_configuration.h"
 
 #include "compiler/parser.h"
 #include "compiler/validator/partial_validator.h"

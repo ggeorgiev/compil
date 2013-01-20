@@ -33,7 +33,7 @@
 #define _TABLE_ALIGNER_H__
 
 #include "aligner.h"
-#include "generator/c++/aligner_configuration.h"
+#include "generator/c++/configuration/aligner_configuration.h"
 
 #include <vector>
 

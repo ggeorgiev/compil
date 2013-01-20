@@ -14,4 +14,11 @@ pushd %BASEDIR%\..\..\src || exit 1
     --cpp.include_path=include_path_based_on_package ^
     || exit 1
 
+%GENERATOR% ^
+    --project-file=generator/generator.scompilprj ^
+    --output-directory=generator\.gen ^
+    --core-output-directory=. ^
+    --cpp.include_path=include_path_based_on_package ^
+    || exit 1
+
 popd || exit 1
