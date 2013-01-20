@@ -32,20 +32,12 @@
 
 compil { }
 
-import "c++/declaration/declaration.scompil";
-
 package lang.cpp | *.*.*;
 
-streamable
-structure FunctionSpecifier
-    inherit Declaration
+strong enum
+FunctionSpecifier
 {
-    runtime identification;
-    
-    strong enum Type
-    {
-        inline;
-        virtual;
-        explicit;
-    }
+    inline;
+    virtual;
+    explicit;
 }

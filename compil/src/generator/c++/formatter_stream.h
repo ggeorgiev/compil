@@ -84,10 +84,12 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::EAccessSpecifier& specifier);
     lang::all::ElementSPtr convert(const lang::cpp::EClassKey& key);
     lang::all::ElementSPtr convert(const lang::cpp::ECVQualifier& qualifier);
+    lang::all::ElementSPtr convert(const lang::cpp::EFunctionSpecifier& specifier);
     lang::all::ElementSPtr convert(const lang::cpp::ExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::ExpressionMacroArgumentSPtr& parameter);
     lang::all::ElementSPtr convert(const lang::cpp::ExpressionListSPtr& expressionList);
     lang::all::ElementSPtr convert(const lang::cpp::ExpressionStatementSPtr& statement);
+    lang::all::ElementSPtr convert(const lang::cpp::FunctionDeclarationSpecifierSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::FunctionNameDeclaratorIdSPtr& declarator);
     lang::all::ElementSPtr convert(const lang::cpp::FunctionDefinitionMemberDeclarationSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::GrammarEqualityExpressionSPtr& expression);

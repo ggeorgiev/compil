@@ -63,7 +63,10 @@ ElementSPtr FormatterStream::convert(const BodyFunctionDefinitionSPtr& definitio
 {
     PassageSPtr passage = passageRef();
     if (definition->specifier())
-        passage << convert(definition->specifier());
+    {
+        passage << convert(definition->specifier())
+                << (stringRef() << " ");
+    }
         
     passage << convert(definition->declarator());
     return passage;
@@ -149,6 +152,8 @@ ElementSPtr FormatterStream::convert(const DeclarationSPtr& declaration)
         return convert(CVQualifierTypeSpecifier::downcast(declaration));
     if (declaration->runtimeDeclarationId() == DeclarationSpecifierSequence::staticDeclarationId())
         return convert(DeclarationSpecifierSequence::downcast(declaration));
+    if (declaration->runtimeDeclarationId() == FunctionDeclarationSpecifier::staticDeclarationId())
+        return convert(FunctionDeclarationSpecifier::downcast(declaration));
     if (declaration->runtimeDeclarationId() == FunctionDefinitionMemberDeclaration::staticDeclarationId())
         return convert(FunctionDefinitionMemberDeclaration::downcast(declaration));
     if (declaration->runtimeDeclarationId() == IdentifierDestructorMethodName::staticDeclarationId())
@@ -256,6 +261,11 @@ ElementSPtr FormatterStream::convert(const ECVQualifier& qualifier)
     return stringRef() << qualifier.shortName();
 }
 
+ElementSPtr FormatterStream::convert(const EFunctionSpecifier& specifier)
+{
+    return stringRef() << specifier.shortName();
+}
+
 ElementSPtr FormatterStream::convert(const ExpressionSPtr& expression)
 {
     if (expression->runtimeExpressionId() == AdditiveShiftExpression::staticExpressionId())
@@ -329,6 +339,13 @@ ElementSPtr FormatterStream::convert(const ExpressionStatementSPtr& statement)
     passage << convert(statement->expression())
             << (stringRef() << ";")
             << endOfLineRef();
+    return passage;
+}
+
+ElementSPtr FormatterStream::convert(const FunctionDeclarationSpecifierSPtr& declaration)
+{
+    PassageSPtr passage = passageRef();
+    passage << convert(declaration->specifier());
     return passage;
 }
 

@@ -71,6 +71,7 @@
 		5E14861216AB84E8002DE537 /* namer_configuration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = namer_configuration.h; sourceTree = "<group>"; };
 		5E14861316AB8541002DE537 /* generator.scompilprj */ = {isa = PBXFileReference; lastKnownFileType = text; path = generator.scompilprj; sourceTree = "<group>"; };
 		5E14861416AB85E2002DE537 /* formatter_pointer_position.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = formatter_pointer_position.scompil; sourceTree = "<group>"; };
+		5E14861516AB9178002DE537 /* function_declaration_specifier.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = function_declaration_specifier.scompil; sourceTree = "<group>"; };
 		5E24613C16A12D1600E5660B /* constructor.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = constructor.scompil; sourceTree = "<group>"; };
 		5E24613E16A12E1200E5660B /* access_specifier.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = access_specifier.scompil; sourceTree = "<group>"; };
 		5E24613F16A132F800E5660B /* member_specification.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = member_specification.scompil; sourceTree = "<group>"; };
@@ -1099,6 +1100,7 @@
 				5E9DE6DD168FA5A80020522D /* declaration_factory.scompil */,
 				5E9DE6E2168FC6400020522D /* declaration_specifier.scompil */,
 				5E9DE6E1168FC6400020522D /* declaration_specifier_sequence.scompil */,
+				5E14861516AB9178002DE537 /* function_declaration_specifier.scompil */,
 				5E24614C16A1ED9700E5660B /* function_name.scompil */,
 				5E3535111694854E00716B12 /* function_specifier.scompil */,
 				5E9DE6D3168F9F8C0020522D /* simple_block_declaration.scompil */,

@@ -99,8 +99,14 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
     ParameterDeclarationClauseSPtr clause = parameterDeclarationClauseRef()
         << list;
 
+    DeclarationSpecifierSequenceSPtr declarationSpecifierSequence2 = declarationSpecifierSequenceRef()
+        << (functionDeclarationSpecifierRef() << EFunctionSpecifier::explicit_());
+
+
+
     ConstructorSPtr valueConstructor = constructorRef()
         << EAccessSpecifier::public_()
+        << declarationSpecifierSequence2
         << name
         << clause;
 

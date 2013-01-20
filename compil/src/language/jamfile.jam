@@ -59,6 +59,7 @@ lib cpp-language
     $(GEN)/c++/declaration/declaration_factory.cpp
     $(GEN)/c++/declaration/declaration_specifier.cpp
     $(GEN)/c++/declaration/declaration_specifier_sequence.cpp
+    $(GEN)/c++/declaration/function_declaration_specifier.cpp
     $(GEN)/c++/declaration/function_name.cpp
     $(GEN)/c++/declaration/function_specifier.cpp
     $(GEN)/c++/declaration/simple_declaration.cpp

@@ -58,7 +58,7 @@ BodyFunctionDefinitionSPtr NamerStream::convertBodyFunctionDefinition(const Body
 {
     BodyFunctionDefinitionSPtr newdefinition = bodyFunctionDefinitionRef();
     if (definition->specifier())
-        newdefinition << convertDeclarationSpecifier(definition->specifier());
+        newdefinition << convertDeclarationSpecifierSequence(definition->specifier());
     newdefinition << convertDeclarator(definition->declarator());
         
     return newdefinition;
@@ -108,6 +108,8 @@ DeclarationSpecifierSPtr NamerStream::convertDeclarationSpecifier(const Declarat
 {
     if (declaration->runtimeDeclarationId() == ClassDeclarationSpecifier::staticDeclarationId())
         return convertDeclarationSpecifier(ClassDeclarationSpecifier::downcast(declaration));
+    if (declaration->runtimeDeclarationId() == FunctionDeclarationSpecifier::staticDeclarationId())
+        return convertFunctionDeclarationSpecifier(FunctionDeclarationSpecifier::downcast(declaration));
     if (declaration->runtimeDeclarationId() == TypeDeclarationSpecifier::staticDeclarationId())
         return convertTypeDeclarationSpecifier(TypeDeclarationSpecifier::downcast(declaration));
 
@@ -295,6 +297,11 @@ ExpressionListSPtr NamerStream::convertExpressionList(const ExpressionListSPtr& 
         newlist << convertExpression(*it);
         
     return newlist;
+}
+
+FunctionDeclarationSpecifierSPtr NamerStream::convertFunctionDeclarationSpecifier(const FunctionDeclarationSpecifierSPtr& specifier)
+{
+    return specifier;
 }
 
 FunctionNameDeclaratorIdSPtr NamerStream::convertFunctionNameDeclaratorId(const FunctionNameDeclaratorIdSPtr& declarator)

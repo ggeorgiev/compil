@@ -79,6 +79,7 @@ section main
     c++/declaration/declaration_factory.scompil;
     c++/declaration/declaration_specifier.scompil;
     c++/declaration/declaration_specifier_sequence.scompil;
+    c++/declaration/function_declaration_specifier.scompil;
     c++/declaration/function_name.scompil;
     c++/declaration/function_specifier.scompil;
     c++/declaration/simple_declaration.scompil;

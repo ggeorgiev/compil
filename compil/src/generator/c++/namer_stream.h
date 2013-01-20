@@ -86,6 +86,7 @@ private:
     static FunctionDefinitionMemberDeclarationSPtr convertFunctionDefinitionMemberDeclaration(const FunctionDefinitionMemberDeclarationSPtr& declaration);
     static FunctionNameSPtr                 convertFunctionName(const FunctionNameSPtr& name);
     static IdentifierSPtr                   convertIdentifier(const ClassNameSPtr& name);
+    static FunctionDeclarationSpecifierSPtr convertFunctionDeclarationSpecifier(const FunctionDeclarationSpecifierSPtr& specifier);
     static FunctionNameDeclaratorIdSPtr     convertFunctionNameDeclaratorId(const FunctionNameDeclaratorIdSPtr& declarator);
     static IdentifierClassNameSPtr          convertIdentifierClassName(const ClassNameSPtr& name);
     static IdentifierMethodNameSPtr         convertIdentifierMethodName(const MethodNameSPtr& name);

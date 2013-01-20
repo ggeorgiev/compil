@@ -34,6 +34,7 @@ compil { }
 
 import "c++/class/class_name.scompil";
 import "c++/derieved_class/access_specifier.scompil";
+import "c++/declaration/declaration_specifier_sequence.scompil";
 import "c++/declarator/parameter_declaratoin_clause.scompil";
 
 package lang.cpp | *.*.*;
@@ -42,7 +43,8 @@ streamable
 structure Constructor
 {
     AccessSpecifier accessSpecifier;
-    reference<ClassName> name;
     
+    reference<DeclarationSpecifierSequence> specifier;
+    reference<ClassName> name;
     reference<ParameterDeclarationClause> parameters;
 }
