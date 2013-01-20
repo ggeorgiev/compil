@@ -32,7 +32,7 @@
 
 #include "library/c++/compil/specimen.h"
 #include "library/c++/compil/namespace.h"
-#include "library/c++/compil/declaration.h"
+#include "library/c++/compil/declarator.h"
 #include "library/c++/stl/string.h"
 
 #include "language/c++/class/identifier_class_name.h"
@@ -73,25 +73,11 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
         << EAccessSpecifier::public_()
         << name;
         
-    PointerOperatorSPtr reference = referencePointerOperatorRef();
-
-    ClassDeclarationSpecifierSPtr stdstring = classDeclarationSpecifierRef()
-        << StlString::stringClass();
-                    
     ArgumentNameDeclaratorSPtr argumentNameDeclarator = argumentNameDeclaratorRef()
         << "value";
 
-    PointerDeclaratorSPtr pointerDeclarator = pointerDeclaratorRef()
-        << reference
-        << argumentNameDeclarator;
-        
-    DeclarationSpecifierSequenceSPtr declarationSpecifierSequence = declarationSpecifierSequenceRef()
-        << (typeDeclarationSpecifierRef() << (cVQualifierTypeSpecifierRef() << ECVQualifier::const_()))
-        << stdstring;
-        
-    DeclaratorParameterDeclarationSPtr declaratorParameterDeclaration = declaratorParameterDeclarationRef()
-        << declarationSpecifierSequence
-        << pointerDeclarator;
+    DeclaratorParameterDeclarationSPtr declaratorParameterDeclaration =
+        CppDeclarator::constReference(StlString::stringClass(), argumentNameDeclarator);
 
     ParameterDeclarationListSPtr list = parameterDeclarationListRef()
         << declaratorParameterDeclaration;
@@ -99,14 +85,9 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
     ParameterDeclarationClauseSPtr clause = parameterDeclarationClauseRef()
         << list;
 
-    DeclarationSpecifierSequenceSPtr declarationSpecifierSequence2 = declarationSpecifierSequenceRef()
-        << (functionDeclarationSpecifierRef() << EFunctionSpecifier::explicit_());
-
-
-
     ConstructorSPtr valueConstructor = constructorRef()
         << EAccessSpecifier::public_()
-        << declarationSpecifierSequence2
+        << CppDeclarator::explicit_()
         << name
         << clause;
 

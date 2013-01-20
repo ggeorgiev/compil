@@ -72,6 +72,8 @@
 		5E14861316AB8541002DE537 /* generator.scompilprj */ = {isa = PBXFileReference; lastKnownFileType = text; path = generator.scompilprj; sourceTree = "<group>"; };
 		5E14861416AB85E2002DE537 /* formatter_pointer_position.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = formatter_pointer_position.scompil; sourceTree = "<group>"; };
 		5E14861516AB9178002DE537 /* function_declaration_specifier.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = function_declaration_specifier.scompil; sourceTree = "<group>"; };
+		5E14861616AC8D4A002DE537 /* declarator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = declarator.cpp; sourceTree = "<group>"; };
+		5E14861716AC8D4A002DE537 /* declarator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = declarator.h; sourceTree = "<group>"; };
 		5E24613C16A12D1600E5660B /* constructor.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = constructor.scompil; sourceTree = "<group>"; };
 		5E24613E16A12E1200E5660B /* access_specifier.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = access_specifier.scompil; sourceTree = "<group>"; };
 		5E24613F16A132F800E5660B /* member_specification.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = member_specification.scompil; sourceTree = "<group>"; };
@@ -1192,6 +1194,8 @@
 				5E9DE7121690FA4B0020522D /* builder.h */,
 				5E2AB4DE16A3E3B500555AAF /* declaration.cpp */,
 				5E2AB4DF16A3E3B500555AAF /* declaration.h */,
+				5E14861616AC8D4A002DE537 /* declarator.cpp */,
+				5E14861716AC8D4A002DE537 /* declarator.h */,
 				5EFFA6F41693B5A500035CAA /* namespace.cpp */,
 				5EFFA6F51693B5A500035CAA /* namespace.h */,
 				5EFFA6F21693B1AF00035CAA /* specimen.cpp */,

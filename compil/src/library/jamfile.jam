@@ -24,6 +24,7 @@ lib cpp-compil-library
   :
     c++/compil/builder.cpp
     c++/compil/declaration.cpp
+    c++/compil/declarator.cpp
     c++/compil/namespace.cpp
     c++/compil/specimen.cpp
     
