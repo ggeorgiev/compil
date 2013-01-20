@@ -41,7 +41,7 @@ namespace lib
 namespace cpp
 {
 
-ClassSPtr StlString::stringClass()
+ClassSPtr StlString::class_()
 {
     static ClassSPtr class_;
 

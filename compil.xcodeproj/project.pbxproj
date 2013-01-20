@@ -74,6 +74,11 @@
 		5E14861516AB9178002DE537 /* function_declaration_specifier.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = function_declaration_specifier.scompil; sourceTree = "<group>"; };
 		5E14861616AC8D4A002DE537 /* declarator.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = declarator.cpp; sourceTree = "<group>"; };
 		5E14861716AC8D4A002DE537 /* declarator.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = declarator.h; sourceTree = "<group>"; };
+		5E14861816AC9A3A002DE537 /* type.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = type.cpp; sourceTree = "<group>"; };
+		5E14861916AC9A3C002DE537 /* type.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = type.h; sourceTree = "<group>"; };
+		5E14861A16AC9B67002DE537 /* type_kind.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = type_kind.scompil; sourceTree = "<group>"; };
+		5E14861B16ACAA72002DE537 /* generic_declaration_specifier.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = generic_declaration_specifier.scompil; sourceTree = "<group>"; };
+		5E14861C16ACBE44002DE537 /* builtin_simple_type_specifier.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = builtin_simple_type_specifier.scompil; sourceTree = "<group>"; };
 		5E24613C16A12D1600E5660B /* constructor.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = constructor.scompil; sourceTree = "<group>"; };
 		5E24613E16A12E1200E5660B /* access_specifier.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = access_specifier.scompil; sourceTree = "<group>"; };
 		5E24613F16A132F800E5660B /* member_specification.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = member_specification.scompil; sourceTree = "<group>"; };
@@ -1095,6 +1100,7 @@
 			isa = PBXGroup;
 			children = (
 				5E9DE6D2168F9E570020522D /* block_declaration.scompil */,
+				5E14861C16ACBE44002DE537 /* builtin_simple_type_specifier.scompil */,
 				5E14860916AB7999002DE537 /* class_declaration_specifier.scompil */,
 				5E9DE6DB168FA37E0020522D /* class_type_name.scompil */,
 				5E2AB4DB16A3D44100555AAF /* cv_qualifier_type_specifier.scompil */,
@@ -1105,6 +1111,7 @@
 				5E14861516AB9178002DE537 /* function_declaration_specifier.scompil */,
 				5E24614C16A1ED9700E5660B /* function_name.scompil */,
 				5E3535111694854E00716B12 /* function_specifier.scompil */,
+				5E14861B16ACAA72002DE537 /* generic_declaration_specifier.scompil */,
 				5E9DE6D3168F9F8C0020522D /* simple_block_declaration.scompil */,
 				5E9DE6D4168F9F8C0020522D /* simple_declaration.scompil */,
 				5E9DE6E5168FC79A0020522D /* simple_type_specifier.scompil */,
@@ -1200,6 +1207,8 @@
 				5EFFA6F51693B5A500035CAA /* namespace.h */,
 				5EFFA6F21693B1AF00035CAA /* specimen.cpp */,
 				5EFFA6F31693B1AF00035CAA /* specimen.h */,
+				5E14861816AC9A3A002DE537 /* type.cpp */,
+				5E14861916AC9A3C002DE537 /* type.h */,
 			);
 			path = compil;
 			sourceTree = "<group>";
@@ -1333,6 +1342,7 @@
 			isa = PBXGroup;
 			children = (
 				5EB86FB5168D6C3E0049B6A9 /* local_variable.scompil */,
+				5E14861A16AC9B67002DE537 /* type_kind.scompil */,
 				5EB86FB6168D6C3E0049B6A9 /* variable.scompil */,
 				5EB86FB7168D6C3E0049B6A9 /* variable_name.scompil */,
 			);

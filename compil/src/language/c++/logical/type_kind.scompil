@@ -32,45 +32,32 @@
 
 compil { }
 
-import "compil/all/comment.scompil";
-import "compil/all/name.scompil";
-import "compil/all/package.scompil";
-import "compil/document/operator_action.scompil";
+package lang.cpp | *.*.*;
 
-package lang.compil | *.*.*;
-
-partial sharable
-structure Type 
-    inherit Object
+strong enum Generic
 {
-    runtime identification;
+    // There is no builtin string type in c++. C++ string manipulation fuctions
+    // work with pointer to a char. This though is very error prone form memory
+    // ownership perespective. This is why almost every big c++ library uses
+    // stl string or defines its own
+    string;
+}
 
-    reference<Package> package = null;
-    reference<Comment> comment;
-    reference<Name> name;
-    
-    strong enum Literal
-    {
-        boolean;
-        integer;
-        real;
-        string;
-        binary;
-        reference;
-        identifier;
-        structure;
-    }
-    
-    Literal literal;
-    
-    // this is deprecated - it is programming language specific
-    // can not be provided from the compil model
-    strong enum Kind
-    {
-        builtin;
-        object;
-        string;
-    }
-    
+strong enum Kind
+{
+    // this type is a builtin in the cpp language
+    builtin;
+    // this type is a class defined form the code
+    class;
+    // generic type is a type that could be resolved as 
+    // builtin or class depending on implementation
+    // parameters chosen for the generation
+    generic;
+}
+
+streamable
+structure TypeKind
+{
     Kind kind;
+    Generic generic;
 }

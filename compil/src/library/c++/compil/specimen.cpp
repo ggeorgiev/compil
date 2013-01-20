@@ -77,7 +77,7 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
         << "value";
 
     DeclaratorParameterDeclarationSPtr declaratorParameterDeclaration =
-        CppDeclarator::constReference(StlString::stringClass(), argumentNameDeclarator);
+        CppDeclarator::inputArgument(specimen->parameterType().lock(), argumentNameDeclarator);
 
     ParameterDeclarationListSPtr list = parameterDeclarationListRef()
         << declaratorParameterDeclaration;

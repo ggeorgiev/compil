@@ -145,7 +145,7 @@ std::string AlignerStream::evaluate(const ElementSPtr& element)
     return "";
 }
 
-std::string AlignerStream::evaluate(const lang::all::ListSPtr& list)
+std::string AlignerStream::evaluate(const ListSPtr& list)
 {
     std::string result;
     

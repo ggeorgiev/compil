@@ -32,45 +32,35 @@
 
 compil { }
 
-import "compil/all/comment.scompil";
-import "compil/all/name.scompil";
-import "compil/all/package.scompil";
-import "compil/document/operator_action.scompil";
+import "c++/declaration/simple_type_specifier.scompil";
 
-package lang.compil | *.*.*;
+package lang.cpp | *.*.*;
 
-partial sharable
-structure Type 
-    inherit Object
+streamable
+structure BuiltinSimpleTypeSpecifier
+    inherit SimpleTypeSpecifier
 {
     runtime identification;
 
-    reference<Package> package = null;
-    reference<Comment> comment;
-    reference<Name> name;
-    
-    strong enum Literal
+    strong enum Type
     {
-        boolean;
-        integer;
-        real;
-        string;
-        binary;
-        reference;
-        identifier;
-        structure;
+        size;
+        
+        signedChar;
+        unsignedChar;
+        
+        signedShort;
+        unsignedShort;
+
+        signedInt;
+        unsignedInt;
+
+        signedLong;
+        unsignedLong;
+
+        signedLongLong;
+        unsignedLongLong;
     }
     
-    Literal literal;
-    
-    // this is deprecated - it is programming language specific
-    // can not be provided from the compil model
-    strong enum Kind
-    {
-        builtin;
-        object;
-        string;
-    }
-    
-    Kind kind;
+    Type type;
 }

@@ -37,6 +37,8 @@
 
 #include "language/c++/declarator/declarator_factory.h"
 
+#include "language/compil/all/object_factory.h"
+
 namespace lib
 {
 
@@ -48,7 +50,10 @@ using namespace lang::cpp;
 class CppDeclarator
 {
 public:
-    static DeclaratorParameterDeclarationSPtr constReference(const ClassSPtr& class_, const DeclaratorSPtr& declarator);
+    static DeclaratorParameterDeclarationSPtr constArgument(const TypeSpecifierSPtr& specifier, const DeclaratorSPtr& declarator);
+    static DeclaratorParameterDeclarationSPtr constReferenceArgument(const ClassSPtr& class_, const DeclaratorSPtr& declarator);
+    static DeclaratorParameterDeclarationSPtr inputArgument(const lang::compil::TypeSPtr& type, const DeclaratorSPtr& declarator);
+
     static DeclarationSpecifierSequenceSPtr explicit_();
     static PointerOperatorSPtr reference();
 };

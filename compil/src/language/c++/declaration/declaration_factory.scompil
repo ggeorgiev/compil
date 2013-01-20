@@ -32,6 +32,7 @@
 
 compil { }
 
+import "c++/declaration/builtin_simple_type_specifier.scompil";
 import "c++/declaration/class_declaration_specifier.scompil";
 import "c++/declaration/class_type_name.scompil";
 import "c++/declaration/cv_qualifier_type_specifier.scompil";
@@ -39,6 +40,7 @@ import "c++/declaration/declaration.scompil";
 import "c++/declaration/declaration_specifier_sequence.scompil";
 import "c++/declaration/function_declaration_specifier.scompil";
 import "c++/declaration/function_declaration_specifier.scompil";
+import "c++/declaration/generic_declaration_specifier.scompil";
 import "c++/declaration/simple_declaration.scompil";
 import "c++/declaration/simple_block_declaration.scompil";
 import "c++/declaration/type_declaration_specifier.scompil";

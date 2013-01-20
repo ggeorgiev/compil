@@ -46,7 +46,7 @@ using namespace lang::cpp;
 class StlString
 {
 public:
-    static ClassSPtr stringClass();
+    static ClassSPtr class_();
 };
 
 }

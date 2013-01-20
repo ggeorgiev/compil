@@ -27,6 +27,7 @@ lib cpp-compil-library
     c++/compil/declarator.cpp
     c++/compil/namespace.cpp
     c++/compil/specimen.cpp
+    c++/compil/type.cpp
     
     $(TOP)/language//language
   :

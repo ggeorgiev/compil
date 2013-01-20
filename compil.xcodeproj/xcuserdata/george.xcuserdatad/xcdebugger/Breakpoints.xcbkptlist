@@ -8,38 +8,12 @@
          ignoreCount = "0"
          continueAfterRunningActions = "No"
          filePath = "compil/src/generator/c++/formatter_stream.cpp"
-         timestampString = "380346479.122901"
+         timestampString = "380422726.852573"
          startingColumnNumber = "9223372036854775807"
          endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "571"
-         endingLineNumber = "571"
-         landmarkName = "FormatterStream::convert(const PointerDeclaratorSPtr&amp; declarator)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "compil/src/generator/c++/formatter_stream.cpp"
-         timestampString = "380346479.122901"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "598"
-         endingLineNumber = "598"
+         startingLineNumber = "617"
+         endingLineNumber = "617"
          landmarkName = "FormatterStream::convert(const ReferencePointerOperatorSPtr&amp; expression)"
-         landmarkType = "5">
-      </FileBreakpoint>
-      <FileBreakpoint
-         shouldBeEnabled = "Yes"
-         ignoreCount = "0"
-         continueAfterRunningActions = "No"
-         filePath = "compil/src/generator/c++/formatter_stream.cpp"
-         timestampString = "380346473.774443"
-         startingColumnNumber = "9223372036854775807"
-         endingColumnNumber = "9223372036854775807"
-         startingLineNumber = "175"
-         endingLineNumber = "175"
-         landmarkName = "FormatterStream::convert(const DeclarationSpecifierSequenceSPtr&amp; declaration)"
          landmarkType = "5">
       </FileBreakpoint>
    </FileBreakpoints>

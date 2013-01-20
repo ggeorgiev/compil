@@ -52,6 +52,7 @@ lib cpp-language
     $(GEN)/c++/class/pure_specifier.cpp
 
     $(GEN)/c++/declaration/block_declaration.cpp
+    $(GEN)/c++/declaration/builtin_simple_type_specifier.cpp
     $(GEN)/c++/declaration/class_declaration_specifier.cpp
     $(GEN)/c++/declaration/class_type_name.cpp
     $(GEN)/c++/declaration/cv_qualifier_type_specifier.cpp
@@ -62,6 +63,7 @@ lib cpp-language
     $(GEN)/c++/declaration/function_declaration_specifier.cpp
     $(GEN)/c++/declaration/function_name.cpp
     $(GEN)/c++/declaration/function_specifier.cpp
+    $(GEN)/c++/declaration/generic_declaration_specifier.cpp
     $(GEN)/c++/declaration/simple_declaration.cpp
     $(GEN)/c++/declaration/simple_block_declaration.cpp
     $(GEN)/c++/declaration/simple_type_specifier.cpp
@@ -140,6 +142,7 @@ lib cpp-language
     $(GEN)/c++/lexical/identifier-cpp.cpp
     
     $(GEN)/c++/logical/local_variable.cpp
+    $(GEN)/c++/logical/type_kind.cpp
     $(GEN)/c++/logical/variable.cpp
     $(GEN)/c++/logical/variable_name.cpp
     

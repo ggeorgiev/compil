@@ -72,6 +72,7 @@ section main
     c++/class/pure_specifier.scompil;
 
     c++/declaration/block_declaration.scompil;
+    c++/declaration/builtin_simple_type_specifier.scompil;
     c++/declaration/class_declaration_specifier.scompil;
     c++/declaration/class_type_name.scompil;
     c++/declaration/cv_qualifier_type_specifier.scompil;
@@ -82,6 +83,7 @@ section main
     c++/declaration/function_declaration_specifier.scompil;
     c++/declaration/function_name.scompil;
     c++/declaration/function_specifier.scompil;
+    c++/declaration/generic_declaration_specifier.scompil;
     c++/declaration/simple_declaration.scompil;
     c++/declaration/simple_block_declaration.scompil;
     c++/declaration/simple_type_specifier.scompil;
@@ -160,6 +162,7 @@ section main
     c++/lexical/identifier-cpp.scompil;
     
     c++/logical/local_variable.scompil;
+    c++/logical/type_kind.scompil;
     c++/logical/variable.scompil;
     c++/logical/variable_name.scompil;
     

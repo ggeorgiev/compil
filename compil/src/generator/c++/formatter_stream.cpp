@@ -72,6 +72,19 @@ ElementSPtr FormatterStream::convert(const BodyFunctionDefinitionSPtr& definitio
     return passage;
 }
 
+ElementSPtr FormatterStream::convert(const BuiltinSimpleTypeSpecifierSPtr& specifier)
+{
+    switch (specifier->type().value())
+    {
+        case BuiltinSimpleTypeSpecifier::EType::kSignedLong:
+            return stringRef() << "long";
+        default:
+            BOOST_ASSERT(false);
+    }
+    
+    return ElementSPtr();
+}
+
 ElementSPtr FormatterStream::convert(const CastPmExpressionSPtr& expression)
 {
     return convert(expression->expression());
@@ -146,6 +159,8 @@ ElementSPtr FormatterStream::convert(const CustomIdExpressionSPtr& expression)
 
 ElementSPtr FormatterStream::convert(const DeclarationSPtr& declaration)
 {
+    if (declaration->runtimeDeclarationId() == BuiltinSimpleTypeSpecifier::staticDeclarationId())
+        return convert(BuiltinSimpleTypeSpecifier::downcast(declaration));
     if (declaration->runtimeDeclarationId() == ClassTypeName::staticDeclarationId())
         return convert(ClassTypeName::downcast(declaration));
     if (declaration->runtimeDeclarationId() == CVQualifierTypeSpecifier::staticDeclarationId())
@@ -227,8 +242,12 @@ ElementSPtr FormatterStream::convert(const DeclarationMacroArgumentSPtr& paramet
 ElementSPtr FormatterStream::convert(const DeclaratorParameterDeclarationSPtr& declarator)
 {
     PassageSPtr passage = passageRef();
-    passage << convert(declarator->declaration())
-            << convert(declarator->declarator());
+    passage << convert(declarator->declaration());
+    
+    if (declarator->declarator()->runtimeDeclaratorId() != PointerDeclarator::staticDeclaratorId())
+        passage << (stringRef() << " ");
+
+    passage << convert(declarator->declarator());
     return passage;
 }
 

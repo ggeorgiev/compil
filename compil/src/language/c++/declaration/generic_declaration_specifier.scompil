@@ -32,45 +32,16 @@
 
 compil { }
 
-import "compil/all/comment.scompil";
-import "compil/all/name.scompil";
-import "compil/all/package.scompil";
-import "compil/document/operator_action.scompil";
+import "c++/declaration/declaration_specifier.scompil";
+import "c++/logical/type_kind.scompil";
 
-package lang.compil | *.*.*;
+package lang.cpp | *.*.*;
 
-partial sharable
-structure Type 
-    inherit Object
+streamable
+structure GenericDeclarationSpecifier
+    inherit DeclarationSpecifier
 {
     runtime identification;
-
-    reference<Package> package = null;
-    reference<Comment> comment;
-    reference<Name> name;
     
-    strong enum Literal
-    {
-        boolean;
-        integer;
-        real;
-        string;
-        binary;
-        reference;
-        identifier;
-        structure;
-    }
-    
-    Literal literal;
-    
-    // this is deprecated - it is programming language specific
-    // can not be provided from the compil model
-    strong enum Kind
-    {
-        builtin;
-        object;
-        string;
-    }
-    
-    Kind kind;
+    Generic generic;
 }

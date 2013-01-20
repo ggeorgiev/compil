@@ -65,6 +65,7 @@ public:
 protected:
     lang::all::ElementSPtr convert(const lang::cpp::AdditiveShiftExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::BodyFunctionDefinitionSPtr& definition);
+    lang::all::ElementSPtr convert(const lang::cpp::BuiltinSimpleTypeSpecifierSPtr& specifier);
     lang::all::ElementSPtr convert(const lang::cpp::CompoundStatementSPtr& statement);
     lang::all::ElementSPtr convert(const lang::cpp::CastPmExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::ClassHeadSPtr& head);

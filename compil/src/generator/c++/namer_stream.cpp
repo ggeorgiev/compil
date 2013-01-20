@@ -32,6 +32,9 @@
 
 #include "namer_stream.h"
 
+#include "library/c++/compil/declarator.h"
+#include "library/c++/stl/string.h"
+
 #include "boost/unordered_map.hpp"
 
 namespace nmr
@@ -175,6 +178,22 @@ DeclaratorIdDirectDeclaratorSPtr NamerStream::convertDeclaratorIdDirectDeclarato
 
 DeclaratorParameterDeclarationSPtr NamerStream::convertDeclaratorParameterDeclaration(const DeclaratorParameterDeclarationSPtr& declarator)
 {
+    if (declarator->declaration()->declarations().size() == 1)
+    {
+        DeclarationSpecifierSPtr specifier = declarator->declaration()->declarations()[0];
+        if (specifier->runtimeDeclarationId() == GenericDeclarationSpecifier::staticDeclarationId())
+        {
+            GenericDeclarationSpecifierSPtr gds = GenericDeclarationSpecifier::downcast(specifier);
+            if (gds->generic() == EGeneric::string())
+            {
+                DeclaratorParameterDeclarationSPtr newdeclarator =
+                    lib::cpp::CppDeclarator::constReferenceArgument(lib::cpp::StlString::class_(),
+                                                                    declarator->declarator());
+                return convertDeclaratorParameterDeclaration(newdeclarator);
+            }
+        }
+    }
+
     DeclaratorParameterDeclarationSPtr newdeclarator = declaratorParameterDeclarationRef()
         << convertDeclarationSpecifierSequence(declarator->declaration())
         << convertDeclarator(declarator->declarator());
@@ -650,6 +669,8 @@ StatementSPtr NamerStream::convertStatement(const StatementSPtr& statement)
 
 TypeSpecifierSPtr NamerStream::convertTypeSpecifier(const TypeSpecifierSPtr& declaration)
 {
+    if (declaration->runtimeDeclarationId() == BuiltinSimpleTypeSpecifier::staticDeclarationId())
+        return BuiltinSimpleTypeSpecifier::downcast(declaration);
     if (declaration->runtimeDeclarationId() == TypeNameSimpleTypeSpecifier::staticDeclarationId())
         return TypeNameSimpleTypeSpecifier::downcast(declaration);
     if (declaration->runtimeDeclarationId() == CVQualifierTypeSpecifier::staticDeclarationId())

@@ -30,47 +30,29 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-compil { }
+#ifndef _LIBRARY_CPP_COMPIL_TYPE_H__
+#define _LIBRARY_CPP_COMPIL_TYPE_H__
 
-import "compil/all/comment.scompil";
-import "compil/all/name.scompil";
-import "compil/all/package.scompil";
-import "compil/document/operator_action.scompil";
+#include "language/c++/declaration/declaration_factory.h"
+#include "language/c++/logical/type_kind.h"
+#include "language/compil/all/object_factory.h"
 
-package lang.compil | *.*.*;
-
-partial sharable
-structure Type 
-    inherit Object
+namespace lib
 {
-    runtime identification;
 
-    reference<Package> package = null;
-    reference<Comment> comment;
-    reference<Name> name;
-    
-    strong enum Literal
-    {
-        boolean;
-        integer;
-        real;
-        string;
-        binary;
-        reference;
-        identifier;
-        structure;
-    }
-    
-    Literal literal;
-    
-    // this is deprecated - it is programming language specific
-    // can not be provided from the compil model
-    strong enum Kind
-    {
-        builtin;
-        object;
-        string;
-    }
-    
-    Kind kind;
+namespace cpp
+{
+
+class CppType
+{
+public:
+    static lang::cpp::TypeKind kind(const lang::compil::TypeSPtr& type);
+    static lang::cpp::BuiltinSimpleTypeSpecifierSPtr builtinSpecifier(const lang::compil::TypeSPtr& type);
+};
+
 }
+
+}
+
+#endif // _LIBRARY_CPP_COMPIL_TYPE_H__
+

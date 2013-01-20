@@ -30,7 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
+#include "library/c++/compil/type.h"
 #include "library/c++/compil/declarator.h"
+#include "library/c++/stl/string.h"
 
 namespace lib
 {
@@ -38,7 +40,22 @@ namespace lib
 namespace cpp
 {
 
-DeclaratorParameterDeclarationSPtr CppDeclarator::constReference(const ClassSPtr& class_, const DeclaratorSPtr& declarator)
+DeclaratorParameterDeclarationSPtr CppDeclarator::constArgument(const TypeSpecifierSPtr& specifier,
+                                                                const DeclaratorSPtr& declarator)
+{
+    DeclarationSpecifierSequenceSPtr declarationSpecifierSequence = declarationSpecifierSequenceRef()
+        << (typeDeclarationSpecifierRef() << (cVQualifierTypeSpecifierRef() << ECVQualifier::const_()))
+        << (typeDeclarationSpecifierRef() << specifier);
+
+    DeclaratorParameterDeclarationSPtr declaratorParameterDeclaration = declaratorParameterDeclarationRef()
+        << declarationSpecifierSequence
+        << declarator;
+        
+    return declaratorParameterDeclaration; 
+}
+
+DeclaratorParameterDeclarationSPtr CppDeclarator::constReferenceArgument(const ClassSPtr& class_,
+                                                                         const DeclaratorSPtr& declarator)
 {
     ClassDeclarationSpecifierSPtr classSpecifier = classDeclarationSpecifierRef()
         << class_;
@@ -56,6 +73,27 @@ DeclaratorParameterDeclarationSPtr CppDeclarator::constReference(const ClassSPtr
         << pointerDeclarator;
         
     return declaratorParameterDeclaration;
+}
+
+DeclaratorParameterDeclarationSPtr CppDeclarator::inputArgument(const lang::compil::TypeSPtr& type,
+                                                                const DeclaratorSPtr& declarator)
+{
+    TypeKind kind = CppType::kind(type);
+    
+    switch (kind.kind().value())
+    {
+        case EKind::kBuiltin:
+            return constArgument(CppType::builtinSpecifier(type), declarator);
+        case EKind::kClass:
+            break;
+        case EKind::kGeneric:
+            return declaratorParameterDeclarationRef()
+                << (declarationSpecifierSequenceRef()
+                        << (genericDeclarationSpecifierRef() << kind.generic()))
+                << declarator;
+    }
+
+    return DeclaratorParameterDeclarationSPtr();
 }
 
 DeclarationSpecifierSequenceSPtr CppDeclarator::explicit_()
