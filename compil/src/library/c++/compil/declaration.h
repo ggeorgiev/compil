@@ -31,7 +31,7 @@
 //
 
 #ifndef _LIBRARY_CPP_COMPIL_DECLARATION_H__
-#define _LIBRARY_CPP_COMPIL_NAMESPACE_H__
+#define _LIBRARY_CPP_COMPIL_DECLARATION_H__
 
 #include "language/c++/declaration/declaration_factory.h"
 
@@ -53,5 +53,5 @@ public:
 
 }
 
-#endif // _LIBRARY_CPP_COMPIL_NAMESPACE_H__
+#endif // _LIBRARY_CPP_COMPIL_DECLARATION_H__
 

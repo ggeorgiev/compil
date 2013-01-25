@@ -30,8 +30,8 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _LIBRARY_CPP_COMPIL_DECLARATION_H__
-#define _LIBRARY_CPP_COMPIL_NAMESPACE_H__
+#ifndef _LIBRARY_CPP_COMPIL_DECLARATOR_H__
+#define _LIBRARY_CPP_COMPIL_DECLARATOR_H__
 
 #include "library/c++/compil/declaration.h"
 
@@ -50,11 +50,12 @@ using namespace lang::cpp;
 class CppDeclarator
 {
 public:
+    static DeclarationSpecifierSPtr declarationSpecifier(const lang::compil::TypeSPtr& type);
+    
     static DeclaratorParameterDeclarationSPtr constArgument(const TypeSpecifierSPtr& specifier, const DeclaratorSPtr& declarator);
     static DeclaratorParameterDeclarationSPtr constReferenceArgument(const ClassSPtr& class_, const DeclaratorSPtr& declarator);
     static DeclaratorParameterDeclarationSPtr inputArgument(const lang::compil::TypeSPtr& type, const DeclaratorSPtr& declarator);
 
-    static DeclarationSpecifierSequenceSPtr explicit_();
     static PointerOperatorSPtr reference();
 };
 
@@ -62,5 +63,5 @@ public:
 
 }
 
-#endif // _LIBRARY_CPP_COMPIL_NAMESPACE_H__
+#endif // _LIBRARY_CPP_COMPIL_DECLARATOR_H__
 

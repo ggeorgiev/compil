@@ -38,6 +38,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		5E02EFB816B2FE73009B7BAF /* class.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = class.cpp; sourceTree = "<group>"; };
+		5E02EFB916B2FE73009B7BAF /* class.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = class.h; sourceTree = "<group>"; };
+		5E02EFBD16B30C37009B7BAF /* method_specifier.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = method_specifier.scompil; sourceTree = "<group>"; };
+		5E02EFBE16B30F5E009B7BAF /* method.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = method.cpp; sourceTree = "<group>"; };
+		5E02EFBF16B30F5F009B7BAF /* method.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = method.h; sourceTree = "<group>"; };
 		5E046CD716963AC600E354F3 /* application.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = application.cpp; sourceTree = "<group>"; };
 		5E046CD816963AC600E354F3 /* application.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = application.h; sourceTree = "<group>"; };
 		5E046CDA16963CBE00E354F3 /* jamfile.jam */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.jam; path = jamfile.jam; sourceTree = "<group>"; };
@@ -1199,10 +1204,14 @@
 			children = (
 				5E9DE7111690FA4B0020522D /* builder.cpp */,
 				5E9DE7121690FA4B0020522D /* builder.h */,
+				5E02EFB816B2FE73009B7BAF /* class.cpp */,
+				5E02EFB916B2FE73009B7BAF /* class.h */,
 				5E2AB4DE16A3E3B500555AAF /* declaration.cpp */,
 				5E2AB4DF16A3E3B500555AAF /* declaration.h */,
 				5E14861616AC8D4A002DE537 /* declarator.cpp */,
 				5E14861716AC8D4A002DE537 /* declarator.h */,
+				5E02EFBE16B30F5E009B7BAF /* method.cpp */,
+				5E02EFBF16B30F5F009B7BAF /* method.h */,
 				5EFFA6F41693B5A500035CAA /* namespace.cpp */,
 				5EFFA6F51693B5A500035CAA /* namespace.h */,
 				5EFFA6F21693B1AF00035CAA /* specimen.cpp */,
@@ -1274,6 +1283,7 @@
 				5E24614216A138B700E5660B /* member_declarator.scompil */,
 				5E24613F16A132F800E5660B /* member_specification.scompil */,
 				5E24615316A1F2DB00E5660B /* method.scompil */,
+				5E02EFBD16B30C37009B7BAF /* method_specifier.scompil */,
 				5E24615F16A1F8FF00E5660B /* method_name.scompil */,
 				5E24616016A1F8FF00E5660B /* operator_method_name.scompil */,
 				5E24614416A13A6D00E5660B /* pure_member_declarator.scompil */,

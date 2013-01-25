@@ -33,9 +33,11 @@
 #include "library/c++/compil/specimen.h"
 #include "library/c++/compil/namespace.h"
 #include "library/c++/compil/declarator.h"
+#include "library/c++/compil/type.h"
 #include "library/c++/stl/string.h"
 
 #include "language/c++/class/identifier_class_name.h"
+#include "language/c++/class/identifier_method_name.h"
 #include "language/c++/declarator/declarator_factory.h"
 #include "language/c++/declaration/declaration_factory.h"
 
@@ -54,7 +56,8 @@ ClassNameSPtr CppSpecimen::className(const SpecimenSPtr& specimen)
     if (it != map.end())
         return it->second;
 
-    ClassNameSPtr className = identifierClassNameRef() << (identifierRef() << specimen->name()->value());
+    ClassNameSPtr className = identifierClassNameRef()
+        << (identifierRef() << specimen->name()->value());
     
     map[specimen] = className;
     return className;
@@ -87,7 +90,7 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
 
     ConstructorSPtr valueConstructor = constructorRef()
         << EAccessSpecifier::public_()
-        << CppDeclarator::explicit_()
+        << EMethodSpecifier::explicit_()
         << name
         << clause;
 
@@ -102,6 +105,18 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
         << defaultConstructor
         << valueConstructor
         << destructor;
+        
+    DeclarationSpecifierSPtr returnType = CppDeclarator::declarationSpecifier(specimen->parameterType().lock());
+        
+    lang::cpp::MethodSPtr value = lang::cpp::methodRef()
+        << class_
+        << EAccessSpecifier::public_()
+        << EMethodSpecifier::inline_()
+        << returnType
+        << (identifierMethodNameRef() << (identifierRef() << "value"))
+        << (cVQualifierSequenceRef() << ECVQualifier::const_());
+        
+    class_ << value;
         
     map[specimen] = class_;
     return class_;

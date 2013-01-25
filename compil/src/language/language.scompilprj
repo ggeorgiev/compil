@@ -66,6 +66,7 @@ section main
     c++/class/member_declarator.scompil;
     c++/class/member_specification.scompil;
     c++/class/method.scompil;
+    c++/class/method_specifier.scompil;
     c++/class/method_name.scompil;
     c++/class/operator_method_name.scompil;
     c++/class/pure_member_declarator.scompil;

@@ -40,6 +40,25 @@ namespace lib
 namespace cpp
 {
 
+DeclarationSpecifierSPtr CppDeclarator::declarationSpecifier(const lang::compil::TypeSPtr& type)
+{
+    TypeKind kind = CppType::kind(type);
+    
+    switch (kind.kind().value())
+    {
+        case EKind::kBuiltin:
+            return typeDeclarationSpecifierRef() << CppType::builtinSpecifier(type);
+        case EKind::kClass:
+            return CppType::classSpecifier(type);
+        case EKind::kGeneric:
+            return (genericDeclarationSpecifierRef() << kind.generic());
+    }
+
+    BOOST_ASSERT(false);
+    return DeclarationSpecifierSPtr();
+}
+
+
 DeclaratorParameterDeclarationSPtr CppDeclarator::constArgument(const TypeSpecifierSPtr& specifier,
                                                                 const DeclaratorSPtr& declarator)
 {
@@ -85,7 +104,7 @@ DeclaratorParameterDeclarationSPtr CppDeclarator::inputArgument(const lang::comp
         case EKind::kBuiltin:
             return constArgument(CppType::builtinSpecifier(type), declarator);
         case EKind::kClass:
-            break;
+            return constReferenceArgument(CppType::class_(type), declarator);
         case EKind::kGeneric:
             return declaratorParameterDeclarationRef()
                 << (declarationSpecifierSequenceRef()
@@ -93,15 +112,8 @@ DeclaratorParameterDeclarationSPtr CppDeclarator::inputArgument(const lang::comp
                 << declarator;
     }
 
+    BOOST_ASSERT(false);
     return DeclaratorParameterDeclarationSPtr();
-}
-
-DeclarationSpecifierSequenceSPtr CppDeclarator::explicit_()
-{
-    static DeclarationSpecifierSequenceSPtr declarationSpecifierSequence = declarationSpecifierSequenceRef()
-        << (functionDeclarationSpecifierRef() << EFunctionSpecifier::explicit_());
-        
-    return declarationSpecifierSequence;
 }
 
 PointerOperatorSPtr CppDeclarator::reference()

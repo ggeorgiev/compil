@@ -85,6 +85,11 @@ ClassSpecifierSPtr NamerStream::convertClassSpecifier(const ClassSpecifierSPtr& 
     return newspecifier;
 }
 
+CVQualifierSequenceSPtr NamerStream::convertCVQualifierSequence(const CVQualifierSequenceSPtr& qualifier)
+{
+    return qualifier;
+}
+
 CVQualifierTypeSpecifierSPtr NamerStream::convertCVQualifierTypeSpecifier(const CVQualifierTypeSpecifierSPtr& specifier)
 {
     return specifier;
@@ -526,6 +531,8 @@ ParametersDirectDeclaratorSPtr NamerStream::convertParametersDirectDeclarator(co
         << convertDirectDeclarator(declarator->declarator());
     if (declarator->parameters())
         newdeclarator << convertParameterDeclarationClause(declarator->parameters());
+    if (declarator->qualifier())
+        newdeclarator << convertCVQualifierSequence(declarator->qualifier());
         
     return newdeclarator;
 }

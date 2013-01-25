@@ -31,10 +31,14 @@
 //
 
 #include "generator/c++/implementer_stream.h"
+#include "library/c++/compil/declarator.h"
+#include "library/c++/compil/method.h"
+#include "library/c++/stl/string.h"
 
 using namespace lang;
 using namespace lang::cpp;
 using namespace lang::all;
+using namespace lib::cpp;
 
 ImplementerStream::ImplementerStream(const ImplementerConfigurationSPtr& implementerConfiguration,
                                      const NamerConfigurationSPtr& namerConfiguration,
@@ -121,7 +125,8 @@ ImplementerStream& ImplementerStream::operator<<(const TestSuite& suite)
 
 static FunctionDefinitionMemberDeclarationSPtr methodDefinition(const DeclarationSpecifierSequenceSPtr& specifier,
                                                                 const MethodNameSPtr& methodName,
-                                                                const ParameterDeclarationClauseSPtr& parameters)
+                                                                const ParameterDeclarationClauseSPtr& parameters,
+                                                                const CVQualifierSequenceSPtr& qualifier)
 {
     FunctionNameDeclaratorIdSPtr functionNameDeclaratorId = functionNameDeclaratorIdRef()
         << methodName;
@@ -134,6 +139,9 @@ static FunctionDefinitionMemberDeclarationSPtr methodDefinition(const Declaratio
         
     if (parameters)
         parametersDirectDeclarator << parameters;
+
+    if (qualifier)
+        parametersDirectDeclarator << qualifier;
 
     BodyFunctionDefinitionSPtr bodyFunctionDefinition = bodyFunctionDefinitionRef()
         << parametersDirectDeclarator;
@@ -159,9 +167,10 @@ ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& cla
         ConstructorMethodNameSPtr constructorMethodName = constructorMethodNameRef()
             << class_->name();
             
-        FunctionDefinitionMemberDeclarationSPtr method = methodDefinition(constructor->specifier(),
+        FunctionDefinitionMemberDeclarationSPtr method = methodDefinition(CppMethod::specifier(constructor->specifier()),
                                                                           constructorMethodName,
-                                                                          constructor->parameters());
+                                                                          constructor->parameters(),
+                                                                          CVQualifierSequenceSPtr());
         section << method;
     }
 
@@ -172,7 +181,23 @@ ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& cla
         
         section << methodDefinition(DeclarationSpecifierSequenceSPtr(),
                                     destructorMethodName,
-                                    ParameterDeclarationClauseSPtr());
+                                    ParameterDeclarationClauseSPtr(),
+                                    CVQualifierSequenceSPtr());
+    }
+    
+    const std::vector<MethodSPtr>& methods = class_->methods();
+    for (std::vector<MethodSPtr>::const_iterator it = methods.begin(); it != methods.end(); ++it)
+    {
+        const MethodSPtr& method = *it;
+        
+        DeclarationSpecifierSequenceSPtr specifier = CppMethod::specifier(method->methodSpecifier(),
+                                                                          convert(method->returnType()));
+
+        FunctionDefinitionMemberDeclarationSPtr methodDef = methodDefinition(specifier,
+                                                                             method->name(),
+                                                                             method->parameters(),
+                                                                             method->qualifier());
+        section << methodDef;
     }
 
     
@@ -187,4 +212,19 @@ ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& cla
 
     mNamer << specifier;
     return *this;
+}
+
+lang::cpp::DeclarationSpecifierSPtr ImplementerStream::convert(const lang::cpp::DeclarationSpecifierSPtr& specifier)
+{
+    if (!specifier)
+        return specifier;
+        
+    if (specifier->runtimeDeclarationId() == GenericDeclarationSpecifier::staticDeclarationId())
+    {
+        GenericDeclarationSpecifierSPtr gds = GenericDeclarationSpecifier::downcast(specifier);
+        if (gds->generic() == EGeneric::string())
+            return classDeclarationSpecifierRef() << lib::cpp::StlString::class_();
+    }
+    
+    return specifier;
 }

@@ -34,6 +34,7 @@
 #define _LIBRARY_CPP_COMPIL_TYPE_H__
 
 #include "language/c++/declaration/declaration_factory.h"
+#include "language/c++/declarator/declarator_factory.h"
 #include "language/c++/logical/type_kind.h"
 #include "language/compil/all/object_factory.h"
 
@@ -47,6 +48,8 @@ class CppType
 {
 public:
     static lang::cpp::TypeKind kind(const lang::compil::TypeSPtr& type);
+    static lang::cpp::ClassSPtr class_(const lang::compil::TypeSPtr& type);
+    static lang::cpp::ClassDeclarationSpecifierSPtr classSpecifier(const lang::compil::TypeSPtr& type);
     static lang::cpp::BuiltinSimpleTypeSpecifierSPtr builtinSpecifier(const lang::compil::TypeSPtr& type);
 };
 

@@ -30,15 +30,34 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-compil { }
+#ifndef _LIBRARY_CPP_COMPIL_METHOD_H__
+#define _LIBRARY_CPP_COMPIL_METHOD_H__
 
-import "all/element/element.scompil";
+#include "library/c++/compil/declaration.h"
 
-package lang.all | *.*.*;
+#include "language/c++/declaration/declaration_factory.h"
+#include "language/c++/declarator/declarator_factory.h"
 
-streamable
-structure OptionalIdentifierSeparator
-    inherit Element
+#include "language/compil/all/object_factory.h"
+
+namespace lib
 {
-    runtime identification;
+
+namespace cpp
+{
+
+using namespace lang::cpp;
+
+class CppMethod
+{
+public:
+    static DeclarationSpecifierSequenceSPtr specifier(const EMethodSpecifier& specifier,
+                                                      const DeclarationSpecifierSPtr& returnType = DeclarationSpecifierSPtr());
+};
+
 }
+
+}
+
+#endif // _LIBRARY_CPP_COMPIL_METHOD_H__
+

@@ -33,13 +33,26 @@
 compil { }
 
 import "c++/class/method_name.scompil";
+import "c++/class/method_specifier.scompil";
 import "c++/class/class.scompil";
+import "c++/derieved_class/access_specifier.scompil";
+import "c++/declaration/declaration_specifier.scompil";
+import "c++/declarator/parameter_declaratoin_clause.scompil";
+import "c++/declarator/cv_qualifier_sequence.scompil";
+
 
 package lang.cpp | *.*.*;
 
 streamable
 structure Method
 {
-    reference<MethodName> name;
     weak reference<Class> class;
+
+    AccessSpecifier accessSpecifier;
+    
+    MethodSpecifier methodSpecifier = nil;
+    reference<DeclarationSpecifier> returnType;
+    reference<MethodName> name;
+    reference<ParameterDeclarationClause> parameters;
+    reference<CVQualifierSequence> qualifier = optional;
 }

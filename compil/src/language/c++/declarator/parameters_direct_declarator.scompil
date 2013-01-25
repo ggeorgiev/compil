@@ -34,6 +34,7 @@ compil { }
 
 import "c++/declarator/direct_declarator.scompil";
 import "c++/declarator/parameter_declaratoin_clause.scompil";
+import "c++/declarator/cv_qualifier_sequence.scompil";
 
 package lang.cpp | *.*.*;
 
@@ -45,4 +46,5 @@ structure ParametersDirectDeclarator
     
     reference<DirectDeclarator> declarator;
     reference<ParameterDeclarationClause> parameters;
+    reference<CVQualifierSequence> qualifier = optional;
 }

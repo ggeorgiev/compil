@@ -56,6 +56,8 @@ public:
     ImplementerStream& operator<<(const lang::cpp::ClassSPtr& class_);
     
 private:
+    lang::cpp::DeclarationSpecifierSPtr convert(const lang::cpp::DeclarationSpecifierSPtr& specifier);
+
     nmr::NamerStream mNamer;
     ImplementerConfigurationSPtr mConfiguration;
 };

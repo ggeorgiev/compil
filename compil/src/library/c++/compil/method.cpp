@@ -30,11 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _LIBRARY_CPP_COMPIL_CLASS_H__
-#define _LIBRARY_CPP_COMPIL_CLASS_H__
-
-#include "language/c++/class/class.h"
-#include "language/c++/expression/expression_factory.h"
+#include "library/c++/compil/method.h"
 
 namespace lib
 {
@@ -42,16 +38,29 @@ namespace lib
 namespace cpp
 {
 
-using namespace lang::cpp;
-
-class CppClass
+DeclarationSpecifierSequenceSPtr CppMethod::specifier(const EMethodSpecifier& specifier,
+                                                      const DeclarationSpecifierSPtr& returnType)
 {
-public:
-};
+    if (specifier.isClear(EMethodSpecifier::all()) && !returnType)
+        return DeclarationSpecifierSequenceSPtr();
 
+    DeclarationSpecifierSequenceSPtr declarationSpecifierSequence = declarationSpecifierSequenceRef();
+    
+    if (specifier.isSet(EMethodSpecifier::inline_()))
+        declarationSpecifierSequence << (functionDeclarationSpecifierRef() << EFunctionSpecifier::inline_());
+        
+    if (specifier.isSet(EMethodSpecifier::explicit_()))
+        declarationSpecifierSequence << (functionDeclarationSpecifierRef() << EFunctionSpecifier::explicit_());
+
+    if (specifier.isSet(EMethodSpecifier::virtual_()))
+        declarationSpecifierSequence << (functionDeclarationSpecifierRef() << EFunctionSpecifier::virtual_());
+    
+    if (returnType)
+        declarationSpecifierSequence << returnType;
+
+    return declarationSpecifierSequence;
 }
 
 }
 
-#endif // _LIBRARY_CPP_COMPIL_CLASS_H__
-
+}

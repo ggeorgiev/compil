@@ -47,6 +47,7 @@ lib cpp-language
     $(GEN)/c++/class/member_specification.cpp
     $(GEN)/c++/class/method.cpp
     $(GEN)/c++/class/method_name.cpp
+    $(GEN)/c++/class/method_specifier.cpp
     $(GEN)/c++/class/operator_method_name.cpp
     $(GEN)/c++/class/pure_member_declarator.cpp
     $(GEN)/c++/class/pure_specifier.cpp

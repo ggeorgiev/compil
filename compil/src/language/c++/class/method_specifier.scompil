@@ -30,28 +30,17 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _LIBRARY_CPP_COMPIL_CLASS_H__
-#define _LIBRARY_CPP_COMPIL_CLASS_H__
+compil { }
 
-#include "language/c++/class/class.h"
-#include "language/c++/expression/expression_factory.h"
+package lang.cpp | *.*.*;
 
-namespace lib
+strong flags enum
+MethodSpecifier
 {
-
-namespace cpp
-{
-
-using namespace lang::cpp;
-
-class CppClass
-{
-public:
-};
-
+    inline;
+    virtual;
+    explicit;
+    
+    inline_explicit = inline | explicit;
+    inline_virtual  = inline | virtual;
 }
-
-}
-
-#endif // _LIBRARY_CPP_COMPIL_CLASS_H__
-

@@ -33,6 +33,7 @@
 compil { }
 
 import "c++/class/class_name.scompil";
+import "c++/class/method_specifier.scompil";
 import "c++/derieved_class/access_specifier.scompil";
 import "c++/declaration/declaration_specifier_sequence.scompil";
 import "c++/declarator/parameter_declaratoin_clause.scompil";
@@ -44,7 +45,7 @@ structure Constructor
 {
     AccessSpecifier accessSpecifier;
     
-    reference<DeclarationSpecifierSequence> specifier;
+    MethodSpecifier specifier = nil;
     reference<ClassName> name;
     reference<ParameterDeclarationClause> parameters;
 }

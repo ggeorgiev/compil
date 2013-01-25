@@ -38,45 +38,6 @@ namespace lib
 namespace cpp
 {
 
-NestedNameSpecifierSPtr CppClass::nestedNameSpecifier(const ClassSPtr& class_)
-{
-    NestedNameSpecifierSPtr nestedNameSpecifier;
-    
-    for (ClassSPtr nested = class_; nested->containerClass(); nested = nested->containerClass())
-    {
-        ClassNestedNameSPtr classNestedName = classNestedNameRef()
-            << convertIdentifierClassName(nested->containerClass()->name());
-        
-        NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
-            << classNestedName;
-            
-        if (nestedNameSpecifier)
-            thisNestedNameSpecifier << nestedNameSpecifier;
-            
-        nestedNameSpecifier = thisNestedNameSpecifier;
-    }
-    
-    if (class_->namespace_())
-    {
-        const std::vector<NamespaceNameSPtr>& names = class_->namespace_()->names();
-        for (std::vector<NamespaceNameSPtr>::const_reverse_iterator it = names.rbegin(); it != names.rend(); ++it)
-        {
-            NamespaceNestedNameSPtr namespaceNestedName = namespaceNestedNameRef()
-                << convertIdentifierNamespaceName(*it);
-        
-            NestedNameSpecifierSPtr thisNestedNameSpecifier = nestedNameSpecifierRef()
-                << namespaceNestedName;
-
-            if (nestedNameSpecifier)
-                thisNestedNameSpecifier << nestedNameSpecifier;
-
-            nestedNameSpecifier = thisNestedNameSpecifier;
-        }
-    }
-    
-    return nestedNameSpecifier;
-}
-
 }
 
 }

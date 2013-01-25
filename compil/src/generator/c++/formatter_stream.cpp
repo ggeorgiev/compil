@@ -142,6 +142,19 @@ ElementSPtr FormatterStream::convert(const ClassSpecifierSPtr& specifier)
     return passage;
 }
 
+ElementSPtr FormatterStream::convert(const CVQualifierSequenceSPtr& qualifier)
+{
+    PassageSPtr passage = passageRef();
+    const std::vector<ECVQualifier>& qualifiers = qualifier->qualifiers();
+    for (std::vector<ECVQualifier>::const_iterator it = qualifiers.begin(); it != qualifiers.end(); ++it)
+    {
+        const ECVQualifier& qualifier = *it;
+        passage << convert(qualifier);
+    }
+    return passage;
+}
+
+
 ElementSPtr FormatterStream::convert(const CVQualifierTypeSpecifierSPtr& specifier)
 {
     return convert(specifier->qualifier());
@@ -207,6 +220,8 @@ ElementSPtr FormatterStream::convert(const DeclaratorSPtr& declarator)
 {
     if (declarator->runtimeDeclaratorId() == BodyFunctionDefinition::staticDeclaratorId())
         return convert(BodyFunctionDefinition::downcast(declarator));
+    if (declarator->runtimeDeclaratorId() == CVQualifierSequence::staticDeclaratorId())
+        return convert(CVQualifierSequence::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == DeclaratorParameterDeclaration::staticDeclaratorId())
         return convert(DeclaratorParameterDeclaration::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == FunctionNameDeclaratorId::staticDeclaratorId())
@@ -569,6 +584,11 @@ ElementSPtr FormatterStream::convert(const ParametersDirectDeclaratorSPtr& decla
     PassageSPtr passage = passageRef();
     passage << convert(declarator->declarator())
             << convert(declarator->parameters());
+    if (declarator->qualifier())
+    {
+        passage << (stringRef() << " ")
+                << convert(declarator->qualifier());
+    }
     return passage;
 }
 

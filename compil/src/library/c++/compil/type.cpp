@@ -31,6 +31,7 @@
 //
 
 #include "library/c++/compil/type.h"
+#include "library/c++/compil/specimen.h"
 
 namespace lib
 {
@@ -42,18 +43,64 @@ lang::cpp::TypeKind CppType::kind(const lang::compil::TypeSPtr& type)
 {
     lang::cpp::TypeKind kind;
 
-    lang::compil::IntegerSPtr integer = lang::compil::ObjectFactory::downcastInteger(type);
-    if (integer)
+    switch (type->runtimeObjectId().value())
     {
-        kind.set_kind(lang::cpp::EKind::builtin());
-    }
-    else
-    {
-        kind.set_kind(lang::cpp::EKind::generic());
-        kind.set_generic(lang::cpp::EGeneric::string());
+        case EObjectId::kInteger:
+            kind.set_kind(lang::cpp::EKind::builtin());
+            break;
+        case EObjectId::kSpecimen:
+            kind.set_kind(lang::cpp::EKind::class_());
+            break;
+        default:
+            kind.set_kind(lang::cpp::EKind::generic());
+            kind.set_generic(lang::cpp::EGeneric::string());
     }
 
     return kind;
+}
+
+lang::cpp::ClassSPtr CppType::class_(const lang::compil::TypeSPtr& type)
+{
+    ClassSPtr class_;
+    
+    switch (type->runtimeObjectId().value())
+    {
+        case EObjectId::kEnumeration:
+        {
+            EnumerationSPtr pEnumeration = boost::static_pointer_cast<Enumeration>(type);
+            break;
+        }
+        case EObjectId::kSpecimen:
+        {
+            SpecimenSPtr specimen = boost::static_pointer_cast<Specimen>(type);
+            class_ = CppSpecimen::class_(specimen);
+            break;
+        }
+        case EObjectId::kFactory:
+        {
+            FactorySPtr pFactory = boost::static_pointer_cast<Factory>(type);
+            break;
+        }
+        case EObjectId::kIdentifier:
+        {
+            //IdentifierSPtr pIdentifier = boost::static_pointer_cast<Identifier>(type);
+            break;
+        }
+        case EObjectId::kStructure:
+        {
+            //StructureSPtr pStructure = boost::static_pointer_cast<Structure>(type);
+            break;
+        }
+        default:
+            BOOST_ASSERT(false);
+    }
+    
+    return class_;
+}
+
+lang::cpp::ClassDeclarationSpecifierSPtr CppType::classSpecifier(const lang::compil::TypeSPtr& type)
+{
+    return classDeclarationSpecifierRef() << class_(type);
 }
 
 lang::cpp::BuiltinSimpleTypeSpecifierSPtr CppType::builtinSpecifier(const lang::compil::TypeSPtr& type)

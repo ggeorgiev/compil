@@ -72,6 +72,7 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::ClassNestedNameSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::ClassTypeNameSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::ClassSpecifierSPtr& specifier);
+    lang::all::ElementSPtr convert(const lang::cpp::CVQualifierSequenceSPtr& qualifier);
     lang::all::ElementSPtr convert(const lang::cpp::CVQualifierTypeSpecifierSPtr& specifier);
     lang::all::ElementSPtr convert(const lang::cpp::CustomExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::CustomIdExpressionSPtr& expression);

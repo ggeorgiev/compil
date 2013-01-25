@@ -68,6 +68,7 @@ private:
     static BodyFunctionDefinitionSPtr       convertBodyFunctionDefinition(const BodyFunctionDefinitionSPtr& definition);
     static ClassSpecifierSPtr               convertClassSpecifier(const ClassSpecifierSPtr& specifier);
     static ClassHeadSPtr                    convertClassHead(const ClassHeadSPtr& head);
+    static CVQualifierSequenceSPtr          convertCVQualifierSequence(const CVQualifierSequenceSPtr& qualifier);
     static CVQualifierTypeSpecifierSPtr     convertCVQualifierTypeSpecifier(const CVQualifierTypeSpecifierSPtr& specifier);
     static DeclarationSPtr                  convertDeclaration(const DeclarationSPtr& declaration);
     static DeclarationSpecifierSPtr         convertDeclarationSpecifier(const ClassDeclarationSpecifierSPtr& specifier);
