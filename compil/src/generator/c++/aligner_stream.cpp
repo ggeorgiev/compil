@@ -121,7 +121,10 @@ AlignerStream& AlignerStream::operator<<(const ScopeSPtr& scope)
     {
         ScopeLevel scopeLevel(level);
         for (std::vector<MoldSPtr>::const_iterator it = molds.begin(); it != molds.end(); ++it)
-            *this << *it;
+        {
+            MoldSPtr mold = *it;
+            *this << mold;
+        }
     }
     
     *this << indent()

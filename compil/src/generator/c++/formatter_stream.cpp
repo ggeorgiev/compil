@@ -137,10 +137,10 @@ ElementSPtr FormatterStream::convert(const ClassSpecifierSPtr& specifier)
 
     if (specifier->members())
         scope << convert(specifier->members());
-        
-    scope << ";"
-          << endOfLineRef();
-    passage << scope;
+
+    scope << ";";
+    passage << scope
+            << endOfLineRef();
     return passage;
 }
 
