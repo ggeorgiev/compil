@@ -57,7 +57,11 @@ public:
     
 private:
     lang::cpp::DeclarationSpecifierSPtr convert(const lang::cpp::DeclarationSpecifierSPtr& specifier);
-
+    void convert(const lang::cpp::MemberSpecificationSectionSPtr& section, const std::vector<lang::cpp::ConstructorSPtr>& constructors);
+    void convert(const lang::cpp::MemberSpecificationSectionSPtr& section, const lang::cpp::DestructorSPtr& destructor);
+    void convert(const lang::cpp::MemberSpecificationSectionSPtr& section, const std::vector<lang::cpp::MethodSPtr>& methods);
+    void convert(const lang::cpp::MemberSpecificationSectionSPtr& section, const std::vector<lang::cpp::MemberVariableSPtr>& members);
+    
     nmr::NamerStream mNamer;
     ImplementerConfigurationSPtr mConfiguration;
 };

@@ -156,17 +156,16 @@ static FunctionDefinitionMemberDeclarationSPtr methodDefinition(const Declaratio
     return functionDefinitionMemberDeclaration;
 }
 
-ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& class_)
+void ImplementerStream::convert(const lang::cpp::MemberSpecificationSectionSPtr& section, const std::vector<ConstructorSPtr>& constructors)
 {
-    MemberSpecificationSectionSPtr section = memberSpecificationSectionRef()
-        << EAccessSpecifier::public_();
-
-    const std::vector<ConstructorSPtr>& constructors = class_->constructors();
     for (std::vector<ConstructorSPtr>::const_iterator it = constructors.begin(); it != constructors.end(); ++it)
     {
         const ConstructorSPtr& constructor = *it;
+        if (constructor->accessSpecifier() != section->accessSpecifier())
+            continue;
+            
         ConstructorMethodNameSPtr constructorMethodName = constructorMethodNameRef()
-            << class_->name();
+            << constructor->class_().lock()->name();
             
         FunctionDefinitionMemberDeclarationSPtr method = methodDefinition(CppMethod::specifier(constructor->specifier()),
                                                                           constructorMethodName,
@@ -174,22 +173,33 @@ ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& cla
                                                                           CVQualifierSequenceSPtr());
         section << method;
     }
+}
 
-    if (class_->destructor())
-    {
-        DestructorMethodNameSPtr destructorMethodName = destructorMethodNameRef()
-            << class_->name();
+void ImplementerStream::convert(const lang::cpp::MemberSpecificationSectionSPtr& section, const DestructorSPtr& destructor)
+{
+    if (!destructor)
+        return;
+
+    if (destructor->accessSpecifier() != section->accessSpecifier())
+        return;
         
-        section << methodDefinition(DeclarationSpecifierSequenceSPtr(),
-                                    destructorMethodName,
-                                    ParameterDeclarationClauseSPtr(),
-                                    CVQualifierSequenceSPtr());
-    }
+    DestructorMethodNameSPtr destructorMethodName = destructorMethodNameRef()
+        << destructor->class_().lock()->name();
     
-    const std::vector<MethodSPtr>& methods = class_->methods();
+    section << methodDefinition(DeclarationSpecifierSequenceSPtr(),
+                                destructorMethodName,
+                                ParameterDeclarationClauseSPtr(),
+                                CVQualifierSequenceSPtr());
+}
+
+
+void ImplementerStream::convert(const lang::cpp::MemberSpecificationSectionSPtr& section, const std::vector<MethodSPtr>& methods)
+{
     for (std::vector<MethodSPtr>::const_iterator it = methods.begin(); it != methods.end(); ++it)
     {
         const MethodSPtr& method = *it;
+        if (method->accessSpecifier() != section->accessSpecifier())
+            continue;
         
         DeclarationSpecifierSequenceSPtr specifier = CppMethod::specifier(method->methodSpecifier(),
                                                                           convert(method->returnType()));
@@ -200,11 +210,15 @@ ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& cla
                                                                              method->qualifier());
         section << methodDef;
     }
+}
 
-    const std::vector<MemberVariableSPtr>& members = class_->members();
+void ImplementerStream::convert(const lang::cpp::MemberSpecificationSectionSPtr& section, const std::vector<MemberVariableSPtr>& members)
+{
     for (std::vector<MemberVariableSPtr>::const_iterator it = members.begin(); it != members.end(); ++it)
     {
         const MemberVariableSPtr& member = *it;
+        if (member->accessSpecifier() != section->accessSpecifier())
+            continue;
         
         DeclarationSpecifierSequenceSPtr specifier = declarationSpecifierSequenceRef()
             << convert(member->type());
@@ -212,11 +226,41 @@ ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& cla
         section << (specifierMemberDeclarationRef() << specifier
                                                     << (declaratorMemberDeclaratorRef() << member->name()));
     }
+}
 
+ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& class_)
+{
+    MemberSpecificationSectionSPtr publicSection = memberSpecificationSectionRef()
+        << EAccessSpecifier::public_();
+
+    convert(publicSection, class_->constructors());
+    convert(publicSection, class_->destructor());
+    convert(publicSection, class_->methods());
+    convert(publicSection, class_->members());
     
-    MemberSpecificationSPtr specification = memberSpecificationRef()
-        << section;
+    MemberSpecificationSectionSPtr protectedSection = memberSpecificationSectionRef()
+        << EAccessSpecifier::protected_();
 
+    convert(protectedSection, class_->constructors());
+    convert(protectedSection, class_->destructor());
+    convert(protectedSection, class_->methods());
+    convert(protectedSection, class_->members());
+
+    MemberSpecificationSectionSPtr privateSection = memberSpecificationSectionRef()
+        << EAccessSpecifier::private_();
+
+    convert(privateSection, class_->constructors());
+    convert(privateSection, class_->destructor());
+    convert(privateSection, class_->methods());
+    convert(privateSection, class_->members());
+
+    MemberSpecificationSPtr specification = memberSpecificationRef();
+    if (publicSection->declarations().size() > 0)
+        specification << publicSection;
+    if (protectedSection->declarations().size() > 0)
+        specification << protectedSection;
+    if (privateSection->declarations().size() > 0)
+        specification << privateSection;
 
     ClassSpecifierSPtr specifier = classSpecifierRef()
         << (classHeadRef() << class_->classKey()

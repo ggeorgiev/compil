@@ -71,8 +71,11 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
         return it->second;
         
     ClassNameSPtr name = className(specimen);
+
+    ClassSPtr class_ = classRef();
     
     ConstructorSPtr defaultConstructor = constructorRef()
+        << class_
         << EAccessSpecifier::public_()
         << name;
         
@@ -83,16 +86,18 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
         CppDeclarator::inputArgument(specimen->parameterType().lock(), valueArgumentName);
 
     ConstructorSPtr valueConstructor = constructorRef()
+        << class_
         << EAccessSpecifier::public_()
         << EMethodSpecifier::explicit_()
         << name
         << (parameterDeclarationClauseRef() << (parameterDeclarationListRef() << declaratorParameterDeclaration));
 
     DestructorSPtr destructor = destructorRef()
+        << class_
         << EAccessSpecifier::public_()
         << name;
 
-    ClassSPtr class_ = classRef()
+    class_
         << CppNamespace::namespace_(specimen->package())
         << EClassKey::class_()
         << name
