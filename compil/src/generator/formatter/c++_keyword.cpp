@@ -46,6 +46,7 @@ CppKeyword::~CppKeyword()
 
 bool CppKeyword::isKeyword(const std::string& word)
 {
+    if (word == "bool")         return true;
     if (word == "case")         return true;
     if (word == "class")        return true;
     if (word == "const")        return true;

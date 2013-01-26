@@ -46,7 +46,7 @@ using namespace lang::cpp;
 class CppDeclaration
 {
 public:
-    static DeclarationSpecifierSequenceSPtr const_();
+    static DeclarationSpecifierSPtr bool_();
 };
 
 }

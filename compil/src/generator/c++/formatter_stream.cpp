@@ -76,6 +76,8 @@ ElementSPtr FormatterStream::convert(const BuiltinSimpleTypeSpecifierSPtr& speci
 {
     switch (specifier->type().value())
     {
+        case BuiltinSimpleTypeSpecifier::EType::kBool_:
+            return stringRef() << "bool";
         case BuiltinSimpleTypeSpecifier::EType::kSignedLong:
             return stringRef() << "long";
         default:
@@ -188,6 +190,8 @@ ElementSPtr FormatterStream::convert(const DeclarationSPtr& declaration)
         return convert(IdentifierDestructorMethodName::downcast(declaration));
     if (declaration->runtimeDeclarationId() == IdentifierMethodName::staticDeclarationId())
         return convert(IdentifierMethodName::downcast(declaration));
+    if (declaration->runtimeDeclarationId() == OperatorMethodName::staticDeclarationId())
+        return convert(OperatorMethodName::downcast(declaration));
     if (declaration->runtimeDeclarationId() == SimpleBlockDeclaration::staticDeclarationId())
         return convert(SimpleBlockDeclaration::downcast(declaration));
     if (declaration->runtimeDeclarationId() == SimpleDeclaration::staticDeclarationId())
@@ -298,6 +302,22 @@ ElementSPtr FormatterStream::convert(const ECVQualifier& qualifier)
 ElementSPtr FormatterStream::convert(const EFunctionSpecifier& specifier)
 {
     return stringRef() << specifier.shortName();
+}
+
+ElementSPtr FormatterStream::convert(const EOperator& operator_)
+{
+    switch (operator_.value())
+    {
+        case EOperator::kEqualTo:
+            return stringRef() << "==";
+        case EOperator::kNotEqualTo:
+            return stringRef() << "!=";
+        case EOperator::kLessThan:
+            return stringRef() << "<";
+    }
+    
+    BOOST_ASSERT(false);
+    return ElementSPtr();
 }
 
 ElementSPtr FormatterStream::convert(const ExpressionSPtr& expression)
@@ -434,6 +454,19 @@ ElementSPtr FormatterStream::convert(const IdExpressionPrimaryExpressionSPtr& ex
 ElementSPtr FormatterStream::convert(const InitDeclaratorSPtr& declarator)
 {
     return convert(declarator->declarator());
+}
+
+ElementSPtr FormatterStream::convert(const OperatorFunctionIdSPtr& operator_)
+{
+    PassageSPtr passage = passageRef();
+    passage << (stringRef() << "operator")
+            << convert(operator_->operator_());
+    return passage;
+}
+
+ElementSPtr FormatterStream::convert(const OperatorMethodNameSPtr& name)
+{
+    return convert(name->operator_());
 }
 
 ElementSPtr FormatterStream::convert(const GrammarEqualityExpressionSPtr& expression)

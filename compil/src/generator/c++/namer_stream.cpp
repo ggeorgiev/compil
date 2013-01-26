@@ -355,6 +355,9 @@ FunctionDefinitionMemberDeclarationSPtr NamerStream::convertFunctionDefinitionMe
 
 FunctionNameSPtr NamerStream::convertFunctionName(const FunctionNameSPtr& name)
 {
+    if (name->runtimeDeclarationId() == OperatorMethodName::staticDeclarationId())
+        return OperatorMethodName::downcast(name);
+    
     MethodNameSPtr methodName = DeclarationFactory::downcastMethodName(name);
     if (methodName)
         return convertIdentifierMethodName(methodName);
@@ -383,8 +386,6 @@ IdentifierClassNameSPtr NamerStream::convertIdentifierClassName(const ClassNameS
 
 IdentifierMethodNameSPtr NamerStream::convertIdentifierMethodName(const MethodNameSPtr& name)
 {
-    if (name->runtimeDeclarationId() == IdentifierMethodName::staticDeclarationId())
-        return IdentifierMethodName::downcast(name);
     if (name->runtimeDeclarationId() == ConstructorMethodName::staticDeclarationId())
     {
         ClassNameSPtr className = ConstructorMethodName::downcast(name)->className();
@@ -395,6 +396,8 @@ IdentifierMethodNameSPtr NamerStream::convertIdentifierMethodName(const MethodNa
         ClassNameSPtr className = DestructorMethodName::downcast(name)->className();
         return identifierDestructorMethodNameRef() << convertIdentifierClassName(className)->identifier();
     }
+    if (name->runtimeDeclarationId() == IdentifierMethodName::staticDeclarationId())
+        return IdentifierMethodName::downcast(name);
         
     BOOST_ASSERT(false);
     return IdentifierMethodNameSPtr();

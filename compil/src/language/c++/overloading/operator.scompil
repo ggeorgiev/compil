@@ -39,6 +39,8 @@ strong enum Operator
     equalTo;
     notEqualTo;
     
+    lessThan;
+    
     addition;
     subtraction;
 }

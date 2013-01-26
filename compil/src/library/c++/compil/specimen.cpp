@@ -76,11 +76,11 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
         << EAccessSpecifier::public_()
         << name;
         
-    ArgumentNameDeclaratorSPtr argumentNameDeclarator = argumentNameDeclaratorRef()
+    ArgumentNameDeclaratorSPtr argumentNameValue = argumentNameDeclaratorRef()
         << "value";
 
     DeclaratorParameterDeclarationSPtr declaratorParameterDeclaration =
-        CppDeclarator::inputArgument(specimen->parameterType().lock(), argumentNameDeclarator);
+        CppDeclarator::inputArgument(specimen->parameterType().lock(), argumentNameValue);
 
     ParameterDeclarationListSPtr list = parameterDeclarationListRef()
         << declaratorParameterDeclaration;
@@ -106,18 +106,51 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
         << valueConstructor
         << destructor;
         
-    DeclarationSpecifierSPtr returnType = CppDeclarator::declarationSpecifier(specimen->parameterType().lock());
+    class_ <<
+        (lang::cpp::methodRef()
+            << class_
+            << EAccessSpecifier::public_()
+            << EMethodSpecifier::inline_()
+            << CppDeclarator::declarationSpecifier(specimen->parameterType().lock())
+            << (identifierMethodNameRef() << (identifierRef() << "value"))
+            << (cVQualifierSequenceRef() << ECVQualifier::const_()));
+            
+    ArgumentNameDeclaratorSPtr specimenArgumentName = argumentNameDeclaratorRef()
+        << "specimen";
         
-    lang::cpp::MethodSPtr value = lang::cpp::methodRef()
-        << class_
-        << EAccessSpecifier::public_()
-        << EMethodSpecifier::inline_()
-        << returnType
-        << (identifierMethodNameRef() << (identifierRef() << "value"))
-        << (cVQualifierSequenceRef() << ECVQualifier::const_());
+    DeclaratorParameterDeclarationSPtr specimenDeclaratorParameterDeclaration =
+        CppDeclarator::constReferenceArgument(class_, specimenArgumentName);
+
+    class_ <<
+        (lang::cpp::methodRef()
+            << class_
+            << EAccessSpecifier::public_()
+            << EMethodSpecifier::inline_()
+            << CppDeclaration::bool_()
+            << (operatorMethodNameRef() << (operatorFunctionIdRef() << EOperator::equalTo()))
+            << (parameterDeclarationClauseRef() << (parameterDeclarationListRef() << specimenDeclaratorParameterDeclaration))
+            << (cVQualifierSequenceRef() << ECVQualifier::const_()));
+
+    class_ <<
+        (lang::cpp::methodRef()
+            << class_
+            << EAccessSpecifier::public_()
+            << EMethodSpecifier::inline_()
+            << CppDeclaration::bool_()
+            << (operatorMethodNameRef() << (operatorFunctionIdRef() << EOperator::notEqualTo()))
+            << (parameterDeclarationClauseRef() << (parameterDeclarationListRef() << specimenDeclaratorParameterDeclaration))
+            << (cVQualifierSequenceRef() << ECVQualifier::const_()));
         
-    class_ << value;
-        
+    class_ <<
+        (lang::cpp::methodRef()
+            << class_
+            << EAccessSpecifier::public_()
+            << EMethodSpecifier::inline_()
+            << CppDeclaration::bool_()
+            << (operatorMethodNameRef() << (operatorFunctionIdRef() << EOperator::lessThan()))
+            << (parameterDeclarationClauseRef() << (parameterDeclarationListRef() << specimenDeclaratorParameterDeclaration))
+            << (cVQualifierSequenceRef() << ECVQualifier::const_()));
+
     map[specimen] = class_;
     return class_;
 }

@@ -50,6 +50,7 @@ import "c++/class/destructor_method_name.scompil";
 import "c++/class/identifier_destructor_method_name.scompil";
 import "c++/class/function_definition_member_declaration.scompil";
 import "c++/class/identifier_method_name.scompil";
+import "c++/class/operator_method_name.scompil";
 
 
 package lang.cpp | *.*.*;

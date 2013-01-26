@@ -38,23 +38,15 @@ namespace lib
 namespace cpp
 {
 
-DeclarationSpecifierSequenceSPtr CppDeclaration::const_()
+DeclarationSpecifierSPtr CppDeclaration::bool_()
 {
-    static DeclarationSpecifierSequenceSPtr declaration;
-    
-    if (!declaration)
-    {
-        CVQualifierTypeSpecifierSPtr qualifier = cVQualifierTypeSpecifierRef()
-            << ECVQualifier::const_();
-            
-        TypeDeclarationSpecifierSPtr specifier = typeDeclarationSpecifierRef()
-            << qualifier;
-            
-        declaration = declarationSpecifierSequenceRef()
-            << specifier;
-    }
-    
-    return declaration;
+    BuiltinSimpleTypeSpecifierSPtr builtin = builtinSimpleTypeSpecifierRef()
+        << BuiltinSimpleTypeSpecifier::EType::bool_();
+        
+    TypeDeclarationSpecifierSPtr specifier = typeDeclarationSpecifierRef()
+        << builtin;
+        
+    return specifier;
 }
 
 }

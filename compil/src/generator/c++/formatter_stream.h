@@ -87,6 +87,7 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::EClassKey& key);
     lang::all::ElementSPtr convert(const lang::cpp::ECVQualifier& qualifier);
     lang::all::ElementSPtr convert(const lang::cpp::EFunctionSpecifier& specifier);
+    lang::all::ElementSPtr convert(const lang::cpp::EOperator& operator_);
     lang::all::ElementSPtr convert(const lang::cpp::ExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::ExpressionMacroArgumentSPtr& parameter);
     lang::all::ElementSPtr convert(const lang::cpp::ExpressionListSPtr& expressionList);
@@ -113,6 +114,8 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::IdentifierUnqualifiedIdSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::IdExpressionPrimaryExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::InitDeclaratorSPtr& declarator);
+    lang::all::ElementSPtr convert(const lang::cpp::OperatorFunctionIdSPtr& operator_);
+    lang::all::ElementSPtr convert(const lang::cpp::OperatorMethodNameSPtr& name);
     lang::all::ElementSPtr convert(const lang::cpp::ParameterDeclarationListSPtr& declarator);
     lang::all::ElementSPtr convert(const lang::cpp::ParameterDeclarationClauseSPtr& declarator);
     lang::all::ElementSPtr convert(const lang::cpp::ParametersDirectDeclaratorSPtr& declarator);
