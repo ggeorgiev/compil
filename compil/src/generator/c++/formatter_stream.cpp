@@ -196,6 +196,8 @@ ElementSPtr FormatterStream::convert(const DeclarationSPtr& declaration)
         return convert(SimpleBlockDeclaration::downcast(declaration));
     if (declaration->runtimeDeclarationId() == SimpleDeclaration::staticDeclarationId())
         return convert(SimpleDeclaration::downcast(declaration));
+    if (declaration->runtimeDeclarationId() == SpecifierMemberDeclaration::staticDeclarationId())
+        return convert(SpecifierMemberDeclaration::downcast(declaration));
     if (declaration->runtimeDeclarationId() == TypeNameSimpleTypeSpecifier::staticDeclarationId())
         return convert(TypeNameSimpleTypeSpecifier::downcast(declaration));
     if (declaration->runtimeDeclarationId() == TypeDeclarationSpecifier::staticDeclarationId())
@@ -234,6 +236,8 @@ ElementSPtr FormatterStream::convert(const DeclaratorSPtr& declarator)
         return convert(InitDeclarator::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == DeclaratorIdDirectDeclarator::staticDeclaratorId())
         return convert(DeclaratorIdDirectDeclarator::downcast(declarator));
+    if (declarator->runtimeDeclaratorId() == DeclaratorMemberDeclarator::staticDeclaratorId())
+        return convert(DeclaratorMemberDeclarator::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == NameDeclarator::staticDeclaratorId())
         return convert(NameDeclarator::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == ParameterDeclarationClause::staticDeclaratorId())
@@ -251,6 +255,11 @@ ElementSPtr FormatterStream::convert(const DeclaratorSPtr& declarator)
 
     BOOST_ASSERT(false);
     return ElementSPtr();
+}
+
+ElementSPtr FormatterStream::convert(const DeclaratorMemberDeclaratorSPtr& declarator)
+{
+    return convert(declarator->declarator());
 }
 
 ElementSPtr FormatterStream::convert(const DeclarationMacroArgumentSPtr& parameter)
@@ -696,6 +705,15 @@ ElementSPtr FormatterStream::convert(const SimpleDeclarationSPtr& declaration)
     }
     if (declaration->declarator())
         passage << convert(declaration->declarator());
+    return passage;
+}
+
+ElementSPtr FormatterStream::convert(const SpecifierMemberDeclarationSPtr& declaration)
+{
+    PassageSPtr passage = passageRef();
+    passage << convert(declaration->specifier())
+            << (stringRef() << " ")
+            << convert(declaration->declarator());
     return passage;
 }
 

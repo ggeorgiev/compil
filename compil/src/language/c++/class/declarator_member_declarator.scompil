@@ -32,30 +32,16 @@
 
 compil { }
 
-import "c++/declaration/builtin_simple_type_specifier.scompil";
-import "c++/declaration/class_declaration_specifier.scompil";
-import "c++/declaration/class_type_name.scompil";
-import "c++/declaration/cv_qualifier_type_specifier.scompil";
-import "c++/declaration/declaration.scompil";
-import "c++/declaration/declaration_specifier_sequence.scompil";
-import "c++/declaration/function_declaration_specifier.scompil";
-import "c++/declaration/function_declaration_specifier.scompil";
-import "c++/declaration/generic_declaration_specifier.scompil";
-import "c++/declaration/simple_declaration.scompil";
-import "c++/declaration/simple_block_declaration.scompil";
-import "c++/declaration/type_declaration_specifier.scompil";
-import "c++/declaration/type_name_simple_type_specifier.scompil";
-import "c++/class/constructor_method_name.scompil";
-import "c++/class/destructor_method_name.scompil";
-import "c++/class/identifier_destructor_method_name.scompil";
-import "c++/class/function_definition_member_declaration.scompil";
-import "c++/class/identifier_method_name.scompil";
-import "c++/class/operator_method_name.scompil";
-import "c++/class/specifier_member_declaration.scompil";
+import "c++/class/member_declarator.scompil";
+import "c++/declarator/declarator.scompil";
 
 package lang.cpp | *.*.*;
 
-hierarchy
-factory<Declaration> DeclarationFactory
+streamable
+structure DeclaratorMemberDeclarator
+    inherit MemberDeclarator
 {
+    runtime identification;
+    
+    reference<Declarator> declarator;
 }

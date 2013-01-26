@@ -34,6 +34,7 @@
 #include "library/c++/compil/declarator.h"
 #include "library/c++/compil/method.h"
 #include "library/c++/stl/string.h"
+#include "language/c++/class/member_variable.h"
 
 using namespace lang;
 using namespace lang::cpp;
@@ -198,6 +199,18 @@ ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& cla
                                                                              method->parameters(),
                                                                              method->qualifier());
         section << methodDef;
+    }
+
+    const std::vector<MemberVariableSPtr>& members = class_->members();
+    for (std::vector<MemberVariableSPtr>::const_iterator it = members.begin(); it != members.end(); ++it)
+    {
+        const MemberVariableSPtr& member = *it;
+        
+        DeclarationSpecifierSequenceSPtr specifier = declarationSpecifierSequenceRef()
+            << convert(member->type());
+        
+        section << (specifierMemberDeclarationRef() << specifier
+                                                    << (declaratorMemberDeclaratorRef() << member->name()));
     }
 
     

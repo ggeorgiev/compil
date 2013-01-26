@@ -56,6 +56,7 @@ section main
     c++/class/class_specifier.scompil;
     c++/class/constructor.scompil;
     c++/class/constructor_method_name.scompil;
+    c++/class/declarator_member_declarator.scompil;
     c++/class/destructor.scompil;
     c++/class/destructor_method_name.scompil;
     c++/class/function_definition_member_declaration.scompil;
@@ -65,12 +66,15 @@ section main
     c++/class/member_declaration.scompil;
     c++/class/member_declarator.scompil;
     c++/class/member_specification.scompil;
+    c++/class/member_variable.scompil;
+    c++/class/member_variable_name.scompil;
     c++/class/method.scompil;
     c++/class/method_specifier.scompil;
     c++/class/method_name.scompil;
     c++/class/operator_method_name.scompil;
     c++/class/pure_member_declarator.scompil;
     c++/class/pure_specifier.scompil;
+    c++/class/specifier_member_declaration.scompil;
 
     c++/declaration/block_declaration.scompil;
     c++/declaration/builtin_simple_type_specifier.scompil;

@@ -32,6 +32,7 @@
 
 compil { }
 
+import "c++/class/class.scompil";
 import "c++/class/class_name.scompil";
 import "c++/class/method_specifier.scompil";
 import "c++/derieved_class/access_specifier.scompil";
@@ -43,6 +44,8 @@ package lang.cpp | *.*.*;
 streamable
 structure Constructor
 {
+    weak reference<Class> class;
+
     AccessSpecifier accessSpecifier;
     
     MethodSpecifier specifier = nil;

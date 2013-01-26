@@ -37,6 +37,7 @@ import "c++/class/class_key.scompil";
 import "c++/class/constructor.scompil";
 import "c++/class/destructor.scompil";
 import "c++/class/method.scompil";
+import "c++/class/member_variable.scompil";
 import "c++/namespace/namespace.scompil";
 
 package lang.cpp | *.*.*;
@@ -54,4 +55,6 @@ structure Class
     reference<Destructor> destructor = optional;
 
     vector<reference<Method>> methods;
+    
+    vector<reference<MemberVariable>> members;
 }

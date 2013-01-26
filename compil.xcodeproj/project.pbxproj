@@ -436,6 +436,10 @@
 		5EC3C9C916A67C9D00EB8000 /* upcopy.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = upcopy.compil; sourceTree = "<group>"; };
 		5EC3C9CA16A67C9D00EB8000 /* upcopy-manual_test.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = "upcopy-manual_test.cpp"; sourceTree = "<group>"; };
 		5EC6381E16A3BAF70018046A /* level.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = level.scompil; sourceTree = "<group>"; };
+		5ECF465E16B44DAF004D1C13 /* member_variable.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = member_variable.scompil; sourceTree = "<group>"; };
+		5ECF466016B44F2E004D1C13 /* member_variable_name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = member_variable_name.scompil; sourceTree = "<group>"; };
+		5ECF466116B463CE004D1C13 /* specifier_member_declaration.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = specifier_member_declaration.scompil; sourceTree = "<group>"; };
+		5ECF466216B46B2D004D1C13 /* declarator_member_declarator.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = declarator_member_declarator.scompil; sourceTree = "<group>"; };
 		5ED6E06D16992F5F00E2D2E1 /* get-latest-generators.bat */ = {isa = PBXFileReference; lastKnownFileType = text; path = "get-latest-generators.bat"; sourceTree = "<group>"; };
 		5ED6E0711699336000E2D2E1 /* valgrind.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = valgrind.sh; sourceTree = "<group>"; };
 		5ED6E0721699456400E2D2E1 /* coverage.sh */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = coverage.sh; sourceTree = "<group>"; };
@@ -1273,6 +1277,7 @@
 				5E93520616A1156E00EC4E70 /* class_specifier.scompil */,
 				5E24613C16A12D1600E5660B /* constructor.scompil */,
 				5E24616416A1FBCE00E5660B /* constructor_method_name.scompil */,
+				5ECF466216B46B2D004D1C13 /* declarator_member_declarator.scompil */,
 				5EB6476F16A28A410068B403 /* destructor.scompil */,
 				5EB6477116A28D240068B403 /* destructor_method_name.scompil */,
 				5E24616A16A2472F00E5660B /* function_definition_member_declaration.scompil */,
@@ -1282,12 +1287,15 @@
 				5E24614016A133A100E5660B /* member_declaration.scompil */,
 				5E24614216A138B700E5660B /* member_declarator.scompil */,
 				5E24613F16A132F800E5660B /* member_specification.scompil */,
+				5ECF465E16B44DAF004D1C13 /* member_variable.scompil */,
+				5ECF466016B44F2E004D1C13 /* member_variable_name.scompil */,
 				5E24615316A1F2DB00E5660B /* method.scompil */,
 				5E02EFBD16B30C37009B7BAF /* method_specifier.scompil */,
 				5E24615F16A1F8FF00E5660B /* method_name.scompil */,
 				5E24616016A1F8FF00E5660B /* operator_method_name.scompil */,
 				5E24614416A13A6D00E5660B /* pure_member_declarator.scompil */,
 				5E24614816A150BB00E5660B /* pure_specifier.scompil */,
+				5ECF466116B463CE004D1C13 /* specifier_member_declaration.scompil */,
 			);
 			path = class;
 			sourceTree = "<group>";

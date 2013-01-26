@@ -130,6 +130,12 @@ DeclaratorSPtr NamerStream::convertDeclarator(const ArgumentNameDeclaratorSPtr d
     return nameDeclaratorRef() << declarator->name();
 }
 
+DeclaratorSPtr NamerStream::convertDeclarator(const MemberVariableNameSPtr& declarator)
+{
+    return nameDeclaratorRef() << declarator->name();
+}
+
+
 DeclaratorSPtr NamerStream::convertDeclarator(const DeclaratorSPtr& declarator)
 {
     if (declarator->runtimeDeclaratorId() == ArgumentNameDeclarator::staticDeclaratorId())
@@ -143,9 +149,10 @@ DeclaratorSPtr NamerStream::convertDeclarator(const DeclaratorSPtr& declarator)
     if (declaratorId)
         return convertDeclaratorId(declaratorId);
         
+    if (declarator->runtimeDeclaratorId() == MemberVariableName::staticDeclaratorId())
+        return convertDeclarator(MemberVariableName::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == ParameterDeclarationClause::staticDeclaratorId())
         return convertParameterDeclarationClause(ParameterDeclarationClause::downcast(declarator));
-
     if (declarator->runtimeDeclaratorId() == PointerDeclarator::staticDeclaratorId())
         return convertPointerDeclarator(PointerDeclarator::downcast(declarator));
 
@@ -178,6 +185,13 @@ DeclaratorIdDirectDeclaratorSPtr NamerStream::convertDeclaratorIdDirectDeclarato
     DeclaratorIdDirectDeclaratorSPtr newdeclarator = declaratorIdDirectDeclaratorRef()
         << convertDeclaratorId(declarator->declarator());
     
+    return newdeclarator;
+}
+
+DeclaratorMemberDeclaratorSPtr NamerStream::convertDeclaratorMemberDeclarator(const DeclaratorMemberDeclaratorSPtr& declarator)
+{
+    DeclaratorMemberDeclaratorSPtr newdeclarator = declaratorMemberDeclaratorRef()
+        << convertDeclarator(declarator->declarator());
     return newdeclarator;
 }
 
@@ -427,6 +441,8 @@ MemberDeclarationSPtr NamerStream::convertMemberDeclaration(const MemberDeclarat
 {
     if (declaration->runtimeDeclarationId() == FunctionDefinitionMemberDeclaration::staticDeclarationId())
         return convertFunctionDefinitionMemberDeclaration(FunctionDefinitionMemberDeclaration::downcast(declaration));
+    if (declaration->runtimeDeclarationId() == SpecifierMemberDeclaration::staticDeclarationId())
+        return convertSpecifierMemberDeclaration(SpecifierMemberDeclaration::downcast(declaration));
         
     BOOST_ASSERT(false);
     return MemberDeclarationSPtr();
@@ -434,6 +450,8 @@ MemberDeclarationSPtr NamerStream::convertMemberDeclaration(const MemberDeclarat
 
 MemberDeclaratorSPtr NamerStream::convertMemberDeclarator(const MemberDeclaratorSPtr& declarator)
 {
+    if (declarator->runtimeDeclaratorId() == DeclaratorMemberDeclarator::staticDeclaratorId())
+        return convertDeclaratorMemberDeclarator(DeclaratorMemberDeclarator::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == PureMemberDeclarator::staticDeclaratorId())
         return convertPureMemberDeclarator(PureMemberDeclarator::downcast(declarator));
         
@@ -606,6 +624,15 @@ RelationalExpressionSPtr NamerStream::convertRelationalExpression(const Expressi
 
     BOOST_ASSERT(false);
     return RelationalExpressionSPtr();
+}
+
+SpecifierMemberDeclarationSPtr NamerStream::convertSpecifierMemberDeclaration(const SpecifierMemberDeclarationSPtr& declaration)
+{
+    SpecifierMemberDeclarationSPtr newdeclaration = specifierMemberDeclarationRef()
+        << convertDeclarationSpecifierSequence(declaration->specifier())
+        << convertMemberDeclarator(declaration->declarator());
+        
+    return newdeclaration;
 }
 
 StatementSPtr NamerStream::convertStatement(const StatementSPtr& statement)

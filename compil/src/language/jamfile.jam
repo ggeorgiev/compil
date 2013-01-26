@@ -36,6 +36,7 @@ lib cpp-language
     $(GEN)/c++/class/class_specifier.cpp
     $(GEN)/c++/class/constructor.cpp
     $(GEN)/c++/class/constructor_method_name.cpp
+    $(GEN)/c++/class/declarator_member_declarator.cpp
     $(GEN)/c++/class/destructor.cpp
     $(GEN)/c++/class/destructor_method_name.cpp
     $(GEN)/c++/class/function_definition_member_declaration.cpp
@@ -45,12 +46,15 @@ lib cpp-language
     $(GEN)/c++/class/member_declaration.cpp
     $(GEN)/c++/class/member_declarator.cpp
     $(GEN)/c++/class/member_specification.cpp
+    $(GEN)/c++/class/member_variable.cpp
+    $(GEN)/c++/class/member_variable_name.cpp
     $(GEN)/c++/class/method.cpp
     $(GEN)/c++/class/method_name.cpp
     $(GEN)/c++/class/method_specifier.cpp
     $(GEN)/c++/class/operator_method_name.cpp
     $(GEN)/c++/class/pure_member_declarator.cpp
     $(GEN)/c++/class/pure_specifier.cpp
+    $(GEN)/c++/class/specifier_member_declaration.cpp
 
     $(GEN)/c++/declaration/block_declaration.cpp
     $(GEN)/c++/declaration/builtin_simple_type_specifier.cpp

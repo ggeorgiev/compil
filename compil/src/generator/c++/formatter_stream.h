@@ -78,6 +78,7 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::CustomIdExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::DeclarationSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::DeclarationMacroArgumentSPtr& parameter);
+    lang::all::ElementSPtr convert(const lang::cpp::DeclaratorMemberDeclaratorSPtr& declarator);
     lang::all::ElementSPtr convert(const lang::cpp::DeclaratorParameterDeclarationSPtr& declarator);
     lang::all::ElementSPtr convert(const lang::cpp::DeclarationSpecifierSequenceSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::DeclarationStatementSPtr& statement);
@@ -129,6 +130,7 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::ShiftRelationalExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::SimpleBlockDeclarationSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::SimpleDeclarationSPtr& declaration);
+    lang::all::ElementSPtr convert(const lang::cpp::SpecifierMemberDeclarationSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::StatementSPtr& statement);
     lang::all::ElementSPtr convert(const lang::cpp::Statement::EClose& close);
     lang::all::ElementSPtr convert(const lang::cpp::TypeDeclarationSpecifierSPtr& declaration);

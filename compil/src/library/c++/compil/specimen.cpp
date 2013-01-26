@@ -76,23 +76,17 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
         << EAccessSpecifier::public_()
         << name;
         
-    ArgumentNameDeclaratorSPtr argumentNameValue = argumentNameDeclaratorRef()
+    ArgumentNameDeclaratorSPtr valueArgumentName = argumentNameDeclaratorRef()
         << "value";
 
     DeclaratorParameterDeclarationSPtr declaratorParameterDeclaration =
-        CppDeclarator::inputArgument(specimen->parameterType().lock(), argumentNameValue);
-
-    ParameterDeclarationListSPtr list = parameterDeclarationListRef()
-        << declaratorParameterDeclaration;
-
-    ParameterDeclarationClauseSPtr clause = parameterDeclarationClauseRef()
-        << list;
+        CppDeclarator::inputArgument(specimen->parameterType().lock(), valueArgumentName);
 
     ConstructorSPtr valueConstructor = constructorRef()
         << EAccessSpecifier::public_()
         << EMethodSpecifier::explicit_()
         << name
-        << clause;
+        << (parameterDeclarationClauseRef() << (parameterDeclarationListRef() << declaratorParameterDeclaration));
 
     DestructorSPtr destructor = destructorRef()
         << EAccessSpecifier::public_()
@@ -150,6 +144,16 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
             << (operatorMethodNameRef() << (operatorFunctionIdRef() << EOperator::lessThan()))
             << (parameterDeclarationClauseRef() << (parameterDeclarationListRef() << specimenDeclaratorParameterDeclaration))
             << (cVQualifierSequenceRef() << ECVQualifier::const_()));
+            
+    MemberVariableNameSPtr valueMemberName = memberVariableNameRef()
+        << "value";
+
+    class_ <<
+        (lang::cpp::memberVariableRef()
+            << class_
+            << EAccessSpecifier::private_()
+            << CppDeclarator::declarationSpecifier(specimen->parameterType().lock())
+            << valueMemberName);
 
     map[specimen] = class_;
     return class_;
