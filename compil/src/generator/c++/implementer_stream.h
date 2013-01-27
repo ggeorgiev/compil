@@ -38,6 +38,8 @@
 #include "generator/c++/namer_stream.h"
 
 #include "language/c++/test/test_suite.h"
+#include "language/c++/declaration/declaration_factory.h"
+
 
 #include <boost/shared_ptr.hpp>
 
@@ -57,10 +59,20 @@ public:
     
 private:
     lang::cpp::DeclarationSpecifierSPtr convert(const lang::cpp::DeclarationSpecifierSPtr& specifier);
-    void convert(const lang::cpp::MemberSpecificationSectionSPtr& section, const std::vector<lang::cpp::ConstructorSPtr>& constructors);
-    void convert(const lang::cpp::MemberSpecificationSectionSPtr& section, const lang::cpp::DestructorSPtr& destructor);
-    void convert(const lang::cpp::MemberSpecificationSectionSPtr& section, const std::vector<lang::cpp::MethodSPtr>& methods);
-    void convert(const lang::cpp::MemberSpecificationSectionSPtr& section, const std::vector<lang::cpp::MemberVariableSPtr>& members);
+    void convert(const lang::cpp::MemberSpecificationSectionSPtr& section,
+                 const std::vector<lang::cpp::ConstructorSPtr>& constructors);
+    void convert(const lang::cpp::MemberSpecificationSectionSPtr& section,
+                 const lang::cpp::DestructorSPtr& destructor);
+    void convert(const lang::cpp::MemberSpecificationSectionSPtr& section,
+                 const std::vector<lang::cpp::MethodSPtr>& methods);
+    void convert(const lang::cpp::MemberSpecificationSectionSPtr& section,
+                 const std::vector<lang::cpp::MemberVariableSPtr>& members);
+                 
+    lang::cpp::FunctionDefinitionMemberDeclarationSPtr methodDefinition(const lang::cpp::DeclarationSpecifierSequenceSPtr& specifier,
+                                                                        const lang::cpp::MethodNameSPtr& methodName,
+                                                                        const lang::cpp::ParameterDeclarationClauseSPtr& parameters,
+                                                                        const lang::cpp::CVQualifierSequenceSPtr& qualifier);
+
     
     nmr::NamerStream mNamer;
     ImplementerConfigurationSPtr mConfiguration;

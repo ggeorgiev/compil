@@ -32,12 +32,16 @@
 
 compil { }
 
-import "c++/logical/variable.scompil";
+import "c++/statement/jump_statement.scompil";
+import "c++/expression/expression.scompil";
 
 package lang.cpp | *.*.*;
 
 streamable
-structure LocalVariable
-    inherit Variable
+structure ReturnJumpStatement
+    inherit JumpStatement
 {
+    runtime identification;
+    
+    reference<Expression> expression = optional;
 }

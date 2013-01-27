@@ -40,6 +40,8 @@
 #include "language/c++/class/identifier_method_name.h"
 #include "language/c++/declarator/declarator_factory.h"
 #include "language/c++/declaration/declaration_factory.h"
+#include "language/c++/statement/statement_factory.h"
+#include "language/c++/logical/argument_variable_name.h"
 
 #include "boost/unordered_map.hpp"
 
@@ -72,49 +74,54 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
         
     ClassNameSPtr name = className(specimen);
 
-    ClassSPtr class_ = classRef();
-    
-    ConstructorSPtr defaultConstructor = constructorRef()
-        << class_
-        << EAccessSpecifier::public_()
+    ClassSPtr class_ = classRef()
+        << CppNamespace::namespace_(specimen->package())
+        << EClassKey::class_()
         << name;
-        
-    ArgumentNameDeclaratorSPtr valueArgumentName = argumentNameDeclaratorRef()
+
+    class_
+        << (constructorRef()
+            << class_
+            << EAccessSpecifier::public_()
+            << name);
+
+    ArgumentVariableNameSPtr valueArgumentName = argumentVariableNameRef()
         << "value";
 
     DeclaratorParameterDeclarationSPtr declaratorParameterDeclaration =
         CppDeclarator::inputArgument(specimen->parameterType().lock(), valueArgumentName);
 
-    ConstructorSPtr valueConstructor = constructorRef()
-        << class_
-        << EAccessSpecifier::public_()
-        << EMethodSpecifier::explicit_()
-        << name
-        << (parameterDeclarationClauseRef() << (parameterDeclarationListRef() << declaratorParameterDeclaration));
-
-    DestructorSPtr destructor = destructorRef()
-        << class_
-        << EAccessSpecifier::public_()
-        << name;
+    class_
+        << (constructorRef()
+            << class_
+            << EAccessSpecifier::public_()
+            << EMethodSpecifier::explicit_()
+            << name
+            << (parameterDeclarationClauseRef()
+                << (parameterDeclarationListRef()
+                    << declaratorParameterDeclaration)));
 
     class_
-        << CppNamespace::namespace_(specimen->package())
-        << EClassKey::class_()
-        << name
-        << defaultConstructor
-        << valueConstructor
-        << destructor;
-        
+        << (destructorRef()
+            << class_
+            << EAccessSpecifier::public_()
+            << name);
+
     class_ <<
         (lang::cpp::methodRef()
             << class_
             << EAccessSpecifier::public_()
             << EMethodSpecifier::inline_()
             << CppDeclarator::declarationSpecifier(specimen->parameterType().lock())
-            << (identifierMethodNameRef() << (identifierRef() << "value"))
-            << (cVQualifierSequenceRef() << ECVQualifier::const_()));
+            << (identifierMethodNameRef()
+                << (identifierRef() << "value"))
+            << (cVQualifierSequenceRef()
+                << ECVQualifier::const_())
+            << (functionBodyRef()
+                << (compoundStatementRef()
+                    << returnJumpStatementRef())));
             
-    ArgumentNameDeclaratorSPtr specimenArgumentName = argumentNameDeclaratorRef()
+    ArgumentVariableNameSPtr specimenArgumentName = argumentVariableNameRef()
         << "specimen";
         
     DeclaratorParameterDeclarationSPtr specimenDeclaratorParameterDeclaration =

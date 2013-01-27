@@ -238,8 +238,6 @@ ElementSPtr FormatterStream::convert(const DeclaratorSPtr& declarator)
         return convert(DeclaratorIdDirectDeclarator::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == DeclaratorMemberDeclarator::staticDeclaratorId())
         return convert(DeclaratorMemberDeclarator::downcast(declarator));
-    if (declarator->runtimeDeclaratorId() == NameDeclarator::staticDeclaratorId())
-        return convert(NameDeclarator::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == ParameterDeclarationClause::staticDeclaratorId())
         return convert(ParameterDeclarationList::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == ParameterDeclarationList::staticDeclaratorId())
@@ -252,6 +250,8 @@ ElementSPtr FormatterStream::convert(const DeclaratorSPtr& declarator)
         return convert(ReferencePointerOperator::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == TypeNameDeclaratorId::staticDeclaratorId())
         return convert(TypeNameDeclaratorId::downcast(declarator));
+    if (declarator->runtimeDeclaratorId() == VariableNameDeclarator::staticDeclaratorId())
+        return convert(VariableNameDeclarator::downcast(declarator));
 
     BOOST_ASSERT(false);
     return ElementSPtr();
@@ -578,13 +578,6 @@ ElementSPtr FormatterStream::convert(const MultiplicativeAdditiveExpressionSPtr&
     return convert(expression->expression());
 }
 
-ElementSPtr FormatterStream::convert(const NameDeclaratorSPtr& declarator)
-{
-    PassageSPtr passage = passageRef();
-    passage << (stringRef() << declarator->name());
-    return passage;
-}
-
 ElementSPtr FormatterStream::convert(const NamespaceNestedNameSPtr& expression)
 {
     return convert(expression->name());
@@ -683,6 +676,20 @@ ElementSPtr FormatterStream::convert(const ReferencePointerOperatorSPtr& express
     return ElementSPtr();
 }
 
+ElementSPtr FormatterStream::convert(const ReturnJumpStatementSPtr& statement)
+{
+    PassageSPtr passage = passageRef();
+    passage << (stringRef() << "return");
+    if (statement->expression())
+    {
+        passage << (stringRef() << " ")
+                << convert(statement->expression());
+    }
+    passage << convert(statement->close())
+            << endOfLineRef();
+    return passage;
+}
+
 ElementSPtr FormatterStream::convert(const ShiftRelationalExpressionSPtr& expression)
 {
     return convert(expression->expression());
@@ -727,6 +734,8 @@ ElementSPtr FormatterStream::convert(const StatementSPtr& statement)
         return convert(DeclarationStatement::downcast(statement));
     if (statement->runtimeStatementId() == MacroStatement::staticStatementId())
         return convert(MacroStatement::downcast(statement));
+    if (statement->runtimeStatementId() == ReturnJumpStatement::staticStatementId())
+        return convert(ReturnJumpStatement::downcast(statement));
          
     BOOST_ASSERT(false);
     return ElementSPtr();
@@ -758,6 +767,16 @@ ElementSPtr FormatterStream::convert(const TypeNameSimpleTypeSpecifierSPtr& decl
         passage << convert(declaration->specifier());
     passage << convert(declaration->typeName());
     return passage;
+}
+
+ElementSPtr FormatterStream::convert(const lang::cpp::VariableNameSPtr& variable)
+{
+    return stringRef() << variable->value();
+}
+
+ElementSPtr FormatterStream::convert(const lang::cpp::VariableNameDeclaratorSPtr& declaration)
+{
+    return convert(declaration->variable());
 }
 
 ElementSPtr FormatterStream::convert(const UnaryCastExpressionSPtr& expression)

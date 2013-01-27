@@ -125,22 +125,8 @@ DeclarationSpecifierSPtr NamerStream::convertDeclarationSpecifier(const Declarat
     return DeclarationSpecifierSPtr();
 }
 
-DeclaratorSPtr NamerStream::convertDeclarator(const ArgumentNameDeclaratorSPtr declarator)
-{
-    return nameDeclaratorRef() << declarator->name();
-}
-
-DeclaratorSPtr NamerStream::convertDeclarator(const MemberVariableNameSPtr& declarator)
-{
-    return nameDeclaratorRef() << declarator->name();
-}
-
-
 DeclaratorSPtr NamerStream::convertDeclarator(const DeclaratorSPtr& declarator)
 {
-    if (declarator->runtimeDeclaratorId() == ArgumentNameDeclarator::staticDeclaratorId())
-        return convertDeclarator(ArgumentNameDeclarator::downcast(declarator));
-
     DirectDeclaratorSPtr directDeclarator = DeclaratorFactory::downcastDirectDeclarator(declarator);
     if (directDeclarator)
         return convertDirectDeclarator(directDeclarator);
@@ -149,12 +135,12 @@ DeclaratorSPtr NamerStream::convertDeclarator(const DeclaratorSPtr& declarator)
     if (declaratorId)
         return convertDeclaratorId(declaratorId);
         
-    if (declarator->runtimeDeclaratorId() == MemberVariableName::staticDeclaratorId())
-        return convertDeclarator(MemberVariableName::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == ParameterDeclarationClause::staticDeclaratorId())
         return convertParameterDeclarationClause(ParameterDeclarationClause::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == PointerDeclarator::staticDeclaratorId())
         return convertPointerDeclarator(PointerDeclarator::downcast(declarator));
+    if (declarator->runtimeDeclaratorId() == VariableNameDeclarator::staticDeclaratorId())
+        return convertVariableNameDeclarator(VariableNameDeclarator::downcast(declarator));
 
     BOOST_ASSERT(false);
     return DeclaratorSPtr();
@@ -197,22 +183,6 @@ DeclaratorMemberDeclaratorSPtr NamerStream::convertDeclaratorMemberDeclarator(co
 
 DeclaratorParameterDeclarationSPtr NamerStream::convertDeclaratorParameterDeclaration(const DeclaratorParameterDeclarationSPtr& declarator)
 {
-    if (declarator->declaration()->declarations().size() == 1)
-    {
-        DeclarationSpecifierSPtr specifier = declarator->declaration()->declarations()[0];
-        if (specifier->runtimeDeclarationId() == GenericDeclarationSpecifier::staticDeclarationId())
-        {
-            GenericDeclarationSpecifierSPtr gds = GenericDeclarationSpecifier::downcast(specifier);
-            if (gds->generic() == EGeneric::string())
-            {
-                DeclaratorParameterDeclarationSPtr newdeclarator =
-                    lib::cpp::CppDeclarator::constReferenceArgument(lib::cpp::StlString::class_(),
-                                                                    declarator->declarator());
-                return convertDeclaratorParameterDeclaration(newdeclarator);
-            }
-        }
-    }
-
     DeclaratorParameterDeclarationSPtr newdeclarator = declaratorParameterDeclarationRef()
         << convertDeclarationSpecifierSequence(declarator->declaration())
         << convertDeclarator(declarator->declarator());
@@ -573,7 +543,7 @@ PostfixExpressionSPtr NamerStream::convertPostfixExpression(const ExpressionSPtr
         VariableExpressionSPtr vexpression = VariableExpression::downcast(expression);
 
         IdentifierSPtr variableIdentifier = identifierRef()
-            << vexpression->variable()->name()->value();
+            << vexpression->variable()->value();
 
         IdentifierUnqualifiedIdSPtr variableUnqualifiedId = identifierUnqualifiedIdRef()
             << variableIdentifier;
@@ -682,7 +652,7 @@ StatementSPtr NamerStream::convertStatement(const StatementSPtr& statement)
             << typeDeclarationSpecifier;
             
         IdentifierClassNameSPtr identifierClassName = identifierClassNameRef()
-            << (identifierRef() << vdstatment->variable()->name()->value());
+            << (identifierRef() << vdstatment->variable()->value());
         ClassTypeNameSPtr classTypeName = classTypeNameRef()
             << identifierClassName;
         TypeNameDeclaratorIdSPtr typeNameDeclaratorId = typeNameDeclaratorIdRef()
@@ -737,6 +707,18 @@ TypeNameSimpleTypeSpecifierSPtr NamerStream::convertTypeNameSimpleTypeSpecifier(
         << classTypeName;
         
     return typeNameSimpleTypeSpecifier;
+}
+
+VariableNameSPtr NamerStream::convertVariableName(const VariableNameSPtr& variable)
+{
+    return variable;
+}
+
+VariableNameDeclaratorSPtr NamerStream::convertVariableNameDeclarator(const VariableNameDeclaratorSPtr& declarator)
+{
+    VariableNameDeclaratorSPtr newdeclarator = variableNameDeclaratorRef()
+        << convertVariableName(declarator->variable());
+    return newdeclarator;
 }
 
 NamerStream& NamerStream::operator<<(const StatementSPtr& statement)

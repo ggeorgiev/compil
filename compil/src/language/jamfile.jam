@@ -47,7 +47,6 @@ lib cpp-language
     $(GEN)/c++/class/member_declarator.cpp
     $(GEN)/c++/class/member_specification.cpp
     $(GEN)/c++/class/member_variable.cpp
-    $(GEN)/c++/class/member_variable_name.cpp
     $(GEN)/c++/class/method.cpp
     $(GEN)/c++/class/method_name.cpp
     $(GEN)/c++/class/method_specifier.cpp
@@ -77,7 +76,6 @@ lib cpp-language
     $(GEN)/c++/declaration/type_name_simple_type_specifier.cpp
     $(GEN)/c++/declaration/type_specifier.cpp
 
-    $(GEN)/c++/declarator/argument_name_declarator.cpp
     $(GEN)/c++/declarator/body_function_definition.cpp
     $(GEN)/c++/declarator/cv_qualifier_sequence.cpp
     $(GEN)/c++/declarator/cv_qualifier.cpp
@@ -87,10 +85,10 @@ lib cpp-language
     $(GEN)/c++/declarator/declarator_id_direct_declarator.cpp
     $(GEN)/c++/declarator/declarator_parameter_declaratoin.cpp
     $(GEN)/c++/declarator/direct_declarator.cpp
+    $(GEN)/c++/declarator/function_body.cpp
     $(GEN)/c++/declarator/function_definition.cpp
     $(GEN)/c++/declarator/function_name_declarator_id.cpp
     $(GEN)/c++/declarator/init_declarator.cpp
-    $(GEN)/c++/declarator/name_declarator.cpp
     $(GEN)/c++/declarator/parameter_declaratoin.cpp
     $(GEN)/c++/declarator/parameter_declaratoin_clause.cpp
     $(GEN)/c++/declarator/parameter_declaratoin_list.cpp
@@ -99,6 +97,7 @@ lib cpp-language
     $(GEN)/c++/declarator/pointer_operator.cpp
     $(GEN)/c++/declarator/reference_pointer_operator.cpp
     $(GEN)/c++/declarator/type_name_declarator_id.cpp
+    $(GEN)/c++/declarator/variable_name_declarator.cpp
     
     $(GEN)/c++/derieved_class/access_specifier.cpp
     
@@ -146,9 +145,10 @@ lib cpp-language
 
     $(GEN)/c++/lexical/identifier-cpp.cpp
     
-    $(GEN)/c++/logical/local_variable.cpp
+    $(GEN)/c++/logical/argument_variable_name.cpp
+    $(GEN)/c++/logical/local_variable_name.cpp
+    $(GEN)/c++/logical/member_variable_name.cpp
     $(GEN)/c++/logical/type_kind.cpp
-    $(GEN)/c++/logical/variable.cpp
     $(GEN)/c++/logical/variable_name.cpp
     
     $(GEN)/c++/namespace/identifier_namespace_name.cpp
@@ -169,7 +169,9 @@ lib cpp-language
     $(GEN)/c++/statement/compound_statement.cpp
     $(GEN)/c++/statement/declaration_statement.cpp
     $(GEN)/c++/statement/expression_statement.cpp
+    $(GEN)/c++/statement/jump_statement.cpp
     $(GEN)/c++/statement/macro_statement.cpp
+    $(GEN)/c++/statement/return_jump_statement.cpp
     $(GEN)/c++/statement/statement.cpp
     $(GEN)/c++/statement/statement_factory.cpp
     $(GEN)/c++/statement/variable_declaration_statement.cpp

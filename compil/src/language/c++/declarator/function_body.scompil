@@ -30,39 +30,18 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _LIBRARY_CPP_COMPIL_DECLARATOR_H__
-#define _LIBRARY_CPP_COMPIL_DECLARATOR_H__
+compil { }
 
-#include "library/c++/compil/declaration.h"
+import "c++/declarator/declarator.scompil";
+import "c++/statement/compound_statement.scompil";
 
-#include "language/c++/declarator/declarator_factory.h"
+package lang.cpp | *.*.*;
 
-#include "language/compil/all/object_factory.h"
-
-namespace lib
+streamable
+structure FunctionBody
+    inherit Declarator
 {
-
-namespace cpp
-{
-
-using namespace lang::cpp;
-
-class CppDeclarator
-{
-public:
-    static DeclarationSpecifierSPtr declarationSpecifier(const lang::compil::TypeSPtr& type);
+    runtime identification;
     
-    static DeclaratorParameterDeclarationSPtr constArgument(const TypeSpecifierSPtr& specifier, const VariableNameSPtr& name);
-    static DeclaratorParameterDeclarationSPtr constReferenceArgument(const ClassSPtr& class_, const VariableNameSPtr& name);
-    static DeclaratorParameterDeclarationSPtr constReferenceArgument(const ClassSPtr& class_, const DeclaratorSPtr& declarator);
-    static DeclaratorParameterDeclarationSPtr inputArgument(const lang::compil::TypeSPtr& type, const VariableNameSPtr& name);
-
-    static PointerOperatorSPtr reference();
-};
-
+    reference<CompoundStatement> statement;
 }
-
-}
-
-#endif // _LIBRARY_CPP_COMPIL_DECLARATOR_H__
-

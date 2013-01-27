@@ -36,6 +36,7 @@ import "c++/statement/compound_statement.scompil";
 import "c++/statement/declaration_statement.scompil";
 import "c++/statement/expression_statement.scompil";
 import "c++/statement/macro_statement.scompil";
+import "c++/statement/return_jump_statement.scompil";
 import "c++/statement/variable_declaration_statement.scompil";
 import "c++/statement/throw_test_statement.scompil";
 import "c++/statement/unary_test_statement.scompil";

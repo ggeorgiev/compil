@@ -32,13 +32,12 @@
 
 compil { }
 
-import "c++/declarator/name_declarator.scompil";
+import "c++/logical/variable_name.scompil";
 
 package lang.cpp | *.*.*;
 
 streamable
-structure ArgumentNameDeclarator
-    inherit NameDeclarator
+structure LocalVariableName
+    inherit VariableName
 {
-    runtime identification;
 }

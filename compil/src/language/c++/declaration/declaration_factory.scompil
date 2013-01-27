@@ -39,7 +39,6 @@ import "c++/declaration/cv_qualifier_type_specifier.scompil";
 import "c++/declaration/declaration.scompil";
 import "c++/declaration/declaration_specifier_sequence.scompil";
 import "c++/declaration/function_declaration_specifier.scompil";
-import "c++/declaration/function_declaration_specifier.scompil";
 import "c++/declaration/generic_declaration_specifier.scompil";
 import "c++/declaration/simple_declaration.scompil";
 import "c++/declaration/simple_block_declaration.scompil";

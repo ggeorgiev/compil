@@ -67,7 +67,6 @@ section main
     c++/class/member_declarator.scompil;
     c++/class/member_specification.scompil;
     c++/class/member_variable.scompil;
-    c++/class/member_variable_name.scompil;
     c++/class/method.scompil;
     c++/class/method_specifier.scompil;
     c++/class/method_name.scompil;
@@ -97,7 +96,6 @@ section main
     c++/declaration/type_name_simple_type_specifier.scompil;
     c++/declaration/type_specifier.scompil;
     
-    c++/declarator/argument_name_declarator.scompil;
     c++/declarator/body_function_definition.scompil;
     c++/declarator/cv_qualifier_sequence.scompil;
     c++/declarator/cv_qualifier.scompil;
@@ -107,10 +105,10 @@ section main
     c++/declarator/declarator_id_direct_declarator.scompil;
     c++/declarator/declarator_parameter_declaratoin.scompil;
     c++/declarator/direct_declarator.scompil;
+    c++/declarator/function_body.scompil;
     c++/declarator/function_definition.scompil;
     c++/declarator/function_name_declarator_id.scompil;
     c++/declarator/init_declarator.scompil;
-    c++/declarator/name_declarator.scompil;
     c++/declarator/parameter_declaratoin.scompil;
     c++/declarator/parameter_declaratoin_clause.scompil;
     c++/declarator/parameter_declaratoin_list.scompil;
@@ -119,6 +117,7 @@ section main
     c++/declarator/pointer_operator.scompil;
     c++/declarator/reference_pointer_operator.scompil;
     c++/declarator/type_name_declarator_id.scompil;
+    c++/declarator/variable_name_declarator.scompil;
     
     c++/derieved_class/access_specifier.scompil;
     
@@ -166,9 +165,10 @@ section main
 
     c++/lexical/identifier-cpp.scompil;
     
-    c++/logical/local_variable.scompil;
+    c++/logical/argument_variable_name.scompil;
+    c++/logical/local_variable_name.scompil;
+    c++/logical/member_variable_name.scompil;
     c++/logical/type_kind.scompil;
-    c++/logical/variable.scompil;
     c++/logical/variable_name.scompil;
     
     c++/namespace/identifier_namespace_name.scompil;
@@ -189,7 +189,9 @@ section main
     c++/statement/compound_statement.scompil;
     c++/statement/declaration_statement.scompil;
     c++/statement/expression_statement.scompil;
+    c++/statement/jump_statement.scompil;
     c++/statement/macro_statement.scompil;
+    c++/statement/return_jump_statement.scompil;
     c++/statement/statement.scompil;
     c++/statement/statement_factory.scompil;
     c++/statement/variable_declaration_statement.scompil;

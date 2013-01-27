@@ -33,7 +33,7 @@
 compil { }
 
 import "c++/expression/expression.scompil";
-import "c++/logical/variable.scompil";
+import "c++/logical/variable_name.scompil";
 
 package lang.cpp | *.*.*;
 
@@ -43,5 +43,5 @@ structure VariableExpression
 {
     runtime identification;
     
-    reference<Variable> variable;
+    reference<VariableName> variable;
 }

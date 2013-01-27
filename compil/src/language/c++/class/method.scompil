@@ -37,9 +37,9 @@ import "c++/class/method_specifier.scompil";
 import "c++/class/class.scompil";
 import "c++/derieved_class/access_specifier.scompil";
 import "c++/declaration/declaration_specifier.scompil";
-import "c++/declarator/parameter_declaratoin_clause.scompil";
 import "c++/declarator/cv_qualifier_sequence.scompil";
-
+import "c++/declarator/function_body.scompil";
+import "c++/declarator/parameter_declaratoin_clause.scompil";
 
 package lang.cpp | *.*.*;
 
@@ -55,4 +55,5 @@ structure Method
     reference<MethodName> name;
     reference<ParameterDeclarationClause> parameters;
     reference<CVQualifierSequence> qualifier = optional;
+    reference<FunctionBody> body = optional;
 }

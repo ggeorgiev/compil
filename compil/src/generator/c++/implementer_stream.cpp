@@ -124,10 +124,10 @@ ImplementerStream& ImplementerStream::operator<<(const TestSuite& suite)
     return *this;
 }
 
-static FunctionDefinitionMemberDeclarationSPtr methodDefinition(const DeclarationSpecifierSequenceSPtr& specifier,
-                                                                const MethodNameSPtr& methodName,
-                                                                const ParameterDeclarationClauseSPtr& parameters,
-                                                                const CVQualifierSequenceSPtr& qualifier)
+FunctionDefinitionMemberDeclarationSPtr ImplementerStream::methodDefinition(const DeclarationSpecifierSequenceSPtr& specifier,
+                                                                            const MethodNameSPtr& methodName,
+                                                                            const ParameterDeclarationClauseSPtr& parameters,
+                                                                            const CVQualifierSequenceSPtr& qualifier)
 {
     FunctionNameDeclaratorIdSPtr functionNameDeclaratorId = functionNameDeclaratorIdRef()
         << methodName;
@@ -139,7 +139,35 @@ static FunctionDefinitionMemberDeclarationSPtr methodDefinition(const Declaratio
         << declaratorIdDirectDeclarator;
         
     if (parameters)
-        parametersDirectDeclarator << parameters;
+    {
+        ParameterDeclarationListSPtr list = parameterDeclarationListRef();
+        const std::vector<ParameterDeclarationSPtr>& declarators = parameters->list()->declarators();
+        for (std::vector<ParameterDeclarationSPtr>::const_iterator it = declarators.begin(); it != declarators.end(); ++it)
+        {
+            const ParameterDeclarationSPtr& declarator = *it;
+            if (declarator->runtimeDeclaratorId() != DeclaratorParameterDeclaration::staticDeclaratorId())
+            {
+                list << declarator;
+                continue;
+            }
+            
+            DeclaratorParameterDeclarationSPtr dpd = DeclaratorParameterDeclaration::downcast(declarator);
+            if (dpd->declaration()->declarations().size() > 1)
+            {
+                list << declarator;
+                continue;
+            }
+
+            list << (declaratorParameterDeclarationRef()
+                    << (declarationSpecifierSequenceRef()
+                        << convert(dpd->declaration()->declarations()[0]))
+                    << dpd->declarator());
+        }
+        
+        parametersDirectDeclarator
+            << (parameterDeclarationClauseRef()
+                << list);
+    }
 
     if (qualifier)
         parametersDirectDeclarator << qualifier;
@@ -212,7 +240,8 @@ void ImplementerStream::convert(const lang::cpp::MemberSpecificationSectionSPtr&
     }
 }
 
-void ImplementerStream::convert(const lang::cpp::MemberSpecificationSectionSPtr& section, const std::vector<MemberVariableSPtr>& members)
+void ImplementerStream::convert(const lang::cpp::MemberSpecificationSectionSPtr& section,
+                                const std::vector<MemberVariableSPtr>& members)
 {
     for (std::vector<MemberVariableSPtr>::const_iterator it = members.begin(); it != members.end(); ++it)
     {
@@ -223,12 +252,15 @@ void ImplementerStream::convert(const lang::cpp::MemberSpecificationSectionSPtr&
         DeclarationSpecifierSequenceSPtr specifier = declarationSpecifierSequenceRef()
             << convert(member->type());
         
-        section << (specifierMemberDeclarationRef() << specifier
-                                                    << (declaratorMemberDeclaratorRef() << member->name()));
+        section << (specifierMemberDeclarationRef()
+                    << specifier
+                    << (declaratorMemberDeclaratorRef()
+                        << (variableNameDeclaratorRef()
+                            << member->name())));
     }
 }
 
-ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& class_)
+ImplementerStream& ImplementerStream::operator<<(const ClassSPtr& class_)
 {
     MemberSpecificationSectionSPtr publicSection = memberSpecificationSectionRef()
         << EAccessSpecifier::public_();
@@ -268,10 +300,22 @@ ImplementerStream& ImplementerStream::operator<<(const lang::cpp::ClassSPtr& cla
         << specification;
 
     mNamer << specifier;
+    
+    const std::vector<MethodSPtr>& methods = class_->methods();
+    for (std::vector<MethodSPtr>::const_iterator it = methods.begin(); it != methods.end(); ++it)
+    {
+        const MethodSPtr& method = *it;
+        if (!method->methodSpecifier().isSet(EMethodSpecifier::inline_()))
+            continue;
+        
+        if (method->body())
+            mNamer << method->body()->statement();
+    }
+    
     return *this;
 }
 
-lang::cpp::DeclarationSpecifierSPtr ImplementerStream::convert(const lang::cpp::DeclarationSpecifierSPtr& specifier)
+DeclarationSpecifierSPtr ImplementerStream::convert(const DeclarationSpecifierSPtr& specifier)
 {
     if (!specifier)
         return specifier;

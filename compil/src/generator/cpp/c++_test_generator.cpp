@@ -38,7 +38,7 @@
 #include "library/c++/compil/builder.h"
 #include "library/c++/compil/specimen.h"
 
-#include "language/c++/logical/local_variable.h"
+#include "language/c++/logical/local_variable_name.h"
 
 namespace compil
 {
@@ -69,9 +69,9 @@ void CppTestGenerator::generateSpecimenDeclaration(const SpecimenSPtr& specimen)
     ClassSPtr class_ = CppSpecimen::class_(specimen);
         
     VariableExpressionSPtr specimen1 = variableExpressionRef()
-        << (localVariableRef() << (variableNameRef() << "specimen1"));
+        << (localVariableNameRef() << "specimen1");
     VariableExpressionSPtr specimen2 = variableExpressionRef()
-        << (localVariableRef() << (variableNameRef() << "specimen2"));
+        << (localVariableNameRef() << "specimen2");
         
     if (specimen->hasOperator(EOperatorAction::equalTo(), EOperatorFlags::native()))
     {
@@ -136,7 +136,7 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& structu
     ClassSPtr builderClass = CppBuilder::class_(class_);
     
     VariableExpressionSPtr structure1 = variableExpressionRef()
-        << (localVariableRef() << (variableNameRef() << "structure1"));
+        << (localVariableNameRef() << "structure1");
     
     if (structure->controlled())
     {
@@ -218,7 +218,7 @@ void CppTestGenerator::generateStructureDeclaration(const StructureSPtr& structu
         test << TestName("negativeBuild");
         
         VariableExpressionSPtr builder1 = variableExpressionRef()
-            << (localVariableRef() << (variableNameRef() << "builder"));
+            << (localVariableNameRef() << "builder");
 
         test << (variableDeclarationStatementRef() << builderClass
                                                    << builder1->variable());

@@ -60,7 +60,7 @@ DeclarationSpecifierSPtr CppDeclarator::declarationSpecifier(const lang::compil:
 
 
 DeclaratorParameterDeclarationSPtr CppDeclarator::constArgument(const TypeSpecifierSPtr& specifier,
-                                                                const DeclaratorSPtr& declarator)
+                                                                const VariableNameSPtr& name)
 {
     DeclarationSpecifierSequenceSPtr declarationSpecifierSequence = declarationSpecifierSequenceRef()
         << (typeDeclarationSpecifierRef() << (cVQualifierTypeSpecifierRef() << ECVQualifier::const_()))
@@ -68,13 +68,20 @@ DeclaratorParameterDeclarationSPtr CppDeclarator::constArgument(const TypeSpecif
 
     DeclaratorParameterDeclarationSPtr declaratorParameterDeclaration = declaratorParameterDeclarationRef()
         << declarationSpecifierSequence
-        << declarator;
+        << (variableNameDeclaratorRef() << name);
         
     return declaratorParameterDeclaration; 
 }
 
 DeclaratorParameterDeclarationSPtr CppDeclarator::constReferenceArgument(const ClassSPtr& class_,
+                                                                         const VariableNameSPtr& name)
+{
+    return constReferenceArgument(class_, variableNameDeclaratorRef() << name);
+}
+                                                                         
+DeclaratorParameterDeclarationSPtr CppDeclarator::constReferenceArgument(const ClassSPtr& class_,
                                                                          const DeclaratorSPtr& declarator)
+
 {
     ClassDeclarationSpecifierSPtr classSpecifier = classDeclarationSpecifierRef()
         << class_;
@@ -95,21 +102,21 @@ DeclaratorParameterDeclarationSPtr CppDeclarator::constReferenceArgument(const C
 }
 
 DeclaratorParameterDeclarationSPtr CppDeclarator::inputArgument(const lang::compil::TypeSPtr& type,
-                                                                const DeclaratorSPtr& declarator)
+                                                                const VariableNameSPtr& name)
 {
     TypeKind kind = CppType::kind(type);
     
     switch (kind.kind().value())
     {
         case EKind::kBuiltin:
-            return constArgument(CppType::builtinSpecifier(type), declarator);
+            return constArgument(CppType::builtinSpecifier(type), name);
         case EKind::kClass:
-            return constReferenceArgument(CppType::class_(type), declarator);
+            return constReferenceArgument(CppType::class_(type), name);
         case EKind::kGeneric:
             return declaratorParameterDeclarationRef()
                 << (declarationSpecifierSequenceRef()
                         << (genericDeclarationSpecifierRef() << kind.generic()))
-                << declarator;
+                << (variableNameDeclaratorRef() << name);
     }
 
     BOOST_ASSERT(false);

@@ -33,7 +33,7 @@
 compil { }
 
 import "c++/class/class.scompil";
-import "c++/class/member_variable_name.scompil";
+import "c++/logical/member_variable_name.scompil";
 import "c++/declaration/declaration_specifier.scompil";
 import "c++/derieved_class/access_specifier.scompil";
 

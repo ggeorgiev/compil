@@ -104,7 +104,6 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::MemberSpecificationSPtr& specification);
     lang::all::ElementSPtr convert(const lang::cpp::MemberSpecificationSectionSPtr& section);
     lang::all::ElementSPtr convert(const lang::cpp::MultiplicativeAdditiveExpressionSPtr& expression);
-    lang::all::ElementSPtr convert(const lang::cpp::NameDeclaratorSPtr& declarator);
     lang::all::ElementSPtr convert(const lang::cpp::NamespaceNestedNameSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::NestedNameSpecifierSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::IdentifierSPtr& identifier);
@@ -127,6 +126,7 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::PrimaryExpressionPostfixExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::RelationalEqualityExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::ReferencePointerOperatorSPtr& expression);
+    lang::all::ElementSPtr convert(const lang::cpp::ReturnJumpStatementSPtr& statement);
     lang::all::ElementSPtr convert(const lang::cpp::ShiftRelationalExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::SimpleBlockDeclarationSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::SimpleDeclarationSPtr& declaration);
@@ -136,6 +136,8 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::TypeDeclarationSpecifierSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::TypeNameDeclaratorIdSPtr& declarator);
     lang::all::ElementSPtr convert(const lang::cpp::TypeNameSimpleTypeSpecifierSPtr& declaration);
+    lang::all::ElementSPtr convert(const lang::cpp::VariableNameSPtr& variable);
+    lang::all::ElementSPtr convert(const lang::cpp::VariableNameDeclaratorSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::UnaryCastExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::UnqualifiedIdExpressionSPtr& expression);
    

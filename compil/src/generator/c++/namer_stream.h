@@ -75,8 +75,6 @@ private:
     static DeclarationSpecifierSPtr         convertDeclarationSpecifier(const DeclarationSpecifierSPtr& declaration);
     static DeclarationSpecifierSequenceSPtr convertDeclarationSpecifierSequence(const DeclarationSpecifierSequenceSPtr& declaration);
     static DeclaratorSPtr                   convertDeclarator(const DeclaratorSPtr& declarator);
-    static DeclaratorSPtr                   convertDeclarator(const ArgumentNameDeclaratorSPtr declarator);
-    static DeclaratorSPtr                   convertDeclarator(const MemberVariableNameSPtr& declarator);
     static DeclaratorIdSPtr                 convertDeclaratorId(const DeclaratorIdSPtr& declarator);
     static DeclaratorIdDirectDeclaratorSPtr convertDeclaratorIdDirectDeclarator(const DeclaratorIdDirectDeclaratorSPtr& declarator);
     static DeclaratorMemberDeclaratorSPtr   convertDeclaratorMemberDeclarator(const DeclaratorMemberDeclaratorSPtr& declarator);
@@ -113,6 +111,8 @@ private:
     static TypeSpecifierSPtr                convertTypeSpecifier(const TypeSpecifierSPtr& declaration);
     static TypeDeclarationSpecifierSPtr     convertTypeDeclarationSpecifier(const TypeDeclarationSpecifierSPtr& declaration);
     static TypeNameSimpleTypeSpecifierSPtr  convertTypeNameSimpleTypeSpecifier(const ClassSPtr& class_);
+    static VariableNameSPtr                 convertVariableName(const VariableNameSPtr& variable);
+    static VariableNameDeclaratorSPtr       convertVariableNameDeclarator(const VariableNameDeclaratorSPtr& declarator);
 
     FormatterStream mFormatter;
     NamerConfigurationSPtr mConfiguration;
