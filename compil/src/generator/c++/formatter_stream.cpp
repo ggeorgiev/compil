@@ -76,7 +76,7 @@ ElementSPtr FormatterStream::convert(const BuiltinSimpleTypeSpecifierSPtr& speci
 {
     switch (specifier->type().value())
     {
-        case BuiltinSimpleTypeSpecifier::EType::kBool_:
+        case BuiltinSimpleTypeSpecifier::EType::kBool:
             return stringRef() << "bool";
         case BuiltinSimpleTypeSpecifier::EType::kSignedLong:
             return stringRef() << "long";

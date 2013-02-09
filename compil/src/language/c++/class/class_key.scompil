@@ -38,5 +38,5 @@ strong enum ClassKey
 {
     class;
     struct_;
-    union_;
+    union;
 }

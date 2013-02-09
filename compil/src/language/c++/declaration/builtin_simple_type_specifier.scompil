@@ -44,7 +44,7 @@ structure BuiltinSimpleTypeSpecifier
 
     strong enum Type
     {
-        bool_;
+        bool;
         
         size;
         
