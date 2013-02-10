@@ -25,12 +25,16 @@
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
       <PathRunnable
-         FilePath = "/Users/george/github/compil/intermediate/generator/ef27f9a8a84252954bd5504269c0b5c1/generator">
+         FilePath = "/Users/george/ggeorgiev_frodo_home_mac/intermediate/arwen/darwin-4.2.1/debug/address-model-64/link-static/threading-multi/arwen-unit_test">
       </PathRunnable>
       <CommandLineArguments>
          <CommandLineArgument
-            argument = "--project-file=generator-test/generator-test.compilprj --output-directory=generator-test/.gen --core-output-directory=. --cpp.include_path=include_path_based_on_package"
+            argument = "--gtest_filter=TextMergeTests.sameResultStyleFromDifferentSources"
             isEnabled = "YES">
+         </CommandLineArgument>
+         <CommandLineArgument
+            argument = "--project-file=generator-test/generator-test.compilprj --output-directory=generator-test/.gen --core-output-directory=. --cpp.include_path=include_path_based_on_package"
+            isEnabled = "NO">
          </CommandLineArgument>
       </CommandLineArguments>
       <AdditionalOptions>

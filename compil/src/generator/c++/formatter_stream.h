@@ -136,6 +136,7 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::TypeDeclarationSpecifierSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::TypeNameDeclaratorIdSPtr& declarator);
     lang::all::ElementSPtr convert(const lang::cpp::TypeNameSimpleTypeSpecifierSPtr& declaration);
+    lang::all::ElementSPtr convert(const lang::cpp::VariableExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::VariableNameSPtr& variable);
     lang::all::ElementSPtr convert(const lang::cpp::VariableNameDeclaratorSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::UnaryCastExpressionSPtr& expression);

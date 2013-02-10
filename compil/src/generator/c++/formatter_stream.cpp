@@ -369,6 +369,8 @@ ElementSPtr FormatterStream::convert(const ExpressionSPtr& expression)
         return convert(RelationalEqualityExpression::downcast(expression));
     if (expression->runtimeExpressionId() == ShiftRelationalExpression::staticExpressionId())
         return convert(ShiftRelationalExpression::downcast(expression));
+    if (expression->runtimeExpressionId() == VariableExpression::staticExpressionId())
+        return convert(VariableExpression::downcast(expression));
     if (expression->runtimeExpressionId() == UnaryCastExpression::staticExpressionId())
         return convert(UnaryCastExpression::downcast(expression));
     if (expression->runtimeExpressionId() == UnqualifiedIdExpression::staticExpressionId())
@@ -769,12 +771,17 @@ ElementSPtr FormatterStream::convert(const TypeNameSimpleTypeSpecifierSPtr& decl
     return passage;
 }
 
-ElementSPtr FormatterStream::convert(const lang::cpp::VariableNameSPtr& variable)
+ElementSPtr FormatterStream::convert(const VariableExpressionSPtr& expression)
+{
+    return convert(expression->variable());
+}
+
+ElementSPtr FormatterStream::convert(const VariableNameSPtr& variable)
 {
     return stringRef() << variable->value();
 }
 
-ElementSPtr FormatterStream::convert(const lang::cpp::VariableNameDeclaratorSPtr& declaration)
+ElementSPtr FormatterStream::convert(const VariableNameDeclaratorSPtr& declaration)
 {
     return convert(declaration->variable());
 }

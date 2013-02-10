@@ -39,6 +39,7 @@ section main
     all/element/element.scompil;
     all/element/element_factory.scompil;
     all/element/end_of_line.scompil;
+    all/element/line_delimiter.scompil;
     all/element/list.scompil;
     all/element/passage.scompil;
     all/element/string.scompil;

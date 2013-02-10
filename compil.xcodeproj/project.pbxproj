@@ -198,6 +198,7 @@
 		5E5F99421617790300B91C54 /* variable_name.compil */ = {isa = PBXFileReference; lastKnownFileType = text; path = variable_name.compil; sourceTree = "<group>"; };
 		5E5F99431617810600B91C54 /* argument.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = argument.cpp; sourceTree = "<group>"; };
 		5E5F99441617810600B91C54 /* argument.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = argument.h; sourceTree = "<group>"; };
+		5E62378016BF2311005DED0B /* line_delimiter.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = line_delimiter.scompil; sourceTree = "<group>"; };
 		5E70054A16A26CEB00C5E561 /* parameters_direct_declarator.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = parameters_direct_declarator.scompil; sourceTree = "<group>"; };
 		5E84125C1694CF29001BF4C6 /* parser_project_unittest.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = parser_project_unittest.cpp; sourceTree = "<group>"; };
 		5E84125E1694D618001BF4C6 /* name.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = name.scompil; sourceTree = "<group>"; };
@@ -1470,6 +1471,7 @@
 				5EF6E0A516A3406E0027BA81 /* element.scompil */,
 				5EF6E0A616A3406E0027BA81 /* element_factory.scompil */,
 				5EF6E0A716A3406E0027BA81 /* end_of_line.scompil */,
+				5E62378016BF2311005DED0B /* line_delimiter.scompil */,
 				5EF6E0B516A36A6A0027BA81 /* list.scompil */,
 				5EF6E0A916A3406E0027BA81 /* passage.scompil */,
 				5EF6E0AB16A3406E0027BA81 /* string.scompil */,

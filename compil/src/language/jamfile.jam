@@ -19,6 +19,7 @@ lib cpp-language
     $(GEN)/all/element/element.cpp
     $(GEN)/all/element/element_factory.cpp
     $(GEN)/all/element/end_of_line.cpp
+    $(GEN)/all/element/line_delimiter.cpp
     $(GEN)/all/element/list.cpp
     $(GEN)/all/element/passage.cpp
     $(GEN)/all/element/string.cpp

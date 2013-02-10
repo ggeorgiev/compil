@@ -40,6 +40,7 @@
 #include "language/c++/class/identifier_method_name.h"
 #include "language/c++/declarator/declarator_factory.h"
 #include "language/c++/declaration/declaration_factory.h"
+#include "language/c++/expression/expression_factory.h"
 #include "language/c++/statement/statement_factory.h"
 #include "language/c++/logical/argument_variable_name.h"
 
@@ -87,6 +88,9 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
 
     ArgumentVariableNameSPtr valueArgumentName = argumentVariableNameRef()
         << "value";
+        
+    MemberVariableNameSPtr valueMemberName = memberVariableNameRef()
+        << "value";
 
     DeclaratorParameterDeclarationSPtr declaratorParameterDeclaration =
         CppDeclarator::inputArgument(specimen->parameterType().lock(), valueArgumentName);
@@ -119,7 +123,9 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
                 << ECVQualifier::const_())
             << (functionBodyRef()
                 << (compoundStatementRef()
-                    << returnJumpStatementRef())));
+                    << (returnJumpStatementRef()
+                        << (variableExpressionRef()
+                            << valueMemberName)))));
             
     ArgumentVariableNameSPtr specimenArgumentName = argumentVariableNameRef()
         << "specimen";
@@ -157,9 +163,6 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
             << (parameterDeclarationClauseRef() << (parameterDeclarationListRef() << specimenDeclaratorParameterDeclaration))
             << (cVQualifierSequenceRef() << ECVQualifier::const_()));
             
-    MemberVariableNameSPtr valueMemberName = memberVariableNameRef()
-        << "value";
-
     class_ <<
         (lang::cpp::memberVariableRef()
             << class_

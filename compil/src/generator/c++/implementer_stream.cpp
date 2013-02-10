@@ -118,7 +118,7 @@ ImplementerStream& ImplementerStream::operator<<(const TestSuite& suite)
         
         mNamer << macro
                << compoundStatement
-               << endOfLineRef();
+               << lineDelimiterRef();
     }
 
     return *this;
@@ -307,9 +307,13 @@ ImplementerStream& ImplementerStream::operator<<(const ClassSPtr& class_)
         const MethodSPtr& method = *it;
         if (!method->methodSpecifier().isSet(EMethodSpecifier::inline_()))
             continue;
+            
+        BodyFunctionDefinitionSPtr bodyFunctionDefinition = bodyFunctionDefinitionRef();
         
         if (method->body())
-            mNamer << method->body()->statement();
+            bodyFunctionDefinition << method->body();
+            
+        mNamer << bodyFunctionDefinition;
     }
     
     return *this;

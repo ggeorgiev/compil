@@ -45,6 +45,8 @@
 #include "language/c++/declaration/declaration_factory.h"
 #include "language/c++/declarator/declarator_factory.h"
 
+#include "language/all/element/line_delimiter.h"
+
 namespace nmr
 {
 
@@ -62,7 +64,8 @@ public:
     
     NamerStream& operator<<(const lang::cpp::StatementSPtr& statement);
     NamerStream& operator<<(const lang::cpp::ClassSpecifierSPtr& specifier);
-    NamerStream& operator<<(const lang::all::EndOfLineSPtr& endl);
+
+    NamerStream& operator<<(const lang::all::LineDelimiterSPtr& endl);
 
 private:
     static BodyFunctionDefinitionSPtr       convertBodyFunctionDefinition(const BodyFunctionDefinitionSPtr& definition);

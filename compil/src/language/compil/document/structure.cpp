@@ -29,24 +29,28 @@ bool Structure::isInitializable() const
 
 bool Structure::isOptional() const
 {
+    StructureSPtr base = baseStructure().lock();
+    if (base && !base->isOptional())
+        return false;
+
     if (!controlled())
         return false;
-        
+
     bool bResult = false;
     std::vector<FieldSPtr> fields = combinedFields();
     for (std::vector<FieldSPtr>::iterator it = fields.begin(); it != fields.end(); ++it)
     {
         const FieldSPtr& field = *it;
-        
+
         if (isOverriden(field))
             continue;
-        
+
         if (!field->defaultValue())
             return false;
-        
+
         if (!field->defaultValue()->optional())
             continue;
-        
+
         bResult = true;
     }
     return bResult;
@@ -58,10 +62,10 @@ bool Structure::isInitializeAlwaysTrue() const
     for (std::vector<FieldSPtr>::iterator it = fields.begin(); it != fields.end(); ++it)
     {
         const FieldSPtr& field = *it;
-        
+
         if (isOverriden(field))
             continue;
-        
+
         if (!field->defaultValue())
             return false;
     }
@@ -75,7 +79,7 @@ bool Structure::hasRuntimeIdentification() const
     for (it = objs.begin(); it != objs.end(); ++it)
     {
         IdentificationSPtr pIdentification = ObjectFactory::downcastIdentification(*it);
-        if (pIdentification) 
+        if (pIdentification)
         if (pIdentification->type() == Identification::EType::runtime())
             return true;
     }
@@ -94,7 +98,7 @@ bool Structure::hasField() const
     for (it = objs.begin(); it != objs.end(); ++it)
     {
         FieldSPtr pField = ObjectFactory::downcastField(*it);
-        if (pField) 
+        if (pField)
             return true;
     }
     return false;
@@ -107,7 +111,7 @@ bool Structure::hasAlter() const
     for (it = objs.begin(); it != objs.end(); ++it)
     {
         AlterSPtr pAlter = ObjectFactory::downcastAlter(*it);
-        if (pAlter) 
+        if (pAlter)
             return true;
     }
     return false;
@@ -122,7 +126,7 @@ StructureSPtr Structure::recursivelyBaseStructure()
         if (!pBase) break;
         pCheck = pBase;
     }
-    return pCheck; 
+    return pCheck;
 }
 
 bool Structure::isRecursivelyInherit(const StructureSPtr& pStructure)
@@ -139,10 +143,9 @@ bool Structure::isRecursivelyInherit(const StructureSPtr& pStructure)
 
 bool Structure::isRecursivelyRelatedTo(const StructureSPtr& pStructure)
 {
-    return isRecursivelyInherit(pStructure) || 
+    return isRecursivelyInherit(pStructure) ||
            pStructure->isRecursivelyInherit(shared_from_this());
 }
-
 
 FieldSPtr Structure::findField(const std::string& name) const
 {
@@ -161,8 +164,8 @@ FieldSPtr Structure::findField(const std::string& name) const
             }
         }
         pStruct = pStruct->baseStructure().lock();
-    }    
-        
+    }
+
     return FieldSPtr();
 }
 
@@ -199,7 +202,7 @@ std::vector<FieldSPtr> Structure::combinedFields() const
         if (pField)
             result.push_back(pField);
     }
-    
+
     return result;
 }
 
@@ -207,8 +210,8 @@ bool Structure::fieldIterate(std::vector<FieldSPtr>& iteration)
 {
     std::vector<FieldSPtr> fields = combinedFields();
     std::vector<FieldSPtr>::iterator it;
-    
-    // if the iteration is empty first add all obligatory fields 
+
+    // if the iteration is empty first add all obligatory fields
     if (iteration.size() == 0)
     {
         for (it = fields.begin(); it != fields.end(); ++it)
@@ -217,16 +220,16 @@ bool Structure::fieldIterate(std::vector<FieldSPtr>& iteration)
             if (!pField->defaultValue())
                 iteration.push_back(pField);
         }
-        
+
         if (iteration.size() != 0)
             return true;
     }
-    
+
     std::vector<FieldSPtr>::iterator place = iteration.begin();
     for (it = fields.begin(); it != fields.end(); ++it)
     {
         const FieldSPtr& pField = *it;
-        
+
         if (place != iteration.end())
         if (*place == pField)
         {
@@ -236,7 +239,7 @@ bool Structure::fieldIterate(std::vector<FieldSPtr>& iteration)
                 ++place;
             continue;
         }
-        
+
         if (pField->defaultValue())
         {
             place = iteration.insert(place, pField);
@@ -244,10 +247,10 @@ bool Structure::fieldIterate(std::vector<FieldSPtr>& iteration)
             break;
         }
     }
-    
+
     if (it == fields.end())
         return false;
-    
+
     return true;
 }
 
@@ -259,7 +262,7 @@ bool Structure::hasOperator(const EOperatorAction& action,
     for (it = objs.begin(); it != objs.end(); ++it)
     {
         OperatorSPtr pOperator = ObjectFactory::downcastOperator(*it);
-        if (pOperator) 
+        if (pOperator)
         if (pOperator->action() == action)
         if (pOperator->flags().isSet(flags))
             return true;
@@ -275,7 +278,7 @@ bool Structure::isOverriden(const FieldSPtr& pField) const
     {
         FieldOverrideSPtr pFieldOverride = ObjectFactory::downcastFieldOverride(*it);
         if (!pFieldOverride) continue;
-        
+
         if (pFieldOverride->overriddenField() == pField)
             return true;
     }

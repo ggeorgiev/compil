@@ -733,9 +733,9 @@ NamerStream& NamerStream::operator<<(const ClassSpecifierSPtr& specifier)
     return *this;
 }
 
-NamerStream& NamerStream::operator<<(const lang::all::EndOfLineSPtr& endl)
+NamerStream& NamerStream::operator<<(const lang::all::LineDelimiterSPtr& endl)
 {
-    mFormatter << endl;
+    mFormatter << endOfLineRef();
     return *this;
 }
 
