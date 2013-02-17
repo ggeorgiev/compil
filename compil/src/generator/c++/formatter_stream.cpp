@@ -808,6 +808,12 @@ FormatterStream& FormatterStream::operator<<(const ClassSpecifierSPtr& specifier
     return *this;
 }
 
+FormatterStream& FormatterStream::operator<<(const lang::cpp::BodyFunctionDefinitionSPtr& definition)
+{
+    mAligner << (passageRef() << convert(definition));
+    return *this;
+}
+
 FormatterStream& FormatterStream::operator<<(const EndOfLineSPtr& endl)
 {
     mAligner << (passageRef() << endl);

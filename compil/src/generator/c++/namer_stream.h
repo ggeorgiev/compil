@@ -64,6 +64,7 @@ public:
     
     NamerStream& operator<<(const lang::cpp::StatementSPtr& statement);
     NamerStream& operator<<(const lang::cpp::ClassSpecifierSPtr& specifier);
+    NamerStream& operator<<(const lang::cpp::BodyFunctionDefinitionSPtr& definition);
 
     NamerStream& operator<<(const lang::all::LineDelimiterSPtr& endl);
 

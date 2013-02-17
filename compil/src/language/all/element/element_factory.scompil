@@ -34,6 +34,7 @@ compil { }
 
 import "all/element/element.scompil";
 import "all/element/end_of_line.scompil";
+import "all/element/line_delimiter.scompil";
 import "all/element/list.scompil";
 import "all/element/passage.scompil";
 import "all/element/string.scompil";

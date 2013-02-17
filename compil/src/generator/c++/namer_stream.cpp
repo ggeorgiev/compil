@@ -733,9 +733,15 @@ NamerStream& NamerStream::operator<<(const ClassSpecifierSPtr& specifier)
     return *this;
 }
 
+NamerStream& NamerStream::operator<<(const BodyFunctionDefinitionSPtr& definition)
+{
+    mFormatter << convertBodyFunctionDefinition(definition);
+    return *this;
+}
+
 NamerStream& NamerStream::operator<<(const lang::all::LineDelimiterSPtr& endl)
 {
-    mFormatter << endOfLineRef();
+    mFormatter << lang::all::endOfLineRef();
     return *this;
 }
 
