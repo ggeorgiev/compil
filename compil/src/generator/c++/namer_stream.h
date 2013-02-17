@@ -70,6 +70,7 @@ public:
 
 private:
     static BodyFunctionDefinitionSPtr       convertBodyFunctionDefinition(const BodyFunctionDefinitionSPtr& definition);
+    static CompoundStatementSPtr            convertCompoundStatement(const CompoundStatementSPtr& statement);
     static ClassSpecifierSPtr               convertClassSpecifier(const ClassSpecifierSPtr& specifier);
     static ClassHeadSPtr                    convertClassHead(const ClassHeadSPtr& head);
     static CVQualifierSequenceSPtr          convertCVQualifierSequence(const CVQualifierSequenceSPtr& qualifier);
@@ -91,6 +92,7 @@ private:
     static FunctionDefinitionMemberDeclarationSPtr convertFunctionDefinitionMemberDeclaration(const FunctionDefinitionMemberDeclarationSPtr& declaration);
     static FunctionNameSPtr                 convertFunctionName(const FunctionNameSPtr& name);
     static IdentifierSPtr                   convertIdentifier(const ClassNameSPtr& name);
+    static FunctionBodySPtr                 convertFunctionBody(const FunctionBodySPtr& body);
     static FunctionDeclarationSpecifierSPtr convertFunctionDeclarationSpecifier(const FunctionDeclarationSpecifierSPtr& specifier);
     static FunctionNameDeclaratorIdSPtr     convertFunctionNameDeclaratorId(const FunctionNameDeclaratorIdSPtr& declarator);
     static IdentifierClassNameSPtr          convertIdentifierClassName(const ClassNameSPtr& name);

@@ -506,7 +506,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& specime
 {
     NamerConfigurationSPtr nc = boost::make_shared<NamerConfiguration>();
     
-#if 0
+#if 1
     ImplementerStream stream(impl->mConfiguration, nc, frm->mpFormatterConfiguration, mpAlignerConfiguration);
     
     lang::cpp::ClassSPtr class_ = lib::cpp::CppSpecimen::class_(specimen);

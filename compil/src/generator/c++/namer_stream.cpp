@@ -62,9 +62,24 @@ BodyFunctionDefinitionSPtr NamerStream::convertBodyFunctionDefinition(const Body
     BodyFunctionDefinitionSPtr newdefinition = bodyFunctionDefinitionRef();
     if (definition->specifier())
         newdefinition << convertDeclarationSpecifierSequence(definition->specifier());
-    newdefinition << convertDeclarator(definition->declarator());
+    if (definition->declarator())
+        newdefinition << convertDeclarator(definition->declarator());
+
+    if (definition->body())
+        newdefinition << convertFunctionBody(definition->body());
         
     return newdefinition;
+}
+
+CompoundStatementSPtr NamerStream::convertCompoundStatement(const CompoundStatementSPtr& statement)
+{
+    CompoundStatementSPtr newstatement = compoundStatementRef()
+        << statement->close();
+    const std::vector<StatementSPtr>& statements = statement->statements();
+    for (std::vector<StatementSPtr>::const_iterator it = statements.begin(); it != statements.end(); ++it)
+        newstatement << convertStatement(*it);
+        
+    return newstatement;
 }
 
 ClassHeadSPtr NamerStream::convertClassHead(const ClassHeadSPtr& head)
@@ -305,6 +320,14 @@ ExpressionListSPtr NamerStream::convertExpressionList(const ExpressionListSPtr& 
         newlist << convertExpression(*it);
         
     return newlist;
+}
+
+FunctionBodySPtr NamerStream::convertFunctionBody(const FunctionBodySPtr& body)
+{
+    FunctionBodySPtr newbody = functionBodyRef()
+        << convertCompoundStatement(body->statement());
+        
+    return newbody;
 }
 
 FunctionDeclarationSpecifierSPtr NamerStream::convertFunctionDeclarationSpecifier(const FunctionDeclarationSpecifierSPtr& specifier)
@@ -608,17 +631,7 @@ SpecifierMemberDeclarationSPtr NamerStream::convertSpecifierMemberDeclaration(co
 StatementSPtr NamerStream::convertStatement(const StatementSPtr& statement)
 {
     if (statement->runtimeStatementId() == CompoundStatement::staticStatementId())
-    {
-        CompoundStatementSPtr cstatment = CompoundStatement::downcast(statement);
-
-        CompoundStatementSPtr newstatement = compoundStatementRef()
-            << cstatment->close();
-        const std::vector<StatementSPtr>& statements = cstatment->statements();
-        for (std::vector<StatementSPtr>::const_iterator it = statements.begin(); it != statements.end(); ++it)
-            newstatement << convertStatement(*it);
-            
-        return newstatement;
-    }
+        return convertCompoundStatement(CompoundStatement::downcast(statement));
     
     if (statement->runtimeStatementId() == ExpressionStatement::staticStatementId())
     {

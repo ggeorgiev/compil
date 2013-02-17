@@ -68,7 +68,12 @@ ElementSPtr FormatterStream::convert(const BodyFunctionDefinitionSPtr& definitio
                 << (stringRef() << " ");
     }
         
-    passage << convert(definition->declarator());
+    if (definition->declarator())
+        passage << convert(definition->declarator());
+        
+    if (definition->body())
+        passage << convert(definition->body());
+        
     return passage;
 }
 
@@ -238,6 +243,8 @@ ElementSPtr FormatterStream::convert(const DeclaratorSPtr& declarator)
         return convert(DeclaratorIdDirectDeclarator::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == DeclaratorMemberDeclarator::staticDeclaratorId())
         return convert(DeclaratorMemberDeclarator::downcast(declarator));
+    if (declarator->runtimeDeclaratorId() == FunctionBody::staticDeclaratorId())
+        return convert(FunctionBody::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == ParameterDeclarationClause::staticDeclaratorId())
         return convert(ParameterDeclarationList::downcast(declarator));
     if (declarator->runtimeDeclaratorId() == ParameterDeclarationList::staticDeclaratorId())
@@ -405,6 +412,11 @@ ElementSPtr FormatterStream::convert(const ExpressionStatementSPtr& statement)
             << (stringRef() << ";")
             << endOfLineRef();
     return passage;
+}
+
+ElementSPtr FormatterStream::convert(const FunctionBodySPtr& body)
+{
+    return convert(body->statement());
 }
 
 ElementSPtr FormatterStream::convert(const FunctionDeclarationSpecifierSPtr& declaration)

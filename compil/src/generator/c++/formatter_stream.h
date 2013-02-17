@@ -94,6 +94,7 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::ExpressionMacroArgumentSPtr& parameter);
     lang::all::ElementSPtr convert(const lang::cpp::ExpressionListSPtr& expressionList);
     lang::all::ElementSPtr convert(const lang::cpp::ExpressionStatementSPtr& statement);
+    lang::all::ElementSPtr convert(const lang::cpp::FunctionBodySPtr& body);
     lang::all::ElementSPtr convert(const lang::cpp::FunctionDeclarationSpecifierSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::FunctionNameDeclaratorIdSPtr& declarator);
     lang::all::ElementSPtr convert(const lang::cpp::FunctionDefinitionMemberDeclarationSPtr& declaration);
