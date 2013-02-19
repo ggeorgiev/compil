@@ -58,6 +58,7 @@ public:
     ImplementerStream& operator<<(const lang::cpp::ClassSPtr& class_);
     
 private:
+    lang::cpp::DeclarationSpecifierSequenceSPtr convert(const lang::cpp::DeclarationSpecifierSequenceSPtr& sequence);
     lang::cpp::DeclarationSpecifierSPtr convert(const lang::cpp::DeclarationSpecifierSPtr& specifier);
     void convert(const lang::cpp::MemberSpecificationSectionSPtr& section,
                  const std::vector<lang::cpp::ConstructorSPtr>& constructors);
@@ -68,6 +69,11 @@ private:
     void convert(const lang::cpp::MemberSpecificationSectionSPtr& section,
                  const std::vector<lang::cpp::MemberVariableSPtr>& members);
                  
+    lang::cpp::BodyFunctionDefinitionSPtr methodBodyDefinition(const lang::cpp::DeclarationSpecifierSequenceSPtr& specifier,
+                                                               const lang::cpp::MethodNameSPtr& methodName,
+                                                               const lang::cpp::ParameterDeclarationClauseSPtr& parameters,
+                                                               const lang::cpp::CVQualifierSequenceSPtr& qualifier);
+
     lang::cpp::FunctionDefinitionMemberDeclarationSPtr methodDefinition(const lang::cpp::DeclarationSpecifierSequenceSPtr& specifier,
                                                                         const lang::cpp::MethodNameSPtr& methodName,
                                                                         const lang::cpp::ParameterDeclarationClauseSPtr& parameters,

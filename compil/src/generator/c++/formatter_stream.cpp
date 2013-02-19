@@ -71,8 +71,13 @@ ElementSPtr FormatterStream::convert(const BodyFunctionDefinitionSPtr& definitio
     if (definition->declarator())
         passage << convert(definition->declarator());
         
+        
     if (definition->body())
+    {
+        if (definition->specifier() || definition->declarator())
+            passage << endOfLineRef();
         passage << convert(definition->body());
+    }
         
     return passage;
 }
@@ -416,7 +421,10 @@ ElementSPtr FormatterStream::convert(const ExpressionStatementSPtr& statement)
 
 ElementSPtr FormatterStream::convert(const FunctionBodySPtr& body)
 {
-    return convert(body->statement());
+    PassageSPtr passage = passageRef();
+    passage << convert(body->statement())
+            << endOfLineRef();
+    return passage;
 }
 
 ElementSPtr FormatterStream::convert(const FunctionDeclarationSpecifierSPtr& declaration)
@@ -822,7 +830,8 @@ FormatterStream& FormatterStream::operator<<(const ClassSpecifierSPtr& specifier
 
 FormatterStream& FormatterStream::operator<<(const lang::cpp::BodyFunctionDefinitionSPtr& definition)
 {
-    mAligner << (passageRef() << convert(definition));
+    mAligner << (passageRef() << convert(definition)
+                              << endOfLineRef());
     return *this;
 }
 

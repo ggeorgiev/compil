@@ -124,10 +124,10 @@ ImplementerStream& ImplementerStream::operator<<(const TestSuite& suite)
     return *this;
 }
 
-FunctionDefinitionMemberDeclarationSPtr ImplementerStream::methodDefinition(const DeclarationSpecifierSequenceSPtr& specifier,
-                                                                            const MethodNameSPtr& methodName,
-                                                                            const ParameterDeclarationClauseSPtr& parameters,
-                                                                            const CVQualifierSequenceSPtr& qualifier)
+BodyFunctionDefinitionSPtr ImplementerStream::methodBodyDefinition(const DeclarationSpecifierSequenceSPtr& specifier,
+                                                                   const MethodNameSPtr& methodName,
+                                                                   const ParameterDeclarationClauseSPtr& parameters,
+                                                                   const CVQualifierSequenceSPtr& qualifier)
 {
     FunctionNameDeclaratorIdSPtr functionNameDeclaratorId = functionNameDeclaratorIdRef()
         << methodName;
@@ -178,8 +178,17 @@ FunctionDefinitionMemberDeclarationSPtr ImplementerStream::methodDefinition(cons
     if (specifier)
         bodyFunctionDefinition << specifier;
 
+    return bodyFunctionDefinition;
+}
+
+FunctionDefinitionMemberDeclarationSPtr ImplementerStream::methodDefinition(const DeclarationSpecifierSequenceSPtr& specifier,
+                                                                            const MethodNameSPtr& methodName,
+                                                                            const ParameterDeclarationClauseSPtr& parameters,
+                                                                            const CVQualifierSequenceSPtr& qualifier)
+{
+
     FunctionDefinitionMemberDeclarationSPtr functionDefinitionMemberDeclaration = functionDefinitionMemberDeclarationRef()
-        << bodyFunctionDefinition;
+        << methodBodyDefinition(specifier, methodName, parameters, qualifier);
     
     return functionDefinitionMemberDeclaration;
 }
@@ -308,8 +317,13 @@ ImplementerStream& ImplementerStream::operator<<(const ClassSPtr& class_)
         if (!method->methodSpecifier().isSet(EMethodSpecifier::inline_()))
             continue;
             
-        BodyFunctionDefinitionSPtr bodyFunctionDefinition = bodyFunctionDefinitionRef();
-        
+        DeclarationSpecifierSequenceSPtr sequence = convert(CppMethod::specifier(method->methodSpecifier(), method->returnType()));
+            
+        BodyFunctionDefinitionSPtr bodyFunctionDefinition = methodBodyDefinition(sequence,
+                                                                                 method->name(),
+                                                                                 method->parameters(),
+                                                                                 method->qualifier());
+            
         if (method->body())
             bodyFunctionDefinition << method->body();
             
@@ -317,6 +331,17 @@ ImplementerStream& ImplementerStream::operator<<(const ClassSPtr& class_)
     }
     
     return *this;
+}
+
+DeclarationSpecifierSequenceSPtr ImplementerStream::convert(const DeclarationSpecifierSequenceSPtr& sequence)
+{
+    DeclarationSpecifierSequenceSPtr newdeclaration = declarationSpecifierSequenceRef();
+    
+    const std::vector<DeclarationSpecifierSPtr>& declarations = sequence->declarations();
+    for (std::vector<DeclarationSpecifierSPtr>::const_iterator it = declarations.begin(); it != declarations.end(); ++it)
+        newdeclaration << convert(*it);
+
+    return newdeclaration;
 }
 
 DeclarationSpecifierSPtr ImplementerStream::convert(const DeclarationSpecifierSPtr& specifier)
