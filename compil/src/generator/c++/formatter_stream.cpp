@@ -558,9 +558,12 @@ ElementSPtr FormatterStream::convert(const MacroStatementSPtr& macro)
 ElementSPtr FormatterStream::convert(const MemberAccessPostfixExpressionSPtr& expression)
 {
     PassageSPtr passage = passageRef();
-    passage << convert(expression->first())
-            << (stringRef() << ".")
-            << convert(expression->second());
+    if (expression->first())
+    {
+        passage << convert(expression->first())
+                << (stringRef() << ".");
+    }
+    passage << convert(expression->second());
     return passage;
 }
 

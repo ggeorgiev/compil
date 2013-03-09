@@ -112,6 +112,7 @@ private:
     static PostfixExpressionSPtr            convertPostfixExpression(const ExpressionSPtr& expression);
     static PureMemberDeclaratorSPtr         convertPureMemberDeclarator(const PureMemberDeclaratorSPtr& declarator);
     static RelationalExpressionSPtr         convertRelationalExpression(const ExpressionSPtr& expression);
+    static ReturnJumpStatementSPtr          convertReturnJumpStatement(const ReturnJumpStatementSPtr& statement);
     static SpecifierMemberDeclarationSPtr   convertSpecifierMemberDeclaration(const SpecifierMemberDeclarationSPtr& declaration);
     static StatementSPtr                    convertStatement(const StatementSPtr& statement);
     static TypeSpecifierSPtr                convertTypeSpecifier(const TypeSpecifierSPtr& declaration);

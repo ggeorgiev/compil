@@ -264,26 +264,7 @@ ExpressionSPtr NamerStream::convertExpression(const ExpressionSPtr& expression)
     }
     
     if (expression->runtimeExpressionId() == MethodCallExpression::staticExpressionId())
-    {
-        MethodCallExpressionSPtr mcexpression = MethodCallExpression::downcast(expression);
-
-        IdentifierSPtr methodIdentifier = convertIdentifierMethodName(mcexpression->method())->identifier();
-        IdentifierUnqualifiedIdSPtr methodUnqualifiedId = identifierUnqualifiedIdRef()
-            << methodIdentifier;
-        UnqualifiedIdExpressionSPtr methodExpression = unqualifiedIdExpressionRef()
-            << methodUnqualifiedId;
-        
-        MemberAccessPostfixExpressionSPtr memberAccessExpression = memberAccessPostfixExpressionRef()
-            << convertPostfixExpression(mcexpression->variable())
-            << methodExpression;
-            
-        ParenthesesPostfixExpressionSPtr parenthesesExpression = parenthesesPostfixExpressionRef()
-            << memberAccessExpression
-            << convertExpressionList(mcexpression->list());
-        
-        map[expression] = parenthesesExpression;
-        return parenthesesExpression;
-    }
+        return convertPostfixExpression(expression);
     
     if (expression->runtimeExpressionId() == VariableExpression::staticExpressionId())
     {
@@ -298,15 +279,9 @@ ExpressionSPtr NamerStream::convertExpression(const ExpressionSPtr& expression)
 
 EqualityExpressionSPtr NamerStream::convertEqualityExpression(const ExpressionSPtr& expression)
 {
-    if (expression->runtimeExpressionId() == VariableExpression::staticExpressionId())
-    {
-        RelationalEqualityExpressionSPtr relationalEqualityExpression = relationalEqualityExpressionRef()
-            << convertRelationalExpression(expression);
-        return relationalEqualityExpression;
-    }
-
-    BOOST_ASSERT(false);
-    return EqualityExpressionSPtr();
+    RelationalEqualityExpressionSPtr relationalEqualityExpression = relationalEqualityExpressionRef()
+        << convertRelationalExpression(expression);
+    return relationalEqualityExpression;
 }
 
 ExpressionListSPtr NamerStream::convertExpressionList(const ExpressionListSPtr& list)
@@ -579,6 +554,28 @@ PostfixExpressionSPtr NamerStream::convertPostfixExpression(const ExpressionSPtr
 
         return variablePostfixExpression;
     }
+    
+    if (expression->runtimeExpressionId() == MethodCallExpression::staticExpressionId())
+    {
+        MethodCallExpressionSPtr mcexpression = MethodCallExpression::downcast(expression);
+
+        IdentifierSPtr methodIdentifier = convertIdentifierMethodName(mcexpression->method())->identifier();
+        IdentifierUnqualifiedIdSPtr methodUnqualifiedId = identifierUnqualifiedIdRef()
+            << methodIdentifier;
+        UnqualifiedIdExpressionSPtr methodExpression = unqualifiedIdExpressionRef()
+            << methodUnqualifiedId;
+        
+        MemberAccessPostfixExpressionSPtr memberAccessExpression = memberAccessPostfixExpressionRef();
+        if (mcexpression->variable())
+            memberAccessExpression << convertPostfixExpression(mcexpression->variable());
+        memberAccessExpression << methodExpression;
+            
+        ParenthesesPostfixExpressionSPtr parenthesesExpression = parenthesesPostfixExpressionRef()
+            << memberAccessExpression
+            << convertExpressionList(mcexpression->list());
+
+        return parenthesesExpression;
+    }
 
     BOOST_ASSERT(false);
     return PostfixExpressionSPtr();
@@ -593,30 +590,31 @@ PureMemberDeclaratorSPtr NamerStream::convertPureMemberDeclarator(const PureMemb
     return newdeclarator;
 }
 
+ReturnJumpStatementSPtr NamerStream::convertReturnJumpStatement(const ReturnJumpStatementSPtr& statement)
+{
+    ReturnJumpStatementSPtr newstatement = returnJumpStatementRef()
+        << convertExpression(statement->expression());
+    return newstatement;
+}
+
 RelationalExpressionSPtr NamerStream::convertRelationalExpression(const ExpressionSPtr& expression)
 {
-    if (expression->runtimeExpressionId() == VariableExpression::staticExpressionId())
-    {
-        PostfixUnaryExpressionSPtr postfixUnaryExpression = postfixUnaryExpressionRef()
-            << convertPostfixExpression(expression);
-        UnaryCastExpressionSPtr unaryCastExpression = unaryCastExpressionRef()
-            << postfixUnaryExpression;
-        CastPmExpressionSPtr castPmExpression = castPmExpressionRef()
-            << unaryCastExpression;
-        PmMultiplicativeExpressionSPtr pmMultiplicativeExpression = pmMultiplicativeExpressionRef()
-            << castPmExpression;
-        MultiplicativeAdditiveExpressionSPtr multiplicativeAdditiveExpression = multiplicativeAdditiveExpressionRef()
-            << pmMultiplicativeExpression;
-        AdditiveShiftExpressionSPtr additiveShiftExpression = additiveShiftExpressionRef()
-            << multiplicativeAdditiveExpression;
-        ShiftRelationalExpressionSPtr shiftRelationalExpression = shiftRelationalExpressionRef()
-            << additiveShiftExpression;
-        
-        return shiftRelationalExpression;
-    }
-
-    BOOST_ASSERT(false);
-    return RelationalExpressionSPtr();
+    PostfixUnaryExpressionSPtr postfixUnaryExpression = postfixUnaryExpressionRef()
+        << convertPostfixExpression(expression);
+    UnaryCastExpressionSPtr unaryCastExpression = unaryCastExpressionRef()
+        << postfixUnaryExpression;
+    CastPmExpressionSPtr castPmExpression = castPmExpressionRef()
+        << unaryCastExpression;
+    PmMultiplicativeExpressionSPtr pmMultiplicativeExpression = pmMultiplicativeExpressionRef()
+        << castPmExpression;
+    MultiplicativeAdditiveExpressionSPtr multiplicativeAdditiveExpression = multiplicativeAdditiveExpressionRef()
+        << pmMultiplicativeExpression;
+    AdditiveShiftExpressionSPtr additiveShiftExpression = additiveShiftExpressionRef()
+        << multiplicativeAdditiveExpression;
+    ShiftRelationalExpressionSPtr shiftRelationalExpression = shiftRelationalExpressionRef()
+        << additiveShiftExpression;
+    
+    return shiftRelationalExpression;
 }
 
 SpecifierMemberDeclarationSPtr NamerStream::convertSpecifierMemberDeclaration(const SpecifierMemberDeclarationSPtr& declaration)
@@ -655,6 +653,10 @@ StatementSPtr NamerStream::convertStatement(const StatementSPtr& statement)
         return newstatement;
     }
     
+    if (statement->runtimeStatementId() == ReturnJumpStatement::staticStatementId())
+        return convertReturnJumpStatement(ReturnJumpStatement::downcast(statement));
+
+    
     if (statement->runtimeStatementId() == VariableDeclarationStatement::staticStatementId())
     {
         VariableDeclarationStatementSPtr vdstatment = VariableDeclarationStatement::downcast(statement);
@@ -684,6 +686,7 @@ StatementSPtr NamerStream::convertStatement(const StatementSPtr& statement)
         return declarationStatementRef() << blockDeclaration;
     }
     
+    BOOST_ASSERT(false);
     return statement;
 }
 

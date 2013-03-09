@@ -50,6 +50,6 @@ structure MemberAccessPostfixExpression
     }
     Operator operator;
     
-    reference<PostfixExpression> first;
+    reference<PostfixExpression> first = optional;
     reference<IdExpression> second;
 }

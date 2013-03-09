@@ -111,7 +111,7 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
             << EAccessSpecifier::public_()
             << name);
 
-    class_ <<
+    lang::cpp::MethodSPtr valueMethod =
         (lang::cpp::methodRef()
             << class_
             << EAccessSpecifier::public_()
@@ -126,12 +126,24 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
                     << (returnJumpStatementRef()
                         << (variableExpressionRef()
                             << valueMemberName)))));
+    class_ << valueMethod;
             
     ArgumentVariableNameSPtr specimenArgumentName = argumentVariableNameRef()
         << "specimen";
         
     DeclaratorParameterDeclarationSPtr specimenDeclaratorParameterDeclaration =
         CppDeclarator::constReferenceArgument(class_, specimenArgumentName);
+/*
+inline bool IntegerSpecimen::operator==(const IntegerSpecimen& rValue) const
+{
+    return value() == rValue.value();
+}
+*/
+
+    GenericEqualityExpressionSPtr genericEqualityExpression = boost::make_shared<GenericEqualityExpression>();
+    genericEqualityExpression->set_type(EqualityExpression::EType::equalTo());
+    genericEqualityExpression->set_first(methodCallExpressionRef() << valueMethod->name());
+    genericEqualityExpression->set_second(variableExpressionRef() << valueArgumentName);
 
     class_ <<
         (lang::cpp::methodRef()
@@ -141,7 +153,11 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
             << CppDeclaration::bool_()
             << (operatorMethodNameRef() << (operatorFunctionIdRef() << EOperator::equalTo()))
             << (parameterDeclarationClauseRef() << (parameterDeclarationListRef() << specimenDeclaratorParameterDeclaration))
-            << (cVQualifierSequenceRef() << ECVQualifier::const_()));
+            << (cVQualifierSequenceRef() << ECVQualifier::const_())
+            << (functionBodyRef()
+                << (compoundStatementRef()
+                    << (returnJumpStatementRef()
+                        << (genericEqualityExpression)))));
 
     class_ <<
         (lang::cpp::methodRef()

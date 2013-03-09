@@ -43,7 +43,7 @@ structure MethodCallExpression
 {
     runtime identification;
     
-    reference<Expression> variable;
+    reference<Expression> variable = optional;
     reference<MethodName> method;
-    reference<ExpressionList> list;
+    reference<ExpressionList> list = optional;
 }
