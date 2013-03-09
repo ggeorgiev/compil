@@ -2095,7 +2095,10 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
 
     commentInTable("Destructor");
 
-    cf::EDestructorSpecifier destructorSpecifier = impl->destructorSpecifier(pStructure);
+    cf::EDestructorSpecifier destructorSpecifier = pStructure->isVirtual()
+                                                 ?  cpp::frm::EDestructorSpecifier::virtual_()
+                                                 : cpp::frm::EDestructorSpecifier::lax();
+
     table() << (cf::destructorRef() << destructorSpecifier
                                     << frm->cppAutoDestructorName(pStructure))
             << ";";
@@ -2146,7 +2149,6 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
         }
     }
 
-    cf::EMethodSpecifier methodSpecifier = impl->methodSpecifier(pStructure);
     if (pStructure->isInitializable())
     {
         encapsulateInTable("public");
@@ -2162,13 +2164,14 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                 "not be changed. Called by the Builder class.");
         }
 
-        table() << (cf::methodRef() << methodSpecifier
+        table() << (cf::methodRef() << cpp::frm::EMethodSpecifier::virtual_()
                                     << bl
                                     << fnIsInitialized
                                     << cf::EMethodDeclaration::const_())
                 << ";";
     }
 
+    cf::EMethodSpecifier methodSpecifier = impl->methodSpecifier(pStructure);
     if (pStructure->isOptional())
     {
         encapsulateInTable("public");

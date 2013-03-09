@@ -119,7 +119,6 @@ public:
                                               const FactorySPtr& pFactory);
   
     virtual cpp::frm::EMethodSpecifier methodSpecifier(const StructureSPtr& pStructure);
-    virtual cpp::frm::EDestructorSpecifier destructorSpecifier(const StructureSPtr& pStructure);
                                      
     cpp::frm::ConstructorNameSPtr inheritClass(const EnumerationSPtr& pEnumeration,
                                                const StructureSPtr& pStructure);

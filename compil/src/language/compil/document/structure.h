@@ -54,6 +54,8 @@ class Structure : public StructurePartial
 public:
 	                       Structure      ();
 	virtual                ~Structure     ();
+
+    bool isVirtual() const;
     
     bool isBuildable() const;
     bool isInitializable() const;

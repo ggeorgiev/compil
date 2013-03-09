@@ -15,6 +15,21 @@ Structure::~Structure()
 {
 }
 
+bool Structure::isVirtual() const
+{
+    StructureSPtr base = baseStructure().lock();
+    if (base && base->isVirtual())
+        return true;
+
+    if (isInitializable())
+        return true;
+        
+    if (hasRuntimeIdentification())
+        return true;
+        
+    return false;
+}
+
 bool Structure::isBuildable() const
 {
     return (immutable() &&
