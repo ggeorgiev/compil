@@ -116,7 +116,9 @@ lib cpp-language
     $(GEN)/c++/expression/expression_list.cpp
     $(GEN)/c++/expression/expression_factory.cpp
     $(GEN)/c++/expression/generic_equality_expression.cpp
+    $(GEN)/c++/expression/generic_relational_expression.cpp
     $(GEN)/c++/expression/grammar_equality_expression.cpp
+    $(GEN)/c++/expression/grammar_relational_expression.cpp
     $(GEN)/c++/expression/id_expression.cpp
     $(GEN)/c++/expression/id_expression_primary_expression.cpp
     $(GEN)/c++/expression/identifier_unqualified_id.cpp

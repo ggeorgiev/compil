@@ -251,17 +251,10 @@ ExpressionSPtr NamerStream::convertExpression(const ExpressionSPtr& expression)
     }
     
     if (expression->runtimeExpressionId() == GenericEqualityExpression::staticExpressionId())
-    {
-        GenericEqualityExpressionSPtr geexpression = GenericEqualityExpression::downcast(expression);
-    
-        GrammarEqualityExpressionSPtr grammarEqualityExpression = grammarEqualityExpressionRef()
-            << geexpression->type()
-            << convertEqualityExpression(geexpression->first())
-            << convertRelationalExpression(geexpression->second());
+        return convertEqualityExpression(expression);
 
-        map[expression] = grammarEqualityExpression;
-        return grammarEqualityExpression;
-    }
+    if (expression->runtimeExpressionId() == GenericRelationalExpression::staticExpressionId())
+        return convertRelationalExpression(expression);
     
     if (expression->runtimeExpressionId() == MethodCallExpression::staticExpressionId())
         return convertPostfixExpression(expression);
@@ -279,6 +272,18 @@ ExpressionSPtr NamerStream::convertExpression(const ExpressionSPtr& expression)
 
 EqualityExpressionSPtr NamerStream::convertEqualityExpression(const ExpressionSPtr& expression)
 {
+    if (expression->runtimeExpressionId() == GenericEqualityExpression::staticExpressionId())
+    {
+        GenericEqualityExpressionSPtr geexpression = GenericEqualityExpression::downcast(expression);
+    
+        GrammarEqualityExpressionSPtr grammarEqualityExpression = grammarEqualityExpressionRef()
+            << geexpression->type()
+            << convertEqualityExpression(geexpression->first())
+            << convertRelationalExpression(geexpression->second());
+
+        return grammarEqualityExpression;
+    }
+
     RelationalEqualityExpressionSPtr relationalEqualityExpression = relationalEqualityExpressionRef()
         << convertRelationalExpression(expression);
     return relationalEqualityExpression;
@@ -599,6 +604,26 @@ ReturnJumpStatementSPtr NamerStream::convertReturnJumpStatement(const ReturnJump
 
 RelationalExpressionSPtr NamerStream::convertRelationalExpression(const ExpressionSPtr& expression)
 {
+    if (expression->runtimeExpressionId() == GenericRelationalExpression::staticExpressionId())
+    {
+        GenericRelationalExpressionSPtr reexpression = GenericRelationalExpression::downcast(expression);
+    
+        GrammarRelationalExpressionSPtr grammarRelationalExpression = grammarRelationalExpressionRef()
+            << reexpression->type()
+            << convertRelationalExpression(reexpression->first())
+            << convertShiftExpression(reexpression->second());
+
+        return grammarRelationalExpression;
+    }
+
+    ShiftRelationalExpressionSPtr shiftRelationalExpression = shiftRelationalExpressionRef()
+        << convertShiftExpression(expression);
+    
+    return shiftRelationalExpression;
+}
+
+ShiftExpressionSPtr NamerStream::convertShiftExpression(const ExpressionSPtr& expression)
+{
     PostfixUnaryExpressionSPtr postfixUnaryExpression = postfixUnaryExpressionRef()
         << convertPostfixExpression(expression);
     UnaryCastExpressionSPtr unaryCastExpression = unaryCastExpressionRef()
@@ -611,10 +636,8 @@ RelationalExpressionSPtr NamerStream::convertRelationalExpression(const Expressi
         << pmMultiplicativeExpression;
     AdditiveShiftExpressionSPtr additiveShiftExpression = additiveShiftExpressionRef()
         << multiplicativeAdditiveExpression;
-    ShiftRelationalExpressionSPtr shiftRelationalExpression = shiftRelationalExpressionRef()
-        << additiveShiftExpression;
-    
-    return shiftRelationalExpression;
+        
+    return additiveShiftExpression;
 }
 
 SpecifierMemberDeclarationSPtr NamerStream::convertSpecifierMemberDeclaration(const SpecifierMemberDeclarationSPtr& declaration)

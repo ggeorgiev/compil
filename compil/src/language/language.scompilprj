@@ -136,7 +136,9 @@ section main
     c++/expression/expression_list.scompil;
     c++/expression/expression_factory.scompil;
     c++/expression/generic_equality_expression.scompil;
+    c++/expression/generic_relational_expression.scompil;
     c++/expression/grammar_equality_expression.scompil;
+    c++/expression/grammar_relational_expression.scompil;
     c++/expression/id_expression.scompil;
     c++/expression/id_expression_primary_expression.scompil;
     c++/expression/identifier_unqualified_id.scompil;

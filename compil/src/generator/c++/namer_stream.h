@@ -113,6 +113,7 @@ private:
     static PureMemberDeclaratorSPtr         convertPureMemberDeclarator(const PureMemberDeclaratorSPtr& declarator);
     static RelationalExpressionSPtr         convertRelationalExpression(const ExpressionSPtr& expression);
     static ReturnJumpStatementSPtr          convertReturnJumpStatement(const ReturnJumpStatementSPtr& statement);
+    static ShiftExpressionSPtr              convertShiftExpression(const ExpressionSPtr& expression);
     static SpecifierMemberDeclarationSPtr   convertSpecifierMemberDeclaration(const SpecifierMemberDeclarationSPtr& declaration);
     static StatementSPtr                    convertStatement(const StatementSPtr& statement);
     static TypeSpecifierSPtr                convertTypeSpecifier(const TypeSpecifierSPtr& declaration);

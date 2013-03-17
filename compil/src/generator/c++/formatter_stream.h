@@ -99,6 +99,7 @@ protected:
     lang::all::ElementSPtr convert(const lang::cpp::FunctionNameDeclaratorIdSPtr& declarator);
     lang::all::ElementSPtr convert(const lang::cpp::FunctionDefinitionMemberDeclarationSPtr& declaration);
     lang::all::ElementSPtr convert(const lang::cpp::GrammarEqualityExpressionSPtr& expression);
+    lang::all::ElementSPtr convert(const lang::cpp::GrammarRelationalExpressionSPtr& expression);
     lang::all::ElementSPtr convert(const lang::cpp::MacroNameSPtr& name);
     lang::all::ElementSPtr convert(const lang::cpp::MacroArgumentSPtr& parameter);
     lang::all::ElementSPtr convert(const lang::cpp::MacroStatementSPtr& statement);

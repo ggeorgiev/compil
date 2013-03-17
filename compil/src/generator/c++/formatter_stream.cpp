@@ -361,6 +361,8 @@ ElementSPtr FormatterStream::convert(const ExpressionSPtr& expression)
         return convert(IdExpressionPrimaryExpression::downcast(expression));
     if (expression->runtimeExpressionId() == GrammarEqualityExpression::staticExpressionId())
         return convert(GrammarEqualityExpression::downcast(expression));
+    if (expression->runtimeExpressionId() == GrammarRelationalExpression::staticExpressionId())
+        return convert(GrammarRelationalExpression::downcast(expression));
     if (expression->runtimeExpressionId() == MemberAccessPostfixExpression::staticExpressionId())
         return convert(MemberAccessPostfixExpression::downcast(expression));
     if (expression->runtimeExpressionId() == MultiplicativeAdditiveExpression::staticExpressionId())
@@ -511,6 +513,22 @@ ElementSPtr FormatterStream::convert(const GrammarEqualityExpressionSPtr& expres
             break;
         case EqualityExpression::EType::kNotEqualTo:
             passage << (stringRef() << " != ");
+            break;
+        default:
+            BOOST_ASSERT(false);
+    }
+    passage << convert(expression->second());
+    return passage;
+}
+
+ElementSPtr FormatterStream::convert(const lang::cpp::GrammarRelationalExpressionSPtr& expression)
+{
+    PassageSPtr passage = passageRef();
+    passage << convert(expression->first());
+    switch (expression->type().value())
+    {
+        case RelationalExpression::EType::kLessThan:
+            passage << (stringRef() << " < ");
             break;
         default:
             BOOST_ASSERT(false);

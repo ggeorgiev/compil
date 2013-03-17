@@ -143,7 +143,8 @@ inline bool IntegerSpecimen::operator==(const IntegerSpecimen& rValue) const
     GenericEqualityExpressionSPtr genericEqualityExpression = boost::make_shared<GenericEqualityExpression>();
     genericEqualityExpression->set_type(EqualityExpression::EType::equalTo());
     genericEqualityExpression->set_first(methodCallExpressionRef() << valueMethod->name());
-    genericEqualityExpression->set_second(variableExpressionRef() << valueArgumentName);
+    genericEqualityExpression->set_second(methodCallExpressionRef() << (variableExpressionRef() << specimenArgumentName)
+                                                                    << valueMethod->name());
 
     class_ <<
         (lang::cpp::methodRef()
@@ -158,6 +159,13 @@ inline bool IntegerSpecimen::operator==(const IntegerSpecimen& rValue) const
                 << (compoundStatementRef()
                     << (returnJumpStatementRef()
                         << (genericEqualityExpression)))));
+                        
+    GenericEqualityExpressionSPtr genericEqualityExpressionNotEqual = boost::make_shared<GenericEqualityExpression>();
+    genericEqualityExpressionNotEqual->set_type(EqualityExpression::EType::notEqualTo());
+    genericEqualityExpressionNotEqual->set_first(methodCallExpressionRef() << valueMethod->name());
+    genericEqualityExpressionNotEqual->set_second(methodCallExpressionRef() << (variableExpressionRef() << specimenArgumentName)
+                                                                            << valueMethod->name());
+
 
     class_ <<
         (lang::cpp::methodRef()
@@ -167,8 +175,19 @@ inline bool IntegerSpecimen::operator==(const IntegerSpecimen& rValue) const
             << CppDeclaration::bool_()
             << (operatorMethodNameRef() << (operatorFunctionIdRef() << EOperator::notEqualTo()))
             << (parameterDeclarationClauseRef() << (parameterDeclarationListRef() << specimenDeclaratorParameterDeclaration))
-            << (cVQualifierSequenceRef() << ECVQualifier::const_()));
+            << (cVQualifierSequenceRef() << ECVQualifier::const_())
+            << (functionBodyRef()
+                << (compoundStatementRef()
+                    << (returnJumpStatementRef()
+                        << (genericEqualityExpressionNotEqual)))));
         
+
+    GenericRelationalExpressionSPtr genericRelationalExpression = boost::make_shared<GenericRelationalExpression>();
+    genericRelationalExpression->set_type(RelationalExpression::EType::lessThan());
+    genericRelationalExpression->set_first(methodCallExpressionRef() << valueMethod->name());
+    genericRelationalExpression->set_second(methodCallExpressionRef() << (variableExpressionRef() << specimenArgumentName)
+                                                                            << valueMethod->name());
+
     class_ <<
         (lang::cpp::methodRef()
             << class_
@@ -177,7 +196,12 @@ inline bool IntegerSpecimen::operator==(const IntegerSpecimen& rValue) const
             << CppDeclaration::bool_()
             << (operatorMethodNameRef() << (operatorFunctionIdRef() << EOperator::lessThan()))
             << (parameterDeclarationClauseRef() << (parameterDeclarationListRef() << specimenDeclaratorParameterDeclaration))
-            << (cVQualifierSequenceRef() << ECVQualifier::const_()));
+            << (cVQualifierSequenceRef() << ECVQualifier::const_())
+            << (functionBodyRef()
+                << (compoundStatementRef()
+                    << (returnJumpStatementRef()
+                        << (genericRelationalExpression)))));
+;
             
     class_ <<
         (lang::cpp::memberVariableRef()

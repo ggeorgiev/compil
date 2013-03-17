@@ -41,4 +41,11 @@ structure RelationalExpression
     inherit Expression
 {
     runtime identification;
+    
+    strong enum Type
+    {
+        lessThan;
+    }
+    
+    Type type;
 }
