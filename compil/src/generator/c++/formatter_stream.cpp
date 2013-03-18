@@ -335,6 +335,8 @@ ElementSPtr FormatterStream::convert(const EOperator& operator_)
             return stringRef() << "!=";
         case EOperator::kLessThan:
             return stringRef() << "<";
+        case EOperator::kAddition:
+            return stringRef() << "+";
     }
     
     BOOST_ASSERT(false);
@@ -359,6 +361,8 @@ ElementSPtr FormatterStream::convert(const ExpressionSPtr& expression)
         return convert(IdentifierUnqualifiedId::downcast(expression));
     if (expression->runtimeExpressionId() == IdExpressionPrimaryExpression::staticExpressionId())
         return convert(IdExpressionPrimaryExpression::downcast(expression));
+    if (expression->runtimeExpressionId() == GrammarAdditiveExpression::staticExpressionId())
+        return convert(GrammarAdditiveExpression::downcast(expression));
     if (expression->runtimeExpressionId() == GrammarEqualityExpression::staticExpressionId())
         return convert(GrammarEqualityExpression::downcast(expression));
     if (expression->runtimeExpressionId() == GrammarRelationalExpression::staticExpressionId())
@@ -500,6 +504,22 @@ ElementSPtr FormatterStream::convert(const OperatorFunctionIdSPtr& operator_)
 ElementSPtr FormatterStream::convert(const OperatorMethodNameSPtr& name)
 {
     return convert(name->operator_());
+}
+
+ElementSPtr FormatterStream::convert(const lang::cpp::GrammarAdditiveExpressionSPtr& expression)
+{
+    PassageSPtr passage = passageRef();
+    passage << convert(expression->first());
+    switch (expression->type().value())
+    {
+        case AdditiveExpression::EType::kAddition:
+            passage << (stringRef() << " + ");
+            break;
+        default:
+            BOOST_ASSERT(false);
+    }
+    passage << convert(expression->second());
+    return passage;
 }
 
 ElementSPtr FormatterStream::convert(const GrammarEqualityExpressionSPtr& expression)

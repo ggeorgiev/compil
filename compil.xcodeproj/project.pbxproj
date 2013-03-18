@@ -65,6 +65,8 @@
 		5E0D3CA616A6898F00B56ECD /* generate.bat */ = {isa = PBXFileReference; lastKnownFileType = text.script.sh; path = generate.bat; sourceTree = "<group>"; };
 		5E1213E316F5CCFE002D663A /* generic_relational_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = generic_relational_expression.scompil; sourceTree = "<group>"; };
 		5E1213E616F5CD18002D663A /* grammar_relational_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = grammar_relational_expression.scompil; sourceTree = "<group>"; };
+		5E1213E716F65EF7002D663A /* generic_additive_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = generic_additive_expression.scompil; sourceTree = "<group>"; };
+		5E1213E816F65F00002D663A /* grammar_additive_expression.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = grammar_additive_expression.scompil; sourceTree = "<group>"; };
 		5E14860816AB75F0002DE537 /* variable_name_declarator.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = variable_name_declarator.scompil; sourceTree = "<group>"; };
 		5E14860916AB7999002DE537 /* class_declaration_specifier.scompil */ = {isa = PBXFileReference; lastKnownFileType = text; path = class_declaration_specifier.scompil; sourceTree = "<group>"; };
 		5E14860B16AB84E8002DE537 /* aligner_configuration.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = aligner_configuration.cpp; sourceTree = "<group>"; };
@@ -1322,8 +1324,10 @@
 				5EB86F92168C01E50049B6A9 /* expression.scompil */,
 				5EB86FAE168D13E40049B6A9 /* expression_list.scompil */,
 				5EB86F9D168CCD800049B6A9 /* expression_factory.scompil */,
+				5E1213E716F65EF7002D663A /* generic_additive_expression.scompil */,
 				5EA69D3B1694013C009255A0 /* generic_equality_expression.scompil */,
 				5E1213E316F5CCFE002D663A /* generic_relational_expression.scompil */,
+				5E1213E816F65F00002D663A /* grammar_additive_expression.scompil */,
 				5EA69D371693FF37009255A0 /* grammar_equality_expression.scompil */,
 				5E1213E616F5CD18002D663A /* grammar_relational_expression.scompil */,
 				5EB86FA3168CFA390049B6A9 /* id_expression.scompil */,

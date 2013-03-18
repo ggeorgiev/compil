@@ -133,12 +133,6 @@ ClassSPtr CppSpecimen::class_(const SpecimenSPtr& specimen)
         
     DeclaratorParameterDeclarationSPtr specimenDeclaratorParameterDeclaration =
         CppDeclarator::constReferenceArgument(class_, specimenArgumentName);
-/*
-inline bool IntegerSpecimen::operator==(const IntegerSpecimen& rValue) const
-{
-    return value() == rValue.value();
-}
-*/
 
     GenericEqualityExpressionSPtr genericEqualityExpression = boost::make_shared<GenericEqualityExpression>();
     genericEqualityExpression->set_type(EqualityExpression::EType::equalTo());
@@ -186,7 +180,7 @@ inline bool IntegerSpecimen::operator==(const IntegerSpecimen& rValue) const
     genericRelationalExpression->set_type(RelationalExpression::EType::lessThan());
     genericRelationalExpression->set_first(methodCallExpressionRef() << valueMethod->name());
     genericRelationalExpression->set_second(methodCallExpressionRef() << (variableExpressionRef() << specimenArgumentName)
-                                                                            << valueMethod->name());
+                                                                      << valueMethod->name());
 
     class_ <<
         (lang::cpp::methodRef()
@@ -201,7 +195,26 @@ inline bool IntegerSpecimen::operator==(const IntegerSpecimen& rValue) const
                 << (compoundStatementRef()
                     << (returnJumpStatementRef()
                         << (genericRelationalExpression)))));
-;
+
+    GenericAdditiveExpressionSPtr genericAdditiveExpression = boost::make_shared<GenericAdditiveExpression>();
+    genericAdditiveExpression->set_type(AdditiveExpression::EType::addition());
+    genericAdditiveExpression->set_first(methodCallExpressionRef() << valueMethod->name());
+    genericAdditiveExpression->set_second(methodCallExpressionRef() << (variableExpressionRef() << specimenArgumentName)
+                                                                    << valueMethod->name());
+
+    class_ <<
+        (lang::cpp::methodRef()
+            << class_
+            << EAccessSpecifier::public_()
+            << EMethodSpecifier::inline_()
+            << (classDeclarationSpecifierRef() << class_)
+            << (operatorMethodNameRef() << (operatorFunctionIdRef() << EOperator::addition()))
+            << (parameterDeclarationClauseRef() << (parameterDeclarationListRef() << specimenDeclaratorParameterDeclaration))
+            << (cVQualifierSequenceRef() << ECVQualifier::const_())
+            << (functionBodyRef()
+                << (compoundStatementRef()
+                    << (returnJumpStatementRef()
+                        << (genericAdditiveExpression)))));
             
     class_ <<
         (lang::cpp::memberVariableRef()

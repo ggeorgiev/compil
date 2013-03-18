@@ -135,8 +135,10 @@ section main
     c++/expression/expression.scompil;
     c++/expression/expression_list.scompil;
     c++/expression/expression_factory.scompil;
+    c++/expression/generic_additive_expression.scompil;
     c++/expression/generic_equality_expression.scompil;
     c++/expression/generic_relational_expression.scompil;
+    c++/expression/grammar_additive_expression.scompil;
     c++/expression/grammar_equality_expression.scompil;
     c++/expression/grammar_relational_expression.scompil;
     c++/expression/id_expression.scompil;

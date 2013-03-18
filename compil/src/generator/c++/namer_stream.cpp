@@ -57,6 +57,26 @@ std::string NamerStream::str()
     return mFormatter.str();
 }
 
+AdditiveExpressionSPtr NamerStream::convertAdditiveExpression(const ExpressionSPtr& expression)
+{
+    if (expression->runtimeExpressionId() == GenericAdditiveExpression::staticExpressionId())
+    {
+        GenericAdditiveExpressionSPtr adexpression = GenericAdditiveExpression::downcast(expression);
+    
+        GrammarAdditiveExpressionSPtr grammarAdditiveExpression = grammarAdditiveExpressionRef()
+            << adexpression->type()
+            << convertAdditiveExpression(adexpression->first())
+            << convertMultiplicativeExpression(adexpression->second());
+
+        return grammarAdditiveExpression;
+    }
+    
+    MultiplicativeAdditiveExpressionSPtr multiplicativeAdditiveExpression = multiplicativeAdditiveExpressionRef()
+        << convertMultiplicativeExpression(expression);
+    
+    return multiplicativeAdditiveExpression;
+}
+
 BodyFunctionDefinitionSPtr NamerStream::convertBodyFunctionDefinition(const BodyFunctionDefinitionSPtr& definition)
 {
     BodyFunctionDefinitionSPtr newdefinition = bodyFunctionDefinitionRef();
@@ -249,6 +269,9 @@ ExpressionSPtr NamerStream::convertExpression(const ExpressionSPtr& expression)
         map[expression] = expression;
         return expression;
     }
+
+    if (expression->runtimeExpressionId() == GenericAdditiveExpression::staticExpressionId())
+        return convertAdditiveExpression(expression);
     
     if (expression->runtimeExpressionId() == GenericEqualityExpression::staticExpressionId())
         return convertEqualityExpression(expression);
@@ -454,6 +477,19 @@ MemberSpecificationSectionSPtr NamerStream::convertMemberSpecificationSection(co
     return newsection;
 }
 
+MultiplicativeExpressionSPtr NamerStream::convertMultiplicativeExpression(const ExpressionSPtr& expression)
+{
+    PostfixUnaryExpressionSPtr postfixUnaryExpression = postfixUnaryExpressionRef()
+        << convertPostfixExpression(expression);
+    UnaryCastExpressionSPtr unaryCastExpression = unaryCastExpressionRef()
+        << postfixUnaryExpression;
+    CastPmExpressionSPtr castPmExpression = castPmExpressionRef()
+        << unaryCastExpression;
+    PmMultiplicativeExpressionSPtr pmMultiplicativeExpression = pmMultiplicativeExpressionRef()
+        << castPmExpression;
+    return pmMultiplicativeExpression;
+}
+
 NestedNameSpecifierSPtr NamerStream::convertNestedNameSpecifier(const ClassSPtr& class_)
 {
     NestedNameSpecifierSPtr nestedNameSpecifier;
@@ -624,19 +660,8 @@ RelationalExpressionSPtr NamerStream::convertRelationalExpression(const Expressi
 
 ShiftExpressionSPtr NamerStream::convertShiftExpression(const ExpressionSPtr& expression)
 {
-    PostfixUnaryExpressionSPtr postfixUnaryExpression = postfixUnaryExpressionRef()
-        << convertPostfixExpression(expression);
-    UnaryCastExpressionSPtr unaryCastExpression = unaryCastExpressionRef()
-        << postfixUnaryExpression;
-    CastPmExpressionSPtr castPmExpression = castPmExpressionRef()
-        << unaryCastExpression;
-    PmMultiplicativeExpressionSPtr pmMultiplicativeExpression = pmMultiplicativeExpressionRef()
-        << castPmExpression;
-    MultiplicativeAdditiveExpressionSPtr multiplicativeAdditiveExpression = multiplicativeAdditiveExpressionRef()
-        << pmMultiplicativeExpression;
     AdditiveShiftExpressionSPtr additiveShiftExpression = additiveShiftExpressionRef()
-        << multiplicativeAdditiveExpression;
-        
+        << convertAdditiveExpression(expression);
     return additiveShiftExpression;
 }
 

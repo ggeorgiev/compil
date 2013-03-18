@@ -32,20 +32,15 @@
 
 compil { }
 
-import "c++/expression/expression.scompil";
+import "c++/expression/additive_expression.scompil";
 
 package lang.cpp | *.*.*;
 
-streamable
-structure AdditiveExpression
-    inherit Expression
+structure GenericAdditiveExpression
+    inherit AdditiveExpression
 {
     runtime identification;
     
-    strong enum Type
-    {
-        addition;
-    }
-    
-    Type type;
+    reference<Expression> first;
+    reference<Expression> second;
 }

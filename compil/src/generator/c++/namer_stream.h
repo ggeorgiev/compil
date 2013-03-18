@@ -69,6 +69,7 @@ public:
     NamerStream& operator<<(const lang::all::LineDelimiterSPtr& endl);
 
 private:
+    static AdditiveExpressionSPtr           convertAdditiveExpression(const ExpressionSPtr& expression);
     static BodyFunctionDefinitionSPtr       convertBodyFunctionDefinition(const BodyFunctionDefinitionSPtr& definition);
     static CompoundStatementSPtr            convertCompoundStatement(const CompoundStatementSPtr& statement);
     static ClassSpecifierSPtr               convertClassSpecifier(const ClassSpecifierSPtr& specifier);
@@ -103,6 +104,7 @@ private:
     static MemberDeclaratorSPtr             convertMemberDeclarator(const MemberDeclaratorSPtr& declarator);
     static MemberSpecificationSPtr          convertMemberSpecification(const MemberSpecificationSPtr& specification);
     static MemberSpecificationSectionSPtr   convertMemberSpecificationSection(const MemberSpecificationSectionSPtr& section);
+    static MultiplicativeExpressionSPtr     convertMultiplicativeExpression(const ExpressionSPtr& expression);
     static NestedNameSpecifierSPtr          convertNestedNameSpecifier(const ClassSPtr& class_);
     static ParameterDeclarationSPtr         convertParameterDeclaration(const ParameterDeclarationSPtr& declarator);
     static ParameterDeclarationClauseSPtr   convertParameterDeclarationClause(const ParameterDeclarationClauseSPtr& declarator);
