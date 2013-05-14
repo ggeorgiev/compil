@@ -505,14 +505,14 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
 void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& specimen)
 {
     NamerConfigurationSPtr nc = boost::make_shared<NamerConfiguration>();
-    
-#if 1
+
+#if 0
     ImplementerStream stream(impl->mConfiguration, nc, frm->mpFormatterConfiguration, mpAlignerConfiguration);
-    
+
     lang::cpp::ClassSPtr class_ = lib::cpp::CppSpecimen::class_(specimen);
 
     stream << class_;
-    
+
     line() << "#if 0";
     eol(declarationStream);
 
@@ -521,7 +521,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& specime
 
     line() << "#endif";
     eol(declarationStream);
-    eol(declarationStream);    
+    eol(declarationStream);
 #endif
 
     TypeSPtr pParameterType = specimen->parameterType().lock();

@@ -258,6 +258,12 @@ cpp::frm::TypeSPtr CppImplementer::cppType(const TypeSPtr& pType)
             default:
                 break;
         }
+
+        if (name == "real32")
+            return cpp::frm::typeRef() << cpp::frm::typeNameRef("float");
+        if (name == "real64")
+            return cpp::frm::typeRef() << cpp::frm::typeNameRef("double");
+
         if (name == "string")
         {
             switch (mConfiguration->mString)
@@ -414,7 +420,7 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
         if (mConfiguration->mFlagsEnumeration == ImplementerConfiguration::flags_enumeration_use_core_template)
         {
             // todo: we should report an error here mCorePackage is null
-                
+
             dep.push_back(
                 Dependency(cppFilepath(mCorePackage),
                            "flags_enumeration" + applicationExtension(declaration),
@@ -557,7 +563,6 @@ Dependency CppImplementer::nullDependency()
     }
     return Dependency();
 }
-
 
 std::string CppImplementer::assert_method()
 {
@@ -750,7 +755,6 @@ EnumerationSPtr CppImplementer::objectEnumeration(const DocumentSPtr& document,
     return pEnumeration;
 }
 
-
 cpp::frm::EMethodSpecifier CppImplementer::methodSpecifier(const StructureSPtr& pStructure)
 {
     StructureSPtr pStruct = pStructure;
@@ -876,7 +880,7 @@ PackageSPtr CppImplementer::cppHeaderPackage(const PackageSPtr& package)
 
     if (mConfiguration->mCppIncludePath == ImplementerConfiguration::include_path_based_on_package)
         return package;
-    
+
     assert(false && "unknown mCppIncludePath");
     return PackageSPtr();
 }
@@ -910,4 +914,3 @@ Dependency CppImplementer::cppHeaderFileDependency(const TypeSPtr& type)
 }
 
 }
-
