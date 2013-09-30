@@ -51,6 +51,8 @@ namespace filesystem {
 path resolve(const path& p);
 path relative_path(const path& directory, const path& to);
 
+bool is_identical(const boost::filesystem::path file1, const boost::filesystem::path& file2);
+
 // copies the source over the target only if the target id different
 void optional_copy(const boost::filesystem::path source, const boost::filesystem::path& target);
 

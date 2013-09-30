@@ -23,6 +23,11 @@ def gatherFilesHelper(path):
     filesSet |= set(glob.glob('{0}\*.cc'.format(path)))
     filesSet |= set(glob.glob('{0}\*.cpp'.format(path)))
     filesSet |= set(glob.glob('{0}\*.rc'.format(path)))
+    filesSet |= set(glob.glob('{0}\*.compil'.format(path)))
+    filesSet |= set(glob.glob('{0}\*.scompil'.format(path)))
+    filesSet |= set(glob.glob('{0}\*.compilprj'.format(path)))
+    filesSet |= set(glob.glob('{0}\*.scompilprj'.format(path)))
+    
 
     filesSet |= set(glob.glob('{0}\*.bat'.format(path)))
 
@@ -49,6 +54,10 @@ class ProjectData(object):
                         '.cpp' : 'ClCompile',
                         '.rc' : 'ResourceCompile',
                         '.proto' : 'None',
+                        '.compil' : 'None',
+                        '.scompil' : 'None',
+                        '.compilprj' : 'None',
+                        '.scompilprj' : 'None',
                         '.bat' : 'None',
                         '.jam': 'None'}
 

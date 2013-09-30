@@ -67,11 +67,65 @@
     <Filter Include=".gen\language\compil\project">
       <UniqueIdentifier>{9b89c0ac-9c5a-32ec-ad07-89bf91a8f142}</UniqueIdentifier>
     </Filter>
+    <Filter Include="all">
+      <UniqueIdentifier>{3431f2e0-2450-3bf4-8d84-639d5d232a65}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="all\element">
+      <UniqueIdentifier>{69038ba9-1188-309e-a8a4-a75bf37fa74d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="all\mold">
+      <UniqueIdentifier>{13a702af-569c-3468-8f42-1b036142be0a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++">
+      <UniqueIdentifier>{68e6a840-5d99-3d2d-952a-a9063e206212}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\class">
+      <UniqueIdentifier>{bffc1742-6e29-3778-9904-515a314ac880}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\declaration">
+      <UniqueIdentifier>{5959ae15-3d17-304a-8885-740ac4ce7ca8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\declarator">
+      <UniqueIdentifier>{9a5e85d0-2ff1-397e-b7f1-99c199ce8d50}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\derieved_class">
+      <UniqueIdentifier>{335d24ec-8dea-32f4-8d33-22b9f46651d5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\expression">
+      <UniqueIdentifier>{7ab376fb-8f9a-3f13-a34c-6c76bd35b114}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\lexical">
+      <UniqueIdentifier>{10fb26d2-3f46-3c58-a61b-c8042721c459}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\logical">
+      <UniqueIdentifier>{11122372-1c71-3767-af5d-615113430540}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\namespace">
+      <UniqueIdentifier>{af6bf664-9c7d-3f53-b293-fab5da2af651}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\overloading">
+      <UniqueIdentifier>{dff96f8d-9909-36dc-8be6-ff4fbf4205b9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\preprocessor">
+      <UniqueIdentifier>{64013c4d-c087-3a4c-8dc2-b2d09dcdda9d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\statement">
+      <UniqueIdentifier>{182a8215-faba-3d63-ae0c-cf02e5d65ced}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\test">
+      <UniqueIdentifier>{86de349c-88c5-3a09-b76b-6d7ee7218a2f}</UniqueIdentifier>
+    </Filter>
     <Filter Include="compil">
       <UniqueIdentifier>{2218d0bc-8352-33bc-b526-1cb8cbbe4a4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="compil\all">
+      <UniqueIdentifier>{b163745a-03d8-3d63-aee9-b7755d32a01d}</UniqueIdentifier>
+    </Filter>
     <Filter Include="compil\document">
       <UniqueIdentifier>{664d9455-e452-3063-939d-25c42f2d6bd9}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="compil\project">
+      <UniqueIdentifier>{70f5b47b-6202-3cdb-a3b9-7facce6afd84}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -1263,47 +1317,683 @@
     <ClInclude Include="..\compil\src\language\.gen\language\compil\project\section.h">
       <Filter>.gen\language\compil\project</Filter>
     </ClInclude>
+    <None Include="..\compil\src\language\all\element\element.scompil">
+      <Filter>all\element</Filter>
+    </None>
+    <None Include="..\compil\src\language\all\element\element_factory.scompil">
+      <Filter>all\element</Filter>
+    </None>
+    <None Include="..\compil\src\language\all\element\end_of_line.scompil">
+      <Filter>all\element</Filter>
+    </None>
+    <None Include="..\compil\src\language\all\element\line_delimiter.scompil">
+      <Filter>all\element</Filter>
+    </None>
+    <None Include="..\compil\src\language\all\element\list.scompil">
+      <Filter>all\element</Filter>
+    </None>
+    <None Include="..\compil\src\language\all\element\passage.scompil">
+      <Filter>all\element</Filter>
+    </None>
+    <None Include="..\compil\src\language\all\element\string.scompil">
+      <Filter>all\element</Filter>
+    </None>
+    <None Include="..\compil\src\language\all\mold\level.scompil">
+      <Filter>all\mold</Filter>
+    </None>
+    <None Include="..\compil\src\language\all\mold\line.scompil">
+      <Filter>all\mold</Filter>
+    </None>
+    <None Include="..\compil\src\language\all\mold\mold.scompil">
+      <Filter>all\mold</Filter>
+    </None>
+    <None Include="..\compil\src\language\all\mold\scope.scompil">
+      <Filter>all\mold</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\comment.compil">
+      <Filter>c++</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\const_declaration.compil">
+      <Filter>c++</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\copy_right_comment.compil">
+      <Filter>c++</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\destructor.compil">
+      <Filter>c++</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\document.compil">
+      <Filter>c++</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\header.compil">
+      <Filter>c++</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\header_guard.compil">
+      <Filter>c++</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\header_path.compil">
+      <Filter>c++</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\header_section.compil">
+      <Filter>c++</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\header_type.compil">
+      <Filter>c++</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\include.compil">
+      <Filter>c++</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\layer_comment.compil">
+      <Filter>c++</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\method_comment.compil">
+      <Filter>c++</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\method_specifier.compil">
+      <Filter>c++</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\class.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\class_head.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\class_key.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\class_name.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\class_name_factory.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\class_specifier.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\constructor.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\constructor_method_name.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\declarator_member_declarator.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\destructor.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\destructor_method_name.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\function_definition_member_declaration.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\identifier_class_name.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\identifier_destructor_method_name.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\identifier_method_name.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\member_declaration.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\member_declarator.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\member_specification.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\member_variable.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\method.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\method_name.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\method_specifier.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\operator_method_name.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\pure_member_declarator.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\pure_specifier.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\class\specifier_member_declaration.scompil">
+      <Filter>c++\class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\block_declaration.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\builtin_simple_type_specifier.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\class_declaration_specifier.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\class_type_name.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\cv_qualifier_type_specifier.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\declaration.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\declaration_factory.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\declaration_specifier.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\declaration_specifier_sequence.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\function_declaration_specifier.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\function_name.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\function_specifier.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\generic_declaration_specifier.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\simple_block_declaration.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\simple_declaration.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\simple_type_specifier.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\type_declaration_specifier.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\type_name.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\type_name_simple_type_specifier.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declaration\type_specifier.scompil">
+      <Filter>c++\declaration</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\body_function_definition.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\cv_qualifier.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\cv_qualifier_sequence.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\declarator.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\declarator_factory.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\declarator_id.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\declarator_id_direct_declarator.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\declarator_parameter_declaratoin.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\direct_declarator.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\function_body.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\function_definition.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\function_name_declarator_id.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\init_declarator.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\parameter_declaratoin.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\parameter_declaratoin_clause.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\parameter_declaratoin_list.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\parameters_direct_declarator.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\pointer_declarator.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\pointer_operator.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\reference_pointer_operator.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\type_name_declarator_id.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\declarator\variable_name_declarator.scompil">
+      <Filter>c++\declarator</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\derieved_class\access_specifier.scompil">
+      <Filter>c++\derieved_class</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\additive_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\additive_shift_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\cast_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\cast_pm_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\class_nested_name.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\constructor_call_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\custom_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\custom_id_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\custom_postfix_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\equality_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\expression_factory.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\expression_list.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\generic_additive_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\generic_equality_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\generic_relational_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\grammar_additive_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\grammar_equality_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\grammar_relational_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\id_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\id_expression_primary_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\identifier_unqualified_id.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\member_access_postfix_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\method_call_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\multiplicative_additive_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\multiplicative_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\namespace_nested_name.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\nested_name.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\nested_name_specifier.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\parentheses_postfix_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\pm_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\pm_multiplicative_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\postfix_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\postfix_unary_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\primary_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\primary_expression_postfix_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\relational_equality_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\relational_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\shift_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\shift_relational_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\unary_cast_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\unary_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\unqualified_id.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\unqualified_id_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\expression\variable_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\lexical\identifier-cpp.scompil">
+      <Filter>c++\lexical</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\logical\argument_variable_name.scompil">
+      <Filter>c++\logical</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\logical\local_variable_name.scompil">
+      <Filter>c++\logical</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\logical\member_variable_name.scompil">
+      <Filter>c++\logical</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\logical\type_kind.scompil">
+      <Filter>c++\logical</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\logical\variable_name.scompil">
+      <Filter>c++\logical</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\namespace\identifier_namespace_name.scompil">
+      <Filter>c++\namespace</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\namespace\namespace.scompil">
+      <Filter>c++\namespace</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\namespace\namespace_name.scompil">
+      <Filter>c++\namespace</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\namespace\namespace_name_factory.scompil">
+      <Filter>c++\namespace</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\overloading\operator.scompil">
+      <Filter>c++\overloading</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\overloading\operator_function_id.scompil">
+      <Filter>c++\overloading</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\preprocessor\declaration_macro_argument.scompil">
+      <Filter>c++\preprocessor</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\preprocessor\expression_macro_argument.scompil">
+      <Filter>c++\preprocessor</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\preprocessor\macro.scompil">
+      <Filter>c++\preprocessor</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\preprocessor\macro_argument.scompil">
+      <Filter>c++\preprocessor</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\preprocessor\macro_argument_factory.scompil">
+      <Filter>c++\preprocessor</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\preprocessor\macro_name.scompil">
+      <Filter>c++\preprocessor</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\statement\compound_statement.scompil">
+      <Filter>c++\statement</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\statement\declaration_statement.scompil">
+      <Filter>c++\statement</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\statement\expression_statement.scompil">
+      <Filter>c++\statement</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\statement\jump_statement.scompil">
+      <Filter>c++\statement</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\statement\macro_statement.scompil">
+      <Filter>c++\statement</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\statement\return_jump_statement.scompil">
+      <Filter>c++\statement</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\statement\statement.scompil">
+      <Filter>c++\statement</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\statement\statement_factory.scompil">
+      <Filter>c++\statement</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\statement\throw_test_statement.scompil">
+      <Filter>c++\statement</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\statement\unary_test_statement.scompil">
+      <Filter>c++\statement</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\statement\variable_declaration_statement.scompil">
+      <Filter>c++\statement</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\test\test.scompil">
+      <Filter>c++\test</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\test\test_name.scompil">
+      <Filter>c++\test</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\test\test_suite.scompil">
+      <Filter>c++\test</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\test\test_suite_name.scompil">
+      <Filter>c++\test</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\all\comment.scompil">
+      <Filter>compil\all</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\all\file.scompil">
+      <Filter>compil\all</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\all\name.scompil">
+      <Filter>compil\all</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\all\object.scompil">
+      <Filter>compil\all</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\all\object_factory.scompil">
+      <Filter>compil\all</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\all\package.scompil">
+      <Filter>compil\all</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\all\package_element.scompil">
+      <Filter>compil\all</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\all\source_id.scompil">
+      <Filter>compil\all</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\all\version.scompil">
+      <Filter>compil\all</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\alter.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\castable_type.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\constant.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\default_value.scompil">
+      <Filter>compil\document</Filter>
+    </None>
     <ClCompile Include="..\compil\src\language\compil\document\document.cpp">
       <Filter>compil\document</Filter>
     </ClCompile>
     <ClInclude Include="..\compil\src\language\compil\document\document.h">
       <Filter>compil\document</Filter>
     </ClInclude>
+    <None Include="..\compil\src\language\compil\document\document.scompil">
+      <Filter>compil\document</Filter>
+    </None>
     <ClCompile Include="..\compil\src\language\compil\document\enumeration.cpp">
       <Filter>compil\document</Filter>
     </ClCompile>
     <ClInclude Include="..\compil\src\language\compil\document\enumeration.h">
       <Filter>compil\document</Filter>
     </ClInclude>
+    <None Include="..\compil\src\language\compil\document\enumeration.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\enumeration_value.scompil">
+      <Filter>compil\document</Filter>
+    </None>
     <ClCompile Include="..\compil\src\language\compil\document\factory.cpp">
       <Filter>compil\document</Filter>
     </ClCompile>
     <ClInclude Include="..\compil\src\language\compil\document\factory.h">
       <Filter>compil\document</Filter>
     </ClInclude>
+    <None Include="..\compil\src\language\compil\document\factory.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\field.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\field_override.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\filter.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\identification.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\identifier.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\import.scompil">
+      <Filter>compil\document</Filter>
+    </None>
     <ClCompile Include="..\compil\src\language\compil\document\integer.cpp">
       <Filter>compil\document</Filter>
     </ClCompile>
     <ClInclude Include="..\compil\src\language\compil\document\integer.h">
       <Filter>compil\document</Filter>
     </ClInclude>
+    <None Include="..\compil\src\language\compil\document\integer.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\interface.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\method.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\operator.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\operator_action.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\operator_flags.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\parameter.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\reference.scompil">
+      <Filter>compil\document</Filter>
+    </None>
     <ClCompile Include="..\compil\src\language\compil\document\specimen.cpp">
       <Filter>compil\document</Filter>
     </ClCompile>
     <ClInclude Include="..\compil\src\language\compil\document\specimen.h">
       <Filter>compil\document</Filter>
     </ClInclude>
+    <None Include="..\compil\src\language\compil\document\specimen.scompil">
+      <Filter>compil\document</Filter>
+    </None>
     <ClCompile Include="..\compil\src\language\compil\document\structure.cpp">
       <Filter>compil\document</Filter>
     </ClCompile>
     <ClInclude Include="..\compil\src\language\compil\document\structure.h">
       <Filter>compil\document</Filter>
     </ClInclude>
+    <None Include="..\compil\src\language\compil\document\structure.scompil">
+      <Filter>compil\document</Filter>
+    </None>
     <ClCompile Include="..\compil\src\language\compil\document\type.cpp">
       <Filter>compil\document</Filter>
     </ClCompile>
     <ClInclude Include="..\compil\src\language\compil\document\type.h">
       <Filter>compil\document</Filter>
     </ClInclude>
+    <None Include="..\compil\src\language\compil\document\type.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\unary_container.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\unary_template.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\document\upcopy.scompil">
+      <Filter>compil\document</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\project\file_path.scompil">
+      <Filter>compil\project</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\project\project.scompil">
+      <Filter>compil\project</Filter>
+    </None>
+    <None Include="..\compil\src\language\compil\project\section.scompil">
+      <Filter>compil\project</Filter>
+    </None>
   </ItemGroup>
 </Project>

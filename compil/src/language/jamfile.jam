@@ -14,7 +14,7 @@ project language
       <include>.gen
     ;
 
-lib cpp-language
+lib all-language
   :
     $(GEN)/all/element/element.cpp
     $(GEN)/all/element/element_factory.cpp
@@ -28,7 +28,19 @@ lib cpp-language
     $(GEN)/all/mold/line.cpp
     $(GEN)/all/mold/mold.cpp
     $(GEN)/all/mold/scope.cpp
-        
+
+    $(TOP)/core//core
+    
+    boost_templates
+  :
+  :
+  :
+    <include>$(TOP)
+    <include>.gen
+  ; 
+
+lib cpp-language
+  :
     $(GEN)/c++/class/class.cpp
     $(GEN)/c++/class/class_head.cpp
     $(GEN)/c++/class/class_key.cpp
@@ -264,6 +276,7 @@ lib compil-language
 
 alias language
   :
+    all-language
     cpp-language
     compil-language
   ;

@@ -60,6 +60,10 @@ rule boost-defines ( )
       :
         boost_requirements_for_all
         boost_iostreams-lib
+      :
+      :
+      :
+       <define>_SCL_SECURE_NO_WARNINGS
       ;
 
     lib boost_system-lib

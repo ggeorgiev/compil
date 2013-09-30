@@ -3,7 +3,10 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2012
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "admin", "admin", "{EE7BBF03-A10D-4D79-991D-45007BF6FAE4}"
 	ProjectSection(SolutionItems) = preProject
+		b2.bat = b2.bat
+		build-test.bat = build-test.bat
 		build.bat = build.bat
+		..\compil\scripts\windows\generate-tests.bat = ..\compil\scripts\windows\generate-tests.bat
 		..\compil\scripts\windows\generate.bat = ..\compil\scripts\windows\generate.bat
 		..\compil\src\jamboost.jam = ..\compil\src\jamboost.jam
 		..\compil\src\jamgtest.jam = ..\compil\src\jamgtest.jam
@@ -18,8 +21,6 @@ Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "core", "core.vcxproj", "{05
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "generator", "generator.vcxproj", "{89F7BA88-7086-35A1-A7EE-232DB7CB97AF}"
 EndProject
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "generator-self", "generator-self.vcxproj", "{A3E46480-64C3-3F01-9D54-16969EBA60D6}"
-EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "generator-test", "generator-test.vcxproj", "{D320C075-B25E-3C84-965B-E80734F73C2D}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "language", "language.vcxproj", "{67321DD2-75CD-366F-A390-A8EA71B19D40}"
@@ -27,6 +28,13 @@ EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "library", "library.vcxproj", "{0AED5F1C-2754-3341-8BFF-200D96942A9F}"
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "generator_app", "generator_app.vcxproj", "{7DE3E54C-8122-4354-91CD-BD5180B3A3F1}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "tests", "tests", "{CA41F1BD-C9C0-49CF-8C58-8F9810D0B0A0}"
+EndProject
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "all-tests", "all-tests.vcxproj", "{04E80511-31BF-4DB1-9F77-B017D7249BF2}"
+	ProjectSection(ProjectDependencies) = postProject
+		{7DE3E54C-8122-4354-91CD-BD5180B3A3F1} = {7DE3E54C-8122-4354-91CD-BD5180B3A3F1}
+	EndProjectSection
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -52,10 +60,6 @@ Global
 		{89F7BA88-7086-35A1-A7EE-232DB7CB97AF}.Release|Win32.Build.0 = Release|Win32
 		{89F7BA88-7086-35A1-A7EE-232DB7CB97AF}.Release|x64.ActiveCfg = Release|x64
 		{89F7BA88-7086-35A1-A7EE-232DB7CB97AF}.Release|x64.Build.0 = Release|x64
-		{A3E46480-64C3-3F01-9D54-16969EBA60D6}.Debug|Win32.ActiveCfg = Debug|Win32
-		{A3E46480-64C3-3F01-9D54-16969EBA60D6}.Debug|x64.ActiveCfg = Debug|x64
-		{A3E46480-64C3-3F01-9D54-16969EBA60D6}.Release|Win32.ActiveCfg = Release|Win32
-		{A3E46480-64C3-3F01-9D54-16969EBA60D6}.Release|x64.ActiveCfg = Release|x64
 		{D320C075-B25E-3C84-965B-E80734F73C2D}.Debug|Win32.ActiveCfg = Debug|Win32
 		{D320C075-B25E-3C84-965B-E80734F73C2D}.Debug|x64.ActiveCfg = Debug|x64
 		{D320C075-B25E-3C84-965B-E80734F73C2D}.Release|Win32.ActiveCfg = Release|Win32
@@ -72,8 +76,20 @@ Global
 		{7DE3E54C-8122-4354-91CD-BD5180B3A3F1}.Debug|x64.ActiveCfg = Debug|x64
 		{7DE3E54C-8122-4354-91CD-BD5180B3A3F1}.Release|Win32.ActiveCfg = Release|Win32
 		{7DE3E54C-8122-4354-91CD-BD5180B3A3F1}.Release|x64.ActiveCfg = Release|x64
+		{04E80511-31BF-4DB1-9F77-B017D7249BF2}.Debug|Win32.ActiveCfg = Debug|Win32
+		{04E80511-31BF-4DB1-9F77-B017D7249BF2}.Debug|Win32.Build.0 = Debug|Win32
+		{04E80511-31BF-4DB1-9F77-B017D7249BF2}.Debug|x64.ActiveCfg = Debug|x64
+		{04E80511-31BF-4DB1-9F77-B017D7249BF2}.Debug|x64.Build.0 = Debug|x64
+		{04E80511-31BF-4DB1-9F77-B017D7249BF2}.Release|Win32.ActiveCfg = Release|Win32
+		{04E80511-31BF-4DB1-9F77-B017D7249BF2}.Release|Win32.Build.0 = Release|Win32
+		{04E80511-31BF-4DB1-9F77-B017D7249BF2}.Release|x64.ActiveCfg = Release|x64
+		{04E80511-31BF-4DB1-9F77-B017D7249BF2}.Release|x64.Build.0 = Release|x64
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{D320C075-B25E-3C84-965B-E80734F73C2D} = {CA41F1BD-C9C0-49CF-8C58-8F9810D0B0A0}
+		{04E80511-31BF-4DB1-9F77-B017D7249BF2} = {CA41F1BD-C9C0-49CF-8C58-8F9810D0B0A0}
 	EndGlobalSection
 EndGlobal

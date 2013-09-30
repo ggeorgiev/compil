@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -36,9 +36,9 @@ namespace cf = cpp::frm;
 
 namespace compil
 {
-    
+
 const int CppFlagsEnumerationGenerator::declarationStream = 1;
-    
+
 CppFlagsEnumerationGenerator::CppFlagsEnumerationGenerator()
 {
     for (int i = 0; i <= 1; ++i)
@@ -55,37 +55,37 @@ CppFlagsEnumerationGenerator::~CppFlagsEnumerationGenerator()
 bool CppFlagsEnumerationGenerator::generate()
 {
     includeHeaders(declarationStream, Dependency::global_section);
-    
+
     std::string guard = frm->headerGuard("core/flags_enumeration.hpp");
-    
-    line()  << "#ifndef " 
+
+    line()  << "#ifndef "
             << guard;
     eol(declarationStream);
-    line()  << "#define " 
+    line()  << "#define "
             << guard;
     eol(declarationStream);
     eol(declarationStream);
-    
+
     includeHeaders(declarationStream, Dependency::private_section);
-    
+
     cf::TypeSPtr decoratedType = T;
     cf::TypeSPtr decoratedInherit = F;
     cf::TypeSPtr decoratedInheritRef = cstFRef;
-    
+
     cf::ConstructorNameSPtr class_name = cf::constructorNameRef("flags_enumeration");
     cf::VariableNameSPtr memberValue = frm->memberVariableName(value);
     cf::ArgumentSPtr argMask = cf::argumentRef() << decoratedInheritRef
                                                  << cf::variableNameRef("mask");
     cf::ArgumentSPtr argValue = cf::argumentRef() << decoratedInheritRef
                                                   << value;
-    
+
     line()  << "template<class "
             << T->name()->value()
             << ", class "
             << F->name()->value()
             << ">";
     eol(declarationStream);
-    
+
     line()  << "class "
             << class_name;
     openBlock(declarationStream);
@@ -97,24 +97,24 @@ bool CppFlagsEnumerationGenerator::generate()
     eol(declarationStream);
     fdef()  << (cf::constructorRef() << class_name);
     eofd(declarationStream);
-    line()  << ": " 
+    line()  << ": "
             << (cf::initializationRef() << memberValue
                                         << cf::parameterValueRef("0"));
     openBlock(declarationStream, 1);
     closeBlock(declarationStream);
     eol(declarationStream);
-    
+
     fdef()  << (cf::constructorRef() << class_name
                                      << (cf::argumentRef() << decoratedType
                                                            << value));
     eofd(declarationStream);
-    line()  << ": " 
+    line()  << ": "
             << (cf::initializationRef() << memberValue
                                         << frm->parameterValue(value));
     openBlock(declarationStream, 1);
     closeBlock(declarationStream);
     eol(declarationStream);
-    
+
     fdef()  << (cf::methodRef() << decoratedType
                                 << fnValue
                                 << cf::EMethodDeclaration::const_());
@@ -124,7 +124,7 @@ bool CppFlagsEnumerationGenerator::generate()
             << ";";
     closeBlock(declarationStream);
     eol(declarationStream);
-    
+
     commentInLine(declarationStream,
                   "Resets the flags included in the mask to the state in value");
     fdef()  << (cf::methodRef() << vd
@@ -136,7 +136,7 @@ bool CppFlagsEnumerationGenerator::generate()
             << " = value.value() | (this->value() & ~mask.value());";
     closeBlock(declarationStream);
     eol(declarationStream);
-    
+
     commentInLine(declarationStream,
                   "Sets the flags included in the mask. Equivalent to reset(mask, all).");
     fdef()  << (cf::methodRef() << vd
@@ -147,7 +147,7 @@ bool CppFlagsEnumerationGenerator::generate()
             << " |= mask.value();";
     closeBlock(declarationStream);
     eol(declarationStream);
-    
+
     commentInLine(declarationStream,
                    "Clears the flags included in the mask. Equivalent to reset(mask, nil).");
     fdef()  << (cf::methodRef() << vd
@@ -158,7 +158,7 @@ bool CppFlagsEnumerationGenerator::generate()
             << " &= ~mask.value();";
     closeBlock(declarationStream);
     eol(declarationStream);
-    
+
     commentInLine(declarationStream,
                    "Turns the flags included in the mask.");
     fdef()  << (cf::methodRef() << vd
@@ -198,7 +198,7 @@ bool CppFlagsEnumerationGenerator::generate()
             << "(value() | mask.value());";
     closeBlock(declarationStream);
     eol(declarationStream);
-    
+
     commentInLine(declarationStream,
                   "Returns intersection of the flags included in the mask. "
                   "This is immutable version of clear.");
@@ -212,7 +212,7 @@ bool CppFlagsEnumerationGenerator::generate()
             << "(value() & ~mask.value());";
     closeBlock(declarationStream);
     eol(declarationStream);
-    
+
     commentInLine(declarationStream,
                   "Returns flipped the flags included in the mask. "
                   "This is immutable version of turn.");
@@ -226,7 +226,7 @@ bool CppFlagsEnumerationGenerator::generate()
             << "(value() ^ mask.value());";
     closeBlock(declarationStream);
     eol(declarationStream);
-    
+
     commentInLine(declarationStream,
                   "Tests if the flags included in the mask are the same state as state in value");
     fdef()  << (cf::methodRef() << bl
@@ -238,7 +238,7 @@ bool CppFlagsEnumerationGenerator::generate()
     line()  << "return (this->value() & mask.value()) == value.value();";
     closeBlock(declarationStream);
     eol(declarationStream);
-    
+
     commentInLine(declarationStream,
                   "Tests if the flags included in the mask are set. Equivalent to test(mask, all).");
     fdef()  << (cf::methodRef() << bl
@@ -249,7 +249,7 @@ bool CppFlagsEnumerationGenerator::generate()
     line()  << "return (value() & mask.value()) == mask.value();";
     closeBlock(declarationStream);
     eol(declarationStream);
-    
+
     commentInLine(declarationStream,
                   "Tests if the flags included in the mask are clear. Equivalent to test(mask, nil).");
     fdef()  << (cf::methodRef() << bl
@@ -272,8 +272,8 @@ bool CppFlagsEnumerationGenerator::generate()
 
     closeBlock(declarationStream, "};");
     eol(declarationStream);
-    
-    line()  << "#endif // " 
+
+    line()  << "#endif // "
             << guard;
     eol(declarationStream);
     eol(declarationStream);
@@ -282,4 +282,3 @@ bool CppFlagsEnumerationGenerator::generate()
 }
 
 }
-

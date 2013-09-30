@@ -246,12 +246,13 @@ static void closeStream(std::ofstream* pOutputStream)
     pOutputStream->close();
 }
 
-static boost::shared_ptr<std::ostream> openStream(const boost::filesystem::path& path)
+static void closeStream3(std::ofstream* pOutputStream,
+                        const boost::filesystem::path& location,
+                        const boost::filesystem::path& finalLocation)
 {
-    boost::filesystem::create_directories(path.parent_path());
-    boost::shared_ptr<std::ofstream> pOutput(new std::ofstream(), &closeStream);
-    pOutput->open(path.string().c_str());
-    return pOutput;
+    closeStream(pOutputStream);
+    boost::filesystem::create_directories(finalLocation.parent_path());
+    boost::filesystem::optional_copy(location, finalLocation);
 }
 
 static std::string getFileStem(const std::string& type,
@@ -261,6 +262,27 @@ static std::string getFileStem(const std::string& type,
     if ((type == "main") || (type == "core"))
         return result;
     return result + "-" + type;
+}
+
+boost::shared_ptr<std::ostream> GeneratorProject::openStream(const boost::filesystem::path& path)
+{
+    boost::filesystem::path location = generateLocation(path);
+
+    boost::filesystem::create_directories(location.parent_path());
+    boost::shared_ptr<std::ofstream> output;
+    if (location == path)
+    {
+        boost::shared_ptr<std::ofstream> stream(new std::ofstream(), &closeStream);
+        output = stream;
+    }
+    else
+    {
+        boost::shared_ptr<std::ofstream> stream(new std::ofstream(), boost::bind(&closeStream3, _1, location, path));
+        output = stream;
+    }
+
+    output->open(location.string().c_str());
+    return output;
 }
 
 std::string GeneratorProject::reasonToGenerate(const boost::filesystem::path& file,
@@ -294,7 +316,20 @@ std::string GeneratorProject::reasonToGenerate(const boost::filesystem::path& fi
 
 boost::filesystem::path GeneratorProject::generateLocation(const boost::filesystem::path& file)
 {
-    return file;
+    if (mDoubleBufferDirectory.empty())
+        return file;
+
+    boost::filesystem::path result = mDoubleBufferDirectory;
+
+    boost::filesystem::path::const_iterator it = file.begin();
+#ifdef _WIN32
+    ++it;
+    ++it;
+#endif
+
+    for (; it != file.end(); ++it)
+        result /= *it;
+    return result;
 }
 
 bool GeneratorProject::executeGenerator(const std::string& type,
@@ -330,8 +365,6 @@ bool GeneratorProject::executeGenerator(const std::string& type,
     output /= getFileStem(type, data.document->name()->value()) + implementer->applicationExtension(extensionType);
 
     std::string because = reasonToGenerate(output, data.updateTime, data.becauseOf);
-
-    boost::filesystem::path generateTo = generateLocation(output);
 
     if (!because.empty())
     {

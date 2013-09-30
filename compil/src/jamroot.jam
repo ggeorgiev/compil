@@ -34,6 +34,3 @@ else
     build-project generator ;
 }
 
-#build-project generator-self ;
-
-

@@ -20,27 +20,79 @@
     </ItemGroup>
       <ItemGroup>
      <None Include="..\compil\src\generator-test\jamfile.jam" />
+     <ClCompile Include="..\compil\src\generator-test\.gen\specimen\specimens-test.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\.gen\specimen\specimens.cpp" />
+     <ClInclude Include="..\compil\src\generator-test\.gen\specimen\specimens.h" />
+     <ClCompile Include="..\compil\src\generator-test\.gen\structure\field_override-test.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\.gen\structure\field_override.cpp" />
+     <ClInclude Include="..\compil\src\generator-test\.gen\structure\field_override.h" />
+     <ClCompile Include="..\compil\src\generator-test\.gen\structure\identification-test.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\.gen\structure\identification.cpp" />
+     <ClInclude Include="..\compil\src\generator-test\.gen\structure\identification.h" />
+     <ClCompile Include="..\compil\src\generator-test\.gen\structure\operator-test.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\.gen\structure\operator.cpp" />
+     <ClInclude Include="..\compil\src\generator-test\.gen\structure\operator.h" />
+     <ClCompile Include="..\compil\src\generator-test\.gen\structure\sanity-test.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\.gen\structure\sanity.cpp" />
+     <ClInclude Include="..\compil\src\generator-test\.gen\structure\sanity.h" />
+     <ClCompile Include="..\compil\src\generator-test\.gen\structure\streamable-test.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\.gen\structure\streamable.cpp" />
+     <ClInclude Include="..\compil\src\generator-test\.gen\structure\streamable.h" />
+     <ClCompile Include="..\compil\src\generator-test\.gen\structure\upcopy-test.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\.gen\structure\upcopy.cpp" />
+     <ClInclude Include="..\compil\src\generator-test\.gen\structure\upcopy.h" />
+     <None Include="..\compil\src\generator-test\generator-test.compilprj" />
      <ClCompile Include="..\compil\src\generator-test\main-gtest.cpp" />
+     <None Include="..\compil\src\generator-test\old\containers.compil" />
      <ClCompile Include="..\compil\src\generator-test\old\containers_unittest.cpp" />
+     <None Include="..\compil\src\generator-test\old\default_values.compil" />
      <ClCompile Include="..\compil\src\generator-test\old\default_values_unittest.cpp" />
+     <None Include="..\compil\src\generator-test\old\factories.compil" />
+     <None Include="..\compil\src\generator-test\old\factories_another_factory_package.compil" />
+     <None Include="..\compil\src\generator-test\old\factories_another_package.compil" />
      <ClCompile Include="..\compil\src\generator-test\old\factories_unittest_.cpp" />
+     <None Include="..\compil\src\generator-test\old\immutable_structure.compil" />
      <ClCompile Include="..\compil\src\generator-test\old\immutable_structure_unittest.cpp" />
+     <None Include="..\compil\src\generator-test\old\import_from_same_level.compil" />
+     <None Include="..\compil\src\generator-test\old\import_subdirectory\import_from_sub_level.compil" />
+     <None Include="..\compil\src\generator-test\old\import_test.compil" />
+     <None Include="..\compil\src\generator-test\old\inner_enumeration.compil" />
      <ClCompile Include="..\compil\src\generator-test\old\inner_enumeration_unittest.cpp" />
+     <None Include="..\compil\src\generator-test\old\integers.compil" />
+     <None Include="..\compil\src\generator-test\old\keywords.compil" />
+     <None Include="..\compil\src\generator-test\old\mutable_structure.compil" />
      <ClCompile Include="..\compil\src\generator-test\old\mutable_structure_unittest.cpp" />
+     <None Include="..\compil\src\generator-test\old\packages.compil" />
+     <None Include="..\compil\src\generator-test\old\packages_fields.compil" />
      <ClCompile Include="..\compil\src\generator-test\old\packages_unittest.cpp" />
+     <None Include="..\compil\src\generator-test\old\partial_inherit_structure.compil" />
      <ClInclude Include="..\compil\src\generator-test\old\partial_inherit_structure.h" />
+     <None Include="..\compil\src\generator-test\old\partial_structure.compil" />
      <ClInclude Include="..\compil\src\generator-test\old\partial_structure.h" />
      <ClCompile Include="..\compil\src\generator-test\old\partial_structure_unittest.cpp" />
+     <None Include="..\compil\src\generator-test\old\references.compil" />
      <ClCompile Include="..\compil\src\generator-test\old\references_unittest.cpp" />
+     <None Include="..\compil\src\generator-test\old\strong_enumeration.compil" />
      <ClCompile Include="..\compil\src\generator-test\old\strong_enumeration_unittest.cpp" />
+     <None Include="..\compil\src\generator-test\old\strong_identifier.compil" />
      <ClCompile Include="..\compil\src\generator-test\old\strong_identifier_unittest.cpp" />
+     <None Include="..\compil\src\generator-test\old\times.compil" />
+     <None Include="..\compil\src\generator-test\old\weak_enumeration.compil" />
      <ClCompile Include="..\compil\src\generator-test\old\weak_enumeration_unittest.cpp" />
+     <None Include="..\compil\src\generator-test\old\weak_identifier.compil" />
      <ClCompile Include="..\compil\src\generator-test\old\weak_identifier_unittest.cpp" />
      <ClCompile Include="..\compil\src\generator-test\specimen\specimens-manual_test.cpp" />
+     <None Include="..\compil\src\generator-test\specimen\specimens.compil" />
+     <None Include="..\compil\src\generator-test\structure\field_override.compil" />
      <ClCompile Include="..\compil\src\generator-test\structure\identification-manual_test.cpp" />
+     <None Include="..\compil\src\generator-test\structure\identification.compil" />
+     <None Include="..\compil\src\generator-test\structure\operator.compil" />
      <ClCompile Include="..\compil\src\generator-test\structure\sanity-manual_test.cpp" />
+     <None Include="..\compil\src\generator-test\structure\sanity.compil" />
      <ClCompile Include="..\compil\src\generator-test\structure\streamable-manual_test.cpp" />
+     <None Include="..\compil\src\generator-test\structure\streamable.compil" />
      <ClCompile Include="..\compil\src\generator-test\structure\upcopy-manual_test.cpp" />
+     <None Include="..\compil\src\generator-test\structure\upcopy.compil" />
   </ItemGroup>
     <PropertyGroup Label="Globals">
         <ProjectName>generator-test</ProjectName>
@@ -112,10 +164,10 @@
         <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">WIN32;_CPPUNWIND;NDEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
         <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">WIN32;_CPPUNWIND;NDEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
 
-        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\</NMakeIncludeSearchPath>
-        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\</NMakeIncludeSearchPath>
-        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\</NMakeIncludeSearchPath>
-        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\;..\compil\src\generator\.gen\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\;..\compil\src\generator\.gen\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\;..\compil\src\generator\.gen\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\;..\compil\src\generator\.gen\</NMakeIncludeSearchPath>
 
         <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">generator-test-unit_test</TargetName>
         <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">generator-test-unit_test</TargetName>

@@ -101,25 +101,39 @@ path relative_path(const path& directory, const path& to)
     return relPath;
 }
 
-#define _SCL_SECURE_NO_WARNINGS
+bool is_identical(const boost::filesystem::path file1, const boost::filesystem::path& file2)
+{
+    if (!exists(file1))
+        return false;
+
+    if (!exists(file2))
+        return false;
+
+    boost::iostreams::mapped_file_source source_map(file1);
+    boost::iostreams::mapped_file_source target_map(file2);
+
+    if (source_map.size() != target_map.size())
+        return false;
+
+    if (!std::equal(source_map.data(), source_map.data() + source_map.size(), target_map.data()))
+        return false;
+
+    return true;
+}
 
 void optional_copy(const boost::filesystem::path source, const boost::filesystem::path& target)
 {
-    if (exists(target))
-    {
-        boost::iostreams::mapped_file_source source_map(source);
-        boost::iostreams::mapped_file_source target_map(target);
+    if (source == target)
+        return;
 
-        if (source_map.size() == target_map.size()
-            && std::equal(source_map.data(), source_map.data() + source_map.size(), target_map.data()))
-        {
-            return;
-        }
-    }
-    copy(source, target);
+    if (!exists(source))
+        return;
+
+    if (is_identical(source, target))
+        return;
+
+    copy_file(source, target, copy_option::overwrite_if_exists);
 }
-
-#undef _SCL_SECURE_NO_WARNINGS
 
 }
 

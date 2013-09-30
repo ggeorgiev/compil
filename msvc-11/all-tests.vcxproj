@@ -19,8 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectName>generator_app</ProjectName>
-    <ProjectGuid>{7DE3E54C-8122-4354-91CD-BD5180B3A3F1}</ProjectGuid>
+    <ProjectName>all-tests</ProjectName>
+    <ProjectGuid>{04E80511-31BF-4DB1-9F77-B017D7249BF2}</ProjectGuid>
     <RootNamespace>p4v</RootNamespace>
     <Keyword>MakeFileProj</Keyword>
   </PropertyGroup>
@@ -58,38 +58,38 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\intermediate\generator\d8644d68a8a290c166baa1a661b53244\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\intermediate\generator\c018c104b263cd6d6cc9f6fd593e8fea</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\intermediate\generator\ff0f12f5985b91a4c600eff861c7a7c0\</OutDir>
-    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\intermediate\generator\77a877bfc7257cd810d26bde2d46311f\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\intermediate\generator-test\d8644d68a8a290c166baa1a661b53244\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\intermediate\generator-test\89c90c1611a3a815e607dcd5d5838cc1</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\intermediate\generator-test\bb29680513aadd909021c53078b05cdf\</OutDir>
+    <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\intermediate\generator-test\ad2cfe280fbfb4cf4e7ba17e3fcfd824\</OutDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)</IntDir>
     <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)</IntDir>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)build.bat debug 32 ..\compil\src\generator || exit 1</NMakeBuildCommandLine>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)build.bat debug 64 ..\compil\src\generator || exit 1</NMakeBuildCommandLine>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)build.bat release 32 ..\compil\src\generator || exit 1</NMakeBuildCommandLine>
-    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)build.bat release 64 ..\compil\src\generator || exit 1</NMakeBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)rebuild.bat debug 32 ..\compil\src\generator || exit 1</NMakeReBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)rebuild.bat debug 64 ..\compil\src\generator || exit 1</NMakeReBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)rebuild.bat release 32 ..\compil\src\generator || exit 1</NMakeReBuildCommandLine>
-    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)rebuild.bat release 64 ..\compil\src\generator || exit 1</NMakeReBuildCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)clean.bat debug 32 ..\compil\src\generator || exit 1</NMakeCleanCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)clean.bat debug 64 ..\compil\src\generator || exit 1</NMakeCleanCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)clean.bat release 32 ..\compil\src\generator || exit 1</NMakeCleanCommandLine>
-    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)clean.bat release 64 ..\compil\src\generator || exit 1</NMakeCleanCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)build-test.bat debug 32 ..\compil\src\generator-test || exit 1</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)build-test.bat debug 64 ..\compil\src\generator-test || exit 1</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)build-test.bat release 32 ..\compil\src\generator-test || exit 1</NMakeBuildCommandLine>
+    <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)build-test.bat release 64 ..\compil\src\generator-test || exit 1</NMakeBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)rebuild-test.bat debug 32 ..\compil\src\generator-test || exit 1</NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)rebuild-test.bat debug 64 ..\compil\src\generator-test || exit 1</NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)rebuild-test.bat release 32 ..\compil\src\generator-test || exit 1</NMakeReBuildCommandLine>
+    <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)rebuild-test.bat release 64 ..\compil\src\generator-test || exit 1</NMakeReBuildCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)clean-test.bat debug 32 ..\compil\src\generator-test || exit 1</NMakeCleanCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)clean-test.bat debug 64 ..\compil\src\generator-test || exit 1</NMakeCleanCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)clean-test.bat release 32 ..\compil\src\generator-test || exit 1</NMakeCleanCommandLine>
+    <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)clean-test.bat release 64 ..\compil\src\generator-test || exit 1</NMakeCleanCommandLine>
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">WIN32;_CPPUNWIND;_DEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">WIN32;_CPPUNWIND;_DEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">WIN32;_CPPUNWIND;NDEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
     <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">WIN32;_CPPUNWIND;NDEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
-    <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
-    <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
-    <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
-    <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">generator</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">generator</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">generator</TargetName>
-    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">generator</TargetName>
+    <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\</NMakeIncludeSearchPath>
+    <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\</NMakeIncludeSearchPath>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">generator-test-unit_test</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">generator-test-unit_test</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">generator-test-unit_test</TargetName>
+    <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">generator-test-unit_test</TargetName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

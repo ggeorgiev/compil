@@ -91,6 +91,8 @@ public:
     const boost::filesystem::path& projectDirectory() const;
 
 private:
+    boost::shared_ptr<std::ostream> openStream(const boost::filesystem::path& path);
+
     std::string reasonToGenerate(const boost::filesystem::path& file,
                                  const std::time_t updateTime,
                                  const std::string updateResuorce);
@@ -133,7 +135,7 @@ private:
     // if true generates the files ignoring any logic for not to
     bool mForceGeneration;
 
-    std::string mDoubleBufferDirectory;
+    boost::filesystem::path mDoubleBufferDirectory;
 
     boost::unordered_map<boost::filesystem::path, SourceData> mDocuments;
 
