@@ -61,10 +61,10 @@
     </ImportGroup>
     <PropertyGroup Label="UserMacros"/>
     <PropertyGroup>
-        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\intermediate\src\generator-self\8ee05a09abce3982bc782ef7acd96fe4\</OutDir>
-        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\intermediate\src\generator-self\c018c104b263cd6d6cc9f6fd593e8fea</OutDir>
-        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\intermediate\src\generator-self\ff0f12f5985b91a4c600eff861c7a7c0\</OutDir>
-        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\intermediate\src\generator-self\77a877bfc7257cd810d26bde2d46311f\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\intermediate\generator-self\8ee05a09abce3982bc782ef7acd96fe4\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\intermediate\generator-self\c018c104b263cd6d6cc9f6fd593e8fea</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\intermediate\generator-self\ff0f12f5985b91a4c600eff861c7a7c0\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\intermediate\generator-self\77a877bfc7257cd810d26bde2d46311f\</OutDir>
 
         <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)</IntDir>
         <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)</IntDir>

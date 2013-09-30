@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -42,10 +42,18 @@ path resolve(const path& p)
 
     path abs = absolute(p);
 
-    path::iterator it;
-    for (it = abs.begin(); it != abs.end(); ++it)
+    path::iterator it = abs.begin();
+#ifdef _WIN32
+    result = *it;
+    result += "\\";
+    ++it;
+    ++it;
+#endif
+
+    for (; it != abs.end(); ++it)
     {
-        if (*it == ".") continue;
+        if (*it == ".")
+            continue;
 
         if (*it == "..")
         // /a/b/.. is not necessarily /a if b is a symbolic link
@@ -57,6 +65,7 @@ path resolve(const path& p)
             result = result.parent_path();
             continue;
         }
+
         result /= *it;
     }
     return result;
@@ -68,12 +77,12 @@ path relative_path(const path& directory, const path& to)
     path::iterator itTo = to.begin();
 
     // If directory do not have same root, just return "to path"!!!
-    if (*itFrom != *itTo) 
+    if (*itFrom != *itTo)
     {
         assert(*itFrom == *itTo);
-        return to;  
+        return to;
     }
-    
+
     while ((itFrom != directory.end()) && (itTo != to.end()) && (*itFrom == *itTo))
     {
         ++itFrom;

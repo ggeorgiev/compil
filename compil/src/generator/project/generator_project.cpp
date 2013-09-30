@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -74,13 +74,13 @@ bool GeneratorProject::determineProjectPath(const std::string& projectFile,
             std::cout << "the project file not found: " << projectFile << std::endl;
             return false;
         }
-        
+
         if (!projectDirectory.empty())
         {
             std::cout << "the project directory will be based on the project file" << std::endl
-                      << "the specified oriject directory will be ignored" << std::endl;
+                      << "the specified object directory will be ignored" << std::endl;
         }
-        
+
         projectPath = projectFile;
         return true;
     }
@@ -93,15 +93,17 @@ bool GeneratorProject::determineProjectPath(const std::string& projectFile,
     return false;
 }
 
-bool GeneratorProject::init(const bool force,
+bool GeneratorProject::init(const bool forceGeneration,
+                            const bool ignoreTheGenerator,
                             const std::string& projectFile,
                             const std::string& projectDirectory,
                             const std::string& type,
                             const string_vector& sourceFiles,
                             const string_vector& importDirectories)
 {
-    mInitTime = force
-              ? std::numeric_limits<time_t>::max()
+    mForceGeneration = forceGeneration;
+    mInitTime = ignoreTheGenerator
+              ? std::numeric_limits<time_t>::min()
               : mSourceProvider->fileTime(plt::getApplicationPath().generic_string());
 
     std::vector<boost::filesystem::path> directories;
@@ -123,15 +125,15 @@ bool GeneratorProject::init(const bool force,
         boost::filesystem::path projectPath;
         if (!determineProjectPath(projectFile, projectDirectory, projectPath))
             return false;
-            
+
         projectPath = mSourceProvider->absolute(projectPath);
-            
+
         if (sourceFiles.size() > 0)
         {
             std::cout << "WARNING: the project file is specified the source files will be loaded from it" << std::endl
                       << "         the provided source files will be ignored" << std::endl;
         }
-        
+
         SourceIdSPtr sourceId = mSourceProvider->sourceId(SourceIdSPtr(), projectPath.generic_string());
         if (!sourceId)
         {
@@ -139,30 +141,30 @@ bool GeneratorProject::init(const bool force,
                       << projectPath.generic_string() << std::endl;
             return false;
         }
-        
+
         StreamPtr pInput = mSourceProvider->openInputStream(sourceId);
 
         ParserPtr pParser = boost::make_shared<Parser>();
         if (!pParser->parseProject(sourceId, pInput, mProject))
             return false;
-        
+
         mProjectDirectory = mSourceProvider->directory(projectPath);
         mSourceProvider->setWorkingDirectory(mProjectDirectory);
         return true;
     }
-    
+
     mProjectDirectory = projectDirectory.empty()
                       ? mSourceProvider->workingDirectory()
                       : projectDirectory;
-                      
+
     mProjectDirectory = mSourceProvider->absolute(mProjectDirectory);
-    
+
     SectionSPtr section = (sectionRef() << (nameRef() << type));
     for (string_vector::const_iterator it = sourceFiles.begin(); it != sourceFiles.end(); ++it)
     {
         boost::filesystem::path file = mSourceProvider->absolute(*it);
         boost::filesystem::path relative = boost::filesystem::relative_path(mProjectDirectory, file);
-        
+
         if (   mSourceProvider->isAbsolute(relative)
             || boost::starts_with(relative.generic_string(), ".."))
         {
@@ -170,12 +172,12 @@ bool GeneratorProject::init(const bool force,
                       << "       is not in the project directory: " << mProjectDirectory << std::endl;
             return false;
         }
-        
+
         section << (filePathRef() << relative.generic_string());
     }
-        
+
     mProject = (projectRef() << section);
-    
+
     mSourceProvider->setWorkingDirectory(mProjectDirectory);
     return true;
 }
@@ -188,26 +190,26 @@ const boost::filesystem::path& GeneratorProject::projectDirectory() const
 bool GeneratorProject::parseDocuments()
 {
     boost::unordered_set<std::string> files;
-    
+
     const std::vector<SectionSPtr>& sections = mProject->sections();
     for (std::vector<SectionSPtr>::const_iterator it = sections.begin(); it != sections.end(); ++it)
     {
         const SectionSPtr& section = *it;
         const std::vector<FilePathSPtr>& paths = section->paths();
-        
+
         for (std::vector<FilePathSPtr>::const_iterator pit = paths.begin(); pit != paths.end(); ++pit)
         {
             const FilePathSPtr& path = *pit;
             files.insert(path->path());
         }
     }
-    
+
     SourceIdSPtr parent;
     for (boost::unordered_set<std::string>::iterator it = files.begin(); it != files.end(); ++it)
     {
         const std::string& sourceFile = *it;
         ParserPtr parser = boost::make_shared<Parser>();
-    
+
         DocumentSPtr document;
         SourceIdSPtr sourceId = mSourceProvider->sourceId(parent, sourceFile);
         if (!sourceId)
@@ -217,10 +219,10 @@ bool GeneratorProject::parseDocuments()
             return false;
         }
         HookSourceProviderSPtr hook = boost::make_shared<HookSourceProvider>(mSourceProvider, mInitTime);
-        
+
         if (!parser->parseDocument(hook, sourceId, document))
             return false;
-            
+
         SourceData data;
         data.updateTime = hook->getUpdateTime();
         data.becauseOf = hook->getBecauseOf();
@@ -228,7 +230,7 @@ bool GeneratorProject::parseDocuments()
 #if 0
         struct tm* ts = localtime(&data.updateTime);
         char cBuffer[128];
-        strftime(cBuffer, sizeof(cBuffer), "%Y-%m-%d %H:%M:%S", ts);  
+        strftime(cBuffer, sizeof(cBuffer), "%Y-%m-%d %H:%M:%S", ts);
 #endif
         mDocuments[sourceFile] = data;
     }
@@ -269,30 +271,49 @@ bool GeneratorProject::executeGenerator(const std::string& type,
                                         Generator& generator)
 {
     const SourceData& data = mDocuments[path->path()];
-    
+
     CppFormatterPtr formatter = boost::make_shared<CppFormatter>
         (formatterConfiguration, data.document->package());
     CppImplementerPtr implementer = boost::make_shared<CppImplementer>
         (implementerConfiguration, formatter, mCorePackage);
-        
+
     boost::filesystem::path output = outputDirectory;
-    
+
     if (!flatOutput)
     {
         PackageSPtr package = implementer->cppHeaderPackage(data.document->package());
         if (package)
-            output /= CppImplementer::cppFilepath(package);
+        {
+            boost::filesystem::path packagePath(CppImplementer::cppFilepath(package));
+            for (boost::filesystem::path::iterator it = packagePath.begin(); it != packagePath.end(); ++it)
+                output /= *it;
+        }
     }
-        
+
     output /= getFileStem(type, data.document->name()->value()) + implementer->applicationExtension(extensionType);
-    
-    if (   !mSourceProvider->isExists(output)
-        || (mSourceProvider->fileTime(output) <= data.updateTime))
+
+    std::string because;
+    if (!mSourceProvider->isExists(output))
+    {
+        because = "is missing";
+    }
+    else
+    if (mSourceProvider->fileTime(output) <= data.updateTime)
+    {
+        because = "is older than " + data.becauseOf;
+    }
+    else
+    if (mForceGeneration)
+    {
+        because = "was forced";
+    }
+
+    if (!because.empty())
     {
         std::cout << "#" << output.generic_string() << std::endl
-                  << "    because: " << data.becauseOf << std::endl;
+                  << "    because " << because << std::endl;
         boost::shared_ptr<std::ostream> outputStream = openStream(output);
-    
+
         bool bResult = generator.init(type,
                                       alignerConfiguration,
                                       formatter,
@@ -302,14 +323,14 @@ bool GeneratorProject::executeGenerator(const std::string& type,
 
         if (bResult)
             bResult = generator.generate();
-                                      
+
         if (!bResult)
         {
             std::cout << "ERROR: the generation failed for: " << path->path() << std::endl;
             return false;
         }
     }
-    
+
     std::vector<Dependency> dependencies = generator.getCoreDependencies();
     for (std::vector<Dependency>::iterator it = dependencies.begin(); it != dependencies.end(); ++it)
     {
@@ -332,23 +353,23 @@ bool GeneratorProject::executeCoreGenerator(const std::string& name,
         (formatterConfiguration, mCorePackage);
     CppImplementerPtr implementer = boost::make_shared<CppImplementer>
         (implementerConfiguration, formatter, mCorePackage);
-        
+
     boost::filesystem::path output = outputDirectory;
-    
+
     if (!flatOutput)
     {
         PackageSPtr package = implementer->cppHeaderPackage(mCorePackage);
         if (package)
             output /= implementer->cppFilepath(package);
     }
-    
+
     output /= getFileStem("core", name) + implementer->applicationExtension(extensionType);
-    
+
     {
         std::cout << "#" << output.generic_string() << std::endl;
         std::ostringstream* stringstream = new std::ostringstream();
         boost::shared_ptr<std::ostream> outputStream(stringstream);
-    
+
         bool bResult = generator.init("core",
                                       alignerConfiguration,
                                       formatter,
@@ -358,15 +379,15 @@ bool GeneratorProject::executeCoreGenerator(const std::string& name,
 
         if (bResult)
             bResult = generator.generate();
-                                      
+
         if (!bResult)
         {
             std::cout << "ERROR: the generation failed for: " << name << std::endl;
             return false;
         }
-        
+
         std::string current;
-        
+
         std::ifstream file(output.c_str(), std::ios::binary);
         if (file.is_open())
         {
@@ -377,7 +398,7 @@ bool GeneratorProject::executeCoreGenerator(const std::string& name,
                             std::istreambuf_iterator<char>());
             file.close();
         }
-        
+
         if (current != stringstream->str())
         {
             boost::filesystem::create_directories(output.parent_path());
@@ -387,14 +408,14 @@ bool GeneratorProject::executeCoreGenerator(const std::string& name,
             stream.close();
         }
     }
-    
+
     std::vector<Dependency> dependencies = generator.getCoreDependencies();
     for (std::vector<Dependency>::iterator it = dependencies.begin(); it != dependencies.end(); ++it)
     {
         const Dependency& dependency = *it;
         mCoreDependencies.insert(dependency.mHeaderName);
     }
-    
+
     return true;
 }
 
@@ -412,18 +433,18 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
                                 const ImplementerConfigurationSPtr& implementerConfiguration)
 {
     mCorePackage = mProject->corePackage();
-    
+
     if (!mCorePackage)
     {
         if (implementerConfiguration && !implementerConfiguration->corePackage.empty())
         {
             std::vector<std::string> elements;
             boost::split(elements, implementerConfiguration->corePackage, isDot);
-            
+
             std::vector<PackageElementSPtr> packageElements;
             for (std::vector<std::string>::iterator it = elements.begin(); it != elements.end(); ++it)
                 packageElements.push_back(packageElementRef() << *it);
-                
+
             mCorePackage = boost::make_shared<Package>();
             mCorePackage->set_short(packageElements);
             mCorePackage->set_levels(packageElements);
@@ -434,16 +455,16 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
     for (std::vector<SectionSPtr>::const_iterator it = sections.begin(); it != sections.end(); ++it)
     {
         const SectionSPtr& section = *it;
-        
+
         const std::string& type = section->name()->value();
         const std::vector<FilePathSPtr>& paths = section->paths();
-        
+
         if (type == "main" || type == "partial")
         {
             for (std::vector<FilePathSPtr>::const_iterator pit = paths.begin(); pit != paths.end(); ++pit)
             {
                 const FilePathSPtr& path = *pit;
-                
+
                 {
                     CppGenerator generator;
                     if (!executeGenerator(type, path, CppImplementer::definition, outputDirectory, flatOutput,
@@ -451,7 +472,7 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
                                           generator))
                         return false;
                 }
-                
+
                 {
                     CppHeaderGenerator generator;
                     if (!executeGenerator(type, path, CppImplementer::declaration, outputDirectory, flatOutput,
@@ -461,7 +482,7 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
                 }
             }
         }
-        
+
         if (type == "test")
         {
             for (std::vector<FilePathSPtr>::const_iterator pit = paths.begin(); pit != paths.end(); ++pit)

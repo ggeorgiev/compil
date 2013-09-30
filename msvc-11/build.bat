@@ -3,7 +3,7 @@ cd /d %~dp0
 @echo on
 
 pushd .
-::call ..\compil\scripts\windows\generate.bat || exit 1
+call ..\compil\scripts\windows\generate.bat || exit 1
 popd
 
 SET VARIANT=%1

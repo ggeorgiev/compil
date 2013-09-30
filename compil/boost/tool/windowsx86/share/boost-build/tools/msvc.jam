@@ -1185,6 +1185,8 @@ local rule register-toolset-really ( )
     toolset.flags msvc.compile CFLAGS <inlining>on : /Ob1 ;
     toolset.flags msvc.compile CFLAGS <inlining>full : /Ob2 ;
 
+    toolset.flags msvc.compile CFLAGS : /FC ;
+
     toolset.flags msvc.compile CFLAGS <warnings>on : /W3 ;
     toolset.flags msvc.compile CFLAGS <warnings>off : /W0 ;
     toolset.flags msvc.compile CFLAGS <warnings>all : /W4 ;

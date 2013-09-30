@@ -69,7 +69,7 @@ rule gtest ( name : sources * : properties * )
     }
 
     path-constant result_xml_path : $(ROOT)/../intermediate/test-reports/$(name).xml ;
-    unit-test $(name)-unit
+    unit-test $(name)-unit_test
       :
         $(sources)
         gtest

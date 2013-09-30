@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -32,7 +32,6 @@
 
 #include "generator/generator_configuration.h"
 
-
 GeneratorConfiguration::GeneratorConfiguration()
 {
 }
@@ -45,7 +44,7 @@ std::string GeneratorConfiguration::staticName()
 {
     return "Generator";
 }
-    
+
 std::string GeneratorConfiguration::name()
 {
     return staticName();
@@ -54,14 +53,24 @@ std::string GeneratorConfiguration::name()
 void GeneratorConfiguration::addCommonOptions(bpo::options_description& options)
 {
     options.add_options()
-        ("force,f", bpo::value<bool>(&force), "force generation")
-        ("output-directory,o", bpo::value<std::string>(&outputDirectory), "output directory")
-        ("flat-output", bpo::value<bool>(&flatOutput), "flat output (write the files directly in the output directory)")
-        ("core-output-directory", bpo::value<std::string>(&coreOutputDirectory), "core output directory")
-        ("flat-core-output", bpo::value<bool>(&flatCoreOutput), "flat core output (write the files directly in the output directory)")
-        ("project-file", bpo::value<std::string>(&projectFile), "project file")
-        ("project-directory", bpo::value<std::string>(&projectDirectory), "project directory")
-        ("import-path,I", bpo::value<string_vector>(&importDirectories)->composing(), "import compil path");
+        ("force,f", bpo::value<bool>(&forceGeneration)->default_value(false),
+            "force generation")
+        ("ignore-the-generator", bpo::value<bool>(&ignoreTheGenerator)->default_value(false),
+            "ignore the generator modification time when determine to generate a file or not")
+        ("output-directory,o", bpo::value<std::string>(&outputDirectory),
+            "output directory")
+        ("flat-output", bpo::value<bool>(&flatOutput)->default_value(false),
+            "flat output (write the files directly in the output directory)")
+        ("core-output-directory", bpo::value<std::string>(&coreOutputDirectory),
+            "core output directory")
+        ("flat-core-output", bpo::value<bool>(&flatCoreOutput)->default_value(false),
+            "flat core output (write the files directly in the output directory)")
+        ("project-file", bpo::value<std::string>(&projectFile),
+            "project file")
+        ("project-directory", bpo::value<std::string>(&projectDirectory),
+            "project directory")
+        ("import-path,I", bpo::value<string_vector>(&importDirectories)->composing(),
+            "import compil path");
 }
 
 bpo::options_description GeneratorConfiguration::commandLineOptions()

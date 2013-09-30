@@ -170,7 +170,7 @@ def writeProject(projectData, projectPath, templatePath):
     project = project.replace('@RUN_NAME@', '..\compil\{0}'.format(runstring))
                     
     #intermediate directories
-    outDir = '\\'.join(projectData.directory.split('\\'))
+    outDir = '\\'.join(projectData.directory.split('\\')[1:])
     project = project.replace('@OUT_PATH@', outDir)
 
     #executable

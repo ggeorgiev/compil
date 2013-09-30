@@ -60,19 +60,20 @@ int main(int argc, const char **argv)
     }
 
     compil::FileSourceProviderPtr pFileSourceProvider(new compil::FileSourceProvider());
-    
+
     compil::GeneratorProject project(pFileSourceProvider);
-    if (!project.init(pGeneratorConfiguration->force,
+    if (!project.init(pGeneratorConfiguration->forceGeneration,
+                      pGeneratorConfiguration->ignoreTheGenerator,
                       pGeneratorConfiguration->projectFile,
                       pGeneratorConfiguration->projectDirectory,
                       pGeneratorConfiguration->type,
                       pGeneratorConfiguration->sourceFiles,
                       pGeneratorConfiguration->importDirectories))
         return 1;
-        
+
     if (!project.parseDocuments())
         return 1;
-        
+
     if (!project.generate(boost::filesystem::resolve(pGeneratorConfiguration->outputDirectory),
                           pGeneratorConfiguration->flatOutput,
                           boost::filesystem::resolve(pGeneratorConfiguration->coreOutputDirectory),
@@ -84,4 +85,3 @@ int main(int argc, const char **argv)
 
     return 0;
 }
-

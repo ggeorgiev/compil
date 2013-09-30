@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -68,16 +68,17 @@ class GeneratorProject
 public:
     GeneratorProject(const ISourceProviderSPtr& sourceProvider);
     virtual ~GeneratorProject();
-    
-    bool init(const bool force,
+
+    bool init(const bool forceGeneration,
+              const bool ignoreTheGenerator,
               const std::string& projectFile,
               const std::string& projectDirectory,
               const std::string& type,
               const string_vector& sourceFiles,
               const string_vector& importDirectories);
-              
+
     bool parseDocuments();
-    
+
     bool generate(const boost::filesystem::path& outputDirectory,
                   const bool flatOutput,
                   const boost::filesystem::path& outputCoreDirectory,
@@ -85,9 +86,9 @@ public:
                   const AlignerConfigurationSPtr& alignerConfiguration,
                   const FormatterConfigurationSPtr& formatterConfiguration,
                   const ImplementerConfigurationSPtr& implementerConfiguration);
-    
+
     const boost::filesystem::path& projectDirectory() const;
-    
+
 private:
     bool executeGenerator(const std::string& type,
                           const FilePathSPtr& path,
@@ -98,7 +99,7 @@ private:
                           const FormatterConfigurationSPtr& formatterConfiguration,
                           const ImplementerConfigurationSPtr& implementerConfiguration,
                           Generator& generator);
-                          
+
     bool executeCoreGenerator(const std::string& name,
                               const CppImplementer::EExtensionType& extensionType,
                               const boost::filesystem::path& outputDirectory,
@@ -116,17 +117,20 @@ private:
     boost::filesystem::path mProjectDirectory;
     ProjectSPtr mProject;
     PackageSPtr mCorePackage;
+
     // this time is used as minimum modification time for all documents.
     // It is based on the time of the generator itself as well as the time
     // of config and other project initialization involved resources
     std::time_t mInitTime;
 
+    // if true generates the files ignoring any logic for not to
+    bool mForceGeneration;
+
     boost::unordered_map<boost::filesystem::path, SourceData> mDocuments;
-    
+
     boost::unordered_set<std::string> mCoreDependencies;
 };
 
 }
 
 #endif
-
