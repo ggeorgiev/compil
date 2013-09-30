@@ -1,0 +1,128 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemGroup Label="ProjectConfigurations">
+        <ProjectConfiguration Include="Debug|Win32">
+            <Configuration>Debug</Configuration>
+            <Platform>Win32</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Debug|x64">
+            <Configuration>Debug</Configuration>
+            <Platform>x64</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|Win32">
+            <Configuration>Release</Configuration>
+            <Platform>Win32</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|x64">
+            <Configuration>Release</Configuration>
+            <Platform>x64</Platform>
+        </ProjectConfiguration>
+    </ItemGroup>
+      <ItemGroup>
+     <None Include="..\compil\src\generator-test\jamfile.jam" />
+     <ClCompile Include="..\compil\src\generator-test\main-gtest.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\old\containers_unittest.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\old\default_values_unittest.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\old\factories_unittest_.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\old\immutable_structure_unittest.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\old\inner_enumeration_unittest.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\old\mutable_structure_unittest.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\old\packages_unittest.cpp" />
+     <ClInclude Include="..\compil\src\generator-test\old\partial_inherit_structure.h" />
+     <ClInclude Include="..\compil\src\generator-test\old\partial_structure.h" />
+     <ClCompile Include="..\compil\src\generator-test\old\partial_structure_unittest.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\old\references_unittest.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\old\strong_enumeration_unittest.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\old\strong_identifier_unittest.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\old\weak_enumeration_unittest.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\old\weak_identifier_unittest.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\specimen\specimens-manual_test.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\structure\identification-manual_test.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\structure\sanity-manual_test.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\structure\streamable-manual_test.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\structure\upcopy-manual_test.cpp" />
+  </ItemGroup>
+    <PropertyGroup Label="Globals">
+        <ProjectName>generator-test</ProjectName>
+        <ProjectGuid>{d320c075-b25e-3c84-965b-e80734f73c2d}</ProjectGuid>
+        <RootNamespace>p4v</RootNamespace>
+        <Keyword>MakeFileProj</Keyword>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+        <ConfigurationType>Makefile</ConfigurationType>
+        <PlatformToolset>v110</PlatformToolset>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+        <ConfigurationType>Makefile</ConfigurationType>
+        <PlatformToolset>v110</PlatformToolset>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+        <ConfigurationType>Makefile</ConfigurationType>
+        <PlatformToolset>v110</PlatformToolset>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+        <ConfigurationType>Makefile</ConfigurationType>
+        <PlatformToolset>v110</PlatformToolset>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+    <ImportGroup Label="ExtensionSettings">
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <PropertyGroup Label="UserMacros"/>
+    <PropertyGroup>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\intermediate\src\generator-test\8ee05a09abce3982bc782ef7acd96fe4\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\intermediate\src\generator-test\c018c104b263cd6d6cc9f6fd593e8fea</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\intermediate\src\generator-test\ff0f12f5985b91a4c600eff861c7a7c0\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\intermediate\src\generator-test\77a877bfc7257cd810d26bde2d46311f\</OutDir>
+
+        <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)</IntDir>
+        <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)</IntDir>
+        <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)</IntDir>
+        <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)</IntDir>
+
+        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)build.bat debug 32 ..\compil\src\generator-test || exit 1</NMakeBuildCommandLine>
+        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)build.bat debug 64 ..\compil\src\generator-test || exit 1</NMakeBuildCommandLine>
+        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)build.bat release 32 ..\compil\src\generator-test || exit 1</NMakeBuildCommandLine>
+        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)build.bat release 64 ..\compil\src\generator-test || exit 1</NMakeBuildCommandLine>
+
+        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)rebuild.bat debug 32 ..\compil\src\generator-test || exit 1</NMakeReBuildCommandLine>
+        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)rebuild.bat debug 64 ..\compil\src\generator-test || exit 1</NMakeReBuildCommandLine>
+        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)rebuild.bat release 32 ..\compil\src\generator-test || exit 1</NMakeReBuildCommandLine>
+        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)rebuild.bat release 64 ..\compil\src\generator-test || exit 1</NMakeReBuildCommandLine>
+
+        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)clean.bat debug 32 ..\compil\src\generator-test || exit 1</NMakeCleanCommandLine>
+        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)clean.bat debug 64 ..\compil\src\generator-test || exit 1</NMakeCleanCommandLine>
+        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)clean.bat release 32 ..\compil\src\generator-test || exit 1</NMakeCleanCommandLine>
+        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)clean.bat release 64 ..\compil\src\generator-test || exit 1</NMakeCleanCommandLine>
+
+        <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">WIN32;_CPPUNWIND;_DEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+        <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">WIN32;_CPPUNWIND;_DEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+        <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">WIN32;_CPPUNWIND;NDEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+        <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">WIN32;_CPPUNWIND;NDEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
+
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">generator-test-unit_test</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">generator-test-unit_test</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">generator-test-unit_test</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">generator-test-unit_test</TargetName>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+    <ImportGroup Label="ExtensionTargets">
+    </ImportGroup>
+</Project>

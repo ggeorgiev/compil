@@ -1,0 +1,370 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include=".gen">
+      <UniqueIdentifier>{0dabf7dc-b0b1-3e44-b743-049bd5d0a71a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".gen\generator">
+      <UniqueIdentifier>{5dcbeb74-6831-3015-8019-97d83892a41a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".gen\generator\c++">
+      <UniqueIdentifier>{5fd3e848-ebfa-3d55-a4d2-8b5de7b08bea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".gen\generator\c++\configuration">
+      <UniqueIdentifier>{792d1711-b74d-3daa-b0ea-469944d8f5a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="aligner">
+      <UniqueIdentifier>{0a6d3cea-f51a-34c1-af3a-2a8dac3383ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++">
+      <UniqueIdentifier>{68e6a840-5d99-3d2d-952a-a9063e206212}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\configuration">
+      <UniqueIdentifier>{623161b9-bed7-310c-912e-fda309425469}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="compil">
+      <UniqueIdentifier>{2218d0bc-8352-33bc-b526-1cb8cbbe4a4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp">
+      <UniqueIdentifier>{0430301c-2471-3621-ba4b-a0e26ecabb7a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="cpp\format">
+      <UniqueIdentifier>{52ba3b60-026b-3d6a-a5b0-0f50e3dc6964}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="formatter">
+      <UniqueIdentifier>{98f60d01-b89c-3dc1-99ca-454ad070b08f}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="implementer">
+      <UniqueIdentifier>{65044495-2481-3ef4-b819-95428b355e10}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="project">
+      <UniqueIdentifier>{c8c41775-8730-3609-ada7-7626c24bfe17}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\compil\src\generator\.gen\formatter_pointer_position.cpp">
+      <Filter>.gen</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\.gen\formatter_pointer_position.h">
+      <Filter>.gen</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\.gen\generator\c++\configuration\formatter_pointer_position.cpp">
+      <Filter>.gen\generator\c++\configuration</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\.gen\generator\c++\configuration\formatter_pointer_position.h">
+      <Filter>.gen\generator\c++\configuration</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\aligner\aligner.cpp">
+      <Filter>aligner</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\aligner\aligner.h">
+      <Filter>aligner</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\aligner\function_definition_aligner.cpp">
+      <Filter>aligner</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\aligner\function_definition_aligner.h">
+      <Filter>aligner</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\aligner\function_definition_aligner_unittest.cpp">
+      <Filter>aligner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator\aligner\line_aligner.cpp">
+      <Filter>aligner</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\aligner\line_aligner.h">
+      <Filter>aligner</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\aligner\table_aligner.cpp">
+      <Filter>aligner</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\aligner\table_aligner.h">
+      <Filter>aligner</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\aligner\table_aligner_unittest.cpp">
+      <Filter>aligner</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator\c++\aligner_stream.cpp">
+      <Filter>c++</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\c++\aligner_stream.h">
+      <Filter>c++</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\c++\formatter_stream.cpp">
+      <Filter>c++</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\c++\formatter_stream.h">
+      <Filter>c++</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\c++\implementer_stream.cpp">
+      <Filter>c++</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\c++\implementer_stream.h">
+      <Filter>c++</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\c++\namer_stream.cpp">
+      <Filter>c++</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\c++\namer_stream.h">
+      <Filter>c++</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\c++\configuration\aligner_configuration.cpp">
+      <Filter>c++\configuration</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\c++\configuration\aligner_configuration.h">
+      <Filter>c++\configuration</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\c++\configuration\formatter_configuration.cpp">
+      <Filter>c++\configuration</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\c++\configuration\formatter_configuration.h">
+      <Filter>c++\configuration</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\c++\configuration\implementer_configuration.cpp">
+      <Filter>c++\configuration</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\c++\configuration\implementer_configuration.h">
+      <Filter>c++\configuration</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\c++\configuration\namer_configuration.cpp">
+      <Filter>c++\configuration</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\c++\configuration\namer_configuration.h">
+      <Filter>c++\configuration</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\compil\compil_generator.cpp">
+      <Filter>compil</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\compil\compil_generator.h">
+      <Filter>compil</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\compil\compil_generator_unittest.cpp">
+      <Filter>compil</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator\cpp\c++_flags_enumeration_generator.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\c++_flags_enumeration_generator.h">
+      <Filter>cpp</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\c++_generator.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\c++_generator.h">
+      <Filter>cpp</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\c++_h_generator.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\c++_h_generator.h">
+      <Filter>cpp</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\c++_test_generator.cpp">
+      <Filter>cpp</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\c++_test_generator.h">
+      <Filter>cpp</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\argument.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\argument.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\cast_operator.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\cast_operator.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\comment.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\comment.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\constructor.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\constructor.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\constructor_name.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\constructor_name.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\constructor_specifier.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\constructor_specifier.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\destructor.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\destructor.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\destructor_name.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\destructor_name.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\destructor_specifier.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\destructor_specifier.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\function.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\function.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\function_call.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\function_call.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\function_name.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\function_name.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\initialization.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\initialization.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\method.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\method.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\method_declaration.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\method_declaration.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\method_name.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\method_name.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\method_specifier.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\method_specifier.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\namespace.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\namespace.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\namespace_name.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\namespace_name.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\parameter_value.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\parameter_value.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\type.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\type.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\type_declaration.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\type_declaration.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\type_decoration.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\type_decoration.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\type_name.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\type_name.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\cpp\format\variable_name.cpp">
+      <Filter>cpp\format</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\cpp\format\variable_name.h">
+      <Filter>cpp\format</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\formatter\c++_formatter.cpp">
+      <Filter>formatter</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\formatter\c++_formatter.h">
+      <Filter>formatter</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\formatter\c++_keyword.cpp">
+      <Filter>formatter</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\formatter\c++_keyword.h">
+      <Filter>formatter</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\implementer\c++_implementer.cpp">
+      <Filter>implementer</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\implementer\c++_implementer.h">
+      <Filter>implementer</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\implementer\dependency.cpp">
+      <Filter>implementer</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\implementer\dependency.h">
+      <Filter>implementer</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\project\file_source_provider.cpp">
+      <Filter>project</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\project\file_source_provider.h">
+      <Filter>project</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\project\generator_project.cpp">
+      <Filter>project</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\project\generator_project.h">
+      <Filter>project</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\project\generator_project_unittest.cpp">
+      <Filter>project</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator\project\hook_source_provider.cpp">
+      <Filter>project</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\project\hook_source_provider.h">
+      <Filter>project</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator\project\test_source_provider.cpp">
+      <Filter>project</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator\project\test_source_provider.h">
+      <Filter>project</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

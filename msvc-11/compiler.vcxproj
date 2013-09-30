@@ -1,0 +1,165 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemGroup Label="ProjectConfigurations">
+        <ProjectConfiguration Include="Debug|Win32">
+            <Configuration>Debug</Configuration>
+            <Platform>Win32</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Debug|x64">
+            <Configuration>Debug</Configuration>
+            <Platform>x64</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|Win32">
+            <Configuration>Release</Configuration>
+            <Platform>Win32</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|x64">
+            <Configuration>Release</Configuration>
+            <Platform>x64</Platform>
+        </ProjectConfiguration>
+    </ItemGroup>
+      <ItemGroup>
+     <None Include="..\compil\src\compiler\jamfile.jam" />
+     <ClInclude Include="..\compil\src\compiler\i_source_provider.h" />
+     <ClCompile Include="..\compil\src\compiler\main_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\message\message.cpp" />
+     <ClInclude Include="..\compil\src\compiler\message\message.h" />
+     <ClCompile Include="..\compil\src\compiler\message\message_collector.cpp" />
+     <ClInclude Include="..\compil\src\compiler\message\message_collector.h" />
+     <ClCompile Include="..\compil\src\compiler\message\message_collector_unittest.cpp" />
+     <ClInclude Include="..\compil\src\compiler\namespace_alias.h" />
+     <ClCompile Include="..\compil\src\compiler\parser.cpp" />
+     <ClInclude Include="..\compil\src\compiler\parser.h" />
+     <ClCompile Include="..\compil\src\compiler\parser\document_parser-mixin.cpp" />
+     <ClInclude Include="..\compil\src\compiler\parser\document_parser-mixin.h" />
+     <ClCompile Include="..\compil\src\compiler\parser\parser-mixin.cpp" />
+     <ClInclude Include="..\compil\src\compiler\parser\parser-mixin.h" />
+     <ClCompile Include="..\compil\src\compiler\parser\project_parser-mixin.cpp" />
+     <ClInclude Include="..\compil\src\compiler\parser\project_parser-mixin.h" />
+     <ClCompile Include="..\compil\src\compiler\parser\specimen_parser-mixin.cpp" />
+     <ClInclude Include="..\compil\src\compiler\parser\specimen_parser-mixin.h" />
+     <ClCompile Include="..\compil\src\compiler\parser\specimen_parser_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\parser\type_parser-mixin.cpp" />
+     <ClInclude Include="..\compil\src\compiler\parser\type_parser-mixin.h" />
+     <ClCompile Include="..\compil\src\compiler\parser_enumration_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\parser_factory_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\parser_identifier_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\parser_import_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\parser_inner_enumration_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\parser_interface_method_parameter_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\parser_interface_method_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\parser_interface_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\parser_package_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\parser_project_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\parser_structure_field_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\parser_structure_identification_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\parser_structure_operator_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\parser_structure_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\parser_structure_upcopy_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\parser_unittest.cpp" />
+     <ClInclude Include="..\compil\src\compiler\parser_unittest.h" />
+     <ClCompile Include="..\compil\src\compiler\tokenizer\token.cpp" />
+     <ClInclude Include="..\compil\src\compiler\tokenizer\token.h" />
+     <ClCompile Include="..\compil\src\compiler\tokenizer\tokenizer.cpp" />
+     <ClInclude Include="..\compil\src\compiler\tokenizer\tokenizer.h" />
+     <ClCompile Include="..\compil\src\compiler\tokenizer\tokenizer_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\validator\parameter_type_validator.cpp" />
+     <ClInclude Include="..\compil\src\compiler\validator\parameter_type_validator.h" />
+     <ClCompile Include="..\compil\src\compiler\validator\parameter_type_validator_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\validator\partial_validator.cpp" />
+     <ClInclude Include="..\compil\src\compiler\validator\partial_validator.h" />
+     <ClCompile Include="..\compil\src\compiler\validator\partial_validator_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\validator\structure_fields_validator.cpp" />
+     <ClInclude Include="..\compil\src\compiler\validator\structure_fields_validator.h" />
+     <ClCompile Include="..\compil\src\compiler\validator\structure_fields_validator_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\validator\structure_sharable_validator.cpp" />
+     <ClInclude Include="..\compil\src\compiler\validator\structure_sharable_validator.h" />
+     <ClCompile Include="..\compil\src\compiler\validator\structure_sharable_validator_unittest.cpp" />
+     <ClCompile Include="..\compil\src\compiler\validator\validator.cpp" />
+     <ClInclude Include="..\compil\src\compiler\validator\validator.h" />
+     <ClCompile Include="..\compil\src\compiler\validator\validator_unittest.cpp" />
+  </ItemGroup>
+    <PropertyGroup Label="Globals">
+        <ProjectName>compiler</ProjectName>
+        <ProjectGuid>{89fc0a35-dcb7-3deb-9cda-77822d863d8b}</ProjectGuid>
+        <RootNamespace>p4v</RootNamespace>
+        <Keyword>MakeFileProj</Keyword>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+        <ConfigurationType>Makefile</ConfigurationType>
+        <PlatformToolset>v110</PlatformToolset>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+        <ConfigurationType>Makefile</ConfigurationType>
+        <PlatformToolset>v110</PlatformToolset>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+        <ConfigurationType>Makefile</ConfigurationType>
+        <PlatformToolset>v110</PlatformToolset>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+        <ConfigurationType>Makefile</ConfigurationType>
+        <PlatformToolset>v110</PlatformToolset>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+    <ImportGroup Label="ExtensionSettings">
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <PropertyGroup Label="UserMacros"/>
+    <PropertyGroup>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\intermediate\src\compiler\8ee05a09abce3982bc782ef7acd96fe4\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\intermediate\src\compiler\c018c104b263cd6d6cc9f6fd593e8fea</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\intermediate\src\compiler\ff0f12f5985b91a4c600eff861c7a7c0\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\intermediate\src\compiler\77a877bfc7257cd810d26bde2d46311f\</OutDir>
+
+        <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)</IntDir>
+        <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)</IntDir>
+        <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)</IntDir>
+        <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)</IntDir>
+
+        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)build.bat debug 32 ..\compil\src\compiler || exit 1</NMakeBuildCommandLine>
+        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)build.bat debug 64 ..\compil\src\compiler || exit 1</NMakeBuildCommandLine>
+        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)build.bat release 32 ..\compil\src\compiler || exit 1</NMakeBuildCommandLine>
+        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)build.bat release 64 ..\compil\src\compiler || exit 1</NMakeBuildCommandLine>
+
+        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)rebuild.bat debug 32 ..\compil\src\compiler || exit 1</NMakeReBuildCommandLine>
+        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)rebuild.bat debug 64 ..\compil\src\compiler || exit 1</NMakeReBuildCommandLine>
+        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)rebuild.bat release 32 ..\compil\src\compiler || exit 1</NMakeReBuildCommandLine>
+        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)rebuild.bat release 64 ..\compil\src\compiler || exit 1</NMakeReBuildCommandLine>
+
+        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)clean.bat debug 32 ..\compil\src\compiler || exit 1</NMakeCleanCommandLine>
+        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)clean.bat debug 64 ..\compil\src\compiler || exit 1</NMakeCleanCommandLine>
+        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)clean.bat release 32 ..\compil\src\compiler || exit 1</NMakeCleanCommandLine>
+        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)clean.bat release 64 ..\compil\src\compiler || exit 1</NMakeCleanCommandLine>
+
+        <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">WIN32;_CPPUNWIND;_DEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+        <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">WIN32;_CPPUNWIND;_DEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+        <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">WIN32;_CPPUNWIND;NDEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+        <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">WIN32;_CPPUNWIND;NDEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
+
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">compiler-unit_test</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">compiler-unit_test</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">compiler-unit_test</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">compiler-unit_test</TargetName>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+    <ImportGroup Label="ExtensionTargets">
+    </ImportGroup>
+</Project>

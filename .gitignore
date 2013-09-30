@@ -5,6 +5,7 @@
 *.dll
 *.o
 *.so
+*.pyc
 
 # Intermediate #
 ################
@@ -45,4 +46,9 @@ Thumbs.db
 #########
 UserInterfaceState.xcuserstate
 
-
+# MSVC #
+########
+*.suo
+*.sdf
+*.opensdf
+*.vcxproj.user

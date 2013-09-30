@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="c++">
+      <UniqueIdentifier>{68e6a840-5d99-3d2d-952a-a9063e206212}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\boost">
+      <UniqueIdentifier>{b32a8828-48e7-3d62-8545-3fa928cd87ea}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\compil">
+      <UniqueIdentifier>{c2706778-df1c-3d9e-9eae-95c7c205f24d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\stl">
+      <UniqueIdentifier>{78cff0c5-ab8b-31af-acde-cbc4753289cc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="compil">
+      <UniqueIdentifier>{2218d0bc-8352-33bc-b526-1cb8cbbe4a4b}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\compil\src\library\c++\boost\exception.cpp">
+      <Filter>c++\boost</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\library\c++\boost\exception.h">
+      <Filter>c++\boost</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\library\c++\boost\namespace.cpp">
+      <Filter>c++\boost</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\library\c++\boost\namespace.h">
+      <Filter>c++\boost</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\library\c++\compil\builder.cpp">
+      <Filter>c++\compil</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\library\c++\compil\builder.h">
+      <Filter>c++\compil</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\library\c++\compil\class.cpp">
+      <Filter>c++\compil</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\library\c++\compil\class.h">
+      <Filter>c++\compil</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\library\c++\compil\declaration.cpp">
+      <Filter>c++\compil</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\library\c++\compil\declaration.h">
+      <Filter>c++\compil</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\library\c++\compil\declarator.cpp">
+      <Filter>c++\compil</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\library\c++\compil\declarator.h">
+      <Filter>c++\compil</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\library\c++\compil\method.cpp">
+      <Filter>c++\compil</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\library\c++\compil\method.h">
+      <Filter>c++\compil</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\library\c++\compil\namespace.cpp">
+      <Filter>c++\compil</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\library\c++\compil\namespace.h">
+      <Filter>c++\compil</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\library\c++\compil\specimen.cpp">
+      <Filter>c++\compil</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\library\c++\compil\specimen.h">
+      <Filter>c++\compil</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\library\c++\compil\type.cpp">
+      <Filter>c++\compil</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\library\c++\compil\type.h">
+      <Filter>c++\compil</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\library\c++\stl\namespace.cpp">
+      <Filter>c++\stl</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\library\c++\stl\namespace.h">
+      <Filter>c++\stl</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\library\c++\stl\string.cpp">
+      <Filter>c++\stl</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\library\c++\stl\string.h">
+      <Filter>c++\stl</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\library\compil\document.cpp">
+      <Filter>compil</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\library\compil\document.h">
+      <Filter>compil</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\library\compil\package.cpp">
+      <Filter>compil</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\library\compil\package.h">
+      <Filter>compil</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

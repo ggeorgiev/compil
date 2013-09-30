@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="message">
+      <UniqueIdentifier>{afdb7e5f-699d-3332-b8ec-4d3dad2cc471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="parser">
+      <UniqueIdentifier>{06afc5d8-66e9-3875-8ed7-662ce306d12a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="tokenizer">
+      <UniqueIdentifier>{298e9a87-f73e-3142-8db1-b8037f0668ef}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="validator">
+      <UniqueIdentifier>{473744d7-85cb-34bf-8906-48ea2ae871e1}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\compil\src\compiler\message\message.cpp">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\compiler\message\message.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\compiler\message\message_collector.cpp">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\compiler\message\message_collector.h">
+      <Filter>message</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\compiler\message\message_collector_unittest.cpp">
+      <Filter>message</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\compiler\parser\document_parser-mixin.cpp">
+      <Filter>parser</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\compiler\parser\document_parser-mixin.h">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\compiler\parser\parser-mixin.cpp">
+      <Filter>parser</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\compiler\parser\parser-mixin.h">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\compiler\parser\project_parser-mixin.cpp">
+      <Filter>parser</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\compiler\parser\project_parser-mixin.h">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\compiler\parser\specimen_parser-mixin.cpp">
+      <Filter>parser</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\compiler\parser\specimen_parser-mixin.h">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\compiler\parser\specimen_parser_unittest.cpp">
+      <Filter>parser</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\compiler\parser\type_parser-mixin.cpp">
+      <Filter>parser</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\compiler\parser\type_parser-mixin.h">
+      <Filter>parser</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\compiler\tokenizer\token.cpp">
+      <Filter>tokenizer</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\compiler\tokenizer\token.h">
+      <Filter>tokenizer</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\compiler\tokenizer\tokenizer.cpp">
+      <Filter>tokenizer</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\compiler\tokenizer\tokenizer.h">
+      <Filter>tokenizer</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\compiler\tokenizer\tokenizer_unittest.cpp">
+      <Filter>tokenizer</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\compiler\validator\parameter_type_validator.cpp">
+      <Filter>validator</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\compiler\validator\parameter_type_validator.h">
+      <Filter>validator</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\compiler\validator\parameter_type_validator_unittest.cpp">
+      <Filter>validator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\compiler\validator\partial_validator.cpp">
+      <Filter>validator</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\compiler\validator\partial_validator.h">
+      <Filter>validator</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\compiler\validator\partial_validator_unittest.cpp">
+      <Filter>validator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\compiler\validator\structure_fields_validator.cpp">
+      <Filter>validator</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\compiler\validator\structure_fields_validator.h">
+      <Filter>validator</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\compiler\validator\structure_fields_validator_unittest.cpp">
+      <Filter>validator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\compiler\validator\structure_sharable_validator.cpp">
+      <Filter>validator</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\compiler\validator\structure_sharable_validator.h">
+      <Filter>validator</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\compiler\validator\structure_sharable_validator_unittest.cpp">
+      <Filter>validator</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\compiler\validator\validator.cpp">
+      <Filter>validator</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\compiler\validator\validator.h">
+      <Filter>validator</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\compiler\validator\validator_unittest.cpp">
+      <Filter>validator</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="boost">
+      <UniqueIdentifier>{d58e2dc9-30ea-3021-b08a-c232b9ac2471}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="compil">
+      <UniqueIdentifier>{2218d0bc-8352-33bc-b526-1cb8cbbe4a4b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="configuration">
+      <UniqueIdentifier>{8203fdfd-ff54-3bfc-8502-86a1baf7b2f8}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="platform">
+      <UniqueIdentifier>{7fe20fa4-b220-3a62-83f0-c23bd9063034}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\compil\src\core\boost\boost_assert_handler.cpp">
+      <Filter>boost</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\core\boost\boost_assert_handler.h">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\core\boost\boost_path.cpp">
+      <Filter>boost</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\core\boost\boost_path.h">
+      <Filter>boost</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compil\src\core\compil\flags_enumeration.h">
+      <Filter>compil</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\core\configuration\configuration.cpp">
+      <Filter>configuration</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\core\configuration\configuration.h">
+      <Filter>configuration</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\core\configuration\configuration_manager.cpp">
+      <Filter>configuration</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\core\configuration\configuration_manager.h">
+      <Filter>configuration</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\core\configuration\configuration_manager_unittest.cpp">
+      <Filter>configuration</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\core\platform\application.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\core\platform\application.h">
+      <Filter>platform</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\core\platform\application_unittest.cpp">
+      <Filter>platform</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

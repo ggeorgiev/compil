@@ -1,0 +1,225 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+    <ItemGroup Label="ProjectConfigurations">
+        <ProjectConfiguration Include="Debug|Win32">
+            <Configuration>Debug</Configuration>
+            <Platform>Win32</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Debug|x64">
+            <Configuration>Debug</Configuration>
+            <Platform>x64</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|Win32">
+            <Configuration>Release</Configuration>
+            <Platform>Win32</Platform>
+        </ProjectConfiguration>
+        <ProjectConfiguration Include="Release|x64">
+            <Configuration>Release</Configuration>
+            <Platform>x64</Platform>
+        </ProjectConfiguration>
+    </ItemGroup>
+      <ItemGroup>
+     <None Include="..\compil\src\generator\jamfile.jam" />
+     <ClCompile Include="..\compil\src\generator\.gen\formatter_pointer_position.cpp" />
+     <ClInclude Include="..\compil\src\generator\.gen\formatter_pointer_position.h" />
+     <ClCompile Include="..\compil\src\generator\.gen\generator\c++\configuration\formatter_pointer_position.cpp" />
+     <ClInclude Include="..\compil\src\generator\.gen\generator\c++\configuration\formatter_pointer_position.h" />
+     <ClCompile Include="..\compil\src\generator\aligner\aligner.cpp" />
+     <ClInclude Include="..\compil\src\generator\aligner\aligner.h" />
+     <ClCompile Include="..\compil\src\generator\aligner\function_definition_aligner.cpp" />
+     <ClInclude Include="..\compil\src\generator\aligner\function_definition_aligner.h" />
+     <ClCompile Include="..\compil\src\generator\aligner\function_definition_aligner_unittest.cpp" />
+     <ClCompile Include="..\compil\src\generator\aligner\line_aligner.cpp" />
+     <ClInclude Include="..\compil\src\generator\aligner\line_aligner.h" />
+     <ClCompile Include="..\compil\src\generator\aligner\table_aligner.cpp" />
+     <ClInclude Include="..\compil\src\generator\aligner\table_aligner.h" />
+     <ClCompile Include="..\compil\src\generator\aligner\table_aligner_unittest.cpp" />
+     <ClCompile Include="..\compil\src\generator\c++\aligner_stream.cpp" />
+     <ClInclude Include="..\compil\src\generator\c++\aligner_stream.h" />
+     <ClCompile Include="..\compil\src\generator\c++\configuration\aligner_configuration.cpp" />
+     <ClInclude Include="..\compil\src\generator\c++\configuration\aligner_configuration.h" />
+     <ClCompile Include="..\compil\src\generator\c++\configuration\formatter_configuration.cpp" />
+     <ClInclude Include="..\compil\src\generator\c++\configuration\formatter_configuration.h" />
+     <ClCompile Include="..\compil\src\generator\c++\configuration\implementer_configuration.cpp" />
+     <ClInclude Include="..\compil\src\generator\c++\configuration\implementer_configuration.h" />
+     <ClCompile Include="..\compil\src\generator\c++\configuration\namer_configuration.cpp" />
+     <ClInclude Include="..\compil\src\generator\c++\configuration\namer_configuration.h" />
+     <ClCompile Include="..\compil\src\generator\c++\formatter_stream.cpp" />
+     <ClInclude Include="..\compil\src\generator\c++\formatter_stream.h" />
+     <ClCompile Include="..\compil\src\generator\c++\implementer_stream.cpp" />
+     <ClInclude Include="..\compil\src\generator\c++\implementer_stream.h" />
+     <ClCompile Include="..\compil\src\generator\c++\namer_stream.cpp" />
+     <ClInclude Include="..\compil\src\generator\c++\namer_stream.h" />
+     <ClCompile Include="..\compil\src\generator\compil\compil_generator.cpp" />
+     <ClInclude Include="..\compil\src\generator\compil\compil_generator.h" />
+     <ClCompile Include="..\compil\src\generator\compil\compil_generator_unittest.cpp" />
+     <ClCompile Include="..\compil\src\generator\cpp\c++_flags_enumeration_generator.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\c++_flags_enumeration_generator.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\c++_generator.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\c++_generator.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\c++_h_generator.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\c++_h_generator.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\c++_test_generator.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\c++_test_generator.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\argument.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\argument.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\cast_operator.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\cast_operator.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\comment.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\comment.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\constructor.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\constructor.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\constructor_name.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\constructor_name.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\constructor_specifier.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\constructor_specifier.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\destructor.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\destructor.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\destructor_name.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\destructor_name.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\destructor_specifier.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\destructor_specifier.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\function.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\function.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\function_call.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\function_call.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\function_name.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\function_name.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\initialization.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\initialization.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\method.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\method.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\method_declaration.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\method_declaration.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\method_name.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\method_name.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\method_specifier.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\method_specifier.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\namespace.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\namespace.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\namespace_name.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\namespace_name.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\parameter_value.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\parameter_value.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\type.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\type.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\type_declaration.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\type_declaration.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\type_decoration.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\type_decoration.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\type_name.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\type_name.h" />
+     <ClCompile Include="..\compil\src\generator\cpp\format\variable_name.cpp" />
+     <ClInclude Include="..\compil\src\generator\cpp\format\variable_name.h" />
+     <ClCompile Include="..\compil\src\generator\formatter\c++_formatter.cpp" />
+     <ClInclude Include="..\compil\src\generator\formatter\c++_formatter.h" />
+     <ClCompile Include="..\compil\src\generator\formatter\c++_keyword.cpp" />
+     <ClInclude Include="..\compil\src\generator\formatter\c++_keyword.h" />
+     <ClCompile Include="..\compil\src\generator\general_configuration.cpp" />
+     <ClInclude Include="..\compil\src\generator\general_configuration.h" />
+     <ClCompile Include="..\compil\src\generator\generator.cpp" />
+     <ClInclude Include="..\compil\src\generator\generator.h" />
+     <ClCompile Include="..\compil\src\generator\generator_configuration.cpp" />
+     <ClInclude Include="..\compil\src\generator\generator_configuration.h" />
+     <ClCompile Include="..\compil\src\generator\implementer\c++_implementer.cpp" />
+     <ClInclude Include="..\compil\src\generator\implementer\c++_implementer.h" />
+     <ClCompile Include="..\compil\src\generator\implementer\dependency.cpp" />
+     <ClInclude Include="..\compil\src\generator\implementer\dependency.h" />
+     <ClCompile Include="..\compil\src\generator\main.cpp" />
+     <ClCompile Include="..\compil\src\generator\main_generator_unittest.cpp" />
+     <ClCompile Include="..\compil\src\generator\method_group.cpp" />
+     <ClInclude Include="..\compil\src\generator\method_group.h" />
+     <ClCompile Include="..\compil\src\generator\project\file_source_provider.cpp" />
+     <ClInclude Include="..\compil\src\generator\project\file_source_provider.h" />
+     <ClCompile Include="..\compil\src\generator\project\generator_project.cpp" />
+     <ClInclude Include="..\compil\src\generator\project\generator_project.h" />
+     <ClCompile Include="..\compil\src\generator\project\generator_project_unittest.cpp" />
+     <ClCompile Include="..\compil\src\generator\project\hook_source_provider.cpp" />
+     <ClInclude Include="..\compil\src\generator\project\hook_source_provider.h" />
+     <ClCompile Include="..\compil\src\generator\project\test_source_provider.cpp" />
+     <ClInclude Include="..\compil\src\generator\project\test_source_provider.h" />
+  </ItemGroup>
+    <PropertyGroup Label="Globals">
+        <ProjectName>generator</ProjectName>
+        <ProjectGuid>{89f7ba88-7086-35a1-a7ee-232db7cb97af}</ProjectGuid>
+        <RootNamespace>p4v</RootNamespace>
+        <Keyword>MakeFileProj</Keyword>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props"/>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
+        <ConfigurationType>Makefile</ConfigurationType>
+        <PlatformToolset>v110</PlatformToolset>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
+        <ConfigurationType>Makefile</ConfigurationType>
+        <PlatformToolset>v110</PlatformToolset>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
+        <ConfigurationType>Makefile</ConfigurationType>
+        <PlatformToolset>v110</PlatformToolset>
+    </PropertyGroup>
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="Configuration">
+        <ConfigurationType>Makefile</ConfigurationType>
+        <PlatformToolset>v110</PlatformToolset>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.props"/>
+    <ImportGroup Label="ExtensionSettings">
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="PropertySheets">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="PropertySheets">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="PropertySheets">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <ImportGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'" Label="PropertySheets">
+        <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform"/>
+    </ImportGroup>
+    <PropertyGroup Label="UserMacros"/>
+    <PropertyGroup>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\intermediate\src\generator\8ee05a09abce3982bc782ef7acd96fe4\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\intermediate\src\generator\c018c104b263cd6d6cc9f6fd593e8fea</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\intermediate\src\generator\ff0f12f5985b91a4c600eff861c7a7c0\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\intermediate\src\generator\77a877bfc7257cd810d26bde2d46311f\</OutDir>
+
+        <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)</IntDir>
+        <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)</IntDir>
+        <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)</IntDir>
+        <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)</IntDir>
+
+        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)build.bat debug 32 ..\compil\src\generator || exit 1</NMakeBuildCommandLine>
+        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)build.bat debug 64 ..\compil\src\generator || exit 1</NMakeBuildCommandLine>
+        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)build.bat release 32 ..\compil\src\generator || exit 1</NMakeBuildCommandLine>
+        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)build.bat release 64 ..\compil\src\generator || exit 1</NMakeBuildCommandLine>
+
+        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)rebuild.bat debug 32 ..\compil\src\generator || exit 1</NMakeReBuildCommandLine>
+        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)rebuild.bat debug 64 ..\compil\src\generator || exit 1</NMakeReBuildCommandLine>
+        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)rebuild.bat release 32 ..\compil\src\generator || exit 1</NMakeReBuildCommandLine>
+        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)rebuild.bat release 64 ..\compil\src\generator || exit 1</NMakeReBuildCommandLine>
+
+        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)clean.bat debug 32 ..\compil\src\generator || exit 1</NMakeCleanCommandLine>
+        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)clean.bat debug 64 ..\compil\src\generator || exit 1</NMakeCleanCommandLine>
+        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)clean.bat release 32 ..\compil\src\generator || exit 1</NMakeCleanCommandLine>
+        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)clean.bat release 64 ..\compil\src\generator || exit 1</NMakeCleanCommandLine>
+
+        <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">WIN32;_CPPUNWIND;_DEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+        <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">WIN32;_CPPUNWIND;_DEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+        <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">WIN32;_CPPUNWIND;NDEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+        <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">WIN32;_CPPUNWIND;NDEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
+
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
+
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">generator-unit_test</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">generator-unit_test</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">generator-unit_test</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">generator-unit_test</TargetName>
+    </PropertyGroup>
+    <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
+    <ImportGroup Label="ExtensionTargets">
+    </ImportGroup>
+</Project>

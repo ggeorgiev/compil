@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="old">
+      <UniqueIdentifier>{9f14b70e-9eff-3b24-aef7-ad665285ce84}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="specimen">
+      <UniqueIdentifier>{c9ca79a4-c1ec-3798-ad9b-2ae2901de20c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="structure">
+      <UniqueIdentifier>{bc205130-0ad0-397a-9874-83b210546115}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="..\compil\src\generator-test\old\containers_unittest.cpp">
+      <Filter>old</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\old\default_values_unittest.cpp">
+      <Filter>old</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\old\factories_unittest_.cpp">
+      <Filter>old</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\old\immutable_structure_unittest.cpp">
+      <Filter>old</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\old\inner_enumeration_unittest.cpp">
+      <Filter>old</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\old\mutable_structure_unittest.cpp">
+      <Filter>old</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\old\packages_unittest.cpp">
+      <Filter>old</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator-test\old\partial_inherit_structure.h">
+      <Filter>old</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compil\src\generator-test\old\partial_structure.h">
+      <Filter>old</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\generator-test\old\partial_structure_unittest.cpp">
+      <Filter>old</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\old\references_unittest.cpp">
+      <Filter>old</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\old\strong_enumeration_unittest.cpp">
+      <Filter>old</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\old\strong_identifier_unittest.cpp">
+      <Filter>old</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\old\weak_enumeration_unittest.cpp">
+      <Filter>old</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\old\weak_identifier_unittest.cpp">
+      <Filter>old</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\specimen\specimens-manual_test.cpp">
+      <Filter>specimen</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\structure\identification-manual_test.cpp">
+      <Filter>structure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\structure\sanity-manual_test.cpp">
+      <Filter>structure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\structure\streamable-manual_test.cpp">
+      <Filter>structure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\structure\upcopy-manual_test.cpp">
+      <Filter>structure</Filter>
+    </ClCompile>
+  </ItemGroup>
+</Project>

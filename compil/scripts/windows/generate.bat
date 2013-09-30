@@ -1,3 +1,5 @@
+cd /d %~dp0
+
 SET GENERATOR=%1
 
 if "%GENERATOR%" == "" (
@@ -8,6 +10,7 @@ SET BASEDIR=%~dp0
 pushd %BASEDIR%\..\..\src || exit 1
 
 %GENERATOR% ^
+    --flat-output=false ^
     --project-file=language\language.scompilprj ^
     --output-directory=language\.gen ^
     --core-output-directory=. ^
@@ -15,6 +18,7 @@ pushd %BASEDIR%\..\..\src || exit 1
     || exit 1
 
 %GENERATOR% ^
+    --flat-output=false ^
     --project-file=generator/generator.scompilprj ^
     --output-directory=generator\.gen ^
     --core-output-directory=. ^
