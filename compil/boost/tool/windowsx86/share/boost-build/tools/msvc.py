@@ -176,7 +176,6 @@ def configure_version_specific(toolset_arg, version, conditions):
 
         cpu_arch_i386_cond = extend_conditions(conditions, __cpu_arch_i386)
         toolset.flags('{}.compile'.format(toolset_arg), 'CFLAGS', extend_conditions(cpu_arch_i386_cond,['<instruction-set>']),['/GB'])
-        toolset.flags('{}.compile'.format(toolset_arg), 'CFLAGS', extend_conditions(cpu_arch_i386_cond,['<instruction-set>i386']),['/G3'])
         toolset.flags('{}.compile'.format(toolset_arg), 'CFLAGS', extend_conditions(cpu_arch_i386_cond,['<instruction-set>i486']),['/G4'])
 
         toolset.flags('{}.compile'.format(toolset_arg), 'CFLAGS', extend_conditions(cpu_arch_i386_cond,['<instruction-set>' + t for t in __cpu_type_g5]), ['/G5'])
@@ -208,7 +207,7 @@ def configure_version_specific(toolset_arg, version, conditions):
         
         # Make sure that manifest will be generated even if there is no
         # dependencies to put there.
-        toolset.flags('{}.link'.format(toolset_arg), 'LINKFLAGS', extend_conditions(conditions,["<embed-manifest>off"]), ['/MANIFEST'])
+        toolset.flags('{}.link'.format(toolset_arg), 'LINKFLAGS', conditions, ['/MANIFEST'])
 
 
 # Registers this toolset including all of its flags, features & generators. Does
@@ -1145,10 +1144,11 @@ __cpu_arch_ia64 = [
 __cpu_type_g5       = ['i586', 'pentium', 'pentium-mmx' ]
 __cpu_type_g6       = ['i686', 'pentiumpro', 'pentium2', 'pentium3', 'pentium3m', 'pentium-m', 'k6',
                       'k6-2', 'k6-3', 'winchip-c6', 'winchip2', 'c3', 'c3-2' ]
-__cpu_type_em64t    = ['prescott', 'nocona', 'conroe', 'conroe-xe', 'conroe-l', 'allendale', 'mermon',
-                      'mermon-xe', 'kentsfield', 'kentsfield-xe', 'penryn', 'wolfdale',
-                      'yorksfield', 'nehalem' ]
-__cpu_type_amd64    = ['k8', 'opteron', 'athlon64', 'athlon-fx']
+__cpu_type_em64t    = ['prescott', 'nocona', 'core2', 'corei7', 'corei7-avx', 'core-avx-i', 'conroe', 'conroe-xe', 'conroe-l', 'allendale', 'merom',
+                      'merom-xe', 'kentsfield', 'kentsfield-xe', 'penryn', 'wolfdale',
+                      'yorksfield', 'nehalem', 'sandy-bridge', 'ivy-bridge', 'haswell' ]
+__cpu_type_amd64    = ['k8', 'opteron', 'athlon64', 'athlon-fx', 'k8-sse3', 'opteron-sse3', 'athlon64-sse3', 'amdfam10', 'barcelona',
+                      'bdver1', 'bdver2', 'bdver3', 'btver1', 'btver2' ]
 __cpu_type_g7       = ['pentium4', 'pentium4m', 'athlon', 'athlon-tbird', 'athlon-4', 'athlon-xp'
                       'athlon-mp'] + __cpu_type_em64t + __cpu_type_amd64
 __cpu_type_itanium  = ['itanium', 'itanium1', 'merced']

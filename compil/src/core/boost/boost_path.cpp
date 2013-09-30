@@ -32,6 +32,8 @@
 
 #include "core/boost/boost_path.h"
 
+#include "boost/iostreams/device/mapped_file.hpp"
+
 namespace boost {
 
 namespace filesystem {
@@ -98,6 +100,26 @@ path relative_path(const path& directory, const path& to)
 
     return relPath;
 }
+
+#define _SCL_SECURE_NO_WARNINGS
+
+void optional_copy(const boost::filesystem::path source, const boost::filesystem::path& target)
+{
+    if (exists(target))
+    {
+        boost::iostreams::mapped_file_source source_map(source);
+        boost::iostreams::mapped_file_source target_map(target);
+
+        if (source_map.size() == target_map.size()
+            && std::equal(source_map.data(), source_map.data() + source_map.size(), target_map.data()))
+        {
+            return;
+        }
+    }
+    copy(source, target);
+}
+
+#undef _SCL_SECURE_NO_WARNINGS
 
 }
 

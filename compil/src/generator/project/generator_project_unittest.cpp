@@ -70,19 +70,19 @@ TEST(GeneratorProjectTests, initProjectFile)
 
     {
         GeneratorProject project(provider);
-        EXPECT_TRUE(project.init(false, false, "a.compilprj", "/foo", "", sources, imports));
+        EXPECT_TRUE(project.init(false, false, "", "a.compilprj", "/foo", "", sources, imports));
         EXPECT_STREQ("/foo", project.projectDirectory().generic_string().c_str());
     }
 
     {
         GeneratorProject project(provider);
-        EXPECT_TRUE(project.init(false, false, "/foo/a.compilprj", "/foo", "", sources, imports));
+        EXPECT_TRUE(project.init(false, false, "", "/foo/a.compilprj", "/foo", "", sources, imports));
         EXPECT_STREQ("/foo", project.projectDirectory().generic_string().c_str());
     }
 
     {
         GeneratorProject project(provider);
-        EXPECT_TRUE(project.init(false, false, "foo/a.compilprj", "/", "", sources, imports));
+        EXPECT_TRUE(project.init(false, false, "", "foo/a.compilprj", "/", "", sources, imports));
         EXPECT_STREQ("/foo", project.projectDirectory().generic_string().c_str());
     }
 }
@@ -96,17 +96,17 @@ TEST(GeneratorProjectTests, initProjectFileNegative)
 
     {
         GeneratorProject project(provider);
-        EXPECT_FALSE(project.init(false, false, "a.compilprj", "/foo/", "", sources, imports));
+        EXPECT_FALSE(project.init(false, false, "", "a.compilprj", "/foo/", "", sources, imports));
     }
 
     {
         GeneratorProject project(provider);
-        EXPECT_FALSE(project.init(false, false, "/foo/a.compilprj", "/foo/", "", sources, imports));
+        EXPECT_FALSE(project.init(false, false, "", "/foo/a.compilprj", "/foo/", "", sources, imports));
     }
 
     {
         GeneratorProject project(provider);
-        EXPECT_FALSE(project.init(false, false, "foo/a.compilprj", "/", "", sources, imports));
+        EXPECT_FALSE(project.init(false, false, "", "foo/a.compilprj", "/", "", sources, imports));
     }
 }
 
@@ -124,19 +124,19 @@ TEST(GeneratorProjectTests, initSourceFiles)
 
     {
         GeneratorProject project(provider);
-        EXPECT_TRUE(project.init(false, false, "", "/foo", "main", sources, imports));
+        EXPECT_TRUE(project.init(false, false, "", "", "/foo", "main", sources, imports));
         EXPECT_STREQ("/foo", project.projectDirectory().generic_string().c_str());
     }
 
     {
         GeneratorProject project(provider);
-        EXPECT_TRUE(project.init(false, false, "", "/foo", "main", sources, imports));
+        EXPECT_TRUE(project.init(false, false, "", "", "/foo", "main", sources, imports));
         EXPECT_STREQ("/foo", project.projectDirectory().generic_string().c_str());
     }
 
     {
         GeneratorProject project(provider);
-        EXPECT_TRUE(project.init(false, false, "", "/", "main", sources, imports));
+        EXPECT_TRUE(project.init(false, false, "", "", "/", "main", sources, imports));
         EXPECT_STREQ("/", project.projectDirectory().generic_string().c_str());
     }
 }
@@ -153,7 +153,7 @@ TEST(GeneratorProjectTests, parseDocuments)
     string_vector imports;
 
     GeneratorProject project(provider);
-    EXPECT_TRUE(project.init(false, false, "/foo/a.compilprj", "", "main", sources, imports));
+    EXPECT_TRUE(project.init(false, false, "", "/foo/a.compilprj", "", "main", sources, imports));
     EXPECT_STREQ("/foo", project.projectDirectory().generic_string().c_str());
     EXPECT_TRUE(project.parseDocuments());
 }
@@ -170,7 +170,7 @@ TEST(GeneratorProjectTests, parseDocumentsNegative)
     string_vector imports;
 
     GeneratorProject project(provider);
-    EXPECT_TRUE(project.init(false, false, "/foo/a.compilprj", "", "main", sources, imports));
+    EXPECT_TRUE(project.init(false, false, "", "/foo/a.compilprj", "", "main", sources, imports));
     EXPECT_STREQ("/foo", project.projectDirectory().generic_string().c_str());
     EXPECT_FALSE(project.parseDocuments());
 }

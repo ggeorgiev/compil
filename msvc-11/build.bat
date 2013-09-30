@@ -17,9 +17,8 @@ echo on
 pushd ..\compil\%SUBDIR% || exit 1
 echo %cd%
 %BUILD% --hash ^
-        toolset=msvc-10.0 link=static runtime-link=static architecture=x86 threading=multi ^
+        toolset=msvc-11.0 link=static runtime-link=static architecture=x86 threading=multi ^
         variant=%VARIANT% address-model=%ADDRESS_MODEL% -j%NUMBER_OF_PROCESSORS% ^
-        -sPERFORMANCE_TEST_REPEAT=%PERFORMANCE_TEST_REPEAT% ^
         debug-symbols=on ^
         %TARGET%
 @popd || exit 1

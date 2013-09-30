@@ -27,6 +27,9 @@
     <ClInclude Include="..\compil\src\core\boost\boost_path.h">
       <Filter>boost</Filter>
     </ClInclude>
+    <ClCompile Include="..\compil\src\core\boost\boost_path_unittest.cpp">
+      <Filter>boost</Filter>
+    </ClCompile>
     <ClInclude Include="..\compil\src\core\compil\flags_enumeration.h">
       <Filter>compil</Filter>
     </ClInclude>

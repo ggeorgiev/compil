@@ -64,6 +64,7 @@ int main(int argc, const char **argv)
     compil::GeneratorProject project(pFileSourceProvider);
     if (!project.init(pGeneratorConfiguration->forceGeneration,
                       pGeneratorConfiguration->ignoreTheGenerator,
+                      pGeneratorConfiguration->doubleBufferDirectory,
                       pGeneratorConfiguration->projectFile,
                       pGeneratorConfiguration->projectDirectory,
                       pGeneratorConfiguration->type,

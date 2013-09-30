@@ -119,10 +119,10 @@
     </ImportGroup>
     <PropertyGroup Label="UserMacros"/>
     <PropertyGroup>
-        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\intermediate\compiler\8ee05a09abce3982bc782ef7acd96fe4\</OutDir>
-        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\intermediate\compiler\c018c104b263cd6d6cc9f6fd593e8fea</OutDir>
-        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\intermediate\compiler\ff0f12f5985b91a4c600eff861c7a7c0\</OutDir>
-        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\intermediate\compiler\77a877bfc7257cd810d26bde2d46311f\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\intermediate\compiler\d8644d68a8a290c166baa1a661b53244\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\intermediate\compiler\89c90c1611a3a815e607dcd5d5838cc1</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\intermediate\compiler\bb29680513aadd909021c53078b05cdf\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\intermediate\compiler\ad2cfe280fbfb4cf4e7ba17e3fcfd824\</OutDir>
 
         <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)</IntDir>
         <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)</IntDir>
@@ -149,10 +149,10 @@
         <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">WIN32;_CPPUNWIND;NDEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
         <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">WIN32;_CPPUNWIND;NDEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
 
-        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
-        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
-        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
-        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\</NMakeIncludeSearchPath>
 
         <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">compiler-unit_test</TargetName>
         <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">compiler-unit_test</TargetName>

@@ -13,7 +13,7 @@ lib compiler
     message/message.cpp
     message/message_collector.cpp
 
-    parser/document_parser-mixin.cpp
+    #parser/document_parser-mixin.cpp
     parser/parser-mixin.cpp
     parser/project_parser-mixin.cpp
     parser/specimen_parser-mixin.cpp

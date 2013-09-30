@@ -95,6 +95,7 @@ bool GeneratorProject::determineProjectPath(const std::string& projectFile,
 
 bool GeneratorProject::init(const bool forceGeneration,
                             const bool ignoreTheGenerator,
+                            const std::string& doubleBufferDirectory,
                             const std::string& projectFile,
                             const std::string& projectDirectory,
                             const std::string& type,
@@ -105,6 +106,8 @@ bool GeneratorProject::init(const bool forceGeneration,
     mInitTime = ignoreTheGenerator
               ? std::numeric_limits<time_t>::min()
               : mSourceProvider->fileTime(plt::getApplicationPath().generic_string());
+
+    mDoubleBufferDirectory = doubleBufferDirectory;
 
     std::vector<boost::filesystem::path> directories;
     for (string_vector::const_iterator it = importDirectories.begin(); it != importDirectories.end(); ++it)
@@ -260,6 +263,40 @@ static std::string getFileStem(const std::string& type,
     return result + "-" + type;
 }
 
+std::string GeneratorProject::reasonToGenerate(const boost::filesystem::path& file,
+                                               const std::time_t updateTime,
+                                               const std::string updateResuorce)
+{
+    std::string because;
+    if (!mSourceProvider->isExists(file))
+    {
+        because = "is missing";
+    }
+    else
+    if (mSourceProvider->fileTime(file) <= updateTime)
+    {
+        because = "is older than " + updateResuorce;
+    }
+    else
+    if (mForceGeneration)
+    {
+        because = "was forced";
+    }
+
+    if (!because.empty())
+    {
+        std::cout << "#" << file.generic_string() << std::endl
+                  << "    because " << because << std::endl;
+    }
+
+    return because;
+}
+
+boost::filesystem::path GeneratorProject::generateLocation(const boost::filesystem::path& file)
+{
+    return file;
+}
+
 bool GeneratorProject::executeGenerator(const std::string& type,
                                         const FilePathSPtr& path,
                                         const CppImplementer::EExtensionType& extensionType,
@@ -292,26 +329,12 @@ bool GeneratorProject::executeGenerator(const std::string& type,
 
     output /= getFileStem(type, data.document->name()->value()) + implementer->applicationExtension(extensionType);
 
-    std::string because;
-    if (!mSourceProvider->isExists(output))
-    {
-        because = "is missing";
-    }
-    else
-    if (mSourceProvider->fileTime(output) <= data.updateTime)
-    {
-        because = "is older than " + data.becauseOf;
-    }
-    else
-    if (mForceGeneration)
-    {
-        because = "was forced";
-    }
+    std::string because = reasonToGenerate(output, data.updateTime, data.becauseOf);
+
+    boost::filesystem::path generateTo = generateLocation(output);
 
     if (!because.empty())
     {
-        std::cout << "#" << output.generic_string() << std::endl
-                  << "    because " << because << std::endl;
         boost::shared_ptr<std::ostream> outputStream = openStream(output);
 
         bool bResult = generator.init(type,

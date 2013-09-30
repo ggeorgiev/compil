@@ -49,6 +49,19 @@ rule boost-defines ( )
       ;
       
       
+    lib boost_iostreams-lib
+      :
+      :
+        <name>$(prefix:E)boost_iostreams
+        <conditional>@boost_search_library_location
+      ;
+        
+    alias boost_iostreams
+      :
+        boost_requirements_for_all
+        boost_iostreams-lib
+      ;
+
     lib boost_system-lib
       :
       :
@@ -61,8 +74,7 @@ rule boost-defines ( )
         boost_requirements_for_all
         boost_system-lib
       ;
-   
-     
+
     lib boost_filesystem-lib
       :
       :

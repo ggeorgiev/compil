@@ -71,6 +71,7 @@ public:
 
     bool init(const bool forceGeneration,
               const bool ignoreTheGenerator,
+              const std::string& doubleBufferDirectory,
               const std::string& projectFile,
               const std::string& projectDirectory,
               const std::string& type,
@@ -90,6 +91,12 @@ public:
     const boost::filesystem::path& projectDirectory() const;
 
 private:
+    std::string reasonToGenerate(const boost::filesystem::path& file,
+                                 const std::time_t updateTime,
+                                 const std::string updateResuorce);
+
+    boost::filesystem::path generateLocation(const boost::filesystem::path& file);
+
     bool executeGenerator(const std::string& type,
                           const FilePathSPtr& path,
                           const CppImplementer::EExtensionType& extensionType,
@@ -125,6 +132,8 @@ private:
 
     // if true generates the files ignoring any logic for not to
     bool mForceGeneration;
+
+    std::string mDoubleBufferDirectory;
 
     boost::unordered_map<boost::filesystem::path, SourceData> mDocuments;
 

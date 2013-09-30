@@ -57,6 +57,8 @@ void GeneratorConfiguration::addCommonOptions(bpo::options_description& options)
             "force generation")
         ("ignore-the-generator", bpo::value<bool>(&ignoreTheGenerator)->default_value(false),
             "ignore the generator modification time when determine to generate a file or not")
+        ("double-buffer-directory", bpo::value<std::string>(&doubleBufferDirectory)->default_value(""),
+            "specifies the directory for double buffering of the files")
         ("output-directory,o", bpo::value<std::string>(&outputDirectory),
             "output directory")
         ("flat-output", bpo::value<bool>(&flatOutput)->default_value(false),

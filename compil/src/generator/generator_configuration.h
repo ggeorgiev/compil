@@ -56,6 +56,7 @@ public:
 
     bool forceGeneration;
     bool ignoreTheGenerator;
+    std::string doubleBufferDirectory;
     std::string type;
     std::string outputDirectory;
     bool flatOutput;

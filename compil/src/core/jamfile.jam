@@ -20,6 +20,7 @@ lib core
     platform/application.cpp
     
     boost_filesystem
+    boost_iostreams
     boost_program_options
   :
   :

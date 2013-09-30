@@ -16,6 +16,9 @@ rule gtest-defines ( )
       :
       :
         <target-os>windows
+      :
+      :
+        <define>_VARIADIC_MAX=10
       ;
 
     alias gtest_requirements_for_os
