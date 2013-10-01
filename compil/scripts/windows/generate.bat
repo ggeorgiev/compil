@@ -10,6 +10,7 @@ SET BASEDIR=%~dp0
 pushd %BASEDIR%\..\..\src || exit 1
 
 %GENERATOR% ^
+    --double-buffer-directory=..\..\intermediate\double_buffer ^
     --flat-output=false ^
     --project-file=language\language.scompilprj ^
     --output-directory=language\.gen ^
@@ -18,6 +19,7 @@ pushd %BASEDIR%\..\..\src || exit 1
     || exit 1
 
 %GENERATOR% ^
+    --double-buffer-directory=..\..\intermediate\double_buffer ^
     --flat-output=false ^
     --project-file=generator/generator.scompilprj ^
     --output-directory=generator\.gen ^

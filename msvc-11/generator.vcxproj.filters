@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include=".gen">
@@ -42,12 +42,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\compil\src\generator\.gen\formatter_pointer_position.cpp">
-      <Filter>.gen</Filter>
-    </ClCompile>
-    <ClInclude Include="..\compil\src\generator\.gen\formatter_pointer_position.h">
-      <Filter>.gen</Filter>
-    </ClInclude>
     <ClCompile Include="..\compil\src\generator\.gen\generator\c++\configuration\formatter_pointer_position.cpp">
       <Filter>.gen\generator\c++\configuration</Filter>
     </ClCompile>
@@ -369,21 +363,5 @@
     <ClInclude Include="..\compil\src\generator\project\test_source_provider.h">
       <Filter>project</Filter>
     </ClInclude>
-    <ClCompile Include="..\compil\src\generator\general_configuration.cpp" />
-    <ClCompile Include="..\compil\src\generator\generator.cpp" />
-    <ClCompile Include="..\compil\src\generator\generator_configuration.cpp" />
-    <ClCompile Include="..\compil\src\generator\main.cpp" />
-    <ClCompile Include="..\compil\src\generator\main_generator_unittest.cpp" />
-    <ClCompile Include="..\compil\src\generator\method_group.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\compil\src\generator\general_configuration.h" />
-    <ClInclude Include="..\compil\src\generator\generator.h" />
-    <ClInclude Include="..\compil\src\generator\generator_configuration.h" />
-    <ClInclude Include="..\compil\src\generator\method_group.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\compil\src\generator\jamfile.jam" />
-    <None Include="..\compil\src\generator\generator.scompilprj" />
   </ItemGroup>
 </Project>

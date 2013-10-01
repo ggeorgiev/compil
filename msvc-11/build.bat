@@ -3,6 +3,7 @@
 cd /d %~dp0
 
 pushd .
+echo call generate.bat
 call ..\compil\scripts\windows\generate.bat || exit 1
 popd
 

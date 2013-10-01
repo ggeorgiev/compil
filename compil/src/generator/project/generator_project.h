@@ -100,7 +100,8 @@ private:
     boost::filesystem::path generateLocation(const boost::filesystem::path& file);
 
     bool executeGenerator(const std::string& type,
-                          const FilePathSPtr& path,
+                          const SourceData& data,
+                          const std::string& path,
                           const CppImplementer::EExtensionType& extensionType,
                           const boost::filesystem::path& outputDirectory,
                           const bool flatOutput,
@@ -109,21 +110,13 @@ private:
                           const ImplementerConfigurationSPtr& implementerConfiguration,
                           Generator& generator);
 
-    bool executeCoreGenerator(const std::string& name,
-                              const CppImplementer::EExtensionType& extensionType,
-                              const boost::filesystem::path& outputDirectory,
-                              const bool flatCoreOutput,
-                              const AlignerConfigurationSPtr& alignerConfiguration,
-                              const FormatterConfigurationSPtr& formatterConfiguration,
-                              const ImplementerConfigurationSPtr& implementerConfiguration,
-                              Generator& generator);
-
     bool determineProjectPath(const std::string& projectFile,
                               const std::string& projectDirectory,
                               boost::filesystem::path& projectPath);
 
     ISourceProviderSPtr mSourceProvider;
     boost::filesystem::path mProjectDirectory;
+
     ProjectSPtr mProject;
     PackageSPtr mCorePackage;
 
@@ -139,7 +132,7 @@ private:
 
     boost::unordered_map<boost::filesystem::path, SourceData> mDocuments;
 
-    boost::unordered_set<std::string> mCoreDependencies;
+    boost::unordered_map<std::string, SourceData> mCoreDependencies;
 };
 
 }

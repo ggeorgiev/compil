@@ -289,13 +289,20 @@ std::string GeneratorProject::reasonToGenerate(const boost::filesystem::path& fi
                                                const std::time_t updateTime,
                                                const std::string updateResuorce)
 {
+    boost::filesystem::path location = generateLocation(file);
+
     std::string because;
     if (!mSourceProvider->isExists(file))
     {
         because = "is missing";
     }
     else
-    if (mSourceProvider->fileTime(file) <= updateTime)
+    if (!mSourceProvider->isExists(location))
+    {
+        because = "double buffer copy is missing";
+    }
+    else
+    if (mSourceProvider->fileTime(location) <= updateTime)
     {
         because = "is older than " + updateResuorce;
     }
@@ -333,7 +340,8 @@ boost::filesystem::path GeneratorProject::generateLocation(const boost::filesyst
 }
 
 bool GeneratorProject::executeGenerator(const std::string& type,
-                                        const FilePathSPtr& path,
+                                        const SourceData& data,
+                                        const std::string& path,
                                         const CppImplementer::EExtensionType& extensionType,
                                         const boost::filesystem::path& outputDirectory,
                                         const bool flatOutput,
@@ -342,10 +350,10 @@ bool GeneratorProject::executeGenerator(const std::string& type,
                                         const ImplementerConfigurationSPtr& implementerConfiguration,
                                         Generator& generator)
 {
-    const SourceData& data = mDocuments[path->path()];
+    PackageSPtr package = data.document ? data.document->package() : mCorePackage;
 
     CppFormatterPtr formatter = boost::make_shared<CppFormatter>
-        (formatterConfiguration, data.document->package());
+        (formatterConfiguration, package);
     CppImplementerPtr implementer = boost::make_shared<CppImplementer>
         (implementerConfiguration, formatter, mCorePackage);
 
@@ -353,16 +361,16 @@ bool GeneratorProject::executeGenerator(const std::string& type,
 
     if (!flatOutput)
     {
-        PackageSPtr package = implementer->cppHeaderPackage(data.document->package());
-        if (package)
+        PackageSPtr headerPackage = implementer->cppHeaderPackage(package);
+        if (headerPackage)
         {
-            boost::filesystem::path packagePath(CppImplementer::cppFilepath(package));
+            boost::filesystem::path packagePath(CppImplementer::cppFilepath(headerPackage));
             for (boost::filesystem::path::iterator it = packagePath.begin(); it != packagePath.end(); ++it)
                 output /= *it;
         }
     }
 
-    output /= getFileStem(type, data.document->name()->value()) + implementer->applicationExtension(extensionType);
+    output /= getFileStem(type, path) + implementer->applicationExtension(extensionType);
 
     std::string because = reasonToGenerate(output, data.updateTime, data.becauseOf);
 
@@ -382,7 +390,7 @@ bool GeneratorProject::executeGenerator(const std::string& type,
 
         if (!bResult)
         {
-            std::cout << "ERROR: the generation failed for: " << path->path() << std::endl;
+            std::cout << "ERROR: the generation failed for: " << path << std::endl;
             return false;
         }
     }
@@ -391,87 +399,13 @@ bool GeneratorProject::executeGenerator(const std::string& type,
     for (std::vector<Dependency>::iterator it = dependencies.begin(); it != dependencies.end(); ++it)
     {
         const Dependency& dependency = *it;
-        mCoreDependencies.insert(getFileStem("core", dependency.mHeaderName));
-    }
-    return true;
-}
-
-bool GeneratorProject::executeCoreGenerator(const std::string& name,
-                                            const CppImplementer::EExtensionType& extensionType,
-                                            const boost::filesystem::path& outputDirectory,
-                                            const bool flatOutput,
-                                            const AlignerConfigurationSPtr& alignerConfiguration,
-                                            const FormatterConfigurationSPtr& formatterConfiguration,
-                                            const ImplementerConfigurationSPtr& implementerConfiguration,
-                                            Generator& generator)
-{
-    CppFormatterPtr formatter = boost::make_shared<CppFormatter>
-        (formatterConfiguration, mCorePackage);
-    CppImplementerPtr implementer = boost::make_shared<CppImplementer>
-        (implementerConfiguration, formatter, mCorePackage);
-
-    boost::filesystem::path output = outputDirectory;
-
-    if (!flatOutput)
-    {
-        PackageSPtr package = implementer->cppHeaderPackage(mCorePackage);
-        if (package)
-            output /= implementer->cppFilepath(package);
-    }
-
-    output /= getFileStem("core", name) + implementer->applicationExtension(extensionType);
-
-    {
-        std::cout << "#" << output.generic_string() << std::endl;
-        std::ostringstream* stringstream = new std::ostringstream();
-        boost::shared_ptr<std::ostream> outputStream(stringstream);
-
-        bool bResult = generator.init("core",
-                                      alignerConfiguration,
-                                      formatter,
-                                      implementer,
-                                      outputStream,
-                                      DocumentSPtr());
-
-        if (bResult)
-            bResult = generator.generate();
-
-        if (!bResult)
+        SourceData& coreData = mCoreDependencies[getFileStem("core", dependency.mHeaderName)];
+        if (coreData.updateTime < data.updateTime)
         {
-            std::cout << "ERROR: the generation failed for: " << name << std::endl;
-            return false;
-        }
-
-        std::string current;
-
-        std::ifstream file(output.c_str(), std::ios::binary);
-        if (file.is_open())
-        {
-            file.seekg(0, std::ios::end);
-            current.reserve((std::string::size_type)file.tellg());
-            file.seekg(0, std::ios::beg);
-            current.assign((std::istreambuf_iterator<char>(file)),
-                            std::istreambuf_iterator<char>());
-            file.close();
-        }
-
-        if (current != stringstream->str())
-        {
-            boost::filesystem::create_directories(output.parent_path());
-            std::ofstream stream;
-            stream.open(output.c_str());
-            stream << stringstream->str();
-            stream.close();
+            coreData.updateTime = data.updateTime;
+            coreData.becauseOf = data.becauseOf;
         }
     }
-
-    std::vector<Dependency> dependencies = generator.getCoreDependencies();
-    for (std::vector<Dependency>::iterator it = dependencies.begin(); it != dependencies.end(); ++it)
-    {
-        const Dependency& dependency = *it;
-        mCoreDependencies.insert(dependency.mHeaderName);
-    }
-
     return true;
 }
 
@@ -523,7 +457,8 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
 
                 {
                     CppGenerator generator;
-                    if (!executeGenerator(type, path, CppImplementer::definition, outputDirectory, flatOutput,
+                    if (!executeGenerator(type, mDocuments[path->path()], path->path(),
+                                          CppImplementer::definition, outputDirectory, flatOutput,
                                           alignerConfiguration, formatterConfiguration, implementerConfiguration,
                                           generator))
                         return false;
@@ -531,7 +466,8 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
 
                 {
                     CppHeaderGenerator generator;
-                    if (!executeGenerator(type, path, CppImplementer::declaration, outputDirectory, flatOutput,
+                    if (!executeGenerator(type, mDocuments[path->path()], path->path(),
+                                          CppImplementer::declaration, outputDirectory, flatOutput,
                                           alignerConfiguration, formatterConfiguration, implementerConfiguration,
                                           generator))
                         return false;
@@ -546,7 +482,8 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
                 const FilePathSPtr& path = *pit;
                 {
                     CppTestGenerator generator;
-                    if (!executeGenerator(type, path, CppImplementer::definition, outputDirectory, flatOutput,
+                    if (!executeGenerator(type, mDocuments[path->path()], path->path(),
+                                          CppImplementer::definition, outputDirectory, flatOutput,
                                           alignerConfiguration, formatterConfiguration, implementerConfiguration,
                                           generator))
                         return false;
@@ -558,9 +495,10 @@ bool GeneratorProject::generate(const boost::filesystem::path& outputDirectory,
     if (mCoreDependencies.count(getFileStem("core", "flags_enumeration")))
     {
         CppFlagsEnumerationGenerator generator;
-        if (!executeCoreGenerator("flags_enumeration", CppImplementer::declaration, outputCoreDirectory, flatCoreOutput,
-                                  alignerConfiguration, formatterConfiguration, implementerConfiguration,
-                                  generator))
+        if (!executeGenerator("core", mCoreDependencies[getFileStem("core", "flags_enumeration")], "flags_enumeration",
+                              CppImplementer::declaration, outputCoreDirectory, flatCoreOutput,
+                              alignerConfiguration, formatterConfiguration, implementerConfiguration,
+                              generator))
             return false;
     }
 
