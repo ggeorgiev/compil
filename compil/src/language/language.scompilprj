@@ -191,6 +191,7 @@ section main
     c++/preprocessor/macro_argument_factory.scompil;
     c++/preprocessor/macro_name.scompil;
     
+    c++/statement/binary_test_statement.scompil;
     c++/statement/compound_statement.scompil;
     c++/statement/declaration_statement.scompil;
     c++/statement/expression_statement.scompil;

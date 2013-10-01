@@ -183,6 +183,7 @@ lib cpp-language
     $(GEN)/c++/preprocessor/macro_argument_factory.cpp
     $(GEN)/c++/preprocessor/macro_name.cpp
     
+    $(GEN)/c++/statement/binary_test_statement.cpp
     $(GEN)/c++/statement/compound_statement.cpp
     $(GEN)/c++/statement/declaration_statement.cpp
     $(GEN)/c++/statement/expression_statement.cpp

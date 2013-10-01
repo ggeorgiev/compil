@@ -13,6 +13,9 @@
     <Filter Include="c++\stl">
       <UniqueIdentifier>{78cff0c5-ab8b-31af-acde-cbc4753289cc}</UniqueIdentifier>
     </Filter>
+    <Filter Include="c++\test">
+      <UniqueIdentifier>{86de349c-88c5-3a09-b76b-6d7ee7218a2f}</UniqueIdentifier>
+    </Filter>
     <Filter Include="compil">
       <UniqueIdentifier>{2218d0bc-8352-33bc-b526-1cb8cbbe4a4b}</UniqueIdentifier>
     </Filter>
@@ -89,6 +92,12 @@
     </ClCompile>
     <ClInclude Include="..\compil\src\library\c++\stl\string.h">
       <Filter>c++\stl</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\library\c++\test\asserts.cpp">
+      <Filter>c++\test</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\library\c++\test\asserts.h">
+      <Filter>c++\test</Filter>
     </ClInclude>
     <ClCompile Include="..\compil\src\library\compil\document.cpp">
       <Filter>compil</Filter>

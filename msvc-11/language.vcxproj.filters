@@ -987,6 +987,12 @@
     <ClInclude Include="..\compil\src\language\.gen\language\c++\preprocessor\macro_name.h">
       <Filter>.gen\language\c++\preprocessor</Filter>
     </ClInclude>
+    <ClCompile Include="..\compil\src\language\.gen\language\c++\statement\binary_test_statement.cpp">
+      <Filter>.gen\language\c++\statement</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\language\.gen\language\c++\statement\binary_test_statement.h">
+      <Filter>.gen\language\c++\statement</Filter>
+    </ClInclude>
     <ClCompile Include="..\compil\src\language\.gen\language\c++\statement\compound_statement.cpp">
       <Filter>.gen\language\c++\statement</Filter>
     </ClCompile>
@@ -1787,6 +1793,9 @@
     </None>
     <None Include="..\compil\src\language\c++\preprocessor\macro_name.scompil">
       <Filter>c++\preprocessor</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\statement\binary_test_statement.scompil">
+      <Filter>c++\statement</Filter>
     </None>
     <None Include="..\compil\src\language\c++\statement\compound_statement.scompil">
       <Filter>c++\statement</Filter>

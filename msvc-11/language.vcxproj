@@ -306,6 +306,8 @@
      <ClInclude Include="..\compil\src\language\.gen\language\c++\preprocessor\macro_argument_factory.h" />
      <ClCompile Include="..\compil\src\language\.gen\language\c++\preprocessor\macro_name.cpp" />
      <ClInclude Include="..\compil\src\language\.gen\language\c++\preprocessor\macro_name.h" />
+     <ClCompile Include="..\compil\src\language\.gen\language\c++\statement\binary_test_statement.cpp" />
+     <ClInclude Include="..\compil\src\language\.gen\language\c++\statement\binary_test_statement.h" />
      <ClCompile Include="..\compil\src\language\.gen\language\c++\statement\compound_statement.cpp" />
      <ClInclude Include="..\compil\src\language\.gen\language\c++\statement\compound_statement.h" />
      <ClCompile Include="..\compil\src\language\.gen\language\c++\statement\declaration_statement.cpp" />
@@ -573,6 +575,7 @@
      <None Include="..\compil\src\language\c++\preprocessor\macro_argument.scompil" />
      <None Include="..\compil\src\language\c++\preprocessor\macro_argument_factory.scompil" />
      <None Include="..\compil\src\language\c++\preprocessor\macro_name.scompil" />
+     <None Include="..\compil\src\language\c++\statement\binary_test_statement.scompil" />
      <None Include="..\compil\src\language\c++\statement\compound_statement.scompil" />
      <None Include="..\compil\src\language\c++\statement\declaration_statement.scompil" />
      <None Include="..\compil\src\language\c++\statement\expression_statement.scompil" />
@@ -715,10 +718,10 @@
         <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">WIN32;_CPPUNWIND;NDEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
         <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Release|x64'">WIN32;_CPPUNWIND;NDEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
 
-        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\;..\compil\src\generator\.gen\</NMakeIncludeSearchPath>
-        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\;..\compil\src\generator\.gen\</NMakeIncludeSearchPath>
-        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\;..\compil\src\generator\.gen\</NMakeIncludeSearchPath>
-        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\;..\compil\src\generator\.gen\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\;..\compil\src\generator\.gen\;..\compil\src\generator-test\.gen\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\;..\compil\src\generator\.gen\;..\compil\src\generator-test\.gen\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\;..\compil\src\generator\.gen\;..\compil\src\generator-test\.gen\</NMakeIncludeSearchPath>
+        <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\;..\compil\src\generator\.gen\;..\compil\src\generator-test\.gen\</NMakeIncludeSearchPath>
 
         <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">language-unit_test</TargetName>
         <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">language-unit_test</TargetName>
