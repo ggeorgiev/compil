@@ -2,22 +2,22 @@
 
 #include <iostream>
 
-class ParserInterfaceTests : public BaseParserTests 
+class ParserInterfaceTests : public BaseParserTests
 {
 public:
-    virtual bool checkMessage(compil::Message& expected, int mIndex)
+    virtual bool checkMessage(compil::Message& expected, size_t mIndex)
     {
         expected << compil::Message::Statement("interface");
         return BaseParserTests::checkMessage(expected, mIndex);
     }
-    
-    void checkInterface(int iIndex, int line, int column, const char* name)
+
+    void checkInterface(size_t iIndex, int line, int column, const char* name)
     {
-        ASSERT_LT(iIndex, (int)mDocument->objects().size());
+        ASSERT_LT(iIndex, mDocument->objects().size());
 
         compil::ObjectSPtr pObject = mDocument->objects()[iIndex];
         ASSERT_EQ(compil::EObjectId::interface_(), pObject->runtimeObjectId());
-        compil::InterfaceSPtr pInterface = 
+        compil::InterfaceSPtr pInterface =
             boost::static_pointer_cast<compil::Interface>(pObject);
         EXPECT_STREQ(name, pInterface->name()->value().c_str());
         EXPECT_EQ(lang::compil::Line(line + 1), pInterface->line());
@@ -116,9 +116,9 @@ TEST_F(ParserInterfaceTests, strongInterfaceNameCommentOpen)
 {
     ASSERT_FALSE( parseDocument(
         "strong interface name {}") );
-    
+
     ASSERT_EQ(1U, mpParser->messages().size());
-    EXPECT_TRUE(checkErrorMessage(0, 1, 1, compil::Message::p_unexpectedStatmentModificator, 
+    EXPECT_TRUE(checkErrorMessage(0, 1, 1, compil::Message::p_unexpectedStatmentModificator,
                                   compil::Message::Modificator("strong")));
 }
 

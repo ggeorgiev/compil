@@ -1,31 +1,31 @@
 #include "parser_unittest.h"
 
-class ParserStructureIdentificationTests : public BaseParserTests 
+class ParserStructureIdentificationTests : public BaseParserTests
 {
 public:
-    virtual bool checkMessage(compil::Message& expected, int mIndex)
+    virtual bool checkMessage(compil::Message& expected, size_t mIndex)
     {
         expected << compil::Message::Statement("identification");
         return BaseParserTests::checkMessage(expected, mIndex);
     }
-    
-    bool checkIdentification(int sIndex, int iIndex, int line, int column, 
+
+    bool checkIdentification(size_t sIndex, size_t iIndex, int line, int column,
                              compil::Identification::EType type, const char* comment = NULL)
     {
         bool result = true;
-        
-        HF_ASSERT_LT(sIndex, (int)mDocument->objects().size());
+
+        HF_ASSERT_LT(sIndex, mDocument->objects().size());
         compil::ObjectSPtr pSObject = mDocument->objects()[sIndex];
-        
+
         HF_ASSERT_EQ(compil::EObjectId::structure(), pSObject->runtimeObjectId());
-        compil::StructureSPtr pStructure = 
+        compil::StructureSPtr pStructure =
             boost::static_pointer_cast<compil::Structure>(pSObject);
 
-        HF_ASSERT_LT(iIndex, (int)pStructure->objects().size());
+        HF_ASSERT_LT(iIndex, pStructure->objects().size());
         compil::ObjectSPtr pIObject = pStructure->objects()[iIndex];
-        
+
         HF_ASSERT_EQ(compil::EObjectId::identification(), pIObject->runtimeObjectId());
-        compil::IdentificationSPtr pIdentification = 
+        compil::IdentificationSPtr pIdentification =
             boost::static_pointer_cast<compil::Identification>(pIObject);
 
         HF_EXPECT_EQ(lang::compil::Line(line + 1), pIdentification->line());
@@ -40,19 +40,18 @@ public:
         {
             HF_ASSERT_FALSE(pIdentification->comment());
         }
-        
+
         HF_EXPECT_EQ(type, pIdentification->type())
-        
+
         return result;
     }
 protected:
 };
 
 /*
-struct Person 
+struct Person
 {
     runtime identification;
-
 
     int32  id;
     string name;

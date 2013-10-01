@@ -1,25 +1,25 @@
 #include "parser_unittest.h"
 
-class ParserStructureUpcopyTests : public BaseParserTests 
+class ParserStructureUpcopyTests : public BaseParserTests
 {
 public:
-    bool checkUpcopy(int sIndex, int uIndex, int line, int column, 
+    bool checkUpcopy(size_t sIndex, size_t uIndex, int line, int column,
                      const compil::ObjectSPtr& base, const char* comment = NULL)
     {
         bool result = true;
-        
-        HF_ASSERT_LT(sIndex, (int)mDocument->objects().size());
+
+        HF_ASSERT_LT(sIndex, mDocument->objects().size());
         compil::ObjectSPtr pSObject = mDocument->objects()[sIndex];
-        
+
         HF_ASSERT_EQ(compil::EObjectId::structure(), pSObject->runtimeObjectId());
-        compil::StructureSPtr pStructure = 
+        compil::StructureSPtr pStructure =
             boost::static_pointer_cast<compil::Structure>(pSObject);
 
-        HF_ASSERT_LT(uIndex, (int)pStructure->objects().size());
+        HF_ASSERT_LT(uIndex, pStructure->objects().size());
         compil::ObjectSPtr pIObject = pStructure->objects()[uIndex];
-        
+
         HF_ASSERT_EQ(compil::EObjectId::upcopy(), pIObject->runtimeObjectId());
-        compil::UpcopySPtr pUpcopy = 
+        compil::UpcopySPtr pUpcopy =
             boost::static_pointer_cast<compil::Upcopy>(pIObject);
 
         HF_EXPECT_EQ(lang::compil::Line(line + 1), pUpcopy->line());
@@ -34,9 +34,9 @@ public:
         {
             HF_ASSERT_FALSE(pUpcopy->comment());
         }
-        
+
         HF_EXPECT_EQ(base, pUpcopy->baseStructure());
-        
+
         return result;
     }
 protected:
@@ -62,7 +62,7 @@ structure Person inherit LiveForm
 {
     runtime identification;
     upcopy from LiveForm;
-    
+
     string name;
     string email = optional;
 }
@@ -144,7 +144,6 @@ TEST_F(ParserStructureUpcopyTests, upcopyFromStruct)
                                   compil::Message::Classifier("upcopy"),
                                   compil::Message::Options("base structure")));
 }
-
 
 TEST_F(ParserStructureUpcopyTests, inheritUpcopyFromStruct)
 {

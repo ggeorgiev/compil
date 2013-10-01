@@ -1,9 +1,9 @@
 #include "parser_unittest.h"
 
-class ParserStructureTests : public BaseParserTests 
+class ParserStructureTests : public BaseParserTests
 {
 public:
-    virtual bool checkMessage(compil::Message& expected, int mIndex)
+    virtual bool checkMessage(compil::Message& expected, size_t mIndex)
     {
         expected << compil::Message::Statement("structure")
                  << compil::Message::Classifier("base")
@@ -11,21 +11,21 @@ public:
                  << compil::Message::Options("structure");
         return BaseParserTests::checkMessage(expected, mIndex);
     }
-    
-    bool checkStructure(int sIndex, int line, int column, 
+
+    bool checkStructure(size_t sIndex, int line, int column,
                      const char* name, const char* comment = NULL)
     {
         bool result = true;
-        EXPECT_LT(sIndex, (int)mDocument->objects().size());
+        EXPECT_LT(sIndex, mDocument->objects().size());
 
         compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         EXPECT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
-        compil::StructureSPtr pStructure = 
+        compil::StructureSPtr pStructure =
             boost::static_pointer_cast<compil::Structure>(pObject);
         EXPECT_STREQ(name, pStructure->name()->value().c_str());
         EXPECT_EQ(lang::compil::Line(line + 1), pStructure->line());
         HF_EXPECT_EQ(lang::compil::Column(column), pStructure->column());
-        
+
         if (comment)
         {
             EXPECT_TRUE(pStructure->comment());
@@ -36,97 +36,97 @@ public:
         {
             EXPECT_FALSE(pStructure->comment());
         }
-        
+
         return result;
     }
-    
-    bool checkStructureAbstract(int sIndex, bool abstract)
+
+    bool checkStructureAbstract(size_t sIndex, bool abstract)
     {
         bool result = true;
-        
-        EXPECT_LT(sIndex, (int)mDocument->objects().size());
-        
+
+        EXPECT_LT(sIndex, mDocument->objects().size());
+
         compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         EXPECT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
-        compil::StructureSPtr pStructure = 
+        compil::StructureSPtr pStructure =
             boost::static_pointer_cast<compil::Structure>(pObject);
         HF_EXPECT_EQ(abstract, pStructure->abstract());
-        
+
         return result;
     }
-    
-    bool checkStructureControlled(int sIndex, bool controlled)
+
+    bool checkStructureControlled(size_t sIndex, bool controlled)
     {
         bool result = true;
-        
-        EXPECT_LT(sIndex, (int)mDocument->objects().size());
-        
+
+        EXPECT_LT(sIndex, mDocument->objects().size());
+
         compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         EXPECT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
-        compil::StructureSPtr pStructure = 
+        compil::StructureSPtr pStructure =
             boost::static_pointer_cast<compil::Structure>(pObject);
         HF_EXPECT_EQ(controlled, pStructure->controlled());
-        
+
         return result;
     }
-    
-    bool checkStructureImmutable(int sIndex, bool immutable)
+
+    bool checkStructureImmutable(size_t sIndex, bool immutable)
     {
         bool result = true;
-        
-        EXPECT_LT(sIndex, (int)mDocument->objects().size());
-        
+
+        EXPECT_LT(sIndex, mDocument->objects().size());
+
         compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         EXPECT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
-        compil::StructureSPtr pStructure = 
+        compil::StructureSPtr pStructure =
             boost::static_pointer_cast<compil::Structure>(pObject);
         HF_EXPECT_EQ(immutable, pStructure->immutable());
-        
+
         return result;
     }
-    
-    bool checkStructurePartial(int sIndex, bool partial)
+
+    bool checkStructurePartial(size_t sIndex, bool partial)
     {
         bool result = true;
-        
-        EXPECT_LT(sIndex, (int)mDocument->objects().size());
-        
+
+        EXPECT_LT(sIndex, mDocument->objects().size());
+
         compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         EXPECT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
-        compil::StructureSPtr pStructure = 
+        compil::StructureSPtr pStructure =
             boost::static_pointer_cast<compil::Structure>(pObject);
         HF_EXPECT_EQ(partial, pStructure->partial());
-        
+
         return result;
     }
-    
-    bool checkStructureSharable(int sIndex, bool sharable)
+
+    bool checkStructureSharable(size_t sIndex, bool sharable)
     {
         bool result = true;
-        
-        EXPECT_LT(sIndex, (int)mDocument->objects().size());
-        
+
+        EXPECT_LT(sIndex, mDocument->objects().size());
+
         compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         EXPECT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
-        compil::StructureSPtr pStructure = 
+        compil::StructureSPtr pStructure =
             boost::static_pointer_cast<compil::Structure>(pObject);
         HF_EXPECT_EQ(sharable, pStructure->sharable());
-        
+
         return result;
     }
-    
-    bool checkStructureStreamable(int sIndex, bool streamable)
+
+    bool checkStructureStreamable(size_t sIndex, bool streamable)
     {
         bool result = true;
-        
-        EXPECT_LT(sIndex, (int)mDocument->objects().size());
-        
+
+        EXPECT_LT(sIndex, mDocument->objects().size());
+
         compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         EXPECT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
-        compil::StructureSPtr pStructure = 
+        compil::StructureSPtr pStructure =
             boost::static_pointer_cast<compil::Structure>(pObject);
         HF_EXPECT_EQ(streamable, pStructure->streamable());
-        
+
         return result;
     }
 
@@ -248,7 +248,7 @@ TEST_F(ParserStructureTests, structureNameNameAlter)
         "structure base{} structure name inherit base alter") );
 
     ASSERT_LE(1U, mpParser->messages().size());
-    EXPECT_TRUE(checkErrorMessage(0, 1, 51, compil::Message::p_expectStatementName, 
+    EXPECT_TRUE(checkErrorMessage(0, 1, 51, compil::Message::p_expectStatementName,
                                   compil::Message::Statement("field")));
 }
 
@@ -269,7 +269,6 @@ TEST_F(ParserStructureTests, structureNameNameAlterWrongField)
     ASSERT_LE(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 63, compil::Message::p_expectBaseStructureFieldName));
 }
-
 
 TEST_F(ParserStructureTests, structureNameNameAlterFieldAssigment)
 {
@@ -296,7 +295,7 @@ TEST_F(ParserStructureTests, structureNameNameAlterFieldAssigmentValueDelimiter)
         "structure base {integer a;} structure name inherit base alter a=5,") );
 
     ASSERT_LE(1U, mpParser->messages().size());
-    EXPECT_TRUE(checkErrorMessage(0, 1, 67, compil::Message::p_expectStatementName, 
+    EXPECT_TRUE(checkErrorMessage(0, 1, 67, compil::Message::p_expectStatementName,
                                   compil::Message::Statement("field")));}
 
 TEST_F(ParserStructureTests, structureNameOpen)
@@ -322,7 +321,7 @@ TEST_F(ParserStructureTests, structureNameCommentOpenClose)
 {
     ASSERT_TRUE( parseDocument(
         "structure name {}") );
-        
+
     EXPECT_EQ(1U, mDocument->objects().size());
     EXPECT_TRUE(checkStructure(0, 1, 1, "name"));
     EXPECT_TRUE(checkStructureControlled(0, false));
@@ -344,25 +343,25 @@ TEST_F(ParserStructureTests, structureAttributes)
             std::string cattributes = aattributes;
             if (c)
                 cattributes += "controlled ";
-                
+
             for (int m = 0; m < 2; ++m)
             {
                 std::string mattributes = cattributes;
                 if (m)
                     mattributes += "immutable ";
-            
+
                 for (int p = 0; p < 2; ++p)
                 {
                     std::string pattributes = mattributes;
                     if (p)
                         pattributes += "partial ";
-                        
+
                     for (int sh = 0; sh < 2; ++sh)
                     {
                         std::string shattributes = pattributes;
                         if (sh)
                             shattributes += "sharable ";
-                        
+
                         for (int st = 0; st < 2; ++st)
                         {
                             std::string stattributes = shattributes;
@@ -374,7 +373,7 @@ TEST_F(ParserStructureTests, structureAttributes)
 
                             ASSERT_TRUE( parseDocument(
                                 (stattributes + "structure name {}").c_str()) ) << stattributes;
-                                
+
                             EXPECT_EQ(1U, mDocument->objects().size());
                             EXPECT_TRUE(checkStructure(0, 1, 1, "name"));
                             EXPECT_TRUE(checkStructureAbstract(0, a != 0));
@@ -406,4 +405,3 @@ TEST_F(ParserStructureTests, 2structuresWithComments)
 
     EXPECT_EQ(0U, mpParser->messages().size());
 }
-

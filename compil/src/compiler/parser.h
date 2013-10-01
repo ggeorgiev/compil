@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -59,10 +59,10 @@ class Parser : public DocumentParserMixin
 {
 public:
     Parser();
-    
+
     Parser(const Parser& parentParser);
     ~Parser();
-    
+
     EnumerationValueSPtr parseEnumerationValue(const CommentSPtr& pComment,
                                                const std::vector<EnumerationValueSPtr>& values);
     EnumerationSPtr parseEnumeration(const CommentSPtr& pComment,
@@ -71,20 +71,20 @@ public:
 
     IdentifierSPtr parseIdentifier(const CommentSPtr& pComment,
                                    const TokenPtr& pCast);
-                                   
-    FilterSPtr parseFilter(const CommentSPtr& pComment, 
+
+    FilterSPtr parseFilter(const CommentSPtr& pComment,
                            const StructureSPtr& pStructure);
     FactorySPtr parseFactory(const CommentSPtr& pComment,
                              const TokenPtr& pFunctionType,
                              const TokenPtr& pFactoryType);
 
-    FieldSPtr parseField(const CommentSPtr& pComment, 
+    FieldSPtr parseField(const CommentSPtr& pComment,
                          const std::vector<ObjectSPtr>& structureObjects,
                          TokenPtr& pWeak);
-    FieldOverrideSPtr parseFieldOverride(const FieldSPtr& pField, 
+    FieldOverrideSPtr parseFieldOverride(const FieldSPtr& pField,
                                          const StructureSPtr& pStructure,
                                          const TokenPtr& pOverride);
-                         
+
     IdentificationSPtr parseIdentification(const CommentSPtr& pComment,
                                            const TokenPtr& pType);
     UpcopySPtr parseUpcopy(const CommentSPtr& pComment,
@@ -98,43 +98,43 @@ public:
                                  const TokenPtr& pPartial,
                                  const TokenPtr& pSharable,
                                  const TokenPtr& pStreamable);
-                          
+
     bool parseImport();
 
-    ParameterSPtr parseParameter(const CommentSPtr pComment);
+    ParameterSPtr parseParameter(const CommentSPtr& pComment);
     MethodSPtr parseMethod(const CommentSPtr& pComment);
     InterfaceSPtr parseInterface(const CommentSPtr& pComment);
-    
+
     void parseAnyStatement(const CommentSPtr& pComment);
-    
+
     void addValidator(const ValidatorPtr& pValidator);
-    
+
     void initDocumentContext();
-    
+
     const DocumentSPtr document()
     {
         return boost::static_pointer_cast<DocumentParseContext>(mContext)->mDocument;
     }
-    
+
     // Parse the input and construct a Descriptor from it.
     // Returns true if no errors occurred, false otherwise.
     bool parseDocument(const StreamPtr& pInput,
                        DocumentSPtr& document);
-    bool parseDocument(const SourceIdSPtr& sourceId, 
-                       const StreamPtr& pInput, 
+    bool parseDocument(const SourceIdSPtr& sourceId,
+                       const StreamPtr& pInput,
                        DocumentSPtr& document);
     bool parseDocument(const ISourceProviderSPtr& pSourceProvider,
                        const SourceIdSPtr& pSourceId,
                        DocumentSPtr& document);
-               
+
     void setDocumentInput(const StreamPtr& pInput);
-    
+
     void initProjectContext();
-    
+
     bool parseProject(const SourceIdSPtr& sourceId,
                       const StreamPtr& pInput,
                       ProjectSPtr& project);
-               
+
     const std::vector<Message>& messages();
 
     ParseContextSPtr mContext;
@@ -142,10 +142,10 @@ public:
 private:
     std::vector<LateTypeResolveInfo> mLateTypeResolve;
     void lateTypeResolve(const TypeSPtr& pNewType);
-    
+
     FileSPtr mFile;
     std::vector<ValidatorPtr> mvValidator;
-    
+
     Parser& operator<<(const Message& message);
 
     bool unexpectedStatement(const TokenPtr& pToken);

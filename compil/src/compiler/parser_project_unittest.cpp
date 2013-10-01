@@ -3,7 +3,7 @@
 class ParserProjectTests : public BaseParserTests
 {
 public:
-    virtual bool checkMessage(compil::Message& expected, int mIndex)
+    virtual bool checkMessage(compil::Message& expected, size_t mIndex)
     {
         expected << compil::Message::Statement("section")
                  << compil::Message::Classifier("base")
@@ -11,40 +11,40 @@ public:
                  << compil::Message::Options("structure");
         return BaseParserTests::checkMessage(expected, mIndex);
     }
-    
-    bool checkSection(int sIndex, int line, int column, 
+
+    bool checkSection(size_t sIndex, int line, int column,
                       const char* name, const char* comment = NULL)
     {
         bool result = true;
 
-        HF_ASSERT_LT(sIndex, (int)mProject->sections().size());
+        HF_ASSERT_LT(sIndex, mProject->sections().size());
         compil::SectionSPtr section = mProject->sections()[sIndex];
-            
+
         HF_EXPECT_STREQ(name, section->name()->value().c_str());
         HF_EXPECT_EQ(lang::compil::Line(line + 1), section->line());
         HF_EXPECT_EQ(lang::compil::Column(column), section->column());
-       
+
         return result;
     }
-    
-    bool checkSectionFilePath(int sIndex, int fIndex,
+
+    bool checkSectionFilePath(size_t sIndex, size_t fIndex,
                               int line, int column, const char* filepath)
     {
         bool result = true;
 
-        HF_ASSERT_LT(sIndex, (int)mProject->sections().size());
+        HF_ASSERT_LT(sIndex, mProject->sections().size());
         compil::SectionSPtr section = mProject->sections()[sIndex];
-            
-        HF_ASSERT_LT(fIndex, (int)section->paths().size());
+
+        HF_ASSERT_LT(fIndex, section->paths().size());
         compil::FilePathSPtr filePath = section->paths()[fIndex];
 
         HF_EXPECT_STREQ(filepath, filePath->path().c_str());
         HF_EXPECT_EQ(line + 1, filePath->line().value());
         HF_EXPECT_EQ(column, filePath->column().value());
-       
+
         return result;
     }
-    
+
 };
 
 /*
@@ -54,7 +54,7 @@ section main
 {
     all/list.scompil;
     all/scope.scompil;
-    
+
     c++/class/class.scompil;
     c++/class/class_name.scompil;
     c++/class/class_name_factory.scompil;
@@ -155,7 +155,7 @@ TEST_F(ParserProjectTests, sectionMainOpenClose)
 {
     ASSERT_TRUE( parseProject(
         "section main {}") );
-        
+
     EXPECT_TRUE(checkSection(0, 1, 1, "main"));
 }
 
@@ -163,7 +163,7 @@ TEST_F(ParserProjectTests, sectionMainOpenFile)
 {
     ASSERT_FALSE( parseProject(
         "section main { file ") );
-        
+
     ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 21, compil::Message::p_expectSemicolon));
 }
@@ -172,7 +172,7 @@ TEST_F(ParserProjectTests, sectionMainOpenFileSemicolon)
 {
     ASSERT_FALSE( parseProject(
         "section main { file; ") );
-        
+
     ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 22, compil::Message::p_unexpectEOFInStatementBody));
 }
@@ -181,7 +181,7 @@ TEST_F(ParserProjectTests, sectionMainOpenFileClose)
 {
     ASSERT_FALSE( parseProject(
         "section main { file }") );
-        
+
     ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 21, compil::Message::p_expectSemicolon));
 }
@@ -190,7 +190,7 @@ TEST_F(ParserProjectTests, sectionMainOpenFileFileClose)
 {
     ASSERT_FALSE( parseProject(
         "section main { file file }") );
-        
+
     ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 1, 21, compil::Message::p_expectSemicolon));
 }
@@ -199,7 +199,7 @@ TEST_F(ParserProjectTests, sectionMainOpenFileSemicolonClose)
 {
     ASSERT_TRUE( parseProject(
         "section main { file; }") );
-        
+
     ASSERT_EQ(0U, mpParser->messages().size());
     EXPECT_TRUE(checkSection(0, 1, 1, "main"));
     EXPECT_TRUE(checkSectionFilePath(0, 0, 1, 16, "file"));
@@ -209,7 +209,7 @@ TEST_F(ParserProjectTests, sectionMainOpenFilesClose)
 {
     ASSERT_TRUE( parseProject(
         "section main { file1; file2;}") );
-        
+
     ASSERT_EQ(0U, mpParser->messages().size());
     EXPECT_TRUE(checkSection(0, 1, 1, "main"));
     EXPECT_TRUE(checkSectionFilePath(0, 0, 1, 16, "file1"));
@@ -222,7 +222,7 @@ TEST_F(ParserProjectTests, sections)
         "section main { file1; file2;}\n"
         "section test { test1;\n"
         "               test2;}") );
-        
+
     ASSERT_EQ(0U, mpParser->messages().size());
     EXPECT_TRUE(checkSection(0, 1, 1, "main"));
     EXPECT_TRUE(checkSectionFilePath(0, 0, 1, 16, "file1"));

@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -46,7 +46,7 @@ Tokenizer::Tokenizer(const MessageCollectorPtr& pMessageCollector)
 }
 
 Tokenizer::Tokenizer(const MessageCollectorPtr& pMessageCollector,
-                     const SourceIdSPtr& pSourceId, 
+                     const SourceIdSPtr& pSourceId,
                      const boost::shared_ptr<std::istream>& pInput)
         : mpMessageCollector(pMessageCollector)
         , mCurrentLine(0)
@@ -71,22 +71,22 @@ void Tokenizer::tokenize(const SourceIdSPtr& pSourceId, const boost::shared_ptr<
     mBlockComment = false;
 }
 
-static bool isEOL(int ch)
+static bool isEOL(std::streambuf::int_type ch)
 {
-    return 
+    return
            (ch == '\n')
         || (ch == '\r');
 }
 
-static bool isTab(int ch)
+static bool isTab(std::streambuf::int_type ch)
 {
     return (ch == '\t');
 }
 
-static bool isWhitespace(int ch)
+static bool isWhitespace(std::streambuf::int_type ch)
 {
-    return 
-           (ch == ' ') 
+    return
+           (ch == ' ')
         || (ch == '\n')
         || (ch == '\t')
         || (ch == '\r')
@@ -94,127 +94,127 @@ static bool isWhitespace(int ch)
         || (ch == '\f');
 }
 
-static bool isLetter(int ch)
+static bool isLetter(std::streambuf::int_type ch)
 {
     return
            ((ch >= 'a') && (ch <= 'z'))
         || ((ch >= 'A' ) && (ch <= 'Z'));
 }
 
-static bool isUnderscore(int ch)
+static bool isUnderscore(std::streambuf::int_type ch)
 {
     return (ch == '_');
 }
 
-static bool isDecimalDigit(int ch)
+static bool isDecimalDigit(std::streambuf::int_type ch)
 {
     return ((ch >= '0') && (ch <= '9'));
 }
 
-static bool isHexicalDigit(int ch)
+static bool isHexicalDigit(std::streambuf::int_type ch)
 {
-    return 
+    return
            ((ch >= '0') && (ch <= '9'))
         || ((ch >= 'a') && (ch <= 'f'))
         || ((ch >= 'A') && (ch <= 'F'));
 }
 
-static bool isNonHexicalLetter(int ch)
+static bool isNonHexicalLetter(std::streambuf::int_type ch)
 {
-    return 
+    return
            ((ch > 'f') && (ch <= 'z'))
         || ((ch > 'F') && (ch <= 'Z'));
 }
 
-static bool isOctalDigit(int ch)
+static bool isOctalDigit(std::streambuf::int_type ch)
 {
     return ((ch >= '0') && (ch <= '7'));
 }
 
-static bool isNonOctalDecimalDigit(int ch)
+static bool isNonOctalDecimalDigit(std::streambuf::int_type ch)
 {
-    return 
-           (ch == '8') 
+    return
+           (ch == '8')
         || (ch == '9');
 }
 
-static bool isZero(int ch)
+static bool isZero(std::streambuf::int_type ch)
 {
-    return 
+    return
            (ch == '0');
 }
 
-static bool isDot(int ch)
+static bool isDot(std::streambuf::int_type ch)
 {
-    return 
+    return
            (ch == '.');
 }
 
-static bool isHexIndicator(int ch)
+static bool isHexIndicator(std::streambuf::int_type ch)
 {
-    return 
+    return
            (ch == 'x')
         || (ch == 'X');
 }
 
-static bool isExponent(int ch)
+static bool isExponent(std::streambuf::int_type ch)
 {
-    return 
+    return
            (ch == 'e')
         || (ch == 'E');
 }
 
-static bool isSign(int ch)
+static bool isSign(std::streambuf::int_type ch)
 {
-    return 
+    return
            (ch == '-')
         || (ch == '+');
 }
 
-static bool isBiwiseOperatorSymbol(int ch)
+static bool isBiwiseOperatorSymbol(std::streambuf::int_type ch)
 {
-    return 
+    return
            (ch == '|')
         || (ch == '&');
 }
 
-static bool isArrowSymbol(int ch)
+static bool isArrowSymbol(std::streambuf::int_type ch)
 {
-    return 
+    return
            (ch == '-')
         || (ch == '<')
         || (ch == '>');
 }
 
-static bool isBracket(int ch)
+static bool isBracket(std::streambuf::int_type ch)
 {
-    return 
-           (ch == '{') 
+    return
+           (ch == '{')
         || (ch == '}');
 }
 
-static bool isAngleBracket(int ch)
+static bool isAngleBracket(std::streambuf::int_type ch)
 {
-    return 
+    return
            (ch == '<')
         || (ch == '>');
 }
 
-static bool isQuotationMark(int ch)
+static bool isQuotationMark(std::streambuf::int_type ch)
 {
     return
            (ch == '"')
         || (ch == '\'');
 }
 
-static bool isEscape(int ch)
+static bool isEscape(std::streambuf::int_type ch)
 {
     return (ch == '\\');
 }
 
-static bool isEscapee(int ch)
+static bool isEscapee(std::streambuf::int_type ch)
 {
-    return 
+    return
            (ch == 'a')
         || (ch == 'b')
         || (ch == 'f')
@@ -228,40 +228,40 @@ static bool isEscapee(int ch)
         || (ch == '\"');
 }
 
-static bool isDelimiter(int ch)
+static bool isDelimiter(std::streambuf::int_type ch)
 {
-    return 
-           (ch == ';') 
+    return
+           (ch == ';')
         || (ch == ',');
 }
 
-static bool isOperator(int ch)
+static bool isOperator(std::streambuf::int_type ch)
 {
-    return 
+    return
            (ch == '=');
 }
 
-static bool isAsterisk(int ch)
+static bool isAsterisk(std::streambuf::int_type ch)
 {
     return (ch == '*');
 }
 
-static bool isCStyleInitialCommentChar(int ch)
+static bool isCStyleInitialCommentChar(std::streambuf::int_type ch)
 {
     return (ch == '/'); // C style line and block comment initial character
 }
 
-static bool isCStyleLineCommentSecondChar(int ch)
+static bool isCStyleLineCommentSecondChar(std::streambuf::int_type ch)
 {
     return (ch == '/'); // C style line comment second character
 }
 
-static bool isCStyleBlockCommentSecondChar(int ch)
+static bool isCStyleBlockCommentSecondChar(std::streambuf::int_type ch)
 {
     return (ch == '*'); // C style block comment second character
 }
 
-static bool isPortableFilepathChar(int ch)
+static bool isPortableFilepathChar(std::streambuf::int_type ch)
 {
     return
         // only '/' is supported as delimiter
@@ -281,7 +281,7 @@ void Tokenizer::skipWhiteSpaces()
 {
     while (!eof())
     {
-        int ch = mpInput->get();
+        auto ch = mpInput->get();
         if (!isWhitespace(ch))
 		{
             mpInput->clear();
@@ -296,8 +296,8 @@ void Tokenizer::skipEOL()
 {
     if (eof())
         return;
-  
-    int ch = mpInput->get();
+
+    auto ch = mpInput->get();
     if (isEOL(ch))
     {
         absorbed(ch);
@@ -315,7 +315,7 @@ void Tokenizer::consumeCStyleLineComment()
 
     while (!eof())
     {
-        int ch = mpInput->get();
+        auto ch = mpInput->get();
         if (isEOL(ch))
         {
             mpInput->clear();
@@ -341,7 +341,7 @@ void Tokenizer::consumeCStyleBlockComment()
             mpCurrent.reset();
             return;
         }
-        int ch = mpInput->get();
+        auto ch = mpInput->get();
         if (isEOL(ch))
         {
             mBlockComment = true;
@@ -350,7 +350,7 @@ void Tokenizer::consumeCStyleBlockComment()
             break;
         }
         if (isCStyleBlockCommentSecondChar(ch))
-        {       
+        {
             if (eof())
             {
                 mpMessageCollector->addMessage(
@@ -359,7 +359,7 @@ void Tokenizer::consumeCStyleBlockComment()
                 mpCurrent.reset();
                 return;
             }
-            int nch = mpInput->get();
+            auto nch = mpInput->get();
             if (isCStyleInitialCommentChar(nch))
             {
                 absorbed(ch);
@@ -376,21 +376,21 @@ void Tokenizer::consumeCStyleBlockComment()
     mpCurrent->setEndColumn(column());
 }
 
-bool Tokenizer::consumeComment(int ch)
+bool Tokenizer::consumeComment(std::streambuf::int_type ch)
 {
-    if (eof()) 
+    if (eof())
     {
         return false;
     }
 
-    int nch = mpInput->get();
+    auto nch = mpInput->get();
     if (isCStyleLineCommentSecondChar(nch))
     {
         absorbed(ch);
         absorbed(nch);
         consumeCStyleLineComment();
-    } 
-    else if (isCStyleBlockCommentSecondChar(nch)) 
+    }
+    else if (isCStyleBlockCommentSecondChar(nch))
     {
         absorbed(ch);
         absorbed(nch);
@@ -405,19 +405,19 @@ bool Tokenizer::consumeComment(int ch)
     return true;
 }
 
-bool Tokenizer::consumeDot(int ch)
+bool Tokenizer::consumeDot(std::streambuf::int_type ch)
 {
     mpCurrent.reset(new Token);
     mpCurrent->setLine(line());
     mpCurrent->setBeginColumn(column());
     mpCurrent->setType(Token::TYPE_DOT);
-    if (!eof()) 
+    if (!eof())
     {
-        int nch = mpInput->get();
+        auto nch = mpInput->get();
         mpInput->clear();
         mpInput->unget();
-        
-        if (isDecimalDigit(nch)) 
+
+        if (isDecimalDigit(nch))
         {
             return false;
         }
@@ -428,28 +428,28 @@ bool Tokenizer::consumeDot(int ch)
     return true;
 }
 
-bool Tokenizer::consumeArrow(int ch)
+bool Tokenizer::consumeArrow(std::streambuf::int_type ch)
 {
     mpCurrent.reset(new Token);
     mpCurrent->setLine(line());
     mpCurrent->setBeginColumn(column());
     mpCurrent->setType(Token::TYPE_OPERATOR_ARROW);
 
-    if (eof()) 
+    if (eof())
     {
         return false;
     }
 
-    int nch = mpInput->get();
-    if (eof() || !isArrowSymbol(nch) || (nch != '-')) 
+    auto nch = mpInput->get();
+    if (eof() || !isArrowSymbol(nch) || (nch != '-'))
     {
         mpInput->clear();
         mpInput->unget();
         return false;
     }
 
-    int nnch = mpInput->get();
-    if (!isArrowSymbol(nnch) 
+    auto nnch = mpInput->get();
+    if (!isArrowSymbol(nnch)
 	|| !(   (ch == '-' && nnch == '>')
 	     || (ch == '<' && nnch == '-')
 	     || (ch == '<' && nnch == '>')))
@@ -462,7 +462,7 @@ bool Tokenizer::consumeArrow(int ch)
 
     if (!eof())
     {
-        int nnnch = mpInput->get();
+        auto nnnch = mpInput->get();
         mpInput->unget();
         if (isArrowSymbol(nnnch))
         {
@@ -484,7 +484,7 @@ bool Tokenizer::consumeArrow(int ch)
     return true;
 }
 
-bool Tokenizer::consumeNumber(int ch)
+bool Tokenizer::consumeNumber(std::streambuf::int_type ch)
 {
     int count = 0;
     if (isSign(ch))
@@ -493,28 +493,28 @@ bool Tokenizer::consumeNumber(int ch)
         while (!eof())
         {
             ++count;
-            char nch = mpInput->get();
-            if (isWhitespace(nch)) 
+            auto nch = mpInput->get();
+            if (isWhitespace(nch))
                 continue;
-                
+
             number = isDecimalDigit(nch);
             break;
         }
         if (count)
             mpInput->clear();
-        for (int i = 0; i < count; ++i) 
+        for (int i = 0; i < count; ++i)
             mpInput->unget();
-        
+
         if (!number)
             return false;
     }
-    
+
     absorbed(ch);
     mpCurrent->addChar(ch);
 
     for (int i = 0; i < count; ++i)
     {
-        char nch = mpInput->get();
+        auto nch = mpInput->get();
         absorbed(nch);
         mpCurrent->addChar(nch);
     }
@@ -527,7 +527,7 @@ bool Tokenizer::consumeNumber(int ch)
     }
     else
     {
-        mpCurrent->setType(Token::TYPE_INTEGER_LITERAL);      
+        mpCurrent->setType(Token::TYPE_INTEGER_LITERAL);
         if (!eof() && isZero(ch))
         {
             ch = mpInput->get();
@@ -550,7 +550,7 @@ bool Tokenizer::consumeNumber(int ch)
                     ch = mpInput->get();
                     if (isNonHexicalLetter(ch) || isUnderscore(ch) || isDot(ch))
                     {
-                        mpMessageCollector->addMessage(Message::SEVERITY_ERROR, 
+                        mpMessageCollector->addMessage(Message::SEVERITY_ERROR,
                                 Message::t_invalidIntegerLiteral,
                                 mpSourceId, mpCurrent->line(), mpCurrent->beginColumn());
                         mpCurrent.reset();
@@ -574,7 +574,7 @@ bool Tokenizer::consumeNumber(int ch)
 
             for (;;)
             {
-                if (   isLetter(ch) 
+                if (   isLetter(ch)
                     || isDot(ch)
                     || isNonOctalDecimalDigit(ch)
                     || isUnderscore(ch))
@@ -595,7 +595,7 @@ bool Tokenizer::consumeNumber(int ch)
 
                 absorbed(ch);
                 mpCurrent->addChar(ch);
-                
+
                 if (eof())
                 {
                     break;
@@ -621,13 +621,13 @@ bool Tokenizer::consumeNumber(int ch)
                         Message::SEVERITY_ERROR, Message::t_invalidIntegerLiteral,
                         mpSourceId, mpCurrent->line(), mpCurrent->beginColumn());
                 mpCurrent.reset();
-                return false;	      
+                return false;
             }
             bExponent = true;
             mpCurrent->setType(Token::TYPE_REAL_LITERAL);
             absorbed(ch);
             mpCurrent->addChar(ch);
-            
+
             ch = mpInput->get();
             if (isSign(ch))
             {
@@ -651,7 +651,7 @@ bool Tokenizer::consumeNumber(int ch)
             mpCurrent.reset();
             return false;
         }
-     
+
         if (isDot(ch))
         {
             if (bExponent || bDot)
@@ -660,7 +660,7 @@ bool Tokenizer::consumeNumber(int ch)
                         Message::SEVERITY_ERROR, Message::t_invalidIntegerLiteral,
                         mpSourceId, mpCurrent->line(), mpCurrent->beginColumn());
                 mpCurrent.reset();
-                return false;	      
+                return false;
             }
             bDot = true;
             mpCurrent->setType(Token::TYPE_REAL_LITERAL);
@@ -685,7 +685,7 @@ bool Tokenizer::consumeNumber(int ch)
 }
 
 // TODO: number escape sequence
-bool Tokenizer::consumeString(int ch)
+bool Tokenizer::consumeString(std::streambuf::int_type ch)
 {
     mpCurrent.reset(new Token);
     mpCurrent->setLine(line());
@@ -694,7 +694,7 @@ bool Tokenizer::consumeString(int ch)
 
     absorbed(ch);
 
-    int openQuotationMark = ch;
+    auto  openQuotationMark = ch;
     for (;;)
     {
         if (eof())
@@ -715,7 +715,7 @@ bool Tokenizer::consumeString(int ch)
             mpCurrent.reset();
             return false;
         }
-        
+
         absorbed(ch);
         if (ch == openQuotationMark)
         {
@@ -732,14 +732,14 @@ bool Tokenizer::consumeString(int ch)
                 mpCurrent.reset();
                 return false;
             }
-            int nch = mpInput->get();
+            auto nch = mpInput->get();
             if (!isEscapee(nch))
             {
                 mpMessageCollector->addMessage(
                         Message::SEVERITY_ERROR, Message::t_unknownEscapeSequence,
                         mpSourceId, line(), column());
                 mpCurrent.reset();
-                return false;	        
+                return false;
             }
             mpCurrent->addChar(ch);
             absorbed(nch);
@@ -753,20 +753,20 @@ bool Tokenizer::consumeString(int ch)
     return true;
 }
 
-bool Tokenizer::consumeEqualOperator(int ch)
+bool Tokenizer::consumeEqualOperator(std::streambuf::int_type ch)
 {
-    if (eof()) 
+    if (eof())
     {
         return false;
     }
-    
+
     mpCurrent.reset(new Token);
     mpCurrent->setLine(line());
     mpCurrent->setBeginColumn(column());
     mpCurrent->setType(Token::TYPE_RELATIONAL_OPERATOR1);
 
-    int nch = mpInput->get();
-    if (!isOperator(nch)) 
+    auto nch = mpInput->get();
+    if (!isOperator(nch))
     {
         mpInput->clear();
         mpInput->unget();
@@ -782,7 +782,7 @@ bool Tokenizer::consumeEqualOperator(int ch)
     return true;
 }
 
-void Tokenizer::consumeIdentifier(int ch)
+void Tokenizer::consumeIdentifier(std::streambuf::int_type ch)
 {
     mpCurrent.reset(new Token);
     mpCurrent->setLine(line());
@@ -831,7 +831,7 @@ void Tokenizer::shift()
         return;
     }
 
-    int ch = mpInput->get();
+    auto ch = mpInput->get();
     if (isLetter(ch) || isUnderscore(ch))
     {
         consumeIdentifier(ch);
@@ -916,7 +916,7 @@ void Tokenizer::shiftFilepath()
 
     // we do not support files with whitespaces in the beggining
     skipWhiteSpaces();
-        
+
     mpCurrent.reset(new Token);
     mpCurrent->setLine(line());
     mpCurrent->setBeginColumn(column());
@@ -924,7 +924,7 @@ void Tokenizer::shiftFilepath()
 
     while (!eof())
     {
-        int ch = mpInput->get();
+        auto ch = mpInput->get();
         if (!isPortableFilepathChar(ch))
         {
             mpInput->clear();
@@ -954,11 +954,11 @@ bool Tokenizer::eot() const
     return true;
 }
 
-void Tokenizer::absorbed(int ch)
+void Tokenizer::absorbed(std::streambuf::int_type ch)
 {
     if (isTab(ch))
     {
-        mCurrentColumn += nTabSize - mCurrentColumn % nTabSize; 
+        mCurrentColumn += nTabSize - mCurrentColumn % nTabSize;
     }
     else if (isEOL(ch))
     {
@@ -970,7 +970,7 @@ void Tokenizer::absorbed(int ch)
             if (isEOL(nch) && (nch != ch))
                 mpInput->get();
         }
-    } 
+    }
     else
     {
         ++mCurrentColumn;

@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -49,7 +49,7 @@ class Tokenizer
 public:
     Tokenizer(const MessageCollectorPtr& pMessageCollector);
     Tokenizer(const MessageCollectorPtr& pMessageCollector,
-              const SourceIdSPtr& pSourceId, 
+              const SourceIdSPtr& pSourceId,
               const boost::shared_ptr<std::istream>& pInput);
     ~Tokenizer();
 
@@ -65,7 +65,7 @@ public:
     Line line() const;
     Column column() const;
 
-    void absorbed(int ch);
+    void absorbed(std::streambuf::int_type ch);
 
     const TokenPtr& current() const;
 
@@ -77,20 +77,20 @@ public:
 
     void consumeCStyleLineComment();
     void consumeCStyleBlockComment();
-    bool consumeComment(int ch);
-    bool consumeDot(int ch);
-    bool consumeArrow(int ch);
-    bool consumeNumber(int ch);
-    bool consumeString(int ch);
-    bool consumeEqualOperator(int ch);
-    void consumeIdentifier(int ch);
-    
+    bool consumeComment(std::streambuf::int_type ch);
+    bool consumeDot(std::streambuf::int_type ch);
+    bool consumeArrow(std::streambuf::int_type ch);
+    bool consumeNumber(std::streambuf::int_type ch);
+    bool consumeString(std::streambuf::int_type ch);
+    bool consumeEqualOperator(std::streambuf::int_type ch);
+    void consumeIdentifier(std::streambuf::int_type ch);
+
     bool check(const Token::Type type);
     bool check(const Token::Type type, const char* text);
-    
+
     bool expect(Token::Type type);
     bool expect(Token::Type type, const char* text);
-    
+
 private:
     MessageCollectorPtr mpMessageCollector;
 

@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -37,17 +37,17 @@
 
 #include <iostream>
 
-class TokenizerTests : public BaseParserTests 
+class TokenizerTests : public BaseParserTests
 {
 public:
-	virtual void SetUp() 
+	virtual void SetUp()
 	{
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 	}
 
 	// virtual void TearDown() {}
-    
+
     virtual const std::vector<compil::Message> messages()
     {
         return mMessageCollector->messages();
@@ -107,8 +107,8 @@ TEST_F(TokenizerTests, skipNewLine)
 
 TEST_F(TokenizerTests, IncorrectBlockCStyleComment)
 {
-	const char* invalid_comments[] = 
-	{ 
+	const char* invalid_comments[] =
+	{
 		"/*", "/**", "/*/"
 	};
 
@@ -143,7 +143,6 @@ TEST_F(TokenizerTests, commentBlockCStyleOpenSpaceClose)
 	EXPECT_TRUE( mpTokenizer->eof() );
 	EXPECT_EQ(0U, mMessageCollector->messages().size());
 }
-
 
 TEST_F(TokenizerTests, commentBlockCStyleOpenStarClose)
 {
@@ -380,13 +379,13 @@ TEST_F(TokenizerTests, 1DecimalDigit)
 
 TEST_F(TokenizerTests, integerDecimalNumber)
 {
-	const char* integers[] = 
-	{ 
+	const char* integers[] =
+	{
 		"1", "100000", "1234567890",
         "+123", "+ 123", "+    123",
-        "-123", "- 123", "-    123" 
+        "-123", "- 123", "-    123"
 	};
-    
+
 	for (size_t i = 0; i < sizeof(integers) / sizeof(integers[0]); ++i)
 	{
 		std::cout << "    " << integers[i] << "\n";
@@ -409,8 +408,8 @@ TEST_F(TokenizerTests, integerDecimalNumber)
 
 TEST_F(TokenizerTests, nonIntegerDecimalNumber)
 {
-	const char* non_integers[] = 
-	{ 
+	const char* non_integers[] =
+	{
 		"abc", "abc123",
 		"--1", "-  -1", "-  +1",
         "++1", "+  +1", "+  -1",
@@ -426,15 +425,15 @@ TEST_F(TokenizerTests, nonIntegerDecimalNumber)
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
         mpTokenizer->shift();
 		if (mpTokenizer->current())
-			EXPECT_NE(compil::Token::TYPE_INTEGER_LITERAL, 
+			EXPECT_NE(compil::Token::TYPE_INTEGER_LITERAL,
 			mpTokenizer->current()->type()) << non_integers[i];
 	}
 }
 
 TEST_F(TokenizerTests, wrongDecimal)
 {
-	char wrong_decimal[] = 
-	{ 
+	char wrong_decimal[] =
+	{
 		'_',
 		'a', 'b', 'c', 'd',/*'e'*/'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
 		'n', 'o', 'p', 'q', 'r',  's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
@@ -462,8 +461,8 @@ TEST_F(TokenizerTests, wrongDecimal)
 
 TEST_F(TokenizerTests, delimitedDecimal)
 {
-	char delimiters[] = 
-	{ 
+	char delimiters[] =
+	{
 		' ', '/', '=', ';', ',', '\n', '+', '-',
 	};
 
@@ -478,7 +477,7 @@ TEST_F(TokenizerTests, delimitedDecimal)
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
         mpTokenizer->shift();
-		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
+		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL,
 			mpTokenizer->current()->type());
 		EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
 		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -491,8 +490,8 @@ TEST_F(TokenizerTests, delimitedDecimal)
 
 TEST_F(TokenizerTests, 1HexicalDigit)
 {
-	char hex_digit[] = 
-	{ 
+	char hex_digit[] =
+	{
 		'0', '1', '2', '3', '4', '5', '6', '7', '8', '9',
 		'a', 'b', 'c', 'd', 'e', 'f',
 		'A', 'B', 'C', 'D', 'E', 'F',
@@ -509,7 +508,7 @@ TEST_F(TokenizerTests, 1HexicalDigit)
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
         mpTokenizer->shift();
 		ASSERT_TRUE(mpTokenizer->current());
-		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
+		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL,
 			mpTokenizer->current()->type());
 		EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
 		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -526,7 +525,7 @@ TEST_F(TokenizerTests, integerHexicalNumber)
 		"0x1234567890abcdefABCDEF"));
 	mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
     mpTokenizer->shift();
-	EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
+	EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL,
 		mpTokenizer->current()->type());
 	EXPECT_STREQ("0x1234567890abcdefABCDEF", mpTokenizer->current()->text().c_str());
 	EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -538,8 +537,8 @@ TEST_F(TokenizerTests, integerHexicalNumber)
 
 TEST_F(TokenizerTests, nonIntegerHexicalNumber)
 {
-	const char* non_integers[] = 
-	{ 
+	const char* non_integers[] =
+	{
 		"0xx", "0xy", "0XX", "0XY",
 		"+0x1234", "-0x1234",
         "0x.1234", "0x1234.1234",
@@ -555,15 +554,15 @@ TEST_F(TokenizerTests, nonIntegerHexicalNumber)
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
         mpTokenizer->shift();
 		if (mpTokenizer->current())
-			EXPECT_NE(compil::Token::TYPE_INTEGER_LITERAL, 
+			EXPECT_NE(compil::Token::TYPE_INTEGER_LITERAL,
 			mpTokenizer->current()->type()) << non_integers[i];
 	}
 }
 
 TEST_F(TokenizerTests, wrongHexical)
 {
-	char wrong_hexical[] = 
-	{ 
+	char wrong_hexical[] =
+	{
 		'_', '.',
 		/*'a', 'b', 'c', 'd', 'e', 'f',*/ 'g', 'h', 'i', 'j', 'k', 'l', 'm',
 		'n', 'o', 'p', 'q', 'r', 's',   't', 'u', 'v', 'w', 'x', 'y', 'z',
@@ -591,8 +590,8 @@ TEST_F(TokenizerTests, wrongHexical)
 
 TEST_F(TokenizerTests, delimitedHexical)
 {
-	char delimiters[] = 
-	{ 
+	char delimiters[] =
+	{
 		' ', '/', '=', ';', ',', '\n', '+', '-'
         // not delimiter: '.'
 	};
@@ -608,7 +607,7 @@ TEST_F(TokenizerTests, delimitedHexical)
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
         mpTokenizer->shift();
-		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
+		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL,
 			mpTokenizer->current()->type());
 		EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
 		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -632,7 +631,7 @@ TEST_F(TokenizerTests, 1OctalDigit)
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
         mpTokenizer->shift();
 		ASSERT_TRUE(mpTokenizer->current());
-		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
+		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL,
 			mpTokenizer->current()->type());
 		EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
 		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -645,13 +644,13 @@ TEST_F(TokenizerTests, 1OctalDigit)
 
 TEST_F(TokenizerTests, integerOctalNumber)
 {
-	const char* integers[] = 
-	{ 
+	const char* integers[] =
+	{
 		"01", "0100000", "012345670",
         "+0123", "+ 0123", "+    0123",
-        "-0123", "- 0123", "-    0123" 
+        "-0123", "- 0123", "-    0123"
 	};
-    
+
 	for (size_t i = 0; i < sizeof(integers) / sizeof(integers[0]); ++i)
 	{
 		std::cout << "    " << integers[i] << "\n";
@@ -661,7 +660,7 @@ TEST_F(TokenizerTests, integerOctalNumber)
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
         mpTokenizer->shift();
-		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
+		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL,
 			mpTokenizer->current()->type()) << integers[i];
 		EXPECT_STREQ(integers[i], mpTokenizer->current()->text().c_str());
 		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -674,8 +673,8 @@ TEST_F(TokenizerTests, integerOctalNumber)
 
 TEST_F(TokenizerTests, wrongOctalDigit)
 {
-	char wrong_octal[] = 
-	{ 
+	char wrong_octal[] =
+	{
 		'8', '9',
 		'_', '.',
 		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
@@ -704,8 +703,8 @@ TEST_F(TokenizerTests, wrongOctalDigit)
 
 TEST_F(TokenizerTests, delimitedOctal)
 {
-	char delimiters[] = 
-	{ 
+	char delimiters[] =
+	{
 		' ', '/', '=', ';', ',', '\n', '+', '-',
 	};
 
@@ -720,7 +719,7 @@ TEST_F(TokenizerTests, delimitedOctal)
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
         mpTokenizer->shift();
-		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL, 
+		EXPECT_EQ(compil::Token::TYPE_INTEGER_LITERAL,
 			mpTokenizer->current()->type());
 		EXPECT_STREQ(str, mpTokenizer->current()->text().c_str());
 		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -733,17 +732,17 @@ TEST_F(TokenizerTests, delimitedOctal)
 
 TEST_F(TokenizerTests, floats)
 {
-	const char* floats[] = 
-	{ 
+	const char* floats[] =
+	{
 		"1.1", "12.12",	"1.", "12.",
-		"1e1","1E1", "12e12","12E12", 
+		"1e1","1E1", "12e12","12E12",
 		"1e-1", "1e+1", "12e-12", "12e+12",
 		"1.e1", "12.e12",
 		"1.1e1", "12.12e12",
 		".1", ".12", ".1e1", ".12e12",
 		".1e-1", ".1e+1", ".12e-12", ".12e+12",
 	};
-    
+
 	for (size_t f = 0; f < sizeof(floats) / sizeof(floats[0]); ++f)
 	{
 		std::cout << "    " << floats[f] << "\n";
@@ -753,11 +752,11 @@ TEST_F(TokenizerTests, floats)
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
         mpTokenizer->shift();
-		EXPECT_EQ(compil::Token::TYPE_REAL_LITERAL, 
+		EXPECT_EQ(compil::Token::TYPE_REAL_LITERAL,
 			mpTokenizer->current()->type()) << floats[f];
 		EXPECT_STREQ(floats[f], mpTokenizer->current()->text().c_str());
 		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
-		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) 
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn())
 			<< floats[f];
 		EXPECT_EQ(lang::compil::Column((int)strlen(floats[f]) + 1), mpTokenizer->current()->endColumn())
 			<< floats[f];
@@ -769,8 +768,8 @@ TEST_F(TokenizerTests, floats)
 
 TEST_F(TokenizerTests, nonFloats)
 {
-	const char* non_floats[] = 
-	{ 
+	const char* non_floats[] =
+	{
 		"e1.1", "1e.1",
 		"1e1e", "11ee",
 		"..", "..1",
@@ -787,20 +786,20 @@ TEST_F(TokenizerTests, nonFloats)
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
         mpTokenizer->shift();
 		if (mpTokenizer->current())
-			EXPECT_NE(compil::Token::TYPE_REAL_LITERAL, 
+			EXPECT_NE(compil::Token::TYPE_REAL_LITERAL,
 			mpTokenizer->current()->type()) << non_floats[f];
 	}
 }
 
 TEST_F(TokenizerTests, strings)
 {
-	const char* strings[] = 
-	{ 
+	const char* strings[] =
+	{
 		"\"\"", "''",
 		"\"whatever text\"", "'whatever text'",
 		"\"'\"", "'\"'",
 		"\"\\\\\"", "'\\\\'",
-		"\"\\a\\b\\f\\n\\r\\t\\v\\\\\\?\\'\\\"\"", 
+		"\"\\a\\b\\f\\n\\r\\t\\v\\\\\\?\\'\\\"\"",
 		"'\\a\\b\\f\\n\\r\\t\\v\\\\\\?\\'\\\"'",
 	};
 
@@ -813,7 +812,7 @@ TEST_F(TokenizerTests, strings)
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
         mpTokenizer->shift();
-		EXPECT_EQ(compil::Token::TYPE_STRING_LITERAL, 
+		EXPECT_EQ(compil::Token::TYPE_STRING_LITERAL,
 			mpTokenizer->current()->type()) << strings[s];
 
 		std::string result = strings[s] + 1;
@@ -821,7 +820,7 @@ TEST_F(TokenizerTests, strings)
 
 		EXPECT_STREQ(result.c_str(), mpTokenizer->current()->text().c_str());
 		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
-		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) 
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn())
 			<< strings[s];
 
 		EXPECT_EQ(lang::compil::Column((int)strlen(strings[s]) + 1), mpTokenizer->current()->endColumn())
@@ -834,8 +833,8 @@ TEST_F(TokenizerTests, strings)
 
 TEST_F(TokenizerTests, notTerminatedStrings)
 {
-	const char* strings[] = 
-	{ 
+	const char* strings[] =
+	{
 		"\"", "'",
 		"\"\n", "'\n", "\"\n\"", "'\n'",
 		"\"\\\"", "'\\'",
@@ -869,8 +868,8 @@ TEST_F(TokenizerTests, notTerminatedStrings)
 
 TEST_F(TokenizerTests, wrongEscapee)
 {
-	const char* strings[] = 
-	{ 
+	const char* strings[] =
+	{
 		"\"\\y\"", "'\\y'",
 	};
 	const int column[] =
@@ -900,8 +899,8 @@ TEST_F(TokenizerTests, wrongEscapee)
 
 TEST_F(TokenizerTests, identifier)
 {
-	char first[] = 
-	{ 
+	char first[] =
+	{
 		'_',
 		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
 		'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
@@ -909,8 +908,8 @@ TEST_F(TokenizerTests, identifier)
 		'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'
 	};
 
-	char next[] = 
-	{ 
+	char next[] =
+	{
 		'_',
 		'a', 'b', 'c', 'd', 'e', 'f', 'g', 'h', 'i', 'j', 'k', 'l', 'm',
 		'n', 'o', 'p', 'q', 'r', 's', 't', 'u', 'v', 'w', 'x', 'y', 'z',
@@ -955,8 +954,8 @@ TEST_F(TokenizerTests, identifier)
 
 TEST_F(TokenizerTests, arrow)
 {
-	const char* arrows[] = 
-	{ 
+	const char* arrows[] =
+	{
 		"-->", "<--", "<->",
 		"-->O", "<--O", "<->O",
 	};
@@ -964,7 +963,7 @@ TEST_F(TokenizerTests, arrow)
 	for (size_t a = 0; a < sizeof(arrows) / sizeof(arrows[0]); ++a)
 	{
 		std::cout << "    " << arrows[a] << "\n";
-		boost::shared_ptr<std::stringstream> 
+		boost::shared_ptr<std::stringstream>
 			pInput(new std::stringstream(arrows[a]));
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
@@ -973,7 +972,7 @@ TEST_F(TokenizerTests, arrow)
 		compil::TokenPtr pToken = mpTokenizer->current();
 		ASSERT_TRUE(pToken);
 		EXPECT_EQ(compil::Token::TYPE_OPERATOR_ARROW, pToken->type());
-		EXPECT_STREQ(std::string(arrows[a]).substr(0,3).c_str(), 
+		EXPECT_STREQ(std::string(arrows[a]).substr(0,3).c_str(),
 			mpTokenizer->current()->text().c_str());
 		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
 		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn());
@@ -984,15 +983,15 @@ TEST_F(TokenizerTests, arrow)
 
 TEST_F(TokenizerTests, bitwise_operator)
 {
-	const char* bitwise_operators[] = 
-	{ 
+	const char* bitwise_operators[] =
+	{
 		"|", "&"
 	};
 
 	for (size_t b = 0; b < sizeof(bitwise_operators) / sizeof(bitwise_operators[0]); ++b)
 	{
 		std::cout << "    " << bitwise_operators[b] << "\n";
-		boost::shared_ptr<std::stringstream> 
+		boost::shared_ptr<std::stringstream>
 			pInput(new std::stringstream(bitwise_operators[b]));
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
@@ -1005,15 +1004,15 @@ TEST_F(TokenizerTests, bitwise_operator)
 
 TEST_F(TokenizerTests, relational_operator1)
 {
-	const char* relational_operators[] = 
-	{ 
+	const char* relational_operators[] =
+	{
 		"=="
 	};
 
 	for (size_t a = 0; a < sizeof(relational_operators) / sizeof(relational_operators[0]); ++a)
 	{
 		std::cout << "    " << relational_operators[a] << "\n";
-		boost::shared_ptr<std::stringstream> 
+		boost::shared_ptr<std::stringstream>
 			pInput(new std::stringstream(relational_operators[a]));
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
@@ -1026,15 +1025,15 @@ TEST_F(TokenizerTests, relational_operator1)
 
 TEST_F(TokenizerTests, relational_operator2)
 {
-	const char* relational_operators[] = 
-	{ 
+	const char* relational_operators[] =
+	{
 		"<", ">"
 	};
 
 	for (size_t a = 0; a < sizeof(relational_operators) / sizeof(relational_operators[0]); ++a)
 	{
 		std::cout << "    " << relational_operators[a] << "\n";
-		boost::shared_ptr<std::stringstream> 
+		boost::shared_ptr<std::stringstream>
 			pInput(new std::stringstream(relational_operators[a]));
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
@@ -1047,8 +1046,8 @@ TEST_F(TokenizerTests, relational_operator2)
 
 TEST_F(TokenizerTests, non_arrow)
 {
-	const char* non_arrows[] = 
-	{ 
+	const char* non_arrows[] =
+	{
 		"-", "<", ">",
 		"--", "<<", ">>",
 		"-<", "<-", "->", ">-", "<>", "><",
@@ -1059,7 +1058,7 @@ TEST_F(TokenizerTests, non_arrow)
 	for (size_t a = 0; a < sizeof(non_arrows) / sizeof(non_arrows[0]); ++a)
 	{
 		std::cout << "    " << non_arrows[a] << "\n";
-		boost::shared_ptr<std::stringstream> 
+		boost::shared_ptr<std::stringstream>
 			pInput(new std::stringstream(non_arrows[a]));
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
@@ -1073,8 +1072,8 @@ TEST_F(TokenizerTests, non_arrow)
 
 TEST_F(TokenizerTests, angle_brackets)
 {
-	const char* brackets[] = 
-	{ 
+	const char* brackets[] =
+	{
 		"<", ">",
 		"< < > >",
         "<< >>",
@@ -1083,7 +1082,7 @@ TEST_F(TokenizerTests, angle_brackets)
 	for (size_t b = 0; b < sizeof(brackets) / sizeof(brackets[0]); ++b)
 	{
 		std::cout << "    " << brackets[b] << "\n";
-		boost::shared_ptr<std::stringstream> 
+		boost::shared_ptr<std::stringstream>
 			pInput(new std::stringstream(brackets[b]));
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
@@ -1103,7 +1102,7 @@ TEST_F(TokenizerTests, angle_brackets)
 TEST_F(TokenizerTests, filepaths)
 {
 	const char* filepaths[] =
-	{ 
+	{
 		"file",                     "file",
 		"path/file",                "path/file",
 		"FILE1234567890",           "FILE1234567890",
@@ -1126,7 +1125,7 @@ TEST_F(TokenizerTests, filepaths)
 
 		EXPECT_STREQ(result.c_str(), mpTokenizer->current()->text().c_str());
 		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
-		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) 
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn())
 			<< result;
 
 		EXPECT_EQ(lang::compil::Column((int)result.length() + 1), mpTokenizer->current()->endColumn())
@@ -1140,7 +1139,7 @@ TEST_F(TokenizerTests, filepaths)
 TEST_F(TokenizerTests, filepathsDelimiter)
 {
 	const char* filepaths[] =
-	{ 
+	{
 		"file",                     "file",
 		"file blah",                "file",
 		"file;blah",                "file",
@@ -1167,7 +1166,7 @@ TEST_F(TokenizerTests, filepathsDelimiter)
 
 		EXPECT_STREQ(result.c_str(), mpTokenizer->current()->text().c_str());
 		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
-		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn()) 
+		EXPECT_EQ(lang::compil::Column(1), mpTokenizer->current()->beginColumn())
 			<< result;
 
 		EXPECT_EQ(lang::compil::Column((int)result.length() + 1), mpTokenizer->current()->endColumn())

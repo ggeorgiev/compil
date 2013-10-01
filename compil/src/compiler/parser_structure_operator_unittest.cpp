@@ -1,9 +1,9 @@
 #include "parser_unittest.h"
 
-class ParserStructureOperationTests : public BaseParserTests 
+class ParserStructureOperationTests : public BaseParserTests
 {
 public:
-    virtual bool checkMessage(compil::Message& expected, int mIndex)
+    virtual bool checkMessage(compil::Message& expected, size_t mIndex)
     {
         expected << compil::Message::Statement("identification");
         return BaseParserTests::checkMessage(expected, mIndex);
@@ -13,7 +13,7 @@ protected:
 };
 
 /*
-struct Person 
+struct Person
 {
     operation == ;
 }
@@ -26,9 +26,9 @@ TEST_F(ParserStructureOperationTests, operator)
         "{\n"
         "  operator\n"
         "}") );
-        
+
     ASSERT_EQ(1U, mpParser->messages().size());
-    //TODO: 
+    //TODO:
 }
 
 TEST_F(ParserStructureOperationTests, operatorEqualTo)
@@ -40,7 +40,7 @@ TEST_F(ParserStructureOperationTests, operatorEqualTo)
         "}") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
-    // TODO: 
+    // TODO:
 }
 
 TEST_F(ParserStructureOperationTests, operatorEqualToSemicolon)
@@ -52,7 +52,7 @@ TEST_F(ParserStructureOperationTests, operatorEqualToSemicolon)
         "}") );
 
     ASSERT_EQ(1U, mpParser->messages().size());
-    // TODO: 
+    // TODO:
 }
 
 TEST_F(ParserStructureOperationTests, nativeOperatorEqualToSemicolon)
@@ -62,7 +62,7 @@ TEST_F(ParserStructureOperationTests, nativeOperatorEqualToSemicolon)
         "{\n"
         "  native operator == ;\n"
         "}") );
-    // TODO: 
+    // TODO:
 }
 
 TEST_F(ParserStructureOperationTests, operatorLessThanSemicolon)
@@ -72,7 +72,7 @@ TEST_F(ParserStructureOperationTests, operatorLessThanSemicolon)
         "{\n"
         "  native operator < ;\n"
         "}") );
-    // TODO: 
+    // TODO:
 }
 
 TEST_F(ParserStructureOperationTests, functionOperatorEqualToSemicolon)
@@ -82,9 +82,8 @@ TEST_F(ParserStructureOperationTests, functionOperatorEqualToSemicolon)
         "{\n"
         "  function operator == ;\n"
         "}") );
-    // TODO: 
+    // TODO:
 }
-
 
 TEST_F(ParserStructureOperationTests, functorOperatorEqualToSemicolon)
 {
@@ -93,5 +92,5 @@ TEST_F(ParserStructureOperationTests, functorOperatorEqualToSemicolon)
         "{\n"
         "  functor operator == ;\n"
         "}") );
-    // TODO: 
+    // TODO:
 }

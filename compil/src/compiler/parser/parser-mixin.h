@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -55,7 +55,7 @@ struct ParseContext
     SourceMapSPtr       mSources;
 
     MessageCollectorPtr mMessageCollector;
-    TokenizerPtr        mTokenizer;
+    TokenizerPtr        tokenizer;
 
     SourceIdSPtr        mSourceId;
     PackageSPtr         mPackage;
@@ -75,27 +75,27 @@ public:
                                 const char* message,
                                 const Line& line = Line(-1),
                                 const Column& column = Column(-1));
-                                
+
     static Message warningMessage(const ParseContextSPtr& context,
                                   const char* message,
                                   const Line& line = Line(-1),
                                   const Column& column = Column(-1));
-                                
+
     static CommentSPtr parseComment(const ParseContextSPtr& context);
     static CommentSPtr lastComment(const ParseContextSPtr& context);
     static void skipComments(const ParseContextSPtr& context, CommentSPtr pComment = CommentSPtr());
-    
+
     static FileSPtr parseFile(const ParseContextSPtr& context);
-    
+
     static PackageSPtr parsePackage(const ParseContextSPtr& context);
     static bool convertStringElementsToPackageElements(const ParseContextSPtr& context,
                                                        const std::vector<std::string>& string_elements,
                                                        std::vector<PackageElementSPtr>& package_elements);
- 
+
     static void recoverAfterError(const ParseContextSPtr& context);
-    
+
     static Token::Type getTokenType(const Type::ELiteral& literal);
-                      
+
 private:
     static Message severityMessage(const ParseContextSPtr& context,
                                    const Message::Severity& severity,

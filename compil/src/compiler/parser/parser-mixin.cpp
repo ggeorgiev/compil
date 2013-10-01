@@ -44,7 +44,9 @@ void ParseContext::operator<<=(const Message& message)
 
 void ParserMixin::initilizeObject(const ParseContextSPtr& context, ObjectSPtr object)
 {
-    initilizeObject(context, context->mTokenizer->current(), object);
+    TokenizerPtr& tokenizer = context->tokenizer;
+
+    initilizeObject(context, tokenizer->current(), object);
 }
 
 void ParserMixin::initilizeObject(const ParseContextSPtr& context, const TokenPtr& token, ObjectSPtr object)
@@ -87,20 +89,22 @@ Message ParserMixin::severityMessage(const ParseContextSPtr& context,
                                      const Line& line,
                                      const Column& column)
 {
+    TokenizerPtr& tokenizer = context->tokenizer;
+
     Line theLine = line;
     if (theLine == Line(-1))
     {
-        theLine = context->mTokenizer->current()
-                ? context->mTokenizer->current()->line()
-                : context->mTokenizer->line();
+        theLine = tokenizer->current()
+                ? tokenizer->current()->line()
+                : tokenizer->line();
     }
 
     Column theColumn = column;
     if (theColumn == Column(-1))
     {
-        theColumn = context->mTokenizer->current()
-                  ? context->mTokenizer->current()->beginColumn()
-                  : context->mTokenizer->column();
+        theColumn = tokenizer->current()
+                  ? tokenizer->current()->beginColumn()
+                  : tokenizer->column();
     }
 
     return Message(severity, message, context->mSourceId, theLine, theColumn);
@@ -108,16 +112,20 @@ Message ParserMixin::severityMessage(const ParseContextSPtr& context,
 
 CommentSPtr ParserMixin::parseComment(const ParseContextSPtr& context)
 {
+    TokenizerPtr& tokenizer = context->tokenizer;
+
     CommentSPtr pComment;
     Line lastCommentLine(-1);
     for (;;)
     {
-        if (!context->mTokenizer->current())
+        const TokenPtr& current = tokenizer->current();
+
+        if (!current)
             break;
-        if (context->mTokenizer->current()->type() != Token::TYPE_COMMENT)
+        if (current->type() != Token::TYPE_COMMENT)
             break;
         if (    (lastCommentLine != Line(-1))
-             && (Line(1) < context->mTokenizer->current()->line() - lastCommentLine))
+             && (Line(1) < current->line() - lastCommentLine))
             {
             break;
         }
@@ -126,23 +134,25 @@ CommentSPtr ParserMixin::parseComment(const ParseContextSPtr& context)
             pComment.reset(new Comment());
             initilizeObject(context, pComment);
         }
-        lastCommentLine = context->mTokenizer->current()->line();
-        std::string comment_line = context->mTokenizer->current()->text();
+        lastCommentLine = current->line();
+        std::string comment_line = current->text();
         boost::trim(comment_line);
         pComment->mutable_lines().push_back(comment_line);
-        context->mTokenizer->shift();
+        tokenizer->shift();
     }
     return pComment;
 }
 
 CommentSPtr ParserMixin::lastComment(const ParseContextSPtr& context)
 {
+    TokenizerPtr& tokenizer = context->tokenizer;
+
     CommentSPtr comment = parseComment(context);
     while (comment)
     {
-        if (!context->mTokenizer->current())
+        if (!tokenizer->current())
             break;
-        if (context->mTokenizer->current()->type() != Token::TYPE_COMMENT)
+        if (tokenizer->current()->type() != Token::TYPE_COMMENT)
             break;
         context->mMessageCollector->addMessage(Message::SEVERITY_WARNING, Message::p_misplacedComment,
                                                context->mSourceId, comment->line(), comment->column());
@@ -151,9 +161,10 @@ CommentSPtr ParserMixin::lastComment(const ParseContextSPtr& context)
     return comment;
 }
 
-
 FileSPtr ParserMixin::parseFile(const ParseContextSPtr& context)
 {
+    TokenizerPtr& tokenizer = context->tokenizer;
+
     FileSPtr file = boost::make_shared<File>();
 
     CommentSPtr pComment = parseComment(context);
@@ -163,35 +174,33 @@ FileSPtr ParserMixin::parseFile(const ParseContextSPtr& context)
         pComment = parseComment(context);
     }
 
-    if (!context->mTokenizer->check(Token::TYPE_IDENTIFIER, "compil"))
+    if (!tokenizer->check(Token::TYPE_IDENTIFIER, "compil"))
         return FileSPtr();
 
     initilizeObject(context, file);
 
-    context->mTokenizer->shift();
-    if (!context->mTokenizer->expect(Token::TYPE_BRACKET, "{"))
+    tokenizer->shift();
+    if (!tokenizer->expect(Token::TYPE_BRACKET, "{"))
     {
         *context <<= errorMessage(context, Message::p_expectStatementBody)
                      << Message::Statement("compil");
         return FileSPtr();
     }
 
-    context->mTokenizer->shift();
+    tokenizer->shift();
     skipComments(context);
 
-    if (!context->mTokenizer->expect(Token::TYPE_BRACKET, "}"))
+    if (!tokenizer->expect(Token::TYPE_BRACKET, "}"))
     {
         *context <<= errorMessage(context, Message::p_unexpectEOFInStatementBody)
                      << Message::Statement("compil");
         return FileSPtr();
     }
 
-    context->mTokenizer->shift();
+    tokenizer->shift();
 
     return file;
 }
-
-
 
 void ParserMixin::skipComments(const ParseContextSPtr& context, CommentSPtr pComment)
 {
@@ -208,19 +217,21 @@ void ParserMixin::skipComments(const ParseContextSPtr& context, CommentSPtr pCom
 
 PackageSPtr ParserMixin::parsePackage(const ParseContextSPtr& context)
 {
+    TokenizerPtr& tokenizer = context->tokenizer;
+
     PackageSPtr pPackage = boost::make_shared<Package>();
     initilizeObject(context, pPackage);
 
     std::vector<std::string> short_elements;
     do
     {
-        context->mTokenizer->shift();
+        tokenizer->shift();
         skipComments(context);
 
-        if (   context->mTokenizer->expect(Token::TYPE_IDENTIFIER)
-            || context->mTokenizer->expect(Token::TYPE_ASTERISK))
+        if (   tokenizer->expect(Token::TYPE_IDENTIFIER)
+            || tokenizer->expect(Token::TYPE_ASTERISK))
         {
-            short_elements.push_back(context->mTokenizer->current()->text());
+            short_elements.push_back(tokenizer->current()->text());
         }
         else
         {
@@ -229,23 +240,23 @@ PackageSPtr ParserMixin::parsePackage(const ParseContextSPtr& context)
             return PackageSPtr();
         }
 
-        context->mTokenizer->shift();
+        tokenizer->shift();
         skipComments(context);
 
-    } while (context->mTokenizer->expect(Token::TYPE_DOT));
-    
+    } while (tokenizer->expect(Token::TYPE_DOT));
+
     std::vector<std::string> levels_elements;
-    if (context->mTokenizer->check(Token::TYPE_BITWISE_OPERATOR, "|"))
+    if (tokenizer->check(Token::TYPE_BITWISE_OPERATOR, "|"))
     {
         do
         {
-            context->mTokenizer->shift();
+            tokenizer->shift();
             skipComments(context);
 
-            if (  context->mTokenizer->expect(Token::TYPE_IDENTIFIER)
-               || context->mTokenizer->expect(Token::TYPE_ASTERISK))
+            if (  tokenizer->expect(Token::TYPE_IDENTIFIER)
+               || tokenizer->expect(Token::TYPE_ASTERISK))
             {
-                levels_elements.push_back(context->mTokenizer->current()->text());
+                levels_elements.push_back(tokenizer->current()->text());
             }
             else
             {
@@ -254,17 +265,17 @@ PackageSPtr ParserMixin::parsePackage(const ParseContextSPtr& context)
                 return PackageSPtr();
             }
 
-            context->mTokenizer->shift();
+            tokenizer->shift();
             skipComments(context);
 
-        } while (context->mTokenizer->expect(Token::TYPE_DOT));
+        } while (tokenizer->expect(Token::TYPE_DOT));
     }
     else
     {
         levels_elements = short_elements;
     }
 
-    if (!context->mTokenizer->expect(Token::TYPE_DELIMITER, ";"))
+    if (!tokenizer->expect(Token::TYPE_DELIMITER, ";"))
     {
         context->mMessageCollector->addMessage(errorMessage(context, Message::p_expectSemicolon));
         return PackageSPtr();
@@ -273,17 +284,15 @@ PackageSPtr ParserMixin::parsePackage(const ParseContextSPtr& context)
     std::vector<PackageElementSPtr> short_;
     if (!convertStringElementsToPackageElements(context, short_elements, short_))
         return PackageSPtr();
-        
+
     std::vector<PackageElementSPtr> levels;
     if (!convertStringElementsToPackageElements(context, levels_elements, levels))
         return PackageSPtr();
-    
 
     pPackage->set_short(short_);
     pPackage->set_levels(levels);
     return pPackage;
 }
-
 
 bool ParserMixin::convertStringElementsToPackageElements(const ParseContextSPtr& context,
                                                          const std::vector<std::string>& string_elements,
@@ -320,15 +329,17 @@ bool ParserMixin::convertStringElementsToPackageElements(const ParseContextSPtr&
 
 void ParserMixin::recoverAfterError(const ParseContextSPtr& context)
 {
+    TokenizerPtr& tokenizer = context->tokenizer;
+
     for (;;)
     {
-        if (!context->mTokenizer->current())
+        if (!tokenizer->current())
             return;
 
-        if (context->mTokenizer->check(Token::TYPE_BRACKET, "}"))
+        if (tokenizer->check(Token::TYPE_BRACKET, "}"))
             break;
 
-        context->mTokenizer->shift();
+        tokenizer->shift();
     }
 }
 

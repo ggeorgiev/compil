@@ -6,11 +6,10 @@
 
 #include <iostream>
 
-
-class ParserTests : public BaseParserTests 
+class ParserTests : public BaseParserTests
 {
 public:
-    virtual bool checkMessage(compil::Message& expected, int mIndex)
+    virtual bool checkMessage(compil::Message& expected, size_t mIndex)
     {
         expected << compil::Message::Context("top");
         expected << compil::Message::Options("structure, interface, enum, specimen, identifier or factory");
@@ -22,7 +21,7 @@ TEST_F(ParserTests, emptyStream)
 {
     ASSERT_FALSE( parseRawDocument(
         "") );
-    
+
     EXPECT_FALSE( mDocument->mainFile() );
 }
 
@@ -216,4 +215,3 @@ TEST_F(ParserTests, lastComment2Something)
     ASSERT_TRUE( pComment );
     EXPECT_STREQ(pComment->lines()[0].c_str(), "comment2");
 }
-

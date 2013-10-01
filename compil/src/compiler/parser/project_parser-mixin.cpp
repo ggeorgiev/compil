@@ -37,53 +37,57 @@ namespace compil
 
 FilePathSPtr ProjectParserMixin::parseFilePath(const ProjectParseContextSPtr& context)
 {
-    context->mTokenizer->shiftFilepath();
+    TokenizerPtr& tokenizer = context->tokenizer;
+
+    tokenizer->shiftFilepath();
 
     FilePathSPtr filePath = boost::make_shared<FilePath>();
     initilizeObject(context, filePath);
-    filePath << context->mTokenizer->current()->text();
-    
+    filePath << tokenizer->current()->text();
+
     return filePath;
 }
 
 SectionSPtr ProjectParserMixin::parseSection(const ProjectParseContextSPtr& context, const CommentSPtr& comment)
 {
+    TokenizerPtr& tokenizer = context->tokenizer;
+
     SectionSPtr section = boost::make_shared<Section>();
     initilizeObject(context, section);
 
-    context->mTokenizer->shift();
+    tokenizer->shift();
     skipComments(context);
-    if (!context->mTokenizer->expect(Token::TYPE_IDENTIFIER))
+    if (!tokenizer->expect(Token::TYPE_IDENTIFIER))
     {
         *context <<= errorMessage(context, Message::p_expectStatementName)
                      << Message::Statement("section");
         return SectionSPtr();
     }
-    
+
     NameSPtr name = boost::make_shared<Name>();
     initilizeObject(context, name);
-    name << context->mTokenizer->current()->text();
+    name << tokenizer->current()->text();
     section << name;
-    
-    context->mTokenizer->shift();
+
+    tokenizer->shift();
     skipComments(context);
-    
-    if (!context->mTokenizer->expect(Token::TYPE_BRACKET, "{"))
+
+    if (!tokenizer->expect(Token::TYPE_BRACKET, "{"))
     {
         *context <<= errorMessage(context, Message::p_expectStatementBody)
                      << Message::Statement("section");
         return SectionSPtr();
     }
-    
+
     for (;;)
     {
-        if (context->mTokenizer->eot())
+        if (tokenizer->eot())
         {
             *context <<= errorMessage(context, Message::p_unexpectEOFInStatementBody)
                          << Message::Statement("section");
             return SectionSPtr();
         }
-        
+
         FilePathSPtr filePath = parseFilePath(context);
         if (!filePath)
         {
@@ -91,17 +95,17 @@ SectionSPtr ProjectParserMixin::parseSection(const ProjectParseContextSPtr& cont
                          << Message::Statement("file path");
             return SectionSPtr();
         }
-        
+
         // ignore empty paths
         if (!filePath->path().empty())
             section << filePath;
 
-        context->mTokenizer->shift();
-        if (context->mTokenizer->check(Token::TYPE_BRACKET, "}"))
+        tokenizer->shift();
+        if (tokenizer->check(Token::TYPE_BRACKET, "}"))
         if (filePath->path().empty())
             break;
-        
-        if (!context->mTokenizer->expect(Token::TYPE_DELIMITER, ";"))
+
+        if (!tokenizer->expect(Token::TYPE_DELIMITER, ";"))
         {
             if (filePath && !filePath->path().empty())
             {
@@ -116,15 +120,18 @@ SectionSPtr ProjectParserMixin::parseSection(const ProjectParseContextSPtr& cont
 
 bool ProjectParserMixin::parseProjectStatement(const ProjectParseContextSPtr& context, const CommentSPtr& comment)
 {
-    TokenPtr core;
-    if (context->mTokenizer->check(Token::TYPE_IDENTIFIER, "core"))
-    {
-        core = context->mTokenizer->current();
-        context->mTokenizer->shift();
-        skipComments(context);
-    }    
+    TokenizerPtr& tokenizer = context->tokenizer;
 
-    if (context->mTokenizer->check(Token::TYPE_IDENTIFIER, "section"))
+    TokenPtr core;
+
+    if (tokenizer->check(Token::TYPE_IDENTIFIER, "core"))
+    {
+        core = tokenizer->current();
+        tokenizer->shift();
+        skipComments(context);
+    }
+
+    if (tokenizer->check(Token::TYPE_IDENTIFIER, "section"))
     {
         SectionSPtr section = parseSection(context, comment);
         if (section)
@@ -133,7 +140,7 @@ bool ProjectParserMixin::parseProjectStatement(const ProjectParseContextSPtr& co
         }
     }
     else
-    if (context->mTokenizer->check(Token::TYPE_IDENTIFIER, "package"))
+    if (tokenizer->check(Token::TYPE_IDENTIFIER, "package"))
     {
         if (!core)
         {
@@ -144,46 +151,48 @@ bool ProjectParserMixin::parseProjectStatement(const ProjectParseContextSPtr& co
         PackageSPtr package = parsePackage(context);
         if (!core || !package)
             return false;
-            
+
         core.reset();
         context->mProject->set_corePackage(package);
-    }    
+    }
     else
     {
         *context <<= errorMessage(context, Message::p_unknownStatment)
                      << Message::Context("top")
                      << Message::Options("section");
-        context->mTokenizer->shift();
+        tokenizer->shift();
     }
-    
+
     return true;
 }
 
 ProjectSPtr ProjectParserMixin::parseProject(const ProjectParseContextSPtr& context)
 {
+    TokenizerPtr& tokenizer = context->tokenizer;
+
     context->mProject = boost::make_shared<Project>();
-    
+
     FileSPtr file = parseFile(context);
     if (!file)
         return ProjectSPtr();
-        
+
     if (!context->mProject->mainFile())
         context->mProject << file;
-        
+
     CommentSPtr pStatementComment = lastComment(context);
-    while (context->mTokenizer->current())
+    while (tokenizer->current())
     {
-        if (context->mTokenizer->check(Token::TYPE_IDENTIFIER))
+        if (tokenizer->check(Token::TYPE_IDENTIFIER))
         {
             parseProjectStatement(context, pStatementComment);
         }
         else
         {
-            context->mTokenizer->shift();
+            tokenizer->shift();
         }
         pStatementComment = lastComment(context);
     }
-    
+
     if (context->mMessageCollector->severity() > Message::SEVERITY_WARNING)
         return ProjectSPtr();
 

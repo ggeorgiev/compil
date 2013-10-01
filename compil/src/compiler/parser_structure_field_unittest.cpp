@@ -1,23 +1,23 @@
 #include "parser_unittest.h"
 
-class ParserStructureFieldTests : public BaseParserTests 
+class ParserStructureFieldTests : public BaseParserTests
 {
 public:
-    virtual bool checkMessage(compil::Message& expected, int mIndex)
+    virtual bool checkMessage(compil::Message& expected, size_t mIndex)
     {
         expected << compil::Message::Statement("field")
                  << compil::Message::Classifier("class parameter");
         return BaseParserTests::checkMessage(expected, mIndex);
     }
-    
-    void checkStructure(int sIndex, int line, int column, 
+
+    void checkStructure(size_t sIndex, int line, int column,
                         const char* name, const char* comment = NULL)
     {
-        ASSERT_LT(sIndex, (int)mDocument->objects().size());
+        ASSERT_LT(sIndex, mDocument->objects().size());
 
         compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         ASSERT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
-        compil::StructureSPtr pStructure = 
+        compil::StructureSPtr pStructure =
             boost::static_pointer_cast<compil::Structure>(pObject);
         EXPECT_STREQ(name, pStructure->name()->value().c_str());
         EXPECT_EQ(lang::compil::Line(line + 1), pStructure->line());
@@ -34,36 +34,36 @@ public:
         }
     }
 
-    bool checkField(int sIndex, int fIndex, 
-                    int line, int column, 
+    bool checkField(size_t sIndex, size_t fIndex,
+                    int line, int column,
                     const char* name, const char* type,
                     const char* comment = NULL)
     {
-        HF_ASSERT_LT(sIndex, (int)mDocument->objects().size());
+        HF_ASSERT_LT(sIndex, mDocument->objects().size());
 
         compil::ObjectSPtr pSObject = mDocument->objects()[sIndex];
         HF_ASSERT_EQ(compil::EObjectId::structure(), pSObject->runtimeObjectId());
-        
-        compil::StructureSPtr pStructure = 
+
+        compil::StructureSPtr pStructure =
             boost::static_pointer_cast<compil::Structure>(pSObject);
-        HF_ASSERT_LT(fIndex, (int)pStructure->objects().size());
-        
+        HF_ASSERT_LT(fIndex, pStructure->objects().size());
+
         compil::ObjectSPtr pFObject = pStructure->objects()[fIndex];
         HF_ASSERT_EQ(compil::EObjectId::field(), pFObject->runtimeObjectId());
-       
-        compil::FieldSPtr pField = 
+
+        compil::FieldSPtr pField =
             boost::static_pointer_cast<compil::Field>(pFObject);
         HF_ASSERT_EQ(lang::compil::Line(line + 1), pField->line());
         HF_ASSERT_EQ(lang::compil::Column(column), pField->column());
         HF_ASSERT_STREQ(name, pField->name()->value().c_str());
-        
+
         HF_ASSERT_TRUE(pField->type());
-        
+
         HF_ASSERT_STREQ(type, pField->type()->name()->value().c_str());
         if (comment)
         {
             HF_ASSERT_TRUE(pField->comment());
-            
+
             HF_ASSERT_EQ(1U, pField->comment()->lines().size());
             HF_ASSERT_STREQ(comment, pField->comment()->lines()[0].c_str());
         }
@@ -74,28 +74,29 @@ public:
         return true;
     }
 
-    bool checkFieldDefault(int sIndex, int fIndex, 
-                           int line, int column, 
+    bool checkFieldDefault(size_t sIndex, size_t fIndex,
+                           int line, int column,
                            bool bOptional, const char* text = "")
     {
         bool result = true;
-        
-        HF_ASSERT_LT(sIndex, (int)mDocument->objects().size());
+
+        HF_ASSERT_LT(sIndex, mDocument->objects().size());
         compil::ObjectSPtr pObject = mDocument->objects()[sIndex];
         HF_ASSERT_EQ(compil::EObjectId::structure(), pObject->runtimeObjectId());
-        compil::StructureSPtr pStructure = 
+        compil::StructureSPtr pStructure =
             boost::static_pointer_cast<compil::Structure>(pObject);
 
-        HF_ASSERT_LT(fIndex, (int)pStructure->objects().size());
+        HF_ASSERT_LT(fIndex, pStructure->objects().size());
             compil::ObjectSPtr pFObject = pStructure->objects()[fIndex];
         HF_ASSERT_EQ(compil::EObjectId::field(), pFObject->runtimeObjectId());
-        compil::FieldSPtr pField = 
+        compil::FieldSPtr pField =
             boost::static_pointer_cast<compil::Field>(pFObject);
 
-        HF_ASSERT_TRUE( pField->defaultValue() );
-        HF_EXPECT_EQ(lang::compil::Line(line + 1), pField->defaultValue()->line());
-        HF_EXPECT_EQ(lang::compil::Column(column), pField->defaultValue()->column());
-        HF_EXPECT_EQ(bOptional, pField->defaultValue()->optional());
+        const lang::compil::DefaultValueSPtr& defaultValue = pField->defaultValue();
+        HF_ASSERT_TRUE( defaultValue );
+        HF_EXPECT_EQ(lang::compil::Line(line + 1), defaultValue->line());
+        HF_EXPECT_EQ(lang::compil::Column(column), defaultValue->column());
+        HF_EXPECT_EQ(bOptional, defaultValue->optional());
 
         if (!bOptional)
         {
@@ -105,7 +106,7 @@ public:
         {
             HF_EXPECT_TRUE(pField->defaultValue());
         }
-            
+
         return result;
     }
 
@@ -113,7 +114,7 @@ protected:
 };
 
 /*
-struct Person 
+struct Person
 {
     int32  id;
     string name;
@@ -158,7 +159,7 @@ TEST_F(ParserStructureFieldTests, structureWrongType)
 
     ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectStatementName));
-    EXPECT_TRUE(checkErrorMessage(1, 3, 3, compil::Message::p_unknownClassifierType, 
+    EXPECT_TRUE(checkErrorMessage(1, 3, 3, compil::Message::p_unknownClassifierType,
                                   compil::Message::Classifier("field"),
                                   compil::Message::Type("blah")));
 }
@@ -170,7 +171,7 @@ TEST_F(ParserStructureFieldTests, structureTypeName)
         "{\n"
         "  integer fname\n"
         "}") );
-    
+
     ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectSemicolonOrAssignmentOperator));
 }
@@ -377,7 +378,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReference)
         "{\n"
         "  reference\n"
         "}") );
-    
+
     ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectType));
 }
@@ -389,7 +390,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceCommentParameterTypeOpe
         "{\n"
         "  reference /* */ <\n"
         "}") );
-    
+
     ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 3, 13, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 4, 1, compil::Message::p_expectType));
@@ -402,7 +403,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceCommentParameterType)
         "{\n"
         "  reference < integer /* */ >\n"
         "}") );
-    
+
     ASSERT_EQ(2U, mpParser->messages().size());
     EXPECT_TRUE(checkWarningMessage(0, 3, 23, compil::Message::p_misplacedComment));
     EXPECT_TRUE(checkErrorMessage(1, 4, 1, compil::Message::p_expectStatementName));
@@ -430,7 +431,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceParameterTypeNameEq)
         "{\n"
         "  reference<integer> fname =\n"
         "}") );
-    
+
     ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectValue));
 }
@@ -442,7 +443,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceParameterTypeNameEqOpti
         "{\n"
         "  reference<integer> fname = optional\n"
         "}") );
-    
+
     ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectSemicolon));
 }
@@ -454,7 +455,7 @@ TEST_F(ParserStructureFieldTests, structureFieldReferenceParameterTypeNameEqOpti
         "{\n"
         "  reference<integer> fname = optional;\n"
         "}") );
-    
+
     checkStructure(0, 1, 1, "sname");
     EXPECT_TRUE(checkField(0, 0, 3, 3, "fname", "reference"));
     EXPECT_TRUE(checkFieldDefault(0, 0, 3, 30, true));
@@ -467,7 +468,7 @@ TEST_F(ParserStructureFieldTests, structureFieldWeakReferenceParameterTypeNameEq
         "{\n"
         "  weak reference<integer> fname = optional;\n"
         "}") );
-    
+
     checkStructure(0, 1, 1, "sname");
     EXPECT_TRUE(checkField(0, 0, 3, 3, "fname", "reference"));
     EXPECT_TRUE(checkFieldDefault(0, 0, 3, 35, true));
@@ -539,9 +540,9 @@ TEST_F(ParserStructureFieldTests, structureFieldsWithSameNames)
         "  short name = 123;\n"
 
         "}") );
-    
+
     ASSERT_EQ(5U, mpParser->messages().size());
-    EXPECT_TRUE(checkErrorMessage(0, 4, 9, compil::Message::v_notUnique, 
+    EXPECT_TRUE(checkErrorMessage(0, 4, 9, compil::Message::v_notUnique,
                 compil::Message::Statement("name"), compil::Message::Classifier("field name")));
 }
 

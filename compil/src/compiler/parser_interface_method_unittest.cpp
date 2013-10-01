@@ -2,10 +2,10 @@
 
 #include <iostream>
 
-class ParserInterfaceMethodTests : public BaseParserTests 
+class ParserInterfaceMethodTests : public BaseParserTests
 {
 public:
-    virtual bool checkMessage(compil::Message& expected, int mIndex)
+    virtual bool checkMessage(compil::Message& expected, size_t mIndex)
     {
         expected << compil::Message::Statement("method")
                  << compil::Message::Context("method")
@@ -13,33 +13,33 @@ public:
                  << compil::Message::Classifier("parameter");
         return BaseParserTests::checkMessage(expected, mIndex);
     }
-    
-    void checkInterface(int iIndex, int line, int column, const char* name)
+
+    void checkInterface(size_t iIndex, int line, int column, const char* name)
     {
-        ASSERT_LT(iIndex, (int)mDocument->objects().size());
+        ASSERT_LT(iIndex, mDocument->objects().size());
 
         compil::ObjectSPtr pObject = mDocument->objects()[iIndex];
         ASSERT_EQ(compil::EObjectId::interface_(), pObject->runtimeObjectId());
-        compil::InterfaceSPtr pInterface = 
+        compil::InterfaceSPtr pInterface =
             boost::static_pointer_cast<compil::Interface>(pObject);
         EXPECT_STREQ(name, pInterface->name()->value().c_str());
         EXPECT_EQ(lang::compil::Line(line + 1), pInterface->line());
         EXPECT_EQ(lang::compil::Column(column), pInterface->column());
     }
 
-    void checkMethod(int iIndex, int mIndex, 
+    void checkMethod(size_t iIndex, size_t mIndex,
                      int line, int column, const char* name)
     {
-        ASSERT_LT(iIndex, (int)mDocument->objects().size());
+        ASSERT_LT(iIndex, mDocument->objects().size());
         compil::ObjectSPtr pIObject = mDocument->objects()[iIndex];
         ASSERT_EQ(compil::EObjectId::interface_(), pIObject->runtimeObjectId());
-        compil::InterfaceSPtr pInterface = 
+        compil::InterfaceSPtr pInterface =
             boost::static_pointer_cast<compil::Interface>(pIObject);
 
-        ASSERT_LT(mIndex, (int)pInterface->objects().size());
+        ASSERT_LT(mIndex, pInterface->objects().size());
         compil::ObjectSPtr pMObject = pInterface->objects()[mIndex];
         ASSERT_EQ(compil::EObjectId::method(), pMObject->runtimeObjectId());
-        compil::MethodSPtr pMethod = 
+        compil::MethodSPtr pMethod =
             boost::static_pointer_cast<compil::Method>(pMObject);
 
         EXPECT_STREQ(name, pMethod->name()->value().c_str());
@@ -101,7 +101,7 @@ TEST_F(ParserInterfaceMethodTests, interfaceMethodName)
         "{\n"
         "  method name\n"
         "}") );
-        
+
     ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 4, 1, compil::Message::p_expectStatementBody));
 }
@@ -142,7 +142,7 @@ TEST_F(ParserInterfaceMethodTests, interfaceMethodNameOpenClose)
         "{\n"
         "  method name\n"
         "  {}\n") );
-        
+
     ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 5, 1, compil::Message::p_unexpectEOFInStatementBody,
                 compil::Message::Statement("interface")));
@@ -156,7 +156,7 @@ TEST_F(ParserInterfaceMethodTests, interfaceMethodClosed)
         "{\n"
         "  method name {}\n"
         "}") );
-        
+
     checkInterface(0, 1, 1, "name");
     checkMethod(0, 0, 3, 3, "name");
 }
@@ -169,7 +169,7 @@ TEST_F(ParserInterfaceMethodTests, interface2MethodClosed)
         "  method name1 {}\n"
         "  method name2 {}\n"
         "}") );
-        
+
     checkInterface(0, 1, 1, "name");
     checkMethod(0, 0, 3, 3, "name1");
     checkMethod(0, 1, 4, 3, "name2");
@@ -183,7 +183,7 @@ TEST_F(ParserInterfaceMethodTests, interfaceMethodSomething)
         "  method name\n"
         "  {\n"
         "    int") );
-        
+
     ASSERT_EQ(3U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 5, 5, compil::Message::p_unknownStatment));
     EXPECT_TRUE(checkErrorMessage(1, 5, 8, compil::Message::p_unexpectEOFInStatementBody));
@@ -202,7 +202,7 @@ TEST_F(ParserInterfaceMethodTests, interfaceMethodSomethingClosed)
         "    int"
         "  }\n"
         "}") );
-        
+
     ASSERT_EQ(1U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 5, 5, compil::Message::p_unknownStatment));
 }
@@ -215,7 +215,7 @@ TEST_F(ParserInterfaceMethodTests, interfaceMethodArrow)
         "  method name\n"
             "  {\n"
         "    -->") );
-        
+
     ASSERT_EQ(3U, mpParser->messages().size());
     EXPECT_TRUE(checkErrorMessage(0, 5, 8, compil::Message::p_expectType));
     EXPECT_TRUE(checkErrorMessage(1, 5, 8, compil::Message::p_unexpectEOFInStatementBody));
@@ -223,4 +223,3 @@ TEST_F(ParserInterfaceMethodTests, interfaceMethodArrow)
                 compil::Message::Statement("interface")));
 
 }
-

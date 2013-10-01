@@ -39,21 +39,23 @@ bool TypeParserMixin::parseType(const ParseContextSPtr& context,
                                 std::vector<PackageElementSPtr>& packageElements,
                                 TokenPtr& nameToken)
 {
-    nameToken = context->mTokenizer->current();
+    TokenizerPtr& tokenizer = context->tokenizer;
 
-    context->mTokenizer->shift();
-    while (context->mTokenizer->check(Token::TYPE_DOT))
+    nameToken = tokenizer->current();
+
+    tokenizer->shift();
+    while (tokenizer->check(Token::TYPE_DOT))
     {
-        context->mTokenizer->shift();
-        if (!context->mTokenizer->expect(Token::TYPE_IDENTIFIER))
+        tokenizer->shift();
+        if (!tokenizer->expect(Token::TYPE_IDENTIFIER))
             return false;
 
         PackageElementSPtr pe = boost::make_shared<PackageElement>();
         pe->set_value(nameToken->text());
 
         packageElements.push_back(pe);
-        nameToken = context->mTokenizer->current();
-        context->mTokenizer->shift();
+        nameToken = tokenizer->current();
+        tokenizer->shift();
     }
 
     return true;
@@ -66,10 +68,12 @@ bool TypeParserMixin::parseTypeParameter(const DocumentParseContextSPtr& context
                                          const std::string& defaultTypeName,
                                          std::vector<LateTypeResolveInfo>& lateTypeResolve)
 {
+    TokenizerPtr& tokenizer = context->tokenizer;
+
     TypeSPtr type;
 
     std::vector<PackageElementSPtr> package_elements;
-    if (!context->mTokenizer->check(Token::TYPE_ANGLE_BRACKET, "<"))
+    if (!tokenizer->check(Token::TYPE_ANGLE_BRACKET, "<"))
     {
         if (defaultTypeName.empty())
         {
@@ -100,10 +104,10 @@ bool TypeParserMixin::parseTypeParameter(const DocumentParseContextSPtr& context
         return true;
     }
 
-    context->mTokenizer->shift();
+    tokenizer->shift();
     skipComments(context);
 
-    if (!context->mTokenizer->expect(Token::TYPE_IDENTIFIER))
+    if (!tokenizer->expect(Token::TYPE_IDENTIFIER))
     {
         *context <<= errorMessage(context, Message::p_expectType)
                      << Message::Classifier("class parameter");
@@ -139,13 +143,13 @@ bool TypeParserMixin::parseTypeParameter(const DocumentParseContextSPtr& context
         type = context->mDocument->findType(context->mPackage, package_elements, nameToken->text());
     }
 
-    if (!context->mTokenizer->expect(Token::TYPE_ANGLE_BRACKET, ">"))
+    if (!tokenizer->expect(Token::TYPE_ANGLE_BRACKET, ">"))
     {
         *context <<= errorMessage(context, Message::p_expectClosingAngleBracket);
         return false;
     }
 
-    context->mTokenizer->shift();
+    tokenizer->shift();
     skipComments(context);
 
     if (type)
