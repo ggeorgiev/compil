@@ -136,6 +136,7 @@ lib cpp-language
     $(GEN)/c++/expression/id_expression.cpp
     $(GEN)/c++/expression/id_expression_primary_expression.cpp
     $(GEN)/c++/expression/identifier_unqualified_id.cpp
+    $(GEN)/c++/expression/literal_primary_expression.cpp
     $(GEN)/c++/expression/member_access_postfix_expression.cpp
     $(GEN)/c++/expression/multiplicative_additive_expression.cpp
     $(GEN)/c++/expression/multiplicative_expression.cpp
@@ -161,6 +162,14 @@ lib cpp-language
     $(GEN)/c++/expression/variable_expression.cpp
 
     $(GEN)/c++/lexical/identifier-cpp.cpp
+
+    $(GEN)/c++/literal/boolean_literal.cpp
+    $(GEN)/c++/literal/character_literal.cpp
+    $(GEN)/c++/literal/floating_literal.cpp
+    $(GEN)/c++/literal/integer_literal.cpp
+    $(GEN)/c++/literal/literal.cpp
+    $(GEN)/c++/literal/literal_factory.cpp
+    $(GEN)/c++/literal/string_literal.cpp
     
     $(GEN)/c++/logical/argument_variable_name.cpp
     $(GEN)/c++/logical/local_variable_name.cpp

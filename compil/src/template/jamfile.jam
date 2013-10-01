@@ -1,0 +1,26 @@
+path-constant TOP : .. ;
+path-constant ROOT : $(TOP)/.. ;
+
+boost-defines ;
+gtest-defines ;
+
+project template
+  : requirements
+    <include>$(TOP)
+  ;
+
+lib cpp-template
+  :
+    c++/literal.cpp
+
+    $(TOP)/library//library
+  :
+  :
+    <include>$(TOP)
+  ;
+  
+ 
+alias template
+  :
+    cpp-template
+  ;

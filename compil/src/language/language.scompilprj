@@ -144,6 +144,7 @@ section main
     c++/expression/id_expression.scompil;
     c++/expression/id_expression_primary_expression.scompil;
     c++/expression/identifier_unqualified_id.scompil;
+    c++/expression/literal_primary_expression.scompil;
     c++/expression/member_access_postfix_expression.scompil;
     c++/expression/multiplicative_additive_expression.scompil;
     c++/expression/multiplicative_expression.scompil;
@@ -169,6 +170,14 @@ section main
     c++/expression/variable_expression.scompil;
 
     c++/lexical/identifier-cpp.scompil;
+
+    c++/literal/boolean_literal.scompil;
+    c++/literal/character_literal.scompil;
+    c++/literal/floating_literal.scompil;
+    c++/literal/integer_literal.scompil;
+    c++/literal/literal.scompil;
+    c++/literal/literal_factory.scompil;
+    c++/literal/string_literal.scompil;
     
     c++/logical/argument_variable_name.scompil;
     c++/logical/local_variable_name.scompil;

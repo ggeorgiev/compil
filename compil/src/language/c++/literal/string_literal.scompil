@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-//
+// 
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or
-// promote products derived from this software without specific prior
+//     * The name of George Georgiev can not be used to endorse or 
+// promote products derived from this software without specific prior 
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -30,27 +30,15 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _LIBRARY_CPP_TEST_ASSERTS_H__
-#define _LIBRARY_CPP_TEST_ASSERTS_H__
+compil { }
 
-#include "language/c++/statement/unary_test_statement.h"
-#include "language/c++/expression/variable_expression.h"
+import "c++/literal/literal.scompil";
 
-namespace lib
+package lang.cpp | *.*.*;
+
+streamable
+structure StringLiteral
+    inherit Literal
 {
-
-namespace cpp
-{
-
-using namespace lang::cpp;
-
-class Test
-{
-public:
-};
-
+    runtime identification;
 }
-
-}
-
-#endif

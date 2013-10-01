@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include=".gen">
@@ -36,6 +36,9 @@
     </Filter>
     <Filter Include=".gen\language\c++\lexical">
       <UniqueIdentifier>{5dd0e348-3434-390a-b3f2-1032c8eca140}</UniqueIdentifier>
+    </Filter>
+    <Filter Include=".gen\language\c++\literal">
+      <UniqueIdentifier>{fd267954-4867-3f00-b738-2a3b07ad2cb0}</UniqueIdentifier>
     </Filter>
     <Filter Include=".gen\language\c++\logical">
       <UniqueIdentifier>{74e43815-4b36-329a-b2f3-46abe8099e0e}</UniqueIdentifier>
@@ -96,6 +99,9 @@
     </Filter>
     <Filter Include="c++\lexical">
       <UniqueIdentifier>{10fb26d2-3f46-3c58-a61b-c8042721c459}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="c++\literal">
+      <UniqueIdentifier>{6613352c-60a1-3fc4-915d-fe930cb5b310}</UniqueIdentifier>
     </Filter>
     <Filter Include="c++\logical">
       <UniqueIdentifier>{11122372-1c71-3767-af5d-615113430540}</UniqueIdentifier>
@@ -884,6 +890,24 @@
     </ClCompile>
     <ClInclude Include="..\compil\src\language\.gen\language\c++\lexical\identifier-cpp.h">
       <Filter>.gen\language\c++\lexical</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\language\.gen\language\c++\literal\integer_literal.cpp">
+      <Filter>.gen\language\c++\literal</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\language\.gen\language\c++\literal\integer_literal.h">
+      <Filter>.gen\language\c++\literal</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\language\.gen\language\c++\literal\literal.cpp">
+      <Filter>.gen\language\c++\literal</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\language\.gen\language\c++\literal\literal.h">
+      <Filter>.gen\language\c++\literal</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\language\.gen\language\c++\literal\literal_factory.cpp">
+      <Filter>.gen\language\c++\literal</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\language\.gen\language\c++\literal\literal_factory.h">
+      <Filter>.gen\language\c++\literal</Filter>
     </ClInclude>
     <ClCompile Include="..\compil\src\language\.gen\language\c++\logical\argument_variable_name.cpp">
       <Filter>.gen\language\c++\logical</Filter>
@@ -1743,6 +1767,27 @@
     <None Include="..\compil\src\language\c++\lexical\identifier-cpp.scompil">
       <Filter>c++\lexical</Filter>
     </None>
+    <None Include="..\compil\src\language\c++\literal\boolean_literal.scompil">
+      <Filter>c++\literal</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\literal\character_literal.scompil">
+      <Filter>c++\literal</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\literal\floating_literal.scompil">
+      <Filter>c++\literal</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\literal\integer_literal.scompil">
+      <Filter>c++\literal</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\literal\literal.scompil">
+      <Filter>c++\literal</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\literal\literal_factory.scompil">
+      <Filter>c++\literal</Filter>
+    </None>
+    <None Include="..\compil\src\language\c++\literal\string_literal.scompil">
+      <Filter>c++\literal</Filter>
+    </None>
     <None Include="..\compil\src\language\c++\logical\argument_variable_name.scompil">
       <Filter>c++\logical</Filter>
     </None>
@@ -2003,6 +2048,14 @@
     </None>
     <None Include="..\compil\src\language\compil\project\section.scompil">
       <Filter>compil\project</Filter>
+    </None>
+    <ClCompile Include="..\compil\src\language\main_unittest.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="..\compil\src\language\jamfile.jam" />
+    <None Include="..\compil\src\language\language.scompilprj" />
+    <None Include="..\compil\src\language\c++\expression\literal_primary_expression.scompil">
+      <Filter>c++\expression</Filter>
     </None>
   </ItemGroup>
 </Project>

@@ -19,39 +19,13 @@
         </ProjectConfiguration>
     </ItemGroup>
       <ItemGroup>
-     <None Include="..\compil\src\library\jamfile.jam" />
-     <ClCompile Include="..\compil\src\library\c++\boost\exception.cpp" />
-     <ClInclude Include="..\compil\src\library\c++\boost\exception.h" />
-     <ClCompile Include="..\compil\src\library\c++\boost\namespace.cpp" />
-     <ClInclude Include="..\compil\src\library\c++\boost\namespace.h" />
-     <ClCompile Include="..\compil\src\library\c++\compil\builder.cpp" />
-     <ClInclude Include="..\compil\src\library\c++\compil\builder.h" />
-     <ClCompile Include="..\compil\src\library\c++\compil\class.cpp" />
-     <ClInclude Include="..\compil\src\library\c++\compil\class.h" />
-     <ClCompile Include="..\compil\src\library\c++\compil\declaration.cpp" />
-     <ClInclude Include="..\compil\src\library\c++\compil\declaration.h" />
-     <ClCompile Include="..\compil\src\library\c++\compil\declarator.cpp" />
-     <ClInclude Include="..\compil\src\library\c++\compil\declarator.h" />
-     <ClCompile Include="..\compil\src\library\c++\compil\method.cpp" />
-     <ClInclude Include="..\compil\src\library\c++\compil\method.h" />
-     <ClCompile Include="..\compil\src\library\c++\compil\namespace.cpp" />
-     <ClInclude Include="..\compil\src\library\c++\compil\namespace.h" />
-     <ClCompile Include="..\compil\src\library\c++\compil\specimen.cpp" />
-     <ClInclude Include="..\compil\src\library\c++\compil\specimen.h" />
-     <ClCompile Include="..\compil\src\library\c++\compil\type.cpp" />
-     <ClInclude Include="..\compil\src\library\c++\compil\type.h" />
-     <ClCompile Include="..\compil\src\library\c++\stl\namespace.cpp" />
-     <ClInclude Include="..\compil\src\library\c++\stl\namespace.h" />
-     <ClCompile Include="..\compil\src\library\c++\stl\string.cpp" />
-     <ClInclude Include="..\compil\src\library\c++\stl\string.h" />
-     <ClCompile Include="..\compil\src\library\compil\document.cpp" />
-     <ClInclude Include="..\compil\src\library\compil\document.h" />
-     <ClCompile Include="..\compil\src\library\compil\package.cpp" />
-     <ClInclude Include="..\compil\src\library\compil\package.h" />
+     <None Include="..\compil\src\template\jamfile.jam" />
+     <ClCompile Include="..\compil\src\template\c++\literal.cpp" />
+     <ClInclude Include="..\compil\src\template\c++\literal.h" />
   </ItemGroup>
     <PropertyGroup Label="Globals">
-        <ProjectName>library</ProjectName>
-        <ProjectGuid>{0aed5f1c-2754-3341-8bff-200d96942a9f}</ProjectGuid>
+        <ProjectName>template</ProjectName>
+        <ProjectGuid>{e9e74729-7d53-3fd1-8a90-096aff376a57}</ProjectGuid>
         <RootNamespace>p4v</RootNamespace>
         <Keyword>MakeFileProj</Keyword>
     </PropertyGroup>
@@ -89,30 +63,30 @@
     </ImportGroup>
     <PropertyGroup Label="UserMacros"/>
     <PropertyGroup>
-        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\intermediate\library\d8644d68a8a290c166baa1a661b53244\</OutDir>
-        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\intermediate\library\89c90c1611a3a815e607dcd5d5838cc1</OutDir>
-        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\intermediate\library\bb29680513aadd909021c53078b05cdf\</OutDir>
-        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\intermediate\library\ad2cfe280fbfb4cf4e7ba17e3fcfd824\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">..\intermediate\template\d8644d68a8a290c166baa1a661b53244\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\intermediate\template\89c90c1611a3a815e607dcd5d5838cc1</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">..\intermediate\template\bb29680513aadd909021c53078b05cdf\</OutDir>
+        <OutDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\intermediate\template\ad2cfe280fbfb4cf4e7ba17e3fcfd824\</OutDir>
 
         <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(OutDir)</IntDir>
         <IntDir Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(OutDir)</IntDir>
         <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(OutDir)</IntDir>
         <IntDir Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(OutDir)</IntDir>
 
-        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)build.bat debug 32 ..\compil\src\library || exit 1</NMakeBuildCommandLine>
-        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)build.bat debug 64 ..\compil\src\library || exit 1</NMakeBuildCommandLine>
-        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)build.bat release 32 ..\compil\src\library || exit 1</NMakeBuildCommandLine>
-        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)build.bat release 64 ..\compil\src\library || exit 1</NMakeBuildCommandLine>
+        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)build.bat debug 32 ..\compil\src\template || exit 1</NMakeBuildCommandLine>
+        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)build.bat debug 64 ..\compil\src\template || exit 1</NMakeBuildCommandLine>
+        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)build.bat release 32 ..\compil\src\template || exit 1</NMakeBuildCommandLine>
+        <NMakeBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)build.bat release 64 ..\compil\src\template || exit 1</NMakeBuildCommandLine>
 
-        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)rebuild.bat debug 32 ..\compil\src\library || exit 1</NMakeReBuildCommandLine>
-        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)rebuild.bat debug 64 ..\compil\src\library || exit 1</NMakeReBuildCommandLine>
-        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)rebuild.bat release 32 ..\compil\src\library || exit 1</NMakeReBuildCommandLine>
-        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)rebuild.bat release 64 ..\compil\src\library || exit 1</NMakeReBuildCommandLine>
+        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)rebuild.bat debug 32 ..\compil\src\template || exit 1</NMakeReBuildCommandLine>
+        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)rebuild.bat debug 64 ..\compil\src\template || exit 1</NMakeReBuildCommandLine>
+        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)rebuild.bat release 32 ..\compil\src\template || exit 1</NMakeReBuildCommandLine>
+        <NMakeReBuildCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)rebuild.bat release 64 ..\compil\src\template || exit 1</NMakeReBuildCommandLine>
 
-        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)clean.bat debug 32 ..\compil\src\library || exit 1</NMakeCleanCommandLine>
-        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)clean.bat debug 64 ..\compil\src\library || exit 1</NMakeCleanCommandLine>
-        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)clean.bat release 32 ..\compil\src\library || exit 1</NMakeCleanCommandLine>
-        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)clean.bat release 64 ..\compil\src\library || exit 1</NMakeCleanCommandLine>
+        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">$(SolutionDir)clean.bat debug 32 ..\compil\src\template || exit 1</NMakeCleanCommandLine>
+        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(SolutionDir)clean.bat debug 64 ..\compil\src\template || exit 1</NMakeCleanCommandLine>
+        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(SolutionDir)clean.bat release 32 ..\compil\src\template || exit 1</NMakeCleanCommandLine>
+        <NMakeCleanCommandLine Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(SolutionDir)clean.bat release 64 ..\compil\src\template || exit 1</NMakeCleanCommandLine>
 
         <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">WIN32;_CPPUNWIND;_DEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
         <NMakePreprocessorDefinitions Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">WIN32;_CPPUNWIND;_DEBUG;INTELLISENSE;OS_NT;$(NMakePreprocessorDefinitions)</NMakePreprocessorDefinitions>
@@ -124,10 +98,10 @@
         <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\;..\compil\src\generator\.gen\;..\compil\src\generator-test\.gen\</NMakeIncludeSearchPath>
         <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\;..\compil\src\generator\.gen\;..\compil\src\generator-test\.gen\</NMakeIncludeSearchPath>
 
-        <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">libcpp-boost-library</TargetName>
-        <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">libcpp-boost-library</TargetName>
-        <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">libcpp-boost-library</TargetName>
-        <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">libcpp-boost-library</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">libcpp-template</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">libcpp-template</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">libcpp-template</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">libcpp-template</TargetName>
     </PropertyGroup>
     <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
     <ImportGroup Label="ExtensionTargets">
