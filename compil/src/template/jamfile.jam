@@ -11,7 +11,7 @@ project template
 
 lib cpp-template
   :
-    c++/literal.cpp
+    c++/literal_parser.cpp
 
     $(TOP)/library//library
   :

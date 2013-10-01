@@ -6,10 +6,10 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\compil\src\template\c++\literal.cpp">
+    <ClCompile Include="..\compil\src\template\c++\literal_parser.cpp">
       <Filter>c++</Filter>
     </ClCompile>
-    <ClInclude Include="..\compil\src\template\c++\literal.h">
+    <ClInclude Include="..\compil\src\template\c++\literal_parser.h">
       <Filter>c++</Filter>
     </ClInclude>
   </ItemGroup>

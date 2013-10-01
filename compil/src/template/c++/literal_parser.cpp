@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -30,32 +30,16 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "library/c++/stl/string.h"
-#include "library/c++/stl/namespace.h"
+#include "template/c++/literal_parser.h"
 
-#include "language/c++/class/identifier_class_name.h"
-
-namespace lib
+namespace tmpl
 {
 
 namespace cpp
 {
 
-ClassSPtr StlString::class_()
+LiteralSPtr LiteralParser::parse(const std::string& input)
 {
-    static ClassSPtr class_;
-
-    if (!class_)
-    {
-        IdentifierClassNameSPtr string = identifierClassNameRef()
-            << (identifierRef() << "string");
-            
-        class_ = classRef()
-            << StlNamespace::std()
-            << string;
-    }
-    
-    return class_;
 }
 
 }

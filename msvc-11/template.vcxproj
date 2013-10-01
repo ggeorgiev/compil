@@ -20,8 +20,8 @@
     </ItemGroup>
       <ItemGroup>
      <None Include="..\compil\src\template\jamfile.jam" />
-     <ClCompile Include="..\compil\src\template\c++\literal.cpp" />
-     <ClInclude Include="..\compil\src\template\c++\literal.h" />
+     <ClCompile Include="..\compil\src\template\c++\literal_parser.cpp" />
+     <ClInclude Include="..\compil\src\template\c++\literal_parser.h" />
   </ItemGroup>
     <PropertyGroup Label="Globals">
         <ProjectName>template</ProjectName>

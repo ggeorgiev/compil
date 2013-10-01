@@ -33,16 +33,20 @@
 #ifndef _TEMPLATE_CPP_LITERAL_H__
 #define _TEMPLATE_CPP_LITERAL_H__
 
+#include "language/c++/literal/literal.h"
+
 namespace tmpl
 {
 
 namespace cpp
 {
 
-class Literal
+using namespace lang::cpp;
+
+class LiteralParser
 {
 public:
-    static ClassSPtr parse(const std::string& input);
+    static LiteralSPtr parse(const std::string& input);
 };
 
 }
