@@ -36,17 +36,70 @@
 
 #include <iostream>
 
-TEST(NumbersTests, empty)
+TEST(NumbersTests, integer)
 {
-    source_hex<std::string::const_iterator> g;
-    std::string str = "0x23";
-    std::string::const_iterator iter = str.begin();
-    std::string::const_iterator end = str.end();
+    std::string str[] =
+    {
+        "\n\n\n1234",
+        "\n\n-5",
+        "\n-01234",
+    };
 
-    Number number;
-    bool r = parse(iter, end, g, number);
-    if (r && iter == end) {
-        std::cout << "Output: 0x" << std::setw(8) << std::setfill('0') << std::hex << number.value << " // " << number.source << "\n";
-    } else
-        std::cout << "Parsing failed\n";
+    typedef line_pos_iterator<std::string::const_iterator> Iterator;
+
+    std::ostringstream result;
+
+    for (size_t i = 0; i < sizeof(str) / sizeof(str[0]); ++i)
+    {
+        source_integer<Iterator> g;
+        Iterator iter(str[i].begin());
+        Iterator end(str[i].end());
+
+        IntegerNumber number;
+        bool r = phrase_parse(iter, end, g, qi::space, number);
+        if (r && iter == end)
+            result << number.line << ": " << number.value << " // " << number.source << "\n";
+        else
+            result << "Parsing failed\n";
+    }
+
+    ASSERT_STREQ("4: 1234 // 1234\n"
+                 "3: -5 // -5\n"
+                 "Parsing failed\n", result.str().c_str());
+}
+
+TEST(NumbersTests, uinteger)
+{
+    std::string str[] =
+    {
+        "\n\n0x1234",
+        "\n\n\n\n\n1234",
+        "\n01234",
+        "\nB011010101",
+        "\n\n-5",
+    };
+
+    typedef line_pos_iterator<std::string::const_iterator> Iterator;
+
+    std::ostringstream result;
+
+    for (size_t i = 0; i < sizeof(str) / sizeof(str[0]); ++i)
+    {
+        source_uinteger<Iterator> g;
+        Iterator iter(str[i].begin());
+        Iterator end(str[i].end());
+
+        UIntegerNumber number;
+        bool r = phrase_parse(iter, end, g, qi::space, number);
+        if (r && iter == end)
+            result << number.line << ": 0x" << std::setw(8) << std::setfill('0') << std::hex << number.value << " // " << number.source << "\n";
+        else
+            result << "Parsing failed\n";
+    }
+
+    ASSERT_STREQ("3: 0x00001234 // 0x1234\n"
+                 "6: 0x000004d2 // 1234\n"
+                 "2: 0x0000029c // 01234\n"
+                 "2: 0x000000d5 // B011010101\n"
+                 "Parsing failed\n", result.str().c_str());
 }

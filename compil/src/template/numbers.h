@@ -35,47 +35,68 @@
 
 #include <boost/config/warning_disable.hpp>
 #include <boost/spirit/include/qi.hpp>
-#include <boost/spirit/include/phoenix_core.hpp>
-#include <boost/spirit/include/phoenix_operator.hpp>
-#include <boost/spirit/include/phoenix_object.hpp>
+#include <boost/spirit/include/phoenix.hpp>
 #include <boost/spirit/home/support/iterators/line_pos_iterator.hpp>
-#include <boost/fusion/include/adapt_struct.hpp>
-#include <boost/fusion/include/io.hpp>
-
-#include <iostream>
-#include <iomanip>
-#include <ios>
-#include <string>
-#include <complex>
-
 #include <boost/spirit/include/phoenix_fusion.hpp>
 #include <boost/spirit/include/phoenix_stl.hpp>
 
-struct Number
+using namespace boost::spirit;
+
+#include <boost/fusion/include/adapt_struct.hpp>
+
+////////////////////////////////
+// extra facilities
+struct get_line_f
 {
-    unsigned    value;
+    template <typename> struct result { typedef size_t type; };
+    template <typename It> size_t operator()(It const& pos_iter) const
+    {
+        return get_line(pos_iter);
+    }
+};
+
+//
+////////////////////////////////
+
+struct Position
+{
+    Position()
+        : line(-1)
+    {
+    }
+
+    size_t line;
+};
+
+struct IntegerNumber : public Position
+{
+    IntegerNumber()
+        : Position()
+        , value(0)
+        , source()
+    {
+    }
+
+    int64_t value;
     std::string source;
 };
 
-using namespace boost::spirit;
-
-BOOST_FUSION_ADAPT_STRUCT(Number,
-                            (unsigned,    value)
+BOOST_FUSION_ADAPT_STRUCT(IntegerNumber,
+                            (int64_t,    value)
                             (std::string, source)
-                          );
+                            (size_t,      line)
+                          )
 
 template <typename Iterator>
-struct source_hex : qi::grammar<Iterator, Number()>
+struct source_integer : qi::grammar<Iterator, IntegerNumber(), qi::space_type>
 {
-    source_hex() : source_hex::base_type(start)
+    source_integer() : source_integer::base_type(start)
     {
-        using qi::eps;
-        using qi::hex;
-        using qi::lit;
+        using qi::char_;
+        using qi::long_long;
         using qi::raw;
         using qi::_val;
         using qi::_1;
-        using ascii::char_;
 
         namespace phx = boost::phoenix;
         using phx::at_c;
@@ -83,13 +104,73 @@ struct source_hex : qi::grammar<Iterator, Number()>
         using phx::end;
         using phx::construct;
 
-        start = raw[(   lit("0x") | lit("0X"))
-                     >> hex [at_c<0>(_val) = _1]
-                   ][at_c<1>(_val) = construct<std::string>(begin(_1), end(_1))]
+        start = raw[ long_long [at_c<0>(_val) = _1]
+                     - "-0" >> *char_
+                   ]
+                   [
+                       at_c<1>(_val) = construct<std::string>(begin(_1), end(_1)),
+                       at_c<2>(_val) = get_line_(begin(_1))
+                   ]
         ;
     }
 
-    qi::rule<Iterator, Number()> start;
+    boost::phoenix::function<get_line_f> get_line_;
+    qi::rule<Iterator, IntegerNumber(), qi::space_type> start;
+};
+
+struct UIntegerNumber : public Position
+{
+    UIntegerNumber()
+        : Position()
+        , value(0)
+        , source()
+    {
+    }
+
+    uint64_t value;
+    std::string source;
+};
+
+BOOST_FUSION_ADAPT_STRUCT(UIntegerNumber,
+                            (uint64_t,    value)
+                            (std::string, source)
+                            (size_t,      line)
+                          )
+
+template <typename Iterator>
+struct source_uinteger : qi::grammar<Iterator, UIntegerNumber(), qi::space_type>
+{
+    source_uinteger() : source_uinteger::base_type(start)
+    {
+        using qi::bin;
+        using qi::oct;
+        using qi::hex;
+        using qi::ulong_long;
+        using qi::raw;
+        using qi::_val;
+        using qi::_1;
+
+        namespace phx = boost::phoenix;
+        using phx::at_c;
+        using phx::begin;
+        using phx::end;
+        using phx::construct;
+
+        start = raw[
+                       (qi::no_case["0x"] >> hex [at_c<0>(_val) = _1])
+                     | ('0' >> oct [at_c<0>(_val) = _1])
+                     | ulong_long [at_c<0>(_val) = _1]
+                     | ('B' >> bin [at_c<0>(_val) = _1])
+                   ]
+                   [
+                       at_c<1>(_val) = construct<std::string>(begin(_1), end(_1)),
+                       at_c<2>(_val) = get_line_(begin(_1))
+                   ]
+        ;
+    }
+
+    boost::phoenix::function<get_line_f> get_line_;
+    qi::rule<Iterator, UIntegerNumber(), qi::space_type> start;
 };
 
 #endif
