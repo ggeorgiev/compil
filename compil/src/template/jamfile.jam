@@ -24,3 +24,10 @@ alias template
   :
     cpp-template
   ;
+
+gtest template
+  :
+    [ glob *_unittest.cpp ]
+    
+    template
+  ;

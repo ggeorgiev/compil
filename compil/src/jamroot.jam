@@ -27,11 +27,11 @@ if $(TESTS:E) = true
 }
 else
 {
-    build-project core ;
-    build-project compiler ;
-    build-project language ;
-    build-project library ;
+    #build-project core ;
+    #build-project compiler ;
+    #build-project language ;
+    #build-project library ;
     build-project template ;
-    build-project generator ;
+    #build-project generator ;
 }
 

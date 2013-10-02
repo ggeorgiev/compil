@@ -22,6 +22,9 @@
      <None Include="..\compil\src\template\jamfile.jam" />
      <ClCompile Include="..\compil\src\template\c++\literal.cpp" />
      <ClInclude Include="..\compil\src\template\c++\literal.h" />
+     <ClCompile Include="..\compil\src\template\main_unittest.cpp" />
+     <ClInclude Include="..\compil\src\template\numbers.h" />
+     <ClCompile Include="..\compil\src\template\numbers_unittest.cpp" />
   </ItemGroup>
     <PropertyGroup Label="Globals">
         <ProjectName>template</ProjectName>
@@ -98,10 +101,10 @@
         <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\;..\compil\src\generator\.gen\;..\compil\src\generator-test\.gen\</NMakeIncludeSearchPath>
         <NMakeIncludeSearchPath Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(NMakeIncludeSearchPath);..\compil\boost\include\;..\compil\gtest\include\;..\compil\src\;..\compil\src\language\.gen\;..\compil\src\generator\.gen\;..\compil\src\generator-test\.gen\</NMakeIncludeSearchPath>
 
-        <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">libcpp-template</TargetName>
-        <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">libcpp-template</TargetName>
-        <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">libcpp-template</TargetName>
-        <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">libcpp-template</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">template-unit_test</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">template-unit_test</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">template-unit_test</TargetName>
+        <TargetName Condition="'$(Configuration)|$(Platform)'=='Release|x64'">template-unit_test</TargetName>
     </PropertyGroup>
     <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets"/>
     <ImportGroup Label="ExtensionTargets">
