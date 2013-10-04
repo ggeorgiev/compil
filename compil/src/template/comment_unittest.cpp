@@ -30,19 +30,26 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "template/numbers.h"
+#include "template/comment.h"
 
 #include "gtest/gtest.h"
 
+#include <boost/algorithm/string/join.hpp>
+
 #include <iostream>
 
-TEST(NumbersTests, integer)
+TEST(CommentsTests, main)
 {
     std::string str[] =
     {
-        "\n\n\n1234",
-        "\n\n-5",
-        "\n-01234",
+        "/*1234*/\n\n// test",
+        "/*1234*/",
+        "\n\n/*1234*/",
+        "// foo bar\n",
+        "// foo bar",
+        "\n\n    // foo bar\n",
+        "/*1234\n5678*/",
+        "// comment\nnot a comment",
     };
 
     typedef line_pos_iterator<std::string::const_iterator> Iterator;
@@ -51,55 +58,27 @@ TEST(NumbersTests, integer)
 
     for (size_t i = 0; i < sizeof(str) / sizeof(str[0]); ++i)
     {
-        source_integer<Iterator> g;
+        source_comment<Iterator> g;
         Iterator iter(str[i].begin());
         Iterator end(str[i].end());
 
-        IntegerNumber number;
-        bool r = phrase_parse(iter, end, g, qi::space, number);
-        if (r && iter == end)
-            result << number.line << ": " << number.value << " // " << number.source << "\n";
+        Comment comment;
+        bool r = phrase_parse(iter, end, g, qi::space, comment);
+        if (r)
+        {
+            std::string text = boost::algorithm::join(comment.text, "\n");
+            result << comment.beginLine << "-" << comment.endLine << ": " << text << "\n";
+        }
         else
             result << "Parsing failed\n";
     }
 
-    ASSERT_STREQ("4: 1234 // 1234\n"
-                 "3: -5 // -5\n"
-                 "Parsing failed\n", result.str().c_str());
-}
-
-TEST(NumbersTests, uinteger)
-{
-    std::string str[] =
-    {
-        "\n\n0x1234",
-        "\n\n\n\n\n1234",
-        "\n01234",
-        "\nB011010101",
-        "\n\n-5",
-    };
-
-    typedef line_pos_iterator<std::string::const_iterator> Iterator;
-
-    std::ostringstream result;
-
-    for (size_t i = 0; i < sizeof(str) / sizeof(str[0]); ++i)
-    {
-        source_uinteger<Iterator> g;
-        Iterator iter(str[i].begin());
-        Iterator end(str[i].end());
-
-        UIntegerNumber number;
-        bool r = phrase_parse(iter, end, g, qi::space, number);
-        if (r && iter == end)
-            result << number.line << ": 0x" << std::setw(8) << std::setfill('0') << std::hex << number.value << " // " << number.source << "\n";
-        else
-            result << "Parsing failed\n";
-    }
-
-    ASSERT_STREQ("3: 0x00001234 // 0x1234\n"
-                 "6: 0x000004d2 // 1234\n"
-                 "2: 0x0000029c // 01234\n"
-                 "2: 0x000000d5 // B011010101\n"
-                 "Parsing failed\n", result.str().c_str());
+    ASSERT_STREQ("1-1: 1234\n"
+                 "1-1: 1234\n"
+                 "3-3: 1234\n"
+                 "1-2:  foo bar\n"
+                 "1-1:  foo bar\n"
+                 "3-4:  foo bar\n"
+                 "1-2: 1234\n5678\n"
+                 "1-2:  comment\n", result.str().c_str());
 }

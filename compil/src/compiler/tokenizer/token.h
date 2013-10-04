@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -29,7 +29,6 @@
 
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
-
 
 #ifndef _COMPIL_TOKEN_H__
 #define _COMPIL_TOKEN_H__
@@ -56,8 +55,8 @@ public:
     {
         TYPE_INVALID,
 
-        // Comment text. The line comment is returened as a single token.
-        // Every line from the block comment is returned as a saperate token.
+        // Comment text. The line comment is returned as a single token.
+        // Every line from the block comment is returned as a separate token.
         // If the block comment start from the middle of the line the end
         // of the line is the first token.
         // If the block comment finish in the middle of the line the begging
@@ -70,49 +69,48 @@ public:
         // A sequence of letter or underscore, followed from letters, digits or
         // underscores.
         TYPE_IDENTIFIER,
-    
-        // A bracket - '{', '}' 
+
+        // A bracket - '{', '}'
         TYPE_BRACKET,
-        
+
         // A operator - '==', '!='
         TYPE_RELATIONAL_OPERATOR1,
-        
+
         // A operator - '<', '>'
         TYPE_RELATIONAL_OPERATOR2,
-        
-        // An angle bracket - '<', '>' 
+
+        // An angle bracket - '<', '>'
         TYPE_ANGLE_BRACKET = TYPE_RELATIONAL_OPERATOR2,
 
         // A delimiter - ';', ','
         TYPE_DELIMITER,
-        
+
         // An asterisk - '*'
         TYPE_ASTERISK,
-        
+
         // A dot - '.'
         TYPE_DOT,
 
         // A operator - '='
         TYPE_OPERATOR,
-        
-        // A operator - '|', '&' 
+
+        // A operator - '|', '&'
         TYPE_BITWISE_OPERATOR,
-        
+
         // arrow - '-->', '<--' or '<->'
         TYPE_OPERATOR_ARROW,
 
-        // decimal, octal or hexagonical integer literal
+        // decimal, octal or hex integer literal
         TYPE_INTEGER_LITERAL,
 
         // real literal
         TYPE_REAL_LITERAL,
-        
+
         // string literal
         TYPE_STRING_LITERAL,
 
+        // special literals - you may receive some of this literals only with a special call
 
-        // special literals - you may recieve some of this literals only with a special call
-        
         // Filepath - you need to call shiftFilepath
         TYPE_FILEPATH,
     };
@@ -122,15 +120,15 @@ public:
 
     std::string text() const;
     void addChar(int ch);
-    
+
     const Line& line() const;
     void setLine(const Line& line);
-    
+
     const Column& beginColumn() const;
     void setBeginColumn(const Column& column);
 
     const Column& endColumn() const;
-    void setEndColumn(const Column& column);    
+    void setEndColumn(const Column& column);
 
 private:
     Type mType;
@@ -157,4 +155,3 @@ typedef boost::shared_ptr<Token> TokenPtr;
 }
 
 #endif
-

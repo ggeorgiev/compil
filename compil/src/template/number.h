@@ -173,4 +173,61 @@ struct source_uinteger : qi::grammar<Iterator, UIntegerNumber(), qi::space_type>
     qi::rule<Iterator, UIntegerNumber(), qi::space_type> start;
 };
 
+struct DoubleNumber : public Position
+{
+    DoubleNumber()
+        : Position()
+        , value(0)
+        , source()
+    {
+    }
+
+    long double value;
+    std::string source;
+};
+
+BOOST_FUSION_ADAPT_STRUCT(DoubleNumber,
+                            (long double, value)
+                            (std::string, source)
+                            (size_t,      line)
+                          )
+
+template <typename T>
+struct strict_real_policies : qi::real_policies<T>
+{
+    static bool const allow_leading_dot = true;
+    static bool const allow_trailing_dot = false;
+    static bool const expect_dot = true;
+};
+
+template <typename Iterator>
+struct source_double : qi::grammar<Iterator, DoubleNumber(), qi::space_type>
+{
+    source_double() : source_double::base_type(start)
+    {
+        using qi::real_parser;
+        real_parser<long double, strict_real_policies<long double> > long_double;
+
+        using qi::raw;
+        using qi::_val;
+        using qi::_1;
+
+        namespace phx = boost::phoenix;
+        using phx::at_c;
+        using phx::begin;
+        using phx::end;
+        using phx::construct;
+
+        start = raw[ long_double [at_c<0>(_val) = _1] ]
+                   [
+                       at_c<1>(_val) = construct<std::string>(begin(_1), end(_1)),
+                       at_c<2>(_val) = get_line_(begin(_1))
+                   ]
+        ;
+    }
+
+    boost::phoenix::function<get_line_f> get_line_;
+    qi::rule<Iterator, DoubleNumber(), qi::space_type> start;
+};
+
 #endif

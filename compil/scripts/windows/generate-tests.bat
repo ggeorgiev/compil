@@ -6,7 +6,7 @@ if "%GENERATOR%" == "" (
     SET GENERATOR=..\..\intermediate\dist\generator.exe
 )
 
-echo GENERATOR=%GENERATOR%
+echo TESTS-GENERATOR=%GENERATOR%
 
 SET BASEDIR=%~dp0
 pushd %BASEDIR%\..\..\src || exit 1

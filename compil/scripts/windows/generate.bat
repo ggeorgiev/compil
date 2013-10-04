@@ -6,6 +6,8 @@ if "%GENERATOR%" == "" (
     SET GENERATOR=..\compil-stable\tool\windowsx86\bin\generator
 )
 
+echo GENERATOR=%GENERATOR%
+
 SET BASEDIR=%~dp0
 pushd %BASEDIR%\..\..\src || exit 1
 

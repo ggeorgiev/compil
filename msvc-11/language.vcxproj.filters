@@ -1,4 +1,4 @@
-﻿<?xml version="1.0" encoding="utf-8"?>
+<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include=".gen">
@@ -747,6 +747,12 @@
     <ClInclude Include="..\compil\src\language\.gen\language\c++\expression\identifier_unqualified_id.h">
       <Filter>.gen\language\c++\expression</Filter>
     </ClInclude>
+    <ClCompile Include="..\compil\src\language\.gen\language\c++\expression\literal_primary_expression.cpp">
+      <Filter>.gen\language\c++\expression</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\language\.gen\language\c++\expression\literal_primary_expression.h">
+      <Filter>.gen\language\c++\expression</Filter>
+    </ClInclude>
     <ClCompile Include="..\compil\src\language\.gen\language\c++\expression\member_access_postfix_expression.cpp">
       <Filter>.gen\language\c++\expression</Filter>
     </ClCompile>
@@ -891,6 +897,24 @@
     <ClInclude Include="..\compil\src\language\.gen\language\c++\lexical\identifier-cpp.h">
       <Filter>.gen\language\c++\lexical</Filter>
     </ClInclude>
+    <ClCompile Include="..\compil\src\language\.gen\language\c++\literal\boolean_literal.cpp">
+      <Filter>.gen\language\c++\literal</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\language\.gen\language\c++\literal\boolean_literal.h">
+      <Filter>.gen\language\c++\literal</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\language\.gen\language\c++\literal\character_literal.cpp">
+      <Filter>.gen\language\c++\literal</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\language\.gen\language\c++\literal\character_literal.h">
+      <Filter>.gen\language\c++\literal</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\language\.gen\language\c++\literal\floating_literal.cpp">
+      <Filter>.gen\language\c++\literal</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\language\.gen\language\c++\literal\floating_literal.h">
+      <Filter>.gen\language\c++\literal</Filter>
+    </ClInclude>
     <ClCompile Include="..\compil\src\language\.gen\language\c++\literal\integer_literal.cpp">
       <Filter>.gen\language\c++\literal</Filter>
     </ClCompile>
@@ -907,6 +931,12 @@
       <Filter>.gen\language\c++\literal</Filter>
     </ClCompile>
     <ClInclude Include="..\compil\src\language\.gen\language\c++\literal\literal_factory.h">
+      <Filter>.gen\language\c++\literal</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\language\.gen\language\c++\literal\string_literal.cpp">
+      <Filter>.gen\language\c++\literal</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\language\.gen\language\c++\literal\string_literal.h">
       <Filter>.gen\language\c++\literal</Filter>
     </ClInclude>
     <ClCompile Include="..\compil\src\language\.gen\language\c++\logical\argument_variable_name.cpp">
@@ -1695,6 +1725,9 @@
     <None Include="..\compil\src\language\c++\expression\identifier_unqualified_id.scompil">
       <Filter>c++\expression</Filter>
     </None>
+    <None Include="..\compil\src\language\c++\expression\literal_primary_expression.scompil">
+      <Filter>c++\expression</Filter>
+    </None>
     <None Include="..\compil\src\language\c++\expression\member_access_postfix_expression.scompil">
       <Filter>c++\expression</Filter>
     </None>
@@ -2048,14 +2081,6 @@
     </None>
     <None Include="..\compil\src\language\compil\project\section.scompil">
       <Filter>compil\project</Filter>
-    </None>
-    <ClCompile Include="..\compil\src\language\main_unittest.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="..\compil\src\language\jamfile.jam" />
-    <None Include="..\compil\src\language\language.scompilprj" />
-    <None Include="..\compil\src\language\c++\expression\literal_primary_expression.scompil">
-      <Filter>c++\expression</Filter>
     </None>
   </ItemGroup>
 </Project>

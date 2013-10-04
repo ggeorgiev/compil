@@ -22,9 +22,15 @@
      <None Include="..\compil\src\template\jamfile.jam" />
      <ClCompile Include="..\compil\src\template\c++\literal.cpp" />
      <ClInclude Include="..\compil\src\template\c++\literal.h" />
+     <ClInclude Include="..\compil\src\template\comment.h" />
+     <ClCompile Include="..\compil\src\template\comment_unittest.cpp" />
+     <ClInclude Include="..\compil\src\template\identifier.h" />
+     <ClCompile Include="..\compil\src\template\identifier_unittest.cpp" />
      <ClCompile Include="..\compil\src\template\main_unittest.cpp" />
-     <ClInclude Include="..\compil\src\template\numbers.h" />
-     <ClCompile Include="..\compil\src\template\numbers_unittest.cpp" />
+     <ClInclude Include="..\compil\src\template\number.h" />
+     <ClCompile Include="..\compil\src\template\number_unittest.cpp" />
+     <ClInclude Include="..\compil\src\template\string_literal.h" />
+     <ClCompile Include="..\compil\src\template\string_literal_unittest.cpp" />
   </ItemGroup>
     <PropertyGroup Label="Globals">
         <ProjectName>template</ProjectName>

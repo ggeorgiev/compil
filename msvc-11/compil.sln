@@ -6,6 +6,7 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "admin", "admin", "{EE7BBF03
 		b2.bat = b2.bat
 		build-test.bat = build-test.bat
 		build.bat = build.bat
+		..\compil\clean.sh = ..\compil\clean.sh
 		..\compil\scripts\windows\generate-tests.bat = ..\compil\scripts\windows\generate-tests.bat
 		..\compil\scripts\windows\generate.bat = ..\compil\scripts\windows\generate.bat
 		..\compil\src\jamboost.jam = ..\compil\src\jamboost.jam
