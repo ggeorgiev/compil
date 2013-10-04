@@ -40,6 +40,9 @@ TEST(StringTests, main)
 {
     std::string str[] =
     {
+        "\"te\"\"st\"",
+        "\"te\"  \"st\"",
+        "\"te\" \n \"st\"",
         "\"\"",
         "\"\\\"\"",
         "\"test\"",
@@ -68,7 +71,10 @@ TEST(StringTests, main)
             result << "Parsing failed\n";
     }
 
-    ASSERT_STREQ("1-1:  === \"\"\n"
+    ASSERT_STREQ("1-1: test === \"te\"\"st\"\n"
+                 "1-1: te === \"te\"\n"
+                 "1-1: te === \"te\"\n"
+                 "1-1:  === \"\"\n"
                  "1-1: \" === \"\\\"\"\n"
                  "1-1: test === \"test\"\n"
                  "1-1: test === \"test\"\n"

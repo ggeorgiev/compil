@@ -119,16 +119,19 @@ struct source_string : qi::grammar<Iterator, String(), qi::space_type>
     source_string() : source_string::base_type(start)
     {
         using qi::char_;
+        using qi::eps;
         using qi::print;
         using qi::raw;
         using qi::_val;
         using qi::_1;
+        using qi::space;
 
         namespace phx = boost::phoenix;
         using phx::at_c;
         using phx::begin;
         using phx::end;
         using phx::construct;
+        using phx::ref;
 
         escape %= escape_symbol;
 
@@ -137,7 +140,9 @@ struct source_string : qi::grammar<Iterator, String(), qi::space_type>
                      | escape
                      | (print - '"');
 
-        string %= '"' >> *(character) >> '"';
+        string_section %= '"' >> *(character) >> '"';
+
+        string %= string_section % *lit(" \n\r\t\v\f");
 
         start = raw[
                         string[at_c<0>(_val) = _1]
@@ -153,11 +158,11 @@ struct source_string : qi::grammar<Iterator, String(), qi::space_type>
     boost::phoenix::function<get_line_f> get_line_;
     qi::rule<Iterator, String(), qi::space_type> start;
     qi::rule<Iterator, std::string()> escape;
-    qi::rule<Iterator, std::string()> character;
-    qi::rule<Iterator, std::string()> string;
     qi::uint_parser<char, 16, 2, 2> hex2;
     qi::uint_parser<char,  8, 3, 3> oct3;
-
+    qi::rule<Iterator, std::string()> character;
+    qi::rule<Iterator, std::string()> string_section;
+    qi::rule<Iterator, std::string()> string;
 };
 
 #endif
