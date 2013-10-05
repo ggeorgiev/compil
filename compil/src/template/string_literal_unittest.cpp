@@ -36,10 +36,14 @@
 
 #include <iostream>
 
+namespace compil
+{
+
 TEST(StringTests, main)
 {
     std::string str[] =
     {
+        "\"\\u1234\\U00012345\"",
         "\"te\"\"st\"",
         "\"te\"  \"st\"",
         "\"te\" \n \"st\"",
@@ -48,8 +52,12 @@ TEST(StringTests, main)
         "\"test\"",
         "\"test\" something",
         "\"\\\'\\\"\\\?\\\\\\a\\b\\f\\n\\r\\t\\v\"",
-        "\"\\x61cd\\x3012\"",
-        "\"\\141cd\\06012\"",
+        "\"\\x61cd\\X3012\\x7z\"",
+        "\"\\141cd\\06012\\78\\778\"",
+        "\"te",
+        "\"te\nst\"",
+        "\"test\\\"",
+        "\"te\\st\"",
         //
     };
 
@@ -71,14 +79,22 @@ TEST(StringTests, main)
             result << "Parsing failed\n";
     }
 
-    ASSERT_STREQ("1-1: test === \"te\"\"st\"\n"
-                 "1-1: te === \"te\"\n"
-                 "1-1: te === \"te\"\n"
+    ASSERT_STREQ("1-1: \xE1\x88\xB4\xF0\x92\x8D\x85 === \"\\u1234\\U00012345\"\n"
+                 "1-1: test === \"te\"\"st\"\n"
+                 "1-1: test === \"te\"  \"st\"\n"
+                 "1-2: test === \"te\" \n \"st\"\n"
                  "1-1:  === \"\"\n"
                  "1-1: \" === \"\\\"\"\n"
                  "1-1: test === \"test\"\n"
                  "1-1: test === \"test\"\n"
                  "1-1: '\"?\\\a\b\f\n\r\t\v === \"\\'\\\"\\?\\\\\\a\\b\\f\\n\\r\\t\\v\"\n"
-                 "1-1: acd012 === \"\\x61cd\\x3012\"\n"
-                 "1-1: acd012 === \"\\141cd\\06012\"\n", result.str().c_str());
+                 "1-1: acd012\az === \"\\x61cd\\X3012\\x7z\"\n"
+                 "1-1: acd012\a8?8 === \"\\141cd\\06012\\78\\778\"\n"
+                 "Parsing failed\n"
+                 "Parsing failed\n"
+                 "Parsing failed\n"
+                 "Parsing failed\n"
+                 , result.str().c_str());
+}
+
 }

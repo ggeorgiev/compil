@@ -1101,27 +1101,26 @@ TEST_F(TokenizerTests, angle_brackets)
 
 TEST_F(TokenizerTests, filepaths)
 {
-	const char* filepaths[] =
+	const char* filepaths[][2] =
 	{
-		"file",                     "file",
-		"path/file",                "path/file",
-		"FILE1234567890",           "FILE1234567890",
-		"FILE-+._",                 "FILE-+._",
+        { "file",                     "file" },
+        { "path/file",                "path/file" },
+        { "FILE1234567890",           "FILE1234567890" },
+        { "FILE-+._",                 "FILE-+._" },
 	};
 
 	for (size_t f = 0; f < sizeof(filepaths) / sizeof(filepaths[0]); ++f)
 	{
-		std::cout << "    " << filepaths[f] << "\n";
-		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
-			filepaths[f]));
+		std::cout << "    " << filepaths[f][0] << "\n";
+		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(filepaths[f][0]));
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
         mpTokenizer->shiftFilepath();
 		EXPECT_EQ(compil::Token::TYPE_FILEPATH,
-			mpTokenizer->current()->type()) << filepaths[f];
+			mpTokenizer->current()->type()) << filepaths[f][0];
 
-		std::string result = filepaths[++f];
+		std::string result = filepaths[f][1];
 
 		EXPECT_STREQ(result.c_str(), mpTokenizer->current()->text().c_str());
 		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());
@@ -1138,31 +1137,30 @@ TEST_F(TokenizerTests, filepaths)
 
 TEST_F(TokenizerTests, filepathsDelimiter)
 {
-	const char* filepaths[] =
+	const char* filepaths[][2] =
 	{
-		"file",                     "file",
-		"file blah",                "file",
-		"file;blah",                "file",
-		"file#blah",                "file",
-		"file{blah",                "file",
-		"file}blah",                "file",
-		"file\nblah",               "file",
-		"file\rblah",               "file",
+        { "file",                     "file" },
+		{ "file blah",                "file" },
+		{ "file;blah",                "file" },
+		{ "file#blah",                "file" },
+		{ "file{blah",                "file" },
+		{ "file}blah",                "file" },
+		{ "file\nblah",               "file" },
+		{ "file\rblah",               "file" },
 	};
 
 	for (size_t f = 0; f < sizeof(filepaths) / sizeof(filepaths[0]); ++f)
 	{
-		std::cout << "    " << filepaths[f] << "\n";
-		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(
-			filepaths[f]));
+		std::cout << "    " << filepaths[f][0] << "\n";
+		boost::shared_ptr<std::stringstream> pInput(new std::stringstream(filepaths[f][0]));
 		mMessageCollector.reset(new compil::MessageCollector());
 		mpTokenizer.reset(new compil::Tokenizer(mMessageCollector));
 		mpTokenizer->tokenize(compil::SourceIdSPtr(), pInput);
         mpTokenizer->shiftFilepath();
 		EXPECT_EQ(compil::Token::TYPE_FILEPATH,
-			mpTokenizer->current()->type()) << filepaths[f];
+			mpTokenizer->current()->type()) << filepaths[f][0];
 
-		std::string result = filepaths[++f];
+		std::string result = filepaths[f][1];
 
 		EXPECT_STREQ(result.c_str(), mpTokenizer->current()->text().c_str());
 		EXPECT_EQ(lang::compil::Line(1), mpTokenizer->current()->line());

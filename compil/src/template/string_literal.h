@@ -41,9 +41,12 @@
 #include <boost/spirit/include/phoenix_fusion.hpp>
 #include <boost/spirit/include/phoenix_stl.hpp>
 
-using namespace boost::spirit;
-
 #include <boost/fusion/include/adapt_struct.hpp>
+
+//namespace compil
+//{
+
+using namespace boost::spirit;
 
 ////////////////////////////////
 // extra facilities
@@ -53,6 +56,21 @@ struct get_line_f
     template <typename It> size_t operator()(It const& pos_iter) const
     {
         return get_line(pos_iter);
+    }
+};
+
+struct utf8_f
+{
+    template <typename> struct result { typedef std::string type; };
+
+    template <typename INT>
+    std::string operator()(INT in) const
+    {
+        std::string to;
+        auto out = std::back_inserter(to);
+        boost::utf8_output_iterator<decltype(out)> convert(out);
+        *convert++ = in;
+        return to;
     }
 };
 
@@ -118,13 +136,14 @@ struct source_string : qi::grammar<Iterator, String(), qi::space_type>
 
     source_string() : source_string::base_type(start)
     {
-        using qi::char_;
-        using qi::eps;
-        using qi::print;
         using qi::raw;
         using qi::_val;
         using qi::_1;
         using qi::space;
+        using qi::omit;
+        using qi::no_case;
+        using qi::print;
+        using qi::attr_cast;
 
         namespace phx = boost::phoenix;
         using phx::at_c;
@@ -135,14 +154,17 @@ struct source_string : qi::grammar<Iterator, String(), qi::space_type>
 
         escape %= escape_symbol;
 
-        character %=   ("\\x" >> hex2)
-                     | ("\\"  >> oct3)
+        character %=   (no_case["\\x"] >> hex12)
+                     | ("\\"  >> oct123)
                      | escape
-                     | (print - '"');
+                     | (print - (lit('"') | '\\'));
 
-        string_section %= '"' >> *(character) >> '"';
+        unicode =   ("\\u" >> hex4[_val += utf8(_1)])
+                  | ("\\U" >> hex8[_val += utf8(_1)]);
 
-        string %= string_section % *lit(" \n\r\t\v\f");
+        string_section %= '"' >> *(unicode | character) >> '"';
+
+        string %= string_section % omit[*space];
 
         start = raw[
                         string[at_c<0>(_val) = _1]
@@ -155,14 +177,20 @@ struct source_string : qi::grammar<Iterator, String(), qi::space_type>
         ;
     }
 
+    boost::phoenix::function<utf8_f> utf8;
     boost::phoenix::function<get_line_f> get_line_;
     qi::rule<Iterator, String(), qi::space_type> start;
     qi::rule<Iterator, std::string()> escape;
-    qi::uint_parser<char, 16, 2, 2> hex2;
-    qi::uint_parser<char,  8, 3, 3> oct3;
+    qi::uint_parser<char, 16, 1, 2> hex12;
+    qi::uint_parser<uint16_t, 16, 4, 4> hex4;
+    qi::uint_parser<uint32_t, 16, 8, 8> hex8;
+    qi::uint_parser<char,  8, 1, 3> oct123;
     qi::rule<Iterator, std::string()> character;
+    qi::rule<Iterator, std::string()> unicode;
     qi::rule<Iterator, std::string()> string_section;
     qi::rule<Iterator, std::string()> string;
 };
+
+//}
 
 #endif
