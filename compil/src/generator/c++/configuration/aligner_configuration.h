@@ -32,8 +32,9 @@
 
 #include <boost/shared_ptr.hpp>
 
-#ifndef _ALIGNER_CONFIGURATION_H__
-#define _ALIGNER_CONFIGURATION_H__
+#ifndef __GENERATOR_CPP_CONFIGURATION_ALIGNER_CONFIGURATION_H__
+#define __GENERATOR_CPP_CONFIGURATION_ALIGNER_CONFIGURATION_H__
+#pragma once
 
 #include "core/configuration/configuration.h"
 
@@ -91,5 +92,4 @@ class AlignerConfiguration;
 typedef boost::shared_ptr<AlignerConfiguration> AlignerConfigurationSPtr;
 typedef boost::weak_ptr<AlignerConfiguration> AlignerConfigurationWPtr;
 
-#endif
-
+#endif // __GENERATOR_CPP_CONFIGURATION_ALIGNER_CONFIGURATION_H__

@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_PARSER_H__
-#define _COMPIL_PARSER_H__
+#ifndef __COMPILER_PARSER_H__
+#define __COMPILER_PARSER_H__
+#pragma once
 
 #include "compiler/namespace_alias.h"
 
@@ -168,4 +169,4 @@ typedef boost::shared_ptr<Parser> ParserPtr;
 
 }
 
-#endif // _COMPIL_PARSER_H__
+#endif // __COMPILER_PARSER_H__

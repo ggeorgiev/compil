@@ -31,8 +31,9 @@
 //
 
 
-#ifndef _CPP_IMPLEMENTER_H__
-#define _CPP_IMPLEMENTER_H__
+#ifndef __GENERATOR_IMPLEMENTER_CPP_IMPLEMENTER_H__
+#define __GENERATOR_IMPLEMENTER_CPP_IMPLEMENTER_H__
+#pragma once
 
 #include "generator/c++/configuration/implementer_configuration.h"
 #include "generator/implementer/dependency.h"
@@ -167,5 +168,4 @@ typedef boost::shared_ptr<CppImplementer> CppImplementerPtr;
 
 }
 
-#endif
-
+#endif // __GENERATOR_IMPLEMENTER_CPP_IMPLEMENTER_H__

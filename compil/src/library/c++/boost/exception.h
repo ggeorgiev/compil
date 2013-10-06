@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _IMPLEMENTER_BOOST_EXCEPTION_H__
-#define _IMPLEMENTER_BOOST_EXCEPTION_H__
+#ifndef __LIBRARY_CPP_BOOST_EXCEPTION_H__
+#define __LIBRARY_CPP_BOOST_EXCEPTION_H__
+#pragma once
 
 #include "library/c++/boost/namespace.h"
 
@@ -55,5 +56,4 @@ public:
 
 }
 
-#endif
-
+#endif // __LIBRARY_CPP_BOOST_EXCEPTION_H__

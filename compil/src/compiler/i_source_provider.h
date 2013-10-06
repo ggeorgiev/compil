@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_ISOURCEPROVIDER_H__
-#define _COMPIL_ISOURCEPROVIDER_H__
+#ifndef __COMPILER_I_SOURCE_PROVIDER_H__
+#define __COMPILER_I_SOURCE_PROVIDER_H__
+#pragma once
 
 #include "namespace_alias.h"
 
@@ -89,4 +90,4 @@ typedef boost::shared_ptr<ISourceProvider> ISourceProviderSPtr;
 
 }
 
-#endif
+#endif // __COMPILER_I_SOURCE_PROVIDER_H__

@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_COMMENTS_H__
-#define _COMPIL_COMMENTS_H__
+#ifndef __CORE_SPIRIT_COMMENT_HPP__
+#define __CORE_SPIRIT_COMMENT_HPP__
+#pragma once
 
 #include "core/spirit/position.hpp"
 
@@ -119,4 +120,4 @@ struct source_comment : qi::grammar<Iterator, Comment(), qi::space_type>
 
 }
 
-#endif
+#endif // __CORE_SPIRIT_COMMENT_HPP__

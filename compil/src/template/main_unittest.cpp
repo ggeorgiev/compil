@@ -28,53 +28,15 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Author: george.georgiev@hotmail.com (George Georgiev)
-//
+// based on code from Adam Bowen posted on stackoverflow.com
 
+#include <iostream>
 
-#ifndef __COMPILER_MESSAGE_MESSAGE_COLLECTOR_H__
-#define __COMPILER_MESSAGE_MESSAGE_COLLECTOR_H__
-#pragma once
+#include "gtest/gtest.h"
 
-#include "compiler/message/message.h"
+GTEST_API_ int main(int argc, char **argv) {
+  std::cout << "Running main() from gtest_main.cc\n";
 
-#include <boost/shared_ptr.hpp>
-
-#include <vector>
-
-namespace compil
-{
-
-class MessageCollector
-{
-public:
-    MessageCollector();
-    ~MessageCollector();
-
-    void addMessage(const Message& message);
-    void addMessage(Message::Severity severity, const std::string& message, 
-                    const SourceIdSPtr& pSourceId, const Line& line, const Column& column);
-
-    const std::vector<Message>& messages();
-   
-    Message::Severity severity();
-
-private:
-    std::vector<Message> mMessages;
-
-};
-
-typedef boost::shared_ptr<MessageCollector> MessageCollectorPtr;
-
+  testing::InitGoogleTest(&argc, argv);
+  return RUN_ALL_TESTS();
 }
-
-#else
-
-namespace compil
-{
-
-class MessageCollector;
-typedef boost::shared_ptr<MessageCollector> MessageCollectorPtr;
-
-}
-
-#endif // __COMPILER_MESSAGE_MESSAGE_COLLECTOR_H__

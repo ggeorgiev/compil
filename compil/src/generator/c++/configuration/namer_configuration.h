@@ -32,8 +32,9 @@
 
 #include <boost/shared_ptr.hpp>
 
-#ifndef _NAMER_CONFIGURATION_H__
-#define _NAMER_CONFIGURATION_H__
+#ifndef __GENERATOR_CPP_CONFIGURATION_NAMER_CONFIGURATION_H__
+#define __GENERATOR_CPP_CONFIGURATION_NAMER_CONFIGURATION_H__
+#pragma once
 
 #include "core/configuration/configuration.h"
 
@@ -57,5 +58,4 @@ class NamerConfiguration;
 typedef boost::shared_ptr<NamerConfiguration> NamerConfigurationSPtr;
 typedef boost::weak_ptr<NamerConfiguration> NamerConfigurationWPtr;
 
-#endif
-
+#endif // __GENERATOR_CPP_CONFIGURATION_NAMER_CONFIGURATION_H__

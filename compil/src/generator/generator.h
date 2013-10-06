@@ -31,8 +31,9 @@
 //
 
 
-#ifndef _GENERATOR_H__
-#define _GENERATOR_H__
+#ifndef __GENERATOR_GENERATOR_H__
+#define __GENERATOR_GENERATOR_H__
+#pragma once
 
 #include "generator/implementer/dependency.h"
 #include "generator/implementer/c++_implementer.h"
@@ -141,5 +142,4 @@ typedef boost::shared_ptr<Generator> GeneratorPtr;
 
 }
 
-#endif
-
+#endif // __GENERATOR_GENERATOR_H__

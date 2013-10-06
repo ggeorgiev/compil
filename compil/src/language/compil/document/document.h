@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_MODEL_H__
-#define _COMPIL_MODEL_H__
+#ifndef __LANGUAGE_COMPIL_DOCUMENT_DOCUMENT_H__
+#define __LANGUAGE_COMPIL_DOCUMENT_DOCUMENT_H__
+#pragma once
 
 #include "language/compil/document/document-partial.h"
 
@@ -126,4 +127,4 @@ private:
 
 }
 
-#endif
+#endif // __LANGUAGE_COMPIL_DOCUMENT_DOCUMENT_H__

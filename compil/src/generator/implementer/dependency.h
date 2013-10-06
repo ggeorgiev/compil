@@ -31,8 +31,9 @@
 //
 
 
-#ifndef _CPP_DEPENDENCY_H__
-#define _CPP_DEPENDENCY_H__
+#ifndef __GENERATOR_IMPLEMENTER_DEPENDENCY_H__
+#define __GENERATOR_IMPLEMENTER_DEPENDENCY_H__
+#pragma once
 
 #include <boost/shared_ptr.hpp>
 
@@ -100,5 +101,4 @@ typedef boost::shared_ptr<Dependency> DependencyPtr;
 
 }
 
-#endif
-
+#endif // __GENERATOR_IMPLEMENTER_DEPENDENCY_H__

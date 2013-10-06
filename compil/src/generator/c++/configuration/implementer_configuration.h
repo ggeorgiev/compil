@@ -32,8 +32,9 @@
 
 #include <boost/shared_ptr.hpp>
 
-#ifndef _IMPLEMENTER_CONFIGURATION_H__
-#define _IMPLEMENTER_CONFIGURATION_H__
+#ifndef __GENERATOR_CPP_CONFIGURATION_IMPLEMENTER_CONFIGURATION_H__
+#define __GENERATOR_CPP_CONFIGURATION_IMPLEMENTER_CONFIGURATION_H__
+#pragma once
 
 #include "core/configuration/configuration.h"
 
@@ -131,5 +132,4 @@ class ImplementerConfiguration;
 typedef boost::shared_ptr<ImplementerConfiguration> ImplementerConfigurationSPtr;
 typedef boost::weak_ptr<ImplementerConfiguration> ImplementerConfigurationWPtr;
 
-#endif
-
+#endif // __GENERATOR_CPP_CONFIGURATION_IMPLEMENTER_CONFIGURATION_H__

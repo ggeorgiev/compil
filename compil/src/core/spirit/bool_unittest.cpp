@@ -30,7 +30,7 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "core/spirit/number.hpp"
+#include "core/spirit/bool.hpp"
 
 #include "gtest/gtest.h"
 
@@ -39,13 +39,14 @@
 namespace compil
 {
 
-TEST(NumbersTests, integer)
+TEST(BoolTests, bool)
 {
     std::string str[] =
     {
-        "\n\n\n1234",
-        "\n\n-5",
-        "\n-01234",
+        "true",
+        "1",
+        "false",
+        "0",
     };
 
     typedef line_pos_iterator<std::string::const_iterator> Iterator;
@@ -54,90 +55,21 @@ TEST(NumbersTests, integer)
 
     for (size_t i = 0; i < sizeof(str) / sizeof(str[0]); ++i)
     {
-        source_integer<Iterator> g;
+        source_bool<Iterator> g;
         Iterator iter(str[i].begin());
         Iterator end(str[i].end());
 
-        IntegerNumber number;
-        bool r = phrase_parse(iter, end, g, qi::space, number);
+        Bool bool_;
+        bool r = phrase_parse(iter, end, g, qi::space, bool_);
         if (r && iter == end)
-            result << number.line << ": " << number.value << " // " << number.source << "\n";
+            result << bool_.line << ": " << bool_.value << " // " << bool_.source << "\n";
         else
             result << "Parsing failed\n";
     }
 
-    ASSERT_STREQ("4: 1234 // 1234\n"
-                 "3: -5 // -5\n"
-                 "Parsing failed\n", result.str().c_str());
-}
-
-TEST(NumbersTests, uinteger)
-{
-    std::string str[] =
-    {
-        "\n\n0x1234",
-        "\n\n\n\n\n1234",
-        "\n01234",
-        "\nB011010101",
-        "\n\n-5",
-    };
-
-    typedef line_pos_iterator<std::string::const_iterator> Iterator;
-
-    std::ostringstream result;
-
-    for (size_t i = 0; i < sizeof(str) / sizeof(str[0]); ++i)
-    {
-        source_uinteger<Iterator> g;
-        Iterator iter(str[i].begin());
-        Iterator end(str[i].end());
-
-        UIntegerNumber number;
-        bool r = phrase_parse(iter, end, g, qi::space, number);
-        if (r && iter == end)
-            result << number.line << ": 0x" << std::setw(8) << std::setfill('0') << std::hex << number.value << " // " << number.source << "\n";
-        else
-            result << "Parsing failed\n";
-    }
-
-    ASSERT_STREQ("3: 0x00001234 // 0x1234\n"
-                 "6: 0x000004d2 // 1234\n"
-                 "2: 0x0000029c // 01234\n"
-                 "2: 0x000000d5 // B011010101\n"
-                 "Parsing failed\n", result.str().c_str());
-}
-
-TEST(NumbersTests, double_)
-{
-    std::string str[] =
-    {
-        "\n\n0.0",
-        "\n\n\n.1",
-        "\n\n\n1",
-        "\n\n\n1.",
-    };
-
-    typedef line_pos_iterator<std::string::const_iterator> Iterator;
-
-    std::ostringstream result;
-
-    for (size_t i = 0; i < sizeof(str) / sizeof(str[0]); ++i)
-    {
-        source_double<Iterator> g;
-        Iterator iter(str[i].begin());
-        Iterator end(str[i].end());
-
-        DoubleNumber number;
-        bool r = phrase_parse(iter, end, g, qi::space, number);
-        if (r && iter == end)
-            result << number.line << ": " << number.value << " // " << number.source << "\n";
-        else
-            result << "Parsing failed\n";
-    }
-
-    ASSERT_STREQ("3: 0 // 0.0\n"
-                 "4: 0.1 // .1\n"
+    ASSERT_STREQ("1: 1 // true\n"
                  "Parsing failed\n"
+                 "1: 0 // false\n"
                  "Parsing failed\n", result.str().c_str());
 }
 

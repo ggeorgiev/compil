@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPILER_NAMESPACE_ALIAS_H__
-#define _COMPILER_NAMESPACE_ALIAS_H__
+#ifndef __COMPILER_NAMESPACE_ALIAS_H__
+#define __COMPILER_NAMESPACE_ALIAS_H__
+#pragma once
 
 namespace lang
 {
@@ -49,4 +50,4 @@ using namespace lang::compil;
 
 }
 
-#endif // _COMPILER_NAMESPACE_ALIAS_H__
+#endif // __COMPILER_NAMESPACE_ALIAS_H__

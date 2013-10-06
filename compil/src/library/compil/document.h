@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _IMPLEMENTER_COMPIL_DOCUMENT_H__
-#define _IMPLEMENTER_COMPIL_DOCUMENT_H__
+#ifndef __LIBRARY_COMPIL_DOCUMENT_H__
+#define __LIBRARY_COMPIL_DOCUMENT_H__
+#pragma once
 
 #include "language/compil/all/object_factory.h"
 
@@ -53,5 +54,4 @@ public:
 
 }
 
-#endif
-
+#endif // __LIBRARY_COMPIL_DOCUMENT_H__

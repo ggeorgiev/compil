@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_TOKEN_H__
-#define _COMPIL_TOKEN_H__
+#ifndef __COMPILER_TOKENIZER_TOKEN_H__
+#define __COMPILER_TOKENIZER_TOKEN_H__
+#pragma once
 
 #include "compiler/namespace_alias.h"
 
@@ -154,4 +155,4 @@ typedef boost::shared_ptr<Token> TokenPtr;
 
 }
 
-#endif
+#endif // __COMPILER_TOKENIZER_TOKEN_H__

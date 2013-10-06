@@ -32,8 +32,9 @@
 
 #include <boost/shared_ptr.hpp>
 
-#ifndef _FORMATTER_CONFIGURATION_H__
-#define _FORMATTER_CONFIGURATION_H__
+#ifndef __GENERATOR_CPP_CONFIGURATION_FORMATTER_CONFIGURATION_H__
+#define __GENERATOR_CPP_CONFIGURATION_FORMATTER_CONFIGURATION_H__
+#pragma once
 
 #include "generator/c++/configuration/formatter_pointer_position.h"
 
@@ -60,5 +61,4 @@ class FormatterConfiguration;
 typedef boost::shared_ptr<FormatterConfiguration> FormatterConfigurationSPtr;
 typedef boost::weak_ptr<FormatterConfiguration> FormatterConfigurationWPtr;
 
-#endif
-
+#endif // __GENERATOR_CPP_CONFIGURATION_FORMATTER_CONFIGURATION_H__

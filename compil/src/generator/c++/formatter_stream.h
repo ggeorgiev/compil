@@ -32,8 +32,9 @@
 
 #include <boost/shared_ptr.hpp>
 
-#ifndef _FORMATTER_STREAM_H__
-#define _FORMATTER_STREAM_H__
+#ifndef __GENERATOR_CPP_FORMATTER_STREAM_H__
+#define __GENERATOR_CPP_FORMATTER_STREAM_H__
+#pragma once
 
 #include "generator/c++/configuration/formatter_configuration.h"
 #include "generator/c++/aligner_stream.h"
@@ -154,5 +155,4 @@ private:
 typedef boost::shared_ptr<FormatterStream> FormatterStreamSPtr;
 typedef boost::weak_ptr<FormatterStream> FormatterStreamWPtr;
 
-#endif
-
+#endif // __GENERATOR_CPP_FORMATTER_STREAM_H__

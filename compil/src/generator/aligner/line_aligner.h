@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _LINE_ALIGNER_H__
-#define _LINE_ALIGNER_H__
+#ifndef __GENERATOR_ALIGNER_LINE_ALIGNER_H__
+#define __GENERATOR_ALIGNER_LINE_ALIGNER_H__
+#pragma once
 
 #include "aligner.h"
 #include "generator/c++/configuration/aligner_configuration.h"
@@ -88,4 +89,4 @@ LineAligner& operator<<(LineAligner& aligner, const std::string& str);
 
 }
 
-#endif
+#endif // __GENERATOR_ALIGNER_LINE_ALIGNER_H__

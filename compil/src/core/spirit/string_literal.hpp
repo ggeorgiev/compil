@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_STRING_H__
-#define _COMPIL_STRING_H__
+#ifndef __CORE_SPIRIT_STRING_LITERAL_HPP__
+#define __CORE_SPIRIT_STRING_LITERAL_HPP__
+#pragma once
 
 #include "core/spirit/position.h"
 
@@ -174,4 +175,4 @@ struct source_string : qi::grammar<Iterator, String(), qi::space_type>
 
 }
 
-#endif
+#endif // __CORE_SPIRIT_STRING_LITERAL_HPP__

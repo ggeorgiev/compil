@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _GENERATOR_PROJECT_H__
-#define _GENERATOR_PROJECT_H__
+#ifndef __GENERATOR_PROJECT_GENERATOR_PROJECT_H__
+#define __GENERATOR_PROJECT_GENERATOR_PROJECT_H__
+#pragma once
 
 #include "generator/c++/configuration/implementer_configuration.h"
 #include "generator/c++/configuration/formatter_configuration.h"
@@ -137,4 +138,4 @@ private:
 
 }
 
-#endif
+#endif // __GENERATOR_PROJECT_GENERATOR_PROJECT_H__

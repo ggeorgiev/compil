@@ -31,8 +31,9 @@
 //
 
 
-#ifndef _CPP_TEST_GENERATOR_H__
-#define _CPP_TEST_GENERATOR_H__
+#ifndef __GENERATOR_CPP_CPP_TEST_GENERATOR_H__
+#define __GENERATOR_CPP_CPP_TEST_GENERATOR_H__
+#pragma once
 
 #include "generator/generator.h"
 
@@ -75,5 +76,4 @@ typedef boost::shared_ptr<CppTestGenerator> CppTestGeneratorSPtr;
 
 }
 
-#endif
-
+#endif // __GENERATOR_CPP_CPP_TEST_GENERATOR_H__

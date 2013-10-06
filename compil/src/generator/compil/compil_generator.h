@@ -31,8 +31,9 @@
 //
 
 
-#ifndef _COMPIL_GENERATOR_H__
-#define _COMPIL_GENERATOR_H__
+#ifndef __GENERATOR_COMPIL_COMPIL_GENERATOR_H__
+#define __GENERATOR_COMPIL_COMPIL_GENERATOR_H__
+#pragma once
 
 #include "generator/generator.h"
 
@@ -110,5 +111,4 @@ typedef boost::shared_ptr<CompilGenerator> CompilGeneratorPtr;
 
 }
 
-#endif
-
+#endif // __GENERATOR_COMPIL_COMPIL_GENERATOR_H__

@@ -31,8 +31,9 @@
 //
 
 
-#ifndef _ALIGNER_H__
-#define _ALIGNER_H__
+#ifndef __GENERATOR_ALIGNER_ALIGNER_H__
+#define __GENERATOR_ALIGNER_ALIGNER_H__
+#pragma once
 
 #include "generator/c++/configuration/aligner_configuration.h"
 
@@ -160,4 +161,5 @@ public:
 };
 
 }
-#endif
+
+#endif // __GENERATOR_ALIGNER_ALIGNER_H__

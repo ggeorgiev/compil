@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_PARAMETER_TYPE_VALIDATOR_H__
-#define _COMPIL_PARAMETER_TYPE_VALIDATOR_H__
+#ifndef __COMPILER_VALIDATOR_PARAMETER_TYPE_VALIDATOR_H__
+#define __COMPILER_VALIDATOR_PARAMETER_TYPE_VALIDATOR_H__
+#pragma once
 
 #include "compiler/validator/validator.h"
 
@@ -71,4 +72,4 @@ typedef boost::weak_ptr<ParameterTypeValidator> ParameterTypeValidatorWPtr;
 
 }
 
-#endif // _COMPIL_PARAMETER_TYPE_VALIDATOR_H__
+#endif // __COMPILER_VALIDATOR_PARAMETER_TYPE_VALIDATOR_H__

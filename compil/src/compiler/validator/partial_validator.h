@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_PARTIAL_VALIDATOR_H__
-#define _COMPIL_PARTIAL_VALIDATOR_H__
+#ifndef __COMPILER_VALIDATOR_PARTIAL_VALIDATOR_H__
+#define __COMPILER_VALIDATOR_PARTIAL_VALIDATOR_H__
+#pragma once
 
 #include "validator.h"
 
@@ -68,4 +69,4 @@ typedef boost::weak_ptr<PartialValidator> PartialValidatorWPtr;
 
 }
 
-#endif // _COMPIL_STRUCTURE_FIELDS_VALIDATOR_H__
+#endif // __COMPILER_VALIDATOR_PARTIAL_VALIDATOR_H__

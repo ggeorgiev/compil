@@ -31,8 +31,9 @@
 //
 
 
-#ifndef _TEST_SOURCE_PROVIDER_H__
-#define _TEST_SOURCE_PROVIDER_H__
+#ifndef __GENERATOR_PROJECT_TEST_SOURCE_PROVIDER_H__
+#define __GENERATOR_PROJECT_TEST_SOURCE_PROVIDER_H__
+#pragma once
 
 #include "compiler/i_source_provider.h"
 
@@ -90,5 +91,4 @@ typedef boost::shared_ptr<TestSourceProvider> TestSourceProviderSPtr;
 
 }
 
-#endif
-
+#endif // __GENERATOR_PROJECT_TEST_SOURCE_PROVIDER_H__

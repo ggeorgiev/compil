@@ -31,8 +31,9 @@
 //
 
 
-#ifndef _CPP_GENERATOR_H__
-#define _CPP_GENERATOR_H__
+#ifndef __GENERATOR_CPP_CPP_GENERATOR_H__
+#define __GENERATOR_CPP_CPP_GENERATOR_H__
+#pragma once
 
 #include "generator/generator.h"
 
@@ -146,5 +147,4 @@ typedef boost::shared_ptr<CppGenerator> CppGeneratorPtr;
 
 }
 
-#endif
-
+#endif // __GENERATOR_CPP_CPP_GENERATOR_H__

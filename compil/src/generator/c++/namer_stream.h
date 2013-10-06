@@ -32,8 +32,9 @@
 
 #include <boost/shared_ptr.hpp>
 
-#ifndef _NAMER_STREAM_H__
-#define _NAMER_STREAM_H__
+#ifndef __GENERATOR_CPP_NAMER_STREAM_H__
+#define __GENERATOR_CPP_NAMER_STREAM_H__
+#pragma once
 
 #include "generator/c++/configuration/namer_configuration.h"
 
@@ -133,5 +134,4 @@ typedef boost::weak_ptr<NamerStream> NamerStreamWPtr;
 
 }
 
-#endif
-
+#endif // __GENERATOR_CPP_NAMER_STREAM_H__

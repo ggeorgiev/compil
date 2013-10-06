@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _IMPLEMENTER_STREAM_H__
-#define _IMPLEMENTER_STREAM_H__
+#ifndef __GENERATOR_CPP_IMPLEMENTER_STREAM_H__
+#define __GENERATOR_CPP_IMPLEMENTER_STREAM_H__
+#pragma once
 
 #include "generator/c++/configuration/implementer_configuration.h"
 
@@ -87,5 +88,4 @@ private:
 typedef boost::shared_ptr<ImplementerStream> ImplementerStreamSPtr;
 typedef boost::weak_ptr<ImplementerStream> ImplementerStreamWPtr;
 
-#endif
-
+#endif // __GENERATOR_CPP_IMPLEMENTER_STREAM_H__

@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_POSITION_H__
-#define _COMPIL_POSITION_H__
+#ifndef __CORE_SPIRIT_POSITION_HPP__
+#define __CORE_SPIRIT_POSITION_HPP__
+#pragma once
 
 #include <boost/config/warning_disable.hpp>
 #include <boost/spirit/include/qi.hpp>
@@ -79,4 +80,4 @@ struct get_line_f
 
 }
 
-#endif
+#endif // __CORE_SPIRIT_POSITION_HPP__

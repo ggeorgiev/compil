@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _BOOST_ASSERT_HANDLER_H__
-#define _BOOST_ASSERT_HANDLER_H__
+#ifndef __CORE_BOOST_BOOST_ASSERT_HANDLER_H__
+#define __CORE_BOOST_BOOST_ASSERT_HANDLER_H__
+#pragma once
 
 #include <string>
 
@@ -46,4 +47,4 @@ public:
 
 }
 
-#endif // _BOOST_ASSERT_HANDLER_H__
+#endif // __CORE_BOOST_BOOST_ASSERT_HANDLER_H__

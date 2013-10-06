@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _HOOK_SOURCE_PROVIDER_H__
-#define _HOOK_SOURCE_PROVIDER_H__
+#ifndef __GENERATOR_PROJECT_HOOK_SOURCE_PROVIDER_H__
+#define __GENERATOR_PROJECT_HOOK_SOURCE_PROVIDER_H__
+#pragma once
 
 #include "compiler/i_source_provider.h"
 
@@ -74,4 +75,4 @@ typedef boost::shared_ptr<HookSourceProvider> HookSourceProviderSPtr;
 
 }
 
-#endif
+#endif // __GENERATOR_PROJECT_HOOK_SOURCE_PROVIDER_H__

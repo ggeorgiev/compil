@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_TOKENIZER_H__
-#define _COMPIL_TOKENIZER_H__
+#ifndef __COMPILER_TOKENIZER_TOKENIZER_H__
+#define __COMPILER_TOKENIZER_TOKENIZER_H__
+#pragma once
 
 #include "compiler/tokenizer/token.h"
 #include "compiler/message/message_collector.h"
@@ -117,4 +118,4 @@ class Tokenizer;
 
 }
 
-#endif
+#endif // __COMPILER_TOKENIZER_TOKENIZER_H__

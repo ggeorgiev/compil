@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _IMPLEMENTER_COMPIL_PACKAGE_H__
-#define _IMPLEMENTER_COMPIL_PACKAGE_H__
+#ifndef __LIBRARY_COMPIL_PACKAGE_H__
+#define __LIBRARY_COMPIL_PACKAGE_H__
+#pragma once
 
 #include "language/c++/namespace/namespace.h"
 
@@ -55,5 +56,4 @@ public:
 
 }
 
-#endif
-
+#endif // __LIBRARY_COMPIL_PACKAGE_H__

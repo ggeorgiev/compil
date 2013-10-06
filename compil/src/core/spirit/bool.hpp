@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_NUMBERS_H__
-#define _COMPIL_NUMBERS_H__
+#ifndef __CORE_SPIRIT_BOOL_HPP__
+#define __CORE_SPIRIT_BOOL_HPP__
+#pragma once
 
 #include "core/spirit/position.hpp"
 
@@ -48,151 +49,39 @@ namespace compil
 
 using namespace boost::spirit;
 
-struct IntegerNumber : public Position
+struct Bool : public Position
 {
-    IntegerNumber()
+    Bool()
         : Position()
         , value(0)
         , source()
     {
     }
 
-    int64_t value;
-    std::string source;
-};
-
-template <typename Iterator>
-struct source_integer : qi::grammar<Iterator, IntegerNumber(), qi::space_type>
-{
-    source_integer() : source_integer::base_type(start)
-    {
-        using qi::char_;
-        using qi::long_long;
-        using qi::raw;
-        using qi::_val;
-        using qi::_1;
-
-        namespace phx = boost::phoenix;
-        using phx::at_c;
-        using phx::begin;
-        using phx::end;
-        using phx::construct;
-
-        start = raw[ long_long [at_c<0>(_val) = _1]
-                     - "-0" >> *char_
-                   ]
-                   [
-                       at_c<1>(_val) = construct<std::string>(begin(_1), end(_1)),
-                       at_c<2>(_val) = get_line_(begin(_1))
-                   ]
-        ;
-    }
-
-    boost::phoenix::function<get_line_f> get_line_;
-    qi::rule<Iterator, IntegerNumber(), qi::space_type> start;
-};
-
-struct UIntegerNumber : public Position
-{
-    UIntegerNumber()
-        : Position()
-        , value(0)
-        , source()
-    {
-    }
-
-    uint64_t value;
-    std::string source;
-};
-
-template <typename Iterator>
-struct source_uinteger : qi::grammar<Iterator, UIntegerNumber(), qi::space_type>
-{
-    source_uinteger() : source_uinteger::base_type(start)
-    {
-        using qi::bin;
-        using qi::oct;
-        using qi::hex;
-        using qi::ulong_long;
-        using qi::raw;
-        using qi::_val;
-        using qi::_1;
-
-        namespace phx = boost::phoenix;
-        using phx::at_c;
-        using phx::begin;
-        using phx::end;
-        using phx::construct;
-
-        start = raw[
-                       (qi::no_case["0x"] >> hex [at_c<0>(_val) = _1])
-                     | ('0' >> oct [at_c<0>(_val) = _1])
-                     | ulong_long [at_c<0>(_val) = _1]
-                     | ('B' >> bin [at_c<0>(_val) = _1])
-                   ]
-                   [
-                       at_c<1>(_val) = construct<std::string>(begin(_1), end(_1)),
-                       at_c<2>(_val) = get_line_(begin(_1))
-                   ]
-        ;
-    }
-
-    boost::phoenix::function<get_line_f> get_line_;
-    qi::rule<Iterator, UIntegerNumber(), qi::space_type> start;
-};
-
-struct DoubleNumber : public Position
-{
-    DoubleNumber()
-        : Position()
-        , value(0)
-        , source()
-    {
-    }
-
-    long double value;
+    bool value;
     std::string source;
 };
 
 }
 
-BOOST_FUSION_ADAPT_STRUCT(compil::IntegerNumber,
-                            (int64_t,    value)
+BOOST_FUSION_ADAPT_STRUCT(compil::Bool,
+                            (bool,        value)
                             (std::string, source)
                             (size_t,      line)
                           )
 
-BOOST_FUSION_ADAPT_STRUCT(compil::UIntegerNumber,
-                            (uint64_t,    value)
-                            (std::string, source)
-                            (size_t,      line)
-                          )
-
-BOOST_FUSION_ADAPT_STRUCT(compil::DoubleNumber,
-                            (long double, value)
-                            (std::string, source)
-                            (size_t,      line)
-                          )
+//
+////////////////////////////////
 
 namespace compil
 {
 
-template <typename T>
-struct strict_real_policies : qi::real_policies<T>
-{
-    static bool const allow_leading_dot = true;
-    static bool const allow_trailing_dot = false;
-    static bool const expect_dot = true;
-};
-
 template <typename Iterator>
-struct source_double : qi::grammar<Iterator, DoubleNumber(), qi::space_type>
+struct source_bool : qi::grammar<Iterator, Bool(), qi::space_type>
 {
-    source_double() : source_double::base_type(start)
+    source_bool() : source_bool::base_type(start)
     {
-        using qi::real_parser;
-        real_parser<long double, strict_real_policies<long double> > long_double;
-
+        using qi::bool_;
         using qi::raw;
         using qi::_val;
         using qi::_1;
@@ -203,7 +92,7 @@ struct source_double : qi::grammar<Iterator, DoubleNumber(), qi::space_type>
         using phx::end;
         using phx::construct;
 
-        start = raw[ long_double [at_c<0>(_val) = _1] ]
+        start = raw[ bool_ [at_c<0>(_val) = _1] ]
                    [
                        at_c<1>(_val) = construct<std::string>(begin(_1), end(_1)),
                        at_c<2>(_val) = get_line_(begin(_1))
@@ -212,9 +101,9 @@ struct source_double : qi::grammar<Iterator, DoubleNumber(), qi::space_type>
     }
 
     boost::phoenix::function<get_line_f> get_line_;
-    qi::rule<Iterator, DoubleNumber(), qi::space_type> start;
+    qi::rule<Iterator, Bool(), qi::space_type> start;
 };
 
 }
 
-#endif
+#endif // __CORE_SPIRIT_BOOL_HPP__

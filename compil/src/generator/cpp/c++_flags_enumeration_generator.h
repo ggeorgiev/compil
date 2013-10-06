@@ -31,8 +31,9 @@
 //
 
 
-#ifndef _CPP_FLAGS_ENUMERATION_GENERATOR_H__
-#define _CPP_FLAGS_ENUMERATION_GENERATOR_H__
+#ifndef __GENERATOR_CPP_CPP_FLAGS_ENUMERATION_GENERATOR_H__
+#define __GENERATOR_CPP_CPP_FLAGS_ENUMERATION_GENERATOR_H__
+#pragma once
 
 #include "generator/generator.h"
 
@@ -69,5 +70,4 @@ typedef boost::shared_ptr<CppFlagsEnumerationGenerator> CppFlagsEnumerationGener
 
 }
 
-#endif
-
+#endif // __GENERATOR_CPP_CPP_FLAGS_ENUMERATION_GENERATOR_H__

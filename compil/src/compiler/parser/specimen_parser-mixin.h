@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_SPECIMEN_PARSER_MIXIN_H__
-#define _COMPIL_SPECIMEN_PARSER_MIXIN_H__
+#ifndef __COMPILER_PARSER_SPECIMEN_PARSER_MIXIN_H__
+#define __COMPILER_PARSER_SPECIMEN_PARSER_MIXIN_H__
+#pragma once
 
 #include "compiler/parser/document_parser-mixin.h"
 #include "compiler/parser/type_parser-mixin.h"
@@ -53,4 +54,4 @@ public:
 
 }
 
-#endif // _COMPIL_SPECIMEN_PARSER_MIXIN_H__
+#endif // __COMPILER_PARSER_SPECIMEN_PARSER_MIXIN_H__

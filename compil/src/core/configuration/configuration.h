@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _CONFIGURATION_H__
-#define _CONFIGURATION_H__
+#ifndef __CORE_CONFIGURATION_CONFIGURATION_H__
+#define __CORE_CONFIGURATION_CONFIGURATION_H__
+#pragma once
 
 #include "configuration.h"
 
@@ -64,4 +65,4 @@ typedef boost::weak_ptr<Configuration> ConfigurationWPtr;
 
 }
 
-#endif // _CONFIGURATION_H__
+#endif // __CORE_CONFIGURATION_CONFIGURATION_H__

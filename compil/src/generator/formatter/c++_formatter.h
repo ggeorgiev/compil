@@ -31,8 +31,9 @@
 //
 
 
-#ifndef _CPP_FORMATTER_H__
-#define _CPP_FORMATTER_H__
+#ifndef __GENERATOR_FORMATTER_CPP_FORMATTER_H__
+#define __GENERATOR_FORMATTER_CPP_FORMATTER_H__
+#pragma once
 
 #include "compiler/namespace_alias.h"
 
@@ -192,5 +193,4 @@ typedef boost::shared_ptr<CppFormatter> CppFormatterPtr;
 
 }
 
-#endif
-
+#endif // __GENERATOR_FORMATTER_CPP_FORMATTER_H__

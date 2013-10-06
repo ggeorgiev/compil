@@ -29,8 +29,9 @@
 
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
-#ifndef _FUNCTION_DEFINITION_ALIGNER_H__
-#define _FUNCTION_DEFINITION_ALIGNER_H__
+#ifndef __GENERATOR_ALIGNER_FUNCTION_DEFINITION_ALIGNER_H__
+#define __GENERATOR_ALIGNER_FUNCTION_DEFINITION_ALIGNER_H__
+#pragma once
 
 #include "table_aligner.h"
 #include "generator/c++/configuration/aligner_configuration.h"
@@ -61,4 +62,5 @@ FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner,
 FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, char ch);
 FunctionDefinitionAligner& operator<<(FunctionDefinitionAligner& aligner, const std::string& str);
 }
-#endif
+
+#endif // __GENERATOR_ALIGNER_FUNCTION_DEFINITION_ALIGNER_H__

@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _TEMPLATE_CPP_LITERAL_H__
-#define _TEMPLATE_CPP_LITERAL_H__
+#ifndef __TEMPLATE_CPP_LITERAL_H__
+#define __TEMPLATE_CPP_LITERAL_H__
+#pragma once
 
 namespace tmpl
 {
@@ -49,4 +50,4 @@ public:
 
 }
 
-#endif
+#endif // __TEMPLATE_CPP_LITERAL_H__

@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _CORE_PLATFORM_APPLICATION_H__
-#define _CORE_PLATFORM_APPLICATION_H__
+#ifndef __CORE_PLATFORM_APPLICATION_H__
+#define __CORE_PLATFORM_APPLICATION_H__
+#pragma once
 
 #include "boost/filesystem.hpp"
 
@@ -42,5 +43,4 @@ boost::filesystem::path getApplicationPath();
 
 }
 
-#endif
-
+#endif // __CORE_PLATFORM_APPLICATION_H__

@@ -32,8 +32,9 @@
 
 #include <boost/shared_ptr.hpp>
 
-#ifndef _GENERATOR_CONFIGURATION_H__
-#define _GENERATOR_CONFIGURATION_H__
+#ifndef __GENERATOR_GENERATOR_CONFIGURATION_H__
+#define __GENERATOR_GENERATOR_CONFIGURATION_H__
+#pragma once
 
 #include "core/configuration/configuration.h"
 
@@ -78,4 +79,4 @@ class GeneratorConfiguration;
 typedef boost::shared_ptr<GeneratorConfiguration> GeneratorConfigurationPtr;
 typedef boost::weak_ptr<GeneratorConfiguration> GeneratorConfigurationWPtr;
 
-#endif // _GENERATOR_CONFIGURATION_H__
+#endif // __GENERATOR_GENERATOR_CONFIGURATION_H__

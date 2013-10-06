@@ -31,8 +31,9 @@
 //
 
 
-#ifndef _CPP_KEYWORD_H__
-#define _CPP_KEYWORD_H__
+#ifndef __GENERATOR_FORMATTER_CPP_KEYWORD_H__
+#define __GENERATOR_FORMATTER_CPP_KEYWORD_H__
+#pragma once
 
 #include "generator/c++/configuration/formatter_configuration.h"
 
@@ -65,5 +66,4 @@ typedef boost::shared_ptr<CppKeyword> CppKeywordPtr;
 
 }
 
-#endif
-
+#endif // __GENERATOR_FORMATTER_CPP_KEYWORD_H__

@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_PARSER_MIXIN_H__
-#define _COMPIL_PARSER_MIXIN_H__
+#ifndef __COMPILER_PARSER_PARSER_MIXIN_H__
+#define __COMPILER_PARSER_PARSER_MIXIN_H__
+#pragma once
 
 #include "compiler/tokenizer/tokenizer.h"
 
@@ -106,4 +107,4 @@ private:
 
 }
 
-#endif // _COMPIL_PARSER_MIXIN_H__
+#endif // __COMPILER_PARSER_PARSER_MIXIN_H__

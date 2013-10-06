@@ -19,6 +19,7 @@ lib generator-test
     boost_templates
     
     $(TOP)/core//core
+    $(TOP)/generator//generator
   ;
   
 gtest generator-test 

@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_VALIDATOR_H__
-#define _COMPIL_VALIDATOR_H__
+#ifndef __COMPILER_VALIDATOR_VALIDATOR_H__
+#define __COMPILER_VALIDATOR_VALIDATOR_H__
+#pragma once
 
 #include "compiler/message/message_collector.h"
 
@@ -68,4 +69,4 @@ typedef boost::weak_ptr<Validator> ValidatorWPtr;
 
 }
 
-#endif // _COMPIL_VALIDATOR_H__
+#endif // __COMPILER_VALIDATOR_VALIDATOR_H__

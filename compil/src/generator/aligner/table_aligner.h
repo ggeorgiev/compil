@@ -29,8 +29,9 @@
 
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
-#ifndef _TABLE_ALIGNER_H__
-#define _TABLE_ALIGNER_H__
+#ifndef __GENERATOR_ALIGNER_TABLE_ALIGNER_H__
+#define __GENERATOR_ALIGNER_TABLE_ALIGNER_H__
+#pragma once
 
 #include "aligner.h"
 #include "generator/c++/configuration/aligner_configuration.h"
@@ -137,4 +138,5 @@ TableAligner& operator<<(TableAligner& aligner, char ch);
 TableAligner& operator<<(TableAligner& aligner, const std::string& str);
 
 }
-#endif
+
+#endif // __GENERATOR_ALIGNER_TABLE_ALIGNER_H__

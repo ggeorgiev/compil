@@ -31,8 +31,9 @@
 //
 
 
-#ifndef _COMPIL_MESSAGE_H__
-#define _COMPIL_MESSAGE_H__
+#ifndef __COMPILER_MESSAGE_MESSAGE_H__
+#define __COMPILER_MESSAGE_MESSAGE_H__
+#pragma once
 
 #include "compiler/namespace_alias.h"
 
@@ -219,5 +220,4 @@ class ErrorMessage;
 
 }
 
-#endif
-
+#endif // __COMPILER_MESSAGE_MESSAGE_H__

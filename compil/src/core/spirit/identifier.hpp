@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_IDENTIFIER_H__
-#define _COMPIL_IDENTIFIER_H__
+#ifndef __CORE_SPIRIT_IDENTIFIER_HPP__
+#define __CORE_SPIRIT_IDENTIFIER_HPP__
+#pragma once
 
 #include "core/spirit/position.hpp"
 
@@ -105,4 +106,4 @@ struct source_identifier: qi::grammar<Iterator, Identifier(), qi::space_type>
 
 }
 
-#endif
+#endif // __CORE_SPIRIT_IDENTIFIER_HPP__

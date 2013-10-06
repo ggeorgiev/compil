@@ -32,8 +32,9 @@
 
 #include <boost/shared_ptr.hpp>
 
-#ifndef _ALIGNER_STREAM_H__
-#define _ALIGNER_STREAM_H__
+#ifndef __GENERATOR_CPP_ALIGNER_STREAM_H__
+#define __GENERATOR_CPP_ALIGNER_STREAM_H__
+#pragma once
 
 #include "generator/c++/configuration/aligner_configuration.h"
 
@@ -105,7 +106,4 @@ private:
 typedef boost::shared_ptr<AlignerStream> AlignerStreamSPtr;
 typedef boost::weak_ptr<AlignerStream> AlignerStreamWPtr;
 
-
-
-#endif
-
+#endif // __GENERATOR_CPP_ALIGNER_STREAM_H__

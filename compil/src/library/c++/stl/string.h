@@ -30,8 +30,9 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _LIBRARY_CPP_STL_STRING_H__
-#define _LIBRARY_CPP_STL_STRING_H__
+#ifndef __LIBRARY_CPP_STL_STRING_H__
+#define __LIBRARY_CPP_STL_STRING_H__
+#pragma once
 
 #include "language/c++/class/class.h"
 
@@ -53,5 +54,4 @@ public:
 
 }
 
-#endif
-
+#endif // __LIBRARY_CPP_STL_STRING_H__
