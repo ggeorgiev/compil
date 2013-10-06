@@ -30,55 +30,53 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "template/comment.h"
+#ifndef _COMPIL_POSITION_H__
+#define _COMPIL_POSITION_H__
 
-#include "gtest/gtest.h"
+#include <boost/config/warning_disable.hpp>
+#include <boost/spirit/include/qi.hpp>
+#include <boost/spirit/include/phoenix.hpp>
+#include <boost/spirit/home/support/iterators/line_pos_iterator.hpp>
+#include <boost/spirit/repository/include/qi_confix.hpp>
+#include <boost/spirit/include/phoenix_fusion.hpp>
+#include <boost/spirit/include/phoenix_stl.hpp>
 
-#include <boost/algorithm/string/join.hpp>
-
-#include <iostream>
-
-TEST(CommentsTests, main)
+namespace compil
 {
-    std::string str[] =
+
+struct Position
+{
+    Position()
+        : line(-1)
     {
-        "/*1234*/\n\n// test",
-        "/*1234*/",
-        "\n\n/*1234*/",
-        "// foo bar\n",
-        "// foo bar",
-        "\n\n    // foo bar\n",
-        "/*1234\n5678*/",
-        "// comment\nnot a comment",
-    };
-
-    typedef line_pos_iterator<std::string::const_iterator> Iterator;
-
-    std::ostringstream result;
-
-    for (size_t i = 0; i < sizeof(str) / sizeof(str[0]); ++i)
-    {
-        source_comment<Iterator> g;
-        Iterator iter(str[i].begin());
-        Iterator end(str[i].end());
-
-        Comment comment;
-        bool r = phrase_parse(iter, end, g, qi::space, comment);
-        if (r)
-        {
-            std::string text = boost::algorithm::join(comment.text, "\n");
-            result << comment.beginLine << "-" << comment.endLine << ": " << text << "\n";
-        }
-        else
-            result << "Parsing failed\n";
     }
 
-    ASSERT_STREQ("1-1: 1234\n"
-                 "1-1: 1234\n"
-                 "3-3: 1234\n"
-                 "1-2:  foo bar\n"
-                 "1-1:  foo bar\n"
-                 "3-4:  foo bar\n"
-                 "1-2: 1234\n5678\n"
-                 "1-2:  comment\n", result.str().c_str());
+    size_t line;
+};
+
+struct RangePosition
+{
+    RangePosition()
+        : beginLine(-1)
+        , endLine(-1)
+    {
+    }
+
+    size_t beginLine;
+    size_t endLine;
+};
+
+////////////////////////////////
+// extra facilities
+struct get_line_f
+{
+    template <typename> struct result { typedef size_t type; };
+    template <typename It> size_t operator()(It const& pos_iter) const
+    {
+        return get_line(pos_iter);
+    }
+};
+
 }
+
+#endif

@@ -30,8 +30,10 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#ifndef _COMPIL_COMMENTS_H__
-#define _COMPIL_COMMENTS_H__
+#ifndef _COMPIL_IDENTIFIER_H__
+#define _COMPIL_IDENTIFIER_H__
+
+#include "core/spirit/position.hpp"
 
 #include <boost/config/warning_disable.hpp>
 #include <boost/spirit/include/qi.hpp>
@@ -40,62 +42,44 @@
 #include <boost/spirit/repository/include/qi_confix.hpp>
 #include <boost/spirit/include/phoenix_fusion.hpp>
 #include <boost/spirit/include/phoenix_stl.hpp>
+#include <boost/fusion/include/adapt_struct.hpp>
+
+namespace compil
+{
 
 using namespace boost::spirit;
 
-#include <boost/fusion/include/adapt_struct.hpp>
-
-////////////////////////////////
-// extra facilities
-struct get_line_f
+struct Identifier : public Position
 {
-    template <typename> struct result { typedef size_t type; };
-    template <typename It> size_t operator()(It const& pos_iter) const
-    {
-        return get_line(pos_iter);
-    }
-};
-
-struct RangePosition
-{
-    RangePosition()
-        : beginLine(-1)
-        , endLine(-1)
+    Identifier()
+        : Position()
+        , name()
     {
     }
 
-    size_t beginLine;
-    size_t endLine;
+    std::string name;
 };
 
-struct Comment : public RangePosition
-{
-    Comment()
-        : RangePosition()
-        , text()
-    {
-    }
+}
 
-    std::vector<std::string> text;
-    std::string source;
-};
-
-BOOST_FUSION_ADAPT_STRUCT(Comment,
-                            (std::vector<std::string>, text)
-                            (std::string, source)
-                            (size_t,      beginLine)
-                            (size_t,      endLine)
+BOOST_FUSION_ADAPT_STRUCT(compil::Identifier,
+                            (std::string, name)
+                            (size_t,      line)
                           )
 
 //
 ////////////////////////////////
 
-template <typename Iterator>
-struct source_comment : qi::grammar<Iterator, Comment(), qi::space_type>
+namespace compil
 {
-    source_comment() : source_comment::base_type(start)
+
+template <typename Iterator>
+struct source_identifier: qi::grammar<Iterator, Identifier(), qi::space_type>
+{
+    source_identifier() : source_identifier::base_type(start)
     {
-        using qi::char_;
+        using qi::alpha;
+        using qi::alnum;
         using qi::raw;
         using qi::_val;
         using qi::_1;
@@ -103,30 +87,22 @@ struct source_comment : qi::grammar<Iterator, Comment(), qi::space_type>
         namespace phx = boost::phoenix;
         using phx::at_c;
         using phx::begin;
-        using phx::end;
-        using phx::construct;
 
-        c_comment %= repository::confix("/*", "*/")[*(char_ - "*/")];
+        name %=     (qi::alpha | qi::char_("_"))
+                >> *(qi::alnum | qi::char_("_"));
 
-        cpp_comment %= repository::confix("//", eol | eoi)[*(char_ - eol)];
-
-        comments %= c_comment | *(cpp_comment);
-
-        start = raw[ comments[at_c<0>(_val) = _1] ]
+        start = raw [ name[at_c<0>(_val) = _1] ]
                     [
-                        at_c<1>(_val) = construct<std::string>(begin(_1), end(_1)),
-                        at_c<2>(_val) = get_line_(begin(_1)),
-                        at_c<3>(_val) = get_line_(end(_1))
+                        at_c<1>(_val) = get_line_(begin(_1))
                     ]
         ;
     }
 
     boost::phoenix::function<get_line_f> get_line_;
-    qi::rule<Iterator, Comment(), qi::space_type> start;
-    qi::rule<Iterator, std::string()> c_comment;
-    qi::rule<Iterator, std::string()> cpp_comment;
-    qi::rule<Iterator, std::vector<std::string>()> comments;
-
+    qi::rule<Iterator, Identifier(), qi::space_type> start;
+    qi::rule<Iterator, std::string()> name;
 };
+
+}
 
 #endif

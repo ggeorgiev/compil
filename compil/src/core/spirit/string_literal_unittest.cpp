@@ -30,25 +30,35 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "template/identifier.h"
+#include "core/spirit/string_literal.h"
 
 #include "gtest/gtest.h"
 
-#include <boost/algorithm/string/join.hpp>
-
 #include <iostream>
 
-TEST(IdentifierTests, main)
+namespace compil
+{
+
+TEST(StringTests, main)
 {
     std::string str[] =
     {
-        "foo",
-        "  foo",
-        "  _foo",
-        "  foo_",
-        "  f_o_o",
-        "foo1",
-        "1foo"
+        "\"\\u1234\\U00012345\"",
+        "\"te\"\"st\"",
+        "\"te\"  \"st\"",
+        "\"te\" \n \"st\"",
+        "\"\"",
+        "\"\\\"\"",
+        "\"test\"",
+        "\"test\" something",
+        "\"\\\'\\\"\\\?\\\\\\a\\b\\f\\n\\r\\t\\v\"",
+        "\"\\x61cd\\X3012\\x7z\"",
+        "\"\\141cd\\06012\\78\\778\"",
+        "\"te",
+        "\"te\nst\"",
+        "\"test\\\"",
+        "\"te\\st\"",
+        //
     };
 
     typedef line_pos_iterator<std::string::const_iterator> Iterator;
@@ -57,27 +67,34 @@ TEST(IdentifierTests, main)
 
     for (size_t i = 0; i < sizeof(str) / sizeof(str[0]); ++i)
     {
-        source_identifier<Iterator> g;
+        source_string<Iterator> g;
         Iterator iter(str[i].begin());
         Iterator end(str[i].end());
 
-        Identifier identifier;
-        bool r = phrase_parse(iter, end, g, qi::space, identifier);
-        if (r && iter == end)
-        {
-            result << identifier.line << ": " << identifier.name << "\n";
-        }
+        String string;
+        bool r = phrase_parse(iter, end, g, qi::space, string);
+        if (r)
+            result << string.beginLine << "-" << string.endLine << ": " << string.value << " === " << string.source << "\n";
         else
-        {
             result << "Parsing failed\n";
-        }
     }
 
-    ASSERT_STREQ("1: foo\n"
-                 "1: foo\n"
-                 "1: _foo\n"
-                 "1: foo_\n"
-                 "1: f_o_o\n"
-                 "1: foo1\n"
-                 "Parsing failed\n", result.str().c_str());
+    ASSERT_STREQ("1-1: \xE1\x88\xB4\xF0\x92\x8D\x85 === \"\\u1234\\U00012345\"\n"
+                 "1-1: test === \"te\"\"st\"\n"
+                 "1-1: test === \"te\"  \"st\"\n"
+                 "1-2: test === \"te\" \n \"st\"\n"
+                 "1-1:  === \"\"\n"
+                 "1-1: \" === \"\\\"\"\n"
+                 "1-1: test === \"test\"\n"
+                 "1-1: test === \"test\"\n"
+                 "1-1: '\"?\\\a\b\f\n\r\t\v === \"\\'\\\"\\?\\\\\\a\\b\\f\\n\\r\\t\\v\"\n"
+                 "1-1: acd012\az === \"\\x61cd\\X3012\\x7z\"\n"
+                 "1-1: acd012\a8?8 === \"\\141cd\\06012\\78\\778\"\n"
+                 "Parsing failed\n"
+                 "Parsing failed\n"
+                 "Parsing failed\n"
+                 "Parsing failed\n"
+                 , result.str().c_str());
+}
+
 }

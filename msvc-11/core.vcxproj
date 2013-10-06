@@ -31,10 +31,21 @@
      <ClCompile Include="..\compil\src\core\configuration\configuration_manager.cpp" />
      <ClInclude Include="..\compil\src\core\configuration\configuration_manager.h" />
      <ClCompile Include="..\compil\src\core\configuration\configuration_manager_unittest.cpp" />
-     <ClCompile Include="..\compil\src\core\main_core_unittest.cpp" />
+     <ClCompile Include="..\compil\src\core\main_unittest.cpp" />
      <ClCompile Include="..\compil\src\core\platform\application.cpp" />
      <ClInclude Include="..\compil\src\core\platform\application.h" />
      <ClCompile Include="..\compil\src\core\platform\application_unittest.cpp" />
+     <ClInclude Include="..\compil\src\core\spirit\bool.hpp" />
+     <ClCompile Include="..\compil\src\core\spirit\bool_unittest.cpp" />
+     <ClInclude Include="..\compil\src\core\spirit\comment.hpp" />
+     <ClCompile Include="..\compil\src\core\spirit\comment_unittest.cpp" />
+     <ClInclude Include="..\compil\src\core\spirit\identifier.hpp" />
+     <ClCompile Include="..\compil\src\core\spirit\identifier_unittest.cpp" />
+     <ClInclude Include="..\compil\src\core\spirit\number.hpp" />
+     <ClCompile Include="..\compil\src\core\spirit\number_unittest.cpp" />
+     <ClInclude Include="..\compil\src\core\spirit\position.hpp" />
+     <ClInclude Include="..\compil\src\core\spirit\string_literal.hpp" />
+     <ClCompile Include="..\compil\src\core\spirit\string_literal_unittest.cpp" />
   </ItemGroup>
     <PropertyGroup Label="Globals">
         <ProjectName>core</ProjectName>

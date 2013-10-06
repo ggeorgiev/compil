@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -28,15 +28,61 @@
 // OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 // Author: george.georgiev@hotmail.com (George Georgiev)
-// based on code from Adam Bowen posted on stackoverflow.com
+//
 
-#include <iostream>
+#include "core/spirit/identifier.hpp"
 
 #include "gtest/gtest.h"
 
-GTEST_API_ int main(int argc, char **argv) {
-  std::cout << "Running main() from gtest_main.cc\n";
+#include <boost/algorithm/string/join.hpp>
 
-  testing::InitGoogleTest(&argc, argv);
-  return RUN_ALL_TESTS();
+#include <iostream>
+
+namespace compil
+{
+
+TEST(IdentifierTests, main)
+{
+    std::string str[] =
+    {
+        "foo",
+        "  foo",
+        "  _foo",
+        "  foo_",
+        "  f_o_o",
+        "foo1",
+        "1foo"
+    };
+
+    typedef line_pos_iterator<std::string::const_iterator> Iterator;
+
+    std::ostringstream result;
+
+    for (size_t i = 0; i < sizeof(str) / sizeof(str[0]); ++i)
+    {
+        source_identifier<Iterator> g;
+        Iterator iter(str[i].begin());
+        Iterator end(str[i].end());
+
+        Identifier identifier;
+        bool r = phrase_parse(iter, end, g, qi::space, identifier);
+        if (r && iter == end)
+        {
+            result << identifier.line << ": " << identifier.name << "\n";
+        }
+        else
+        {
+            result << "Parsing failed\n";
+        }
+    }
+
+    ASSERT_STREQ("1: foo\n"
+                 "1: foo\n"
+                 "1: _foo\n"
+                 "1: foo_\n"
+                 "1: f_o_o\n"
+                 "1: foo1\n"
+                 "Parsing failed\n", result.str().c_str());
+}
+
 }

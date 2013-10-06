@@ -33,40 +33,20 @@
 #ifndef _COMPIL_NUMBERS_H__
 #define _COMPIL_NUMBERS_H__
 
+#include "core/spirit/position.hpp"
+
 #include <boost/config/warning_disable.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix.hpp>
 #include <boost/spirit/home/support/iterators/line_pos_iterator.hpp>
 #include <boost/spirit/include/phoenix_fusion.hpp>
 #include <boost/spirit/include/phoenix_stl.hpp>
-
-using namespace boost::spirit;
-
 #include <boost/fusion/include/adapt_struct.hpp>
 
-////////////////////////////////
-// extra facilities
-struct get_line_f
+namespace compil
 {
-    template <typename> struct result { typedef size_t type; };
-    template <typename It> size_t operator()(It const& pos_iter) const
-    {
-        return get_line(pos_iter);
-    }
-};
 
-//
-////////////////////////////////
-
-struct Position
-{
-    Position()
-        : line(-1)
-    {
-    }
-
-    size_t line;
-};
+using namespace boost::spirit;
 
 struct IntegerNumber : public Position
 {
@@ -80,12 +60,6 @@ struct IntegerNumber : public Position
     int64_t value;
     std::string source;
 };
-
-BOOST_FUSION_ADAPT_STRUCT(IntegerNumber,
-                            (int64_t,    value)
-                            (std::string, source)
-                            (size_t,      line)
-                          )
 
 template <typename Iterator>
 struct source_integer : qi::grammar<Iterator, IntegerNumber(), qi::space_type>
@@ -130,12 +104,6 @@ struct UIntegerNumber : public Position
     uint64_t value;
     std::string source;
 };
-
-BOOST_FUSION_ADAPT_STRUCT(UIntegerNumber,
-                            (uint64_t,    value)
-                            (std::string, source)
-                            (size_t,      line)
-                          )
 
 template <typename Iterator>
 struct source_uinteger : qi::grammar<Iterator, UIntegerNumber(), qi::space_type>
@@ -186,11 +154,28 @@ struct DoubleNumber : public Position
     std::string source;
 };
 
-BOOST_FUSION_ADAPT_STRUCT(DoubleNumber,
+}
+
+BOOST_FUSION_ADAPT_STRUCT(compil::IntegerNumber,
+                            (int64_t,    value)
+                            (std::string, source)
+                            (size_t,      line)
+                          )
+
+BOOST_FUSION_ADAPT_STRUCT(compil::UIntegerNumber,
+                            (uint64_t,    value)
+                            (std::string, source)
+                            (size_t,      line)
+                          )
+
+BOOST_FUSION_ADAPT_STRUCT(compil::DoubleNumber,
                             (long double, value)
                             (std::string, source)
                             (size_t,      line)
                           )
+
+namespace compil
+{
 
 template <typename T>
 struct strict_real_policies : qi::real_policies<T>
@@ -229,5 +214,7 @@ struct source_double : qi::grammar<Iterator, DoubleNumber(), qi::space_type>
     boost::phoenix::function<get_line_f> get_line_;
     qi::rule<Iterator, DoubleNumber(), qi::space_type> start;
 };
+
+}
 
 #endif

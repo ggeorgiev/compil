@@ -33,6 +33,8 @@
 #ifndef _COMPIL_STRING_H__
 #define _COMPIL_STRING_H__
 
+#include "core/spirit/position.h"
+
 #include <boost/config/warning_disable.hpp>
 #include <boost/spirit/include/qi.hpp>
 #include <boost/spirit/include/phoenix.hpp>
@@ -43,21 +45,10 @@
 
 #include <boost/fusion/include/adapt_struct.hpp>
 
-//namespace compil
-//{
+namespace compil
+{
 
 using namespace boost::spirit;
-
-////////////////////////////////
-// extra facilities
-struct get_line_f
-{
-    template <typename> struct result { typedef size_t type; };
-    template <typename It> size_t operator()(It const& pos_iter) const
-    {
-        return get_line(pos_iter);
-    }
-};
 
 struct utf8_f
 {
@@ -74,21 +65,6 @@ struct utf8_f
     }
 };
 
-//
-////////////////////////////////
-
-struct RangePosition
-{
-    RangePosition()
-        : beginLine(-1)
-        , endLine(-1)
-    {
-    }
-
-    size_t beginLine;
-    size_t endLine;
-};
-
 struct String : public RangePosition
 {
     String()
@@ -102,12 +78,17 @@ struct String : public RangePosition
     std::string source;
 };
 
-BOOST_FUSION_ADAPT_STRUCT(String,
+}
+
+BOOST_FUSION_ADAPT_STRUCT(compil::String,
                             (std::string, value)
                             (std::string, source)
                             (size_t,      beginLine)
                             (size_t,      endLine)
                           )
+
+namespace compil
+{
 
 template <typename Iterator>
 struct source_string : qi::grammar<Iterator, String(), qi::space_type>
@@ -191,6 +172,6 @@ struct source_string : qi::grammar<Iterator, String(), qi::space_type>
     qi::rule<Iterator, std::string()> string;
 };
 
-//}
+}
 
 #endif

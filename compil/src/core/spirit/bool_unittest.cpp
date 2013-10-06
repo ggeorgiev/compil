@@ -30,11 +30,14 @@
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
 
-#include "template/number.h"
+#include "core/spirit/number.hpp"
 
 #include "gtest/gtest.h"
 
 #include <iostream>
+
+namespace compil
+{
 
 TEST(NumbersTests, integer)
 {
@@ -136,4 +139,6 @@ TEST(NumbersTests, double_)
                  "4: 0.1 // .1\n"
                  "Parsing failed\n"
                  "Parsing failed\n", result.str().c_str());
+}
+
 }

@@ -13,6 +13,9 @@
     <Filter Include="platform">
       <UniqueIdentifier>{7fe20fa4-b220-3a62-83f0-c23bd9063034}</UniqueIdentifier>
     </Filter>
+    <Filter Include="spirit">
+      <UniqueIdentifier>{64ea868c-127c-31db-a33d-2920200e578b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\compil\src\core\boost\boost_assert_handler.cpp">
@@ -56,6 +59,39 @@
     </ClInclude>
     <ClCompile Include="..\compil\src\core\platform\application_unittest.cpp">
       <Filter>platform</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\core\spirit\bool.hpp">
+      <Filter>spirit</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\core\spirit\bool_unittest.cpp">
+      <Filter>spirit</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\core\spirit\comment.hpp">
+      <Filter>spirit</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\core\spirit\comment_unittest.cpp">
+      <Filter>spirit</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\core\spirit\identifier.hpp">
+      <Filter>spirit</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\core\spirit\identifier_unittest.cpp">
+      <Filter>spirit</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\core\spirit\number.hpp">
+      <Filter>spirit</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\core\spirit\number_unittest.cpp">
+      <Filter>spirit</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\core\spirit\position.hpp">
+      <Filter>spirit</Filter>
+    </ClInclude>
+    <ClInclude Include="..\compil\src\core\spirit\string_literal.hpp">
+      <Filter>spirit</Filter>
+    </ClInclude>
+    <ClCompile Include="..\compil\src\core\spirit\string_literal_unittest.cpp">
+      <Filter>spirit</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>
