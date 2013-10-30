@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -29,7 +29,6 @@
 
 // Author: george.georgiev@hotmail.com (George Georgiev)
 //
-
 
 #ifndef _CPP_DEPENDENCY_H__
 #define _CPP_DEPENDENCY_H__
@@ -50,7 +49,7 @@ public:
         system_type,
         quote_type
     };
-    
+
     enum DependencyLevel
     {
         invalid_level = 0,
@@ -60,25 +59,25 @@ public:
         stl_level,
         system_level
     };
-    
+
     enum DependencySection
     {
         invalid_section = 0,
+        pch_section,
         global_section,
         private_section,
     };
 
-    
     Dependency(const std::string& headerPackage = "",
                const std::string& headerName = "",
-               DependencyType type = invalid_type, 
-               DependencyLevel level = application_level, 
+               DependencyType type = invalid_type,
+               DependencyLevel level = application_level,
                DependencySection section = private_section,
                const std::string& library = "");
-               
+
     operator bool() const;
     bool operator <(const Dependency& dependency) const;
-    
+
     // TODO: change this to package object
     std::string mHeaderPackage;
     std::string mHeaderName;
@@ -101,4 +100,3 @@ typedef boost::shared_ptr<Dependency> DependencyPtr;
 }
 
 #endif
-

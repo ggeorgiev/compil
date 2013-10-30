@@ -2977,6 +2977,8 @@ bool CppGenerator::generate()
     addDependency(impl->cppHeaderFileDependency(mDocument->sourceId()->original(),
                                                 mDocument->package()));
 
+    addDependency(impl->cppPchDependency());
+
     openNamespace(definitionStream);
 
     const std::vector<ObjectSPtr>& objects = mDocument->objects();
@@ -2991,6 +2993,7 @@ bool CppGenerator::generate()
 
     closeNamespace(definitionStream);
 
+    includeHeaders(includeStream, Dependency::pch_section);
     includeHeaders(includeStream, Dependency::global_section);
     includeHeaders(includeStream, Dependency::private_section);
 

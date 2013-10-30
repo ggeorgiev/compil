@@ -341,7 +341,7 @@ std::vector<Dependency> CppImplementer::classPointerDependencies()
         dep.push_back(
             Dependency("boost",
                        "shared_ptr.hpp",
-                       Dependency::system_type,
+                       Dependency::quote_type,
                        Dependency::thirdparty_level,
                        Dependency::global_section,
                        "Boost C++ Smart Pointers"));
@@ -349,7 +349,7 @@ std::vector<Dependency> CppImplementer::classPointerDependencies()
         dep.push_back(
             Dependency("boost",
                        "weak_ptr.hpp",
-                       Dependency::system_type,
+                       Dependency::quote_type,
                        Dependency::thirdparty_level,
                        Dependency::global_section,
                        "Boost C++ Smart Pointers"));
@@ -367,7 +367,7 @@ std::vector<Dependency> CppImplementer::classReferenceDependencies()
         dep.push_back(
             Dependency("boost",
                        "make_shared.hpp",
-                       Dependency::system_type,
+                       Dependency::quote_type,
                        Dependency::thirdparty_level,
                        Dependency::global_section,
                        "Boost C++ Smart Pointers"));
@@ -406,7 +406,7 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
             dep.push_back(
                 Dependency("boost",
                            "cstdint.hpp",
-                           Dependency::system_type,
+                           Dependency::quote_type,
                            Dependency::thirdparty_level,
                            Dependency::global_section,
                            "Boost C++ Smart Pointers"));
@@ -473,7 +473,7 @@ std::vector<Dependency> CppImplementer::dependencies(const TypeSPtr& pType)
             dep.push_back(
                 Dependency("boost/date_time",
                            "posix_time/posix_time.hpp",
-                           Dependency::system_type,
+                           Dependency::quote_type,
                            Dependency::thirdparty_level,
                            Dependency::private_section,
                            "Boost Posix Time System"));
@@ -589,7 +589,7 @@ Dependency CppImplementer::assert_dependency()
         case ImplementerConfiguration::use_boost_assert:
             return Dependency("boost",
                               "assert.hpp",
-                              Dependency::system_type,
+                              Dependency::quote_type,
                               Dependency::thirdparty_level,
                               Dependency::global_section,
                               "Boost C++ Utility");
@@ -602,7 +602,7 @@ Dependency CppImplementer::unordered_set_dependency()
 {
     return Dependency("boost",
                       "unordered_set.hpp",
-                      Dependency::system_type,
+                      Dependency::quote_type,
                       Dependency::thirdparty_level,
                       Dependency::private_section,
                       "Boost C++ Unordered");
@@ -611,7 +611,7 @@ Dependency CppImplementer::unordered_map_dependency()
 {
     return Dependency("boost",
                       "unordered_map.hpp",
-                      Dependency::system_type,
+                      Dependency::quote_type,
                       Dependency::thirdparty_level,
                       Dependency::private_section,
                       "Boost C++ Unordered");
@@ -911,6 +911,14 @@ Dependency CppImplementer::cppHeaderFileDependency(const TypeSPtr& type)
 
     std::string source = sourceId->original();
     return cppHeaderFileDependency(source, type->package());
+}
+
+Dependency CppImplementer::cppPchDependency()
+{
+    // TODO: make this optional
+    //return Dependency();
+
+    return Dependency("", "pch.h", Dependency::quote_type, Dependency::application_level, Dependency::pch_section);
 }
 
 }

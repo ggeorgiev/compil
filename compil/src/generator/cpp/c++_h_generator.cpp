@@ -377,7 +377,6 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
                                                           << mask))
                 << ";";
 
-
         commentInTable("Returns assemble of the current flags with the flags from the mask to "
                        "the state in value. This is immutable version of reset.");
         table() << (cf::methodRef() << innerType
@@ -959,7 +958,6 @@ void CppHeaderGenerator::generatePluginFactoryDeclaration(const FactorySPtr& pFa
             << ";";
 
     table() << TableAligner::row();
-
 
     commentInTable(
         "Register relationship method. Use to register relationships between objects.");
@@ -1657,7 +1655,6 @@ void CppHeaderGenerator::generateStructureFieldOverrideMethodsDeclaration(const 
 
     addDependencies(impl->dependencies(pField));
 
-
     if (mg.isSet(EMethodGroup::reading()) && mg.isClear(EMethodGroup::special()))
     {
         if (pField->comment())
@@ -1908,7 +1905,7 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
         {
             addDependency(Dependency("boost",
                                      "enable_shared_from_this.hpp",
-                                     Dependency::system_type,
+                                     Dependency::quote_type,
                                      Dependency::thirdparty_level,
                                      Dependency::private_section,
                                      "Boost C++ Smart Pointers"));
@@ -1969,7 +1966,6 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
         }
 
         generateImmutableBaseStructureBuilderDeclaration(pStructure, pBaseStructure, EMethodGroup::overridden());
-
 
         table() << TableAligner::row_line(-1)
                 << "public:";
@@ -2243,7 +2239,6 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
     closeBlock(declarationStream, "};");
     eol(declarationStream);
 
-
     if (pStructure->streamable() && !pStructure->immutable())
     {
         addDependencies(impl->classReferenceDependencies());
@@ -2257,7 +2252,6 @@ void CppHeaderGenerator::generateStructureDeclaration(const StructureSPtr& pStru
                 << ">();";
         closeBlock(inlineDefinitionStream);
         eol(inlineDefinitionStream);
-
 
         cf::TypeSPtr resultType = impl->cppPtrDecoratedType(pStructure);
 
@@ -2384,7 +2378,6 @@ bool CppHeaderGenerator::generate()
     closeNamespace(inlineDefinitionStream);
     closeNamespace(forwardDeclarationStream);
 
-
     includeHeaders(includeStream, Dependency::global_section);
 
     line()  << "#ifndef "
@@ -2406,4 +2399,3 @@ bool CppHeaderGenerator::generate()
 }
 
 }
-

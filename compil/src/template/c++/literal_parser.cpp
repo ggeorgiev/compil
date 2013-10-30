@@ -40,6 +40,7 @@ namespace cpp
 
 LiteralSPtr LiteralParser::parse(const std::string& input)
 {
+    return LiteralSPtr();
 }
 
 }
