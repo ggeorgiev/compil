@@ -1,6 +1,6 @@
 // CompIL - Component Interface Language
 // Copyright 2011 George Georgiev.  All rights reserved.
-// 
+//
 // Redistribution and use in source and binary forms, with or without
 // modification, are permitted provided that the following conditions are
 // met:
@@ -11,8 +11,8 @@
 // copyright notice, this list of conditions and the following disclaimer
 // in the documentation and/or other materials provided with the
 // distribution.
-//     * The name of George Georgiev can not be used to endorse or 
-// promote products derived from this software without specific prior 
+//     * The name of George Georgiev can not be used to endorse or
+// promote products derived from this software without specific prior
 // written permission.
 //
 // THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
@@ -46,7 +46,7 @@ namespace compil
 DocumentSPtr CompilDocument::create()
 {
     static bool bInit = false;
-    
+
     static TypeSPtr pBoolType(new CastableType());
 
     static IntegerSPtr pSizeType(new Integer());
@@ -161,8 +161,7 @@ DocumentSPtr CompilDocument::create()
         pStringType->set_literal(Type::ELiteral::string());
         pStringType->set_kind(Type::EKind::string());
         //pStringType->set_cast(CastableType::ECast::weak());
-        
-        
+
         pStringType->mOperatorSupport[EOperatorAction::equalTo()] = EOperatorFlags::natural();
         pStringType->mOperatorSupport[EOperatorAction::notEqualTo()] = EOperatorFlags::natural();
         pStringType->mOperatorSupport[EOperatorAction::lessThan()] = EOperatorFlags::natural();
@@ -218,7 +217,7 @@ DocumentSPtr CompilDocument::create()
         pName.reset(new Name());
         pName->set_value("vector");
         pVector->set_name(pName);
-        pVector->set_literal(Type::ELiteral::binary());
+        pVector->set_literal(Type::ELiteral::container());
         pVector->set_kind(Type::EKind::object());
         pVector->set_cast(CastableType::ECast::weak());
     }
@@ -250,7 +249,7 @@ DocumentSPtr CompilDocument::create()
 
     document->addUnfinishedUnaryTemplate(pReference);
     document->addUnfinishedUnaryTemplate(pVector);
-    
+
     return document;
 }
 

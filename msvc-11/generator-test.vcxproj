@@ -23,6 +23,9 @@
      <ClCompile Include="..\compil\src\generator-test\.gen\specimen\specimens-test.cpp" />
      <ClCompile Include="..\compil\src\generator-test\.gen\specimen\specimens.cpp" />
      <ClInclude Include="..\compil\src\generator-test\.gen\specimen\specimens.h" />
+     <ClCompile Include="..\compil\src\generator-test\.gen\structure\field_container_empty-test.cpp" />
+     <ClCompile Include="..\compil\src\generator-test\.gen\structure\field_container_empty.cpp" />
+     <ClInclude Include="..\compil\src\generator-test\.gen\structure\field_container_empty.h" />
      <ClCompile Include="..\compil\src\generator-test\.gen\structure\field_override-test.cpp" />
      <ClCompile Include="..\compil\src\generator-test\.gen\structure\field_override.cpp" />
      <ClInclude Include="..\compil\src\generator-test\.gen\structure\field_override.h" />
@@ -83,6 +86,7 @@
      <ClCompile Include="..\compil\src\generator-test\old\weak_identifier_unittest.cpp" />
      <ClCompile Include="..\compil\src\generator-test\specimen\specimens-manual_test.cpp" />
      <None Include="..\compil\src\generator-test\specimen\specimens.compil" />
+     <None Include="..\compil\src\generator-test\structure\field_container_empty.compil" />
      <None Include="..\compil\src\generator-test\structure\field_override.compil" />
      <ClCompile Include="..\compil\src\generator-test\structure\identification-manual_test.cpp" />
      <None Include="..\compil\src\generator-test\structure\identification.compil" />

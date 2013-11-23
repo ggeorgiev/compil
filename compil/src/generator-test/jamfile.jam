@@ -26,6 +26,8 @@ gtest generator-test
            specimen/specimens-manual_test.cpp
     $(GEN)/specimen/specimens-test.cpp
     
+    $(GEN)/structure/field_container_empty-test.cpp
+    $(GEN)/structure/field_container_empty.cpp
     $(GEN)/structure/field_override-test.cpp
     $(GEN)/structure/field_override.cpp
            structure/identification-manual_test.cpp

@@ -347,9 +347,12 @@ Token::Type ParserMixin::getTokenType(const Type::ELiteral& literal)
 {
     switch (literal.value())
     {
+        case Type::ELiteral::kBinary:
+            break;
         case Type::ELiteral::kBoolean:
-        case Type::ELiteral::kReference:
+        case Type::ELiteral::kContainer:
         case Type::ELiteral::kIdentifier:
+        case Type::ELiteral::kReference:
             return Token::TYPE_IDENTIFIER;
         case Type::ELiteral::kInteger:
             return Token::TYPE_INTEGER_LITERAL;
@@ -357,8 +360,6 @@ Token::Type ParserMixin::getTokenType(const Type::ELiteral& literal)
             return Token::TYPE_REAL_LITERAL;
         case Type::ELiteral::kString:
             return Token::TYPE_STRING_LITERAL;
-        case Type::ELiteral::kBinary:
-            break;
         default:
             assert(false);
     }

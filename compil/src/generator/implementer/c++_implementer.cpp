@@ -103,6 +103,10 @@ bool CppImplementer::needConstructorInitialization(const FieldSPtr& pField)
     if (pField->defaultValue()->value() == "null")
     if (mConfiguration->mPointer == ImplementerConfiguration::use_boost_pointers)
         return false;
+    if (pField->defaultValue()->value() == "empty")
+    //if (mConfiguration->mContainers == ImplementerConfiguration::use_stl_containers)
+        return false;
+
     return true;
 }
 

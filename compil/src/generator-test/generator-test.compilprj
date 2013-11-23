@@ -38,6 +38,7 @@ section main
 {
     specimen/specimens.compil;
     
+    structure/field_container_empty.compil;
     structure/field_override.compil;
     structure/identification.compil;
     structure/operator.compil;
@@ -55,6 +56,7 @@ section test
 {
     specimen/specimens.compil;
     
+    structure/field_container_empty.compil;
     structure/field_override.compil;
     structure/identification.compil;
     structure/operator.compil;

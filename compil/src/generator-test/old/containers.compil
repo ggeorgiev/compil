@@ -3,6 +3,7 @@ compil { }
 structure ContainersStructure
 {
     vector<string> vs;
+    vector<string> evs = empty;
     //vector< reference<string> > vrs;
     //reference< vector<string>> rvs;
 }

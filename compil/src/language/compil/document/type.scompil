@@ -52,12 +52,13 @@ structure Type
     strong enum Literal
     {
         boolean;
+        binary;
+        container;
+        identifier;
         integer;
         real;
-        string;
-        binary;
         reference;
-        identifier;
+        string;
         structure;
     }
     

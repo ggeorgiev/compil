@@ -605,8 +605,11 @@ TEST_F(ParserStructureFieldTests, structureUnaryContainers)
         "structure name\n"
         "{\n"
         "  vector<integer> v;\n"
-        //"  vector< reference<integer> > vr;\n"
-        "  reference< vector<integer> > rv;\n"
+        "  vector<integer> ov = optional;\n"
+        "  vector<integer> ev = empty;\n"
+
+        "  vector<reference<integer>> vr;\n"
+        "  reference<vector<integer>> rv;\n"
         "}") );
 
     EXPECT_EQ(1U, mDocument->objects().size());
@@ -616,5 +619,5 @@ TEST_F(ParserStructureFieldTests, structureUnaryContainers)
     compil::StructureSPtr pStructure = boost::static_pointer_cast<compil::Structure>(pObject);
     ASSERT_TRUE(pStructure);
     EXPECT_STREQ("name", pStructure->name()->value().c_str());
-    EXPECT_EQ(2U, pStructure->objects().size());
+    EXPECT_EQ(5U, pStructure->objects().size());
 }

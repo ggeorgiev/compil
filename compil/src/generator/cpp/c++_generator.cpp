@@ -1530,6 +1530,15 @@ void CppGenerator::generateStructureFieldConstantDefinition(const StructureSPtr&
         line()  << "return defaultObject;";
         eol(definitionStream);
     }
+    else if (pDefaultValue->value() == "empty")
+    {
+        line()  << "static "
+                << impl->cppType(pField->type())
+                << " defaultObject;";
+        eol(definitionStream);
+        line()  << "return defaultObject;";
+        eol(definitionStream);
+    }
     else if (pField->type()->runtimeObjectId() == EObjectId::enumeration())
     {
         EnumerationSPtr pEnumeration = ObjectFactory::downcastEnumeration(pField->type());

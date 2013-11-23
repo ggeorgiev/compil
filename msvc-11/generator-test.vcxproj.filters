@@ -33,6 +33,15 @@
     <ClInclude Include="..\compil\src\generator-test\.gen\specimen\specimens.h">
       <Filter>.gen\specimen</Filter>
     </ClInclude>
+    <ClCompile Include="..\compil\src\generator-test\.gen\structure\field_container_empty-test.cpp">
+      <Filter>.gen\structure</Filter>
+    </ClCompile>
+    <ClCompile Include="..\compil\src\generator-test\.gen\structure\field_container_empty.cpp">
+      <Filter>.gen\structure</Filter>
+    </ClCompile>
+    <ClInclude Include="..\compil\src\generator-test\.gen\structure\field_container_empty.h">
+      <Filter>.gen\structure</Filter>
+    </ClInclude>
     <ClCompile Include="..\compil\src\generator-test\.gen\structure\field_override-test.cpp">
       <Filter>.gen\structure</Filter>
     </ClCompile>
@@ -206,6 +215,9 @@
     </ClCompile>
     <None Include="..\compil\src\generator-test\specimen\specimens.compil">
       <Filter>specimen</Filter>
+    </None>
+    <None Include="..\compil\src\generator-test\structure\field_container_empty.compil">
+      <Filter>structure</Filter>
     </None>
     <None Include="..\compil\src\generator-test\structure\field_override.compil">
       <Filter>structure</Filter>

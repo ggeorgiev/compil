@@ -1,0 +1,9 @@
+compil { }
+
+package field | *;
+
+structure FieldContainerEmptyStructure
+{
+    vector<integer> v = empty;
+}
+ 
