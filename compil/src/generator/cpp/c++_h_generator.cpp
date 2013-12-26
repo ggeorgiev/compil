@@ -465,7 +465,7 @@ void CppHeaderGenerator::generateEnumerationDeclaration(const EnumerationSPtr& p
     eol(declarationStream);
 
     commentInLine(declarationStream,
-            "This enum provides static constants that could be used in a switch statements");
+            "This enum provides static constants that could be used in switch statements");
     line() << "enum";
     openBlock(declarationStream);
 
