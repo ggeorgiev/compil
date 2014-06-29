@@ -557,7 +557,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& specime
     if (!pBaseSpecimen)
     {
         table() << (cf::methodRef() << cf::EMethodSpecifier::inline_()
-                                    << impl->cppType(pParameterType)
+                                    << impl->cppDecoratedType(pParameterType)
                                     << fnValue
                                     << cf::EMethodDeclaration::const_())
                 << ";";
@@ -645,7 +645,7 @@ void CppHeaderGenerator::generateSpecimenDeclaration(const SpecimenSPtr& specime
     if (!pBaseSpecimen)
     {
         fdef()  << (cf::methodRef() << cf::EMethodSpecifier::inline_()
-                                    << impl->cppType(pParameterType)
+                                    << impl->cppDecoratedType(pParameterType)
                                     << frm->cppClassNamespace(specimen)
                                     << fnValue
                                     << cf::EMethodDeclaration::const_());
